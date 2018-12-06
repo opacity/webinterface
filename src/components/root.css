@@ -8,7 +8,8 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "ProximaNova", sans-serif;
+  background-color: #2e3854;
 }
 
 h1 {
@@ -650,7 +651,13 @@ matej-01
 }
 
 .slide-title {
-  color: #0068ea;
+  font-size: 22px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
 }
 
 .bordered {
@@ -732,16 +739,26 @@ h2 {
 }
 
 .oyster-handle {
-  color: #0068ea;
-  font-size: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.oyster-handle-container {
+  height: 25px;
+  background-color: #232b40;
+  margin-bottom: 50px;
 }
 
 .underline {
-  width: 50px;
-  border-color: #afcbfe;
-  border-width: 5px;
+  width: auto;
+  border-color: #a995bb;
+  border-width: 1px;
   margin-left: 0px;
-  margin-top: 15px;
 }
 
 input.retention-slider,
@@ -795,20 +812,73 @@ input.retention-slider:disabled::-webkit-slider-thumb {
 }
 
 .clipboard-button {
-  background: #0068ea;
-  width: 200px;
-  border-radius: 10px;
-  color: white;
+  background-color: #846b99;
+  width: 289px;
   height: 40px;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  text-transform: uppercase;
+  border:none;
+  cursor: pointer;
+}
+
+.clipboard-icon {
+  margin-left: 5px;
+  margin-right: 10px; 
+}
+
+.clipboard-icon-white {
+  width: 11.6px;
+  height: 12.7px;
+  background-color: #ffffff;
+  display: inline-block;
+}
+.clipboard-icon-blue {
+  width: 11.6px;
+  height: 12.7px;
+  background-color: #2e3854;
+  display: inline-block;
+}
+.clipboard-icon-relative {
+  position: relative;
+  top:2px;
+  right:2px;
 }
 
 .handle-header {
-  color: #afcbfe;
-  font-size: 20px;
+  margin-top: 70px;
+  font-size: 16px;
   font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  color: #ffffff;
+  text-transform: uppercase;
 }
 
 .download-spinner {
   margin-left: 10px;
+}
+
+.complete-instructions {
+  margin-top: 75px;
+  width: 460px;
+  height: 66px;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+.complete-instructions span {
+  font-weight: bold;
+  color: #af8ecb;
 }

@@ -4,7 +4,7 @@
     margin: 5rem 0;
   }
   section {
-    margin: 5rem 0;
+    margin: 2rem 0;
   }
   main [class^="col-"] {
     margin-top: 5rem;
@@ -291,10 +291,6 @@
 /* additions after fiverr */
 @media (min-width: 768px) {
   .slide .container {
-    border-radius: 1rem;
-    -webkit-box-shadow: 0px 0px 20px -3px rgba(50, 50, 50, 0.5);
-    -moz-box-shadow: 0px 0px 20px -3px rgba(50, 50, 50, 0.5);
-    box-shadow: 0px 0px 20px -3px rgba(50, 50, 50, 0.5);
   }
 
   .slide-image-wrapper {

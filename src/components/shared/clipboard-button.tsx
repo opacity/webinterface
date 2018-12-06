@@ -25,6 +25,14 @@ class ClipboardBtn extends React.Component<ClipboardBtnProps> {
         }}
       >
         <Button className="clipboard-button">
+          <span className="clipboard-icon">
+            <span className="clipboard-icon-blue clipboard-icon-relative">
+              <span className="clipboard-icon-blue clipboard-icon-relative">
+                <span className="clipboard-icon-white clipboard-icon-relative"></span>
+              </span>
+            </span>
+          </span>
+
           {!!this.state.popTimeout ? "Copied!" : this.props.children}
         </Button>
       </CopyToClipboard>
