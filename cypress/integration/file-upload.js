@@ -54,7 +54,7 @@ const checkUploadComplete = handle => {
     expect(path).to.eq("/upload-complete");
   });
 
-  cy.get("#oyster-handle")
+  cy.get("#opacity-handle")
     .invoke("text")
     .then(handle => {
       expect(handle).to.not.be.empty;
