@@ -5,29 +5,34 @@ import Button from "./button";
 
 const POPUP_TIME = 300;
 
-const ClipboardIcon = styled.span`
+const ClipboardIconContainer = styled.span`
   margin-left: 5px;
   margin-right: 10px;
 `;
 
-const ClipboardIconWhite = styled.span`
+const ClipboardIcon = styled.span`
   width: 11.6px;
   height: 12.7px;
-  background-color: #ffffff;
   display: inline-block;
   position: relative;
-  top:2px;
-  right:2px;
 `;
 
-const ClipboardIconBlue = styled.span`
-  width: 11.6px;
-  height: 12.7px;
+const ClipboardIconWhite = styled(ClipboardIcon)`
+  background-color: #ffffff;
+  top: 2px;
+  right: 2px;
+`;
+
+const ClipboardIconBlueFirst = styled(ClipboardIcon)`
   background-color: #2e3854;
-  display: inline-block;
-  position: relative;
-  top:2px;
-  right:2px;
+  top: -1px;
+  right: -23px;
+`;
+
+const ClipboardIconBlueSecond = styled(ClipboardIcon)`
+  background-color: #2e3854;
+  top: -2px;
+  right: -13px;
 `;
 
 interface ClipboardBtnProps {
@@ -51,13 +56,11 @@ class ClipboardBtn extends React.Component<ClipboardBtnProps> {
         }}
       >
         <Button className="clipboard-button">
-          <ClipboardIcon>
-            <ClipboardIconBlue>
-              <ClipboardIconBlue>
-                <ClipboardIconWhite></ClipboardIconWhite>
-              </ClipboardIconBlue>
-            </ClipboardIconBlue>
-          </ClipboardIcon>
+          <ClipboardIconContainer>
+            <ClipboardIconBlueFirst/>
+            <ClipboardIconBlueSecond/>
+            <ClipboardIconWhite/>
+          </ClipboardIconContainer>
 
           {!!this.state.popTimeout ? "Copied!" : this.props.children}
         </Button>
