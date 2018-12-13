@@ -1,52 +1,81 @@
 import React from "react";
-
-import Button from "./button";
+import styled from "styled-components";
 
 import "../root.css";
 
 const ICON_LOGO = require("../../assets/images/logo.svg");
 
+const Container = styled.div`
+  background: #fff;
+  padding: 17px 32px;
+`;
+
+const Navbar = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const LinkContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Link = styled.a`
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.4px;
+  color: #487aa7;
+  text-transform: uppercase;
+
+  &:hover {
+    text-decoration: none;
+    color: #487aa7;
+  }
+`;
+
+const Logo = styled.img`
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+`;
+
+const CompanyName = styled.span`
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  color: #487aa7;
+`;
+
 const Header = () => (
-  <header className="App-header">
-    <div role="navigation" className="navbar navbar-default">
-      <div className="container">
-        <div className="navbar-header">
-          <Button
-            type="button"
-            className="navbar-toggle collapsed"
-            data-toggle="collapse"
-            data-target="#navbar"
-            aria-expanded="false"
-            aria-controls="navbar"
-          >
-            <span className="sr-only">Toggle navigation</span>
-            <span className="icon-bar" />
-            <span className="icon-bar" />
-            <span className="icon-bar" />
-          </Button>
-          <a href="/" className="logo" title="Oyster Storage's Logo">
-            <img src={ICON_LOGO} className="header-logo" alt="logo" />
-            <span className="App-title wordmark">Oyster Storage</span>
-          </a>
-        </div>
-        <div id="navbar" className="navbar-collapse collapse">
-          <ul className="nav navbar-nav navbar-right">
-            <li className="navbar-row first dropdown">
-              <a
-                href="https://oysterprotocol.com/"
-                role="button"
-                aria-haspopup="true"
-                aria-expanded="false"
-                title="Home"
-              >
-                Oyster Home
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </header>
+  <Container>
+    <Navbar>
+      <LogoContainer>
+        <Link title="Opacity Storage's Logo">
+          <Logo src={ICON_LOGO} alt="logo" />
+          <CompanyName>Opacity</CompanyName>
+        </Link>
+      </LogoContainer>
+      <LinkContainer>
+        <Link href="https://www.opacity.io/" target="_blank">
+          Home
+        </Link>
+      </LinkContainer>
+    </Navbar>
+  </Container>
 );
 
 export default Header;
