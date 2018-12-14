@@ -1,43 +1,135 @@
 import React from "react";
+import styled from "styled-components";
 
 import Button from "../shared/button";
+import Slide from "../shared/slide";
 
-const ICON_TANGLE_LEFT = require("../../assets/images/icon_tangle_left.png");
-const ICON_TANGLE_RIGHT = require("../../assets/images/icon_tangle_right.png");
-const ICON_UPLOAD = require("../../assets/images/icon_upload.png");
-const ICON_DOWNLOAD = require("../../assets/images/icon_download.png");
+const Instructions = styled.p`
+  margin-top: 75px;
+  width: 460px;
+  height: 66px;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+`;
+
+const ArrowContainer = styled.div`
+  margin: auto;
+  text-align: center;
+  padding-bottom: 10px;
+`;
+
+const ArrowUpTriangle = styled.div`
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid white;
+  margin: auto;
+  text-align: center;
+  display: block;
+`;
+
+const ArrowDownTriangle = styled.div`
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid white;
+  margin: auto;
+  text-align: center;
+  display: block;
+`;
+
+const ArrowLine = styled.div`
+  width: 4.5px;
+  height: 20px;
+  display: inline-block;
+  background-color: white;
+  position: relative;
+`;
+
+const ArrowLineDown = styled(ArrowLine)`
+  top: 5px;
+`;
+
+const ArrowLineUp = styled(ArrowLine)`
+  top: -2px;
+`;
+
+const LineSmall = styled.div`
+  width: 11px;
+  height: 2px;
+  background-color: #2e3854;
+  display: inline-block;
+  position: relative;
+  top: -10px;
+`;
+
+const LineSmallUp = styled(LineSmall)`
+  top: -5px;
+`;
+
+const LineSpace = styled.div`
+  width: 5px;
+  background-color: transparent;
+  display: inline-block;
+`;
+
+const Line = styled.div`
+  margin: auto;
+  text-align: center;
+  width: 30px;
+  height: 2.2px;
+  background-color: #2e3854;
+  display: block;
+`;
 
 const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn }) => (
-  <section className="slide">
-    <div className="container choice-wrapper">
-      <div className="choice-section">
-        <img src={ICON_TANGLE_LEFT} className="tangle-image" alt="tangle" />
-        <div>
-          <img src={ICON_UPLOAD} className="upload-image" alt="upload" />
-        </div>
-        <div>
-          <Button id="upload-btn" className="primary-button" onClick={visitUploadFormFn}>
-            Upload a File
-          </Button>
-        </div>
-        <p className="instructions">Use Oyster to host a file on the Tangle.</p>
-      </div>
-      <div className="choice-section">
-        <img src={ICON_TANGLE_RIGHT} className="tangle-image" alt="tangle" />
-        <div>
-          <img src={ICON_DOWNLOAD} className="upload-image" alt="download" />
-        </div>
-        <div>
-          <Button id="download-btn" className="primary-button" onClick={visitDownloadFormFn}>
-            Retrieve a File
-          </Button>
-        </div>
-        <p className="instructions">
-          Use an Oyster handle to retrieve a file from the Tangle.
-        </p>
-      </div>
-    </div>
-  </section>
+  <Slide title="Opacity Storage">
+    <Instructions>
+      Welcome to Opacity Storage. Please select one of the options provided
+      below.
+    </Instructions>
+    <Button
+      id="upload-btn"
+      backgroundColor="#846b99"
+      onClick={visitUploadFormFn}
+    >
+      <ArrowContainer>
+        <ArrowUpTriangle />
+        <LineSmallUp />
+        <LineSpace />
+        <ArrowLineUp />
+        <LineSpace />
+        <LineSmallUp />
+        <Line />
+      </ArrowContainer>
+      Upload a File
+    </Button>
+    <Button
+      id="download-btn"
+      backgroundColor="#605c8e"
+      position="relative"
+      top="-10px"
+      onClick={visitDownloadFormFn}
+    >
+      <ArrowContainer>
+        <Line />
+        <LineSmall />
+        <LineSpace />
+        <ArrowLineDown />
+        <LineSpace />
+        <LineSmall />
+        <ArrowDownTriangle />
+      </ArrowContainer>
+      Retrieve a File
+    </Button>
+  </Slide>
 );
 
 export default ChoiceSlide;

@@ -1,13 +1,58 @@
 import React, { Component } from "react";
+import styled from "styled-components";
 
+import ClipboardBtn from "../shared/clipboard-button";
 import Slide from "../shared/slide";
 
-const ICON_PlANE = require("../../assets/images/sendAirplane.svg");
+const OpacityHeader = styled.p`
+  margin-top: 70px;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  color: #ffffff;
+  text-transform: uppercase;
+`;
+
+const OpacityBoxContainer = styled.div`
+  height: 25px;
+  background-color: #232b40;
+  margin-bottom: 50px;
+`;
+
+const OpacityText = styled.p`
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+`;
+
+const Instructions = styled.p`
+  margin-top: 75px;
+  width: 460px;
+  height: 66px;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+`;
+
+const InstructionsSpan = styled.span`
+  font-weight: bold;
+  color: #af8ecb;
+`;
 
 interface PaymentInvoiceSlideProps {
   cost;
   ethAddress;
-  gasPrice;
 }
 
 class PaymentInvoiceSlide extends Component<PaymentInvoiceSlideProps> {
@@ -16,22 +61,20 @@ class PaymentInvoiceSlide extends Component<PaymentInvoiceSlideProps> {
   }
 
   render() {
-    const { cost, ethAddress, gasPrice } = this.props;
+    const { cost, ethAddress } = this.props;
     return (
-      <Slide title="Send PRL (Paid for by Oyster)" image={ICON_PlANE}>
-        <div className="payment-request">
-          To complete this transaction, send <span>{cost} PRL</span> to the
+      <Slide title="Send OPQ">
+        <Instructions>
+          To complete this transaction, send <InstructionsSpan>{cost} OPQ</InstructionsSpan> to the
           address listed below:
-          <br />
-          <br />
-          <br />
-          <span>{ethAddress}</span>
-          <p>
-            We suggest using at least {gasPrice} Gwei for a gas price and 55,000
-            gas limit to ensure the transaction is confirmed as quickly as
-            possible.
-          </p>
-        </div>
+        </Instructions>
+        <OpacityHeader>Address</OpacityHeader>
+        <OpacityBoxContainer>
+          <OpacityText>
+            {ethAddress}
+          </OpacityText>
+        </OpacityBoxContainer>
+        <ClipboardBtn text={ethAddress}>Copy address</ClipboardBtn>
       </Slide>
     );
   }

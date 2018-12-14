@@ -4,9 +4,7 @@ import styled from "styled-components";
 import ClipboardBtn from "../shared/clipboard-button";
 import Slide from "../shared/slide";
 
-const ICON_READY = require("../../assets/images/icon_ready.png");
-
-const HandleHeader = styled.p`
+const OpacityHeader = styled.p`
   margin-top: 70px;
   font-size: 16px;
   font-weight: 500;
@@ -18,13 +16,13 @@ const HandleHeader = styled.p`
   text-transform: uppercase;
 `;
 
-const OpacityHandleContainer = styled.div`
+const OpacityBoxContainer = styled.div`
   height: 25px;
   background-color: #232b40;
   margin-bottom: 50px;
 `;
 
-const OpacityHandle = styled.p`
+const OpacityText = styled.p`
   font-size: 12px;
   font-weight: bold;
   font-style: normal;
@@ -34,7 +32,7 @@ const OpacityHandle = styled.p`
   color: #ffffff;
 `;
 
-const CompleteInstructions = styled.p`
+const Instructions = styled.p`
   margin-top: 75px;
   width: 460px;
   height: 66px;
@@ -47,28 +45,26 @@ const CompleteInstructions = styled.p`
   color: #ffffff;
 `;
 
-const CompleteInstructionsSpan = styled.span`
+const InstructionsSpan = styled.span`
   font-weight: bold;
   color: #af8ecb;
 `;
 
 const UploadCompleteSlide = ({ handle }) => (
-  <Slide title="Attachment Complete" image={ICON_READY}>
-    <CompleteInstructions>
+  <Slide title="Attachment Complete">
+    <Instructions>
       Your file has been successfully uploaded to the Tangle.
-      Your <CompleteInstructionsSpan>Opacity Handle</CompleteInstructionsSpan> is below.
+      Your <InstructionsSpan>Opacity Handle</InstructionsSpan> is below.
       This handle is the only way to access your file on the Tangle.
       Please store this handle in a safe place.
-    </CompleteInstructions>
-    <div>
-      <HandleHeader>Opacity Handle</HandleHeader>
-      <OpacityHandleContainer>
-        <OpacityHandle id="opacity-handle">
-          {handle}
-        </OpacityHandle>
-      </OpacityHandleContainer>
-      <ClipboardBtn text={handle}>Copy handle</ClipboardBtn>
-    </div>
+    </Instructions>
+    <OpacityHeader>Opacity Handle</OpacityHeader>
+    <OpacityBoxContainer>
+      <OpacityText id="opacity-handle">
+        {handle}
+      </OpacityText>
+    </OpacityBoxContainer>
+    <ClipboardBtn text={handle}>Copy handle</ClipboardBtn>
   </Slide>
 );
 

@@ -4,20 +4,19 @@ import styled from "styled-components";
 const ProgressBorder = styled.div`
   margin-top: 15px;
   margin-bottom: 15px;
-  border: solid 1px #2184fc;
-  border-radius: 6px;
-  background-color: transparent;
+  background-color: #232b40;
+  border-radius: 0px;
   height: 48px;
-  max-width: 450px;
+  max-width: 378px;
 `;
 
-const ProgressBar = ({ progress }) => (
+const ProgressBar = ({ progress, backgroundColor }) => (
   <ProgressBorder className="progress">
     <div
       className="progress-bar"
       role="progressbar"
       style={{
-        backgroundColor: "#2184fc",
+        backgroundColor: backgroundColor,
         width: `${progress}%`
       }}
       aria-valuenow={progress}

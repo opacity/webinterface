@@ -1,40 +1,57 @@
 import React from "react";
+import styled from "styled-components";
 
 import ProgressBar from "../shared/progress-bar";
 import Slide from "../shared/slide";
-import Spinner from "../shared/spinner";
 
-const ICON_UPLOAD = require("../../assets/images/icon_upload.png");
+const Instructions = styled.p`
+  margin-top: 75px;
+  width: 460px;
+  height: 66px;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+`;
+
+const InstructionsNext = styled(Instructions)`
+  margin-top: 45px;
+`;
+
+const InstructionsSpan = styled.span`
+  font-weight: bold;
+  color: #af8ecb;
+`;
+
+const OpacityHeader = styled.p`
+  margin-top: 70px;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  color: #ffffff;
+  text-transform: uppercase;
+`;
 
 const UploadStartedSlide = ({ chunksProgress }) => {
-  // TODO: Listen to meta attached state?
-  const waitingForMeta = chunksProgress >= 99.999; // epsilon b/c float comparison.
-
   return (
-    <Slide title="Upload Started" image={ICON_UPLOAD}>
-      <p className="transaction-confirmed-instructions">
-        <strong>Please do not close this tab.</strong>
-      </p>
-      <p className="transaction-confirmed-instructions">
-        File is being broken into chunks and each chunk encrypted.
-        <Spinner isActive={true} className="download-spinner" />
-      </p>
-
-      <p className="transaction-confirmed-instructions">
-        <span>
-          Uploading chunks to brokers
-          {waitingForMeta ? "" : "..."}
-        </span>
-        <br />
-        <span style={waitingForMeta ? {} : { display: "none" }}>
-          Confirming upload on the tangle...
-        </span>
-      </p>
-
-      <div>
-        <ProgressBar progress={chunksProgress} />
-        <p>{Math.floor(Math.min(100, chunksProgress))}%</p>
-      </div>
+    <Slide title="File Uploading to Brokers">
+      <Instructions>
+        Transaction Confirmed. Your file is now being uploaded to the broker nodes,
+        and you will receive your <InstructionsSpan>Oyster Handle</InstructionsSpan> once the upload is complete. 
+      </Instructions>
+      <OpacityHeader>Broker Node 1</OpacityHeader>
+      <ProgressBar progress={chunksProgress} backgroundColor="#846b99"/>
+      <OpacityHeader>Broker Node 2</OpacityHeader>
+      <ProgressBar progress={chunksProgress} backgroundColor="#605c8e"/>
+      <InstructionsNext>
+        {Math.floor(Math.min(100, chunksProgress))}% - File is being broken into chunks and each chunk encrypted…
+      </InstructionsNext>
     </Slide>
   );
 };

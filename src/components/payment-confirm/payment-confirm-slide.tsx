@@ -1,17 +1,27 @@
 import React from "react";
+import styled from "styled-components";
 
 import Slide from "../shared/slide";
 
-const ICON_READY = require("../../assets/images/icon_ready.png");
-const ICON_SPINNER = require("../../assets/images/icon_spinner.png");
+const Instructions = styled.p`
+  margin-top: 75px;
+  width: 460px;
+  height: 66px;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+`;
 
 const PaymentConfirmSlide = () => (
-  <Slide title="Transaction Received" image={ICON_READY}>
-    <p>
+  <Slide title="Transaction Received">
+    <Instructions>
       Your transaction has been received, and is now being confirmed on the
       Ethereum Blockchain.
-    </p>
-    <img src={ICON_SPINNER} className="payment-confirm-spinner spin-2s" />
+    </Instructions>
   </Slide>
 );
 
