@@ -1,43 +1,59 @@
 import React from "react";
+import styled from "styled-components";
+import { withRouter } from "react-router";
 
-import Button from "../shared/button";
+import ScreenContainer from "../shared/screen-container";
+import ScreenDescription from "../shared/screen-description";
 
-const ICON_TANGLE_LEFT = require("../../assets/images/icon_tangle_left.png");
-const ICON_TANGLE_RIGHT = require("../../assets/images/icon_tangle_right.png");
-const ICON_UPLOAD = require("../../assets/images/icon_upload.png");
-const ICON_DOWNLOAD = require("../../assets/images/icon_download.png");
+const ICON_DOWNLOAD = require("../../assets/images/icon_download.svg");
+const ICON_UPOAD = require("../../assets/images/icon_upload.svg");
 
-const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn }) => (
-  <section className="slide">
-    <div className="container choice-wrapper">
-      <div className="choice-section">
-        <img src={ICON_TANGLE_LEFT} className="tangle-image" alt="tangle" />
-        <div>
-          <img src={ICON_UPLOAD} className="upload-image" alt="upload" />
-        </div>
-        <div>
-          <Button id="upload-btn" className="primary-button" onClick={visitUploadFormFn}>
-            Upload a File
-          </Button>
-        </div>
-        <p className="instructions">Use Oyster to host a file on the Tangle.</p>
-      </div>
-      <div className="choice-section">
-        <img src={ICON_TANGLE_RIGHT} className="tangle-image" alt="tangle" />
-        <div>
-          <img src={ICON_DOWNLOAD} className="upload-image" alt="download" />
-        </div>
-        <div>
-          <Button id="download-btn" className="primary-button" onClick={visitDownloadFormFn}>
-            Retrieve a File
-          </Button>
-        </div>
-        <p className="instructions">
-          Use an Oyster handle to retrieve a file from the Tangle.
-        </p>
-      </div>
-    </div>
-  </section>
+const LinkContainer = styled.a`
+  display: flex;
+`;
+
+const Icon = styled.img`
+  height: 30px;
+  width: 22px;
+`;
+
+const Link = styled.a`
+  cursor: pointer;
+  align-items: center;
+  background-color: #846b99;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: bold;
+  height: 80px;
+  justify-content: center;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  margin-right: 20px;
+  text-transform: uppercase;
+  width: 220px;
+`;
+
+const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn, history }) => (
+  <ScreenContainer title={"Opacity Storage"}>
+    <ScreenDescription>
+      Welcome to Opacity Storage. Please select one of the options provided
+      below.
+    </ScreenDescription>
+    <LinkContainer>
+      <Link onClick={() => history.push("/upload-form")}>
+        <Icon src={ICON_UPOAD} />
+        Upload a file
+      </Link>
+      <Link onClick={() => history.push("/download-form")}>
+        <Icon src={ICON_DOWNLOAD} />
+        Retrieve a file
+      </Link>
+    </LinkContainer>
+  </ScreenContainer>
 );
 
-export default ChoiceSlide;
+export default withRouter(ChoiceSlide);

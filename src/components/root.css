@@ -9,8 +9,22 @@
   }
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: "proxima-nova", sans-serif;
+}
+
+#root {
+  min-height: 100%;
+}
+
+.App {
+  min-height: 100%;
+  background-color: #2e3854;
 }
 
 h1 {
