@@ -8,7 +8,7 @@ import ScreenDescription from "../shared/screen-description";
 const ICON_DOWNLOAD = require("../../assets/images/icon_download.svg");
 const ICON_UPOAD = require("../../assets/images/icon_upload.svg");
 
-const LinkContainer = styled.a`
+const LinkContainer = styled.div`
   display: flex;
 `;
 
