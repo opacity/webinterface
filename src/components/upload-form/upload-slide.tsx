@@ -85,13 +85,15 @@ const UploadInputContainer = styled.div`
   width: 380px;
 `;
 
-// const Disclaimer = styled.div`
-// text-align: center;
-// padding-top: 40px;
-// position: absolute;
-// left: 0;
-// right: 0;
-// `;
+const Disclaimer = styled.div`
+  font-size: 12px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 15px;
+  position: absolute;
+  left: 0;
+  right: 0;
+`;
 
 const UploadButtonContainer = styled.div`
   overflow: hidden;
@@ -216,11 +218,11 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
               options={[
                 {
                   value: API.BROKER_NODE_A,
-                  label: "broker-1.oysternodes.com",
+                  label: "broker-1.opacitynodes.com",
                 },
                 {
                   value: API.BROKER_NODE_B,
-                  label: "broker-2.oysternodes.com",
+                  label: "broker-2.opacitynodes.com",
                 },
               ]}
             />
@@ -237,11 +239,11 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
               options={[
                 {
                   value: API.BROKER_NODE_A,
-                  label: "broker-1.oysternodes.com",
+                  label: "broker-1.opacitynodes.com",
                 },
                 {
                   value: API.BROKER_NODE_B,
-                  label: "broker-2.oysternodes.com",
+                  label: "broker-2.opacitynodes.com",
                 },
               ]}
             />
@@ -389,6 +391,11 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
             className="download-spinner"
           />
         </UploadButtonContainer>
+        <Disclaimer>
+          DISCLAIMER: This is a beta phase and should not be used for important
+          data. Uploads cost 1 OPQ per 64 GB. Current filesize limit is 125 MB
+          per file.
+        </Disclaimer>
       </ScreenContainer>
     );
   }

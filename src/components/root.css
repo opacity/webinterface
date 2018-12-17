@@ -27,6 +27,7 @@ body {
 
 .main-div {
   background-color: #2e3854;
+  min-height: 100%;
 }
 
 .App {
