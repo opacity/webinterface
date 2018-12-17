@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="31px" viewBox="0 0 30 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52 (66869) - http://www.bohemiancoding.com/sketch -->
+    <title>backward</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Storage-Upload/Retrieve-Screen" transform="translate(-585.000000, -339.000000)">
+            <g id="Retrieve-Button" transform="translate(490.000000, 325.000000)">
+                <g id="backward" transform="translate(95.000000, 14.000000)">
+                    <path d="M29,0 L1,0 C0.448,0 0,0.448 0,1 C0,1.552 0.448,2 1,2 L29,2 C29.552,2 30,1.552 30,1 C30,0.448 29.552,0 29,0 Z" id="Path" fill="#2E3854"></path>
+                    <path d="M11,11 L1,11 C0.448,11 0,11.448 0,12 C0,12.552 0.448,13 1,13 L11,13 L11,11 Z" id="Path" fill="#2E3854"></path>
+                    <path d="M29,11 L19,11 L19,13 L29,13 C29.552,13 30,12.552 30,12 C30,11.448 29.552,11 29,11 Z" id="Path" fill="#2E3854"></path>
+                    <path d="M22,23 L15,31 L8,23 L14,23 L14,6 C14,5.448 14.448,5 15,5 C15.552,5 16,5.448 16,6 L16,23 L22,23 Z" id="Path" fill="#FFFFFF"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
