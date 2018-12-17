@@ -26,12 +26,11 @@ body {
 }
 
 .main-div {
-  height: 100%;
+  background-color: #2e3854;
 }
 
 .App {
   min-height: 100%;
-  background-color: #2e3854;
 }
 
 h1 {
@@ -103,7 +102,7 @@ ul#manu li a {
 }
 
 .form_title h2 {
-  color: #0068ea;
+  color: #846b99;
   font-weight: 400;
   font-size: 35px;
   line-height: 45px;
@@ -136,11 +135,11 @@ p {
 }
 
 .storage-fees span {
-  color: #0068ea;
+  color: #846b99;
 }
 
 .payment-request span {
-  color: #0068ea;
+  color: #846b99;
 }
 
 .payment-request p {
@@ -201,16 +200,25 @@ div.Select-control {
 }
 
 select#sel {
-  border: 1px solid #ecedef;
-  width: 44px;
+  background-color: #232b40;
   font-size: 16px;
-  padding: 1px 0;
-  line-height: 26px;
-  margin: 0 auto;
-  text-align: center;
-  padding-left: 15px;
-  border-radius: 5px;
   font-weight: 500;
+  height: 25px;
+  line-height: 26px;
+  margin: 0 10px 0 0;
+  padding-left: 15px;
+  text-align: center;
+  width: 40px;
+  color: #ffffff;
+  border: none;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  color: #ffffff;
 }
 .years {
   float: right;
@@ -244,19 +252,19 @@ button.btn-hidden {
 
 .btn-primary {
   color: white;
-  background: #0068ea;
-  border-color: #0068ea;
+  background: #846b99;
+  border-color: #846b99;
 }
 
 .btn-primary:hover {
   color: #fff;
-  background: #0068ea;
-  border-color: #0068ea;
+  background: #846b99;
+  border-color: #846b99;
 }
 
 button.btn-upload {
   width: 45%;
-  background: #0068ea;
+  background: #846b99;
   border: 0px solid;
   line-height: 45px;
   color: #fff;
@@ -275,7 +283,7 @@ select:disabled {
 }
 
 .btn.btn-default.image-preview-input {
-  background: #0068ea;
+  background: #846b99;
   height: 40px;
   width: 80px;
   background-size: cover;
@@ -317,16 +325,16 @@ input[type="range"].vertical {
 }
 input[type="range"] {
   -webkit-appearance: none;
-  background-color: #0068ea;
-  height: 4px;
-  width: 93%;
+  background-color: #161c29;
+  height: 1px;
+  width: 100%;
   border: none;
   border-radius: 4px;
   margin-top: 15px;
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  background-color: #0068ea;
+  background-color: #846b99;
   border: none;
   height: 30px;
   width: 30px;
@@ -339,7 +347,7 @@ input[type="range"]:focus {
 }
 
 input[type="range"]:hover {
-  background: #0068ea;
+  background: #846b99;
 }
 
 input:not([type="range"]) {
@@ -353,7 +361,7 @@ textarea:focus,
 .form-control:focus {
   outline: none;
   outline: 0;
-  border-color: #0068ea;
+  border-color: #846b99;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
     0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
@@ -388,7 +396,7 @@ input[name="upload"] {
   outline: none;
   outline: 0;
   height: 34px;
-  border-color: #0068ea;
+  border-color: #846b99;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
     0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
@@ -409,9 +417,7 @@ label {
 
 select {
   width: 90%;
-  border: 1px solid #ecedef;
   line-height: 35px;
-  border-radius: 10px;
   margin-bottom: 20px;
   padding-left: 15px;
   padding-right: 15px;
@@ -423,7 +429,7 @@ select:focus,
 select:active {
   outline: none;
   outline: 0;
-  border-color: #0068ea;
+  border-color: #846b99;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
     0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
@@ -448,7 +454,7 @@ option:focus,
 option:active {
   outline: none;
   outline: 0;
-  border-color: #0068ea;
+  border-color: #846b99;
 }
 
 .btn:hover {
@@ -466,7 +472,7 @@ option:active {
 }
 
 .btn.btn-default.image-preview-input {
-  background: #0068ea;
+  background: #846b99;
   height: 40px;
   width: 80px;
   background-size: cover;
@@ -481,12 +487,12 @@ option:active {
   margin: 0px;
   color: #333;
   background-color: #fff;
-  border-color: #0068ea;
+  border-color: #846b99;
 }
 
 .image-preview-input:hover,
 .image-preview-input:focus {
-  border-color: #0068ea;
+  border-color: #846b99;
 }
 
 .image-preview-input input[type="file"] {
@@ -499,7 +505,7 @@ option:active {
   cursor: pointer;
   opacity: 0;
   filter: alpha(opacity=0);
-  border-color: #0068ea;
+  border-color: #846b99;
 }
 .image-preview-input-title {
   margin-left: 2px;
@@ -515,7 +521,7 @@ option:active {
 }
 
 .form_title span {
-  background: #0068ea;
+  background: #846b99;
   display: block;
   width: 50px;
   height: 2px;
@@ -660,7 +666,7 @@ matej-01
 }
 
 .slide-title {
-  color: #0068ea;
+  color: #846b99;
 }
 
 .bordered {
@@ -700,7 +706,7 @@ matej-01
 }
 
 .primary-button {
-  background: #0068ea;
+  background: #846b99;
   width: 290px;
   border-radius: 10px;
   color: white;
@@ -742,7 +748,7 @@ h2 {
 }
 
 .oyster-handle {
-  color: #0068ea;
+  color: #846b99;
   font-size: 15px;
 }
 
@@ -791,7 +797,7 @@ input.retention-slider:disabled::-webkit-slider-thumb {
   align-items: center;
   justify-content: center;
   width: 50px;
-  background: #0068ea;
+  background: #846b99;
   border-radius: 0 10px 10px 0;
 }
 
@@ -801,7 +807,7 @@ input.retention-slider:disabled::-webkit-slider-thumb {
 }
 
 .clipboard-button {
-  background: #0068ea;
+  background: #846b99;
   width: 200px;
   border-radius: 10px;
   color: white;
@@ -817,4 +823,16 @@ input.retention-slider:disabled::-webkit-slider-thumb {
 
 .download-spinner {
   margin-left: 10px;
+}
+
+span.Select-value-label {
+  color: #778291 !important;
+}
+
+div.Select-control {
+  color: #778291;
+  height: 25px;
+  background-color: #232b40 !important;
+  border: none;
+  border-radius: 0;
 }

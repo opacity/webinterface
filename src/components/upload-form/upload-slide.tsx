@@ -8,7 +8,8 @@ import Button from "../shared/button";
 import Spinner from "../shared/spinner";
 import ScreenContainer from "../shared/screen-container";
 
-const ICON_FOLDER = require("../../assets/images/icon_folder.png");
+const ICON_FOLDER = require("../../assets/images/icon_folder.svg");
+const ICON_UPLOAD = require("../../assets/images/icon_upload.svg");
 
 const DEFAULT_FILE_INPUT_TEXT = "No file selected";
 const DEFAULT_FILE_INPUT_SIZE = 0;
@@ -17,35 +18,35 @@ const DEFAULT_HUMAN_FILE_SIZE = 0;
 const CHUNKS_IN_SECTOR = 1000000;
 const STORAGE_PEG = 64;
 
+const Icon = styled.img`
+  height: 30px;
+  width: 22px;
+  margin-right: 10px;
+`;
+
+const UploadButton = styled(Button)`
+  align-items: center;
+  background-color: #846b99;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: bold;
+  height: 40px;
+  justify-content: center;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  margin-right: 20px;
+  text-transform: uppercase;
+  width: 300px;
+`;
+
 const BrokerSelectWrapper = styled.div`
   display: flex;
-`;
-
-const Disclaimer = styled.div`
-  text-align: center;
-  padding-top: 40px;
-  position: absolute;
-  left: 0;
-  right: 0;
-`;
-
-const UploadButtonContainer = styled.div`
-  overflow: hidden;
-  width: 100%;
-  padding-top: 25px;
-`;
-
-const UploadColumn = styled.div`
-  flex: 1;
-  padding-right: 10px;
-`;
-
-const UploadSection = styled.div`
-  margin-top: 20px;
-`;
-
-const RetentionSlider = styled.input`
-  background: #afcbfe;
+  justify-content: space-between;
 `;
 
 const FileSelectWrapper = styled.div`
@@ -55,29 +56,99 @@ const FileSelectWrapper = styled.div`
 
 const RetentionWrapper = styled.form`
   display: flex;
+  justify-content: space-between;
 `;
 
-const StorageFees = styled.h3`
-  color: #778291;
+const FolderIcon = styled.img`
+  width: 15px;
+`;
+
+const CostContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const InputLabel = styled.span`
+  display: inline-block;
+  margin: 10px 0;
+  font-size: 16px;
   font-weight: 500;
-  font-size: 18px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  color: #ffffff;
+  text-transform: uppercase;
+`;
+
+const UploadInputContainer = styled.div`
+  width: 380px;
+`;
+
+// const Disclaimer = styled.div`
+// text-align: center;
+// padding-top: 40px;
+// position: absolute;
+// left: 0;
+// right: 0;
+// `;
+
+const UploadButtonContainer = styled.div`
+  overflow: hidden;
+  width: 100%;
+  padding-top: 25px;
+`;
+
+const UploadColumn = styled.div`
+  width: 380px;
+  padding-right: 10px;
+`;
+
+const Underline = styled.hr`
+  border: 0;
+  border-top: 1px solid #a995bb;
+  display: block;
+  height: 1px;
+  margin: 60px 0 50px 0;
+  padding: 0;
+`;
+
+const UploadSection = styled.div`
+  margin-top: 20px;
+`;
+
+const RetentionSlider = styled.input`
+  background-color: #161c29;
+`;
+
+const StorageFees = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 40px;
+  background-color: #232b40;
 `;
 
 const StorageCost = styled.span`
-  color: #0068ea;
-`;
-
-const YearsRetention = styled.span`
-  margin-left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
 `;
 
 const UploadFilename = styled.span`
   flex: 0.8;
-  padding: 3px;
-  border: 1px solid #ecedef;
-  border-radius: 10px 0 0 10px;
   text-align: center;
   overflow: hidden;
+  background-color: #232b40;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const UploadFolder = styled.span`
@@ -85,8 +156,7 @@ const UploadFolder = styled.span`
   align-items: center;
   justify-content: center;
   width: 50px;
-  background: #0068ea;
-  border-radius: 0 10px 10px 0;
+  background-color: #846b99;
 `;
 
 interface UploadSlideProps {
@@ -135,7 +205,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
       <ScreenContainer title={"Upload a file"}>
         <BrokerSelectWrapper>
           <UploadColumn>
-            <label htmlFor="broker-node-1">Broker Node 1</label>
+            <InputLabel>Broker 1</InputLabel>
             <Select
               name="broker-node-1"
               disabled
@@ -156,7 +226,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
             />
           </UploadColumn>
           <UploadColumn>
-            <label htmlFor="broker-node-2">Broker Node 2</label>
+            <InputLabel>Broker Node 2</InputLabel>
             <Select
               name="broker-node-2"
               disabled
@@ -178,7 +248,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
           </UploadColumn>
         </BrokerSelectWrapper>
         <UploadSection>
-          <p>Select Retention File</p>
+          <InputLabel>Select Retention File</InputLabel>
           <RetentionWrapper>
             <UploadColumn>
               <RetentionSlider
@@ -226,21 +296,21 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                 <option>9</option>
                 <option>10</option>
               </select>
-              <YearsRetention>Years of retention</YearsRetention>
+              <InputLabel>Years of retention</InputLabel>
             </UploadColumn>
           </RetentionWrapper>
         </UploadSection>
         <FileSelectWrapper>
           <UploadColumn>
-            <p>Select a file</p>
-            <div>
+            <InputLabel>Select a file</InputLabel>
+            <UploadInputContainer>
               <label htmlFor="upload-input" className="file-input-label">
                 <UploadFilename>{this.state.fileName}</UploadFilename>
                 <UploadFolder>
-                  <img src={ICON_FOLDER} width="25" alt="folder" />
+                  <FolderIcon src={ICON_FOLDER} alt="folder" />
                 </UploadFolder>
               </label>
-            </div>
+            </UploadInputContainer>
             <input
               name="upload"
               id="upload-input"
@@ -279,18 +349,17 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
               required
             />
           </UploadColumn>
-          <UploadColumn>
-            <p>Cost</p>
-            <StorageFees>
-              {this.state.humanFileSize} for {retentionYears} years:
-              <StorageCost> {this.state.storageCost} PRL</StorageCost>
-            </StorageFees>
-          </UploadColumn>
         </FileSelectWrapper>
+        <Underline />
+        <CostContainer>
+          <InputLabel>Cost</InputLabel>
+          <StorageFees>
+            <StorageCost> {this.state.storageCost} OPQ</StorageCost>
+          </StorageFees>
+        </CostContainer>
         <UploadButtonContainer>
-          <Button
+          <UploadButton
             id="start-upload-btn"
-            className="btn btn-upload primary-button"
             disabled={this.state.isInitializing}
             type="button"
             onClick={() => {
@@ -310,23 +379,16 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                 streamUploadFn(file, retentionYears, brokers);
               }
             }}>
+            <Icon src={ICON_UPLOAD} />
             {this.state.isInitializing
               ? "Initializing Upload..."
-              : "Start Upload"}
-          </Button>
+              : "Upload File"}
+          </UploadButton>
           <Spinner
             isActive={this.state.isInitializing}
             className="download-spinner"
           />
         </UploadButtonContainer>
-        <Disclaimer>
-          DISCLAIMER: No PRL is required to use the beta Mainnet.
-          <br />
-          This is a beta phase and should not be used for important data.
-          <br />
-          Uploads cost 1 PRL per 64GB per year (paid for by Oyster). <br />
-          Current filesize limit is 125MB per file.
-        </Disclaimer>
       </ScreenContainer>
     );
   }
