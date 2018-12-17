@@ -1,14 +1,15 @@
 import React, { Component } from "react";
+import styled from "styled-components";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
 
 import { API, FILE } from "../../config";
-import Slide from "../shared/slide";
 import Button from "../shared/button";
 import Spinner from "../shared/spinner";
+import ScreenContainer from "../shared/screen-container";
 
-const ICON_UPLOAD = require("../../assets/images/icon_upload.png");
-const ICON_FOLDER = require("../../assets/images/icon_folder.png");
+const ICON_FOLDER = require("../../assets/images/icon_folder.svg");
+const ICON_UPLOAD = require("../../assets/images/icon_upload.svg");
 
 const DEFAULT_FILE_INPUT_TEXT = "No file selected";
 const DEFAULT_FILE_INPUT_SIZE = 0;
@@ -16,6 +17,149 @@ const DEFAULT_FILE_INPUT_COST = 0;
 const DEFAULT_HUMAN_FILE_SIZE = 0;
 const CHUNKS_IN_SECTOR = 1000000;
 const STORAGE_PEG = 64;
+
+const Icon = styled.img`
+  height: 30px;
+  width: 22px;
+  margin-right: 10px;
+`;
+
+const UploadButton = styled(Button)`
+  align-items: center;
+  background-color: #846b99;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: bold;
+  height: 40px;
+  justify-content: center;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  margin-right: 20px;
+  text-transform: uppercase;
+  width: 300px;
+`;
+
+const BrokerSelectWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const FileSelectWrapper = styled.div`
+  display: flex;
+  margin-top: 20px;
+`;
+
+const RetentionWrapper = styled.form`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const FolderIcon = styled.img`
+  width: 15px;
+`;
+
+const CostContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const InputLabel = styled.span`
+  display: inline-block;
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  color: #ffffff;
+  text-transform: uppercase;
+`;
+
+const UploadInputContainer = styled.div`
+  width: 380px;
+`;
+
+const Disclaimer = styled.div`
+  font-size: 12px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 15px;
+  position: absolute;
+  left: 0;
+  right: 0;
+`;
+
+const UploadButtonContainer = styled.div`
+  overflow: hidden;
+  width: 100%;
+  padding-top: 25px;
+`;
+
+const UploadColumn = styled.div`
+  width: 380px;
+  padding-right: 10px;
+`;
+
+const Underline = styled.hr`
+  border: 0;
+  border-top: 1px solid #a995bb;
+  display: block;
+  height: 1px;
+  margin: 60px 0 50px 0;
+  padding: 0;
+`;
+
+const UploadSection = styled.div`
+  margin-top: 20px;
+`;
+
+const RetentionSlider = styled.input`
+  background-color: #161c29;
+`;
+
+const StorageFees = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 40px;
+  background-color: #232b40;
+`;
+
+const StorageCost = styled.span`
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+`;
+
+const UploadFilename = styled.span`
+  flex: 0.8;
+  text-align: center;
+  overflow: hidden;
+  background-color: #232b40;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const UploadFolder = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  background-color: #846b99;
+`;
 
 interface UploadSlideProps {
   alphaBroker;
@@ -44,7 +188,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
       fileSize: DEFAULT_FILE_INPUT_SIZE,
       storageCost: DEFAULT_FILE_INPUT_COST,
       humanFileSize: DEFAULT_HUMAN_FILE_SIZE,
-      isInitializing: false
+      isInitializing: false,
     };
   }
 
@@ -56,13 +200,14 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
       selectBetaBroker,
       retentionYears,
       selectRetentionYears,
-      streamUploadFn
+      streamUploadFn,
     } = this.props;
+
     return (
-      <Slide title="Upload a File" image={ICON_UPLOAD}>
-        <div className="broker-select-wrapper">
-          <div className="upload-column">
-            <label htmlFor="broker-node-1">Broker Node 1</label>
+      <ScreenContainer title={"Upload a file"}>
+        <BrokerSelectWrapper>
+          <UploadColumn>
+            <InputLabel>Broker 1</InputLabel>
             <Select
               name="broker-node-1"
               disabled
@@ -73,17 +218,17 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
               options={[
                 {
                   value: API.BROKER_NODE_A,
-                  label: "broker-1.oysternodes.com"
+                  label: "broker-1.opacitynodes.com",
                 },
                 {
                   value: API.BROKER_NODE_B,
-                  label: "broker-2.oysternodes.com"
-                }
+                  label: "broker-2.opacitynodes.com",
+                },
               ]}
             />
-          </div>
-          <div className="upload-column">
-            <label htmlFor="broker-node-2">Broker Node 2</label>
+          </UploadColumn>
+          <UploadColumn>
+            <InputLabel>Broker Node 2</InputLabel>
             <Select
               name="broker-node-2"
               disabled
@@ -94,22 +239,21 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
               options={[
                 {
                   value: API.BROKER_NODE_A,
-                  label: "broker-1.oysternodes.com"
+                  label: "broker-1.opacitynodes.com",
                 },
                 {
                   value: API.BROKER_NODE_B,
-                  label: "broker-2.oysternodes.com"
-                }
+                  label: "broker-2.opacitynodes.com",
+                },
               ]}
             />
-          </div>
-        </div>
-        <div className="upload-section">
-          <p>Select Retention File</p>
-          <form className="retention-wrapper">
-            <div className="upload-column">
-              <input
-                className="retention-slider"
+          </UploadColumn>
+        </BrokerSelectWrapper>
+        <UploadSection>
+          <InputLabel>Select Retention File</InputLabel>
+          <RetentionWrapper>
+            <UploadColumn>
+              <RetentionSlider
                 type="range"
                 min="0"
                 max="10"
@@ -122,12 +266,12 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                     storageCost: this.calculateStorageCost(
                       this.state.fileSize,
                       retentionYears
-                    )
+                    ),
                   });
                 }}
               />
-            </div>
-            <div className="upload-column">
+            </UploadColumn>
+            <UploadColumn>
               <select
                 id="sel"
                 value={retentionYears}
@@ -139,10 +283,9 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                     storageCost: this.calculateStorageCost(
                       this.state.fileSize,
                       retentionYears
-                    )
+                    ),
                   });
-                }}
-              >
+                }}>
                 <option>0</option>
                 <option>1</option>
                 <option>2</option>
@@ -155,21 +298,21 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                 <option>9</option>
                 <option>10</option>
               </select>
-              <span className="years-retention">Years of retention</span>
-            </div>
-          </form>
-        </div>
-        <div className="file-select-wrapper upload-section">
-          <div className="upload-column">
-            <p>Select a file</p>
-            <div className="file-input-wrapper">
+              <InputLabel>Years of retention</InputLabel>
+            </UploadColumn>
+          </RetentionWrapper>
+        </UploadSection>
+        <FileSelectWrapper>
+          <UploadColumn>
+            <InputLabel>Select a file</InputLabel>
+            <UploadInputContainer>
               <label htmlFor="upload-input" className="file-input-label">
-                <span className="upload-filename">{this.state.fileName}</span>
-                <span className="upload-folder">
-                  <img src={ICON_FOLDER} width="25" alt="folder" />
-                </span>
+                <UploadFilename>{this.state.fileName}</UploadFilename>
+                <UploadFolder>
+                  <FolderIcon src={ICON_FOLDER} alt="folder" />
+                </UploadFolder>
               </label>
-            </div>
+            </UploadInputContainer>
             <input
               name="upload"
               id="upload-input"
@@ -187,7 +330,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                     storageCost: this.calculateStorageCost(
                       file.size,
                       retentionYears
-                    )
+                    ),
                   });
                 } else {
                   this.setState({
@@ -200,26 +343,25 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                     storageCost: this.calculateStorageCost(
                       file.size,
                       retentionYears
-                    )
+                    ),
                   });
                 }
               }}
               type="file"
               required
             />
-          </div>
-          <div className="upload-column">
-            <p>Cost</p>
-            <h3 className="storage-fees">
-              {this.state.humanFileSize} for {retentionYears} years:
-              <span> {this.state.storageCost} PRL</span>
-            </h3>
-          </div>
-        </div>
-        <div className="upload_button">
-          <Button
+          </UploadColumn>
+        </FileSelectWrapper>
+        <Underline />
+        <CostContainer>
+          <InputLabel>Cost</InputLabel>
+          <StorageFees>
+            <StorageCost> {this.state.storageCost} OPQ</StorageCost>
+          </StorageFees>
+        </CostContainer>
+        <UploadButtonContainer>
+          <UploadButton
             id="start-upload-btn"
-            className="btn btn-upload primary-button"
             disabled={this.state.isInitializing}
             type="button"
             onClick={() => {
@@ -238,26 +380,23 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                 const brokers = { alpha: alphaBroker, beta: betaBroker };
                 streamUploadFn(file, retentionYears, brokers);
               }
-            }}
-          >
+            }}>
+            <Icon src={ICON_UPLOAD} />
             {this.state.isInitializing
               ? "Initializing Upload..."
-              : "Start Upload"}
-          </Button>
+              : "Upload File"}
+          </UploadButton>
           <Spinner
             isActive={this.state.isInitializing}
             className="download-spinner"
           />
-        </div>
-        <aside className="disclaimer">
-          DISCLAIMER: No PRL is required to use the beta Mainnet.
-          <br />
-          This is a beta phase and should not be used for important data.
-          <br />
-          Uploads cost 1 PRL per 64GB per year (paid for by Oyster). <br />
-          Current filesize limit is 125MB per file.
-        </aside>
-      </Slide>
+        </UploadButtonContainer>
+        <Disclaimer>
+          DISCLAIMER: This is a beta phase and should not be used for important
+          data. Uploads cost 1 OPQ per 64 GB. Current filesize limit is 125 MB
+          per file.
+        </Disclaimer>
+      </ScreenContainer>
     );
   }
 

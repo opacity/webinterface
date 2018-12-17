@@ -6,7 +6,7 @@ import ScreenContainer from "../shared/screen-container";
 import ScreenDescription from "../shared/screen-description";
 
 const ICON_DOWNLOAD = require("../../assets/images/icon_download.svg");
-const ICON_UPOAD = require("../../assets/images/icon_upload.svg");
+const ICON_UPLOAD = require("../../assets/images/icon_upload.svg");
 
 const LinkContainer = styled.div`
   display: flex;
@@ -45,7 +45,7 @@ const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn, history }) => (
     </ScreenDescription>
     <LinkContainer>
       <Link onClick={() => history.push("/upload-form")}>
-        <Icon src={ICON_UPOAD} />
+        <Icon src={ICON_UPLOAD} />
         Upload a file
       </Link>
       <Link onClick={() => history.push("/download-form")}>

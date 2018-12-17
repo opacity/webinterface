@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   padding: 70px 250px;
+  height: 100%;
 `;
 
 const Title = styled.h3`
@@ -21,7 +22,7 @@ const Underline = styled.hr`
   border-top: 1px solid #a995bb;
   display: block;
   height: 1px;
-  margin-bottom: 6px 0 60px 0;
+  margin: 6px 0 60px 0;
   padding: 0;
 `;
 
