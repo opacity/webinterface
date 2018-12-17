@@ -274,11 +274,6 @@ select:disabled {
   cursor: not-allowed;
 }
 
-.upload_button {
-  overflow: hidden;
-  width: 100%;
-  padding-top: 25px;
-}
 .btn.btn-default.image-preview-input {
   background: #0068ea;
   height: 40px;
@@ -798,10 +793,6 @@ input.retention-slider:disabled::-webkit-slider-thumb {
   width: 50px;
   background: #0068ea;
   border-radius: 0 10px 10px 0;
-}
-
-.years-retention {
-  margin-left: 10px;
 }
 
 .header-logo {
