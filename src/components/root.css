@@ -64,8 +64,7 @@ ul#manu {
   padding: 0;
   list-style: none;
 }
-ul#manu li {
-}
+
 ul#manu li a {
   text-decoration: none;
   color: #fff;
@@ -783,22 +782,6 @@ input.retention-slider:disabled::-webkit-slider-thumb {
 .header-logo {
   width: 50px;
   height: 50px;
-}
-
-.clipboard-button {
-  background-color: #846b99;
-  width: 289px;
-  height: 40px;
-  font-size: 16px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #ffffff;
-  text-transform: uppercase;
-  border:none;
-  cursor: pointer;
 }
 
 .download-spinner {

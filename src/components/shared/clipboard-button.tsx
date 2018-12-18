@@ -5,6 +5,22 @@ import Button from "./button";
 
 const POPUP_TIME = 300;
 
+const ClipboardButtonStyled = styled(Button)`
+  background-color: #846b99;
+  width: 289px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+`;
+
 const ClipboardIconContainer = styled.span`
   margin-left: 5px;
   margin-right: 10px;
@@ -35,11 +51,11 @@ const ClipboardIconBlueSecond = styled(ClipboardIcon)`
   right: -13px;
 `;
 
-interface ClipboardBtnProps {
+interface ClipboardButtonProps {
   text;
 }
 
-class ClipboardBtn extends React.Component<ClipboardBtnProps> {
+class ClipboardButton extends React.Component<ClipboardButtonProps> {
   state = { popTimeout: undefined };
 
   render() {
@@ -55,18 +71,18 @@ class ClipboardBtn extends React.Component<ClipboardBtnProps> {
           this.setState({ popTimeout });
         }}
       >
-        <Button className="clipboard-button">
+        <ClipboardButtonStyled>
           <ClipboardIconContainer>
-            <ClipboardIconBlueFirst/>
-            <ClipboardIconBlueSecond/>
-            <ClipboardIconWhite/>
+            <ClipboardIconBlueFirst />
+            <ClipboardIconBlueSecond />
+            <ClipboardIconWhite />
           </ClipboardIconContainer>
 
           {!!this.state.popTimeout ? "Copied!" : this.props.children}
-        </Button>
+        </ClipboardButtonStyled>
       </CopyToClipboard>
     );
   }
 }
 
-export default ClipboardBtn;
+export default ClipboardButton;

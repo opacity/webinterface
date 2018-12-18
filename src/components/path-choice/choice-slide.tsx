@@ -1,21 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import Button from "../shared/button";
-import Slide from "../shared/slide";
-
-const Instructions = styled.p`
-  margin-top: 75px;
-  width: 460px;
-  height: 66px;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #ffffff;
-`;
+import { Button, Slide, Instructions } from "../shared";
 
 const ArrowContainer = styled.div`
   margin: auto;
