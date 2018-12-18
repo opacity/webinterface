@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { withRouter } from "react-router";
 
 import "../root.css";
 
@@ -11,30 +12,32 @@ const Container = styled.div`
 `;
 
 const Navbar = styled.div`
-  height: 100%;
   display: flex;
+  height: 100%;
   justify-content: space-between;
 `;
 
 const LogoContainer = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
 `;
 const LinkContainer = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
 `;
 
 const Link = styled.a`
-  display: flex;
   align-items: center;
-  font-size: 14px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.4px;
   color: #487aa7;
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: bold;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  text-decoration: none;
   text-transform: uppercase;
 
   &:hover {
@@ -60,11 +63,11 @@ const CompanyName = styled.span`
   color: #487aa7;
 `;
 
-const Header = () => (
+const Header = ({ history }) => (
   <Container>
     <Navbar>
       <LogoContainer>
-        <Link title="Opacity Storage's Logo">
+        <Link title="Opacity Storage's Logo" onClick={() => history.push("/")}>
           <Logo src={ICON_LOGO} alt="logo" />
           <CompanyName>Opacity</CompanyName>
         </Link>
@@ -78,4 +81,4 @@ const Header = () => (
   </Container>
 );
 
-export default Header;
+export default withRouter(Header);

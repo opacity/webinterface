@@ -1,121 +1,59 @@
 import React from "react";
 import styled from "styled-components";
+import { withRouter } from "react-router";
 
-import { Button, Slide, Instructions } from "../shared";
+import ScreenContainer from "../shared/screen-container";
+import ScreenDescription from "../shared/screen-description";
 
-const ArrowContainer = styled.div`
-  margin: auto;
-  text-align: center;
-  padding-bottom: 10px;
+const ICON_DOWNLOAD = require("../../assets/images/icon_download.svg");
+const ICON_UPLOAD = require("../../assets/images/icon_upload.svg");
+
+const LinkContainer = styled.div`
+  display: flex;
 `;
 
-const ArrowUpTriangle = styled.div`
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid white;
-  margin: auto;
-  text-align: center;
-  display: block;
+const Icon = styled.img`
+  height: 30px;
+  width: 22px;
 `;
 
-const ArrowDownTriangle = styled.div`
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid white;
-  margin: auto;
-  text-align: center;
-  display: block;
+const Link = styled.a`
+  cursor: pointer;
+  align-items: center;
+  background-color: #846b99;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: bold;
+  height: 80px;
+  justify-content: center;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  margin-right: 20px;
+  text-transform: uppercase;
+  width: 220px;
 `;
 
-const ArrowLine = styled.div`
-  width: 4.5px;
-  height: 20px;
-  display: inline-block;
-  background-color: white;
-  position: relative;
-`;
-
-const ArrowLineDown = styled(ArrowLine)`
-  top: 5px;
-`;
-
-const ArrowLineUp = styled(ArrowLine)`
-  top: -2px;
-`;
-
-const LineSmall = styled.div`
-  width: 11px;
-  height: 2px;
-  background-color: #2e3854;
-  display: inline-block;
-  position: relative;
-  top: -10px;
-`;
-
-const LineSmallUp = styled(LineSmall)`
-  top: -5px;
-`;
-
-const LineSpace = styled.div`
-  width: 5px;
-  background-color: transparent;
-  display: inline-block;
-`;
-
-const Line = styled.div`
-  margin: auto;
-  text-align: center;
-  width: 30px;
-  height: 2.2px;
-  background-color: #2e3854;
-  display: block;
-`;
-
-const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn }) => (
-  <Slide title="Opacity Storage">
-    <Instructions>
+const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn, history }) => (
+  <ScreenContainer title={"Opacity Storage"}>
+    <ScreenDescription>
       Welcome to Opacity Storage. Please select one of the options provided
       below.
-    </Instructions>
-    <Button
-      id="upload-btn"
-      backgroundColor="#846b99"
-      onClick={visitUploadFormFn}
-    >
-      <ArrowContainer>
-        <ArrowUpTriangle />
-        <LineSmallUp />
-        <LineSpace />
-        <ArrowLineUp />
-        <LineSpace />
-        <LineSmallUp />
-        <Line />
-      </ArrowContainer>
-      Upload a File
-    </Button>
-    <Button
-      id="download-btn"
-      backgroundColor="#605c8e"
-      position="relative"
-      top="-10px"
-      onClick={visitDownloadFormFn}
-    >
-      <ArrowContainer>
-        <Line />
-        <LineSmall />
-        <LineSpace />
-        <ArrowLineDown />
-        <LineSpace />
-        <LineSmall />
-        <ArrowDownTriangle />
-      </ArrowContainer>
-      Retrieve a File
-    </Button>
-  </Slide>
+    </ScreenDescription>
+    <LinkContainer>
+      <Link onClick={() => history.push("/upload-form")}>
+        <Icon src={ICON_UPLOAD} />
+        Upload a file
+      </Link>
+      <Link onClick={() => history.push("/download-form")}>
+        <Icon src={ICON_DOWNLOAD} />
+        Retrieve a file
+      </Link>
+    </LinkContainer>
+  </ScreenContainer>
 );
 
-export default ChoiceSlide;
+export default withRouter(ChoiceSlide);
