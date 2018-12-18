@@ -1,28 +1,19 @@
 import React from "react";
-import styled from "styled-components";
 
-import Slide from "../shared/slide";
+import ScreenContainer from "../shared/screen-container";
+import ScreenDescription from "../shared/screen-description";
 
 const ICON_SPINNER = require("../../assets/images/icon_spinner.png");
-const ICON_DOWNLOAD = require("../../assets/images/icon_download.png");
-
-const RetrievalInstructions = styled.p`
-  padding-bottom: 50px;
-`;
-
-const SpinnerWrapper = styled.div`
-  padding-left: 100px;
-`;
 
 const DownloadStartedSlide = () => (
-  <Slide title="Retrieving file..." image={ICON_DOWNLOAD}>
-    <RetrievalInstructions>
+  <ScreenContainer title={"Retrieving file..."}>
+    <ScreenDescription>
       Your file is being retrieved from the Tangle.
-    </RetrievalInstructions>
-    <SpinnerWrapper>
+    </ScreenDescription>
+    <div>
       <img src={ICON_SPINNER} alt="spinner" />
-    </SpinnerWrapper>
-  </Slide>
+    </div>
+  </ScreenContainer>
 );
 
 export default DownloadStartedSlide;
