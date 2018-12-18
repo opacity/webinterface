@@ -91,7 +91,7 @@ class DownloadFormSlide extends React.Component<
     return (
       <ScreenContainer title={"Retrieve a file"}>
         <ScreenDescription>
-          Enter your Oyster handle below to access your stored file from the
+          Enter your Opacity handle below to access your stored file from the
           Tangle.
         </ScreenDescription>
         <InputContainer>
