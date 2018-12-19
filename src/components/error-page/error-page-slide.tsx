@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import SlideError from "../shared/slide-error";
+import ScreenContainerError from "../shared/screen-container-error";
 
 const ICON_ERROR = require("../../assets/images/icon_error.png");
 
@@ -28,7 +28,7 @@ const ErrorDescriptionLink = styled.a`
 `;
 
 const ErrorPageSlide = ({ handle }) => (
-  <SlideError title="Uh oh! Something went wong." image={null}>
+  <ScreenContainerError title="Uh oh! Something went wong." image={null}>
     <ErrorImg src={ICON_ERROR} alt="error-img" />
     <ErrorDescription>
       There was a problem with your upload. Please visit our{" "}
@@ -38,7 +38,7 @@ const ErrorPageSlide = ({ handle }) => (
       </ErrorDescriptionLink>{" "}
       for more information.
     </ErrorDescription>
-  </SlideError>
+  </ScreenContainerError>
 );
 
 export default ErrorPageSlide;

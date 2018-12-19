@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const ErrorSlide = styled.section`
+const ErrorScreen = styled.section`
   @media (min-width: 1200px) {
     margin: 5rem 0;
   }
@@ -16,7 +16,7 @@ const ErrorSlide = styled.section`
   }
 `;
 
-const ErrorSlideContainer = styled.div`
+const ErrorScreenContainer = styled.div`
   flex: 1;
   display: flex;
   padding-bottom: 50px;
@@ -57,7 +57,7 @@ const ErrorSlideContainer = styled.div`
   }
 `;
 
-const ErrorSlideBody = styled.div`
+const ErrorSreenBody = styled.div`
   flex: 1;
   padding: 50px;
   @media (min-width: 320px) and (max-width: 478px) {
@@ -68,29 +68,29 @@ const ErrorSlideBody = styled.div`
   }
 `;
 
-const ErrorSlideTitle = styled.h1`
+const ErrorSreenTitle = styled.h1`
   color: #0068ea;
 `;
 
-const ErrorSlideUnderline = styled.hr`
+const ErrorScreenUnderline = styled.hr`
   width: 50px;
   border-color: #afcbfe;
   border-width: 5px;
   float: left;
 `;
 
-const SlideError = ({ children, title, image }) => {
+const ScreenContainerError = ({ children, title, image }) => {
   return (
-    <ErrorSlide>
-      <ErrorSlideContainer>
-        <ErrorSlideBody>
-          <ErrorSlideTitle>{title}</ErrorSlideTitle>
-          <ErrorSlideUnderline />
+    <ErrorScreen>
+      <ErrorScreenContainer>
+        <ErrorSreenBody>
+          <ErrorSreenTitle>{title}</ErrorSreenTitle>
+          <ErrorScreenUnderline />
           {children}
-        </ErrorSlideBody>
-      </ErrorSlideContainer>
-    </ErrorSlide>
+        </ErrorSreenBody>
+      </ErrorScreenContainer>
+    </ErrorScreen>
   );
 };
 
-export default SlideError;
+export default ScreenContainerError;

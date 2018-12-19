@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import SlideError from "../shared/slide-error";
+import ScreenContainerError from "../shared/screen-container-error";
 
 const BROKERS_DOWN = require("../../assets/images/icon_brokers_down.png");
 
@@ -49,7 +49,7 @@ const BrokersDownLinkText = styled.a`
 class BrokersDownSlide extends React.Component {
   render() {
     return (
-      <SlideError title="Broker Nodes Offline" image={null}>
+      <ScreenContainerError title="Broker Nodes Offline" image={null}>
         <BrokersDownImage src={BROKERS_DOWN} alt="brokers-down" />
         <BrokersDownParagraph>
           Oyster Storage’s broker nodes are currently offline. Uploads are
@@ -64,7 +64,7 @@ class BrokersDownSlide extends React.Component {
           </BrokersDownLinkSpan>{" "}
           for more information. We apologize for the inconvenience.
         </BrokersDownParagraph>
-      </SlideError>
+      </ScreenContainerError>
     );
   }
 }
