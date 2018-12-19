@@ -24,7 +24,7 @@ const UploadStartedSlide = ({ chunksProgress }) => {
     <ScreenContainer title={"File Uploading to Brokers"}>
       <ScreenDescription>
         Transaction Confirmed. Your file is now being uploaded to the broker
-        nodes, and you will receive your Oyster Handle once the upload is
+        nodes, and you will receive your Opacity Handle once the upload is
         complete.
       </ScreenDescription>
       <ProgressBar progress={chunksProgress} />
