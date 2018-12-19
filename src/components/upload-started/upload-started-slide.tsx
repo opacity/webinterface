@@ -1,41 +1,40 @@
 import React from "react";
+import styled from "styled-components";
 
 import ProgressBar from "../shared/progress-bar";
-import Slide from "../shared/slide";
-import Spinner from "../shared/spinner";
+import ScreenContainer from "../shared/screen-container";
+import ScreenDescription from "../shared/screen-description";
 
-const ICON_UPLOAD = require("../../assets/images/icon_upload.png");
+const ProgressText = styled.p`
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  width: 452px;
+  color: #ffffff;
+`;
 
 const UploadStartedSlide = ({ chunksProgress }) => {
   // TODO: Listen to meta attached state?
   const waitingForMeta = chunksProgress >= 99.999; // epsilon b/c float comparison.
 
   return (
-    <Slide title="Upload Started" image={ICON_UPLOAD}>
-      <p className="transaction-confirmed-instructions">
-        <strong>Please do not close this tab.</strong>
-      </p>
-      <p className="transaction-confirmed-instructions">
-        File is being broken into chunks and each chunk encrypted.
-        <Spinner isActive={true} className="download-spinner" />
-      </p>
-
-      <p className="transaction-confirmed-instructions">
-        <span>
-          Uploading chunks to brokers
-          {waitingForMeta ? "" : "..."}
-        </span>
-        <br />
-        <span style={waitingForMeta ? {} : { display: "none" }}>
-          Confirming upload on the tangle...
-        </span>
-      </p>
-
-      <div>
-        <ProgressBar progress={chunksProgress} />
-        <p>{Math.floor(Math.min(100, chunksProgress))}%</p>
-      </div>
-    </Slide>
+    <ScreenContainer title={"File Uploading to Brokers"}>
+      <ScreenDescription>
+        Transaction Confirmed. Your file is now being uploaded to the broker
+        nodes, and you will receive your Opacity Handle once the upload is
+        complete.
+      </ScreenDescription>
+      <ProgressBar progress={chunksProgress} />
+      <ProgressText>
+        {waitingForMeta
+          ? "Confirming upload on the tangle..."
+          : `${chunksProgress}% - File is being broken into chunks and each chunk`}
+        encrypted…
+      </ProgressText>
+    </ScreenContainer>
   );
 };
 
