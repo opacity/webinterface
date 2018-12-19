@@ -5,9 +5,9 @@ import {
   ContentHeader,
   ContentHighlighter,
   ContentText,
-  Slide,
-  Instructions,
-  InstructionsHighlighter
+  ScreenContainer, 
+  ScreenDescription,
+  ScreenDescriptionHighlighter
 } from "../shared";
 
 interface PaymentInvoiceSlideProps {
@@ -23,18 +23,18 @@ class PaymentInvoiceSlide extends Component<PaymentInvoiceSlideProps> {
   render() {
     const { cost, ethAddress } = this.props;
     return (
-      <Slide title="Send OPQ">
-        <Instructions>
+      <ScreenContainer title="Send OPQ">
+        <ScreenDescription>
           To complete this transaction, send{" "}
-          <InstructionsHighlighter>{cost} OPQ</InstructionsHighlighter> to the
+          <ScreenDescriptionHighlighter>{cost} OPQ</ScreenDescriptionHighlighter> to the
           address listed below:
-        </Instructions>
+        </ScreenDescription>
         <ContentHeader>Address</ContentHeader>
         <ContentHighlighter>
           <ContentText>{ethAddress}</ContentText>
         </ContentHighlighter>
         <ClipboardButton text={ethAddress}>Copy address</ClipboardButton>
-      </Slide>
+      </ScreenContainer>
     );
   }
 }

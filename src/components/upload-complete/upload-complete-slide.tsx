@@ -5,25 +5,25 @@ import {
   ContentHeader,
   ContentHighlighter,
   ContentText,
-  Slide,
-  Instructions,
-  InstructionsHighlighter
+  ScreenContainer, 
+  ScreenDescription,
+  ScreenDescriptionHighlighter
 } from "../shared";
 
 const UploadCompleteSlide = ({ handle }) => (
-  <Slide title="Attachment Complete">
-    <Instructions>
+  <ScreenContainer title="Attachment Complete">
+    <ScreenDescription>
       Your file has been successfully uploaded to the Tangle. Your{" "}
-      <InstructionsHighlighter>Opacity Handle</InstructionsHighlighter> is
+      <ScreenDescriptionHighlighter>Opacity Handle</ScreenDescriptionHighlighter> is
       below. This handle is the only way to access your file on the Tangle.
       Please store this handle in a safe place.
-    </Instructions>
+    </ScreenDescription>
     <ContentHeader>Opacity Handle</ContentHeader>
     <ContentHighlighter>
       <ContentText id="opacity-handle">{handle}</ContentText>
     </ContentHighlighter>
     <ClipboardButton text={handle}>Copy handle</ClipboardButton>
-  </Slide>
+  </ScreenContainer>
 );
 
 export default UploadCompleteSlide;

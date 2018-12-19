@@ -17,7 +17,8 @@ const ProgressBar = ({ progress, backgroundColor }) => (
       role="progressbar"
       style={{
         backgroundColor: backgroundColor,
-        width: `${progress}%`
+        width: `${progress}%`,
+        height: `100%`
       }}
       aria-valuenow={progress}
       aria-valuemin="0"

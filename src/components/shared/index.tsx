@@ -3,11 +3,11 @@ import ClipboardButton from "./clipboard-button";
 import ContentHeader from "./content-header";
 import ContentHighlighter from "./content-highlighter";
 import ContentText from "./content-text";
-import Instructions from "./instructions";
-import InstructionsHighlighter from "./instructions-highlighter";
-import InstructionsNext from "./instructions-next";
+import ScreenDescriptionHighlighter from "./screen-description-highlighter";
 import ProgressBar from "./progress-bar";
-import Slide from "./slide";
+import ScreenContainer  from "./screen-container";
+import ScreenDescription  from "./screen-description";
+
 
 export {
   Button,
@@ -15,9 +15,8 @@ export {
   ContentHeader,
   ContentHighlighter,
   ContentText,
-  Instructions,
-  InstructionsHighlighter,
-  InstructionsNext,
   ProgressBar,
-  Slide
+  ScreenContainer,
+  ScreenDescription,
+  ScreenDescriptionHighlighter
 };

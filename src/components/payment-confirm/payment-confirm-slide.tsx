@@ -1,14 +1,14 @@
 import React from "react";
 
-import { Slide, Instructions } from "../shared";
+import { ScreenContainer, ScreenDescription } from "../shared";
 
 const PaymentConfirmSlide = () => (
-  <Slide title="Transaction Received">
-    <Instructions>
+  <ScreenContainer title={"Transaction Received"}>
+    <ScreenDescription>
       Your transaction has been received, and is now being confirmed on the
       Ethereum Blockchain.
-    </Instructions>
-  </Slide>
+    </ScreenDescription>
+  </ScreenContainer>
 );
 
 export default PaymentConfirmSlide;
