@@ -1,6 +1,5 @@
 import React from "react";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./shared/slicknav.css";
 import "./root.css";
 import "./responsive.css";
