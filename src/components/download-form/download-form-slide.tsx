@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import Slide from "../shared/slide";
+import ScreenContainer from "../shared/screen-container";
 import Button from "../shared/button";
 import Spinner from "../shared/spinner";
 
@@ -52,9 +52,8 @@ class DownloadFormSlide extends React.Component<
 
   render() {
     const { download, status } = this.props;
-    const ICON_DOWNLOAD = require("../../assets/images/icon_download.png");
     return (
-      <Slide title="Retrieve a File" image={ICON_DOWNLOAD}>
+      <ScreenContainer title="Retrieve a File">
         <HandleInstructions>
           Enter your Oyster handle below to access your stored file from the
           Tangle.
@@ -93,7 +92,7 @@ class DownloadFormSlide extends React.Component<
             className="download-spinner"
           />
         </div>
-      </Slide>
+      </ScreenContainer>
     );
   }
 }

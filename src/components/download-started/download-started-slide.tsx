@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import Slide from "../shared/slide";
+import ScreenContainer from "../shared/screen-container";
 
 const ICON_SPINNER = require("../../assets/images/icon_spinner.png");
-const ICON_DOWNLOAD = require("../../assets/images/icon_download.png");
 
 const RetrievalInstructions = styled.p`
   padding-bottom: 50px;
@@ -15,14 +14,14 @@ const SpinnerWrapper = styled.div`
 `;
 
 const DownloadStartedSlide = () => (
-  <Slide title="Retrieving file..." image={ICON_DOWNLOAD}>
+  <ScreenContainer title="Retrieving file...">
     <RetrievalInstructions>
       Your file is being retrieved from the Tangle.
     </RetrievalInstructions>
     <SpinnerWrapper>
       <img src={ICON_SPINNER} alt="spinner" />
     </SpinnerWrapper>
-  </Slide>
+  </ScreenContainer>
 );
 
 export default DownloadStartedSlide;

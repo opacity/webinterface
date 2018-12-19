@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
-import Slide from "../shared/slide";
+import ScreenContainer from "../shared/screen-container";
 
-const ICON_READY = require("../../assets/images/icon_ready.png");
 const ICON_SPINNER = require("../../assets/images/icon_spinner.png");
 
 class RetrievingInvoiceSlide extends Component {
@@ -12,13 +11,13 @@ class RetrievingInvoiceSlide extends Component {
 
   render() {
     return (
-      <Slide title="Retrieving Invoice..." image={ICON_READY}>
+      <ScreenContainer title="Retrieving Invoice...">
         <p>We are retrieving your invoice...</p>
         <img
           src={ICON_SPINNER}
           className="retrieving-invoice-spinner spin-2s"
         />
-      </Slide>
+      </ScreenContainer>
     );
   }
 }
