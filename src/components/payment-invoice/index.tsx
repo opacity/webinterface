@@ -6,7 +6,7 @@ import PaymentInvoiceSlide from "./payment-invoice-slide";
 const mapStateToProps = state => ({
   cost: state.upload.invoice.cost,
   ethAddress: state.upload.invoice.ethAddress,
-  gasPrice: state.upload.gasPrice
+  gasPrice: state.upload.gasPrice,
 });
 const mapDispatchToProps = dispatch => ({});
 
@@ -18,4 +18,7 @@ const PaymentInvoice = ({ cost, ethAddress, gasPrice }: any) => (
   />
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentInvoice);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PaymentInvoice);

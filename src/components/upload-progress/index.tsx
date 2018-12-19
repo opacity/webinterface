@@ -5,7 +5,7 @@ import { withRouter } from "react-router";
 import UploadProgressSlide from "./upload-progress-slide";
 
 const mapStateToProps = state => ({
-  upload: state.upload
+  upload: state.upload,
 });
 const mapDispatchToProps = dispatch => ({});
 
@@ -21,9 +21,11 @@ class UploadProgress extends React.Component<
 > {
   render() {
     const { upload } = this.props;
-    const { uploadProgress } = upload;
+    const { uploadProgress, handle } = upload;
 
-    return <UploadProgressSlide uploadProgress={uploadProgress} />;
+    return (
+      <UploadProgressSlide uploadProgress={uploadProgress} handle={handle} />
+    );
   }
 }
 export default withRouter(
