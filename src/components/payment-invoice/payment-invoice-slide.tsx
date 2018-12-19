@@ -81,7 +81,7 @@ class PaymentInvoiceSlide extends Component<PaymentInvoiceSlideProps> {
       <ScreenContainer title={"Send OPQ"}>
         <ScreenDescription>
           To complete this transaction, send <Cost>{cost} OPQ</Cost> with gas
-          price of<br /> <Cost>{gasPrice} Gwei</Cost> to the address listed
+          price of at least <Cost>{gasPrice} Gwei</Cost> to the address listed
           below:
         </ScreenDescription>
         <Label>Address</Label>
