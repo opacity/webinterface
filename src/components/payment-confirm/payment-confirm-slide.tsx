@@ -7,7 +7,6 @@ import ScreenDescription from "../shared/screen-description";
 const ICON_SPINNER = require("../../assets/images/icon_spinner.png");
 
 const Icon = styled.img`
-  margin: 60px 0 0;
   animation: spin 2s linear infinite;
 `;
 
