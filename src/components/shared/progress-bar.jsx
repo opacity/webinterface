@@ -4,22 +4,21 @@ import styled from "styled-components";
 const ProgressBorder = styled.div`
   margin-top: 15px;
   margin-bottom: 15px;
-  border: solid 1px #2184fc;
-  border-radius: 6px;
-  background-color: transparent;
+  background-color: #232b40;
   height: 48px;
   max-width: 450px;
 `;
 
+const InnerBar = styled.div`
+  width: ${props => props.progress}%;
+  height: 100%;
+  background-color: #846b99;
+`;
+
 const ProgressBar = ({ progress }) => (
   <ProgressBorder className="progress">
-    <div
-      className="progress-bar"
-      role="progressbar"
-      style={{
-        backgroundColor: "#2184fc",
-        width: `${progress}%`
-      }}
+    <InnerBar
+      progress={progress}
       aria-valuenow={progress}
       aria-valuemin="0"
       aria-valuemax="100"
