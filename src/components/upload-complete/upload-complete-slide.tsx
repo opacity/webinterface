@@ -18,7 +18,7 @@ const UploadCompleteSlide = ({ handle }) => (
       only way to access your file on the Tangle. Please store this handle in a
       safe place.
     </ScreenDescription>
-    <ClipboardWidget text={handle} />
+    <ClipboardWidget title="Opacity Handle" text={handle} />
   </ScreenContainer>
 );
 
