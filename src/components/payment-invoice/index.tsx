@@ -18,4 +18,7 @@ const PaymentInvoice = ({ cost, ethAddress, gasPrice }: any) => (
   />
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentInvoice);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PaymentInvoice);
