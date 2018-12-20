@@ -10,16 +10,16 @@ const ProgressBorder = styled.div`
   max-width: 378px;
 `;
 
-const ProgressBar = ({ progress, backgroundColor }) => (
+const InnerBar = styled.div`
+  width: ${props => props.progress}%;
+  height: 100%;
+  background-color: #846b99;
+`;
+
+const ProgressBar = ({ progress }) => (
   <ProgressBorder className="progress">
-    <div
-      className="progress-bar"
-      role="progressbar"
-      style={{
-        backgroundColor: backgroundColor,
-        width: `${progress}%`,
-        height: `100%`
-      }}
+    <InnerBar
+      progress={progress}
       aria-valuenow={progress}
       aria-valuemin="0"
       aria-valuemax="100"
