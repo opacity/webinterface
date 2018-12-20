@@ -5,7 +5,7 @@ import { withRouter } from "react-router";
 import UploadProgressSlide from "./upload-progress-slide";
 
 const mapStateToProps = state => ({
-  upload: state.upload,
+  upload: state.upload
 });
 const mapDispatchToProps = dispatch => ({});
 

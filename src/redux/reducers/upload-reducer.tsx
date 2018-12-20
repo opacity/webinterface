@@ -5,7 +5,7 @@ import { API } from "../../config";
 export const UPLOAD_STATE = Object.freeze({
   UPLOADING: "UPLOADING",
   ATTACHING_META: "ATTACHING_META", // Upload complete, waiting for meta.
-  COMPLETE: "COMPLETE", // Attached meta, could be waiting for rest of chunks or completed.
+  COMPLETE: "COMPLETE" // Attached meta, could be waiting for rest of chunks or completed.
 });
 
 const initState = {
@@ -20,7 +20,7 @@ const initState = {
   chunksProgress: 0,
   uploadProgress: 0,
   handle: "",
-  uploadState: UPLOAD_STATE.UPLOADING,
+  uploadState: UPLOAD_STATE.UPLOADING
 };
 
 const uploadReducer = (state = initState, action) => {
@@ -31,19 +31,19 @@ const uploadReducer = (state = initState, action) => {
     case uploadActions.SELECT_ALPHA_BROKER:
       return {
         ...state,
-        alphaBroker: action.payload,
+        alphaBroker: action.payload
       };
 
     case uploadActions.SELECT_BETA_BROKER:
       return {
         ...state,
-        betaBroker: action.payload,
+        betaBroker: action.payload
       };
 
     case uploadActions.SELECT_RETENTION_YEARS:
       return {
         ...state,
-        retentionYears: action.payload,
+        retentionYears: action.payload
       };
 
     // Streaming actions.
@@ -66,7 +66,7 @@ const uploadReducer = (state = initState, action) => {
         ...state,
         handle,
         chunksProgress: 100,
-        uploadState: UPLOAD_STATE.COMPLETE,
+        uploadState: UPLOAD_STATE.COMPLETE
       };
     }
 
