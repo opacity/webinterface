@@ -7,7 +7,7 @@ import Spinner from "../shared/spinner";
 
 const ICON_UPLOAD = require("../../assets/images/icon_upload.png");
 
-const UploadProgressSlide = ({ uploadProgress }) => (
+const UploadProgressSlide = ({ uploadProgress, handle }: any) => (
   <Slide title="Upload Progress" image={ICON_UPLOAD}>
     <p className="transaction-confirmed-instructions">
       Transaction Confirmed. Your file is now being uploaded to the Tangle...
@@ -16,7 +16,7 @@ const UploadProgressSlide = ({ uploadProgress }) => (
     <p>
       You can come back and check your progress using
       <br />
-      <a href={window.location.href}>{window.location.href}</a>
+      {handle}
     </p>
     <ClipboardBtn text={window.location.href}>Copy URL</ClipboardBtn>
     <div>
