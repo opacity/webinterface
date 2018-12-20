@@ -53,7 +53,7 @@ const CopyButton = styled(Button)`
   font-weight: bold;
   justify-content: center;
   line-height: normal;
-  margin: 60px 0 0 0px;
+  margin: 40px 0 0 0px;
   text-transform: uppercase;
   width: 289px;
   height: 40px;
