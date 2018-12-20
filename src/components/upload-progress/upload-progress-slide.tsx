@@ -31,28 +31,26 @@ const ProgressSection = styled.div`
   margin-bottom: 60px;
 `;
 
-const UploadProgressSlide = ({ uploadProgress, handle }) => {
-  return (
-    <ScreenContainer title={"Attaching File to Tangle"}>
-      <ScreenDescription>
-        Your file has been uploaded to the broker nodes, and an{" "}
-        <Terminology>Opacity Handle</Terminology> has been provided below. This
-        handle is the only way to access your file on the Tangle. Please store
-        this handle in a safe place. Leaving this page will not interrupt your
-        file attaching to the Tangle.{" "}
-        <Bold>
-          Bookmark this page to be notified when file attachment is complete.
-        </Bold>
-      </ScreenDescription>
+const UploadProgressSlide = ({ uploadProgress, handle }) => (
+  <ScreenContainer title={"Attaching File to Tangle"}>
+    <ScreenDescription>
+      Your file has been uploaded to the broker nodes, and an{" "}
+      <Terminology>Opacity Handle</Terminology> has been provided below. This
+      handle is the only way to access your file on the Tangle. Please store
+      this handle in a safe place. Leaving this page will not interrupt your
+      file attaching to the Tangle.{" "}
+      <Bold>
+        Bookmark this page to be notified when file attachment is complete.
+      </Bold>
+    </ScreenDescription>
 
-      <ProgressSection>
-        <Label>File Attachment Progress</Label>
-        <ProgressBar progress={uploadProgress} />
-      </ProgressSection>
+    <ProgressSection>
+      <Label>File Attachment Progress</Label>
+      <ProgressBar progress={uploadProgress} />
+    </ProgressSection>
 
-      <ClipboardWidget text={handle} />
-    </ScreenContainer>
-  );
-};
+    <ClipboardWidget text={handle} />
+  </ScreenContainer>
+);
 
 export default UploadProgressSlide;
