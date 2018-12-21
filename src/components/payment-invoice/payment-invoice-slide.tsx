@@ -16,7 +16,7 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
       To complete this transaction, send <Cost>{cost} OPQ</Cost> with gas price
       of at least <Cost>{gasPrice} Gwei</Cost> to the address listed below:
     </ScreenDescription>
-    <ClipboardWidget text={ethAddress} />
+    <ClipboardWidget title="Address" text={ethAddress} />
   </ScreenContainer>
 );
 
