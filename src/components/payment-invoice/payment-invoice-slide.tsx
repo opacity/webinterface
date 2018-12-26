@@ -14,7 +14,8 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
   <ScreenContainer title={"Send OPQ"}>
     <ScreenDescription>
       To complete this transaction, send <Cost>{cost} OPQ</Cost> with gas price
-      of at least <Cost>{gasPrice} Gwei</Cost> to the address listed below:
+      of at least <Cost>{gasPrice} Gwei</Cost> to the address listed below. Your
+      upload will start automatically after your payment is received.
     </ScreenDescription>
     <ClipboardWidget title="Address" text={ethAddress} />
   </ScreenContainer>

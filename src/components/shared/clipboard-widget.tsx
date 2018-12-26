@@ -12,20 +12,32 @@ const Icon = styled.img`
   margin-right: 10px;
 `;
 
-const TextBox = styled.p`
-  align-items: center;
+const TextContainer = styled.div`
+  overflow: hidden;
+  width: 380px;
   background-color: #232b40;
+`;
+
+const TextBox = styled.p`
   color: #ffffff;
-  display: flex;
+  display: inline-block;
   font-size: 12px;
   font-stretch: normal;
   font-style: normal;
   font-weight: bold;
   height: 25px;
-  justify-content: center;
   letter-spacing: normal;
-  line-height: normal;
-  width: 380px;
+  margin: 0;
+  overflow: scroll;
+  padding: 0 15px;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    height: 0px;
+    background: transparent;
+  }
 `;
 
 const Label = styled.h3`
@@ -73,7 +85,9 @@ class ClipboardWidget extends Component<ClipboardWidgetProps> {
     return (
       <div>
         <Label>{title}</Label>
-        <TextBox>{text}</TextBox>
+        <TextContainer>
+          <TextBox>{text}</TextBox>
+        </TextContainer>
         <CopyToClipboard
           text={text}
           onCopy={() => this.setState({ isCopied: true })}

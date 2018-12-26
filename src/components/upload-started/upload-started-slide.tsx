@@ -31,8 +31,7 @@ const UploadStartedSlide = ({ chunksProgress }) => {
       <ProgressText>
         {waitingForMeta
           ? "Confirming upload on the tangle..."
-          : `${chunksProgress}% - File is being broken into chunks and each chunk`}
-        encrypted…
+          : `${chunksProgress}% - File is being broken into encrypted chunks`}
       </ProgressText>
     </ScreenContainer>
   );
