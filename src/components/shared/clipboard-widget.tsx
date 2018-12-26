@@ -29,7 +29,7 @@ const TextBox = styled.p`
   letter-spacing: normal;
   margin: 0;
   overflow: scroll;
-  padding-left: 15px;
+  padding: 0 15px;
   text-align: center;
   vertical-align: middle;
   width: 100%;

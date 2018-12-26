@@ -111,7 +111,7 @@ const Underline = styled.hr`
   border-top: 1px solid #a995bb;
   display: block;
   height: 1px;
-  margin: 60px 0 50px 0;
+  margin: 45px 0 40px 0;
   padding: 0;
 `;
 
@@ -250,7 +250,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
           </UploadColumn>
         </BrokerSelectWrapper>
         <UploadSection>
-          <InputLabel>Select Retention File</InputLabel>
+          <InputLabel>Select Retention Time</InputLabel>
           <RetentionWrapper>
             <UploadColumn>
               <RetentionSlider
