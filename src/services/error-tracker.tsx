@@ -6,7 +6,7 @@ Raven.config(
 
 export const alertUser = err => {
   Raven.captureException(err);
-  window.alert(`Error: ${err}`);
+  window.alert(err);
 };
 
 export default Raven;

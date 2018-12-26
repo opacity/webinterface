@@ -188,7 +188,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
       fileSize: DEFAULT_FILE_INPUT_SIZE,
       storageCost: DEFAULT_FILE_INPUT_COST,
       humanFileSize: DEFAULT_HUMAN_FILE_SIZE,
-      isInitializing: false,
+      isInitializing: false
     };
   }
 
@@ -200,14 +200,14 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
       selectBetaBroker,
       retentionYears,
       selectRetentionYears,
-      streamUploadFn,
+      streamUploadFn
     } = this.props;
 
     return (
       <ScreenContainer title={"Upload a file"}>
         <BrokerSelectWrapper>
           <UploadColumn>
-            <InputLabel>Broker 1</InputLabel>
+            <InputLabel>Broker Node 1</InputLabel>
             <Select
               name="broker-node-1"
               disabled
@@ -218,12 +218,12 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
               options={[
                 {
                   value: API.BROKER_NODE_A,
-                  label: "broker-1.opacitynodes.com",
+                  label: "broker-1.opacitynodes.com"
                 },
                 {
                   value: API.BROKER_NODE_B,
-                  label: "broker-2.opacitynodes.com",
-                },
+                  label: "broker-2.opacitynodes.com"
+                }
               ]}
             />
           </UploadColumn>
@@ -239,12 +239,12 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
               options={[
                 {
                   value: API.BROKER_NODE_A,
-                  label: "broker-1.opacitynodes.com",
+                  label: "broker-1.opacitynodes.com"
                 },
                 {
                   value: API.BROKER_NODE_B,
-                  label: "broker-2.opacitynodes.com",
-                },
+                  label: "broker-2.opacitynodes.com"
+                }
               ]}
             />
           </UploadColumn>
@@ -266,7 +266,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                     storageCost: this.calculateStorageCost(
                       this.state.fileSize,
                       retentionYears
-                    ),
+                    )
                   });
                 }}
               />
@@ -283,9 +283,10 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                     storageCost: this.calculateStorageCost(
                       this.state.fileSize,
                       retentionYears
-                    ),
+                    )
                   });
-                }}>
+                }}
+              >
                 <option>0</option>
                 <option>1</option>
                 <option>2</option>
@@ -330,7 +331,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                     storageCost: this.calculateStorageCost(
                       file.size,
                       retentionYears
-                    ),
+                    )
                   });
                 } else {
                   this.setState({
@@ -343,7 +344,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                     storageCost: this.calculateStorageCost(
                       file.size,
                       retentionYears
-                    ),
+                    )
                   });
                 }
               }}
@@ -380,7 +381,8 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                 const brokers = { alpha: alphaBroker, beta: betaBroker };
                 streamUploadFn(file, retentionYears, brokers);
               }
-            }}>
+            }}
+          >
             <Icon src={ICON_UPLOAD} />
             {this.state.isInitializing
               ? "Initializing Upload..."

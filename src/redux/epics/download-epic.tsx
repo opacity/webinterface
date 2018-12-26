@@ -23,7 +23,7 @@ const streamDownloadEpic = action$ => {
           o.complete();
         },
         errCb: err => {
-          alertUser(err);
+          alertUser("The handle you inputted was invalid. Please try again.");
           o.next(downloadActions.streamDownloadError({ err }));
           o.complete();
         }
