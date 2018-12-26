@@ -14,23 +14,25 @@ const Icon = styled.img`
 
 const TextContainer = styled.div`
   overflow: hidden;
+  width: 380px;
+  background-color: #232b40;
 `;
 
 const TextBox = styled.p`
-  align-items: center;
-  background-color: #232b40;
   color: #ffffff;
-  display: flex;
+  display: inline-block;
   font-size: 12px;
   font-stretch: normal;
   font-style: normal;
   font-weight: bold;
   height: 25px;
   letter-spacing: normal;
-  line-height: normal;
-  width: 380px;
+  margin: 0;
   overflow: scroll;
   padding-left: 15px;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
 
   &::-webkit-scrollbar {
     height: 0px;
@@ -84,7 +86,9 @@ class ClipboardWidget extends Component<ClipboardWidgetProps> {
       <div>
         <Label>{title}</Label>
         <TextContainer>
-          <TextBox>{text}</TextBox>
+          <TextBox>
+            akj09fa89ds98fd89fd89asdf89ds8u9da8a9fda9d8s8a9fds89fda89ds89afds89af8f9asd8a9fdsf8a8f9ds8f9ads
+          </TextBox>
         </TextContainer>
         <CopyToClipboard
           text={text}
