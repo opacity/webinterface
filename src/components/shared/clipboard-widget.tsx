@@ -86,9 +86,7 @@ class ClipboardWidget extends Component<ClipboardWidgetProps> {
       <div>
         <Label>{title}</Label>
         <TextContainer>
-          <TextBox>
-            akj09fa89ds98fd89fd89asdf89ds8u9da8a9fda9d8s8a9fds89fda89ds89afds89af8f9asd8a9fdsf8a8f9ds8f9ads
-          </TextBox>
+          <TextBox>{text}</TextBox>
         </TextContainer>
         <CopyToClipboard
           text={text}
