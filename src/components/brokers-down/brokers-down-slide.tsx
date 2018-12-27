@@ -12,7 +12,7 @@ const Link = styled.a`
 const BrokersDownSlide = () => (
   <ScreenContainer title={"Broker Nodes Offline"}>
     <ScreenDescription>
-      Oyster Storage’s broker nodes are currently offline. Uploads are
+      Opacity Storage’s broker nodes are currently offline. Uploads are
       unavailable at this time. Please visit our{" "}
       <Link href="https://t.me/OpacityStorage">Telegram Channel</Link> for more
       information. We apologize for the inconvenience.
