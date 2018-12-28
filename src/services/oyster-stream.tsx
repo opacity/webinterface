@@ -1,5 +1,5 @@
 import IOTA from "iota.lib.js";
-import Stream from "oyster-streamable";
+import Stream from "opacity-streamable";
 
 import { IOTA_API, OLD_TANGLE_NODE_1, OLD_TANGLE_NODE_2 } from "../config";
 
