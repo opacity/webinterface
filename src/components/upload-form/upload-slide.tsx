@@ -42,11 +42,17 @@ const UploadButton = styled(Button)`
   margin-right: 20px;
   text-transform: uppercase;
   width: 300px;
+  @media only screen and (max-width: 567px) {
+    width: 100%;
+   }
 `;
 
 const BrokerSelectWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  @media only screen and (max-width: 567px) {
+    display: block;
+   }
 `;
 
 const FileSelectWrapper = styled.div`
@@ -83,6 +89,9 @@ const InputLabel = styled.span`
 
 const UploadInputContainer = styled.div`
   width: 380px;
+  @media only screen and (max-width: 567px) {
+    width: 100%;
+   }
 `;
 
 const Disclaimer = styled.div`
@@ -104,6 +113,9 @@ const UploadButtonContainer = styled.div`
 const UploadColumn = styled.div`
   width: 380px;
   padding-right: 10px;
+  @media only screen and (max-width: 567px) {
+    width: 100%;
+   }
 `;
 
 const Underline = styled.hr`
@@ -130,6 +142,9 @@ const StorageFees = styled.div`
   width: 300px;
   height: 40px;
   background-color: #232b40;
+  @media only screen and (max-width: 567px) {
+    width: 100%;
+   }
 `;
 
 const StorageCost = styled.span`

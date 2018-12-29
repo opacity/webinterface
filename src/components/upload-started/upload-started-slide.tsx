@@ -14,6 +14,9 @@ const ProgressText = styled.p`
   letter-spacing: normal;
   width: 452px;
   color: #ffffff;
+  @media only screen and (max-width: 567px) {
+    width: 100%;
+   }
 `;
 
 const UploadStartedSlide = ({ chunksProgress }) => {
