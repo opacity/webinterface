@@ -22,6 +22,7 @@ import UploadComplete from "./components/upload-complete";
 import RetrievingInvoice from "./components/retrieving-invoice";
 import PaymentInvoice from "./components/payment-invoice";
 import PaymentConfirm from "./components/payment-confirm";
+import PageNavigationPrompt from "./components/page-navigation-prompt";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -32,6 +33,7 @@ const App = () => (
     <PersistGate loading={null} persistor={persistor}>
       <ConnectedRouter history={history}>
         <div className="main-div">
+          <PageNavigationPrompt />
           <Header />
           <Switch>
             <Route exact path="/" component={Root} />
