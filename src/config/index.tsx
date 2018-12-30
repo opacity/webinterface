@@ -3,29 +3,38 @@ export const IS_DEV = process.env.NODE_ENV === "development";
 const PROTOCOL = IS_DEV ? "http" : "https";
 
 const POLLING_NODE = IS_DEV
-  ? ["18.191.77.193"] // Travis broker
+ // ? ["18.191.77.193"] // Travis broker
+  ? ["18.188.230.212"]
   : ["poll2.oysternodes.com"];
 
 export const OLD_TANGLE_NODE_1 = "https://download.oysternodes.com:14265";
 export const OLD_TANGLE_NODE_2 = "https://poll.oysternodes.com:14265";
 
+export const PROD_IOTA_1 = "prodiota1.oysternodes.com";
+export const PROD_IOTA_2 = "prodiota2.oysternodes.com";
+
+const IOTA_PROVIDERS = IS_DEV
+ // ? ["18.222.56.121", "18.191.77.193"]
+  ? ["18.222.173.29", "18.188.230.212"]
+  : [PROD_IOTA_1, PROD_IOTA_2];
+
 const BROKERS = IS_DEV
-  ? ["18.222.56.121", "18.191.77.193"] // Travis brokers
-  : //["18.188.64.13", "18.188.230.212"] // Rebel brokers
+  ? ["18.222.173.29", "18.188.230.212"] // Rebel brokers
     //["52.14.218.135", "18.217.133.146"] // QA brokers
-    ["broker-1.oysternodes.com", "broker-2.oysternodes.com"];
+    : ["broker-1.oysternodes.com", "broker-2.oysternodes.com"];
 
 // Hack until we have proper load balancing.
 const randElem = (xs: string) => xs[Math.floor(Math.random() * xs.length)];
-const randBrokers = (brokers: any) => {
-  const alpha = randElem(brokers);
-  const remBrokers = brokers.filter((br: any) => br != alpha);
-  const beta = randElem(remBrokers);
+const randInstance = (instances: any) => {
+  const firstInstance = randElem(instances);
+  const remInstances = instances.filter((br: any) => br != firstInstance);
+  const secondInstance = randElem(remInstances);
 
-  return [alpha, beta];
+  return [firstInstance, secondInstance];
 };
 
-const [ALPHA_IP, BETA_IP] = randBrokers(BROKERS);
+const [ALPHA_IP, BETA_IP] = randInstance(BROKERS);
+const [PROVIDER_1, PROVIDER_2] = randInstance(IOTA_PROVIDERS);
 
 export const API = Object.freeze({
   BROKER_NODE_A: `${PROTOCOL}://${ALPHA_IP}`,
@@ -38,8 +47,8 @@ export const API = Object.freeze({
 
 export const IOTA_API = Object.freeze({
   PROVIDER_A: `${PROTOCOL}://${POLLING_NODE}:14265`,
-  PROVIDER_B: `${PROTOCOL}://${ALPHA_IP}:14265`,
-  PROVIDER_C: `${PROTOCOL}://${BETA_IP}:14265`,
+  PROVIDER_B: `${PROTOCOL}://${PROVIDER_1}:14265`,
+  PROVIDER_C: `${PROTOCOL}://${PROVIDER_2}:14265`,
   ADDRESS_LENGTH: 81,
   MESSAGE_LENGTH: 2187,
   BUNDLE_SIZE: 100

@@ -74,13 +74,14 @@ const CopyButton = styled(Button)`
 interface ClipboardWidgetProps {
   text;
   title;
+  property;
 }
 
 class ClipboardWidget extends Component<ClipboardWidgetProps> {
   state = { isCopied: false };
 
   render() {
-    const { text, title } = this.props;
+    const { text, title, property } = this.props;
 
     return (
       <div>
@@ -94,7 +95,7 @@ class ClipboardWidget extends Component<ClipboardWidgetProps> {
         >
           <CopyButton>
             <Icon src={ICON_COPY} />
-            {this.state.isCopied ? "Copied!" : "Copy Address"}
+            {this.state.isCopied ? "Copied!" : "Copy " + property}
           </CopyButton>
         </CopyToClipboard>
       </div>
