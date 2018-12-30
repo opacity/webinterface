@@ -17,7 +17,7 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
       of at least <Cost>{gasPrice} Gwei</Cost> to the address listed below. Your
       upload will start automatically after your payment is received.
     </ScreenDescription>
-    <ClipboardWidget title="Address" text={ethAddress} />
+    <ClipboardWidget title="Address" text={ethAddress} property="Address" />
   </ScreenContainer>
 );
 

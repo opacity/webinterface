@@ -49,7 +49,7 @@ const UploadProgressSlide = ({ uploadProgress, handle }) => (
       <ProgressBar progress={uploadProgress} />
     </ProgressSection>
 
-    <ClipboardWidget title="Opacity Handle" text={handle} />
+    <ClipboardWidget title="Opacity Handle" text={handle} property="Handle" />
   </ScreenContainer>
 );
 
