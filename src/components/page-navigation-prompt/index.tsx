@@ -10,8 +10,12 @@ const mapDispatchToProps = dispatch => ({});
 
 const PageNavigationPrompt = ({ upload }) => (
   <Prompt
-    when={upload.invoice && upload.uploadState == "UPLOADING"}
-    message={_ => "You have started an upload, are you sure you want to cancel your upload?"}
+    when={upload.invoice && ["UPLOADING", "ATTACHING_META"].includes(upload.uploadState)}
+    message={(location, action) => {
+      return action == "POP"
+        ? "You have started an upload, are you sure you want to cancel your upload?"
+        : null
+    } }
   />
 );
 
