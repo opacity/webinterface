@@ -10,6 +10,9 @@ const ICON_UPLOAD = require("../../assets/images/icon_upload.svg");
 
 const LinkContainer = styled.div`
   display: flex;
+  @media only screen and (max-width: 398px) {
+    display: block;
+   }
 `;
 
 const Icon = styled.img`
@@ -35,6 +38,11 @@ const Link = styled.a`
   margin-right: 20px;
   text-transform: uppercase;
   width: 220px;
+  @media only screen and (max-width: 398px) {
+    width: 100%;
+    margin-right: 0px;
+    margin-bottom: 15px;
+   }
 `;
 
 const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn, history }) => (

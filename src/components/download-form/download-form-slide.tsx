@@ -62,6 +62,9 @@ const DownloadButton = styled(Button)`
   margin-right: 20px;
   text-transform: uppercase;
   width: 300px;
+  @media only screen and (max-width: 398px) {
+    width: 100%;
+   }
 `;
 
 interface DownloadFormSlideProps {

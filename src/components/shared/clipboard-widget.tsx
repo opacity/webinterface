@@ -16,6 +16,10 @@ const TextContainer = styled.div`
   overflow: hidden;
   width: 380px;
   background-color: #232b40;
+  @media only screen and (max-width: 567px) {
+    width: 100%;
+    height:100%;
+   }
 `;
 
 const TextBox = styled.p`
@@ -33,6 +37,10 @@ const TextBox = styled.p`
   text-align: center;
   vertical-align: middle;
   width: 100%;
+  @media only screen and (max-width: 567px) {
+    display: block;
+    height: auto;
+   }
 
   &::-webkit-scrollbar {
     height: 0px;
@@ -69,6 +77,9 @@ const CopyButton = styled(Button)`
   text-transform: uppercase;
   width: 289px;
   height: 40px;
+  @media only screen and (max-width: 567px) {
+    width: 100%;
+   }
 `;
 
 interface ClipboardWidgetProps {
