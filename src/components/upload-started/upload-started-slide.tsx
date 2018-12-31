@@ -16,12 +16,14 @@ const ProgressText = styled.p`
   color: #ffffff;
   @media only screen and (max-width: 567px) {
     width: 100%;
-   }
+  }
 `;
 
 const UploadStartedSlide = ({ chunksProgress }) => {
   // TODO: Listen to meta attached state?
   const waitingForMeta = chunksProgress >= 99.999; // epsilon b/c float comparison.
+
+  const roundedProgress = Math.round(chunksProgress * 10) / 10;
 
   return (
     <ScreenContainer title={"File Uploading to Brokers"}>
@@ -34,7 +36,7 @@ const UploadStartedSlide = ({ chunksProgress }) => {
       <ProgressText>
         {waitingForMeta
           ? "Confirming upload on the tangle..."
-          : `${chunksProgress}% - File is being broken into encrypted chunks`}
+          : `${roundedProgress}% - File is being broken into encrypted chunks`}
       </ProgressText>
     </ScreenContainer>
   );
