@@ -44,7 +44,7 @@ const UploadButton = styled(Button)`
   width: 300px;
   @media only screen and (max-width: 567px) {
     width: 100%;
-   }
+  }
 `;
 
 const BrokerSelectWrapper = styled.div`
@@ -52,7 +52,7 @@ const BrokerSelectWrapper = styled.div`
   justify-content: space-between;
   @media only screen and (max-width: 567px) {
     display: block;
-   }
+  }
 `;
 
 const FileSelectWrapper = styled.div`
@@ -91,7 +91,7 @@ const UploadInputContainer = styled.div`
   width: 380px;
   @media only screen and (max-width: 567px) {
     width: 100%;
-   }
+  }
 `;
 
 const Disclaimer = styled.div`
@@ -115,7 +115,7 @@ const UploadColumn = styled.div`
   padding-right: 10px;
   @media only screen and (max-width: 567px) {
     width: 100%;
-   }
+  }
 `;
 
 const Underline = styled.hr`
@@ -144,7 +144,7 @@ const StorageFees = styled.div`
   background-color: #232b40;
   @media only screen and (max-width: 567px) {
     width: 100%;
-   }
+  }
 `;
 
 const StorageCost = styled.span`
@@ -410,8 +410,8 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
         </UploadButtonContainer>
         <Disclaimer>
           DISCLAIMER: This is a beta phase and should not be used for important
-          data. Uploads cost 1 OPQ per 64 GB. Current filesize limit is 125 MB
-          per file.
+          data. Uploads cost 1 OPQ per 64 GB. Current filesize limit is{" "}
+          {FILE.MAX_FILE_SIZE / 1000000} MB per file.
         </Disclaimer>
       </ScreenContainer>
     );

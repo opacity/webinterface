@@ -3,8 +3,8 @@ export const IS_DEV = process.env.NODE_ENV === "development";
 const PROTOCOL = IS_DEV ? "http" : "https";
 
 const POLLING_NODE = IS_DEV
- // ? ["18.191.77.193"] // Travis broker
-  ? ["18.188.230.212"]
+  ? // ? ["18.191.77.193"] // Travis broker
+    ["18.188.230.212"]
   : ["poll2.oysternodes.com"];
 
 export const OLD_TANGLE_NODE_1 = "https://download.oysternodes.com:14265";
@@ -14,14 +14,14 @@ export const PROD_IOTA_1 = "prodiota1.oysternodes.com";
 export const PROD_IOTA_2 = "prodiota2.oysternodes.com";
 
 const IOTA_PROVIDERS = IS_DEV
- // ? ["18.222.56.121", "18.191.77.193"]
-  ? ["18.222.173.29", "18.188.230.212"]
+  ? // ? ["18.222.56.121", "18.191.77.193"]
+    ["18.222.173.29", "18.188.230.212"]
   : [PROD_IOTA_1, PROD_IOTA_2];
 
 const BROKERS = IS_DEV
   ? ["18.222.173.29", "18.188.230.212"] // Rebel brokers
-    //["52.14.218.135", "18.217.133.146"] // QA brokers
-    : ["broker-1.oysternodes.com", "broker-2.oysternodes.com"];
+  : //["52.14.218.135", "18.217.133.146"] // QA brokers
+    ["broker-1.oysternodes.com", "broker-2.oysternodes.com"];
 
 // Hack until we have proper load balancing.
 const randElem = (xs: string) => xs[Math.floor(Math.random() * xs.length)];
@@ -66,7 +66,7 @@ export const DOWNLOAD_STATUSES = Object.freeze({
 });
 
 export const FILE = Object.freeze({
-  MAX_FILE_SIZE: 125 * 1000 * 1000, // 125mb
+  MAX_FILE_SIZE: 250 * 1000 * 1000, // 250mb
   CHUNK_TYPES: {
     METADATA: "METADATA",
     FILE_CONTENTS: "FILE_CONTENTS"

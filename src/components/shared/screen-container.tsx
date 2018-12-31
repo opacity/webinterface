@@ -4,9 +4,12 @@ import styled from "styled-components";
 const Container = styled.div`
   padding: 70px 250px;
   height: 100%;
+  max-width: 950px;
+  margin: auto;
+
   @media only screen and (max-width: 776px) {
     padding: 70px 50px;
-   }
+  }
 `;
 
 const Title = styled.h3`
