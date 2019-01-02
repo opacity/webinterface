@@ -10,6 +10,7 @@ import history from "./redux/history";
 
 import Root from "./components/root";
 import Header from "./components/shared/header";
+import TermsOfService from "./components/agreements/terms-of-service";
 import BrokersDown from "./components/brokers-down";
 import DownloadForm from "./components/download-form";
 import DownloadStarted from "./components/download-started";
@@ -56,6 +57,7 @@ const App = () => (
 
             <Route path="/error-page" component={ErrorPage} />
             <Route path="/brokers-down" component={BrokersDown} />
+            <Route path="/terms-of-service" component={TermsOfService} />
           </Switch>
         </div>
       </ConnectedRouter>
