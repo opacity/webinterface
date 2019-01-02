@@ -217,7 +217,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
   }
 
   calculateStorageCost(fileSizeBytes, years) {
-    let chunks = Math.ceil(fileSizeBytes / 1000) + 1; // 1 kb for metadata
+    let chunks = Math.ceil(fileSizeBytes / 1024) + 1; // 1 kb for metadata
     let numSectors = Math.ceil(chunks / CHUNKS_IN_SECTOR);
     let costPerYear = numSectors / STORAGE_PEG;
     return costPerYear * years;
