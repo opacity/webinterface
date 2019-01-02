@@ -27,7 +27,9 @@ const CheckboxInput = styled.input.attrs({
   margin-right: 10px;
 `;
 
-const CheckboxLabel = styled.label``;
+const CheckboxLabel = styled.label`
+  color: #ffffff;
+`;
 
 const Link = styled.a.attrs({
   target: "_blank"
@@ -369,8 +371,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                 }
                 checked={this.state.isTermsChecked}
               />
-              Click here to indicate that you have read and agree to the terms
-              presented in the{" "}
+              I agree to the{" "}
               <Link href="/terms-of-service">Terms and Conditions</Link> and{" "}
               <Link href="/privacy-policy">Privacy Policy</Link>
             </CheckboxLabel>
