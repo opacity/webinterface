@@ -10,7 +10,7 @@ import history from "./redux/history";
 
 import Root from "./components/root";
 import Header from "./components/shared/header";
-import TermsOfService from "./components/agreements/terms-of-service";
+import Agreement from "./components/agreement";
 import BrokersDown from "./components/brokers-down";
 import DownloadForm from "./components/download-form";
 import DownloadStarted from "./components/download-started";
@@ -28,6 +28,8 @@ import PageNavigationPrompt from "./components/page-navigation-prompt";
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
 import { unregister } from "./register-service-worker";
+
+import { AGREEMENT_TYPES } from "./config";
 
 const App = () => (
   <Provider store={store}>
@@ -57,7 +59,24 @@ const App = () => (
 
             <Route path="/error-page" component={ErrorPage} />
             <Route path="/brokers-down" component={BrokersDown} />
-            <Route path="/terms-of-service" component={TermsOfService} />
+            <Route
+              path="/terms-of-service"
+              render={() => (
+                <Agreement
+                  title="Terms of Service"
+                  type={AGREEMENT_TYPES.TERMS_OF_SERVICE}
+                />
+              )}
+            />
+            <Route
+              path="/privacy-policy"
+              render={() => (
+                <Agreement
+                  title="Privacy Policy"
+                  type={AGREEMENT_TYPES.PRIVACY_POLICY}
+                />
+              )}
+            />
           </Switch>
         </div>
       </ConnectedRouter>
