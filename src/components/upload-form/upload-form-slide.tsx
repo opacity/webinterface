@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import Select from "react-select";
 import "react-select/dist/react-select.css";
 
-import { API, FILE } from "../../config";
+import { FILE } from "../../config";
 import Button from "../shared/button";
 import Spinner from "../shared/spinner";
 import ScreenContainer from "../shared/screen-container";
@@ -17,6 +16,28 @@ const DEFAULT_FILE_INPUT_COST = 0;
 const DEFAULT_HUMAN_FILE_SIZE = 0;
 const CHUNKS_IN_SECTOR = 1000000;
 const STORAGE_PEG = 64;
+
+const CheckboxContainer = styled.div`
+  margin-bottom: 10px;
+`;
+
+const CheckboxInput = styled.input.attrs({
+  type: "checkbox"
+})`
+  margin-right: 10px;
+`;
+
+const CheckboxLabel = styled.label`
+  color: #ffffff;
+`;
+
+const Link = styled.a.attrs({
+  target: "_blank"
+})`
+  color: #846b99;
+  text-decoration: none;
+  font-weight: 600;
+`;
 
 const Icon = styled.img`
   height: 30px;
@@ -44,14 +65,6 @@ const UploadButton = styled(Button)`
   width: 300px;
   @media only screen and (max-width: 567px) {
     width: 100%;
-  }
-`;
-
-const BrokerSelectWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  @media only screen and (max-width: 567px) {
-    display: block;
   }
 `;
 
@@ -97,11 +110,7 @@ const UploadInputContainer = styled.div`
 const Disclaimer = styled.div`
   font-size: 12px;
   color: #ffffff;
-  text-align: center;
   margin-top: 15px;
-  position: absolute;
-  left: 0;
-  right: 0;
 `;
 
 const UploadButtonContainer = styled.div`
@@ -179,8 +188,6 @@ const UploadFolder = styled.span`
 interface UploadSlideProps {
   alphaBroker;
   betaBroker;
-  selectAlphaBroker;
-  selectBetaBroker;
   retentionYears;
   selectRetentionYears;
   streamUploadFn;
@@ -191,6 +198,7 @@ interface UploadSlideState {
   fileSize;
   storageCost;
   humanFileSize;
+  isTermsChecked: boolean;
   isInitializing: boolean; // TODO: Enum this.
 }
 
@@ -203,16 +211,37 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
       fileSize: DEFAULT_FILE_INPUT_SIZE,
       storageCost: DEFAULT_FILE_INPUT_COST,
       humanFileSize: DEFAULT_HUMAN_FILE_SIZE,
+      isTermsChecked: false,
       isInitializing: false
     };
   }
 
+  calculateStorageCost(fileSizeBytes, years) {
+    let chunks = Math.ceil(fileSizeBytes / 1024) + 1; // 1 kb for metadata
+    let numSectors = Math.ceil(chunks / CHUNKS_IN_SECTOR);
+    let costPerYear = numSectors / STORAGE_PEG;
+    return costPerYear * years;
+  }
+
+  humanFileSize(bytes, si) {
+    let thresh = si ? 1000 : 1024;
+    if (Math.abs(bytes) < thresh) {
+      return bytes + " B";
+    }
+    let units = si
+      ? ["kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+      : ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
+    let u = -1;
+    do {
+      bytes /= thresh;
+      ++u;
+    } while (Math.abs(bytes) >= thresh && u < units.length - 1);
+    return bytes.toFixed(1) + " " + units[u];
+  }
   render() {
     const {
       alphaBroker,
       betaBroker,
-      selectAlphaBroker,
-      selectBetaBroker,
       retentionYears,
       selectRetentionYears,
       streamUploadFn
@@ -220,50 +249,6 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
 
     return (
       <ScreenContainer title={"Upload a file"}>
-        <BrokerSelectWrapper>
-          <UploadColumn>
-            <InputLabel>Broker Node 1</InputLabel>
-            <Select
-              name="broker-node-1"
-              disabled
-              clearable={false}
-              searchable={false}
-              value={alphaBroker}
-              onChange={option => selectAlphaBroker(option.value)}
-              options={[
-                {
-                  value: API.BROKER_NODE_A,
-                  label: "broker-1.opacitynodes.com"
-                },
-                {
-                  value: API.BROKER_NODE_B,
-                  label: "broker-2.opacitynodes.com"
-                }
-              ]}
-            />
-          </UploadColumn>
-          <UploadColumn>
-            <InputLabel>Broker Node 2</InputLabel>
-            <Select
-              name="broker-node-2"
-              disabled
-              clearable={false}
-              searchable={false}
-              value={betaBroker}
-              onChange={option => selectBetaBroker(option.value)}
-              options={[
-                {
-                  value: API.BROKER_NODE_A,
-                  label: "broker-1.opacitynodes.com"
-                },
-                {
-                  value: API.BROKER_NODE_B,
-                  label: "broker-2.opacitynodes.com"
-                }
-              ]}
-            />
-          </UploadColumn>
-        </BrokerSelectWrapper>
         <UploadSection>
           <InputLabel>Select Retention Time</InputLabel>
           <RetentionWrapper>
@@ -376,9 +361,24 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
           </StorageFees>
         </CostContainer>
         <UploadButtonContainer>
+          <CheckboxContainer>
+            <CheckboxLabel htmlFor="terms-checkbox">
+              <CheckboxInput
+                id="terms-checkbox"
+                value="checked"
+                onChange={e =>
+                  this.setState({ isTermsChecked: e.target.checked })
+                }
+                checked={this.state.isTermsChecked}
+              />
+              I agree to the{" "}
+              <Link href="/terms-of-service">Terms and Conditions</Link> and{" "}
+              <Link href="/privacy-policy">Privacy Policy</Link>
+            </CheckboxLabel>
+          </CheckboxContainer>
           <UploadButton
             id="start-upload-btn"
-            disabled={this.state.isInitializing}
+            disabled={this.state.isInitializing || !this.state.isTermsChecked}
             type="button"
             onClick={() => {
               const fileInput: any = this.refs.fileInput;
@@ -415,29 +415,6 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
         </Disclaimer>
       </ScreenContainer>
     );
-  }
-
-  calculateStorageCost(fileSizeBytes, years) {
-    let chunks = Math.ceil(fileSizeBytes / 1000) + 1; // 1 kb for metadata
-    let numSectors = Math.ceil(chunks / CHUNKS_IN_SECTOR);
-    let costPerYear = numSectors / STORAGE_PEG;
-    return costPerYear * years;
-  }
-
-  humanFileSize(bytes, si) {
-    let thresh = si ? 1000 : 1024;
-    if (Math.abs(bytes) < thresh) {
-      return bytes + " B";
-    }
-    let units = si
-      ? ["kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
-      : ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
-    let u = -1;
-    do {
-      bytes /= thresh;
-      ++u;
-    } while (Math.abs(bytes) >= thresh && u < units.length - 1);
-    return bytes.toFixed(1) + " " + units[u];
   }
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import uploadActions from "../../redux/actions/upload-actions";
-import UploadSlide from "./upload-slide";
+import UploadSlide from "./upload-form-slide";
 
 const mapStateToProps = state => ({
   alphaBroker: state.upload.alphaBroker,
@@ -41,4 +41,7 @@ const UploadForm = ({
   />
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(UploadForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UploadForm);
