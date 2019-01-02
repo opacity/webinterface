@@ -18,6 +18,26 @@ const DEFAULT_HUMAN_FILE_SIZE = 0;
 const CHUNKS_IN_SECTOR = 1000000;
 const STORAGE_PEG = 64;
 
+const CheckboxContainer = styled.div`
+  margin-bottom: 10px;
+`;
+
+const CheckboxInput = styled.input.attrs({
+  type: "checkbox"
+})`
+  margin-right: 10px;
+`;
+
+const CheckboxLabel = styled.label``;
+
+const Link = styled.a.attrs({
+  target: "_blank"
+})`
+  color: #846b99;
+  text-decoration: none;
+  font-weight: 600;
+`;
+
 const Icon = styled.img`
   height: 30px;
   width: 22px;
@@ -191,6 +211,7 @@ interface UploadSlideState {
   fileSize;
   storageCost;
   humanFileSize;
+  isTermsChecked: boolean;
   isInitializing: boolean; // TODO: Enum this.
 }
 
@@ -203,6 +224,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
       fileSize: DEFAULT_FILE_INPUT_SIZE,
       storageCost: DEFAULT_FILE_INPUT_COST,
       humanFileSize: DEFAULT_HUMAN_FILE_SIZE,
+      isTermsChecked: false,
       isInitializing: false
     };
   }
@@ -398,9 +420,25 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
           </StorageFees>
         </CostContainer>
         <UploadButtonContainer>
+          <CheckboxContainer>
+            <CheckboxLabel htmlFor="terms-checkbox">
+              <CheckboxInput
+                id="terms-checkbox"
+                value="checked"
+                onChange={e =>
+                  this.setState({ isTermsChecked: e.target.checked })
+                }
+                checked={this.state.isTermsChecked}
+              />
+              Click here to indicate that you have read and agree to the terms
+              presented in the{" "}
+              <Link href="/terms-of-service">Terms and Conditions</Link> and{" "}
+              <Link href="/privacy-policy">Privacy Policy</Link>
+            </CheckboxLabel>
+          </CheckboxContainer>
           <UploadButton
             id="start-upload-btn"
-            disabled={this.state.isInitializing}
+            disabled={this.state.isInitializing || !this.state.isTermsChecked}
             type="button"
             onClick={() => {
               const fileInput: any = this.refs.fileInput;
