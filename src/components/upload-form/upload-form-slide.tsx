@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import Select from "react-select";
 import "react-select/dist/react-select.css";
 
-import { API, FILE } from "../../config";
+import { FILE } from "../../config";
 import Button from "../shared/button";
 import Spinner from "../shared/spinner";
 import ScreenContainer from "../shared/screen-container";
@@ -67,14 +66,6 @@ const UploadButton = styled(Button)`
   }
 `;
 
-const BrokerSelectWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  @media only screen and (max-width: 567px) {
-    display: block;
-  }
-`;
-
 const FileSelectWrapper = styled.div`
   display: flex;
   margin-top: 20px;
@@ -117,11 +108,7 @@ const UploadInputContainer = styled.div`
 const Disclaimer = styled.div`
   font-size: 12px;
   color: #ffffff;
-  text-align: center;
   margin-top: 15px;
-  position: absolute;
-  left: 0;
-  right: 0;
 `;
 
 const UploadButtonContainer = styled.div`
@@ -199,8 +186,6 @@ const UploadFolder = styled.span`
 interface UploadSlideProps {
   alphaBroker;
   betaBroker;
-  selectAlphaBroker;
-  selectBetaBroker;
   retentionYears;
   selectRetentionYears;
   streamUploadFn;
@@ -255,8 +240,6 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     const {
       alphaBroker,
       betaBroker,
-      selectAlphaBroker,
-      selectBetaBroker,
       retentionYears,
       selectRetentionYears,
       streamUploadFn
@@ -264,50 +247,6 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
 
     return (
       <ScreenContainer title={"Upload a file"}>
-        <BrokerSelectWrapper>
-          <UploadColumn>
-            <InputLabel>Broker Node 1</InputLabel>
-            <Select
-              name="broker-node-1"
-              disabled
-              clearable={false}
-              searchable={false}
-              value={alphaBroker}
-              onChange={option => selectAlphaBroker(option.value)}
-              options={[
-                {
-                  value: API.BROKER_NODE_A,
-                  label: "broker-1.opacitynodes.com"
-                },
-                {
-                  value: API.BROKER_NODE_B,
-                  label: "broker-2.opacitynodes.com"
-                }
-              ]}
-            />
-          </UploadColumn>
-          <UploadColumn>
-            <InputLabel>Broker Node 2</InputLabel>
-            <Select
-              name="broker-node-2"
-              disabled
-              clearable={false}
-              searchable={false}
-              value={betaBroker}
-              onChange={option => selectBetaBroker(option.value)}
-              options={[
-                {
-                  value: API.BROKER_NODE_A,
-                  label: "broker-1.opacitynodes.com"
-                },
-                {
-                  value: API.BROKER_NODE_B,
-                  label: "broker-2.opacitynodes.com"
-                }
-              ]}
-            />
-          </UploadColumn>
-        </BrokerSelectWrapper>
         <UploadSection>
           <InputLabel>Select Retention Time</InputLabel>
           <RetentionWrapper>
