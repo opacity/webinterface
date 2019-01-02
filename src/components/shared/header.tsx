@@ -14,6 +14,7 @@ const Container = styled.div`
 const Navbar = styled.div`
   display: flex;
   height: 100%;
+  max-width: 1385px;
   justify-content: space-between;
 `;
 
