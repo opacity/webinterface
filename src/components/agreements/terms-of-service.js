@@ -1,13 +1,25 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
+import { Markdown } from "react-showdown";
 
+import TOS_MARKDOWN from "./terms-of-service.md";
 import ScreenContainer from "../shared/screen-container";
 
-const Link = styled.a`
-  color: #846b99;
-  font-weight: 600;
-`;
+class TermsOfService extends Component {
+  state = { text: "" };
 
-const TermsOfService = () => <ScreenContainer title={"Terms of Service"} />;
+  componentDidMount() {
+    fetch(TOS_MARKDOWN)
+      .then(resp => resp.text())
+      .then(text => this.setState({ text }));
+  }
 
+  render() {
+    return (
+      <ScreenContainer title={"Terms of Service"}>
+        <Markdown markup={this.state.text} />
+      </ScreenContainer>
+    );
+  }
+}
 export default TermsOfService;
