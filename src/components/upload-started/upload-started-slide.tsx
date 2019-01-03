@@ -19,8 +19,9 @@ const ProgressText = styled.p`
   }
 `;
 
-const Important = styled.span`
+const Important = styled.p`
   font-weight: 600;
+  width: 460px;
 `;
 
 const UploadStartedSlide = ({ chunksProgress }) => {
@@ -33,12 +34,13 @@ const UploadStartedSlide = ({ chunksProgress }) => {
     <ScreenContainer title={"File Uploading to Brokers"}>
       <ScreenDescription>
         Transaction Confirmed. Your file is now being uploaded to the broker
-        nodes, and you will receive your Opacity Handle once the upload is
-        complete.{" "}
-        <Important>
-          Please do not leave the page until you receive your handle.
-        </Important>
+        nodes and you will receive your Opacity Handle once the upload is
+        complete. Your Opacity Handle is your key to retrieve your file.
       </ScreenDescription>
+      <Important>
+        Note: Please DO NOT LEAVE this page until you receive your handle. This
+        may take some time based on the file size and your internet speed.
+      </Important>
       <ProgressBar progress={chunksProgress} />
       <ProgressText>
         {waitingForMeta
