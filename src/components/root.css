@@ -44,6 +44,10 @@ hr {
   margin-bottom: 2rem;
 }
 
+li {
+  color: #ffffff;
+}
+
 button:focus {
   outline: 0;
 }
@@ -109,7 +113,7 @@ ul#manu li a {
   line-height: 45px;
 }
 p {
-  color: #778291;
+  color: #ffffff;
   font-weight: 500;
   font-size: 15px;
   line-height: 26px;

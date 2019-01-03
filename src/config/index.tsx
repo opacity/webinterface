@@ -77,3 +77,8 @@ export const INCLUDE_TREASURE_OFFSETS = true;
 export const MAX_ADDRESSES = 1000;
 export const NUM_POLLING_ADDRESSES = 301;
 export const IOTA_POLL_INTERVAL = 2000;
+
+export const AGREEMENT_TYPES = Object.freeze({
+  TERMS_OF_SERVICE: "TERMS_OF_SERVICE",
+  PRIVACY_POLICY: "PRIVACY_POLICY"
+});
