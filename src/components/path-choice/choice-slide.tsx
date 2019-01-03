@@ -12,7 +12,7 @@ const LinkContainer = styled.div`
   display: flex;
   @media only screen and (max-width: 398px) {
     display: block;
-   }
+  }
 `;
 
 const Icon = styled.img`
@@ -42,14 +42,13 @@ const Link = styled.a`
     width: 100%;
     margin-right: 0px;
     margin-bottom: 15px;
-   }
+  }
 `;
 
 const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn, history }) => (
-  <ScreenContainer title={"Opacity Storage"}>
+  <ScreenContainer title={"Welcome to Opacity Storage"}>
     <ScreenDescription>
-      Welcome to Opacity Storage. Please select one of the options provided
-      below.
+      Please select an option below to access anonymous storage.
     </ScreenDescription>
     <LinkContainer>
       <Link onClick={() => history.push("/upload-form")}>

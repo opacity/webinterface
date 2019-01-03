@@ -10,13 +10,21 @@ const Terminology = styled.span`
   font-weight: 600;
 `;
 
+const Important = styled.p`
+  font-weight: 600;
+  width: 460px;
+`;
+
 const UploadCompleteSlide = ({ handle }) => (
   <ScreenContainer title={"Attachment Complete"}>
     <ScreenDescription>
-      Your file has been successfully uploaded to the Tangle. Your{" "}
-      <Terminology>Opacity Handle</Terminology> is below. This handle is the
-      only way to access your file on the Tangle. Please store this handle in a
-      safe place.
+      Your file has been successfully uploaded! Your{" "}
+      <Terminology>Opacity Handle</Terminology> is below.
+      <Important>
+        Important: This handle is the only way to access your file. Please store
+        this handle in a safe place. Anyone with access to your handle has
+        access to your data.
+      </Important>
     </ScreenDescription>
     <ClipboardWidget title="Opacity Handle" text={handle} property="Handle" />
   </ScreenContainer>
