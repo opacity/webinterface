@@ -15,7 +15,8 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
     <ScreenDescription>
       To complete this transaction, send <Cost>{cost} OPQ</Cost> with gas price
       of at least <Cost>{gasPrice} Gwei</Cost> to the address listed below. Your
-      upload will start automatically after your payment is received.
+      upload will start automatically after your payment is received. This may
+      take some time depending on network traffic.
     </ScreenDescription>
     <ClipboardWidget title="Address" text={ethAddress} property="Address" />
   </ScreenContainer>
