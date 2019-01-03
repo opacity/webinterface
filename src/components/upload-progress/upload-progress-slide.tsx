@@ -32,16 +32,16 @@ const ProgressSection = styled.div`
 `;
 
 const UploadProgressSlide = ({ uploadProgress, handle }) => (
-  <ScreenContainer title={"Attaching File to Tangle"}>
+  <ScreenContainer title={"Attaching File"}>
     <ScreenDescription>
       Your file has been uploaded to the broker nodes and an{" "}
       <Terminology>Opacity Handle</Terminology> has been provided below.{" "}
       <Bold>
-        This handle is the only way to access your file on the Tangle. Please
-        store this handle in a safe place now.
+        This handle is the only way to access your file. Please store this
+        handle in a safe place now.
       </Bold>{" "}
-      Leaving this page will not interrupt your file attaching to the Tangle.
-      Bookmark this page to return later and check your file upload progress.
+      Leaving this page now will not interrupt your file upload. Bookmark this
+      page to return later and check your file upload progress.
     </ScreenDescription>
 
     <ProgressSection>

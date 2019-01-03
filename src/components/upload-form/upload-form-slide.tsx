@@ -248,7 +248,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     } = this.props;
 
     return (
-      <ScreenContainer title={"Upload a file"}>
+      <ScreenContainer title={"Upload File"}>
         <UploadSection>
           <InputLabel>Select Retention Time</InputLabel>
           <RetentionWrapper>

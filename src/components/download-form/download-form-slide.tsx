@@ -64,7 +64,7 @@ const DownloadButton = styled(Button)`
   width: 300px;
   @media only screen and (max-width: 398px) {
     width: 100%;
-   }
+  }
 `;
 
 interface DownloadFormSlideProps {
@@ -92,10 +92,9 @@ class DownloadFormSlide extends React.Component<
   render() {
     const { download, status } = this.props;
     return (
-      <ScreenContainer title={"Retrieve a file"}>
+      <ScreenContainer title={"Retrieve File"}>
         <ScreenDescription>
-          Enter your Opacity handle below to access your stored file from the
-          Tangle.
+          Enter your Opacity handle below to download your file from Opacity.
         </ScreenDescription>
         <InputContainer>
           <label>
@@ -119,7 +118,8 @@ class DownloadFormSlide extends React.Component<
               } else {
                 download(handle);
               }
-            }}>
+            }}
+          >
             <Icon src={ICON_DOWNLOAD} />
             {status === DOWNLOAD_STATUSES.PENDING
               ? "Retrieving file..."
