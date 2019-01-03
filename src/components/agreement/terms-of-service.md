@@ -198,7 +198,7 @@ These Terms of Service will become effective as of the date when either of the f
 
 9.1.2. when you submit your consent to these Terms of Service on the Platform after having placed a check inside the consent box and read and understood these Terms of Service.
 
-This policy was last modified on <INSERT DATE>.
+This policy was last modified on January 3, 2019.
 
 9.2. Termination
 

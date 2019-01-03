@@ -124,7 +124,7 @@ Opacity does not share any of your personal information or data attachments with
 
 11. Modification To Our Privacy Policy
 
-This Privacy Policy is subject to revision at our discretion, as necessary. If we make any material changes in the way your information is collected, used or disseminated, we will post an alert on this page and update the modification date below. We will do our best to notify you of these changes by alerts on our Services/Site. Continued use of Opacity indicates your acknowledgement of such changes and agreement to be bound by the terms and conditions of such changes. This policy was last modified on <INSERT DATE>.
+This Privacy Policy is subject to revision at our discretion, as necessary. If we make any material changes in the way your information is collected, used or disseminated, we will post an alert on this page and update the modification date below. We will do our best to notify you of these changes by alerts on our Services/Site. Continued use of Opacity indicates your acknowledgement of such changes and agreement to be bound by the terms and conditions of such changes. This policy was last modified on January 3, 2019.
 
 12. Contact
 
