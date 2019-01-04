@@ -35,12 +35,12 @@ const common = {
           {
             options: {
               formatter: eslintFormatter,
-              eslintPath: require.resolve("eslint"),
+              eslintPath: require.resolve("eslint")
             },
-            loader: require.resolve("eslint-loader"),
-          },
+            loader: require.resolve("eslint-loader")
+          }
         ],
-        include: paths.appSrc,
+        include: paths.appSrc
       },
       {
         // "oneOf" will traverse all following loaders until one will
@@ -54,8 +54,8 @@ const common = {
             loader: require.resolve("url-loader"),
             options: {
               limit: 10000,
-              name: "static/media/[name].[hash].[ext]",
-            },
+              name: "static/media/[name].[hash].[ext]"
+            }
           },
           // Process JS with Babel.
           {
@@ -63,12 +63,12 @@ const common = {
             include: paths.appSrc,
             loader: require.resolve("babel-loader"),
             options: {
-              compact: true,
-            },
+              compact: true
+            }
           },
           {
             test: /\.tsx?$/,
-            use: ["awesome-typescript-loader"],
+            use: ["awesome-typescript-loader"]
           },
           {
             test: /\.css$/,
@@ -76,11 +76,11 @@ const common = {
               {
                 loader: MiniCssExtractPlugin.loader,
                 options: {
-                  publicPath: "../",
-                },
+                  publicPath: "../"
+                }
               },
-              "css-loader",
-            ],
+              "css-loader"
+            ]
           },
           {
             test: /worker\.js$/,
@@ -88,21 +88,21 @@ const common = {
               loader: "worker-loader",
               options: {
                 name: "[name].[hash].[ext]",
-                publicPath: "src/redux/workers/",
-              },
-            },
+                publicPath: "src/redux/workers/"
+              }
+            }
           },
           {
             loader: require.resolve("file-loader"),
             exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/],
             options: {
-              name: "static/media/[name].[hash].[ext]",
-            },
-          },
-        ],
-      },
-    ],
-  },
+              name: "static/media/[name].[hash].[ext]"
+            }
+          }
+        ]
+      }
+    ]
+  }
 };
 // end common configuration
 
@@ -113,13 +113,13 @@ if (env.stringified["process.env"].NODE_ENV === '"production"') {
     entry: paths.appSrc + "/index.js",
     output: {
       path: paths.appBuild,
-      filename: `static/js/oyster-webnode-${APP_VERSION}.min.js`,
+      filename: `static/js/opacity-webinterface-${APP_VERSION}.min.js`,
       chunkFilename: "static/js/[name].chunk.js",
       publicPath,
       devtoolModuleFilenameTemplate: info =>
         path
           .relative(paths.appSrc, info.absoluteResourcePath)
-          .replace(/\\/g, "/"),
+          .replace(/\\/g, "/")
     },
     resolve: {
       modules: ["node_modules", paths.appNodeModules].concat(
@@ -133,18 +133,18 @@ if (env.stringified["process.env"].NODE_ENV === '"production"') {
         ".web.jsx",
         ".jsx",
         ".ts",
-        ".tsx",
+        ".tsx"
       ],
-      plugins: [new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])],
+      plugins: [new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])]
     },
     plugins: [
       new BundleAnalyzerPlugin({
         generateStatsFile: generateStatsFile,
-        analyzerMode: "static",
+        analyzerMode: "static"
       }),
       new MiniCssExtractPlugin({
         filename: "[name].[hash].css",
-        chunkFilename: "[id].[hash].css",
+        chunkFilename: "[id].[hash].css"
       }),
       new HtmlWebpackPlugin({
         inject: true,
@@ -159,20 +159,20 @@ if (env.stringified["process.env"].NODE_ENV === '"production"') {
           keepClosingSlash: true,
           minifyJS: true,
           minifyCSS: true,
-          minifyURLs: true,
-        },
+          minifyURLs: true
+        }
       }),
       new ManifestPlugin({
-        fileName: "asset-manifest.json",
+        fileName: "asset-manifest.json"
       }),
       new ScriptExtHtmlWebpackPlugin({
         custom: [
           {
             test: /.js$/,
             attribute: "data-eth-address",
-            value: "0xD1833A50f411432aD38E8374df8Cfff79e743788",
-          },
-        ],
+            value: "0xD1833A50f411432aD38E8374df8Cfff79e743788"
+          }
+        ]
       }),
       new SWPrecacheWebpackPlugin({
         // By default, a cache-busting query parameter is appended to requests
@@ -199,10 +199,10 @@ if (env.stringified["process.env"].NODE_ENV === '"production"') {
         // https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
         navigateFallbackWhitelist: [/^(?!\/__).*/],
         // Don't precache sourcemaps (they're large) and build asset manifest:
-        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
       }),
-      new InterpolateHtmlPlugin(env.raw),
-    ],
+      new InterpolateHtmlPlugin(env.raw)
+    ]
   });
 }
 // end production configuration
@@ -212,14 +212,14 @@ if (env.stringified["process.env"].NODE_ENV === '"development"') {
     devServer: {
       port: 3001,
       open: true,
-      historyApiFallback: true,
+      historyApiFallback: true
     },
     devtool: "source-map",
     entry: paths.appIndexJs,
     output: {
       publicPath: publicPath,
       filename: "static/js/[name].bundle.[hash:8].js",
-      chunkFilename: "static/js/[name].chunk.[chunkhash:8].js",
+      chunkFilename: "static/js/[name].chunk.[chunkhash:8].js"
     },
     resolve: {
       extensions: [
@@ -230,24 +230,24 @@ if (env.stringified["process.env"].NODE_ENV === '"development"') {
         ".web.jsx",
         ".jsx",
         ".tsx",
-        ".ts",
-      ],
+        ".ts"
+      ]
     },
     plugins: [
       new HtmlWebpackPlugin({
         inject: true,
-        template: paths.appHtml,
+        template: paths.appHtml
       }),
       new MiniCssExtractPlugin({
         filename: "[name].[hash].css",
-        chunkFilename: "[id].[hash].css",
+        chunkFilename: "[id].[hash].css"
       }),
       new InterpolateHtmlPlugin(env.raw),
       new CopyWebpackPlugin([
         // relative path is from src
-        { from: "./public/favicon.ico" }, // <- your path to favicon
-      ]),
-    ],
+        { from: "./public/favicon.ico" } // <- your path to favicon
+      ])
+    ]
   });
 }
 // end development configuration
