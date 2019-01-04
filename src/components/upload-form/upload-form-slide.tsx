@@ -63,6 +63,11 @@ const UploadButton = styled(Button)`
   margin-right: 20px;
   text-transform: uppercase;
   width: 300px;
+  &:disabled {
+    background-color: #888888;
+    cursor: not-allowed;
+  }
+
   @media only screen and (max-width: 567px) {
     width: 100%;
   }
