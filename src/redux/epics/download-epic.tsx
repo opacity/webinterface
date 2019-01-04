@@ -4,7 +4,7 @@ import FileSaver from "file-saver";
 
 import downloadActions from "../actions/download-actions";
 import { execObservableIfBackendAvailable } from "./utils";
-import { streamDownload } from "../../services/oyster-stream";
+import { streamDownload } from "../../services/opacity-stream";
 import { alertUser } from "../../services/error-tracker";
 import { API } from "../../config";
 

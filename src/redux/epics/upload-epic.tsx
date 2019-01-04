@@ -6,7 +6,7 @@ import { execObservableIfBackendAvailable } from "./utils";
 import {
   streamUpload,
   streamUploadProgress
-} from "../../services/oyster-stream";
+} from "../../services/opacity-stream";
 import { alertUser } from "../../services/error-tracker";
 import { API } from "../../config";
 import navigationActions from "../actions/navigation-actions";
