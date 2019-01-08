@@ -10,9 +10,11 @@ const Terminology = styled.span`
   font-weight: 600;
 `;
 
-const Important = styled.p`
+const Important = styled.span`
+  display: block;
   font-weight: 600;
   width: 460px;
+  margin: 15px 0;
 `;
 
 const UploadCompleteSlide = ({ handle }) => (
