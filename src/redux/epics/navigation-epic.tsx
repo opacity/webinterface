@@ -1,5 +1,5 @@
 import { combineEpics } from "redux-observable";
-import { push } from "react-router-redux";
+import { push, replace } from "react-router-redux";
 import { Observable } from "rxjs/Rx";
 import queryString from "query-string";
 
@@ -27,7 +27,7 @@ const goToUploadForm = (action$, store) => {
         }),
       () =>
         Observable.create(o => {
-          o.next(push("/brokers-down"));
+          o.next(replace("/brokers-down"));
         })
     );
   });
@@ -36,43 +36,43 @@ const goToUploadForm = (action$, store) => {
 const goToUploadStarted = (action$, store) => {
   return action$
     .ofType(uploadActions.PAYMENT_CONFIRMED)
-    .map(action => push("/upload-started"));
+    .map(action => replace("/upload-started"));
 };
 
 const goToUploadProgress = (action$, store) => {
   return action$
     .ofType(uploadActions.CHUNKS_DELIVERED)
-    .map(action => push(`/upload-progress#handle=${action.payload.handle}`));
+    .map(action => replace(`/upload-progress#handle=${action.payload.handle}`));
 };
 
 const goToUploadCompleteStream = (action$, store) => {
   return action$
     .ofType(uploadActions.UPLOAD_SUCCESS)
-    .map(() => push("/upload-complete"));
+    .map(() => replace("/upload-complete"));
 };
 
 const goToPaymentInvoiceStream = (action$, store) => {
   return action$
     .ofType(uploadActions.INVOICED)
-    .map(() => push("/payment-invoice"));
+    .map(() => replace("/payment-invoice"));
 };
 
 const goToPaymentConfirmationStream = (action$, store) => {
   return action$
     .ofType(uploadActions.PAYMENT_PENDING)
-    .map(action => push("/payment-confirm"));
+    .map(action => replace("/payment-confirm"));
 };
 
 const goToErrorPage = (action$, store) => {
   return action$
     .ofType(navigationActions.ERROR_PAGE)
-    .map(() => push("/error-page"));
+    .map(() => replace("/error-page"));
 };
 
 const goToBrokersDownPage = (action$, store) => {
   return action$
     .ofType(navigationActions.BROKERS_DOWN)
-    .map(() => push("/brokers-down"));
+    .map(() => replace("/brokers-down"));
 };
 
 const uploadProgressListener = (action$, store) => {

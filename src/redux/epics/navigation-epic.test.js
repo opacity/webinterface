@@ -70,7 +70,7 @@ test("navigationEpic goToUploadStartedStream", () => {
     {
       "payload": {
         "args": ["/upload-started"],
-        "method": "push"
+        "method": "replace"
       },
       "type": "@@router/CALL_HISTORY_METHOD"
     }
@@ -94,7 +94,7 @@ test("navigationEpic goToUploadCompleteStream", () => {
     {
       "payload": {
         "args": ["/upload-complete"],
-        "method": "push"
+        "method": "replace"
       },
       "type": "@@router/CALL_HISTORY_METHOD"
     }
@@ -118,7 +118,7 @@ test("navigationEpic goToPaymentInvoiceStream", () => {
     {
       "payload": {
         "args": ["/payment-invoice"],
-        "method": "push"
+        "method": "replace"
       },
       "type": "@@router/CALL_HISTORY_METHOD"
     }
@@ -142,7 +142,7 @@ test("navigationEpic goToPaymentConfirmationStream", () => {
     {
       "payload": {
         "args": ["/payment-confirm"],
-        "method": "push"
+        "method": "replace"
       },
       "type": "@@router/CALL_HISTORY_METHOD"
     }
@@ -166,7 +166,7 @@ test("navigationEpic goToErrorPage", () => {
     {
       "payload": {
         "args": ["/error-page"],
-        "method": "push"
+        "method": "replace"
       },
       "type": "@@router/CALL_HISTORY_METHOD"
     }
