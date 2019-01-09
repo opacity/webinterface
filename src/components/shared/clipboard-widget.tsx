@@ -13,34 +13,33 @@ const Icon = styled.img`
 `;
 
 const TextContainer = styled.div`
-  overflow: hidden;
-  width: 380px;
   background-color: #232b40;
+  overflow: auto;
+  text-align: center;
+  width: 380px;
+
   @media only screen and (max-width: 567px) {
     width: 100%;
-    height:100%;
-   }
+  }
 `;
 
 const TextBox = styled.p`
+  box-sizing: border-box;
   color: #ffffff;
   display: inline-block;
   font-size: 12px;
   font-stretch: normal;
   font-style: normal;
   font-weight: bold;
-  height: 25px;
   letter-spacing: normal;
   margin: 0;
-  overflow: scroll;
   padding: 0 15px;
-  text-align: center;
   vertical-align: middle;
   width: 100%;
+
   @media only screen and (max-width: 567px) {
-    display: block;
-    height: auto;
-   }
+    width: auto;
+  }
 
   &::-webkit-scrollbar {
     height: 0px;
@@ -77,9 +76,10 @@ const CopyButton = styled(Button)`
   text-transform: uppercase;
   width: 289px;
   height: 40px;
+
   @media only screen and (max-width: 567px) {
     width: 100%;
-   }
+  }
 `;
 
 interface ClipboardWidgetProps {
