@@ -103,6 +103,9 @@ const InputLabel = styled.span`
   letter-spacing: 0.7px;
   color: #ffffff;
   text-transform: uppercase;
+  @media only screen and (max-width: 567px) {
+    margin: 20px 0;
+  }
 `;
 
 const UploadInputContainer = styled.div`
@@ -125,10 +128,15 @@ const UploadButtonContainer = styled.div`
 `;
 
 const UploadColumn = styled.div`
-  width: 380px;
-  padding-right: 10px;
+  width: 480px;
   @media only screen and (max-width: 567px) {
     width: 100%;
+  }
+`;
+
+const UploadColumnCenter = styled(UploadColumn)`
+  @media only screen and (max-width: 567px) {
+    text-align: center;
   }
 `;
 
@@ -172,7 +180,7 @@ const StorageCost = styled.span`
 `;
 
 const UploadFilename = styled.span`
-  flex: 0.8;
+  flex: 0.75;
   text-align: center;
   overflow: hidden;
   background-color: #232b40;
@@ -180,6 +188,9 @@ const UploadFilename = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media only screen and (max-width: 567px) {
+    flex: 1;
+  }
 `;
 
 const UploadFolder = styled.span`
@@ -276,7 +287,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                 }}
               />
             </UploadColumn>
-            <UploadColumn>
+            <UploadColumnCenter>
               <select
                 id="sel"
                 value={retentionYears}
@@ -305,7 +316,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                 <option>10</option>
               </select>
               <InputLabel>Years of retention</InputLabel>
-            </UploadColumn>
+            </UploadColumnCenter>
           </RetentionWrapper>
         </UploadSection>
         <FileSelectWrapper>
