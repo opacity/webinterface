@@ -75,7 +75,7 @@ const Header = ({ history }) => (
         </Link>
       </LogoContainer>
       <LinkContainer>
-        <Link href="/" target="_blank">
+        <Link href="https://opacity.io" target="_blank">
           Home
         </Link>
       </LinkContainer>
