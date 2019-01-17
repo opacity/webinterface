@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+
 import ScreenContainer from "../shared/screen-container";
 import ScreenDescription from "../shared/screen-description";
 import ClipboardWidget from "../shared/clipboard-widget";
-
-var QRCode = require('qrcode.react');
+import QRCode from "qrcode.react";
 
 const Cost = styled.span`
   color: #846b99;
@@ -19,8 +19,8 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
       upload will start automatically after your payment is received. This may
       take some time depending on network traffic.
     </ScreenDescription>
-  <ScreenDescription>
-    <QRCode
+    <ScreenDescription>
+      <QRCode
     value = {ethAddress}
     size = "200"
     renderAs = "svg"
@@ -30,10 +30,9 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
     color = "#ffffff"
     includeMargin = "true"
     />
-   </ScreenDescription>
-  <ClipboardWidget title="Address" text={ethAddress} property="Address" />
+    </ScreenDescription>
+    <ClipboardWidget title="Address" text={ethAddress} property="Address" />
   </ScreenContainer>
 );
-
 
 export default PaymentInvoiceSlide;
