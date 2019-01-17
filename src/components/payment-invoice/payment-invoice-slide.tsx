@@ -19,7 +19,6 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
       upload will start automatically after your payment is received. This may
       take some time depending on network traffic.
     </ScreenDescription>
-
   <ScreenDescription>
     <QRCode
     value = {ethAddress}
@@ -32,8 +31,7 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
     includeMargin = "true"
     />
    </ScreenDescription>
-
-    <ClipboardWidget title="Address" text={ethAddress} property="Address" />
+  <ClipboardWidget title="Address" text={ethAddress} property="Address" />
 
   </ScreenContainer>
 );
