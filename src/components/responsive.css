@@ -221,15 +221,6 @@
     width: 100%;
   }
 
-  input[type="range"] {
-    width: 100%;
-  }
-
-  select,
-  input:not([type="range"]) {
-    width: 100%;
-  }
-
   .btn.btn-default.image-preview-input {
     margin-right: 0;
   }
