@@ -1,7 +1,7 @@
-const VISIT_UPLOAD_FORM = "oyster/navigation/visit_upload_form";
-const VISIT_DOWNLOAD_FORM = "oyster/navigation/visit_download_form";
-const ERROR_PAGE = "oyster/navigation/error_page";
-const BROKERS_DOWN = "oyster/navigation/brokers_down";
+const VISIT_UPLOAD_FORM = "opacity/navigation/visit_upload_form";
+const VISIT_DOWNLOAD_FORM = "opacity/navigation/visit_download_form";
+const ERROR_PAGE = "opacity/navigation/error_page";
+const BROKERS_DOWN = "opacity/navigation/brokers_down";
 
 const ACTIONS = Object.freeze({
   // actions

@@ -1,7 +1,7 @@
-const DOWNLOAD = "oyster/download/stream";
-const DOWNLOAD_PROGRESS = "oyster/download/stream-progress";
-const DOWNLOAD_SUCCESS = "oyster/upload/stream-download-success";
-const DOWNLOAD_ERROR = "oyster/upload/stream-download-error";
+const DOWNLOAD = "opacity/download/stream";
+const DOWNLOAD_PROGRESS = "opacity/download/stream-progress";
+const DOWNLOAD_SUCCESS = "opacity/upload/stream-download-success";
+const DOWNLOAD_ERROR = "opacity/upload/stream-download-error";
 
 const ACTIONS = Object.freeze({
   // Stream download
