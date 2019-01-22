@@ -20,7 +20,7 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
       take some time depending on network traffic.
     </ScreenDescription>
        <ScreenDescription>
-          <QRCode
+        <QRCode
           value = {ethAddress}
           size = "200"
           renderAs = "svg"
@@ -29,8 +29,8 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
           level = "H"
           color = "#ffffff"
           includeMargin = "true"
-          />
-       </ScreenDescription>
+        />
+      </ScreenDescription>
     <ClipboardWidget title="Address" text={ethAddress} property="Address" />
   </ScreenContainer>
 );
