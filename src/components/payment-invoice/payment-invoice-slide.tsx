@@ -24,8 +24,8 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
           value = {ethAddress}
           size = "200"
           renderAs = "svg"
-          bgColor="#ffffff"
-          fgColor="#2e3854"
+          bgColor = "#ffffff"
+          fgColor = "#2e3854"
           level = "H"
           color = "#ffffff"
           includeMargin = "true"
