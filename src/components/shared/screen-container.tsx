@@ -8,7 +8,7 @@ const Container = styled.div`
   margin: auto;
 
   @media only screen and (max-width: 776px) {
-    padding: 70px 50px;
+    padding: 25px 35px;
   }
 `;
 
@@ -30,6 +30,9 @@ const Underline = styled.hr`
   height: 1px;
   margin: 6px 0 60px 0;
   padding: 0;
+  @media only screen and (max-width: 776px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const ScreenContainer = ({ title, children }) => (

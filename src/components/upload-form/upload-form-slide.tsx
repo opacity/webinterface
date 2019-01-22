@@ -25,9 +25,16 @@ const CheckboxInput = styled.input.attrs({
   type: "checkbox"
 })`
   margin-right: 10px;
+  @media only screen and (max-width: 776px) {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 5px;
+  }
 `;
 
 const CheckboxLabel = styled.label`
+  margin-top: -5px;
   color: #ffffff;
 `;
 
@@ -76,6 +83,9 @@ const UploadButton = styled(Button)`
 const FileSelectWrapper = styled.div`
   display: flex;
   margin-top: 20px;
+  @media only screen and (max-width: 776px) {
+    margin-top: 0px;
+  }
 `;
 
 const RetentionWrapper = styled.form`
@@ -139,10 +149,18 @@ const Underline = styled.hr`
   height: 1px;
   margin: 45px 0 40px 0;
   padding: 0;
+  @media only screen and (max-width: 776px) {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 `;
 
 const UploadSection = styled.div`
   margin-top: 20px;
+  @media only screen and (max-width: 776px) {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 `;
 
 const RetentionSlider = styled.input`
