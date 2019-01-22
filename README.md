@@ -17,7 +17,7 @@ git clone https://github.com/opacity/webinterface.git
 Install dependencies
 
 ```
-npm
+npm ci
 ```
 
 Start web server
@@ -29,6 +29,26 @@ npm start
 Navigate to url
 
 [http://localhost:3001/](http://localhost:3001/)
+
+### Deploying
+
+Clone the repo
+
+```
+git clone https://github.com/opacity/webinterface.git
+```
+
+Install dependencies
+
+```
+npm ci
+```
+
+Build static assets
+
+```
+npm run build
+```
 
 ## Running the tests
 
