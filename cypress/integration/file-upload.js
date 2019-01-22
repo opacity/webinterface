@@ -1,7 +1,7 @@
 const UPLOAD_PROGRESS_URL =
   "http://localhost:3001/upload-progress#handle=dittopng5887437a608a2a76914c78f2aed74814f6c6eace1fe9bac6fea1f541679fedbbHvgySpao";
 
-describe("Oyster file upload and download", () => {
+describe("Opacity file upload and download", () => {
   context("Dummy treasure", () => {
     it("should upload and download file", () => {
       // TODO: Run tests against production version.
@@ -54,7 +54,7 @@ const checkUploadComplete = handle => {
     expect(path).to.eq("/upload-complete");
   });
 
-  cy.get("#oyster-handle")
+  cy.get("#opacity-handle")
     .invoke("text")
     .then(handle => {
       expect(handle).to.not.be.empty;

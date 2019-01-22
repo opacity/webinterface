@@ -1,17 +1,17 @@
-const SELECT_ALPHA_BROKER = "oyster/upload/select_alpha_broker";
-const SELECT_BETA_BROKER = "oyster/upload/select_beta_broker";
-const SELECT_RETENTION_YEARS = "oyster/upload/select_retention_years";
+const SELECT_ALPHA_BROKER = "opacity/upload/select_alpha_broker";
+const SELECT_BETA_BROKER = "opacity/upload/select_beta_broker";
+const SELECT_RETENTION_YEARS = "opacity/upload/select_retention_years";
 
-const UPLOAD = "oyster/upload/stream";
-const INVOICED = "oyster/upload/stream-invoiced";
-const PAYMENT_PENDING = "oyster/upload/stream-payment-pending";
-const PAYMENT_CONFIRMED = "oyster/upload/stream-payment-confirmed";
-const CHUNKS_PROGRESS = "oyster/upload/stream-chunks-progress";
-const CHUNKS_UPLOADED = "oyster/upload/stream-chunks-uploaded";
-const CHUNKS_DELIVERED = "oyster/upload/stream-chunks-delivered";
-const UPLOAD_PROGRESS = "oyster/upload/stream-upload-progress";
-const UPLOAD_SUCCESS = "oyster/upload/stream-upload-success";
-const UPLOAD_ERROR = "oyster/upload/stream-upload-error";
+const UPLOAD = "opacity/upload/stream";
+const INVOICED = "opacity/upload/stream-invoiced";
+const PAYMENT_PENDING = "opacity/upload/stream-payment-pending";
+const PAYMENT_CONFIRMED = "opacity/upload/stream-payment-confirmed";
+const CHUNKS_PROGRESS = "opacity/upload/stream-chunks-progress";
+const CHUNKS_UPLOADED = "opacity/upload/stream-chunks-uploaded";
+const CHUNKS_DELIVERED = "opacity/upload/stream-chunks-delivered";
+const UPLOAD_PROGRESS = "opacity/upload/stream-upload-progress";
+const UPLOAD_SUCCESS = "opacity/upload/stream-upload-success";
+const UPLOAD_ERROR = "opacity/upload/stream-upload-error";
 
 const ACTIONS = Object.freeze({
   // actions

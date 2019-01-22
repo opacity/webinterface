@@ -31,7 +31,7 @@ const uploadTransform = createTransform(
 );
 
 const persistConfig = {
-  key: "oyster",
+  key: "opacity",
   storage: storage,
   whitelist: [],
   transforms: [uploadTransform]
