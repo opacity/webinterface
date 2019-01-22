@@ -29,6 +29,9 @@ const Bold = styled.span`
 
 const ProgressSection = styled.div`
   margin-bottom: 60px;
+  @media only screen and (max-width: 776px) {
+    margin-bottom: 0px;
+  }
 `;
 
 const UploadProgressSlide = ({ uploadProgress, handle }) => (

@@ -10,7 +10,7 @@ const ICON_UPLOAD = require("../../assets/images/icon_upload.svg");
 
 const LinkContainer = styled.div`
   display: flex;
-  @media only screen and (max-width: 398px) {
+  @media only screen and (max-width: 776px) {
     display: block;
   }
 `;
@@ -38,10 +38,11 @@ const Link = styled.a`
   margin-right: 20px;
   text-transform: uppercase;
   width: 220px;
-  @media only screen and (max-width: 398px) {
+  @media only screen and (max-width: 776px) {
     width: 100%;
     margin-right: 0px;
     margin-bottom: 15px;
+    height: 95px;
   }
 `;
 

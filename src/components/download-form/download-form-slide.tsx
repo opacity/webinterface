@@ -29,6 +29,9 @@ const Icon = styled.img`
 
 const InputContainer = styled.div`
   margin-bottom: 60px;
+  @media only screen and (max-width: 776px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const HandleTextInput = styled.input`
@@ -41,6 +44,12 @@ const HandleTextInput = styled.input`
   &:focus {
     outline: none !important;
     box-shadow: none !important;
+  }
+
+  @media only screen and (max-width: 776px) {
+    width: 100%;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 `;
 
@@ -62,7 +71,7 @@ const DownloadButton = styled(Button)`
   margin-right: 20px;
   text-transform: uppercase;
   width: 300px;
-  @media only screen and (max-width: 398px) {
+  @media only screen and (max-width: 776px) {
     width: 100%;
   }
 `;

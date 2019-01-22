@@ -13,7 +13,8 @@ const ScreenDescription = styled.p`
   width: 460px;
   @media only screen and (max-width: 776px) {
     width: auto;
-   }
+    margin-bottom: 20px;
+  }
 `;
 
 export default ScreenDescription;
