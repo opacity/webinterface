@@ -358,8 +358,6 @@ input[type="range"]:hover {
 input:not([type="range"]) {
   outline: none;
   outline: 0;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 input:not([type="submit"]):focus,
 textarea:focus,

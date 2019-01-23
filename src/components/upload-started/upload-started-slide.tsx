@@ -5,6 +5,8 @@ import ProgressBar from "../shared/progress-bar";
 import ScreenContainer from "../shared/screen-container";
 import ScreenDescription from "../shared/screen-description";
 
+import { MOBILE_WIDTH } from "../../config";
+
 const ProgressText = styled.p`
   font-size: 16px;
   font-weight: normal;
@@ -14,7 +16,7 @@ const ProgressText = styled.p`
   letter-spacing: normal;
   width: 452px;
   color: #ffffff;
-  @media only screen and (max-width: 567px) {
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
   }
 `;
