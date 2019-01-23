@@ -9,7 +9,7 @@ import uploadActions from "../actions/upload-actions";
 import navigationEpic from "./navigation-epic";
 
 import { ActionsObservable } from "redux-observable";
-import configureMockStore from 'redux-mock-store';
+import configureMockStore from "redux-mock-store";
 
 const mockStore = configureMockStore([]);
 

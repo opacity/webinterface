@@ -120,7 +120,6 @@ test("upload-reducer CHUNKS_DELIVERED", () => {
     alphaBroker: API.BROKER_NODE_A,
     dataMapLength: 0,
     gasPrice: 20,
-    handle: "",
     history: [],
     indexes: {
       indexes: [],

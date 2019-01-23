@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import { Markdown } from "react-showdown";
 
 import ScreenContainer from "../shared/screen-container";
@@ -12,7 +11,7 @@ import { AGREEMENT_TYPES } from "../../config";
 class Agreement extends Component {
   state = { text: "" };
 
-  componentDidMount() {
+  componentDidMount () {
     const file = (type => {
       switch (type) {
         case AGREEMENT_TYPES.TERMS_OF_SERVICE:
@@ -21,12 +20,13 @@ class Agreement extends Component {
           return PRIVACY_POLICY;
       }
     })(this.props.type);
+
     fetch(file)
       .then(resp => resp.text())
       .then(text => this.setState({ text }));
   }
 
-  render() {
+  render () {
     const { title } = this.props;
     return (
       <ScreenContainer title={title}>

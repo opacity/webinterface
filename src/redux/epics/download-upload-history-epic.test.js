@@ -8,7 +8,7 @@ import downloadUploadHistoryActions from "../actions/download-upload-history-act
 import downloadUploadHistoryEpic from "./download-upload-history-epic";
 
 import { ActionsObservable } from "redux-observable";
-import configureMockStore from 'redux-mock-store';
+import configureMockStore from "redux-mock-store";
 
 const mockStore = configureMockStore([]);
 
