@@ -232,6 +232,14 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     };
   }
 
+  disableButton(): boolean {
+    const fileInput: any = this.refs.fileInput;
+    const isFileChosen = fileInput && fileInput.files[0];
+    return (
+      this.state.isInitializing || !(this.state.isTermsChecked && isFileChosen)
+    );
+  }
+
   calculateStorageCost(fileSizeBytes, years) {
     let chunks = Math.ceil(fileSizeBytes / 1024) + 1; // 1 kb for metadata
     let numSectors = Math.ceil(chunks / CHUNKS_IN_SECTOR);
@@ -353,14 +361,8 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                   this.setState({
                     fileName: DEFAULT_FILE_INPUT_TEXT,
                     fileSize: DEFAULT_FILE_INPUT_SIZE,
-                    humanFileSize: this.humanFileSize(
-                      DEFAULT_FILE_INPUT_SIZE,
-                      true
-                    ),
-                    storageCost: this.calculateStorageCost(
-                      file.size,
-                      retentionYears
-                    )
+                    humanFileSize: DEFAULT_FILE_INPUT_SIZE,
+                    storageCost: DEFAULT_FILE_INPUT_COST
                   });
                 }
               }}
@@ -394,7 +396,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
           </CheckboxContainer>
           <UploadButton
             id="start-upload-btn"
-            disabled={this.state.isInitializing || !this.state.isTermsChecked}
+            disabled={this.disableButton()}
             type="button"
             onClick={() => {
               const fileInput: any = this.refs.fileInput;
