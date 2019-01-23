@@ -56,7 +56,6 @@ test("upload-action PAYMENT_PENDING", () => {
   expect(actions.streamPaymentPending()).toEqual(expected);
 });
 
-
 test("upload-action PAYMENT_CONFIRMED", () => {
   const filename = "filename";
   const handle = "handle";
@@ -68,7 +67,6 @@ test("upload-action PAYMENT_CONFIRMED", () => {
   expect(actions.streamPaymentConfirmed({ filename, handle, numberOfChunks })).toEqual(expected);
 });
 
-
 test("upload-action CHUNKS_DELIVERED", () => {
   const handle = "handle";
   const expected = {
@@ -77,7 +75,6 @@ test("upload-action CHUNKS_DELIVERED", () => {
   };
   expect(actions.streamChunksDelivered({ handle })).toEqual(expected);
 });
-
 
 test("upload-action UPLOAD_PROGRESS", () => {
   const progress = 0.18;
@@ -88,7 +85,6 @@ test("upload-action UPLOAD_PROGRESS", () => {
   expect(actions.streamUploadProgress({ progress })).toEqual(expected);
 });
 
-
 test("upload-action UPLOAD_SUCCESS", () => {
   const handle = "handle";
   const expected = {
@@ -97,7 +93,6 @@ test("upload-action UPLOAD_SUCCESS", () => {
   };
   expect(actions.streamUploadSuccess({ handle })).toEqual(expected);
 });
-
 
 test("upload-action UPLOAD_ERROR", () => {
   const handle = "handle";

@@ -12,7 +12,7 @@ test("upload-history-selectors", () => {
       1: { createdAt: object2 },
       2: { createdAt: object3 },
       3: { createdAt: object4 },
-      4: { createdAt: object5 },
+      4: { createdAt: object5 }
     }
   };
   const treasureHuntableGenesisHashExpected = [
@@ -20,7 +20,7 @@ test("upload-history-selectors", () => {
     { createdAt: object3 },
     { createdAt: object2 },
     { createdAt: object1 },
-    { createdAt: object5 },
+    { createdAt: object5 }
   ];
   expect(uploadHistorySelectors.getSortedHistoryDesc(state)).toEqual(
     treasureHuntableGenesisHashExpected

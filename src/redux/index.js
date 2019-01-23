@@ -14,7 +14,7 @@ import { UPLOAD_STATUSES } from "../config";
 
 const composeFn = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middleware = [
-  process.env.NODE_ENV === `development` && createLogger(),
+  process.env.NODE_ENV === "development" && createLogger(),
   createEpicMiddleware(epics),
   routerMiddleware(history),
   createRavenMiddleware(Raven, {})
