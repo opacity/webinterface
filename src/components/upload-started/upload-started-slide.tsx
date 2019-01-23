@@ -24,6 +24,9 @@ const ProgressText = styled.p`
 const Important = styled.p`
   font-weight: 600;
   width: 460px;
+  @media only screen and (max-width: 567px) {
+    width: 100%;
+  }
 `;
 
 const UploadStartedSlide = ({ chunksProgress }) => {

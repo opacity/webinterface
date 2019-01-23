@@ -15,6 +15,9 @@ const Important = styled.span`
   font-weight: 600;
   width: 460px;
   margin: 15px 0;
+  @media only screen and (max-width: 567px) {
+    width: 100%;
+  }
 `;
 
 const UploadCompleteSlide = ({ handle }) => (

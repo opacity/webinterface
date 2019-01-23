@@ -224,6 +224,7 @@ select#sel {
   line-height: normal;
   letter-spacing: 0.7px;
   color: #ffffff;
+  margin-left: 10px;
 }
 .years {
   float: right;
@@ -750,7 +751,7 @@ h2 {
   font-size: 20px;
 }
 
-.oyster-handle {
+.opacity-handle {
   color: #846b99;
   font-size: 15px;
 }

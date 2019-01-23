@@ -32,7 +32,7 @@ const ErrorPageSlide = ({ handle }) => (
     <ErrorImg src={ICON_ERROR} alt="error-img" />
     <ErrorDescription>
       There was a problem with your upload. Please visit our{" "}
-      <ErrorDescriptionLink href="https://t.me/oysterprotocol">
+      <ErrorDescriptionLink href="https://t.me/OpacityStorage">
         {" "}
         Telegram Channel{" "}
       </ErrorDescriptionLink>{" "}
