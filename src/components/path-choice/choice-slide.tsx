@@ -5,12 +5,14 @@ import { withRouter } from "react-router";
 import ScreenContainer from "../shared/screen-container";
 import ScreenDescription from "../shared/screen-description";
 
+import { DESKTOP_WIDTH } from "../../config";
+
 const ICON_DOWNLOAD = require("../../assets/images/icon_download.svg");
 const ICON_UPLOAD = require("../../assets/images/icon_upload.svg");
 
 const LinkContainer = styled.div`
   display: flex;
-  @media only screen and (max-width: 776px) {
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     display: block;
   }
 `;
@@ -38,7 +40,7 @@ const Link = styled.a`
   margin-right: 20px;
   text-transform: uppercase;
   width: 220px;
-  @media only screen and (max-width: 776px) {
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     width: 100%;
     margin-right: 0px;
     margin-bottom: 15px;
@@ -52,7 +54,7 @@ const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn, history }) => (
       Please select an option below to access anonymous storage.
     </ScreenDescription>
     <LinkContainer>
-      <Link onClick={() => history.push("/upload-form")}>
+      <Link id="upload-btn" onClick={() => history.push("/upload-form")}>
         <Icon src={ICON_UPLOAD} />
         Upload a file
       </Link>

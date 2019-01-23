@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import "react-select/dist/react-select.css";
 
-import { FILE } from "../../config";
+import { FILE, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 import Button from "../shared/button";
 import Spinner from "../shared/spinner";
 import ScreenContainer from "../shared/screen-container";
@@ -25,7 +25,7 @@ const CheckboxInput = styled.input.attrs({
   type: "checkbox"
 })`
   margin-right: 10px;
-  @media only screen and (max-width: 776px) {
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     height: 20px;
     width: 20px;
     position: relative;
@@ -75,7 +75,7 @@ const UploadButton = styled(Button)`
     cursor: not-allowed;
   }
 
-  @media only screen and (max-width: 567px) {
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
   }
 `;
@@ -83,7 +83,7 @@ const UploadButton = styled(Button)`
 const FileSelectWrapper = styled.div`
   display: flex;
   margin-top: 20px;
-  @media only screen and (max-width: 776px) {
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     margin-top: 0px;
   }
 `;
@@ -120,7 +120,7 @@ const InputLabel = styled.span`
 
 const UploadInputContainer = styled.div`
   width: 380px;
-  @media only screen and (max-width: 567px) {
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
   }
 `;
@@ -138,9 +138,11 @@ const UploadButtonContainer = styled.div`
 `;
 
 const UploadColumn = styled.div`
-  width: 480px;
-  @media only screen and (max-width: 567px) {
+  width: 380px;
+  padding-right: 10px;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
+    padding-right: 0px;
   }
 `;
 
@@ -157,15 +159,15 @@ const Underline = styled.hr`
   height: 1px;
   margin: 45px 0 40px 0;
   padding: 0;
-  @media only screen and (max-width: 776px) {
-    margin-top: 0px;
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
+    margin-top: 14px;
     margin-bottom: 0px;
   }
 `;
 
 const UploadSection = styled.div`
   margin-top: 20px;
-  @media only screen and (max-width: 776px) {
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     margin-top: 0px;
     margin-bottom: 0px;
   }
@@ -182,7 +184,7 @@ const StorageFees = styled.div`
   width: 300px;
   height: 40px;
   background-color: #232b40;
-  @media only screen and (max-width: 567px) {
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
   }
 `;
@@ -206,7 +208,7 @@ const UploadFilename = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  @media only screen and (max-width: 567px) {
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     flex: 1;
   }
 `;
