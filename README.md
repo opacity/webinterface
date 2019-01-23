@@ -1,6 +1,6 @@
 # Web Interface
 
-Webinterface is Opacity's official interface for storage users to initiate an upload with the brokers to store their files securely on the tangle. It allows users to select how long they would like the tangle to retain their file, and it will calculate how much PRL they owe for storage and give them an address to send their payment. It shows upload progress as the user's file is attached to the tangle, and gives the user a handle to retrieve the file in the future. Webinterface allows them to download any file that they have the handle for.
+Webinterface is Opacity's official interface for storage users to initiate an upload with the brokers to store their files securely on the tangle. It allows users to select how long they would like the tangle to retain their file, and it will calculate how much OPQ they owe for storage and give them an address to send their payment. It shows upload progress as the user's file is attached to the tangle, and gives the user a handle to retrieve the file in the future. Webinterface allows them to download any file that they have the handle for.
 
 ## Getting Started
 
