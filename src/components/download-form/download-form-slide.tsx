@@ -36,6 +36,7 @@ const HandleTextInput = styled.input`
   border: none;
   width: 380px;
   height: 25px;
+  padding: 10px 15px;
   background-color: #232b40;
 
   &:focus {
