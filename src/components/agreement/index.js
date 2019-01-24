@@ -1,11 +1,27 @@
 import React, { Component } from "react";
-import { Markdown } from "react-showdown";
+import styled from "styled-components";
+import Markdown from "react-markdown";
 
 import ScreenContainer from "../shared/screen-container";
 
+import { AGREEMENT_TYPES } from "../../config";
 import TOS_MARKDOWN from "./terms-of-service.md";
 import PRIVACY_POLICY from "./privacy-policy.md";
-import { AGREEMENT_TYPES } from "../../config";
+
+const AgreementMarkdownComponent = (props) => (
+  <div>
+    <Markdown {...props} />
+  </div>
+);
+
+// temp solution
+const AgreementMarkdown = styled(AgreementMarkdownComponent)`
+  color: white;
+
+  a[href] {
+    color: #846b99;
+  }
+`;
 
 class Agreement extends Component {
   state = { text: "" };
@@ -29,7 +45,7 @@ class Agreement extends Component {
     const { title } = this.props;
     return (
       <ScreenContainer title={title}>
-        <Markdown markup={this.state.text} />
+        <AgreementMarkdown source={this.state.text} />
       </ScreenContainer>
     );
   }
