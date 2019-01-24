@@ -128,7 +128,7 @@ const UploadButtonContainer = styled.div`
 `;
 
 const UploadColumn = styled.div`
-  width: 380px;
+  width: 480px;
   @media only screen and (max-width: 567px) {
     width: 100%;
   }
@@ -154,7 +154,32 @@ const UploadSection = styled.div`
 `;
 
 const RetentionSlider = styled.input`
+  width: 380px;
   background-color: #161c29;
+  -webkit-appearance: none;
+  background-color: #161c29;
+  height: 1px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 15px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background: #846b99;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #846b99;
+    border: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    opacity: 1;
+  }
 `;
 
 const StorageFees = styled.div`
