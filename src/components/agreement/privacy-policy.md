@@ -122,17 +122,17 @@
 
 > We reserve the right to disclose certain information at our discretion if required by law, or if we are given reason to believe in our sole discretion that someone is causing injury to or interference with the rights of users, the general public, or Opacity, to comply with a judicial proceeding, court order, or legal process. We may disclose your information if required to do so by law or in the good faith belief that disclosure is necessary to:
 
->6.5.1. satisfy legal obligations or comply with legal process (such as a subpoena) served on Opacity;
+>6.5.1. Satisfy legal obligations or comply with legal process (such as a subpoena) served on Opacity;
 
->6.5.2. protect Opacity and others from fraudulent, abusive, predatory, or unlawful uses or activity;
+>6.5.2. Protect Opacity and others from fraudulent, abusive, predatory, or unlawful uses or activity;
 
->6.5.3. investigate and defend Opacity against any legal claims or threats;
+>6.5.3. Investigate and defend Opacity against any legal claims or threats;
 
->6.5.4. protect and defend the rights or property of Opacity;
+>6.5.4. Protect and defend the rights or property of Opacity;
 
->6.5.5. take action relating to user complaints; or
+>6.5.5. Take action relating to user complaints; or
 
->6.5.6. act in urgent circumstances to protect the personal safety of users of Opacity, our Services/Site and policies, or the public.
+>6.5.6. Act in urgent circumstances to protect the personal safety of users of Opacity, our Services/Site and policies, or the public.
 
 #### 7.  Information Retention
 
