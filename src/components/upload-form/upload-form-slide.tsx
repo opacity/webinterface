@@ -128,7 +128,7 @@ const UploadButtonContainer = styled.div`
 `;
 
 const UploadColumn = styled.div`
-  width: 480px;
+  width: 380px;
   @media only screen and (max-width: 567px) {
     width: 100%;
   }
