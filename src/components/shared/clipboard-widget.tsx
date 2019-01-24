@@ -14,7 +14,7 @@ const Icon = styled.img`
 
 const TextContainer = styled.div`
   background-color: #232b40;
-  overflow-x: scroll;
+  overflow: auto;
   text-align: center;
   width: 380px;
 
