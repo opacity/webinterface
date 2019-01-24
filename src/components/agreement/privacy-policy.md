@@ -25,7 +25,7 @@
 
 #### 2.  Definitions
 
-> **2.1.** “Opacity,” “our,” “us” or “we” refers to Opacity Storage Inc., a Delaware corporation.
+> **2.1.** “Opacity,” "Opacity Storage," “our,” “us” or “we” refers to Opacity Storage Inc., a Delaware corporation.
 
 > **2.2.** “You” or “your” refers to the person accessing or using the Services/Site, or the entity or organization on whose behalf such person accesses the Services/Site.
 
@@ -154,7 +154,7 @@
 
 #### 11. Modification To Our Privacy Policy
 
-> This Privacy Policy is subject to revision at our discretion, as necessary. If we make any material changes in the way your information is collected, used or disseminated, we will post an alert on this page and update the modification date below. We will do our best to notify you of these changes by alerts on our Services/Site. Continued use of Opacity indicates your acknowledgement of such changes and agreement to be bound by the terms and conditions of such changes. This policy was last modified on January 3, 2019.
+> This Privacy Policy is subject to revision at our discretion, as necessary. If we make any material changes in the way your information is collected, used or disseminated, we will post an alert on this page and update the modification date below. We will do our best to notify you of these changes by alerts on our Services/Site. Continued use of Opacity indicates your acknowledgement of such changes and agreement to be bound by the terms and conditions of such changes. This policy was last modified on January 24, 2019.
 
 #### 12. Contact
 

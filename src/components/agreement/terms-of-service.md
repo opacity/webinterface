@@ -1,4 +1,4 @@
-## PLEASE READ THE FOLLOWING TERMS OF SERVICE CAREFULLY BEFORE USING OUR SERVICES AND/OR OUR SITE. BY ACCEPTING THESE TERMS OF SERVICE, YOU, AS THE USER, ENTER INTO LEGALLY BINDING AGREEMENT WITH OPACITY INC.
+## PLEASE READ THE FOLLOWING TERMS OF SERVICE CAREFULLY BEFORE USING OUR SERVICES AND/OR OUR SITE. BY ACCEPTING THESE TERMS OF SERVICE, YOU, AS THE USER, ENTER INTO LEGALLY BINDING AGREEMENT WITH OPACITY STORAGE INC.
 
 ### 1. Introduction
 
@@ -30,7 +30,7 @@
 >
 > > **1.2.1.** The terms "you" or "your" refers to the person accessing or using the Services/Site for personal use or on behalf of an entity or organization.
 >
-> > **1.2.2.** The terms "Opacity," "our," "us" or "we" refers to Opacity Storage Inc., a Delaware corporation.
+> > **1.2.2.** The terms "Opacity," "Opacity Storage," "our," "us" or "we" refers to Opacity Storage Inc., a Delaware corporation.
 >
 > > **1.2.3.** The term "Site" collectively refers to all online areas owned and operated by us, including the following listed below:
 >
@@ -156,7 +156,7 @@
 >
 > > **9.1.2.** When you submit your consent to these Terms of Service on the Platform after having placed a check inside the consent box and read and understood these Terms of Service.
 >
-> > This policy was last modified on January 3, 2019.
+> > This policy was last modified on January 24, 2019.
 
 > **9.2.** Termination
 >
