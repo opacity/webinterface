@@ -34,13 +34,14 @@
 
 > 1.2.3. The term "Site" collectively refers to all online areas owned and operated by us, including the following listed below:  
 
-> • [Opacity Website](opacity.io)  
-> • [Opacity Storage Portal](storage.opacity.io)  
-> • [Opacity Blog](https://medium.com/opacity-storage)  
-> • [Opacity Twitter Page](https://twitter.com/opacity_storage)  
-> • [Opacity Reddit](reddit.com/r/opacity)  
-> • [Opacity Telegram Channel](https://t.me/opacitystorage)  
-> • [Opacity Trading Telegram Channel](https://t.me/opacitytrading)  
+> - [Opacity Website](opacity.io)  
+> - [Opacity Storage Portal](storage.opacity.io)  
+> - [Opacity Blog](https://medium.com/opacity-storage)  
+> - [Opacity Twitter Page](https://twitter.com/opacity_storage)  
+> - [Opacity Reddit](reddit.com/r/opacity)  
+> - [Opacity Telegram Channel](https://t.me/opacitystorage)  
+> - [Opacity Trading Telegram Channel](https://t.me/opacitytrading)  
+
 > 1.2.4. The term "Services" encompasses your use of our technology platform ("Platform"). Our Platform provides access to file storage and file sharing services.  
 
 > 1.3. Revisions and Modifications  
@@ -75,9 +76,9 @@
 
 > You must meet the following criteria to use our Services:  
 
-> 3.1.1. you must be of legal age to form a binding contract with us; and  
+> 3.1.1. You must be of legal age to form a binding contract with us; and  
 
-> 3.1.2. you cannot be a person barred from receiving our Services under the laws of the United States.
+> 3.1.2. You cannot be a person barred from receiving our Services under the laws of the United States.
 
 #### 4. Limitations on Use and Rules of Conduct
 
@@ -95,17 +96,17 @@
 
 > You agree that you will not use our Services/Site to:  
 
-> 4.3.1. pretend to be anyone, or any entity, you are not. You may not impersonate or misrepresent yourself as another person, entity, subscriber, or otherwise misrepresent your affiliation with a person or entity. We reserve the right to reject or block any user, which could be deemed to be an impersonation or misrepresentation of your identity, or a misappropriation of another person's name or identity;  
+> 4.3.1. Pretend to be anyone, or any entity, you are not. You may not impersonate or misrepresent yourself as another person, entity, subscriber, or otherwise misrepresent your affiliation with a person or entity. We reserve the right to reject or block any user, which could be deemed to be an impersonation or misrepresentation of your identity, or a misappropriation of another person's name or identity;  
 
-> 4.3.2. engage in any intellectual property infringement, or disclose any trade secret or confidential information in violation of a confidentiality, employment, or nondisclosure agreement;  
+> 4.3.2. Engage in any intellectual property infringement, or disclose any trade secret or confidential information in violation of a confidentiality, employment, or nondisclosure agreement;  
 
-> 4.3.3. post, transmit or otherwise make available any unsolicited or unauthorized messages, advertising, promotional materials, junk mail, spam, or chain letters, including, without limitation, bulk commercial advertising and informational announcements;  
+> 4.3.3. Post, transmit or otherwise make available any unsolicited or unauthorized messages, advertising, promotional materials, junk mail, spam, or chain letters, including, without limitation, bulk commercial advertising and informational announcements;  
 
-> 4.3.4. upload, post, transmit, or otherwise make available any material that contains viruses or any other computer code, files or programs designed to harm, interfere or limit the normal operation of our Services/Site (or any part thereof);  
+> 4.3.4. Upload, post, transmit, or otherwise make available any material that contains viruses or any other computer code, files or programs designed to harm, interfere or limit the normal operation of our Services/Site (or any part thereof);  
 
-> 4.3.5. interfere with or disrupt our Services/Site or any servers or networks connected to our Services/Site, including accessing our Services/Site through any automated means, such as scripts or web crawlers, and any unauthorized access to use or monitoring of data or traffic thereon; or  
+> 4.3.5. Interfere with or disrupt our Services/Site or any servers or networks connected to our Services/Site, including accessing our Services/Site through any automated means, such as scripts or web crawlers, and any unauthorized access to use or monitoring of data or traffic thereon; or  
 
-> 4.3.6. plan or engage in any illegal activity. We reserve the right to remove or block access to any illegal material.  
+> 4.3.6. Plan or engage in any illegal activity. We reserve the right to remove or block access to any illegal material.  
 
 #### 5. Payment
 
@@ -151,9 +152,9 @@
 
 > These Terms of Service will become effective as of the date when either of the following occur, and if both occur then whichever takes place first:  
 
-> 9.1.1. when you first use the Site; or  
+> 9.1.1. When you first use the Site; or  
 
-> 9.1.2. when you submit your consent to these Terms of Service on the Platform after having placed a check inside the consent box and read and understood these Terms of Service.  
+> 9.1.2. When you submit your consent to these Terms of Service on the Platform after having placed a check inside the consent box and read and understood these Terms of Service.  
 
 > This policy was last modified on January 3, 2019.  
 

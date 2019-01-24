@@ -44,13 +44,13 @@
 
 > 3.1.2. “Site”, which collectively refers to all online areas owned and operated by us, including the following list provided below:
 
-- [Opacity Website](opacity.io)
-- [Opacity Storage Portal](storage.opacity.io)
-- [Opacity Blog](https://medium.com/opacity-storage)
-- [Opacity Twitter Page](https://twitter.com/opacity_storage)
-- [Opacity Reddit](reddit.com/r/opacity)
-- [Opacity Telegram Channel](https://t.me/opacitystorage)
-- [Opacity Trading Telegram Channel](https://t.me/opacitytrading)
+> - [Opacity Website](opacity.io)
+> - [Opacity Storage Portal](storage.opacity.io)
+> - [Opacity Blog](https://medium.com/opacity-storage)
+> - [Opacity Twitter Page](https://twitter.com/opacity_storage)
+> - [Opacity Reddit](reddit.com/r/opacity)
+> - [Opacity Telegram Channel](https://t.me/opacitystorage)
+> - [Opacity Trading Telegram Channel](https://t.me/opacitytrading)
 
 > 3.2. Voluntary Disclosure
 > We collect information that you provide us voluntarily. We will also collect any additional information you provide, such as data attachments, that you submit to our Site.
@@ -64,21 +64,21 @@
 
 > Within that context, Opacity may use personal and non-identifiable information for the following purposes:
 
-> 4.1. for billing, identification, authentication, and fraud prevention;
+> 4.1. For billing, identification, authentication, and fraud prevention;
 
-> 4.2. to analyze Services/Site usage and improve our Services/Site;
+> 4.2. To analyze Services/Site usage and improve our Services/Site;
 
-> 4.3. to deliver communications relevant to your usage of our Services/Site;
+> 4.3. To deliver communications relevant to your usage of our Services/Site;
 
-> 4.4. for internal market research, detecting criminal activity, and troubleshooting problems;
+> 4.4. For internal market research, detecting criminal activity, and troubleshooting problems;
 
-> 4.5. to enforce our Terms of Service;
+> 4.5. To enforce our Terms of Service;
 
-> 4.6. to conduct research on our Services;
+> 4.6. To conduct research on our Services;
 
-> 4.7. to personalize your experience and improve customer service;
+> 4.7. To personalize your experience and improve customer service;
 
-> 4.8. we use financial information solely as authorized by you in accordance with the service.
+> 4.8. We use financial information solely as authorized by you in accordance with the service.
 
 #### 5.  How Do We Protect Your Information?
 
@@ -90,11 +90,11 @@
 
 > We also maintain a variety of security measures to maintain the safety of your personal information when you place an order or enter, submit, or access your information. After a transaction, your private information will not be stored on our servers, and is always transmitted in encrypted form. Only certain authorized Opacity staff can access personal and non-identifiable information, and then only if relevant to their job duties.
 
->5.3. Breach of Security
+> 5.3. Breach of Security
 
 > In the event that personal information is compromised as a result of a breach of security, we will promptly notify the user community via our website and all available public facing sites.
 
->5.4. Disclaimer
+> 5.4. Disclaimer
 
 > Unfortunately, no information transmission over the Internet can be characterized as 100% secure. While Opacity uses all commercially reasonable efforts to ensure information security, Opacity cannot guarantee the security of any information you choose to provide to us, and you do so at your own risk.
 
@@ -106,33 +106,33 @@
 
 > We may transfer your information to contracted third parties who assist us in operating our Services/Site, as defined our Terms of Service. We require that all contracted third parties similarly agree to keep your information confidential.
 
->6.2. Personal Information, Data Attachments
+> 6.2. Personal Information, Data Attachments
 
 > Notwithstanding transfers to contracted third parties who assist us in operating our Services/Site, we do not transfer, sell, or trade your personal information or data attachments to outside parties.
 
->6.3. Non-identifiable Information
+> 6.3. Non-identifiable Information
 
 > We reserve the right to provide your non-identifiable information to outside parties to help us improve our Services. For example, through Google Analytics, we may permit Google and others to combine their information with ours to help us better understand our users.
 
->6.4. Sale or Merger
+> 6.4. Sale or Merger
 
 > We reserve the right to transfer, sell or distribute all information collected through our Services/Site to an affiliate, subsidiary, or third party in the event of any reorganization, merger, sale, joint venture, assignment, transfer or other disposition of all or part of our business, assets or stock. We will use our best efforts to ensure that the new entity follows this Privacy Policy with respect to your information, as and to the extent required by applicable law.
 
->6.5. Law or Good Faith Belief
+> 6.5. Law or Good Faith Belief
 
 > We reserve the right to disclose certain information at our discretion if required by law, or if we are given reason to believe in our sole discretion that someone is causing injury to or interference with the rights of users, the general public, or Opacity, to comply with a judicial proceeding, court order, or legal process. We may disclose your information if required to do so by law or in the good faith belief that disclosure is necessary to:
 
->6.5.1. Satisfy legal obligations or comply with legal process (such as a subpoena) served on Opacity;
+> 6.5.1. Satisfy legal obligations or comply with legal process (such as a subpoena) served on Opacity;
 
->6.5.2. Protect Opacity and others from fraudulent, abusive, predatory, or unlawful uses or activity;
+> 6.5.2. Protect Opacity and others from fraudulent, abusive, predatory, or unlawful uses or activity;
 
->6.5.3. Investigate and defend Opacity against any legal claims or threats;
+> 6.5.3. Investigate and defend Opacity against any legal claims or threats;
 
->6.5.4. Protect and defend the rights or property of Opacity;
+> 6.5.4. Protect and defend the rights or property of Opacity;
 
->6.5.5. Take action relating to user complaints; or
+> 6.5.5. Take action relating to user complaints; or
 
->6.5.6. Act in urgent circumstances to protect the personal safety of users of Opacity, our Services/Site and policies, or the public.
+> 6.5.6. Act in urgent circumstances to protect the personal safety of users of Opacity, our Services/Site and policies, or the public.
 
 #### 7.  Information Retention
 
@@ -140,11 +140,11 @@
 
 #### 8.  Other Technologies
 
->Opacity may collect information via analytics tools. This information is used to monitor geographic traffic for users and combat fraud.
+> Opacity may collect information via analytics tools. This information is used to monitor geographic traffic for users and combat fraud.
 
 #### 9.  Third-Party Links
 
->Our Site may contain links to the sites of third-party providers of goods or services. These third-party sites have separate and independent privacy policies; therefore, we have no responsibility or liability for the personal information provided to these linked sites. Additionally, we do not have access or control over third-party usage of information or tracking technologies. If you land upon a third-party site, we recommend that you review their privacy policy and terms of service prior to engaging with their site.
+> Our Site may contain links to the sites of third-party providers of goods or services. These third-party sites have separate and independent privacy policies; therefore, we have no responsibility or liability for the personal information provided to these linked sites. Additionally, we do not have access or control over third-party usage of information or tracking technologies. If you land upon a third-party site, we recommend that you review their privacy policy and terms of service prior to engaging with their site.
 
 #### 10. California’s Shine the Light Law
 
@@ -156,4 +156,4 @@
 
 #### 12. Contact
 
->If you have any questions, comments, or concerns about this Privacy Policy, please contact us at: info@opacity.com.
+> If you have any questions, comments, or concerns about this Privacy Policy, please contact us at: info@opacity.com.
