@@ -5,7 +5,6 @@ import ScreenContainer from "../shared/screen-container";
 
 import TOS_MARKDOWN from "./terms-of-service.md";
 import PRIVACY_POLICY from "./privacy-policy.md";
-
 import { AGREEMENT_TYPES } from "../../config";
 
 class Agreement extends Component {
