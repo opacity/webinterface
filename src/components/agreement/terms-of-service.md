@@ -125,7 +125,7 @@
 
 > 7.2. Limitations on Liability  
 
-> In no event shall Opacity, through its officers, employees, agents, affiliates, licensors, be liable, whether in contract, warranty, tort (including negligence), or any other form of liability, for any direct, indirect, general, special, compensatory, consequential, punitive or incidental damages, including any loss of income or profits whether direct or indirect. The limitations on Opacity's liability to you listed in this paragraph shall apply whether or not Opacity, its officers, employees, agents, affiliates, licensors, have been advised of the possibility of such losses or damages arising. Nothing in these Terms of Service is intended to exclude or restrict any liability which cannot be limited or excluded by law.  
+> In no event shall Opacity, through its officers, employees, agents, affiliates, licensors, be liable, whether in contract, warranty, tort (including negligence), or any other form of liability, for any direct, indirect, general, special, compensatory, consequential, punitive or incidental damages, including any loss of income or profits whether direct or indirect. The limitations on Opacity's liability to you listed in this paragraph shall apply whether or not Opacity, its officers, employees, agents, affiliates, licensors, have been advised of the possibility of such losses or damages arising. Nothing in these Terms of Service is intended to exclude or restrict any liability which cannot be limited or excluded by law.  
 
 > 7.3. Total Liability  
 
