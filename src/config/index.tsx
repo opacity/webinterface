@@ -5,13 +5,13 @@ const PROTOCOL = IS_DEV ? "http" : "https";
 const POLLING_NODE = IS_DEV
   ? // ? ["18.191.77.193"] // Travis broker
     ["18.188.230.212"]
-  : ["poll2.oysternodes.com"];
+  : ["poll2.opacitynodes.com"];
 
-export const OLD_TANGLE_NODE_1 = "https://download.oysternodes.com:14265";
-export const OLD_TANGLE_NODE_2 = "https://poll.oysternodes.com:14265";
+export const OLD_TANGLE_NODE_1 = "https://download.opacitynodes.com:14265";
+export const OLD_TANGLE_NODE_2 = "https://poll.opacitynodes.com:14265";
 
-export const PROD_IOTA_1 = "prodiota1.oysternodes.com";
-export const PROD_IOTA_2 = "prodiota2.oysternodes.com";
+export const PROD_IOTA_1 = "prodiota1.opacitynodes.com";
+export const PROD_IOTA_2 = "prodiota2.opacitynodes.com";
 
 const IOTA_PROVIDERS = IS_DEV
   ? // ? ["18.222.56.121", "18.191.77.193"]
@@ -21,7 +21,7 @@ const IOTA_PROVIDERS = IS_DEV
 const BROKERS = IS_DEV
   ? ["18.222.173.29", "18.188.230.212"] // Rebel brokers
   : //["52.14.218.135", "18.217.133.146"] // QA brokers
-    ["broker-1.oysternodes.com", "broker-2.oysternodes.com"];
+    ["broker-1.opacitynodes.com", "broker-2.opacitynodes.com"];
 
 // Hack until we have proper load balancing.
 const randElem = (xs: string) => xs[Math.floor(Math.random() * xs.length)];
