@@ -8,8 +8,8 @@ let Input = styled.input`
   border: 0;
   color: #ffffff;
   background-color: #232b40;
-  outline: 0;
-  box-shadow: none;
+  outline: 0 !important;
+  box-shadow: none !important;
 `;
 
 export default Input;
