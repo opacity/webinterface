@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Input = styled.input`
+let Input = styled.input`
   width: 380px;
   max-width: 100%;
   box-sizing: border-box;
@@ -8,11 +8,8 @@ const Input = styled.input`
   border: 0;
   color: #ffffff;
   background-color: #232b40;
-
-  &:focus {
-    outline: none !important;
-    box-shadow: none !important;
-  }
+  outline: 0;
+  box-shadow: none;
 `;
 
 export default Input;
