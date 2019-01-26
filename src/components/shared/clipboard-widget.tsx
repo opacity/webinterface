@@ -19,6 +19,21 @@ const TextContainer = styled.div`
   overflow: auto;
   text-align: center;
   width: 380px;
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
@@ -26,18 +41,15 @@ const TextContainer = styled.div`
 `;
 
 const TextBox = styled.p`
+  display: inline-block;
   box-sizing: border-box;
   color: #ffffff;
-  display: inline-block;
   font-size: 12px;
   font-stretch: normal;
   font-style: normal;
   font-weight: bold;
   letter-spacing: normal;
-  margin: 0;
-  padding: 0 15px;
-  vertical-align: middle;
-  width: 100%;
+  margin: 10px 15px;
 
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: auto;
