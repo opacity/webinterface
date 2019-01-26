@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import Button from "../shared/button";
+import Input from "../shared/input";
 import Spinner from "../shared/spinner";
 
 import { DOWNLOAD_STATUSES } from "../../config";
@@ -29,20 +30,6 @@ const Icon = styled.img`
 
 const InputContainer = styled.div`
   margin-bottom: 60px;
-`;
-
-const HandleTextInput = styled.input`
-  color: #ffffff;
-  border: none;
-  width: 380px;
-  height: 25px;
-  padding: 10px 15px;
-  background-color: #232b40;
-
-  &:focus {
-    outline: none !important;
-    box-shadow: none !important;
-  }
 `;
 
 const DownloadButton = styled(Button)`
@@ -100,7 +87,7 @@ class DownloadFormSlide extends React.Component<
         <InputContainer>
           <label>
             <HandleLabel>Enter Opacity Handle</HandleLabel>
-            <HandleTextInput
+            <Input
               id="download-handle-input"
               name="handle"
               type="text"
