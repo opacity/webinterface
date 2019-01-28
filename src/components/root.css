@@ -329,32 +329,6 @@ input[type="range"].vertical {
   transform: rotate(-90deg);
   z-index: 0;
 }
-input[type="range"] {
-  -webkit-appearance: none;
-  background-color: #161c29;
-  height: 1px;
-  width: 100%;
-  border: none;
-  border-radius: 4px;
-  margin-top: 15px;
-}
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  background-color: #846b99;
-  border: none;
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  opacity: 1;
-}
-
-input[type="range"]:focus {
-  outline: none;
-}
-
-input[type="range"]:hover {
-  background: #846b99;
-}
 
 input:not([type="range"]) {
   outline: none;

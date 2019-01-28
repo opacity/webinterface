@@ -154,7 +154,33 @@ const UploadSection = styled.div`
 `;
 
 const RetentionSlider = styled.input`
+  max-width: 380px;
+  width: 100%;
   background-color: #161c29;
+  -webkit-appearance: none;
+  background-color: #161c29;
+  height: 1px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 15px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background: #846b99;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #846b99;
+    border: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    opacity: 1;
+  }
 `;
 
 const StorageFees = styled.div`
