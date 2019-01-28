@@ -154,7 +154,8 @@ const UploadSection = styled.div`
 `;
 
 const RetentionSlider = styled.input`
-  width: 380px;
+  max-width: 380px;
+  width: 100%;
   background-color: #161c29;
   -webkit-appearance: none;
   background-color: #161c29;
