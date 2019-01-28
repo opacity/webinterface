@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-let Input = styled.input`
+const Input = styled.input`
   width: 380px;
   max-width: 100%;
   box-sizing: border-box;
