@@ -63,6 +63,7 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.7.0",
+    "react-markdown": "^4.0.6",
     "react-md-spinner": "^0.2.5",
     "react-redux": "^5.1.1",
     "react-router": "^4.2.0",
@@ -89,7 +90,7 @@
     "webpack": "^4.29.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.1.14",
+    "webpack-dev-server": "3.1.14",
     "webpack-manifest-plugin": "2.0.3",
     "webpack-merge": "^4.2.1",
     "whatwg-fetch": "2.0.3"
