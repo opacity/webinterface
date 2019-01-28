@@ -32,12 +32,13 @@ const InputContainer = styled.div`
 `;
 
 const HandleTextInput = styled.input`
-  color: #ffffff;
-  border: none;
-  width: 380px;
-  height: 25px;
-  padding: 10px 15px;
   background-color: #232b40;
+  border: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  height: 45px;
+  max-width: 380px;
+  width: 100%;
 
   &:focus {
     outline: none !important;
