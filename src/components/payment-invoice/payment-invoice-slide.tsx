@@ -11,7 +11,7 @@ const Cost = styled.span`
   font-weight: 600;
 `;
 
-const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
+const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice, openMetamask }) => (
   <ScreenContainer title={"Send OPQ"}>
     <ScreenDescription>
       To complete this transaction, send <Cost>{cost} OPQ</Cost> with gas price
@@ -19,6 +19,7 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice }) => (
       upload will start automatically after your payment is received. This may
       take some time depending on network traffic.
     </ScreenDescription>
+    <button onClick={openMetamask}>Open metamask</button>
     <ScreenDescription>
       <QRCode
         value={ethAddress}

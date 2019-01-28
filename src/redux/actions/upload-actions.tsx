@@ -6,6 +6,9 @@ const UPLOAD = "opacity/upload/stream";
 const INVOICED = "opacity/upload/stream-invoiced";
 const PAYMENT_PENDING = "opacity/upload/stream-payment-pending";
 const PAYMENT_CONFIRMED = "opacity/upload/stream-payment-confirmed";
+const METAMASK_PAYMENT_PENDING = "opacity/upload/metamask-payment-pending";
+const METAMASK_PAYMENT_SUCCESS = "opacity/upload/metamask-payment-success";
+const METAMASK_PAYMENT_ERROR = "opacity/upload/metamask-payment-error";
 const CHUNKS_PROGRESS = "opacity/upload/stream-chunks-progress";
 const CHUNKS_UPLOADED = "opacity/upload/stream-chunks-uploaded";
 const CHUNKS_DELIVERED = "opacity/upload/stream-chunks-delivered";
@@ -23,6 +26,9 @@ const ACTIONS = Object.freeze({
   INVOICED,
   PAYMENT_PENDING,
   PAYMENT_CONFIRMED,
+  METAMASK_PAYMENT_PENDING,
+  METAMASK_PAYMENT_SUCCESS,
+  METAMASK_PAYMENT_ERROR,
   CHUNKS_PROGRESS,
   CHUNKS_UPLOADED,
   CHUNKS_DELIVERED,
@@ -59,6 +65,17 @@ const ACTIONS = Object.freeze({
   streamPaymentConfirmed: ({ filename, handle, numberOfChunks }) => ({
     type: ACTIONS.PAYMENT_CONFIRMED,
     payload: { filename, handle, numberOfChunks }
+  }),
+  metamaskPaymentPending: ({ cost, ethAddress }) => ({
+    type: ACTIONS.METAMASK_PAYMENT_PENDING,
+    payload: { cost, ethAddress }
+  }),
+  metamaskPaymentSuccess: () => ({
+    type: ACTIONS.METAMASK_PAYMENT_SUCCESS
+  }),
+  metamaskPaymentError: ({ error }) => ({
+    type: ACTIONS.METAMASK_PAYMENT_ERROR,
+    payload: { error }
   }),
   streamChunksProgress: ({ progress }) => ({
     type: ACTIONS.CHUNKS_PROGRESS,
