@@ -23,7 +23,7 @@ const checkStatus = hosts =>
         }
         resolve(available);
       })
-      .catch(err => {
+      .catch(() => {
         resolve(false);
       });
   });

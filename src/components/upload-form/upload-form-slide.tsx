@@ -245,6 +245,8 @@ interface UploadSlideState {
 }
 
 class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
+  fileInput: HTMLInputElement|null = null;
+
   constructor (props) {
     super(props);
 
@@ -259,7 +261,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
   }
 
   disableButton (): boolean {
-    const fileInput: any = this.refs.fileInput;
+    const fileInput: any = this.fileInput;
     const isFileChosen = fileInput && fileInput.files[0];
     return (
       this.state.isInitializing || !(this.state.isTermsChecked && isFileChosen)
@@ -288,6 +290,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     } while (Math.abs(bytes) >= thresh && u < units.length - 1);
     return bytes.toFixed(1) + " " + units[u];
   }
+
   render () {
     const {
       alphaBroker,
@@ -367,13 +370,13 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
             <input
               name="upload"
               id="upload-input"
-              ref="fileInput"
+              ref={el => { this.fileInput = el; }}
               onChange={event => {
                 let file: any = [];
                 if (event.target.files) {
                   file = event.target.files[0];
                 }
-                if (!!file) {
+                if (file) {
                   this.setState({
                     fileName: file.name,
                     fileSize: file.size,
@@ -425,7 +428,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
             disabled={this.disableButton()}
             type="button"
             onClick={() => {
-              const fileInput: any = this.refs.fileInput;
+              const fileInput: any = this.fileInput;
               const file = fileInput.files[0];
               if (!file || file.size > FILE.MAX_FILE_SIZE) {
                 alert(

@@ -27,7 +27,7 @@ const BROKERS = IS_DEV
 const randElem = (xs: string) => xs[Math.floor(Math.random() * xs.length)];
 const randInstance = (instances: any) => {
   const firstInstance = randElem(instances);
-  const remInstances = instances.filter((br: any) => br != firstInstance);
+  const remInstances = instances.filter((br: any) => br !== firstInstance);
   const secondInstance = randElem(remInstances);
 
   return [firstInstance, secondInstance];
