@@ -245,7 +245,7 @@ interface UploadSlideState {
 }
 
 class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
@@ -258,7 +258,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     };
   }
 
-  disableButton(): boolean {
+  disableButton (): boolean {
     const fileInput: any = this.refs.fileInput;
     const isFileChosen = fileInput && fileInput.files[0];
     return (
@@ -266,14 +266,14 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     );
   }
 
-  calculateStorageCost(fileSizeBytes, years) {
+  calculateStorageCost (fileSizeBytes, years) {
     let chunks = Math.ceil(fileSizeBytes / 1024) + 1; // 1 kb for metadata
     let numSectors = Math.ceil(chunks / CHUNKS_IN_SECTOR);
     let costPerYear = numSectors / STORAGE_PEG;
     return costPerYear * years;
   }
 
-  humanFileSize(bytes, si) {
+  humanFileSize (bytes, si) {
     let thresh = si ? 1000 : 1024;
     if (Math.abs(bytes) < thresh) {
       return bytes + " B";
@@ -288,7 +288,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     } while (Math.abs(bytes) >= thresh && u < units.length - 1);
     return bytes.toFixed(1) + " " + units[u];
   }
-  render() {
+  render () {
     const {
       alphaBroker,
       betaBroker,
@@ -307,7 +307,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                 type="range"
                 min="0"
                 max="10"
-                disabled
+                disabled={true}
                 value={retentionYears}
                 onChange={event => {
                   let retentionYears = event.target.value;
@@ -325,7 +325,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
               <select
                 id="sel"
                 value={retentionYears}
-                disabled
+                disabled={true}
                 onChange={event => {
                   let retentionYears = event.target.value;
                   selectRetentionYears(retentionYears);
@@ -393,7 +393,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                 }
               }}
               type="file"
-              required
+              required={true}
             />
           </UploadColumn>
         </FileSelectWrapper>
@@ -433,9 +433,9 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                     (1000 * 1000)} MB.`
                 );
               } else if (retentionYears === "0") {
-                alert(`Please select retention years`);
+                alert("Please select retention years");
               } else if (Number(retentionYears) > 1) {
-                alert(`For the beta mainnet, max storage years is 1.`);
+                alert("For the beta mainnet, max storage years is 1.");
               } else {
                 const brokers = { alpha: alphaBroker, beta: betaBroker };
                 streamUploadFn(file, retentionYears, brokers);

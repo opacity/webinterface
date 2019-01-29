@@ -82,16 +82,16 @@ class DownloadFormSlide extends React.Component<
   DownloadFormSlideProps,
   DownloadFormState
 > {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = { handle: "" };
   }
 
   inputHandler = evt => {
     this.setState({ handle: evt.target.value });
-  };
+  }
 
-  render() {
+  render () {
     const { download, status } = this.props;
     return (
       <ScreenContainer title={"Retrieve File"}>

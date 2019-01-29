@@ -20,7 +20,7 @@ const IOTA_PROVIDERS = IS_DEV
 
 const BROKERS = IS_DEV
   ? ["18.222.173.29", "18.188.230.212"] // Rebel brokers
-  : //["52.14.218.135", "18.217.133.146"] // QA brokers
+  : // ["52.14.218.135", "18.217.133.146"] // QA brokers
     ["broker-1.opacitynodes.com", "broker-2.opacitynodes.com"];
 
 // Hack until we have proper load balancing.

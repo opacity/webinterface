@@ -11,7 +11,7 @@ interface ClipboardBtnProps {
 class ClipboardBtn extends React.Component<ClipboardBtnProps> {
   state = { popTimeout: undefined };
 
-  render() {
+  render () {
     return (
       <CopyToClipboard
         text={this.props.text}

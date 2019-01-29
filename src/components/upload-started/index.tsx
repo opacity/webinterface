@@ -19,7 +19,7 @@ class UploadProgress extends React.Component<
   UploadProgressProps,
   UploadProgressState
 > {
-  render() {
+  render () {
     const { upload } = this.props;
     const { chunksProgress } = upload;
 
