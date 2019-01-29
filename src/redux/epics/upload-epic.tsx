@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 import { combineEpics } from "redux-observable";
+import Web3 from "web3";
 
 import uploadActions from "../actions/upload-actions";
 import { execObservableIfBackendAvailable } from "./utils";
@@ -10,6 +11,11 @@ import {
 import { alertUser } from "../../services/error-tracker";
 import { API } from "../../config";
 import navigationActions from "../actions/navigation-actions";
+
+const web3Provider = new Web3.providers.HttpProvider(
+  "https://mainnet.infura.io/v3/a40f331b1e204073b73e27628a5cb308"
+);
+const web3 = new Web3(web3.currentProvider);
 
 const streamUploadEpic = action$ =>
   action$.ofType(uploadActions.UPLOAD).mergeMap(action => {
@@ -89,4 +95,37 @@ const streamUploadProgressEpic = action$ =>
     });
   });
 
-export default combineEpics(streamUploadEpic, streamUploadProgressEpic);
+const metamaskEpic = action$ =>
+  action$
+    .ofType(uploadActions.METAMASK_PAYMENT_PENDING)
+    .mergeMap(action => {
+      const { cost, ethAddress } = action.payload;
+      return Observable.fromPromise(web3.eth.getAccounts()).map(accounts => {
+        console.log("fffffffffffF: ", accounts);
+        return { cost, ethAddress, sender: accounts[0] };
+      });
+    })
+    .mergeMap(({ cost, ethAddress, sender }) =>
+      Observable.create(o => {
+        web3.eth.sendTransaction(
+          {
+            to: ethAddress,
+            from: sender,
+            value: cost.toString()
+          },
+          (err, res) => {
+            o.complete(
+              err
+                ? uploadActions.metamaskPaymentError(err)
+                : uploadActions.metamaskPaymentSuccess()
+            );
+          }
+        );
+      })
+    );
+
+export default combineEpics(
+  streamUploadEpic,
+  streamUploadProgressEpic,
+  metamaskEpic
+);
