@@ -6,11 +6,11 @@ const ICON_READY = require("../../assets/images/icon_ready.png");
 const ICON_SPINNER = require("../../assets/images/icon_spinner.png");
 
 class RetrievingInvoiceSlide extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
   }
 
-  render() {
+  render () {
     return (
       <Slide title="Retrieving Invoice..." image={ICON_READY}>
         <p>We are retrieving your invoice...</p>

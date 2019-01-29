@@ -8,7 +8,7 @@ import { AGREEMENT_TYPES } from "../../config";
 import TOS_MARKDOWN from "./terms-of-service.md";
 import PRIVACY_POLICY from "./privacy-policy.md";
 
-const AgreementMarkdownComponent = (props) => (
+const AgreementMarkdownComponent = props => (
   <div>
     <Markdown {...props} />
   </div>

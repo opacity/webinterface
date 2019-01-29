@@ -1,6 +1,6 @@
 // https://github.com/ReactTraining/react-router/issues/5405#issuecomment-430911738
-import * as React from "react"
-import {withRouter} from "react-router"
+import * as React from "react";
+import { withRouter } from "react-router";
 
 // Explanation: This component is meant to prevent accidental page transitions
 // which could cause unsaved work to be lost. When this component is mounted
@@ -17,61 +17,61 @@ import {withRouter} from "react-router"
 // https://github.com/ReactTraining/react-router/issues/5405
 
 const DEFAULT_MESSAGE =
-  "You have unsaved changes, are you sure you want to leave?"
+  "You have unsaved changes, are you sure you want to leave?";
 
 interface Props {
-  when: boolean
-  message?: string
-  history?: any
+  when: boolean;
+  message?: string;
+  history?: any;
 }
 
 class NavigationLock extends React.PureComponent<Props> {
-  public unblock?: () => void
+  public unblock?: () => void;
 
-  public componentDidMount() {
+  public componentDidMount () {
     if (this.props.when) {
-      this.startBlocking()
+      this.startBlocking();
     }
   }
 
-  public componentWillUnmount() {
-    this.stopBlocking()
+  public componentWillUnmount () {
+    this.stopBlocking();
   }
 
-  public componentWillReceiveProps(nextProps: Props) {
+  public componentWillReceiveProps (nextProps: Props) {
     if (nextProps.when && !this.props.when) {
-      this.startBlocking()
+      this.startBlocking();
     } else if (!nextProps.when && this.props.when) {
-      this.stopBlocking()
+      this.stopBlocking();
     }
   }
 
-  public render() {
-    return null
+  public render () {
+    return null;
   }
 
   private onBeforeUnload = (event: any) => {
     // Prompts the user before closing the page, see:
     // https://developer.mozilla.org/en-US/docs/Web/Events/beforeunload
-    event.preventDefault()
-    event.returnValue = ""
+    event.preventDefault();
+    event.returnValue = "";
   }
 
   private startBlocking = () => {
     if (!this.unblock) {
-      const message = this.props.message || DEFAULT_MESSAGE
-      this.unblock = this.props.history.block(message)
+      const message = this.props.message || DEFAULT_MESSAGE;
+      this.unblock = this.props.history.block(message);
     }
-    window.addEventListener("beforeunload", this.onBeforeUnload)
+    window.addEventListener("beforeunload", this.onBeforeUnload);
   }
 
   private stopBlocking = () => {
     if (this.unblock) {
-      this.unblock()
-      this.unblock = undefined
+      this.unblock();
+      this.unblock = undefined;
     }
-    window.removeEventListener("beforeunload", this.onBeforeUnload)
+    window.removeEventListener("beforeunload", this.onBeforeUnload);
   }
 }
 
-export default withRouter(NavigationLock)
+export default withRouter(NavigationLock);

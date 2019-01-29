@@ -8,7 +8,7 @@ interface DownloadUploadHistoryButtonProps {
 class DownloadUploadHistoryButton extends Component<
   DownloadUploadHistoryButtonProps
 > {
-  render() {
+  render () {
     const { download } = this.props;
     return (
       <div>

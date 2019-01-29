@@ -12,8 +12,10 @@ export const alertUser = err => {
 
   const now = +new Date();
   if (
+    // tslint:disable
     lastAlertShownAt === undefined ||
     now - lastAlertShownAt > REQUIRED_MS_BETWEEN_ALERTS
+    // tslint:enable
   ) {
     window.alert(err);
     lastAlertShownAt = +new Date();

@@ -90,7 +90,7 @@
     "webpack": "^4.29.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "3.1.14",
+    "webpack-dev-server": "^3.1.14",
     "webpack-manifest-plugin": "2.0.3",
     "webpack-merge": "^4.2.1",
     "whatwg-fetch": "2.0.3"
@@ -118,15 +118,19 @@
     "jest-enzyme": "^4.2.0",
     "nock": "^9.2.5",
     "regenerator-runtime": "^0.11.1",
-    "ts-jest": "^23.10.5"
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.1",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-react": "^3.6.0"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development PORT=3001 webpack-dev-server --config='config/webpack.config.js' --mode development",
     "start:prod": "NODE_ENV=production npm start --port=3001",
     "build": "cross-env NODE_ENV=production webpack --config='config/webpack.config.js' --mode production",
     "test": "jest",
-    "lint": "eslint src",
-    "pretty": "eslint src --fix",
+    "lint": "tslint --project . --config tslint.config.js",
+    "pretty": "tslint --project . --config tslint.config.js --fix",
     "test:install": "cypress install",
     "test:watch": "cross-env NODE_PATH=src jest --watch --colors",
     "test:coverage": "cross-env NODE_PATH=src jest --coverage",

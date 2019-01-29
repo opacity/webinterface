@@ -14,7 +14,7 @@ const PageNavigationPrompt = ({ upload }) => (
     message={(location, action) => {
       return action !== "REPLACE"
         ? "You have started an upload, are you sure you want to cancel your upload?"
-        : null
+        : null;
     } }
   />
 );

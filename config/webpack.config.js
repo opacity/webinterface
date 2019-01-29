@@ -181,7 +181,7 @@ if (env.stringified["process.env"].NODE_ENV === '"production"') {
         // about it being stale, and the cache-busting can be skipped.
         dontCacheBustUrlsMatching: /\.\w{8}\./,
         filename: "service-worker.js",
-        logger(message) {
+        logger (message) {
           if (message.indexOf("Total precache size is") === 0) {
             // This message occurs for every build and is a bit too noisy.
             return;
