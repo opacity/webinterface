@@ -82,3 +82,6 @@ export const AGREEMENT_TYPES = Object.freeze({
   TERMS_OF_SERVICE: "TERMS_OF_SERVICE",
   PRIVACY_POLICY: "PRIVACY_POLICY"
 });
+
+export const DESKTOP_WIDTH = "776";
+export const MOBILE_WIDTH = "567";

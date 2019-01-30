@@ -6,6 +6,8 @@ import ClipboardWidget from "../shared/clipboard-widget";
 import ScreenContainer from "../shared/screen-container";
 import ScreenDescription from "../shared/screen-description";
 
+import { DESKTOP_WIDTH } from "../../config";
+
 const Label = styled.h3`
   margin: 0 0 11px 0;
   font-size: 16px;
@@ -29,6 +31,9 @@ const Bold = styled.span`
 
 const ProgressSection = styled.div`
   margin-bottom: 60px;
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
+    margin-bottom: 0px;
+  }
 `;
 
 const UploadProgressSlide = ({ uploadProgress, handle }) => (

@@ -1,14 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
+import { DESKTOP_WIDTH } from "../../config";
+
 const Container = styled.div`
   padding: 70px 250px;
   height: 100%;
   max-width: 950px;
   margin: auto;
 
-  @media only screen and (max-width: 776px) {
-    padding: 70px 50px;
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
+    padding: 25px 35px;
   }
 `;
 
@@ -30,6 +32,9 @@ const Underline = styled.hr`
   height: 1px;
   margin: 6px 0 60px 0;
   padding: 0;
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const ScreenContainer = ({ title, children }) => (

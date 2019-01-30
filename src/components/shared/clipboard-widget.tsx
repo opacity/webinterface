@@ -4,6 +4,8 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import Button from "./button";
 
+import { MOBILE_WIDTH } from "../../config";
+
 const ICON_COPY = require("../../assets/images/icon_copy.svg");
 
 const Icon = styled.img`
@@ -34,7 +36,7 @@ const TextContainer = styled.div`
     background: #555;
   }
 
-  @media only screen and (max-width: 567px) {
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
   }
 `;
@@ -50,7 +52,7 @@ const TextBox = styled.p`
   letter-spacing: normal;
   margin: 10px 15px;
 
-  @media only screen and (max-width: 567px) {
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: auto;
   }
 
@@ -90,7 +92,7 @@ const CopyButton = styled(Button)`
   width: 289px;
   height: 40px;
 
-  @media only screen and (max-width: 567px) {
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
   }
 `;

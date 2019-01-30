@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Button from "../shared/button";
 import Spinner from "../shared/spinner";
 
-import { DOWNLOAD_STATUSES } from "../../config";
+import { DOWNLOAD_STATUSES, DESKTOP_WIDTH } from "../../config";
 const ICON_DOWNLOAD = require("../../assets/images/icon_download.svg");
 
 import ScreenContainer from "../shared/screen-container";
@@ -29,6 +29,9 @@ const Icon = styled.img`
 
 const InputContainer = styled.div`
   margin-bottom: 60px;
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const HandleTextInput = styled.input`
@@ -43,6 +46,10 @@ const HandleTextInput = styled.input`
   &:focus {
     outline: none !important;
     box-shadow: none !important;
+  }
+
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
+    width: 100%;
   }
 `;
 
@@ -64,7 +71,7 @@ const DownloadButton = styled(Button)`
   margin-right: 20px;
   text-transform: uppercase;
   width: 300px;
-  @media only screen and (max-width: 398px) {
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     width: 100%;
   }
 `;
