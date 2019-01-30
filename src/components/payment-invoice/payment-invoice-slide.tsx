@@ -19,7 +19,7 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice, openMetamask }) => (
       upload will start automatically after your payment is received. This may
       take some time depending on network traffic.
     </ScreenDescription>
-    <button onClick={() => openMetamask({ cost, ethAddress })}>
+    <button onClick={() => openMetamask({ cost, ethAddress, gasPrice })}>
       Open metamask
     </button>
     <ScreenDescription>
