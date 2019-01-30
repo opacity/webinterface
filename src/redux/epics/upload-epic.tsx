@@ -92,15 +92,40 @@ const streamUploadProgressEpic = action$ =>
   });
 
 const metamaskEpic = action$ =>
-  action$.ofType(uploadActions.METAMASK_PAYMENT_PENDING).mergeMap(action => {
-    const { cost, ethAddress, gasPrice } = action.payload;
-    return Observable.fromPromise(
-      Ethereum.sendTransaction({ cost, to: ethAddress, gasPrice })
-    )
-      .map(() => uploadActions.metamaskPaymentSuccess())
-      .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
-  });
+  action$
+    .ofType(uploadActions.METAMASK_PAYMENT_PENDING)
+    .mergeMap(action => {
+      const { cost, ethAddress, gasPrice } = action.payload;
+      return Observable.fromPromise(Ethereum.fetchDefaultMetamaskAccount()).map(
+        account => {
+          return { value: cost, to: ethAddress, from: account, gasPrice };
+        }
+      );
+    })
+    .mergeMap(transaction => {
+      const { to } = transaction;
+      return Observable.fromPromise(Ethereum.getTransactionNonce(to)).map(
+        nonce => {
+          // return {
+          // ...transaction,
+          // nonce
+          // };
+          console.log("xxxxxxxxxxxx: ", {
+            ...transaction,
+            nonce
+          });
 
+          return uploadActions.metamaskPaymentSuccess();
+        }
+      );
+    });
+// .mergeMap(action => {
+// const { cost, to, from, gasPrice } = action.payload;
+// return Observable.fromPromise(Ethereum.fetchDefaultMetamaskAccount())
+// .map(() => uploadActions.metamaskPaymentSuccess())
+// .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
+// })
+// .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
 export default combineEpics(
   streamUploadEpic,
   streamUploadProgressEpic,
