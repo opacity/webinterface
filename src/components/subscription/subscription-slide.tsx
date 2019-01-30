@@ -45,6 +45,7 @@ const Hr = styled.hr`
 
 const Content = styled.p`
   width: 171px;
+  min-height: 70px;
   font-size: 12px;
   font-weight: 500;
   font-style: normal;
@@ -52,21 +53,18 @@ const Content = styled.p`
   line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-top: 15px;
+  margin: 15px 15px 0 15px;
   @media (max-width: 1200px) {
     width: auto;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin: 0 30px 0 30px;
   }
-  min-height: 70px;
 `;
 
 const ContentBold = styled(Content)`
   font-weight: bold;
   min-height: 28px;
 `;
+
 const Price = styled.p`
   font-weight: bold;
   width: 90px;
@@ -80,6 +78,7 @@ const Price = styled.p`
   color: #ffffff;
   text-align: center;
   margin: auto;
+  margin-top: 20px;
 `;
 
 const Button = styled.button`
@@ -100,8 +99,11 @@ const Button = styled.button`
 
 const ButtonWrapper = styled.div`
   text-align: center;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin: 40px 0 40px 0;
+`;
+
+const Space = styled.div`
+  height: 154px;
 `;
 
 const SubscriptionSlide = () => (
@@ -157,9 +159,7 @@ const SubscriptionSlide = () => (
           our team to discover how Opacity can secure your enterprise storage
           needs.
         </Content>
-        <ContentBold />
-        <ContentBold />
-        <Price />
+        <Space />
         <ButtonWrapper>
           <Button>CONTACT US</Button>
         </ButtonWrapper>
