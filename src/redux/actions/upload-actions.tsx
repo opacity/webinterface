@@ -66,9 +66,9 @@ const ACTIONS = Object.freeze({
     type: ACTIONS.PAYMENT_CONFIRMED,
     payload: { filename, handle, numberOfChunks }
   }),
-  metamaskPaymentPending: ({ cost, ethAddress }) => ({
+  metamaskPaymentPending: ({ cost, ethAddress, gasPrice }) => ({
     type: ACTIONS.METAMASK_PAYMENT_PENDING,
-    payload: { cost, ethAddress }
+    payload: { cost, ethAddress, gasPrice }
   }),
   metamaskPaymentSuccess: () => ({
     type: ACTIONS.METAMASK_PAYMENT_SUCCESS
