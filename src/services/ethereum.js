@@ -1,6 +1,6 @@
-// import OpacityABI from "../contracts/opacity";
+import opacityABI from "../contracts/opacity";
 
-// const CONTRACT_ADDRESS = "0x77599d2c6db170224243e255e6669280f11f1473";
+const CONTRACT_ADDRESS = "0x77599d2c6db170224243e255e6669280f11f1473";
 
 const metamaskExists = window.ethereum && window.ethereum._metamask;
 
@@ -24,32 +24,25 @@ const getTransactionNonce = (account, callback) =>
 const sendTransaction = ({ cost, from, to, gasPrice, nonce }) =>
   new Promise((resolve, reject) => {
     if (metamaskExists) {
-      const myContract = new window.web3.eth.Contract(abi, CONTRACT_ADDRESS);
-      const data = myContract.methods.transfer(to, cost).encodeABI();
-      const rawTx = {
-        nonce: web3.utils.toHex(nonce),
-        gasPrice: web3.utils.toHex(gasPrice),
-        gasLimit: web3.utils.toHex("20000"),
-        to: contractAddress,
-        value: "0x00",
-        data: data
-      };
-      const tx = new Tx(rawTx);
-      tx.sign(privateKey);
-      const serializedTx = "0x" + tx.serialize().toString("hex");
-
-      web3.eth
-        .sendSignedTransaction(serializedTx)
-        .on("transactionHash", function(txHash) {})
-        .on("receipt", function(receipt) {
-          console.log("receipt:" + receipt);
-        })
-        .on("confirmation", function(confirmationNumber, receipt) {
-          //console.log("confirmationNumber:" + confirmationNumber + " receipt:" + receipt);
-        })
-        .on("error", function(error) {});
-    } else if (window.web3) {
+      const ethereum = window.ethereum;
+      const Web3 = window.Web3;
+      const web3 = new Web3(ethereum);
+      const myContract = web3.eth.contract(opacityABI).at(CONTRACT_ADDRESS); // eslint-disable-line
+      console.log("xxxxxxxxxx", opacityABI);
+      const data = myContract.transfer(
+        to,
+        cost,
+        {
+          from
+        },
+        (err, res) => {
+          console.log(err ? err : res);
+          err ? reject(err) : resolve(res);
+        }
+      );
     }
+    // } else if (window.web3) {
+    // }
   });
 
 // const blah = ({ cost, to, gasPrice }) =>

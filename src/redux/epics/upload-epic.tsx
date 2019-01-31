@@ -106,25 +106,25 @@ const metamaskEpic = action$ =>
       const { to } = transaction;
       return Observable.fromPromise(Ethereum.getTransactionNonce(to)).map(
         nonce => {
-          // return {
-          // ...transaction,
-          // nonce
-          // };
-          console.log("xxxxxxxxxxxx: ", {
+          return {
             ...transaction,
             nonce
-          });
-
-          return uploadActions.metamaskPaymentSuccess();
+          };
         }
       );
+    })
+    .mergeMap(transaction => {
+      const { cost, to, from, gasPrice, nonce } = transaction;
+      return Observable.fromPromise(
+        Ethereum.sendTransaction({
+          cost,
+          to,
+          from,
+          gasPrice,
+          nonce: nonce + 1
+        })
+      ).map(() => uploadActions.metamaskPaymentSuccess());
     });
-// .mergeMap(action => {
-// const { cost, to, from, gasPrice } = action.payload;
-// return Observable.fromPromise(Ethereum.fetchDefaultMetamaskAccount())
-// .map(() => uploadActions.metamaskPaymentSuccess())
-// .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
-// })
 // .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
 export default combineEpics(
   streamUploadEpic,
