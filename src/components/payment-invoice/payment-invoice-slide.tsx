@@ -25,13 +25,13 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice, openMetamask }) => (
     <ScreenDescription>
       <QRCode
         value={ethAddress}
-        size="200"
+        size={200}
         renderAs="svg"
         bgColor="#ffffff"
         fgColor="#2e3854"
         level="H"
         color="#ffffff"
-        includeMargin="true"
+        includeMargin={true}
       />
     </ScreenDescription>
     <ClipboardWidget title="Address" text={ethAddress} property="Address" />
