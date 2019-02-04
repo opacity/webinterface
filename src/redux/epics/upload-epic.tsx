@@ -98,7 +98,7 @@ const metamaskEpic = action$ =>
       const { cost, ethAddress, gasPrice } = action.payload;
       return Observable.fromPromise(Ethereum.fetchDefaultMetamaskAccount()).map(
         account => {
-          return { value: cost, to: ethAddress, from: account, gasPrice };
+          return { to: ethAddress, from: account, cost, gasPrice };
         }
       );
     })
@@ -124,8 +124,9 @@ const metamaskEpic = action$ =>
           nonce: nonce + 1
         })
       ).map(() => uploadActions.metamaskPaymentSuccess());
-    });
-// .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
+    })
+    .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
+
 export default combineEpics(
   streamUploadEpic,
   streamUploadProgressEpic,
