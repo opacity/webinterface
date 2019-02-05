@@ -85,3 +85,17 @@ export const AGREEMENT_TYPES = Object.freeze({
 
 export const DESKTOP_WIDTH = "776";
 export const MOBILE_WIDTH = "567";
+export const SUBSCRIPTION_MOBILE_WIDTH = "1200";
+
+export const theme = {
+  primary: "#232b40",
+  secondary: "#a995bb",
+  buttonBackground: "#846b99",
+  white: "#ffffff",
+  fontWeight: 500,
+  fontStyle: "normal",
+  fontStretch: "normal",
+  lineHeight: "normal",
+  letterSpacing: "normal",
+  fontSize: "26px"
+};

@@ -1,26 +1,15 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import ScreenContainer from "../shared/screen-container";
+import { SUBSCRIPTION_MOBILE_WIDTH, theme } from "../../config";
 
-const theme = {
-  primary: "#232b40",
-  secondary: "#a995bb",
-  buttonBackground: "#846b99",
-  white: "#ffffff",
-  fontWeight: 500,
-  fontStyle: "normal",
-  fontStretch: "normal",
-  lineHeight: "normal",
-  letterSpacing: "normal",
-  fontSize: "26px"
-};
+import ScreenContainer from "../shared/screen-container";
 
 const FlexGrid = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0 0 20px 0;
-  @media (max-width: 1200px) {
+  @media (max-width: ${SUBSCRIPTION_MOBILE_WIDTH}px) {
     display: block;
   }
 `;
@@ -31,7 +20,7 @@ const FlexCol = styled.div`
   background-color: ${props => props.theme.primary};
   padding-top: 15px;
   margin-inline-end: 10px;
-  @media (max-width: 1200px) {
+  @media (max-width: ${SUBSCRIPTION_MOBILE_WIDTH}px) {
     width: 100%;
     margin: 0 0 10px 0;
   }
@@ -67,7 +56,7 @@ const Content = styled.p`
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.white};
   margin: 15px 15px 0 15px;
-  @media (max-width: 1200px) {
+  @media (max-width: ${SUBSCRIPTION_MOBILE_WIDTH}px) {
     width: auto;
     margin: 0 30px 0 30px;
   }
