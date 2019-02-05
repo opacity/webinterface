@@ -13,6 +13,8 @@ import navigationActions from "../actions/navigation-actions";
 
 import Ethereum from "../../services/ethereum";
 
+const METAMASK_URL = "https://metamask.io/";
+
 const streamUploadEpic = action$ =>
   action$.ofType(uploadActions.UPLOAD).mergeMap(action => {
     const {
@@ -91,7 +93,7 @@ const streamUploadProgressEpic = action$ =>
     });
   });
 
-const metamaskEpic = action$ =>
+const metamaskPendingEpic = action$ =>
   action$
     .ofType(uploadActions.METAMASK_PAYMENT_PENDING)
     .mergeMap(action => {
@@ -103,8 +105,8 @@ const metamaskEpic = action$ =>
       );
     })
     .mergeMap(transaction => {
-      const { to } = transaction;
-      return Observable.fromPromise(Ethereum.getTransactionNonce(to)).map(
+      const { from } = transaction;
+      return Observable.fromPromise(Ethereum.getTransactionNonce(from)).map(
         nonce => {
           return {
             ...transaction,
@@ -127,8 +129,14 @@ const metamaskEpic = action$ =>
     })
     .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
 
+const metamaskErrorEpic = action$ =>
+  action$.ofType(uploadActions.METAMASK_PAYMENT_ERROR).do(() => {
+    window.open(METAMASK_URL, " _blank");
+  });
+
 export default combineEpics(
   streamUploadEpic,
   streamUploadProgressEpic,
-  metamaskEpic
+  metamaskPendingEpic,
+  metamaskErrorEpic
 );
