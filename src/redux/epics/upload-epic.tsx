@@ -93,23 +93,33 @@ const streamUploadProgressEpic = action$ =>
     });
   });
 
-const metamaskPendingEpic = action$ =>
+const metamaskAccountEpic = action$ =>
+  action$.ofType(uploadActions.METAMASK_PAYMENT_PENDING).mergeMap(action => {
+    const { cost, ethAddress, gasPrice } = action.payload;
+    return Observable.fromPromise(Ethereum.fetchDefaultMetamaskAccount())
+      .map(account =>
+        uploadActions.metamaskTransaction({
+          to: ethAddress,
+          from: account,
+          cost,
+          gasPrice
+        })
+      )
+      .catch(e => Observable.of(uploadActions.metamaskAccountError(e)));
+  });
+
+const metamaskTransactionEpic = action$ =>
   action$
-    .ofType(uploadActions.METAMASK_PAYMENT_PENDING)
+    .ofType(uploadActions.METAMASK_TRANSACTION)
     .mergeMap(action => {
-      const { cost, ethAddress, gasPrice } = action.payload;
-      return Observable.fromPromise(Ethereum.fetchDefaultMetamaskAccount()).map(
-        account => {
-          return { to: ethAddress, from: account, cost, gasPrice };
-        }
-      );
-    })
-    .mergeMap(transaction => {
-      const { from } = transaction;
+      const { from, to, cost, gasPrice } = action.payload;
       return Observable.fromPromise(Ethereum.getTransactionNonce(from)).map(
         nonce => {
           return {
-            ...transaction,
+            to,
+            from,
+            cost,
+            gasPrice,
             nonce
           };
         }
@@ -127,16 +137,20 @@ const metamaskPendingEpic = action$ =>
         })
       ).map(() => uploadActions.metamaskPaymentSuccess());
     })
-    .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
+    .catch(e => {
+      // console.log("Metamask error: ", e);
+      return Observable.of(uploadActions.metamaskPaymentError(e));
+    });
 
-const metamaskErrorEpic = action$ =>
-  action$.ofType(uploadActions.METAMASK_PAYMENT_ERROR).do(() => {
+const metamaskAccountErrorEpic = action$ =>
+  action$.ofType(uploadActions.METAMASK_ACCOUNT_ERROR).do(() => {
     window.open(METAMASK_URL, " _blank");
   });
 
 export default combineEpics(
   streamUploadEpic,
   streamUploadProgressEpic,
-  metamaskPendingEpic,
-  metamaskErrorEpic
+  metamaskAccountEpic,
+  metamaskAccountErrorEpic,
+  metamaskTransactionEpic
 );
