@@ -9,11 +9,6 @@ const fetchDefaultMetamaskAccount = () =>
     ? window.ethereum.enable().then(accounts => accounts[0])
     : Promise.reject(new Error("Metamask error fetching address"));
 
-const isMetamaskApproved = () =>
-  metamaskExists
-    ? window.ethereum._metamask.isApproved()
-    : Promise.reject(new Error("Metamask not approved"));
-
 const getTransactionNonce = (account, callback) =>
   new Promise((resolve, reject) => {
     window.web3.eth.getTransactionCount(account, (err, nonce) => {
@@ -49,7 +44,6 @@ const sendTransaction = ({ cost, from, to, gasPrice, nonce }) =>
 
 export default {
   sendTransaction,
-  isMetamaskApproved,
   fetchDefaultMetamaskAccount,
   getTransactionNonce
 };
