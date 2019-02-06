@@ -6,7 +6,7 @@ import ScreenDescription from "../shared/screen-description";
 import ClipboardWidget from "../shared/clipboard-widget";
 import QRCode from "qrcode.react";
 
-const PAY_WITH_METAMASK = require("../../assets/images/pay_with_metamask.png");
+const PAY_WITH_METAMASK_IMG = require("../../assets/images/pay_with_metamask.png");
 
 const Cost = styled.span`
   color: #846b99;
@@ -35,7 +35,7 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice, openMetamask }) => (
     <MetamaskButton
       onClick={() => openMetamask({ cost, ethAddress, gasPrice })}
     >
-      <MetamaskImg src={PAY_WITH_METAMASK} />
+      <MetamaskImg src={PAY_WITH_METAMASK_IMG} />
     </MetamaskButton>
     <ScreenDescription>
       <QRCode
