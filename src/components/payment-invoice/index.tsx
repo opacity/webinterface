@@ -10,8 +10,10 @@ const mapStateToProps = state => ({
   gasPrice: state.upload.gasPrice
 });
 const mapDispatchToProps = dispatch => ({
-  openMetamask: ({ cost, ethAddress }) =>
-    dispatch(uploadActions.metamaskPaymentPending({ cost, ethAddress }))
+  openMetamask: ({ cost, ethAddress, gasPrice }) =>
+    dispatch(
+      uploadActions.metamaskCreateTransaction({ cost, ethAddress, gasPrice })
+    )
 });
 
 const PaymentInvoice = ({ cost, ethAddress, gasPrice, openMetamask }: any) => (

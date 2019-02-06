@@ -94,11 +94,11 @@ const streamUploadProgressEpic = action$ =>
   });
 
 const metamaskAccountEpic = action$ =>
-  action$.ofType(uploadActions.METAMASK_PAYMENT_PENDING).mergeMap(action => {
+  action$.ofType(uploadActions.METAMASK_CREATE_TRANSACTION).mergeMap(action => {
     const { cost, ethAddress, gasPrice } = action.payload;
     return Observable.fromPromise(Ethereum.fetchDefaultMetamaskAccount())
       .map(account =>
-        uploadActions.metamaskTransaction({
+        uploadActions.metamaskPaymentPending({
           to: ethAddress,
           from: account,
           cost,
@@ -110,7 +110,7 @@ const metamaskAccountEpic = action$ =>
 
 const metamaskTransactionEpic = action$ =>
   action$
-    .ofType(uploadActions.METAMASK_TRANSACTION)
+    .ofType(uploadActions.METAMASK_PAYMENT_PENDING)
     .mergeMap(action => {
       const { from, to, cost, gasPrice } = action.payload;
       return Observable.fromPromise(Ethereum.getTransactionNonce(from)).map(
