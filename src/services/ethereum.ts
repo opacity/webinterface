@@ -1,6 +1,14 @@
-import opacityABI from "../contracts/opacity";
+import opacityABI from "../contracts/opacity.json";
 
 const CONTRACT_ADDRESS = "0x77599d2c6db170224243e255e6669280f11f1473";
+
+declare global {
+  interface Window {
+    ethereum: any;
+    web3: any;
+    Web3: any;
+  }
+}
 
 const metamaskExists = window.ethereum && window.ethereum._metamask;
 
@@ -9,7 +17,7 @@ const fetchDefaultMetamaskAccount = () =>
     ? window.ethereum.enable().then(accounts => accounts[0])
     : Promise.reject(new Error("Metamask error fetching address"));
 
-const getTransactionNonce = (account, callback) =>
+const getTransactionNonce = account =>
   new Promise((resolve, reject) => {
     window.web3.eth.getTransactionCount(account, (err, nonce) => {
       err ? reject(err) : resolve(nonce);
