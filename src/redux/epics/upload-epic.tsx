@@ -11,7 +11,7 @@ import { alertUser } from "../../services/error-tracker";
 import { API } from "../../config";
 import navigationActions from "../actions/navigation-actions";
 
-import Ethereum from "../../services/ethereum";
+import Metamask from "../../services/metamask";
 
 const METAMASK_URL = "https://metamask.io/";
 
@@ -96,7 +96,7 @@ const streamUploadProgressEpic = action$ =>
 const metamaskAccountEpic = action$ =>
   action$.ofType(uploadActions.METAMASK_CREATE_TRANSACTION).mergeMap(action => {
     const { cost, ethAddress, gasPrice } = action.payload;
-    return Observable.fromPromise(Ethereum.fetchDefaultMetamaskAccount())
+    return Observable.fromPromise(Metamask.fetchDefaultMetamaskAccount())
       .map(account =>
         uploadActions.metamaskPaymentPending({
           to: ethAddress,
@@ -113,7 +113,7 @@ const metamaskTransactionEpic = action$ =>
     .ofType(uploadActions.METAMASK_PAYMENT_PENDING)
     .mergeMap(action => {
       const { from, to, cost, gasPrice } = action.payload;
-      return Observable.fromPromise(Ethereum.getTransactionNonce(from)).map(
+      return Observable.fromPromise(Metamask.getTransactionNonce(from)).map(
         nonce => {
           return {
             to,
@@ -128,7 +128,7 @@ const metamaskTransactionEpic = action$ =>
     .mergeMap(transaction => {
       const { cost, to, from, gasPrice, nonce } = transaction;
       return Observable.fromPromise(
-        Ethereum.sendTransaction({
+        Metamask.sendTransaction({
           cost,
           to,
           from,
