@@ -10,10 +10,10 @@ declare global {
   }
 }
 
-const metamaskExists = window.ethereum && window.ethereum._metamask;
+const isMetamaskInstalled = window.ethereum && window.ethereum._metamask;
 
 const fetchDefaultMetamaskAccount = () =>
-  metamaskExists
+  isMetamaskInstalled
     ? window.ethereum.enable().then(accounts => accounts[0])
     : Promise.reject(new Error("Metamask error fetching address"));
 
@@ -26,17 +26,15 @@ const getTransactionNonce = account =>
 
 const sendTransaction = ({ cost, from, to, gasPrice, nonce }) =>
   new Promise((resolve, reject) => {
-    if (metamaskExists) {
-      const ethereum = window.ethereum;
-      const Web3 = window.Web3;
-      const web3 = new Web3(ethereum);
+    if (isMetamaskInstalled) {
+      const web3 = window.web3;
       const opacityContract = web3.eth
         .contract(opacityABI)
-        .at(CONTRACT_ADDRESS); // eslint-disable-line
+        .at(CONTRACT_ADDRESS);
 
       opacityContract.transfer(
         to,
-        cost,
+        web3.toWei(cost, "ether"),
         {
           from
         },
