@@ -113,8 +113,9 @@ const metamaskTransactionEpic = action$ =>
     .ofType(uploadActions.METAMASK_PAYMENT_PENDING)
     .mergeMap(action => {
       const { from, to, cost, gasPrice } = action.payload;
-      return Observable.fromPromise(Metamask.getTransactionNonce(from)).map(
-        nonce => {
+
+      return Observable.fromPromise(Metamask.getTransactionNonce(from))
+        .map(nonce => {
           return {
             to,
             from,
@@ -122,11 +123,12 @@ const metamaskTransactionEpic = action$ =>
             gasPrice,
             nonce
           };
-        }
-      );
+        })
+        .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
     })
     .mergeMap(transaction => {
       const { cost, to, from, gasPrice, nonce } = transaction;
+
       return Observable.fromPromise(
         Metamask.sendTransaction({
           cost,
@@ -135,11 +137,9 @@ const metamaskTransactionEpic = action$ =>
           gasPrice,
           nonce: nonce + 1
         })
-      ).map(() => uploadActions.metamaskPaymentSuccess());
-    })
-    .catch(e => {
-      // console.log("Metamask error: ", e);
-      return Observable.of(uploadActions.metamaskPaymentError(e));
+      )
+        .map(() => uploadActions.metamaskPaymentSuccess())
+        .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
     });
 
 const metamaskAccountErrorEpic = action$ =>

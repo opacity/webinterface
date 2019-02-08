@@ -39,7 +39,6 @@ const sendTransaction = ({ cost, from, to, gasPrice, nonce }) =>
           from
         },
         (err, res) => {
-          console.log(err || res);
           err ? reject(err) : resolve(res);
         }
       );
