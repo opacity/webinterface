@@ -1,4 +1,4 @@
-import opacityABI from "../contracts/opacity.json";
+import opacityABI from "../contracts/opacity.abi.json";
 
 const CONTRACT_ADDRESS = "0x77599d2c6db170224243e255e6669280f11f1473";
 
