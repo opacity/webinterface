@@ -10,12 +10,19 @@ declare global {
   }
 }
 
-const isInstalled = !!window.ethereum;
+const isNewVersion = !!window.ethereum;
+const isLegacyVersion = !!window.web3;
 
-const fetchDefaultMetamaskAccount = () =>
-  isInstalled
-    ? window.ethereum.enable().then(accounts => accounts[0])
-    : Promise.reject(new Error("Metamask error fetching address"));
+const fetchDefaultMetamaskAccount = () => {
+  if (isNewVersion) {
+    return window.ethereum.enable().then(accounts => accounts[0]);
+  } else if (isLegacyVersion) {
+    const account = window.web3.eth.getAccounts(accounts => accounts[0]);
+    return Promise.resolve(account);
+  } else {
+    return Promise.reject(new Error("Metamask error fetching address"));
+  }
+};
 
 const getTransactionNonce = account =>
   new Promise((resolve, reject) => {
@@ -26,7 +33,9 @@ const getTransactionNonce = account =>
 
 const sendTransaction = ({ cost, from, to, gasPrice, nonce }) =>
   new Promise((resolve, reject) => {
-    const web3 = window.web3;
+    const web3 = new window.Web3(
+      isNewVersion ? window.ethereum : window.web3.currentProvider
+    );
     const opacityContract = web3.eth.contract(opacityABI).at(CONTRACT_ADDRESS);
 
     opacityContract.transfer(
