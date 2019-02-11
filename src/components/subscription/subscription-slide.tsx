@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { SUBSCRIPTION_MOBILE_WIDTH, theme } from "../../config";
+import { SUBSCRIPTION_DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
 
@@ -9,40 +9,58 @@ const FlexGrid = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0 0 20px 0;
-  @media (max-width: ${SUBSCRIPTION_MOBILE_WIDTH}px) {
+  @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     display: block;
   }
 `;
 
 const FlexCol = styled.div`
-  width: 25%;
+  width: 33%;
   height: 451px;
-  background-color: ${props => props.theme.primary};
+  background-color: ${props => props.theme.container.background};
   padding-top: 15px;
   margin-inline-end: 10px;
-  @media (max-width: ${SUBSCRIPTION_MOBILE_WIDTH}px) {
+  @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     width: 100%;
-    margin: 0 0 10px 0;
+    border-bottom: 1px solid #8faacc;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+    height: 230px;
   }
 `;
 
-const Headline = styled.h1`
-  font-size: ${props => props.theme.fontSize};
+const Title = styled.h1`
+  font-size: ${props => props.theme.container.title.size}px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.white};
+  color: ${props => props.theme.title.color};
   margin: auto;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 35px;
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+    text-align: left;
+    margin: 20px 20px 0 20px;
+    width: 250px;
+    flex: 0.5;
+  }
 `;
 
-const Hr = styled.hr`
-  width: 59px;
-  height: 3px;
-  background-color: ${props => props.theme.secondary};
+const Hr = styled.div`
+  width: ${props => props.theme.container.title.underline.witdh}px;
+  border-top: ${props => props.theme.container.title.underline.height}px solid
+    ${props => props.theme.container.title.underline.color};
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+    margin: 5px 20px 0 20px;
+  }
 `;
 
 const Content = styled.p`
@@ -54,45 +72,57 @@ const Content = styled.p`
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.white};
-  margin: 15px 15px 0 15px;
-  @media (max-width: ${SUBSCRIPTION_MOBILE_WIDTH}px) {
+  color: ${props => props.theme.container.content};
+  margin: 15px 15px 0 35px;
+  @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     width: auto;
     margin: 0 30px 0 30px;
+  }
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+    margin: 15px 30px 0 20px;
+    width: 250px;
   }
 `;
 
 const ContentBold = styled(Content)`
   font-weight: bold;
   min-height: 28px;
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+    display: none;
+  }
 `;
 
 const Price = styled.p`
   width: 90px;
   min-height: 50px;
-  font-size: ${props => props.theme.fontSize};
+  font-size: ${props => props.theme.container.title.size}px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.white};
+  color: ${props => props.theme.container.content};
   text-align: center;
   margin: auto;
   margin-top: 20px;
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+    position: relative;
+    top: -92px;
+    right: -100px;
+  }
 `;
 
 const Button = styled.button`
   width: 171px;
   height: 40px;
-  background-color: ${props => props.theme.buttonBackground};
+  background-color: ${props => props.theme.button.background};
   font-size: 16px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.white};
+  color: ${props => props.theme.button.color};
   text-align: center;
   margin: auto;
   border: none;
@@ -100,11 +130,12 @@ const Button = styled.button`
 
 const ButtonWrapper = styled.div`
   text-align: center;
-  margin: 40px 0 40px 0;
-`;
-
-const Space = styled.div`
-  height: 154px;
+  margin: 20px 0 40px 0;
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+    position: relative;
+    top: -92px;
+    right: -150px;
+  }
 `;
 
 const SubscriptionSlide = () => (
@@ -112,7 +143,7 @@ const SubscriptionSlide = () => (
     <ScreenContainer title={"Choose Subscription Plan"}>
       <FlexGrid>
         <FlexCol>
-          <Headline>Basic</Headline>
+          <Title>Basic</Title>
           <Hr />
           <Content>
             Secure, encrypted storage solution perfect for the needs of the
@@ -126,7 +157,7 @@ const SubscriptionSlide = () => (
           </ButtonWrapper>
         </FlexCol>
         <FlexCol>
-          <Headline>Professional</Headline>
+          <Title>Professional</Title>
           <Hr />
           <Content>
             For professionals looking for a secure, easily accessible storage
@@ -140,7 +171,7 @@ const SubscriptionSlide = () => (
           </ButtonWrapper>
         </FlexCol>
         <FlexCol>
-          <Headline>Business</Headline>
+          <Title>Business</Title>
           <Hr />
           <Content>
             A secure, encrypted storage solution for growing businesses. Perfect
@@ -151,19 +182,6 @@ const SubscriptionSlide = () => (
           <Price>16 OPQ</Price>
           <ButtonWrapper>
             <Button>CHOOSE PLAN</Button>
-          </ButtonWrapper>
-        </FlexCol>
-        <FlexCol>
-          <Headline>Enterprise</Headline>
-          <Hr />
-          <Content>
-            Secure, scalable, on-demand storage for corporate entities. Contact
-            our team to discover how Opacity can secure your enterprise storage
-            needs.
-          </Content>
-          <Space />
-          <ButtonWrapper>
-            <Button>CONTACT US</Button>
           </ButtonWrapper>
         </FlexCol>
       </FlexGrid>

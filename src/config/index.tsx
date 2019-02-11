@@ -83,19 +83,44 @@ export const AGREEMENT_TYPES = Object.freeze({
   PRIVACY_POLICY: "PRIVACY_POLICY"
 });
 
-export const DESKTOP_WIDTH = "776";
+export const DESKTOP_WIDTH = "997";
 export const MOBILE_WIDTH = "567";
-export const SUBSCRIPTION_MOBILE_WIDTH = "1200";
+export const SUBSCRIPTION_DESKTOP_WIDTH = "1200";
 
 export const theme = {
-  primary: "#232b40",
-  secondary: "#a995bb",
-  buttonBackground: "#846b99",
+  background: "#ffffff",
+  header: {
+    background: "#2e6dde",
+    color: "#ffffff"
+  },
+  title: {
+    size: "22",
+    color: "#2e6dde",
+    underline: {
+      color: "#80b9ff",
+      height: "1"
+    }
+  },
+  container: {
+    background: "#d5e2f8",
+    content: "#4f5e78",
+    title: {
+      size: "22",
+      underline: {
+        witdh: "33",
+        color: "#80b9ff",
+        height: "3"
+      }
+    }
+  },
+  button: {
+    background: "#2e6dde",
+    color: "#ffffff"
+  },
   white: "#ffffff",
   fontWeight: 500,
   fontStyle: "normal",
   fontStretch: "normal",
   lineHeight: "normal",
-  letterSpacing: "normal",
-  fontSize: "26px"
+  letterSpacing: "normal"
 };

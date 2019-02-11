@@ -1,13 +1,15 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
 
 import "../root.css";
 
+import { theme } from "../../config";
+
 const ICON_LOGO = require("../../assets/images/logo.svg");
 
 const Container = styled.div`
-  background: #fff;
+  background: ${props => props.theme.header.background};
   padding: 17px 32px;
 `;
 
@@ -30,7 +32,7 @@ const LinkContainer = styled.div`
 
 const Link = styled.a`
   align-items: center;
-  color: #487aa7;
+  color: ${props => props.theme.header.color};
   cursor: pointer;
   display: flex;
   font-size: 14px;
@@ -44,7 +46,7 @@ const Link = styled.a`
 
   &:hover {
     text-decoration: none;
-    color: #487aa7;
+    opacity: 0.8;
   }
 `;
 
@@ -62,25 +64,30 @@ const CompanyName = styled.span`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.7px;
-  color: #487aa7;
+  color: ${props => props.theme.header.color};
 `;
 
 const Header = ({ history }) => (
-  <Container>
-    <Navbar>
-      <LogoContainer>
-        <Link title="Opacity Storage's Logo" onClick={() => history.push("/")}>
-          <Logo src={ICON_LOGO} alt="logo" />
-          <CompanyName>Opacity</CompanyName>
-        </Link>
-      </LogoContainer>
-      <LinkContainer>
-        <Link href="https://opacity.io" target="_blank">
-          Home
-        </Link>
-      </LinkContainer>
-    </Navbar>
-  </Container>
+  <ThemeProvider theme={theme}>
+    <Container>
+      <Navbar>
+        <LogoContainer>
+          <Link
+            title="Opacity Storage's Logo"
+            onClick={() => history.push("/")}
+          >
+            <Logo src={ICON_LOGO} alt="logo" />
+            <CompanyName>Opacity</CompanyName>
+          </Link>
+        </LogoContainer>
+        <LinkContainer>
+          <Link href="https://opacity.io" target="_blank">
+            Home
+          </Link>
+        </LinkContainer>
+      </Navbar>
+    </Container>
+  </ThemeProvider>
 );
 
 export default withRouter(Header);
