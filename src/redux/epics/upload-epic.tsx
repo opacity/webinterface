@@ -143,9 +143,12 @@ const metamaskTransactionEpic = action$ =>
     });
 
 const metamaskAccountErrorEpic = action$ =>
-  action$.ofType(uploadActions.METAMASK_ACCOUNT_ERROR).do(() => {
-    window.open(METAMASK_URL, " _blank");
-  });
+  action$
+    .ofType(uploadActions.METAMASK_ACCOUNT_ERROR)
+    .do(() => {
+      window.open(METAMASK_URL, " _blank");
+    })
+    .ignoreElements();
 
 export default combineEpics(
   streamUploadEpic,
