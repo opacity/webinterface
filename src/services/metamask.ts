@@ -12,6 +12,7 @@ declare global {
 
 const isNewVersion = !!window.ethereum;
 const isLegacyVersion = !!window.web3;
+const isInstalled = isNewVersion || isLegacyVersion;
 
 const fetchDefaultMetamaskAccount = () => {
   if (isNewVersion) {
@@ -52,6 +53,7 @@ const sendTransaction = ({ cost, from, to, gasPrice, nonce }) =>
   });
 
 export default {
+  isInstalled,
   sendTransaction,
   fetchDefaultMetamaskAccount,
   getTransactionNonce

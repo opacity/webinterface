@@ -6,6 +6,8 @@ import ScreenDescription from "../shared/screen-description";
 import ClipboardWidget from "../shared/clipboard-widget";
 import QRCode from "qrcode.react";
 
+import Metamask from "../../services/metamask";
+
 const PAY_WITH_METAMASK_IMG = require("../../assets/images/pay_with_metamask.png");
 
 const Cost = styled.span`
@@ -32,11 +34,13 @@ const PaymentInvoiceSlide = ({ cost, ethAddress, gasPrice, openMetamask }) => (
       upload will start automatically after your payment is received. This may
       take some time depending on network traffic.
     </ScreenDescription>
-    <MetamaskButton
-      onClick={() => openMetamask({ cost, ethAddress, gasPrice })}
-    >
-      <MetamaskImg src={PAY_WITH_METAMASK_IMG} />
-    </MetamaskButton>
+    {Metamask.isInstalled && (
+      <MetamaskButton
+        onClick={() => openMetamask({ cost, ethAddress, gasPrice })}
+      >
+        <MetamaskImg src={PAY_WITH_METAMASK_IMG} />
+      </MetamaskButton>
+    )}
     <ScreenDescription>
       <QRCode
         value={ethAddress}
