@@ -11,6 +11,10 @@ import { alertUser } from "../../services/error-tracker";
 import { API } from "../../config";
 import navigationActions from "../actions/navigation-actions";
 
+import Metamask from "../../services/metamask";
+
+const METAMASK_URL = "https://metamask.io/";
+
 const streamUploadEpic = action$ =>
   action$.ofType(uploadActions.UPLOAD).mergeMap(action => {
     const {
@@ -89,4 +93,67 @@ const streamUploadProgressEpic = action$ =>
     });
   });
 
-export default combineEpics(streamUploadEpic, streamUploadProgressEpic);
+const metamaskAccountEpic = action$ =>
+  action$.ofType(uploadActions.METAMASK_CREATE_TRANSACTION).mergeMap(action => {
+    const { cost, ethAddress, gasPrice } = action.payload;
+    return Observable.fromPromise(Metamask.fetchDefaultMetamaskAccount())
+      .map(account =>
+        uploadActions.metamaskPaymentPending({
+          to: ethAddress,
+          from: account,
+          cost,
+          gasPrice
+        })
+      )
+      .catch(e => Observable.of(uploadActions.metamaskAccountError(e)));
+  });
+
+const metamaskTransactionEpic = action$ =>
+  action$
+    .ofType(uploadActions.METAMASK_PAYMENT_PENDING)
+    .mergeMap(action => {
+      const { from, to, cost, gasPrice } = action.payload;
+
+      return Observable.fromPromise(Metamask.getTransactionNonce(from))
+        .map(nonce => {
+          return {
+            to,
+            from,
+            cost,
+            gasPrice,
+            nonce
+          };
+        })
+        .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
+    })
+    .mergeMap(transaction => {
+      const { cost, to, from, gasPrice, nonce } = transaction;
+
+      return Observable.fromPromise(
+        Metamask.sendTransaction({
+          cost,
+          to,
+          from,
+          gasPrice,
+          nonce: nonce + 1
+        })
+      )
+        .map(() => uploadActions.metamaskPaymentSuccess())
+        .catch(e => Observable.of(uploadActions.metamaskPaymentError(e)));
+    });
+
+const metamaskAccountErrorEpic = action$ =>
+  action$
+    .ofType(uploadActions.METAMASK_ACCOUNT_ERROR)
+    .do(() => {
+      window.open(METAMASK_URL, " _blank");
+    })
+    .ignoreElements();
+
+export default combineEpics(
+  streamUploadEpic,
+  streamUploadProgressEpic,
+  metamaskAccountEpic,
+  metamaskAccountErrorEpic,
+  metamaskTransactionEpic
+);
