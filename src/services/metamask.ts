@@ -42,7 +42,8 @@ const sendTransaction = ({ cost, from, to, gasPrice, nonce }) =>
       to,
       web3.toWei(cost, "ether"),
       {
-        from
+        from,
+        gasPrice: web3.toWei(gasPrice, "gwei")
       },
       (err, res) => {
         err ? reject(err) : resolve(res);
