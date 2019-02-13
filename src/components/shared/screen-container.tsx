@@ -1,13 +1,14 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
-import { DESKTOP_WIDTH } from "../../config";
+import { DESKTOP_WIDTH, theme } from "../../config";
 
 const Container = styled.div`
   padding: 70px 250px;
   height: 100%;
   max-width: 950px;
   margin: auto;
+  background-color: ${props => props.theme.background};
 
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     padding: 25px 35px;
@@ -15,8 +16,8 @@ const Container = styled.div`
 `;
 
 const Title = styled.h3`
-  color: #ffffff;
-  font-size: 22px;
+  color: ${props => props.theme.title.color};
+  font-size: ${props => props.theme.title.size}px;
   font-stretch: normal;
   font-style: normal;
   font-weight: bold;
@@ -27,9 +28,10 @@ const Title = styled.h3`
 
 const Underline = styled.hr`
   border: 0;
-  border-top: 1px solid #a995bb;
+  border-top: ${props => props.theme.title.underline.height}px solid
+    ${props => props.theme.title.underline.color};
   display: block;
-  height: 1px;
+  height: ${props => props.theme.title.underline.height}px;
   margin: 6px 0 60px 0;
   padding: 0;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
@@ -38,11 +40,13 @@ const Underline = styled.hr`
 `;
 
 const ScreenContainer = ({ title, children }) => (
-  <Container>
-    <Title>{title}</Title>
-    <Underline />
-    {children}
-  </Container>
+  <ThemeProvider theme={theme}>
+    <Container>
+      <Title>{title}</Title>
+      <Underline />
+      {children}
+    </Container>
+  </ThemeProvider>
 );
 
 export default ScreenContainer;
