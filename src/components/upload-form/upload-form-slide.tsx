@@ -21,6 +21,12 @@ const CheckboxContainer = styled.div`
   margin-bottom: 10px;
 `;
 
+const KucoinLink = styled.a`
+  color: ${props => props.theme.title.color};
+  font-weight: 700;
+  text-decoration: none;
+`;
+
 const CheckboxInput = styled.input.attrs({
   type: "checkbox"
 })`
@@ -100,6 +106,12 @@ const FolderIcon = styled.img`
 const CostContainer = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const TokenReminder = styled.span`
+  margin-left: 10px;
+  color: ${props => props.theme.container.content};
+  font-size: 10px;
 `;
 
 const InputLabel = styled.span`
@@ -288,7 +300,7 @@ interface UploadSlideState {
 class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
   fileInput: HTMLInputElement | null = null;
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -301,7 +313,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     };
   }
 
-  disableButton (): boolean {
+  disableButton(): boolean {
     const fileInput: any = this.fileInput;
     const isFileChosen = fileInput && fileInput.files[0];
     return (
@@ -309,14 +321,14 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     );
   }
 
-  calculateStorageCost (fileSizeBytes, years) {
+  calculateStorageCost(fileSizeBytes, years) {
     let chunks = Math.ceil(fileSizeBytes / 1024) + 1; // 1 kb for metadata
     let numSectors = Math.ceil(chunks / CHUNKS_IN_SECTOR);
     let costPerYear = numSectors / STORAGE_PEG;
     return costPerYear * years;
   }
 
-  humanFileSize (bytes, si) {
+  humanFileSize(bytes, si) {
     let thresh = si ? 1000 : 1024;
     if (Math.abs(bytes) < thresh) {
       return bytes + " B";
@@ -332,7 +344,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     return bytes.toFixed(1) + " " + units[u];
   }
 
-  render () {
+  render() {
     const {
       alphaBroker,
       betaBroker,
@@ -445,7 +457,15 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
           </FileSelectWrapper>
           <Underline />
           <CostContainer>
-            <InputLabel>Cost</InputLabel>
+            <div>
+              <InputLabel>Cost</InputLabel>
+              <TokenReminder>
+                Need OPQ? Purchase some{" "}
+                <KucoinLink href="https://www.kucoin.com/" target="_blank">
+                  here
+                </KucoinLink>
+              </TokenReminder>
+            </div>
             <StorageFees>
               <StorageCost> {this.state.storageCost} OPQ</StorageCost>
             </StorageFees>

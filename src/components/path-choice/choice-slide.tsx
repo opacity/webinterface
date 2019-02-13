@@ -52,7 +52,8 @@ const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn, history }) => (
   <ThemeProvider theme={theme}>
     <ScreenContainer title={"Welcome to Opacity Storage"}>
       <ScreenDescription>
-        Please select an option below to access anonymous storage.
+        Please select an option below to access anonymous storage. Downloads are
+        always free!
       </ScreenDescription>
       <LinkContainer>
         <Link id="upload-btn" onClick={() => history.push("/upload-form")}>
