@@ -133,7 +133,7 @@ interface Props {
 }
 
 class Header extends Component<Props, State> {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       hideMobileNavigation: false
@@ -143,7 +143,7 @@ class Header extends Component<Props, State> {
     history: PropTypes.object.isRequired
   };
 
-  render() {
+  render () {
     const { history } = this.props;
     const { hideMobileNavigation } = this.state;
     const navigationStyle = hideMobileNavigation
