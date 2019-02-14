@@ -1,12 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 import ProgressBar from "../shared/progress-bar";
 import ClipboardWidget from "../shared/clipboard-widget";
 import ScreenContainer from "../shared/screen-container";
 import ScreenDescription from "../shared/screen-description";
 
-import { DESKTOP_WIDTH } from "../../config";
+import { DESKTOP_WIDTH, theme } from "../../config";
 
 const Label = styled.h3`
   margin: 0 0 11px 0;
@@ -16,12 +16,12 @@ const Label = styled.h3`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.7px;
-  color: #ffffff;
+  color: ${props => props.theme.container.content};
   text-transform: uppercase;
 `;
 
 const Terminology = styled.span`
-  color: #846b99;
+  color: ${props => props.theme.title.color};
   font-weight: 600;
 `;
 
@@ -37,25 +37,27 @@ const ProgressSection = styled.div`
 `;
 
 const UploadProgressSlide = ({ uploadProgress, handle }) => (
-  <ScreenContainer title={"Attaching File"}>
-    <ScreenDescription>
-      Your file has been uploaded to the broker nodes and an{" "}
-      <Terminology>Opacity Handle</Terminology> has been provided below.{" "}
-      <Bold>
-        This handle is the only way to access your file. Please store this
-        handle in a safe place now.
-      </Bold>{" "}
-      Leaving this page now will not interrupt your file upload. Bookmark this
-      page to return later and check your file upload progress.
-    </ScreenDescription>
+  <ThemeProvider theme={theme}>
+    <ScreenContainer title={"Attaching File"}>
+      <ScreenDescription>
+        Your file has been uploaded to the broker nodes and an{" "}
+        <Terminology>Opacity Handle</Terminology> has been provided below.{" "}
+        <Bold>
+          This handle is the only way to access your file. Please store this
+          handle in a safe place now.
+        </Bold>{" "}
+        Leaving this page now will not interrupt your file upload. Bookmark this
+        page to return later and check your file upload progress.
+      </ScreenDescription>
 
-    <ProgressSection>
-      <Label>File Attachment Progress</Label>
-      <ProgressBar progress={uploadProgress} />
-    </ProgressSection>
+      <ProgressSection>
+        <Label>File Attachment Progress</Label>
+        <ProgressBar progress={uploadProgress} />
+      </ProgressSection>
 
-    <ClipboardWidget title="Opacity Handle" text={handle} property="Handle" />
-  </ScreenContainer>
+      <ClipboardWidget title="Opacity Handle" text={handle} property="Handle" />
+    </ScreenContainer>
+  </ThemeProvider>
 );
 
 export default UploadProgressSlide;

@@ -1,11 +1,11 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
 
 import ScreenContainer from "../shared/screen-container";
 import ScreenDescription from "../shared/screen-description";
 
-import { DESKTOP_WIDTH } from "../../config";
+import { DESKTOP_WIDTH, theme } from "../../config";
 
 const ICON_DOWNLOAD = require("../../assets/images/icon_download.svg");
 const ICON_UPLOAD = require("../../assets/images/icon_upload.svg");
@@ -25,8 +25,8 @@ const Icon = styled.img`
 const Link = styled.a`
   cursor: pointer;
   align-items: center;
-  background-color: #846b99;
-  color: #ffffff;
+  background-color: ${props => props.theme.button.background};
+  color: ${props => props.theme.button.color};
   display: flex;
   flex-direction: column;
   font-size: 14px;
@@ -49,21 +49,23 @@ const Link = styled.a`
 `;
 
 const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn, history }) => (
-  <ScreenContainer title={"Welcome to Opacity Storage"}>
-    <ScreenDescription>
-      Please select an option below to access anonymous storage.
-    </ScreenDescription>
-    <LinkContainer>
-      <Link id="upload-btn" onClick={() => history.push("/upload-form")}>
-        <Icon src={ICON_UPLOAD} />
-        Upload a file
-      </Link>
-      <Link onClick={() => history.push("/download-form")}>
-        <Icon src={ICON_DOWNLOAD} />
-        Retrieve a file
-      </Link>
-    </LinkContainer>
-  </ScreenContainer>
+  <ThemeProvider theme={theme}>
+    <ScreenContainer title={"Welcome to Opacity Storage"}>
+      <ScreenDescription>
+        Please select an option below to access anonymous storage.
+      </ScreenDescription>
+      <LinkContainer>
+        <Link id="upload-btn" onClick={() => history.push("/upload-form")}>
+          <Icon src={ICON_UPLOAD} />
+          Upload a file
+        </Link>
+        <Link onClick={() => history.push("/download-form")}>
+          <Icon src={ICON_DOWNLOAD} />
+          Retrieve a file
+        </Link>
+      </LinkContainer>
+    </ScreenContainer>
+  </ThemeProvider>
 );
 
 export default withRouter(ChoiceSlide);

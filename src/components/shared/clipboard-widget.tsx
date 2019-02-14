@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import Button from "./button";
 
-import { MOBILE_WIDTH } from "../../config";
+import { MOBILE_WIDTH, theme } from "../../config";
 
 const ICON_COPY = require("../../assets/images/icon_copy.svg");
 
@@ -15,7 +15,7 @@ const Icon = styled.img`
 `;
 
 const TextContainer = styled.div`
-  background-color: #232b40;
+  background-color: ${props => props.theme.container.background};
   overflow: auto;
   text-align: center;
   width: 380px;
@@ -44,7 +44,7 @@ const TextContainer = styled.div`
 const TextBox = styled.p`
   display: inline-block;
   box-sizing: border-box;
-  color: #ffffff;
+  color: ${props => props.theme.container.content};
   font-size: 12px;
   font-stretch: normal;
   font-style: normal;
@@ -70,7 +70,7 @@ const Label = styled.h3`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.7px;
-  color: #ffffff;
+  color: ${props => props.theme.container.content};
   text-transform: uppercase;
 `;
 
@@ -78,8 +78,8 @@ const CopyButton = styled(Button)`
   border: none;
   cursor: pointer;
   align-items: center;
-  background-color: #846b99;
-  color: #ffffff;
+  background-color: ${props => props.theme.button.background};
+  color: ${props => props.theme.button.color};
   display: flex;
   font-size: 14px;
   font-stretch: normal;
@@ -110,21 +110,23 @@ class ClipboardWidget extends Component<ClipboardWidgetProps> {
     const { text, title, property } = this.props;
 
     return (
-      <div>
-        <Label>{title}</Label>
-        <TextContainer>
-          <TextBox>{text}</TextBox>
-        </TextContainer>
-        <CopyToClipboard
-          text={text}
-          onCopy={() => this.setState({ isCopied: true })}
-        >
-          <CopyButton>
-            <Icon src={ICON_COPY} />
-            {this.state.isCopied ? "Copied!" : "Copy " + property}
-          </CopyButton>
-        </CopyToClipboard>
-      </div>
+      <ThemeProvider theme={theme}>
+        <div>
+          <Label>{title}</Label>
+          <TextContainer>
+            <TextBox>{text}</TextBox>
+          </TextContainer>
+          <CopyToClipboard
+            text={text}
+            onCopy={() => this.setState({ isCopied: true })}
+          >
+            <CopyButton>
+              <Icon src={ICON_COPY} />
+              {this.state.isCopied ? "Copied!" : "Copy " + property}
+            </CopyButton>
+          </CopyToClipboard>
+        </div>
+      </ThemeProvider>
     );
   }
 }
