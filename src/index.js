@@ -25,6 +25,10 @@ import PaymentInvoice from "./components/payment-invoice";
 import PaymentConfirm from "./components/payment-confirm";
 import PageNavigationPrompt from "./components/page-navigation-prompt";
 import Subscription from "./components/subscription";
+import RegisterRecordRecoveryPhrase from "./components/register-record-recovery-phrase";
+import RegisterRecordStorageHandle from "./components/register-record-storage-handle";
+import RegisterSendPayment from "./components/register-send-payment";
+import RegisterConfirmPayment from "./components/register-confirm-payment";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -61,6 +65,22 @@ const App = () => (
             <Route path="/error-page" component={ErrorPage} />
             <Route path="/brokers-down" component={BrokersDown} />
             <Route path="/subscription" component={Subscription} />
+            <Route
+              path="/register-record-recovery-phrase"
+              component={RegisterRecordRecoveryPhrase}
+            />
+            <Route
+              path="/register-record-storage-handle"
+              component={RegisterRecordStorageHandle}
+            />
+            <Route
+              path="/register-send-payment component"
+              component={RegisterSendPayment}
+            />
+            <Route
+              path="/register-comfirm-payment component"
+              component={RegisterConfirmPayment}
+            />
             <Route
               path="/terms-of-service"
               render={() => (
