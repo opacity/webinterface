@@ -111,7 +111,7 @@ const CostContainer = styled.div`
 const TokenReminder = styled.span`
   margin-left: 10px;
   color: ${props => props.theme.container.content};
-  font-size: 10px;
+  font-size: 12px;
 `;
 
 const InputLabel = styled.span`
