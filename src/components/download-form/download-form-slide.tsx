@@ -1,10 +1,10 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 import Button from "../shared/button";
 import Spinner from "../shared/spinner";
 
-import { DOWNLOAD_STATUSES, DESKTOP_WIDTH } from "../../config";
+import { DOWNLOAD_STATUSES, DESKTOP_WIDTH, theme } from "../../config";
 const ICON_DOWNLOAD = require("../../assets/images/icon_download.svg");
 
 import ScreenContainer from "../shared/screen-container";
@@ -17,7 +17,7 @@ const HandleLabel = styled.h3`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.7px;
-  color: #ffffff;
+  color: ${props => props.theme.container.content};
   text-transform: uppercase;
 `;
 
@@ -35,10 +35,10 @@ const InputContainer = styled.div`
 `;
 
 const HandleTextInput = styled.input`
-  background-color: #232b40;
+  background-color: ${props => props.theme.container.background};
   border: none;
   box-sizing: border-box;
-  color: #ffffff;
+  color: ${props => props.theme.container.content};
   height: 45px;
   max-width: 380px;
   width: 100%;
@@ -55,9 +55,9 @@ const HandleTextInput = styled.input`
 
 const DownloadButton = styled(Button)`
   align-items: center;
-  background-color: #846b99;
+  background-color: ${props => props.theme.button.background};
   border: none;
-  color: #ffffff;
+  color: ${props => props.theme.button.color};
   cursor: pointer;
   display: flex;
   font-size: 14px;
@@ -89,57 +89,59 @@ class DownloadFormSlide extends React.Component<
   DownloadFormSlideProps,
   DownloadFormState
 > {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = { handle: "" };
   }
 
   inputHandler = evt => {
     this.setState({ handle: evt.target.value });
-  }
+  };
 
-  render () {
+  render() {
     const { download, status } = this.props;
     return (
-      <ScreenContainer title={"Retrieve File"}>
-        <ScreenDescription>
-          Enter your Opacity handle below to download your file from Opacity.
-        </ScreenDescription>
-        <InputContainer>
-          <label>
-            <HandleLabel>Enter Opacity Handle</HandleLabel>
-            <HandleTextInput
-              id="download-handle-input"
-              name="handle"
-              type="text"
-              onChange={evt => this.inputHandler(evt)}
+      <ThemeProvider theme={theme}>
+        <ScreenContainer title={"Retrieve File"}>
+          <ScreenDescription>
+            Enter your Opacity handle below to download your file from Opacity.
+          </ScreenDescription>
+          <InputContainer>
+            <label>
+              <HandleLabel>Enter Opacity Handle</HandleLabel>
+              <HandleTextInput
+                id="download-handle-input"
+                name="handle"
+                type="text"
+                onChange={evt => this.inputHandler(evt)}
+              />
+            </label>
+          </InputContainer>
+          <div>
+            <DownloadButton
+              id="download-btn"
+              disabled={status === DOWNLOAD_STATUSES.PENDING}
+              onClick={() => {
+                const handle = this.state.handle;
+                if (!handle) {
+                  alert("Please input a handle.");
+                } else {
+                  download(handle);
+                }
+              }}
+            >
+              <Icon src={ICON_DOWNLOAD} />
+              {status === DOWNLOAD_STATUSES.PENDING
+                ? "Retrieving file..."
+                : "Retrieve File"}
+            </DownloadButton>
+            <Spinner
+              isActive={status === DOWNLOAD_STATUSES.PENDING}
+              className="download-spinner"
             />
-          </label>
-        </InputContainer>
-        <div>
-          <DownloadButton
-            id="download-btn"
-            disabled={status === DOWNLOAD_STATUSES.PENDING}
-            onClick={() => {
-              const handle = this.state.handle;
-              if (!handle) {
-                alert("Please input a handle.");
-              } else {
-                download(handle);
-              }
-            }}
-          >
-            <Icon src={ICON_DOWNLOAD} />
-            {status === DOWNLOAD_STATUSES.PENDING
-              ? "Retrieving file..."
-              : "Retrieve File"}
-          </DownloadButton>
-          <Spinner
-            isActive={status === DOWNLOAD_STATUSES.PENDING}
-            className="download-spinner"
-          />
-        </div>
-      </ScreenContainer>
+          </div>
+        </ScreenContainer>
+      </ThemeProvider>
     );
   }
 }

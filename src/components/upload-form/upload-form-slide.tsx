@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import "react-select/dist/react-select.css";
 
-import { FILE, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
+import { FILE, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 import Button from "../shared/button";
 import Spinner from "../shared/spinner";
 import ScreenContainer from "../shared/screen-container";
@@ -35,13 +35,13 @@ const CheckboxInput = styled.input.attrs({
 
 const CheckboxLabel = styled.label`
   margin-top: -5px;
-  color: #ffffff;
+  color: ${props => props.theme.container.content};
 `;
 
 const Link = styled.a.attrs({
   target: "_blank"
 })`
-  color: #846b99;
+  color: ${props => props.theme.title.color};
   text-decoration: none;
   font-weight: 600;
 `;
@@ -54,9 +54,9 @@ const Icon = styled.img`
 
 const UploadButton = styled(Button)`
   align-items: center;
-  background-color: #846b99;
+  background-color: ${props => props.theme.button.background};
   border: none;
-  color: #ffffff;
+  color: ${props => props.theme.button.color};
   cursor: pointer;
   display: flex;
   font-size: 14px;
@@ -111,7 +111,7 @@ const InputLabel = styled.span`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.7px;
-  color: #ffffff;
+  color: ${props => props.theme.container.content};
   text-transform: uppercase;
   @media only screen and (max-width: 567px) {
     margin: 20px 0;
@@ -127,7 +127,7 @@ const UploadInputContainer = styled.div`
 
 const Disclaimer = styled.div`
   font-size: 12px;
-  color: #ffffff;
+  color: ${props => props.theme.container.content};
   margin-top: 15px;
 `;
 
@@ -154,9 +154,10 @@ const UploadColumnCenter = styled(UploadColumn)`
 
 const Underline = styled.hr`
   border: 0;
-  border-top: 1px solid #a995bb;
+  border-top: ${props => props.theme.title.underline.height}px solid
+    ${props => props.theme.title.underline.color};
   display: block;
-  height: 1px;
+  height: ${props => props.theme.title.underline.height}px;
   margin: 45px 0 40px 0;
   padding: 0;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
@@ -176,9 +177,8 @@ const UploadSection = styled.div`
 const RetentionSlider = styled.input`
   max-width: 380px;
   width: 100%;
-  background-color: #161c29;
   -webkit-appearance: none;
-  background-color: #161c29;
+  background-color: ${props => props.theme.title.underline.color};
   height: 1px;
   border: none;
   border-radius: 4px;
@@ -189,12 +189,12 @@ const RetentionSlider = styled.input`
   }
 
   &:hover {
-    background: #846b99;
+    background: ${props => props.theme.title.color};
   }
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    background-color: #846b99;
+    background-color: ${props => props.theme.title.color};
     border: none;
     height: 30px;
     width: 30px;
@@ -209,7 +209,7 @@ const StorageFees = styled.div`
   align-items: center;
   width: 300px;
   height: 40px;
-  background-color: #232b40;
+  background-color: ${props => props.theme.title.underline.color};
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
   }
@@ -222,14 +222,15 @@ const StorageCost = styled.span`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #ffffff;
+  color: ${props => props.theme.container.content};
 `;
 
 const UploadFilename = styled.span`
   flex: 0.75;
   text-align: center;
   overflow: hidden;
-  background-color: #232b40;
+  background-color: ${props => props.theme.container.background};
+  color: ${props => props.theme.container.content};
   height: 40px;
   display: flex;
   align-items: center;
@@ -244,7 +245,27 @@ const UploadFolder = styled.span`
   align-items: center;
   justify-content: center;
   width: 50px;
-  background-color: #846b99;
+  background-color: ${props => props.theme.title.color};
+`;
+
+const SelectYears = styled.select`
+  background-color: ${props => props.theme.title.color};
+  height: 25px;
+  line-height: 26px;
+  margin: 0 10px 0 0;
+  padding-left: 15px;
+  text-align: center;
+  width: 40px;
+  color: ${props => props.theme.white};
+  border: none;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  margin-left: 10px;
 `;
 
 interface UploadSlideProps {
@@ -265,9 +286,9 @@ interface UploadSlideState {
 }
 
 class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
-  fileInput: HTMLInputElement|null = null;
+  fileInput: HTMLInputElement | null = null;
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -280,7 +301,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     };
   }
 
-  disableButton (): boolean {
+  disableButton(): boolean {
     const fileInput: any = this.fileInput;
     const isFileChosen = fileInput && fileInput.files[0];
     return (
@@ -288,14 +309,14 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     );
   }
 
-  calculateStorageCost (fileSizeBytes, years) {
+  calculateStorageCost(fileSizeBytes, years) {
     let chunks = Math.ceil(fileSizeBytes / 1024) + 1; // 1 kb for metadata
     let numSectors = Math.ceil(chunks / CHUNKS_IN_SECTOR);
     let costPerYear = numSectors / STORAGE_PEG;
     return costPerYear * years;
   }
 
-  humanFileSize (bytes, si) {
+  humanFileSize(bytes, si) {
     let thresh = si ? 1000 : 1024;
     if (Math.abs(bytes) < thresh) {
       return bytes + " B";
@@ -311,7 +332,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     return bytes.toFixed(1) + " " + units[u];
   }
 
-  render () {
+  render() {
     const {
       alphaBroker,
       betaBroker,
@@ -321,166 +342,169 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     } = this.props;
 
     return (
-      <ScreenContainer title={"Upload File"}>
-        <UploadSection>
-          <InputLabel>Select Retention Time</InputLabel>
-          <RetentionWrapper>
+      <ThemeProvider theme={theme}>
+        <ScreenContainer title={"Upload File"}>
+          <UploadSection>
+            <InputLabel>Select Retention Time</InputLabel>
+            <RetentionWrapper>
+              <UploadColumn>
+                <RetentionSlider
+                  type="range"
+                  min="0"
+                  max="10"
+                  disabled={true}
+                  value={retentionYears}
+                  onChange={event => {
+                    let retentionYears = event.target.value;
+                    selectRetentionYears(retentionYears);
+                    this.setState({
+                      storageCost: this.calculateStorageCost(
+                        this.state.fileSize,
+                        retentionYears
+                      )
+                    });
+                  }}
+                />
+              </UploadColumn>
+              <UploadColumnCenter>
+                <SelectYears
+                  value={retentionYears}
+                  disabled={true}
+                  onChange={event => {
+                    let retentionYears = event.target.value;
+                    selectRetentionYears(retentionYears);
+                    this.setState({
+                      storageCost: this.calculateStorageCost(
+                        this.state.fileSize,
+                        retentionYears
+                      )
+                    });
+                  }}
+                >
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                </SelectYears>
+                <InputLabel>Years of retention</InputLabel>
+              </UploadColumnCenter>
+            </RetentionWrapper>
+          </UploadSection>
+          <FileSelectWrapper>
             <UploadColumn>
-              <RetentionSlider
-                type="range"
-                min="0"
-                max="10"
-                disabled={true}
-                value={retentionYears}
-                onChange={event => {
-                  let retentionYears = event.target.value;
-                  selectRetentionYears(retentionYears);
-                  this.setState({
-                    storageCost: this.calculateStorageCost(
-                      this.state.fileSize,
-                      retentionYears
-                    )
-                  });
+              <InputLabel>Select a file</InputLabel>
+              <UploadInputContainer>
+                <label htmlFor="upload-input" className="file-input-label">
+                  <UploadFilename>{this.state.fileName}</UploadFilename>
+                  <UploadFolder>
+                    <FolderIcon src={ICON_FOLDER} alt="folder" />
+                  </UploadFolder>
+                </label>
+              </UploadInputContainer>
+              <input
+                name="upload"
+                id="upload-input"
+                ref={el => {
+                  this.fileInput = el;
                 }}
+                onChange={event => {
+                  let file: any = [];
+                  if (event.target.files) {
+                    file = event.target.files[0];
+                  }
+                  if (file) {
+                    this.setState({
+                      fileName: file.name,
+                      fileSize: file.size,
+                      humanFileSize: this.humanFileSize(file.size, true),
+                      storageCost: this.calculateStorageCost(
+                        file.size,
+                        retentionYears
+                      )
+                    });
+                  } else {
+                    this.setState({
+                      fileName: DEFAULT_FILE_INPUT_TEXT,
+                      fileSize: DEFAULT_FILE_INPUT_SIZE,
+                      humanFileSize: DEFAULT_FILE_INPUT_SIZE,
+                      storageCost: DEFAULT_FILE_INPUT_COST
+                    });
+                  }
+                }}
+                type="file"
+                required={true}
               />
             </UploadColumn>
-            <UploadColumnCenter>
-              <select
-                id="sel"
-                value={retentionYears}
-                disabled={true}
-                onChange={event => {
-                  let retentionYears = event.target.value;
-                  selectRetentionYears(retentionYears);
-                  this.setState({
-                    storageCost: this.calculateStorageCost(
-                      this.state.fileSize,
-                      retentionYears
-                    )
-                  });
-                }}
-              >
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-              </select>
-              <InputLabel>Years of retention</InputLabel>
-            </UploadColumnCenter>
-          </RetentionWrapper>
-        </UploadSection>
-        <FileSelectWrapper>
-          <UploadColumn>
-            <InputLabel>Select a file</InputLabel>
-            <UploadInputContainer>
-              <label htmlFor="upload-input" className="file-input-label">
-                <UploadFilename>{this.state.fileName}</UploadFilename>
-                <UploadFolder>
-                  <FolderIcon src={ICON_FOLDER} alt="folder" />
-                </UploadFolder>
-              </label>
-            </UploadInputContainer>
-            <input
-              name="upload"
-              id="upload-input"
-              ref={el => { this.fileInput = el; }}
-              onChange={event => {
-                let file: any = [];
-                if (event.target.files) {
-                  file = event.target.files[0];
-                }
-                if (file) {
-                  this.setState({
-                    fileName: file.name,
-                    fileSize: file.size,
-                    humanFileSize: this.humanFileSize(file.size, true),
-                    storageCost: this.calculateStorageCost(
-                      file.size,
-                      retentionYears
-                    )
-                  });
+          </FileSelectWrapper>
+          <Underline />
+          <CostContainer>
+            <InputLabel>Cost</InputLabel>
+            <StorageFees>
+              <StorageCost> {this.state.storageCost} OPQ</StorageCost>
+            </StorageFees>
+          </CostContainer>
+          <UploadButtonContainer>
+            <CheckboxContainer>
+              <CheckboxLabel htmlFor="terms-checkbox">
+                <CheckboxInput
+                  id="terms-checkbox"
+                  value="checked"
+                  onChange={e =>
+                    this.setState({ isTermsChecked: e.target.checked })
+                  }
+                  checked={this.state.isTermsChecked}
+                />
+                I agree to the{" "}
+                <Link href="/terms-of-service">Terms and Conditions</Link> and{" "}
+                <Link href="/privacy-policy">Privacy Policy</Link>
+              </CheckboxLabel>
+            </CheckboxContainer>
+            <UploadButton
+              id="start-upload-btn"
+              disabled={this.disableButton()}
+              type="button"
+              onClick={() => {
+                const fileInput: any = this.fileInput;
+                const file = fileInput.files[0];
+                if (!file || file.size > FILE.MAX_FILE_SIZE) {
+                  alert(
+                    `Please select a file under ${FILE.MAX_FILE_SIZE /
+                      (1000 * 1000)} MB.`
+                  );
+                } else if (retentionYears === "0") {
+                  alert("Please select retention years");
+                } else if (Number(retentionYears) > 1) {
+                  alert("For the beta mainnet, max storage years is 1.");
                 } else {
-                  this.setState({
-                    fileName: DEFAULT_FILE_INPUT_TEXT,
-                    fileSize: DEFAULT_FILE_INPUT_SIZE,
-                    humanFileSize: DEFAULT_FILE_INPUT_SIZE,
-                    storageCost: DEFAULT_FILE_INPUT_COST
-                  });
+                  const brokers = { alpha: alphaBroker, beta: betaBroker };
+                  streamUploadFn(file, retentionYears, brokers);
                 }
               }}
-              type="file"
-              required={true}
+            >
+              <Icon src={ICON_UPLOAD} />
+              {this.state.isInitializing
+                ? "Initializing Upload..."
+                : "Upload File"}
+            </UploadButton>
+            <Spinner
+              isActive={this.state.isInitializing}
+              className="download-spinner"
             />
-          </UploadColumn>
-        </FileSelectWrapper>
-        <Underline />
-        <CostContainer>
-          <InputLabel>Cost</InputLabel>
-          <StorageFees>
-            <StorageCost> {this.state.storageCost} OPQ</StorageCost>
-          </StorageFees>
-        </CostContainer>
-        <UploadButtonContainer>
-          <CheckboxContainer>
-            <CheckboxLabel htmlFor="terms-checkbox">
-              <CheckboxInput
-                id="terms-checkbox"
-                value="checked"
-                onChange={e =>
-                  this.setState({ isTermsChecked: e.target.checked })
-                }
-                checked={this.state.isTermsChecked}
-              />
-              I agree to the{" "}
-              <Link href="/terms-of-service">Terms and Conditions</Link> and{" "}
-              <Link href="/privacy-policy">Privacy Policy</Link>
-            </CheckboxLabel>
-          </CheckboxContainer>
-          <UploadButton
-            id="start-upload-btn"
-            disabled={this.disableButton()}
-            type="button"
-            onClick={() => {
-              const fileInput: any = this.fileInput;
-              const file = fileInput.files[0];
-              if (!file || file.size > FILE.MAX_FILE_SIZE) {
-                alert(
-                  `Please select a file under ${FILE.MAX_FILE_SIZE /
-                    (1000 * 1000)} MB.`
-                );
-              } else if (retentionYears === "0") {
-                alert("Please select retention years");
-              } else if (Number(retentionYears) > 1) {
-                alert("For the beta mainnet, max storage years is 1.");
-              } else {
-                const brokers = { alpha: alphaBroker, beta: betaBroker };
-                streamUploadFn(file, retentionYears, brokers);
-              }
-            }}
-          >
-            <Icon src={ICON_UPLOAD} />
-            {this.state.isInitializing
-              ? "Initializing Upload..."
-              : "Upload File"}
-          </UploadButton>
-          <Spinner
-            isActive={this.state.isInitializing}
-            className="download-spinner"
-          />
-        </UploadButtonContainer>
-        <Disclaimer>
-          DISCLAIMER: This is a beta phase and should not be used for important
-          data. Uploads cost 1 OPQ per 64 GB. Current filesize limit is{" "}
-          {FILE.MAX_FILE_SIZE / 1000000} MB per file.
-        </Disclaimer>
-      </ScreenContainer>
+          </UploadButtonContainer>
+          <Disclaimer>
+            DISCLAIMER: This is a beta phase and should not be used for
+            important data. Uploads cost 1 OPQ per 64 GB. Current filesize limit
+            is {FILE.MAX_FILE_SIZE / 1000000} MB per file.
+          </Disclaimer>
+        </ScreenContainer>
+      </ThemeProvider>
     );
   }
 }

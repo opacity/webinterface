@@ -202,28 +202,6 @@ div.Select-control {
   border: 1px solid #ecedef;
 }
 
-select#sel {
-  background-color: #232b40;
-  font-size: 16px;
-  font-weight: 500;
-  height: 25px;
-  line-height: 26px;
-  margin: 0 10px 0 0;
-  padding-left: 15px;
-  text-align: center;
-  width: 40px;
-  color: #ffffff;
-  border: none;
-  border-radius: 0;
-  font-size: 16px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.7px;
-  color: #ffffff;
-  margin-left: 10px;
-}
 .years {
   float: right;
   text-align: left;

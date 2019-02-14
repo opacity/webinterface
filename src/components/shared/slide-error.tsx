@@ -1,5 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
+
+import { theme } from "../../config";
 
 const ErrorSlide = styled.section`
   @media (min-width: 1200px) {
@@ -22,7 +24,7 @@ const ErrorSlideContainer = styled.div`
   padding-bottom: 50px;
 
   border-left: 2rem solid transparent;
-  border-left-color: #0267ea;
+  border-left-color: ${props => props.theme.container.content};
 
   overflow: hidden;
   padding: 50px 0 50px 50px;
@@ -69,27 +71,29 @@ const ErrorSlideBody = styled.div`
 `;
 
 const ErrorSlideTitle = styled.h1`
-  color: #0068ea;
+  color: ${props => props.theme.title.color};
 `;
 
 const ErrorSlideUnderline = styled.hr`
   width: 50px;
-  border-color: #afcbfe;
+  border-color: ${props => props.theme.title.underline.color};
   border-width: 5px;
   float: left;
 `;
 
 const SlideError = ({ children, title, image }) => {
   return (
-    <ErrorSlide>
-      <ErrorSlideContainer>
-        <ErrorSlideBody>
-          <ErrorSlideTitle>{title}</ErrorSlideTitle>
-          <ErrorSlideUnderline />
-          {children}
-        </ErrorSlideBody>
-      </ErrorSlideContainer>
-    </ErrorSlide>
+    <ThemeProvider theme={theme}>
+      <ErrorSlide>
+        <ErrorSlideContainer>
+          <ErrorSlideBody>
+            <ErrorSlideTitle>{title}</ErrorSlideTitle>
+            <ErrorSlideUnderline />
+            {children}
+          </ErrorSlideBody>
+        </ErrorSlideContainer>
+      </ErrorSlide>
+    </ThemeProvider>
   );
 };
 

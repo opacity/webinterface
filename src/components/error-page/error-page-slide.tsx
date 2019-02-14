@@ -1,7 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 import SlideError from "../shared/slide-error";
+
+import { theme } from "../../config";
 
 const ICON_ERROR = require("../../assets/images/icon_error.png");
 
@@ -18,27 +20,29 @@ const ErrorDescription = styled.p`
 `;
 
 const ErrorDescriptionLink = styled.a`
-  color: #0068ea;
+  color: ${props => props.theme.title.color};
   font-weight: bold;
   text-decoration: none;
   &:hover {
     text-decoration: none;
-    color: #0068ea;
+    color: ${props => props.theme.title.color};
   }
 `;
 
 const ErrorPageSlide = ({ handle }) => (
-  <SlideError title="Uh oh! Something went wong." image={null}>
-    <ErrorImg src={ICON_ERROR} alt="error-img" />
-    <ErrorDescription>
-      There was a problem with your upload. Please visit our{" "}
-      <ErrorDescriptionLink href="https://t.me/OpacityStorage">
-        {" "}
-        Telegram Channel{" "}
-      </ErrorDescriptionLink>{" "}
-      for more information.
-    </ErrorDescription>
-  </SlideError>
+  <ThemeProvider theme={theme}>
+    <SlideError title="Uh oh! Something went wong." image={null}>
+      <ErrorImg src={ICON_ERROR} alt="error-img" />
+      <ErrorDescription>
+        There was a problem with your upload. Please visit our{" "}
+        <ErrorDescriptionLink href="https://t.me/OpacityStorage">
+          {" "}
+          Telegram Channel{" "}
+        </ErrorDescriptionLink>{" "}
+        for more information.
+      </ErrorDescription>
+    </SlideError>
+  </ThemeProvider>
 );
 
 export default ErrorPageSlide;
