@@ -216,10 +216,9 @@ class SubscriptionSlide extends Component<Props, State> {
 
   isTabletMode () {
     const width = window.innerWidth;
-    console.log(width);
     if (
-      width >= parseInt(SUBSCRIPTION_DESKTOP_WIDTH) ||
-      width <= parseInt(MOBILE_WIDTH)
+      width >= parseInt(SUBSCRIPTION_DESKTOP_WIDTH, 10) ||
+      width <= parseInt(MOBILE_WIDTH, 10)
     ) {
       return true;
     }
