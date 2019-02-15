@@ -15,7 +15,7 @@ const Icon = styled.img`
 `;
 
 const TextContainer = styled.div`
-  background-color: ${props => props.theme.container.background};
+  background-color: ${props => props.theme.input.background};
   overflow: auto;
   text-align: center;
   width: 380px;
@@ -106,7 +106,7 @@ interface ClipboardWidgetProps {
 class ClipboardWidget extends Component<ClipboardWidgetProps> {
   state = { isCopied: false };
 
-  render () {
+  render() {
     const { text, title, property } = this.props;
 
     return (
