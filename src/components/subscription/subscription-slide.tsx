@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import { SUBSCRIPTION_DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
+
+const ICON_LOGO = require("../../assets/images/logo.svg");
 
 const FlexGrid = styled.div`
   display: flex;
@@ -28,7 +30,7 @@ const FlexCol = styled.div`
     }
   }
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    height: 230px;
+    max-height: 275px;
   }
 `;
 
@@ -52,7 +54,7 @@ const Title = styled.h1`
 `;
 
 const Hr = styled.div`
-  width: ${props => props.theme.container.title.underline.width}px;
+  width: ${props => props.theme.container.title.underline.witdh}px;
   border-top: ${props => props.theme.container.title.underline.height}px solid
     ${props => props.theme.container.title.underline.color};
   margin: auto;
@@ -79,7 +81,7 @@ const Content = styled.p`
     margin: 0 30px 0 30px;
   }
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    margin: 15px 30px 0 20px;
+    margin: 15px 30px 15px 20px;
     width: 250px;
   }
 `;
@@ -107,7 +109,7 @@ const Price = styled.p`
   margin-top: 20px;
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
     position: relative;
-    top: -92px;
+    top: -120px;
     right: -100px;
   }
 `;
@@ -133,60 +135,193 @@ const ButtonWrapper = styled.div`
   margin: 20px 0 40px 0;
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
     position: relative;
-    top: -92px;
+    top: -130px;
     right: -150px;
   }
 `;
 
-const SubscriptionSlide = () => (
-  <ThemeProvider theme={theme}>
-    <ScreenContainer title={"Choose Subscription Plan"}>
-      <FlexGrid>
-        <FlexCol>
-          <Title>Basic</Title>
-          <Hr />
-          <Content>
-            Secure, encrypted storage solution perfect for the needs of the
-            individual.
-          </Content>
-          <ContentBold>128 GB secure, decentralized storage</ContentBold>
-          <ContentBold>Unlimited downloads</ContentBold>
-          <Price>2 OPQ</Price>
-          <ButtonWrapper>
-            <Button>CHOOSE PLAN</Button>
-          </ButtonWrapper>
-        </FlexCol>
-        <FlexCol>
-          <Title>Professional</Title>
-          <Hr />
-          <Content>
-            For professionals looking for a secure, easily accessible storage
-            solution while on the move.
-          </Content>
-          <ContentBold>512 GB secure, decentralized storage</ContentBold>
-          <ContentBold>Unlimited downloads</ContentBold>
-          <Price>8 OPQ</Price>
-          <ButtonWrapper>
-            <Button>CHOOSE PLAN</Button>
-          </ButtonWrapper>
-        </FlexCol>
-        <FlexCol>
-          <Title>Business</Title>
-          <Hr />
-          <Content>
-            A secure, encrypted storage solution for growing businesses. Perfect
-            for small teams.
-          </Content>
-          <ContentBold>1 TB secure, decentralized storage</ContentBold>
-          <ContentBold>Unlimited downloads</ContentBold>
-          <Price>16 OPQ</Price>
-          <ButtonWrapper>
-            <Button>CHOOSE PLAN</Button>
-          </ButtonWrapper>
-        </FlexCol>
-      </FlexGrid>
-    </ScreenContainer>
-  </ThemeProvider>
+const MoreFeatures = styled.div`
+  display: none;
+  width: 45px;
+  height: 8.5px;
+  font-size: 12px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  cursor: pointer;
+  color: ${props => props.theme.button.background};
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+    display: contents;
+  }
+`;
+
+const Features = styled.img`
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  float: left;
+  margin-left: 20px;
+  margin-right: 10px;
+  position: relative;
+  top: 6px;
+`;
+const MoreFeatureContainer = styled.div`
+  display: block;
+`;
+
+const MoreFeatureBasic = ({ style }) => (
+  <MoreFeatureContainer style={style}>
+    <ContentBold style={style}>
+      128 GB secure, decentralized storage
+    </ContentBold>
+    <ContentBold style={style}>Unlimited downloads</ContentBold>
+  </MoreFeatureContainer>
 );
+
+const MoreFeatureProfessional = ({ style }) => (
+  <MoreFeatureContainer style={style}>
+    <ContentBold style={style}>
+      512 GB secure, decentralized storage
+    </ContentBold>
+    <ContentBold style={style}>Unlimited downloads</ContentBold>
+  </MoreFeatureContainer>
+);
+
+const MoreFeatureBusiness = ({ style }) => (
+  <MoreFeatureContainer style={style}>
+    <ContentBold style={style}>1 TB secure, decentralized storage</ContentBold>
+    <ContentBold style={style}>Unlimited downloads</ContentBold>
+  </MoreFeatureContainer>
+);
+
+interface State {
+  moreFeatureBasic: boolean;
+  moreFeatureProfessional: boolean;
+  moreFeatureBusiness: boolean;
+}
+
+interface Props {}
+
+class SubscriptionSlide extends Component<Props, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      moreFeatureBasic: false,
+      moreFeatureProfessional: false,
+      moreFeatureBusiness: false
+    };
+  }
+
+  isTabletMode() {
+    const width = window.innerWidth;
+    console.log(width);
+    if (
+      width >= parseInt(SUBSCRIPTION_DESKTOP_WIDTH) ||
+      width <= parseInt(MOBILE_WIDTH)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  render() {
+    const {
+      moreFeatureBasic,
+      moreFeatureProfessional,
+      moreFeatureBusiness
+    } = this.state;
+    const styleMoreFeatureBasic =
+      moreFeatureBasic || this.isTabletMode()
+        ? { display: "block" }
+        : { display: "none" };
+    const styleMoreFeatureProfessional =
+      moreFeatureProfessional || this.isTabletMode()
+        ? { display: "block" }
+        : { display: "none" };
+    const styleMoreFeatureBusiness =
+      moreFeatureBusiness || this.isTabletMode()
+        ? { display: "block" }
+        : { display: "none" };
+    return (
+      <ThemeProvider theme={theme}>
+        <ScreenContainer title={"Choose Subscription Plan"}>
+          <FlexGrid>
+            <FlexCol>
+              <Title>Basic</Title>
+              <Hr />
+              <Content>
+                Secure, encrypted storage solution perfect for the needs of the
+                individual.
+              </Content>
+              <MoreFeatures
+                onClick={() =>
+                  this.setState({
+                    moreFeatureBasic: true
+                  })
+                }
+              >
+                <Features src={ICON_LOGO} alt="logo" />
+                Show features
+              </MoreFeatures>
+              <MoreFeatureBasic style={styleMoreFeatureBasic} />
+              <Price>2 OPQ</Price>
+              <ButtonWrapper>
+                <Button>CHOOSE PLAN</Button>
+              </ButtonWrapper>
+            </FlexCol>
+            <FlexCol>
+              <Title>Professional</Title>
+              <Hr />
+              <Content>
+                For professionals looking for a secure, easily accessible
+                storage solution while on the move.
+              </Content>
+              <MoreFeatures
+                onClick={() =>
+                  this.setState({
+                    moreFeatureProfessional: true
+                  })
+                }
+              >
+                <Features src={ICON_LOGO} alt="logo" />
+                Show features
+              </MoreFeatures>
+              <MoreFeatureProfessional style={styleMoreFeatureProfessional} />
+              <Price>8 OPQ</Price>
+              <ButtonWrapper>
+                <Button>CHOOSE PLAN</Button>
+              </ButtonWrapper>
+            </FlexCol>
+            <FlexCol>
+              <Title>Business</Title>
+              <Hr />
+              <Content>
+                A secure, encrypted storage solution for growing businesses.
+                Perfect for small teams.
+              </Content>
+              <MoreFeatures
+                onClick={() =>
+                  this.setState({
+                    moreFeatureBusiness: true
+                  })
+                }
+              >
+                <Features src={ICON_LOGO} alt="logo" />
+                Show features
+              </MoreFeatures>
+              <MoreFeatureBusiness style={styleMoreFeatureBusiness} />
+              <Price>16 OPQ</Price>
+              <ButtonWrapper>
+                <Button>CHOOSE PLAN</Button>
+              </ButtonWrapper>
+            </FlexCol>
+          </FlexGrid>
+        </ScreenContainer>
+      </ThemeProvider>
+    );
+  }
+}
 
 export default SubscriptionSlide;
