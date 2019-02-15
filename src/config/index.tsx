@@ -115,13 +115,13 @@ export const theme = {
   },
   slider: {
     defaultColor: "rgb(35, 43, 64)",
-    hoverColor: "#7D6B96",
+    hoverColor: "#7D6B96"
   },
   link: {
-    color: "rgb(132, 107, 153)",
+    color: "rgb(132, 107, 153)"
   },
   input: {
-    background: "rgb(35, 43, 64)",
+    background: "rgb(35, 43, 64)"
   },
   button: {
     background: "#7D6B96",
