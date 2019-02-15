@@ -41,7 +41,7 @@ const CheckboxLabel = styled.label`
 const Link = styled.a.attrs({
   target: "_blank"
 })`
-  color: ${props => props.theme.title.color};
+  color: ${props => props.theme.link.color};
   text-decoration: none;
   font-weight: 600;
 `;
@@ -178,7 +178,7 @@ const RetentionSlider = styled.input`
   max-width: 380px;
   width: 100%;
   -webkit-appearance: none;
-  background-color: ${props => props.theme.title.underline.color};
+  background-color: ${props => props.theme.slider.defaultColor};
   height: 1px;
   border: none;
   border-radius: 4px;
@@ -189,12 +189,12 @@ const RetentionSlider = styled.input`
   }
 
   &:hover {
-    background: ${props => props.theme.title.color};
+    background-color: ${props => props.theme.slider.hoverColor};
   }
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    background-color: ${props => props.theme.title.color};
+    background-color: ${props => props.theme.slider.hoverColor};
     border: none;
     height: 30px;
     width: 30px;
@@ -209,7 +209,7 @@ const StorageFees = styled.div`
   align-items: center;
   width: 300px;
   height: 40px;
-  background-color: ${props => props.theme.title.underline.color};
+  background-color: ${props => props.theme.input.background};
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
   }
@@ -229,7 +229,7 @@ const UploadFilename = styled.span`
   flex: 0.75;
   text-align: center;
   overflow: hidden;
-  background-color: ${props => props.theme.container.background};
+  background-color: ${props => props.theme.input.background};
   color: ${props => props.theme.container.content};
   height: 40px;
   display: flex;
@@ -245,11 +245,11 @@ const UploadFolder = styled.span`
   align-items: center;
   justify-content: center;
   width: 50px;
-  background-color: ${props => props.theme.title.color};
+  background-color: ${props => props.theme.title.underline.color};
 `;
 
 const SelectYears = styled.select`
-  background-color: ${props => props.theme.title.color};
+  background-color: ${props => props.theme.input.background};
   height: 25px;
   line-height: 26px;
   margin: 0 10px 0 0;
@@ -288,7 +288,7 @@ interface UploadSlideState {
 class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
   fileInput: HTMLInputElement | null = null;
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -301,7 +301,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     };
   }
 
-  disableButton (): boolean {
+  disableButton(): boolean {
     const fileInput: any = this.fileInput;
     const isFileChosen = fileInput && fileInput.files[0];
     return (
@@ -309,14 +309,14 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     );
   }
 
-  calculateStorageCost (fileSizeBytes, years) {
+  calculateStorageCost(fileSizeBytes, years) {
     let chunks = Math.ceil(fileSizeBytes / 1024) + 1; // 1 kb for metadata
     let numSectors = Math.ceil(chunks / CHUNKS_IN_SECTOR);
     let costPerYear = numSectors / STORAGE_PEG;
     return costPerYear * years;
   }
 
-  humanFileSize (bytes, si) {
+  humanFileSize(bytes, si) {
     let thresh = si ? 1000 : 1024;
     if (Math.abs(bytes) < thresh) {
       return bytes + " B";
@@ -332,7 +332,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     return bytes.toFixed(1) + " " + units[u];
   }
 
-  render () {
+  render() {
     const {
       alphaBroker,
       betaBroker,

@@ -35,7 +35,8 @@ const InputContainer = styled.div`
 `;
 
 const HandleTextInput = styled.input`
-  background-color: ${props => props.theme.container.background};
+  background-color: ${props => props.theme.input.background};
+  padding: 0 10px;
   border: none;
   box-sizing: border-box;
   color: ${props => props.theme.container.content};
@@ -89,16 +90,16 @@ class DownloadFormSlide extends React.Component<
   DownloadFormSlideProps,
   DownloadFormState
 > {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = { handle: "" };
   }
 
   inputHandler = evt => {
     this.setState({ handle: evt.target.value });
-  }
+  };
 
-  render () {
+  render() {
     const { download, status } = this.props;
     return (
       <ThemeProvider theme={theme}>

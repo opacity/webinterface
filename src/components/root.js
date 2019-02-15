@@ -1,15 +1,21 @@
 import React from "react";
+import styled, { ThemeProvider } from "styled-components";
 
 import "./shared/slicknav.css";
 import "./root.css";
 import "./responsive.css";
 
-import PathChoice from "./path-choice";
+import { theme } from "../config";
 
-const Root = () => (
-  <div className="App">
-    <PathChoice />
-  </div>
+const Container = styled.div`
+  min-height: 100%;
+  background-color: ${props => props.theme.background};
+`;
+
+const Root = ({ children }) => (
+  <ThemeProvider theme={theme}>
+    <Container>{children}</Container>
+  </ThemeProvider>
 );
 
 export default Root;

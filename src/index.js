@@ -9,6 +9,7 @@ import { store, persistor } from "./redux";
 import history from "./redux/history";
 
 import Root from "./components/root";
+import PathChoice from "./components/path-choice";
 import Header from "./components/shared/header";
 import Agreement from "./components/agreement";
 import BrokersDown from "./components/brokers-down";
@@ -36,11 +37,11 @@ const App = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <ConnectedRouter history={history}>
-        <div className="main-div">
+        <Root>
           <PageNavigationPrompt />
           <Header />
           <Switch>
-            <Route exact path="/" component={Root} />
+            <Route exact path="/" component={PathChoice} />
             <Route path="/download-form" component={DownloadForm} />
             <Route path="/download-started" component={DownloadStarted} />
             <Route path="/download-complete" component={DownloadComplete} />
@@ -80,7 +81,7 @@ const App = () => (
               )}
             />
           </Switch>
-        </div>
+        </Root>
       </ConnectedRouter>
     </PersistGate>
   </Provider>
