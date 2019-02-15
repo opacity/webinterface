@@ -205,7 +205,7 @@ interface State {
 interface Props {}
 
 class SubscriptionSlide extends Component<Props, State> {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       moreFeatureBasic: false,
@@ -214,7 +214,7 @@ class SubscriptionSlide extends Component<Props, State> {
     };
   }
 
-  isTabletMode() {
+  isTabletMode () {
     const width = window.innerWidth;
     console.log(width);
     if (
@@ -226,7 +226,7 @@ class SubscriptionSlide extends Component<Props, State> {
     return false;
   }
 
-  render() {
+  render () {
     const {
       moreFeatureBasic,
       moreFeatureProfessional,
