@@ -35,7 +35,8 @@ const InputContainer = styled.div`
 `;
 
 const HandleTextInput = styled.input`
-  background-color: ${props => props.theme.container.background};
+  background-color: ${props => props.theme.input.background};
+  padding: 0 10px;
   border: none;
   box-sizing: border-box;
   color: ${props => props.theme.container.content};

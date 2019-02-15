@@ -52,7 +52,7 @@ const Title = styled.h1`
 `;
 
 const Hr = styled.div`
-  width: ${props => props.theme.container.title.underline.witdh}px;
+  width: ${props => props.theme.container.title.underline.width}px;
   border-top: ${props => props.theme.container.title.underline.height}px solid
     ${props => props.theme.container.title.underline.color};
   margin: auto;

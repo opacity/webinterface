@@ -8,7 +8,7 @@ import ScreenContainer from "../shared/screen-container";
 import ScreenDescription from "../shared/screen-description";
 
 const Terminology = styled.span`
-  color: ${props => props.theme.title.color};
+  color: ${props => props.theme.link.color};
   font-weight: 600;
 `;
 
