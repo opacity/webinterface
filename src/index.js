@@ -26,6 +26,7 @@ import PaymentInvoice from "./components/payment-invoice";
 import PaymentConfirm from "./components/payment-confirm";
 import PageNavigationPrompt from "./components/page-navigation-prompt";
 import Subscription from "./components/subscription";
+import RegisterRecordRecoveryPhrase from "./components/register-record-recovery-phrase";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -62,6 +63,10 @@ const App = () => (
             <Route path="/error-page" component={ErrorPage} />
             <Route path="/brokers-down" component={BrokersDown} />
             <Route path="/subscription" component={Subscription} />
+            <Route
+              path="/register-record-recovery-phrase"
+              component={RegisterRecordRecoveryPhrase}
+            />
             <Route
               path="/terms-of-service"
               render={() => (
