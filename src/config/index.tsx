@@ -102,13 +102,13 @@ export const theme = {
     }
   },
   container: {
-    background: "#d5e2f8",
+    background: "#343A54",
     content: "#ffffff",
     title: {
       size: "22",
       underline: {
         width: "33",
-        color: "#80b9ff",
+        color: "#7D6B96",
         height: "3"
       }
     }

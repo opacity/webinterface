@@ -7,9 +7,9 @@ const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({});
 
-const RegisterRecordRecoveryPhrase = () => {
-  return <RegisterRecordRecoveryPhraseSlide />;
-};
+const RegisterRecordRecoveryPhrase = () => (
+  <RegisterRecordRecoveryPhraseSlide />
+);
 
 export default connect(
   mapStateToProps,

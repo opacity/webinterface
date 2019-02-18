@@ -43,7 +43,7 @@ const Content = styled.p`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
-  margin: 0 30px 0 30px;
+  margin: 0 30px;
   padding: 30px 30px 0 30px;
 `;
 
@@ -80,22 +80,27 @@ const ButtonWrapper = styled.div`
   padding-right: 60px;
   padding-bottom: 40px;
   text-align: right;
-  @media (max-width: ${DESKTOP_WIDTH}px) {
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px)
     text-align: center;
     margin: 40px;
     padding: 10px;
   }
 `;
 
-const FlexGrid = styled.div`
-  display: flex;
-  justify-content: space-between;
+const Grid = styled.div`
+  display: grid;
+  grid-gap: 10px;
+  grid-template-rows: repeat(4, 28px);
+  grid-auto-flow: column;
+  grid-auto-columns: auto;
   margin: 20px 60px 0px 60px;
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
+    grid-template-rows: repeat(6, 28px);
+  }
 `;
 
-const FlexCol = styled.div`
-  width: 33%;
-  background-color: ${props => props.theme.background};
+const Box = styled.div`
+  background-color: ${props => props.theme.input.background};
   color: ${props => props.theme.white};
   margin-inline-end: 10px;
   padding: 5px;
@@ -118,26 +123,20 @@ const RecordRecoveryPhaseSlide = () => (
         <ContentBold>
           Phaugue. Phasellus nisl est, tristique ac magna sed:
         </ContentBold>
-        <FlexGrid>
-          <FlexCol>1. Massa</FlexCol>
-          <FlexCol>1. Massa</FlexCol>
-          <FlexCol>1. Massa</FlexCol>
-        </FlexGrid>
-        <FlexGrid>
-          <FlexCol>2. Massa</FlexCol>
-          <FlexCol>2. Massa</FlexCol>
-          <FlexCol>2. Massa</FlexCol>
-        </FlexGrid>
-        <FlexGrid>
-          <FlexCol>3. Massa</FlexCol>
-          <FlexCol>3. Massa</FlexCol>
-          <FlexCol>3. Massa</FlexCol>
-        </FlexGrid>
-        <FlexGrid>
-          <FlexCol>4. Massa</FlexCol>
-          <FlexCol>4. Massa</FlexCol>
-          <FlexCol>4. Massa</FlexCol>
-        </FlexGrid>
+        <Grid>
+          <Box>1. Massa</Box>
+          <Box>2. Massa</Box>
+          <Box>3. Massa</Box>
+          <Box>4. Massa</Box>
+          <Box>5. Massa</Box>
+          <Box>6. Massa</Box>
+          <Box>7. Massa</Box>
+          <Box>8. Massa</Box>
+          <Box>9. Massa</Box>
+          <Box>10. Massa</Box>
+          <Box>11. Massa</Box>
+          <Box>12. Massa</Box>
+        </Grid>
         <Link>Download phrase as CSV</Link>
         <ButtonWrapper>
           <Button>Continue</Button>
