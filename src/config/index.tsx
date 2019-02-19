@@ -88,43 +88,43 @@ export const MOBILE_WIDTH = "567";
 export const SUBSCRIPTION_DESKTOP_WIDTH = "1200";
 
 export const theme = {
-  background: "#343A54",
+  background: "#ffffff",
   header: {
-    background: "#ffffff",
-    color: "#5B7AA5"
+    background: "#2e6dde",
+    color: "#ffffff"
   },
   title: {
     size: "22",
-    color: "#ffffff",
+    color: "#2e6dde",
     underline: {
-      color: "#7D6B96",
+      color: "#80b9ff",
       height: "1"
     }
   },
   container: {
     background: "#343A54",
-    content: "#ffffff",
+    content: "#4f5e78",
     title: {
       size: "22",
       underline: {
         width: "33",
-        color: "#7D6B96",
+        color: "#80b9ff",
         height: "3"
       }
     }
   },
   slider: {
-    defaultColor: "rgb(35, 43, 64)",
-    hoverColor: "#7D6B96"
+    defaultColor: "rgba(46, 109, 222, 0.2)",
+    hoverColor: "#2e6dde"
   },
   link: {
-    color: "rgb(132, 107, 153)"
+    color: "#2e6dde"
   },
   input: {
-    background: "rgb(35, 43, 64)"
+    background: "rgba(46, 109, 222, 0.2)"
   },
   button: {
-    background: "#7D6B96",
+    background: "#2e6dde",
     color: "#ffffff"
   },
   white: "#ffffff",
