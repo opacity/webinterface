@@ -262,7 +262,7 @@ const SelectYears = styled.select`
   padding-left: 15px;
   text-align: center;
   width: 40px;
-  color: ${props => props.theme.white};
+  color: ${props => props.theme.container.content};
   border: none;
   border-radius: 0;
   font-size: 16px;
