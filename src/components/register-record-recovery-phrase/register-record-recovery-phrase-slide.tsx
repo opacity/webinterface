@@ -22,7 +22,7 @@ const Title = styled.h1`
 const ContentBox = styled.div`
   background-color: ${props => props.theme.container.background};
   margin: auto;
-  max-width: 752px;
+  max-width: 452px;
   padding: 20px 120px;
   width: 100%;
 `;
