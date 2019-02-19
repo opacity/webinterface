@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
+import Mnemonic from "bitcore-mnemonic";
 
 import { theme, DESKTOP_WIDTH } from "../../config";
 
@@ -108,42 +109,70 @@ const Box = styled.div`
   text-align: center;
 `;
 
-const RecordRecoveryPhaseSlide = () => (
-  <ThemeProvider theme={theme}>
-    <ScreenContainer title={"Register on Opacity"}>
-      <ContentBox>
-        <Title>Record Recovery Phrase</Title>
-        <Hr />
-        <Content>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
-          vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
-          tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Ut ac massa vestibulum, vestibulum nunc in, imperdiet
-        </Content>
-        <ContentBold>
-          Phaugue. Phasellus nisl est, tristique ac magna sed:
-        </ContentBold>
-        <Grid>
-          <Box>1. Massa</Box>
-          <Box>2. Massa</Box>
-          <Box>3. Massa</Box>
-          <Box>4. Massa</Box>
-          <Box>5. Massa</Box>
-          <Box>6. Massa</Box>
-          <Box>7. Massa</Box>
-          <Box>8. Massa</Box>
-          <Box>9. Massa</Box>
-          <Box>10. Massa</Box>
-          <Box>11. Massa</Box>
-          <Box>12. Massa</Box>
-        </Grid>
-        <DownloadButton>Download phrase as CSV</DownloadButton>
-        <ButtonWrapper>
-          <ContinueButton>Continue</ContinueButton>
-        </ButtonWrapper>
-      </ContentBox>
-    </ScreenContainer>
-  </ThemeProvider>
-);
+class RecordRecoveryPhaseSlide extends Component {
+  state = {
+    mnemonic: [],
+    privateKey: ""
+  };
+
+  downloadCsv(array) {
+    const csvContent = array.join(",");
+    const blob = new Blob([csvContent], {
+      type: "text/csv;charset=utf-8;"
+    });
+    const elem = window.document.createElement("a");
+    elem.href = window.URL.createObjectURL(blob);
+    elem.download = "opacity-mnenomic.csv";
+    window.document.body.appendChild(elem);
+    elem.click();
+    window.document.body.removeChild(elem);
+  }
+
+  componentDidMount() {
+    const code = new Mnemonic();
+    this.setState({
+      mnemonic: code.toString().split(" "),
+      privateKey: code.toHDPrivateKey().xprivkey // TODO: find out what the backend needs
+    });
+  }
+
+  render() {
+    return (
+      <ThemeProvider theme={theme}>
+        <ScreenContainer title={"Register on Opacity"}>
+          <ContentBox>
+            <Title>Record Recovery Phrase</Title>
+            <Hr />
+            <Content>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
+              massa vestibulum, vestibulum nunc in, imperdiet augue. Phasellus
+              nisl est, tristique ac magna sed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Ut ac massa vestibulum, vestibulum
+              nunc in, imperdiet
+            </Content>
+            <ContentBold>
+              Phaugue. Phasellus nisl est, tristique ac magna sed:
+            </ContentBold>
+            <Grid>
+              {this.state.mnemonic.map((word, i) => (
+                <Box key={i}>
+                  {i + 1}. {word}
+                </Box>
+              ))}
+            </Grid>
+            <DownloadButton
+              onClick={() => this.downloadCsv(this.state.mnemonic)}
+            >
+              Download phrase as CSV
+            </DownloadButton>
+            <ButtonWrapper>
+              <ContinueButton>Continue</ContinueButton>
+            </ButtonWrapper>
+          </ContentBox>
+        </ScreenContainer>
+      </ThemeProvider>
+    );
+  }
+}
 
 export default RecordRecoveryPhaseSlide;
