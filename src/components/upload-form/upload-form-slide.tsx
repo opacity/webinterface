@@ -262,7 +262,7 @@ const SelectYears = styled.select`
   padding-left: 15px;
   text-align: center;
   width: 40px;
-  color: ${props => props.theme.white};
+  color: ${props => props.theme.container.content};
   border: none;
   border-radius: 0;
   font-size: 16px;
@@ -294,7 +294,7 @@ interface UploadSlideState {
 class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
   fileInput: HTMLInputElement | null = null;
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -307,7 +307,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     };
   }
 
-  disableButton (): boolean {
+  disableButton(): boolean {
     const fileInput: any = this.fileInput;
     const isFileChosen = fileInput && fileInput.files[0];
     return (
@@ -315,14 +315,14 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     );
   }
 
-  calculateStorageCost (fileSizeBytes, years) {
+  calculateStorageCost(fileSizeBytes, years) {
     let chunks = Math.ceil(fileSizeBytes / 1024) + 1; // 1 kb for metadata
     let numSectors = Math.ceil(chunks / CHUNKS_IN_SECTOR);
     let costPerYear = numSectors / STORAGE_PEG;
     return costPerYear * years;
   }
 
-  humanFileSize (bytes, si) {
+  humanFileSize(bytes, si) {
     let thresh = si ? 1000 : 1024;
     if (Math.abs(bytes) < thresh) {
       return bytes + " B";
@@ -338,7 +338,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     return bytes.toFixed(1) + " " + units[u];
   }
 
-  render () {
+  render() {
     const {
       alphaBroker,
       betaBroker,

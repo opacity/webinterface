@@ -127,7 +127,6 @@ export const theme = {
     background: "#2e6dde",
     color: "#ffffff"
   },
-  white: "#ffffff",
   fontWeight: 500,
   fontStyle: "normal",
   fontStretch: "normal",
