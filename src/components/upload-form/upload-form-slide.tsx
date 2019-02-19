@@ -102,6 +102,12 @@ const CostContainer = styled.div`
   flex-direction: column;
 `;
 
+const TokenReminder = styled.span`
+  margin-left: 10px;
+  color: ${props => props.theme.container.content};
+  font-size: 12px;
+`;
+
 const InputLabel = styled.span`
   display: inline-block;
   margin: 10px 0;
@@ -445,7 +451,13 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
           </FileSelectWrapper>
           <Underline />
           <CostContainer>
-            <InputLabel>Cost</InputLabel>
+            <div>
+              <InputLabel>Cost</InputLabel>
+              <TokenReminder>
+                Need OPQ? Purchase some{" "}
+                <Link href="https://www.kucoin.com/">here</Link>
+              </TokenReminder>
+            </div>
             <StorageFees>
               <StorageCost> {this.state.storageCost} OPQ</StorageCost>
             </StorageFees>
