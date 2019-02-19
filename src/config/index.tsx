@@ -102,7 +102,7 @@ export const theme = {
     }
   },
   container: {
-    background: "#343A54",
+    background: "rgba(46, 109, 222, 0.2)",
     content: "#4f5e78",
     title: {
       size: "22",
@@ -122,6 +122,9 @@ export const theme = {
   },
   input: {
     background: "rgba(46, 109, 222, 0.2)"
+  },
+  password: {
+    background: "#4f5e78"
   },
   button: {
     background: "#2e6dde",

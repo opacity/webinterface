@@ -10,7 +10,7 @@ const Title = styled.h1`
   font-size: ${props => props.theme.container.title.size}px;
   font-stretch: ${props => props.theme.fontStretch};
   font-style: ${props => props.theme.fontStyle};
-  font-weight: bold;
+  font-weight: 600;
   letter-spacing: ${props => props.theme.letterSpacing};
   line-height: ${props => props.theme.lineHeight};
   margin-top: 35px;
@@ -22,7 +22,9 @@ const Title = styled.h1`
 const ContentBox = styled.div`
   background-color: ${props => props.theme.container.background};
   margin: auto;
-  width: 80%;
+  max-width: 752px;
+  padding: 20px 120px;
+  width: 100%;
 `;
 
 const Hr = styled.div`
@@ -30,7 +32,7 @@ const Hr = styled.div`
     ${props => props.theme.container.title.underline.color};
   margin: auto;
   margin-top: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   width: 40px;
 `;
 
@@ -42,8 +44,6 @@ const Content = styled.p`
   font-weight: ${props => props.theme.fontWeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   line-height: ${props => props.theme.lineHeight};
-  margin: 0 30px;
-  padding: 30px 30px 0 30px;
   width: auto;
 `;
 
@@ -52,18 +52,21 @@ const ContentBold = styled(Content)`
   min-height: 28px;
 `;
 
-const Link = styled(Content)`
+const DownloadButton = styled.button`
+  cursor: pointer;
+  background: none;
+  border: none;
   color: ${props => props.theme.link.color};
 `;
 
-const Button = styled.button`
+const ContinueButton = styled.button`
+  text-transform: uppercase;
   background-color: ${props => props.theme.button.background};
   border: none;
   color: ${props => props.theme.button.color};
   font-size: 16px;
   font-stretch: ${props => props.theme.fontStretch};
   font-style: ${props => props.theme.fontStyle};
-  font-weight: bold;
   height: 40px;
   letter-spacing: ${props => props.theme.letterSpacing};
   line-height: ${props => props.theme.lineHeight};
@@ -76,14 +79,10 @@ const Button = styled.button`
 `;
 
 const ButtonWrapper = styled.div`
-  margin: 20px 0 40px 0;
-  padding-bottom: 40px;
-  padding-right: 60px;
   text-align: right;
+  margin: 25px 0;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px)
     text-align: center;
-    margin: 40px;
-    padding: 10px;
   }
 `;
 
@@ -91,9 +90,9 @@ const Grid = styled.div`
   display: grid;
   grid-auto-columns: auto;
   grid-auto-flow: column;
-  grid-gap: 10px;
+  grid-gap: 20px;
   grid-template-rows: repeat(4, 28px);
-  margin: 20px 60px 0px 60px;
+  margin-bottom: 30px;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     grid-template-rows: repeat(6, 28px);
   }
@@ -101,7 +100,7 @@ const Grid = styled.div`
 
 const Box = styled.div`
   align-items: center;
-  background-color: ${props => props.theme.input.background};
+  background-color: ${props => props.theme.password.background};
   color: #ffffff;
   display: flex;
   font-size: 12px;
@@ -138,9 +137,9 @@ const RecordRecoveryPhaseSlide = () => (
           <Box>11. Massa</Box>
           <Box>12. Massa</Box>
         </Grid>
-        <Link>Download phrase as CSV</Link>
+        <DownloadButton>Download phrase as CSV</DownloadButton>
         <ButtonWrapper>
-          <Button>Continue</Button>
+          <ContinueButton>Continue</ContinueButton>
         </ButtonWrapper>
       </ContentBox>
     </ScreenContainer>
