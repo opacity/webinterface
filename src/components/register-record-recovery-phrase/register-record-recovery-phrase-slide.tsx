@@ -6,45 +6,45 @@ import { theme, DESKTOP_WIDTH } from "../../config";
 import ScreenContainer from "../shared/screen-container";
 
 const Title = styled.h1`
-  font-size: ${props => props.theme.container.title.size}px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.title.color};
-  margin: auto;
-  text-align: center;
+  font-size: ${props => props.theme.container.title.size}px;
+  font-stretch: ${props => props.theme.fontStretch};
+  font-style: ${props => props.theme.fontStyle};
+  font-weight: bold;
+  letter-spacing: ${props => props.theme.letterSpacing};
+  line-height: ${props => props.theme.lineHeight};
   margin-top: 35px;
+  margin: auto;
   padding-top: 30px;
+  text-align: center;
 `;
 
 const ContentBox = styled.div`
+  background-color: ${props => props.theme.container.background};
   margin: auto;
   width: 80%;
-  background-color: ${props => props.theme.container.background};
 `;
 
 const Hr = styled.div`
-  width: 40px;
   border-top: ${props => props.theme.container.title.underline.height}px solid
     ${props => props.theme.container.title.underline.color};
   margin: auto;
   margin-top: 5px;
   margin-bottom: 15px;
+  width: 40px;
 `;
 
 const Content = styled.p`
-  width: auto;
-  font-size: 12px;
-  font-weight: ${props => props.theme.fontWeight};
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
+  font-size: 12px;
+  font-stretch: ${props => props.theme.fontStretch};
+  font-style: ${props => props.theme.fontStyle};
+  font-weight: ${props => props.theme.fontWeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  line-height: ${props => props.theme.lineHeight};
   margin: 0 30px;
   padding: 30px 30px 0 30px;
+  width: auto;
 `;
 
 const ContentBold = styled(Content)`
@@ -57,19 +57,19 @@ const Link = styled(Content)`
 `;
 
 const Button = styled.button`
-  width: 171px;
-  height: 40px;
   background-color: ${props => props.theme.button.background};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.button.color};
-  text-align: center;
-  margin: auto;
   border: none;
+  color: ${props => props.theme.button.color};
+  font-size: 16px;
+  font-stretch: ${props => props.theme.fontStretch};
+  font-style: ${props => props.theme.fontStyle};
+  font-weight: bold;
+  height: 40px;
+  letter-spacing: ${props => props.theme.letterSpacing};
+  line-height: ${props => props.theme.lineHeight};
+  margin: auto;
+  text-align: center;
+  width: 171px;
   @media (max-width: ${DESKTOP_WIDTH}px) {
     width: 100%;
   }
@@ -77,8 +77,8 @@ const Button = styled.button`
 
 const ButtonWrapper = styled.div`
   margin: 20px 0 40px 0;
-  padding-right: 60px;
   padding-bottom: 40px;
+  padding-right: 60px;
   text-align: right;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px)
     text-align: center;
@@ -89,10 +89,10 @@ const ButtonWrapper = styled.div`
 
 const Grid = styled.div`
   display: grid;
+  grid-auto-columns: auto;
+  grid-auto-flow: column;
   grid-gap: 10px;
   grid-template-rows: repeat(4, 28px);
-  grid-auto-flow: column;
-  grid-auto-columns: auto;
   margin: 20px 60px 0px 60px;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     grid-template-rows: repeat(6, 28px);
@@ -100,11 +100,12 @@ const Grid = styled.div`
 `;
 
 const Box = styled.div`
+  align-items: center;
   background-color: ${props => props.theme.input.background};
   color: #ffffff;
-  margin-inline-end: 10px;
-  padding: 5px;
+  display: flex;
   font-size: 12px;
+  justify-content: center;
   text-align: center;
 `;
 
