@@ -28,6 +28,7 @@ import PageNavigationPrompt from "./components/page-navigation-prompt";
 import Subscription from "./components/subscription";
 import RegisterRecordRecoveryPhrase from "./components/register-record-recovery-phrase";
 import RegisterRecordStorageHandle from "./components/register-record-storage-handle";
+import RegisterSendPayment from "./components/register-send-payment";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -71,6 +72,10 @@ const App = () => (
             <Route
               path="/register-record-storage-handle"
               component={RegisterRecordStorageHandle}
+            />
+            <Route
+              path="/register-send-payment"
+              component={RegisterSendPayment}
             />
             <Route
               path="/terms-of-service"

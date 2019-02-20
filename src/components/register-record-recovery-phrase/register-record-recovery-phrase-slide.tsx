@@ -100,7 +100,7 @@ const Grid = styled.div`
 `;
 
 const Box = styled.div`
-  background-color: ${props => props.theme.input.background};
+  background-color: ${props => props.theme.container.content};
   color: #ffffff;
   margin-inline-end: 10px;
   padding: 5px;

@@ -15,7 +15,7 @@ const Icon = styled.img`
 `;
 
 const TextContainer = styled.div`
-  background-color: ${props => props.theme.input.background};
+  background-color: ${props => props.theme.container.content};
   overflow: auto;
   text-align: center;
   width: 380px;
@@ -44,7 +44,7 @@ const TextContainer = styled.div`
 const TextBox = styled.p`
   display: inline-block;
   box-sizing: border-box;
-  color: ${props => props.theme.container.content};
+  color: ${props => props.theme.button.color};
   font-size: 12px;
   font-stretch: normal;
   font-style: normal;
