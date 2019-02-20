@@ -121,7 +121,10 @@ export const theme = {
     color: "#2e6dde"
   },
   input: {
-    background: "rgba(46, 109, 222, 0.2)"
+    background: "rgba(46, 109, 222, 0.2)",
+    border: {
+      color: "#7D6B96"
+    }
   },
   button: {
     background: "#2e6dde",
