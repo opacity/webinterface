@@ -61,6 +61,7 @@ const DownloadButton = styled.button`
 `;
 
 const ContinueButton = styled.button`
+  cursor: pointer;
   text-transform: uppercase;
   background-color: ${props => props.theme.button.background};
   border: none;
@@ -109,7 +110,19 @@ const Box = styled.div`
   text-align: center;
 `;
 
-class RecordRecoveryPhaseSlide extends Component {
+interface RecordRecoveryPhaseProps {
+  setPrivateKey;
+}
+
+interface RecordRecoveryPhaseState {
+  mnemonic;
+  privateKey;
+}
+
+class RecordRecoveryPhraseSlide extends Component<
+  RecordRecoveryPhaseProps,
+  RecordRecoveryPhaseState
+> {
   state = {
     mnemonic: [],
     privateKey: ""
@@ -126,6 +139,11 @@ class RecordRecoveryPhaseSlide extends Component {
     window.document.body.appendChild(elem);
     elem.click();
     window.document.body.removeChild(elem);
+  }
+
+  save(privateKey) {
+    const { setPrivateKey } = this.props;
+    setPrivateKey(privateKey);
   }
 
   componentDidMount() {
@@ -166,7 +184,9 @@ class RecordRecoveryPhaseSlide extends Component {
               Download phrase as CSV
             </DownloadButton>
             <ButtonWrapper>
-              <ContinueButton>Continue</ContinueButton>
+              <ContinueButton onClick={() => this.save(this.state.privateKey)}>
+                Continue
+              </ContinueButton>
             </ButtonWrapper>
           </ContentBox>
         </ScreenContainer>
@@ -175,4 +195,4 @@ class RecordRecoveryPhaseSlide extends Component {
   }
 }
 
-export default RecordRecoveryPhaseSlide;
+export default RecordRecoveryPhraseSlide;
