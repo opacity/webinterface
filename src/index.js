@@ -17,6 +17,7 @@ import DownloadForm from "./components/download-form";
 import DownloadStarted from "./components/download-started";
 import DownloadComplete from "./components/download-complete";
 import DownloadUploadHistory from "./components/download-upload-history";
+import LoginOrRegister from "./components/login-or-register";
 import UploadForm from "./components/upload-form";
 import UploadStarted from "./components/upload-started";
 import UploadProgress from "./components/upload-progress";
@@ -27,6 +28,8 @@ import PaymentConfirm from "./components/payment-confirm";
 import PageNavigationPrompt from "./components/page-navigation-prompt";
 import Subscription from "./components/subscription";
 import RegisterRecordRecoveryPhrase from "./components/register-record-recovery-phrase";
+import RegisterRecordStorageHandle from "./components/register-record-storage-handle";
+import RegisterSendPayment from "./components/register-send-payment";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -67,6 +70,16 @@ const App = () => (
               path="/register-record-recovery-phrase"
               component={RegisterRecordRecoveryPhrase}
             />
+            <Route
+              path="/register-record-storage-handle"
+              component={RegisterRecordStorageHandle}
+            />
+            <Route
+              path="/register-send-payment"
+              component={RegisterSendPayment}
+            />
+            <Route path="/login-or-register" component={LoginOrRegister} />
+
             <Route
               path="/terms-of-service"
               render={() => (

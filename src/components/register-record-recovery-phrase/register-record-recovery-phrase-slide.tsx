@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Mnemonic from "bitcore-mnemonic";
 
-import { theme, DESKTOP_WIDTH } from "../../config";
+import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
 
@@ -27,13 +27,14 @@ const ContentBox = styled.div`
   padding: 20px 120px;
   width: 100%;
 
-  @media (max-width: ${DESKTOP_WIDTH}px) {
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     padding: 20px;
     width: auto;
   }
 `;
 
 const Hr = styled.div`
+  width: ${props => props.theme.container.title.underline.width}px;
   border-top: ${props => props.theme.container.title.underline.height}px solid
     ${props => props.theme.container.title.underline.color};
   margin: auto;
@@ -54,6 +55,7 @@ const Content = styled.p`
 `;
 
 const ContentBold = styled(Content)`
+  margin-top: 25px;
   font-weight: bold;
   min-height: 28px;
 `;
@@ -63,6 +65,7 @@ const DownloadButton = styled.button`
   background: none;
   border: none;
   color: ${props => props.theme.link.color};
+  cursor: pointer;
 `;
 
 const ContinueButton = styled.button`
@@ -80,6 +83,7 @@ const ContinueButton = styled.button`
   margin: auto;
   text-align: center;
   width: 171px;
+
   @media (max-width: ${DESKTOP_WIDTH}px) {
     width: 100%;
   }
@@ -94,6 +98,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const Grid = styled.div`
+  margin-top: 25px;
   display: grid;
   grid-auto-columns: auto;
   grid-auto-flow: column;
