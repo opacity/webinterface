@@ -15,8 +15,6 @@ const Title = styled.h1`
   color: ${props => props.theme.title.color};
   margin: auto;
   text-align: center;
-  margin-top: 35px;
-  padding-top: 30px;
 `;
 
 const ContentBox = styled.div`
@@ -26,7 +24,6 @@ const ContentBox = styled.div`
   padding: 80px;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: auto;
-    padding: 10px;
   }
 `;
 
@@ -40,6 +37,7 @@ const Hr = styled.div`
 `;
 
 const Content = styled.p`
+  margin-top: 25px;
   width: auto;
   font-size: 12px;
   font-weight: ${props => props.theme.fontWeight};
@@ -48,17 +46,18 @@ const Content = styled.p`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
-  margin: 0 30px;
-  padding: 30px 30px 0 30px;
 `;
 
 const ContentBold = styled(Content)`
+  margin-top: 25px;
   font-weight: bold;
   min-height: 28px;
 `;
 
 const Link = styled(Content)`
+  margin-top: 25px;
   color: ${props => props.theme.link.color};
+  cursor: pointer;
 `;
 
 const Button = styled.button`
@@ -75,30 +74,27 @@ const Button = styled.button`
   text-align: center;
   margin: auto;
   border: none;
+  cursor: pointer;
   @media (max-width: ${DESKTOP_WIDTH}px) {
     width: 100%;
   }
 `;
 
 const ButtonWrapper = styled.div`
-  margin: 20px 0 40px 0;
-  padding-right: 60px;
-  padding-bottom: 40px;
+  margin-top: 25px;
   text-align: right;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px)
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     text-align: center;
-    margin: 40px;
-    padding: 10px;
   }
 `;
 
 const Grid = styled.div`
+  margin-top: 25px;
   display: grid;
   grid-gap: 10px;
   grid-template-rows: repeat(4, 28px);
   grid-auto-flow: column;
   grid-auto-columns: auto;
-  margin: 20px 60px 0px 60px;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     grid-template-rows: repeat(6, 28px);
   }
