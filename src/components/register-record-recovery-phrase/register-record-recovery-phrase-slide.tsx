@@ -26,6 +26,11 @@ const ContentBox = styled.div`
   max-width: 452px;
   padding: 20px 120px;
   width: 100%;
+
+  @media (max-width: ${DESKTOP_WIDTH}px) {
+    padding: 20px;
+    width: auto;
+  }
 `;
 
 const Hr = styled.div`

@@ -11,7 +11,7 @@ const Container = styled.div`
   background-color: ${props => props.theme.background};
 
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
-    padding: 25px 35px;
+    padding: 25px 15px;
   }
 `;
 
