@@ -127,6 +127,9 @@ export const theme = {
       color: "#2e6dde"
     }
   },
+  password: {
+    background: "#4f5e78"
+  },
   button: {
     background: "#2e6dde",
     color: "#ffffff"
