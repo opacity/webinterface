@@ -7,7 +7,7 @@ const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({});
 
-const LoginOrRegister = () =>  <LoginOrRegisterSlide />;
+const LoginOrRegister = () => <LoginOrRegisterSlide />;
 
 export default connect(
   mapStateToProps,
