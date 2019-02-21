@@ -25,6 +25,7 @@ const ContentBox = styled.div`
   padding: 80px;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: auto;
+    padding: 10px;
   }
 `;
 

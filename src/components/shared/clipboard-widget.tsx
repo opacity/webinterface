@@ -106,7 +106,7 @@ interface ClipboardWidgetProps {
 class ClipboardWidget extends Component<ClipboardWidgetProps> {
   state = { isCopied: false };
 
-  render () {
+  render() {
     const { text, title, property } = this.props;
 
     return (

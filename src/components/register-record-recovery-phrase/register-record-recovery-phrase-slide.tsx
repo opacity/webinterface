@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { theme, DESKTOP_WIDTH } from "../../config";
+import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
 
@@ -23,10 +23,15 @@ const ContentBox = styled.div`
   margin: auto;
   width: 80%;
   background-color: ${props => props.theme.container.background};
+  padding: 80px;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    width: auto;
+    padding: 10px;
+  }
 `;
 
 const Hr = styled.div`
-  width: 40px;
+  width: ${props => props.theme.container.title.underline.width}px;
   border-top: ${props => props.theme.container.title.underline.height}px solid
     ${props => props.theme.container.title.underline.color};
   margin: auto;
