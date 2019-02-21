@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
+import ClipboardWidget from "../shared/clipboard-widget";
 import ScreenContainer from "../shared/screen-container";
 
 const Title = styled.h1`
@@ -24,6 +25,7 @@ const ContentBox = styled.div`
   padding: 80px;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: auto;
+    padding: 10px;
   }
 `;
 
@@ -54,12 +56,6 @@ const ContentBold = styled(Content)`
   min-height: 28px;
 `;
 
-const Link = styled(Content)`
-  margin-top: 25px;
-  color: ${props => props.theme.link.color};
-  cursor: pointer;
-`;
-
 const Button = styled.button`
   width: 171px;
   height: 40px;
@@ -88,28 +84,39 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const Grid = styled.div`
+const InputWrapper = styled.div`
   margin-top: 25px;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-rows: repeat(4, 28px);
-  grid-auto-flow: column;
-  grid-auto-columns: auto;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
-    grid-template-rows: repeat(6, 28px);
+  display: flex;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    display: block;
+  }
+`;
+const InputCollumWrapper = styled.div`
+  flex: 50%;
+`;
+
+const Input = styled.input`
+  border-color: ${props => props.theme.input.border.color};
+  width: 80%;
+  padding: 10px;
+  background: transparent;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    width: 90%;
   }
 `;
 
-const Box = styled.div`
-  background-color: ${props => props.theme.container.content};
-  color: #ffffff;
-  margin-inline-end: 10px;
-  padding: 5px;
-  font-size: 12px;
-  text-align: center;
+const Label = styled.h3`
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  color: ${props => props.theme.container.content};
+  text-transform: uppercase;
 `;
 
-const RecordRecoveryPhaseSlide = () => (
+const RecordRecoveryPhaseSlide = ({ handle }) => (
   <ThemeProvider theme={theme}>
     <ScreenContainer title={"Register on Opacity"}>
       <ContentBox>
@@ -124,21 +131,26 @@ const RecordRecoveryPhaseSlide = () => (
         <ContentBold>
           Phaugue. Phasellus nisl est, tristique ac magna sed:
         </ContentBold>
-        <Grid>
-          <Box>1. Massa</Box>
-          <Box>2. Massa</Box>
-          <Box>3. Massa</Box>
-          <Box>4. Massa</Box>
-          <Box>5. Massa</Box>
-          <Box>6. Massa</Box>
-          <Box>7. Massa</Box>
-          <Box>8. Massa</Box>
-          <Box>9. Massa</Box>
-          <Box>10. Massa</Box>
-          <Box>11. Massa</Box>
-          <Box>12. Massa</Box>
-        </Grid>
-        <Link>Download phrase as CSV</Link>
+        <ClipboardWidget
+          title="Storage Handle"
+          text={handle}
+          property="Handle"
+        />
+        <InputWrapper>
+          <InputCollumWrapper>
+            <Label>Choose Storage PIN</Label>
+            <Input />
+          </InputCollumWrapper>
+          <InputCollumWrapper>
+            <Label>Re-Type Storage PIN</Label>
+            <Input />
+          </InputCollumWrapper>
+        </InputWrapper>
+        <Content>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
+          vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
+          tristique ac magna sed.
+        </Content>
         <ButtonWrapper>
           <Button>Continue</Button>
         </ButtonWrapper>
