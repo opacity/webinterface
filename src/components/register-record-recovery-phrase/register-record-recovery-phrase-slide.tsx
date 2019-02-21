@@ -95,8 +95,7 @@ const ButtonWrapper = styled.div`
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) ======= margin-top: 25px;
   text-align: right;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
-    >>>>>>>registerpagehotfix(#90)
-    text-align: center;
+    >>>>>>>registerpagehotfix(#90)text-align: center;
   }
 `;
 
