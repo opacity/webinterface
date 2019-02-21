@@ -90,12 +90,11 @@ const ContinueButton = styled.button`
 `;
 
 const ButtonWrapper = styled.div`
-  <<<<<<<headtext-align: right;
   margin: 25px 0;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) ======= margin-top: 25px;
   text-align: right;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
-    >>>>>>>registerpagehotfix(#90)text-align: center;
+    text-align: center;
   }
 `;
 
