@@ -120,18 +120,18 @@ const Box = styled.div`
   text-align: center;
 `;
 
-interface RecordRecoveryPhaseProps {
+interface RecordRecoveryPhraseProps {
   setPrivateKey;
 }
 
-interface RecordRecoveryPhaseState {
+interface RecordRecoveryPhraseState {
   mnemonic;
   privateKey;
 }
 
 class RecordRecoveryPhraseSlide extends Component<
-  RecordRecoveryPhaseProps,
-  RecordRecoveryPhaseState
+  RecordRecoveryPhraseProps,
+  RecordRecoveryPhraseState
 > {
   state = {
     mnemonic: [],
