@@ -105,31 +105,33 @@ const InputColumnWrapper = styled.div`
 const Input = styled.input.attrs({
   type: "text"
 })`
-  border: 1px solid ${props => props.theme.input.border.color};
-  width: 80%;
-  padding: 10px;
   background: transparent;
+  border: 1px solid ${props => props.theme.input.border.color};
+  outline: none;
+  padding: 10px;
+  width: 80%;
+
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 90%;
   }
 `;
 
 const Label = styled.h3`
-  font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.7px;
   color: ${props => props.theme.label.color};
+  font-size: 16px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.7px;
+  line-height: normal;
 `;
 
 const HandleWrapper = styled.div`
-  display: flex;
-  background-color: ${props => props.theme.password.background};
-  padding: 10px;
-  justify-content: space-between;
   align-items: center;
+  background-color: ${props => props.theme.password.background};
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
 `;
 
 const Handle = styled.span`
@@ -138,9 +140,9 @@ const Handle = styled.span`
 `;
 
 const ClipboardIcon = styled.img`
-  width: 20px;
-  height: 20px;
   cursor: pointer;
+  height: 20px;
+  width: 20px;
 `;
 
 const RecordRecoveryPhaseSlide = ({ handle }) => (
