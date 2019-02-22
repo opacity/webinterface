@@ -2,8 +2,15 @@ import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import "react-select/dist/react-select.css";
 
-import { FILE, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
+import {
+  FILE,
+  DESKTOP_WIDTH,
+  MOBILE_WIDTH,
+  EXCHANGE_LINK,
+  theme
+} from "../../config";
 import Button from "../shared/button";
+import OutboundLink from "../shared/outbound-link";
 import Spinner from "../shared/spinner";
 import ScreenContainer from "../shared/screen-container";
 
@@ -36,14 +43,6 @@ const CheckboxInput = styled.input.attrs({
 const CheckboxLabel = styled.label`
   margin-top: -5px;
   color: ${props => props.theme.container.content};
-`;
-
-const Link = styled.a.attrs({
-  target: "_blank"
-})`
-  color: ${props => props.theme.link.color};
-  text-decoration: none;
-  font-weight: 600;
 `;
 
 const Icon = styled.img`
@@ -294,7 +293,7 @@ interface UploadSlideState {
 class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
   fileInput: HTMLInputElement | null = null;
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -307,7 +306,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     };
   }
 
-  disableButton (): boolean {
+  disableButton(): boolean {
     const fileInput: any = this.fileInput;
     const isFileChosen = fileInput && fileInput.files[0];
     return (
@@ -315,14 +314,14 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     );
   }
 
-  calculateStorageCost (fileSizeBytes, years) {
+  calculateStorageCost(fileSizeBytes, years) {
     let chunks = Math.ceil(fileSizeBytes / 1024) + 1; // 1 kb for metadata
     let numSectors = Math.ceil(chunks / CHUNKS_IN_SECTOR);
     let costPerYear = numSectors / STORAGE_PEG;
     return costPerYear * years;
   }
 
-  humanFileSize (bytes, si) {
+  humanFileSize(bytes, si) {
     let thresh = si ? 1000 : 1024;
     if (Math.abs(bytes) < thresh) {
       return bytes + " B";
@@ -338,7 +337,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
     return bytes.toFixed(1) + " " + units[u];
   }
 
-  render () {
+  render() {
     const {
       alphaBroker,
       betaBroker,
@@ -455,7 +454,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
               <InputLabel>Cost</InputLabel>
               <TokenReminder>
                 Need OPQ? Purchase some{" "}
-                <Link href="https://www.kucoin.com/">here</Link>
+                <OutboundLink href={EXCHANGE_LINK}>here</OutboundLink>
               </TokenReminder>
             </div>
             <StorageFees>
@@ -474,8 +473,13 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                   checked={this.state.isTermsChecked}
                 />
                 I agree to the{" "}
-                <Link href="/terms-of-service">Terms and Conditions</Link> and{" "}
-                <Link href="/privacy-policy">Privacy Policy</Link>
+                <OutboundLink href="/terms-of-service">
+                  Terms and Conditions
+                </OutboundLink>{" "}
+                and{" "}
+                <OutboundLink href="/privacy-policy">
+                  Privacy Policy
+                </OutboundLink>
               </CheckboxLabel>
             </CheckboxContainer>
             <UploadButton

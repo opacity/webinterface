@@ -2,12 +2,13 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import QRCode from "qrcode.react";
 
-import { MOBILE_WIDTH, theme } from "../../config";
+import { MOBILE_WIDTH, EXCHANGE_LINK, theme } from "../../config";
 
 import Metamask from "../../services/metamask";
 
 import ScreenContainer from "../shared/screen-container";
 import MetamaskButton from "../shared/metamask-button";
+import OutboundLink from "../shared/outbound-link";
 
 const Title = styled.h1`
   color: ${props => props.theme.title.color};
@@ -59,10 +60,6 @@ const Content = styled.p`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
-`;
-
-const Link = styled.span`
-  color: ${props => props.theme.link.color};
 `;
 
 const Label = styled.h3`
@@ -135,7 +132,8 @@ const RegisterSendPaymentSlide = () => (
           />
         </div>
         <Content>
-          Need OPQ? <Link>Purchase some here.</Link>
+          Need OPQ?{" "}
+          <OutboundLink href={EXCHANGE_LINK}>Purchase some here</OutboundLink>
         </Content>
       </ContentBox>
     </ScreenContainer>
