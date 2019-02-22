@@ -120,6 +120,9 @@ export const theme = {
   link: {
     color: "#2e6dde"
   },
+  label: {
+    color: "#2e6dde"
+  },
   input: {
     content: "#b0bed1",
     background: "rgba(46, 109, 222, 0.2)",

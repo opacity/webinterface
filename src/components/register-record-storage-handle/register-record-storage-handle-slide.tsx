@@ -1,31 +1,37 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
-import ClipboardWidget from "../shared/clipboard-widget";
 import ScreenContainer from "../shared/screen-container";
 
+const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
+
 const Title = styled.h1`
-  font-size: ${props => props.theme.container.title.size}px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.title.color};
+  font-size: ${props => props.theme.container.title.size}px;
+  font-stretch: ${props => props.theme.fontStretch};
+  font-style: ${props => props.theme.fontStyle};
+  font-weight: 600;
+  letter-spacing: ${props => props.theme.letterSpacing};
+  line-height: ${props => props.theme.lineHeight};
+  margin-top: 35px;
   margin: auto;
+  padding-top: 30px;
   text-align: center;
 `;
 
 const ContentBox = styled.div`
-  margin: auto;
-  width: 80%;
   background-color: ${props => props.theme.container.background};
-  padding: 80px;
+  margin: auto;
+  max-width: 452px;
+  padding: 20px 120px;
+  width: 100%;
+
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    padding: 20px;
     width: auto;
-    padding: 10px;
   }
 `;
 
@@ -56,30 +62,31 @@ const ContentBold = styled(Content)`
   min-height: 28px;
 `;
 
-const Button = styled.button`
-  width: 171px;
-  height: 40px;
-  background-color: ${props => props.theme.button.background};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.button.color};
-  text-align: center;
-  margin: auto;
-  border: none;
+const ContinueButton = styled.button`
   cursor: pointer;
+  text-transform: uppercase;
+  background-color: ${props => props.theme.button.background};
+  border: none;
+  color: ${props => props.theme.button.color};
+  font-size: 16px;
+  font-stretch: ${props => props.theme.fontStretch};
+  font-style: ${props => props.theme.fontStyle};
+  height: 40px;
+  letter-spacing: ${props => props.theme.letterSpacing};
+  line-height: ${props => props.theme.lineHeight};
+  margin: auto;
+  text-align: center;
+  width: 171px;
+
   @media (max-width: ${DESKTOP_WIDTH}px) {
     width: 100%;
   }
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: 25px;
   text-align: right;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
+  margin: 25px 0;
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px)
     text-align: center;
   }
 `;
@@ -91,12 +98,14 @@ const InputWrapper = styled.div`
     display: block;
   }
 `;
-const InputCollumWrapper = styled.div`
+const InputColumnWrapper = styled.div`
   flex: 50%;
 `;
 
-const Input = styled.input`
-  border-color: ${props => props.theme.input.border.color};
+const Input = styled.input.attrs({
+  type: "text"
+})`
+  border: 1px solid ${props => props.theme.input.border.color};
   width: 80%;
   padding: 10px;
   background: transparent;
@@ -112,15 +121,33 @@ const Label = styled.h3`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.7px;
-  color: ${props => props.theme.container.content};
-  text-transform: uppercase;
+  color: ${props => props.theme.label.color};
+`;
+
+const HandleWrapper = styled.div`
+  display: flex;
+  background-color: ${props => props.theme.password.background};
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Handle = styled.span`
+  color: white;
+  font-size: 12px;
+`;
+
+const ClipboardIcon = styled.img`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 `;
 
 const RecordRecoveryPhaseSlide = ({ handle }) => (
   <ThemeProvider theme={theme}>
     <ScreenContainer title={"Register on Opacity"}>
       <ContentBox>
-        <Title>Record Recovery Phrase</Title>
+        <Title>Record Storage Handle and PIN</Title>
         <Hr />
         <Content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
@@ -131,20 +158,22 @@ const RecordRecoveryPhaseSlide = ({ handle }) => (
         <ContentBold>
           Phaugue. Phasellus nisl est, tristique ac magna sed:
         </ContentBold>
-        <ClipboardWidget
-          title="Storage Handle"
-          text={handle}
-          property="Handle"
-        />
+        <Label>Storage Handle</Label>
+        <HandleWrapper>
+          <Handle>{handle}</Handle>
+          <CopyToClipboard text={handle}>
+            <ClipboardIcon src={ICON_CLIPBOARD} />
+          </CopyToClipboard>
+        </HandleWrapper>
         <InputWrapper>
-          <InputCollumWrapper>
+          <InputColumnWrapper>
             <Label>Choose Storage PIN</Label>
             <Input />
-          </InputCollumWrapper>
-          <InputCollumWrapper>
+          </InputColumnWrapper>
+          <InputColumnWrapper>
             <Label>Re-Type Storage PIN</Label>
             <Input />
-          </InputCollumWrapper>
+          </InputColumnWrapper>
         </InputWrapper>
         <Content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
@@ -152,7 +181,7 @@ const RecordRecoveryPhaseSlide = ({ handle }) => (
           tristique ac magna sed.
         </Content>
         <ButtonWrapper>
-          <Button>Continue</Button>
+          <ContinueButton>Continue</ContinueButton>
         </ButtonWrapper>
       </ContentBox>
     </ScreenContainer>
