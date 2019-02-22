@@ -138,7 +138,7 @@ class RecordRecoveryPhraseSlide extends Component<
     privateKey: ""
   };
 
-  downloadCsv(array) {
+  downloadCsv (array) {
     const csvContent = array.join(",");
     const blob = new Blob([csvContent], {
       type: "text/csv;charset=utf-8;"
@@ -151,12 +151,12 @@ class RecordRecoveryPhraseSlide extends Component<
     window.document.body.removeChild(elem);
   }
 
-  save(privateKey) {
+  save (privateKey) {
     const { setPrivateKey } = this.props;
     setPrivateKey(privateKey);
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const code = new Mnemonic();
     this.setState({
       mnemonic: code.toString().split(" "),
@@ -164,7 +164,7 @@ class RecordRecoveryPhraseSlide extends Component<
     });
   }
 
-  render() {
+  render () {
     return (
       <ThemeProvider theme={theme}>
         <ScreenContainer title={"Register on Opacity"}>
