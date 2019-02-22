@@ -4,43 +4,39 @@ import QRCode from "qrcode.react";
 
 import { MOBILE_WIDTH, theme } from "../../config";
 
-import ScreenContainer from "../shared/screen-container";
-
 import Metamask from "../../services/metamask";
 
-const PAY_WITH_METAMASK_IMG = require("../../assets/images/pay_with_metamask.png");
-
-const MetamaskButton = styled.button`
-  cursor: pointer;
-  padding: 0;
-  border: none;
-  background: none;
-`;
-
-const MetamaskImg = styled.img`
-  width: 180px;
-`;
+import ScreenContainer from "../shared/screen-container";
+import MetamaskButton from "../shared/metamask-button";
 
 const Title = styled.h1`
-  font-size: ${props => props.theme.container.title.size}px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.title.color};
+  font-size: ${props => props.theme.container.title.size}px;
+  font-stretch: ${props => props.theme.fontStretch};
+  font-style: ${props => props.theme.fontStyle};
+  font-weight: 600;
+  letter-spacing: ${props => props.theme.letterSpacing};
+  line-height: ${props => props.theme.lineHeight};
+  margin-top: 35px;
   margin: auto;
+  padding-top: 30px;
   text-align: center;
 `;
 
+const PaymentWrapper = styled.div`
+  margin-top: 20px;
+`;
+
 const ContentBox = styled.div`
-  margin: auto;
-  width: 80%;
   background-color: ${props => props.theme.container.background};
-  padding: 80px;
+  margin: auto;
+  max-width: 452px;
+  padding: 20px 120px;
+  width: 100%;
+
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    padding: 20px;
     width: auto;
-    padding: 10px;
   }
 `;
 
@@ -70,15 +66,13 @@ const Link = styled.span`
 `;
 
 const Label = styled.h3`
-  margin-top: 25px;
+  color: ${props => props.theme.label.color};
   font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
   font-stretch: normal;
-  line-height: normal;
+  font-style: normal;
+  font-weight: 500;
   letter-spacing: 0.7px;
-  color: ${props => props.theme.container.content};
-  text-transform: uppercase;
+  line-height: normal;
 `;
 
 const LabelColored = styled(Label)`
@@ -122,22 +116,24 @@ const RegisterSendPaymentSlide = () => (
         <ImportantWrapper>
           <Important>0xe99356bde974bbe08721d77712168fa070aa8da4</Important>
         </ImportantWrapper>
-        <Label>Payment Address:</Label>
-        <QRCode
-          value={"ethAddress"}
-          size={200}
-          renderAs="svg"
-          bgColor="transparent"
-          fgColor="#2e3854"
-          level="H"
-          color="#ffffff"
-          includeMargin={true}
-        />
         {Metamask.isInstalled && (
-          <MetamaskButton onClick={() => {}}>
-            <MetamaskImg src={PAY_WITH_METAMASK_IMG} />
-          </MetamaskButton>
+          <PaymentWrapper>
+            <MetamaskButton onClick={() => {}} />
+          </PaymentWrapper>
         )}
+        <div>
+          <Label>Scan QR code to pay:</Label>
+          <QRCode
+            value={"ethAddress"}
+            size={200}
+            renderAs="svg"
+            bgColor="transparent"
+            fgColor="#2e3854"
+            level="H"
+            color="#ffffff"
+            includeMargin={true}
+          />
+        </div>
         <Content>
           Need OPQ? <Link>Purchase some here.</Link>
         </Content>
