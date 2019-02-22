@@ -147,6 +147,7 @@ const ClipboardIcon = styled.img`
 
 interface RecordStorageHandleProps {
   handle;
+  setStoragePin;
 }
 
 interface RecordStorageHandleState {
@@ -164,7 +165,8 @@ class RecordStorageHandleSlide extends Component<
   };
 
   save(storagePin) {
-    console.log("SAVED!: ", storagePin);
+    const { setStoragePin } = this.props;
+    setStoragePin(storagePin);
   }
 
   render() {
