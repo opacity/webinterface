@@ -1,7 +1,8 @@
 import signupActions from "../actions/signup-actions";
 
 const initState = {
-  privateKey: null
+  privateKey: null,
+  storagePin: null
 };
 
 const signupReducer = (state = initState, action) => {
@@ -9,6 +10,9 @@ const signupReducer = (state = initState, action) => {
     case signupActions.SET_PRIVATE_KEY:
       const { privateKey } = action.payload;
       return { ...state, privateKey };
+    case signupActions.SET_STORAGE_PIN:
+      const { storagePin } = action.payload;
+      return { ...state, storagePin };
 
     default:
       return state;
