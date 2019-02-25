@@ -171,12 +171,12 @@ class RecordStorageHandleSlide extends Component<
     retypedStoragePin: ""
   };
 
-  save(storagePin) {
+  save (storagePin) {
     const { setStoragePin } = this.props;
     setStoragePin(storagePin);
   }
 
-  render() {
+  render () {
     const { handle } = this.props;
 
     return (
@@ -233,7 +233,7 @@ class RecordStorageHandleSlide extends Component<
                   this.state.storagePin === this.state.retypedStoragePin
                     ? this.save(this.state.storagePin)
                     : alert(
-                        "Your storage PINs do not match. Please type them again."
+                      "Your storage PINs do not match. Please type them again."
                       );
                 }}
               >
