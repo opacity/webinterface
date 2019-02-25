@@ -2,8 +2,15 @@ import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import "react-select/dist/react-select.css";
 
-import { FILE, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
+import {
+  FILE,
+  DESKTOP_WIDTH,
+  MOBILE_WIDTH,
+  EXCHANGE_LINK,
+  theme
+} from "../../config";
 import Button from "../shared/button";
+import OutboundLink from "../shared/outbound-link";
 import Spinner from "../shared/spinner";
 import ScreenContainer from "../shared/screen-container";
 
@@ -36,14 +43,6 @@ const CheckboxInput = styled.input.attrs({
 const CheckboxLabel = styled.label`
   margin-top: -5px;
   color: ${props => props.theme.container.content};
-`;
-
-const Link = styled.a.attrs({
-  target: "_blank"
-})`
-  color: ${props => props.theme.link.color};
-  text-decoration: none;
-  font-weight: 600;
 `;
 
 const Icon = styled.img`
@@ -455,7 +454,7 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
               <InputLabel>Cost</InputLabel>
               <TokenReminder>
                 Need OPQ? Purchase some{" "}
-                <Link href="https://www.kucoin.com/">here</Link>
+                <OutboundLink href={EXCHANGE_LINK}>here</OutboundLink>
               </TokenReminder>
             </div>
             <StorageFees>
@@ -474,8 +473,13 @@ class UploadSlide extends Component<UploadSlideProps, UploadSlideState> {
                   checked={this.state.isTermsChecked}
                 />
                 I agree to the{" "}
-                <Link href="/terms-of-service">Terms and Conditions</Link> and{" "}
-                <Link href="/privacy-policy">Privacy Policy</Link>
+                <OutboundLink href="/terms-of-service">
+                  Terms and Conditions
+                </OutboundLink>{" "}
+                and{" "}
+                <OutboundLink href="/privacy-policy">
+                  Privacy Policy
+                </OutboundLink>
               </CheckboxLabel>
             </CheckboxContainer>
             <UploadButton
