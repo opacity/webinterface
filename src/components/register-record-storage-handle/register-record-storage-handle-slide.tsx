@@ -2,9 +2,15 @@ import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
+import {
+  theme,
+  DESKTOP_WIDTH,
+  MOBILE_WIDTH,
+  REGISTER_RECORD_STORAGE_HANDLE
+} from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
+import RegisterPanel from "../shared/register-panel";
 
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
@@ -32,6 +38,7 @@ const ContentBox = styled.div`
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     padding: 20px;
     width: auto;
+    padding: 20px;
   }
 `;
 
@@ -175,6 +182,7 @@ class RecordStorageHandleSlide extends Component<
     return (
       <ThemeProvider theme={theme}>
         <ScreenContainer title={"Register on Opacity"}>
+          <RegisterPanel step={REGISTER_RECORD_STORAGE_HANDLE} />
           <ContentBox>
             <Title>Record Storage Handle and PIN</Title>
             <Hr />

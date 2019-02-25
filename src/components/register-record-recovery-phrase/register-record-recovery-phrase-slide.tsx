@@ -1,35 +1,35 @@
-import React, { Component } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import Mnemonic from "bitcore-mnemonic";
 
-import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
+import {
+  theme,
+  DESKTOP_WIDTH,
+  MOBILE_WIDTH,
+  REGISTER_RECORD_RECOVERY_PHASE
+} from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
+import RegisterPanel from "../shared/register-panel";
 
 const Title = styled.h1`
-  color: ${props => props.theme.title.color};
   font-size: ${props => props.theme.container.title.size}px;
-  font-stretch: ${props => props.theme.fontStretch};
+  font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
-  font-weight: 600;
-  letter-spacing: ${props => props.theme.letterSpacing};
+  font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
-  margin-top: 35px;
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.title.color};
   margin: auto;
-  padding-top: 30px;
   text-align: center;
 `;
 
 const ContentBox = styled.div`
-  background-color: ${props => props.theme.container.background};
   margin: auto;
-  max-width: 452px;
-  padding: 20px 120px;
-  width: 100%;
-
+  background-color: ${props => props.theme.container.background};
+  padding: 80px;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    padding: 20px;
     width: auto;
+    padding: 20px;
   }
 `;
 
@@ -39,20 +39,19 @@ const Hr = styled.div`
     ${props => props.theme.container.title.underline.color};
   margin: auto;
   margin-top: 5px;
-  margin-bottom: 30px;
-  width: 40px;
+  margin-bottom: 15px;
 `;
 
 const Content = styled.p`
   color: ${props => props.theme.container.content};
   margin-top: 25px;
   font-size: 12px;
-  font-stretch: ${props => props.theme.fontStretch};
-  font-style: ${props => props.theme.fontStyle};
   font-weight: ${props => props.theme.fontWeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
-  width: auto;
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.container.content};
 `;
 
 const ContentBold = styled(Content)`
@@ -101,23 +100,21 @@ const ButtonWrapper = styled.div`
 const Grid = styled.div`
   margin-top: 25px;
   display: grid;
-  grid-auto-columns: auto;
-  grid-auto-flow: column;
-  grid-gap: 20px;
+  grid-gap: 10px;
   grid-template-rows: repeat(4, 28px);
-  margin-bottom: 30px;
+  grid-auto-flow: column;
+  grid-auto-columns: auto;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     grid-template-rows: repeat(6, 28px);
   }
 `;
 
 const Box = styled.div`
-  align-items: center;
-  background-color: ${props => props.theme.password.background};
+  background-color: ${props => props.theme.container.content};
   color: #ffffff;
-  display: flex;
+  margin-inline-end: 10px;
+  padding: 5px;
   font-size: 12px;
-  justify-content: center;
   text-align: center;
 `;
 
@@ -169,6 +166,7 @@ class RecordRecoveryPhraseSlide extends Component<
     return (
       <ThemeProvider theme={theme}>
         <ScreenContainer title={"Register on Opacity"}>
+          <RegisterPanel step={REGISTER_RECORD_RECOVERY_PHASE} />
           <ContentBox>
             <Title>Record Recovery Phrase</Title>
             <Hr />

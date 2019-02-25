@@ -16,11 +16,7 @@ body {
   height: 100%;
 }
 
-body,
-input,
-textarea,
-select,
-button {
+body {
   font-family: "proxima-nova", sans-serif;
 }
 

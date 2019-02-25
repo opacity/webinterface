@@ -2,9 +2,10 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import QRCode from "qrcode.react";
 
-import { MOBILE_WIDTH, theme } from "../../config";
+import { MOBILE_WIDTH, theme, REGISTER_SEND_PAYMENT } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
+import RegisterPanel from "../shared/register-panel";
 
 import Metamask from "../../services/metamask";
 
@@ -35,12 +36,11 @@ const Title = styled.h1`
 
 const ContentBox = styled.div`
   margin: auto;
-  width: 80%;
   background-color: ${props => props.theme.container.background};
   padding: 80px;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: auto;
-    padding: 10px;
+    padding: 20px;
   }
 `;
 
@@ -108,8 +108,9 @@ const Bold = styled.span`
 const RegisterSendPaymentSlide = () => (
   <ThemeProvider theme={theme}>
     <ScreenContainer title={"Register on Opacity"}>
+      <RegisterPanel step={REGISTER_SEND_PAYMENT} />
       <ContentBox>
-        <Title>Record Recovery Phrase</Title>
+        <Title>Send Payment</Title>
         <Hr />
         <Content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa

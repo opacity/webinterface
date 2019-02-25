@@ -5,17 +5,19 @@ import { SUBSCRIPTION_DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
 
-const FlexGrid = styled.div`
+const ICON_LOGO = require("../../assets/images/logo.svg");
+
+const Container = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin: 0 0 20px 0;
+  justify-content: center;
+  margin: 15px 0 20px 0;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     display: block;
   }
 `;
 
-const FlexCol = styled.div`
-  width: 33%;
+const Collum = styled.div`
+  width: 100%;
   height: 451px;
   background-color: ${props => props.theme.container.background};
   padding-top: 15px;
@@ -28,7 +30,7 @@ const FlexCol = styled.div`
     }
   }
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    height: 230px;
+    max-height: 208px;
   }
 `;
 
@@ -59,7 +61,7 @@ const Hr = styled.div`
   margin-top: 5px;
   margin-bottom: 15px;
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    margin: 5px 20px 0 20px;
+    margin: 5px 20px 15px 20px;
   }
 `;
 
@@ -79,7 +81,7 @@ const Content = styled.p`
     margin: 0 30px 0 30px;
   }
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    margin: 15px 30px 0 20px;
+    margin: 15px 30px 15px 20px;
     width: 250px;
   }
 `;
@@ -107,7 +109,7 @@ const Price = styled.p`
   margin-top: 20px;
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
     position: relative;
-    top: -92px;
+    top: -120px;
     right: -100px;
   }
 `;
@@ -133,16 +135,42 @@ const ButtonWrapper = styled.div`
   margin: 20px 0 40px 0;
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
     position: relative;
-    top: -92px;
+    top: -122px;
     right: -150px;
   }
+`;
+
+const MoreFeatures = styled.div`
+  display: none;
+  width: 150px;
+  height: 8.5px;
+  font-size: 12px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  cursor: pointer;
+  color: ${props => props.theme.button.background};
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+    display: block;
+  }
+`;
+
+const Features = styled.img`
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  float: left;
+  margin-left: 20px;
+  margin-right: 10px;
 `;
 
 const SubscriptionSlide = () => (
   <ThemeProvider theme={theme}>
     <ScreenContainer title={"Choose Subscription Plan"}>
-      <FlexGrid>
-        <FlexCol>
+      <Container>
+        <Collum>
           <Title>Basic</Title>
           <Hr />
           <Content>
@@ -151,12 +179,16 @@ const SubscriptionSlide = () => (
           </Content>
           <ContentBold>128 GB secure, decentralized storage</ContentBold>
           <ContentBold>Unlimited downloads</ContentBold>
+          <MoreFeatures>
+            <Features src={ICON_LOGO} alt="logo" />
+            Show features
+          </MoreFeatures>
           <Price>2 OPQ</Price>
           <ButtonWrapper>
             <Button>CHOOSE PLAN</Button>
           </ButtonWrapper>
-        </FlexCol>
-        <FlexCol>
+        </Collum>
+        <Collum>
           <Title>Professional</Title>
           <Hr />
           <Content>
@@ -165,12 +197,16 @@ const SubscriptionSlide = () => (
           </Content>
           <ContentBold>512 GB secure, decentralized storage</ContentBold>
           <ContentBold>Unlimited downloads</ContentBold>
+          <MoreFeatures>
+            <Features src={ICON_LOGO} alt="logo" />
+            Show features
+          </MoreFeatures>
           <Price>8 OPQ</Price>
           <ButtonWrapper>
             <Button>CHOOSE PLAN</Button>
           </ButtonWrapper>
-        </FlexCol>
-        <FlexCol>
+        </Collum>
+        <Collum>
           <Title>Business</Title>
           <Hr />
           <Content>
@@ -179,12 +215,16 @@ const SubscriptionSlide = () => (
           </Content>
           <ContentBold>1 TB secure, decentralized storage</ContentBold>
           <ContentBold>Unlimited downloads</ContentBold>
+          <MoreFeatures>
+            <Features src={ICON_LOGO} alt="logo" />
+            Show features
+          </MoreFeatures>
           <Price>16 OPQ</Price>
           <ButtonWrapper>
             <Button>CHOOSE PLAN</Button>
           </ButtonWrapper>
-        </FlexCol>
-      </FlexGrid>
+        </Collum>
+      </Container>
     </ScreenContainer>
   </ThemeProvider>
 );

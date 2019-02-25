@@ -11,7 +11,7 @@ const Container = styled.div`
   background-color: ${props => props.theme.background};
 
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
-    padding: 25px 15px;
+    padding: 25px 35px;
   }
 `;
 
@@ -26,14 +26,12 @@ const Title = styled.h3`
   margin: 0;
 `;
 
-const Underline = styled.hr`
-  border: 0;
-  border-top: ${props => props.theme.title.underline.height}px solid
-    ${props => props.theme.title.underline.color};
+const Underline = styled.div`
+  width ${props => props.theme.container.title.underline.width}px;
+  background-color: ${props => props.theme.container.title.underline.color};
   display: block;
-  height: ${props => props.theme.title.underline.height}px;
-  margin: 6px 0 60px 0;
-  padding: 0;
+  margin-top: 10px;
+  height: ${props => props.theme.container.title.underline.height}px;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     margin-bottom: 20px;
   }

@@ -30,6 +30,7 @@ import Subscription from "./components/subscription";
 import RegisterRecordRecoveryPhrase from "./components/register-record-recovery-phrase";
 import RegisterRecordStorageHandle from "./components/register-record-storage-handle";
 import RegisterSendPayment from "./components/register-send-payment";
+import RegisterConfirmPayment from "./components/register-confirm-payment";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -77,6 +78,10 @@ const App = () => (
             <Route
               path="/register-send-payment"
               component={RegisterSendPayment}
+            />
+            <Route
+              path="/register-confirm-payment"
+              component={RegisterConfirmPayment}
             />
             <Route path="/login-or-register" component={LoginOrRegister} />
 

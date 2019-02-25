@@ -1,9 +1,10 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { theme, MOBILE_WIDTH } from "../../config";
+import { theme, MOBILE_WIDTH, REGISTER_CONFIRM_PAYMENT } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
+import RegisterPanel from "../shared/register-panel";
 
 const ICON_LOGO = require("../../assets/images/logo.svg");
 
@@ -21,12 +22,11 @@ const Title = styled.h1`
 
 const ContentBox = styled.div`
   margin: auto;
-  width: 80%;
   background-color: ${props => props.theme.container.background};
   padding: 80px;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: auto;
-    padding: 10px;
+    padding: 20px;
   }
 `;
 
@@ -98,6 +98,7 @@ const StateHr = styled.span`
 const RegisterConfirmPaymentSlide = () => (
   <ThemeProvider theme={theme}>
     <ScreenContainer title={"Register on Opacity"}>
+      <RegisterPanel step={REGISTER_CONFIRM_PAYMENT} />
       <ContentBox>
         <Title>Confirm Payment</Title>
         <Hr />

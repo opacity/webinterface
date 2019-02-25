@@ -83,6 +83,11 @@ export const AGREEMENT_TYPES = Object.freeze({
   PRIVACY_POLICY: "PRIVACY_POLICY"
 });
 
+export const REGISTER_RECORD_RECOVERY_PHASE = "REGISTER_RECORD_RECOVERY_PHASE";
+export const REGISTER_RECORD_STORAGE_HANDLE = "REGISTER_RECORD_STORAGE_HANDLE";
+export const REGISTER_CONFIRM_PAYMENT = "REGISTER_CONFIRM_PAYMENT";
+export const REGISTER_SEND_PAYMENT = "REGISTER_SEND_PAYMENT";
+
 export const DESKTOP_WIDTH = "997";
 export const MOBILE_WIDTH = "567";
 export const SUBSCRIPTION_DESKTOP_WIDTH = "1200";
@@ -129,9 +134,6 @@ export const theme = {
     border: {
       color: "#2e6dde"
     }
-  },
-  password: {
-    background: "#4f5e78"
   },
   button: {
     background: "#2e6dde",
