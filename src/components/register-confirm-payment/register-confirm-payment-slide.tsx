@@ -8,25 +8,29 @@ import ScreenContainer from "../shared/screen-container";
 const ICON_LOGO = require("../../assets/images/logo.svg");
 
 const Title = styled.h1`
-  font-size: ${props => props.theme.container.title.size}px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.title.color};
+  font-size: ${props => props.theme.container.title.size}px;
+  font-stretch: ${props => props.theme.fontStretch};
+  font-style: ${props => props.theme.fontStyle};
+  font-weight: 600;
+  letter-spacing: ${props => props.theme.letterSpacing};
+  line-height: ${props => props.theme.lineHeight};
+  margin-top: 35px;
   margin: auto;
+  padding-top: 30px;
   text-align: center;
 `;
 
 const ContentBox = styled.div`
-  margin: auto;
-  width: 80%;
   background-color: ${props => props.theme.container.background};
-  padding: 80px;
+  margin: auto;
+  max-width: 452px;
+  padding: 20px 120px;
+  width: 100%;
+
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    padding: 20px;
     width: auto;
-    padding: 10px;
   }
 `;
 
@@ -46,16 +50,15 @@ const HrContent = styled(Hr)`
 `;
 
 const Content = styled.p`
+  margin-top: 25px;
   width: auto;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: ${props => props.theme.fontWeight};
   font-style: ${props => props.theme.fontStyle};
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
-  margin: 0 30px;
-  padding: 30px 30px 0 30px;
 `;
 
 const Link = styled.span`
