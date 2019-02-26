@@ -2,7 +2,8 @@ import signupActions from "../actions/signup-actions";
 
 const initState = {
   privateKey: null,
-  storagePin: null
+  storagePin: null,
+  invoice: null, // { cost, ethAddress }
 };
 
 const signupReducer = (state = initState, action) => {

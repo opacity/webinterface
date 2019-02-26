@@ -6,6 +6,13 @@ import { connect } from "react-redux";
 // import SendPaymentSlide from "./send-payment-slide";
 // import RetrievingInvoiceSlide from "./retrieving-invoice-slide";
 
-const Main = () => <div />;
+const CreateAccount = ({
+  handle,
+  cost,
+  ethAddress,
+  gasPrice,
+  setStoragePin,
+  setPrivateKey
+}) => <div />;
 
-export default connect()(Main);
+export default connect()(CreateAccount);
