@@ -9,6 +9,11 @@ const Icon = styled.img`
   height: 250px;
   width: 250px;
   margin: 0 50px 50px 0;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    margin: 0px;
+    height: 125px;
+    width: 125px;
+  }
 `;
 
 const StorageContainer = styled.div`
@@ -17,7 +22,6 @@ const StorageContainer = styled.div`
   max-width: 950px;
   margin: auto;
   background-color: ${props => props.theme.background};
-
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     padding: 25px 35px;
   }
@@ -33,7 +37,7 @@ const Storage = styled.div`
   grid-auto-flow: column;
   grid-auto-columns: auto;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    grid-template-rows: repeat(2, 250px);
+    grid-template-rows: repeat(2, 150px);
   }
 `;
 
@@ -145,7 +149,7 @@ const Content = styled.div`
   color: ${props => props.theme.container.content};
   margin: 15px 10px 10px 10px;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    margin: 15px 0 5px 0;
+    margin-left: 0px;
   }
 `;
 
