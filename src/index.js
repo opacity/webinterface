@@ -27,7 +27,7 @@ import PaymentInvoice from "./components/payment-invoice";
 import PaymentConfirm from "./components/payment-confirm";
 import PageNavigationPrompt from "./components/page-navigation-prompt";
 import Subscription from "./components/subscription";
-import SignUp from "./components/sign-up";
+import Signup from "./components/signup";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -64,7 +64,7 @@ const App = () => (
             <Route path="/error-page" component={ErrorPage} />
             <Route path="/brokers-down" component={BrokersDown} />
             <Route path="/subscription" component={Subscription} />
-            <Route path="/sign-up" component={SignUp} />
+            <Route path="/sign-up" component={Signup} />
             <Route path="/login-or-register" component={LoginOrRegister} />
 
             <Route
