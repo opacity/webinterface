@@ -121,7 +121,6 @@ const RegisterConfirmPaymentSlide = () => (
         </StateWrapper>
         <HrContent />
         <Title>Your Opacity Account is Ready!</Title>
-        <Hr />
         <Content>
           Login using your Storage Handle and Storage PIN using{" "}
           <Link>the Opacity web interface.</Link>
