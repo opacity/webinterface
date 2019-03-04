@@ -4,6 +4,8 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
+import ContentBox from "./content-box";
+
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
 const Title = styled.h1`
@@ -18,19 +20,6 @@ const Title = styled.h1`
   margin: auto;
   padding-top: 30px;
   text-align: center;
-`;
-
-const ContentBox = styled.div`
-  background-color: ${props => props.theme.container.background};
-  margin: auto;
-  max-width: 452px;
-  padding: 20px 120px;
-  width: 100%;
-
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    padding: 20px;
-    width: auto;
-  }
 `;
 
 const Hr = styled.div`

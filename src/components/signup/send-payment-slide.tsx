@@ -2,10 +2,11 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import QRCode from "qrcode.react";
 
-import { MOBILE_WIDTH, EXCHANGE_LINK, theme } from "../../config";
+import { EXCHANGE_LINK, theme } from "../../config";
 
 import Metamask from "../../services/metamask";
 
+import ContentBox from "./content-box";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
 
@@ -25,19 +26,6 @@ const Title = styled.h1`
 
 const PaymentWrapper = styled.div`
   margin-top: 20px;
-`;
-
-const ContentBox = styled.div`
-  background-color: ${props => props.theme.container.background};
-  margin: auto;
-  max-width: 452px;
-  padding: 20px 120px;
-  width: 100%;
-
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    padding: 20px;
-    width: auto;
-  }
 `;
 
 const Hr = styled.div`

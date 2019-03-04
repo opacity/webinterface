@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Mnemonic from "bitcore-mnemonic";
 
-import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
+import { theme, DESKTOP_WIDTH } from "../../config";
+
+import ContentBox from "./content-box";
 
 const Title = styled.h1`
   color: ${props => props.theme.title.color};
@@ -16,19 +18,6 @@ const Title = styled.h1`
   margin: auto;
   padding-top: 30px;
   text-align: center;
-`;
-
-const ContentBox = styled.div`
-  background-color: ${props => props.theme.container.background};
-  margin: auto;
-  max-width: 452px;
-  padding: 20px 120px;
-  width: 100%;
-
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    padding: 20px;
-    width: auto;
-  }
 `;
 
 const Hr = styled.div`
