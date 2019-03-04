@@ -7,6 +7,7 @@ import { EXCHANGE_LINK, theme } from "../../config";
 import Metamask from "../../services/metamask";
 
 import ContentBox from "./content-box";
+import Content from "./content";
 import Title from "./title";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
@@ -22,18 +23,6 @@ const Hr = styled.div`
   margin: auto;
   margin-top: 5px;
   margin-bottom: 15px;
-`;
-
-const Content = styled.p`
-  margin-top: 25px;
-  width: auto;
-  font-size: 12px;
-  font-weight: ${props => props.theme.fontWeight};
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.container.content};
 `;
 
 const Label = styled.h3`

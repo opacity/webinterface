@@ -4,6 +4,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { theme } from "../../config";
 
 import ContentBox from "./content-box";
+import Content from "./content";
 import Title from "./title";
 
 const ICON_LOGO = require("../../assets/images/logo.svg");
@@ -21,18 +22,6 @@ const HrContent = styled(Hr)`
   width: 80px;
   margin-top: 30px;
   margin-bottom: 30px;
-`;
-
-const Content = styled.p`
-  margin-top: 25px;
-  width: auto;
-  font-size: 12px;
-  font-weight: ${props => props.theme.fontWeight};
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.container.content};
 `;
 
 const Link = styled.span`

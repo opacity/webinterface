@@ -5,6 +5,7 @@ import Mnemonic from "bitcore-mnemonic";
 import { theme, DESKTOP_WIDTH } from "../../config";
 
 import ContentBox from "./content-box";
+import Content from "./content";
 import Title from "./title";
 
 const Hr = styled.div`
@@ -15,17 +16,6 @@ const Hr = styled.div`
   margin-top: 5px;
   margin-bottom: 30px;
   width: 40px;
-`;
-
-const Content = styled.p`
-  color: ${props => props.theme.container.content};
-  font-size: 12px;
-  font-stretch: ${props => props.theme.fontStretch};
-  font-style: ${props => props.theme.fontStyle};
-  font-weight: ${props => props.theme.fontWeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  line-height: ${props => props.theme.lineHeight};
-  width: auto;
 `;
 
 const ContentBold = styled(Content)`
