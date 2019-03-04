@@ -4,8 +4,6 @@ import Mnemonic from "bitcore-mnemonic";
 
 import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
-import ScreenContainer from "../shared/screen-container";
-
 const Title = styled.h1`
   color: ${props => props.theme.title.color};
   font-size: ${props => props.theme.container.title.size}px;
@@ -138,7 +136,7 @@ class RecordRecoveryPhraseSlide extends Component<
     privateKey: ""
   };
 
-  downloadCsv (array) {
+  downloadCsv(array) {
     const csvContent = array.join(",");
     const blob = new Blob([csvContent], {
       type: "text/csv;charset=utf-8;"
@@ -151,12 +149,12 @@ class RecordRecoveryPhraseSlide extends Component<
     window.document.body.removeChild(elem);
   }
 
-  save (privateKey) {
+  save(privateKey) {
     const { setPrivateKey } = this.props;
     setPrivateKey(privateKey);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const code = new Mnemonic();
     this.setState({
       mnemonic: code.toString().split(" "),
@@ -164,42 +162,38 @@ class RecordRecoveryPhraseSlide extends Component<
     });
   }
 
-  render () {
+  render() {
     return (
       <ThemeProvider theme={theme}>
-        <ScreenContainer title={"Register on Opacity"}>
-          <ContentBox>
-            <Title>Record Recovery Phrase</Title>
-            <Hr />
-            <Content>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum nunc in, imperdiet augue. Phasellus
-              nisl est, tristique ac magna sed. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Ut ac massa vestibulum, vestibulum
-              nunc in, imperdiet
-            </Content>
-            <ContentBold>
-              Phaugue. Phasellus nisl est, tristique ac magna sed:
-            </ContentBold>
-            <Grid>
-              {this.state.mnemonic.map((word, i) => (
-                <Box key={i}>
-                  {i + 1}. {word}
-                </Box>
-              ))}
-            </Grid>
-            <DownloadButton
-              onClick={() => this.downloadCsv(this.state.mnemonic)}
-            >
-              Download phrase as CSV
-            </DownloadButton>
-            <ButtonWrapper>
-              <ContinueButton onClick={() => this.save(this.state.privateKey)}>
-                Continue
-              </ContinueButton>
-            </ButtonWrapper>
-          </ContentBox>
-        </ScreenContainer>
+        <ContentBox>
+          <Title>Record Recovery Phrase</Title>
+          <Hr />
+          <Content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
+            vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
+            tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Ut ac massa vestibulum, vestibulum nunc in,
+            imperdiet
+          </Content>
+          <ContentBold>
+            Phaugue. Phasellus nisl est, tristique ac magna sed:
+          </ContentBold>
+          <Grid>
+            {this.state.mnemonic.map((word, i) => (
+              <Box key={i}>
+                {i + 1}. {word}
+              </Box>
+            ))}
+          </Grid>
+          <DownloadButton onClick={() => this.downloadCsv(this.state.mnemonic)}>
+            Download phrase as CSV
+          </DownloadButton>
+          <ButtonWrapper>
+            <ContinueButton onClick={() => this.save(this.state.privateKey)}>
+              Continue
+            </ContinueButton>
+          </ButtonWrapper>
+        </ContentBox>
       </ThemeProvider>
     );
   }

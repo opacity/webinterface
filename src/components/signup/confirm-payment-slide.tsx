@@ -3,8 +3,6 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { theme, MOBILE_WIDTH } from "../../config";
 
-import ScreenContainer from "../shared/screen-container";
-
 const ICON_LOGO = require("../../assets/images/logo.svg");
 
 const Title = styled.h1`
@@ -100,40 +98,38 @@ const StateHr = styled.span`
 
 const RegisterConfirmPaymentSlide = () => (
   <ThemeProvider theme={theme}>
-    <ScreenContainer title={"Register on Opacity"}>
-      <ContentBox>
-        <Title>Confirm Payment</Title>
-        <Hr />
-        <StateWrapper>
-          <StateIcon src={ICON_LOGO} alt="state" />
-          <StateHr />
-          <StateTitle>Confirming payment on Ethereum Blockchain…</StateTitle>
-        </StateWrapper>
-        <StateWrapper>
-          <StateIcon src={ICON_LOGO} alt="state" />
-          <StateHr />
-          <StateTitle>Deploying storage smart contract…</StateTitle>
-        </StateWrapper>
-        <StateWrapper>
-          <StateIcon src={ICON_LOGO} alt="state" />
-          <StateHr />
-          <StateTitle>Ensuring smart contract integrity…</StateTitle>
-        </StateWrapper>
-        <HrContent />
-        <Title>Your Opacity Account is Ready!</Title>
-        <Content>
-          Login using your Storage Handle and Storage PIN using{" "}
-          <Link>the Opacity web interface.</Link>
-        </Content>
-        <Content>
-          Or <Link>download the Opacity Desktop client.</Link>
-        </Content>
-        <Content>
-          On mobile? Download the <Link>Opacity app for iOS</Link> or the{" "}
-          <Link>Opacity app for Android.</Link>
-        </Content>
-      </ContentBox>
-    </ScreenContainer>
+    <ContentBox>
+      <Title>Confirm Payment</Title>
+      <Hr />
+      <StateWrapper>
+        <StateIcon src={ICON_LOGO} alt="state" />
+        <StateHr />
+        <StateTitle>Confirming payment on Ethereum Blockchain…</StateTitle>
+      </StateWrapper>
+      <StateWrapper>
+        <StateIcon src={ICON_LOGO} alt="state" />
+        <StateHr />
+        <StateTitle>Deploying storage smart contract…</StateTitle>
+      </StateWrapper>
+      <StateWrapper>
+        <StateIcon src={ICON_LOGO} alt="state" />
+        <StateHr />
+        <StateTitle>Ensuring smart contract integrity…</StateTitle>
+      </StateWrapper>
+      <HrContent />
+      <Title>Your Opacity Account is Ready!</Title>
+      <Content>
+        Login using your Storage Handle and Storage PIN using{" "}
+        <Link>the Opacity web interface.</Link>
+      </Content>
+      <Content>
+        Or <Link>download the Opacity Desktop client.</Link>
+      </Content>
+      <Content>
+        On mobile? Download the <Link>Opacity app for iOS</Link> or the{" "}
+        <Link>Opacity app for Android.</Link>
+      </Content>
+    </ContentBox>
   </ThemeProvider>
 );
 

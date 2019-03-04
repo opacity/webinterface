@@ -5,6 +5,7 @@ import RecordRecoveryPhraseSlide from "./record-recovery-phrase-slide";
 import RecordStorageHandleSlide from "./record-storage-handle-slide";
 import SendPaymentSlide from "./send-payment-slide";
 import ConfirmPaymentSlide from "./confirm-payment-slide";
+import ScreenContainer from "../shared/screen-container";
 
 const ICON_RECOVERY = require("../../assets/images/icon_signup_recovery.svg");
 const ICON_PIN = require("../../assets/images/icon_signup_pin.svg");
@@ -36,6 +37,7 @@ import { theme } from "../../config";
 const Breadcrumbs = styled.div`
   display: flex;
   padding: 20px 100px;
+  margin-bottom: 70px;
 `;
 
 const Phase = styled.div`
@@ -82,7 +84,7 @@ class CreateAccount extends Component<CreateAccountProps, CreateAccountState> {
     const { handle, setPrivateKey, setStoragePin } = this.props;
     return (
       <ThemeProvider theme={theme}>
-        <div>
+        <ScreenContainer title={"Register on Opacity"}>
           <Breadcrumbs>
             <Phase>
               <PhaseInformation>
@@ -133,7 +135,7 @@ class CreateAccount extends Component<CreateAccountProps, CreateAccountState> {
           {this.state.phase === PHASES.CONFIRM_PAYMENT && (
             <ConfirmPaymentSlide />
           )}
-        </div>
+        </ScreenContainer>
       </ThemeProvider>
     );
   }

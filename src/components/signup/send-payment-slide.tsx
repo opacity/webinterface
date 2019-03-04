@@ -6,7 +6,6 @@ import { MOBILE_WIDTH, EXCHANGE_LINK, theme } from "../../config";
 
 import Metamask from "../../services/metamask";
 
-import ScreenContainer from "../shared/screen-container";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
 
@@ -98,45 +97,43 @@ const Bold = styled.span`
 
 const RegisterSendPaymentSlide = () => (
   <ThemeProvider theme={theme}>
-    <ScreenContainer title={"Register on Opacity"}>
-      <ContentBox>
-        <Title>Record Recovery Phrase</Title>
-        <Hr />
-        <Content>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
-          vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
-          tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Ut ac massa vestibulum, <Bold>16 OPQ </Bold>
-          nunc in, imperdiet augue.
-        </Content>
-        <LabelColored>Payment Address:</LabelColored>
-        <ImportantWrapper>
-          <Important>0xe99356bde974bbe08721d77712168fa070aa8da4</Important>
-        </ImportantWrapper>
-        {Metamask.isInstalled && (
-          <PaymentWrapper>
-            <MetamaskButton onClick={() => {}} />
-          </PaymentWrapper>
-        )}
-        <div>
-          <Label>Scan QR code to pay:</Label>
-          <QRCode
-            value={"ethAddress"}
-            size={200}
-            renderAs="svg"
-            bgColor="transparent"
-            fgColor="#2e3854"
-            level="H"
-            color="#ffffff"
-            includeMargin={true}
-          />
-        </div>
-        <Content>
-          Need OPQ?{" "}
-          <OutboundLink href={EXCHANGE_LINK}>Purchase some here</OutboundLink>
-        </Content>
-      </ContentBox>
-    </ScreenContainer>
+    <ContentBox>
+      <Title>Send Payment</Title>
+      <Hr />
+      <Content>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
+        vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
+        tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Ut ac massa vestibulum, <Bold>16 OPQ </Bold>
+        nunc in, imperdiet augue.
+      </Content>
+      <LabelColored>Payment Address:</LabelColored>
+      <ImportantWrapper>
+        <Important>0xe99356bde974bbe08721d77712168fa070aa8da4</Important>
+      </ImportantWrapper>
+      {Metamask.isInstalled && (
+        <PaymentWrapper>
+          <MetamaskButton onClick={() => {}} />
+        </PaymentWrapper>
+      )}
+      <div>
+        <Label>Scan QR code to pay:</Label>
+        <QRCode
+          value={"ethAddress"}
+          size={200}
+          renderAs="svg"
+          bgColor="transparent"
+          fgColor="#2e3854"
+          level="H"
+          color="#ffffff"
+          includeMargin={true}
+        />
+      </div>
+      <Content>
+        Need OPQ?{" "}
+        <OutboundLink href={EXCHANGE_LINK}>Purchase some here</OutboundLink>
+      </Content>
+    </ContentBox>
   </ThemeProvider>
 );
 

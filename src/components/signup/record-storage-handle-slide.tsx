@@ -4,8 +4,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
-import ScreenContainer from "../shared/screen-container";
-
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
 const Title = styled.h1`
@@ -164,76 +162,74 @@ class RecordStorageHandleSlide extends Component<
     retypedStoragePin: ""
   };
 
-  save (storagePin) {
+  save(storagePin) {
     const { setStoragePin } = this.props;
     setStoragePin(storagePin);
   }
 
-  render () {
+  render() {
     const { handle } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
-        <ScreenContainer title={"Register on Opacity"}>
-          <ContentBox>
-            <Title>Record Storage Handle and PIN</Title>
-            <Hr />
-            <Content>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum nunc in, imperdiet augue. Phasellus
-              nisl est, tristique ac magna sed. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Ut ac massa vestibulum, vestibulum
-              nunc in, imperdiet
-            </Content>
-            <ContentBold>
-              Phaugue. Phasellus nisl est, tristique ac magna sed:
-            </ContentBold>
-            <Label>Storage Handle</Label>
-            <HandleWrapper>
-              <Handle>{handle}</Handle>
-              <CopyToClipboard text={handle}>
-                <ClipboardIcon src={ICON_CLIPBOARD} />
-              </CopyToClipboard>
-            </HandleWrapper>
-            <InputWrapper>
-              <InputColumnWrapper>
-                <Label>Choose Storage PIN</Label>
-                <Input
-                  name="storage-pin"
-                  onChange={e => this.setState({ storagePin: e.target.value })}
-                />
-              </InputColumnWrapper>
-              <InputColumnWrapper>
-                <Label>Re-Type Storage PIN</Label>
-                <Input
-                  name="retyped-storage-pin"
-                  onChange={e =>
-                    this.setState({ retypedStoragePin: e.target.value })
-                  }
-                />
-              </InputColumnWrapper>
-            </InputWrapper>
-            <Content>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum nunc in, imperdiet augue. Phasellus
-              nisl est, tristique ac magna sed.
-            </Content>
-            <ButtonWrapper>
-              <ContinueButton
-                disabled={this.state.storagePin.length === 0}
-                onClick={() => {
-                  this.state.storagePin === this.state.retypedStoragePin
-                    ? this.save(this.state.storagePin)
-                    : alert(
+        <ContentBox>
+          <Title>Record Storage Handle and PIN</Title>
+          <Hr />
+          <Content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
+            vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
+            tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Ut ac massa vestibulum, vestibulum nunc in,
+            imperdiet
+          </Content>
+          <ContentBold>
+            Phaugue. Phasellus nisl est, tristique ac magna sed:
+          </ContentBold>
+          <Label>Storage Handle</Label>
+          <HandleWrapper>
+            <Handle>{handle}</Handle>
+            <CopyToClipboard text={handle}>
+              <ClipboardIcon src={ICON_CLIPBOARD} />
+            </CopyToClipboard>
+          </HandleWrapper>
+          <InputWrapper>
+            <InputColumnWrapper>
+              <Label>Choose Storage PIN</Label>
+              <Input
+                name="storage-pin"
+                onChange={e => this.setState({ storagePin: e.target.value })}
+              />
+            </InputColumnWrapper>
+            <InputColumnWrapper>
+              <Label>Re-Type Storage PIN</Label>
+              <Input
+                name="retyped-storage-pin"
+                onChange={e =>
+                  this.setState({ retypedStoragePin: e.target.value })
+                }
+              />
+            </InputColumnWrapper>
+          </InputWrapper>
+          <Content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
+            vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
+            tristique ac magna sed.
+          </Content>
+          <ButtonWrapper>
+            <ContinueButton
+              disabled={this.state.storagePin.length === 0}
+              onClick={() => {
+                this.state.storagePin === this.state.retypedStoragePin
+                  ? this.save(this.state.storagePin)
+                  : alert(
                       "Your storage PINs do not match. Please type them again."
-                      );
-                }}
-              >
-                Continue
-              </ContinueButton>
-            </ButtonWrapper>
-          </ContentBox>
-        </ScreenContainer>
+                    );
+              }}
+            >
+              Continue
+            </ContinueButton>
+          </ButtonWrapper>
+        </ContentBox>
       </ThemeProvider>
     );
   }
