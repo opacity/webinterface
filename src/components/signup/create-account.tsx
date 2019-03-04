@@ -30,7 +30,7 @@ class CreateAccount extends Component<CreateAccountProps, CreateAccountState> {
     phase: PHASES.RECORD_RECOVERY_PHRASE
   };
 
-  render() {
+  render () {
     const { handle, setPrivateKey, setStoragePin } = this.props;
     return (
       <div>
