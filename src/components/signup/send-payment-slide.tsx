@@ -7,22 +7,9 @@ import { EXCHANGE_LINK, theme } from "../../config";
 import Metamask from "../../services/metamask";
 
 import ContentBox from "./content-box";
+import Title from "./title";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
-
-const Title = styled.h1`
-  color: ${props => props.theme.title.color};
-  font-size: ${props => props.theme.container.title.size}px;
-  font-stretch: ${props => props.theme.fontStretch};
-  font-style: ${props => props.theme.fontStyle};
-  font-weight: 600;
-  letter-spacing: ${props => props.theme.letterSpacing};
-  line-height: ${props => props.theme.lineHeight};
-  margin-top: 35px;
-  margin: auto;
-  padding-top: 30px;
-  text-align: center;
-`;
 
 const PaymentWrapper = styled.div`
   margin-top: 20px;
