@@ -40,8 +40,13 @@ const Breadcrumbs = styled.div`
   margin-bottom: 70px;
 `;
 
+interface PhaseProps {
+  inActive?: boolean;
+}
+
 const Phase = styled.div`
   display: flex;
+  opacity: ${(props: PhaseProps) => (props.inActive ? 0.5 : 1)};
 `;
 
 const PhaseInformation = styled.div`
@@ -93,21 +98,21 @@ class CreateAccount extends Component<CreateAccountProps, CreateAccountState> {
               </PhaseInformation>
               <Line />
             </Phase>
-            <Phase>
+            <Phase inActive={this.state.phase < PHASES.RECORD_STORAGE_PIN}>
               <PhaseInformation>
                 <PhaseIcon src={ICON_PIN} />
                 <PhaseNumber>2. Record Storage Handle and PIN</PhaseNumber>
               </PhaseInformation>
               <Line />
             </Phase>
-            <Phase>
+            <Phase inActive={this.state.phase < PHASES.SEND_PAYMENT}>
               <PhaseInformation>
                 <PhaseIcon src={ICON_PAYMENT} />
                 <PhaseNumber>3. Send Payment</PhaseNumber>
               </PhaseInformation>
               <Line />
             </Phase>
-            <Phase>
+            <Phase inActive={this.state.phase < PHASES.CONFIRM_PAYMENT}>
               <PhaseInformation>
                 <PhaseIcon src={ICON_CONFIRM} />
                 <PhaseNumber>4. Confirm Payment</PhaseNumber>
