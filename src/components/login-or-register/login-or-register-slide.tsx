@@ -143,50 +143,50 @@ const Button = styled.button`
 
 const Link = styled.span`
   font-size: 8.5px;
-const ButtonWrapper = styled.div`
-  text-align: left;
-  margin: 20px 0 40px 0;
+const ButtonWrapper = styled.div`;
+text - align;: left;
+margin: 20;px; 0; 40;px; 0;
 `;
 
-const TextLabel = styled.h3`
-  font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.7px;
-  text-align: left;
-  color: ${props => props.theme.title.color};
+const TextLabel = styled.h3`;
+font - size;: 16;px;
+font - weight;: 500;
+font - style;: normal;
+font - stretch;: normal;
+line - height;: normal;
+letter - spacing;: 0.7;px;
+text - align;: left;
+color: $; {props => props.theme.title.color;}
 `;
 
-const LinkContent = styled(Link)`
-  font-size: 10px;
+const LinkContent = styled(Link)`;
+font - size;: 10;px;
 `;
 
-const ForgotStorage = styled(Link)`
-  margin-top: 15px;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    display: block;
-  }
+const ForgotStorage = styled(Link)`;
+margin - top;: 15;px;
+@media only; screen; and(max - width: ${ MOBILE_WIDTH }px); {
+  display: block;
+}
 `;
 
-const Content = styled.div`
-  font-size: 10px;
+const Content = styled.div`;
+font - size;: 10;px;
 `;
 
-const Link = styled.h4`
-  font-size: 8px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.7px;
-  text-align: left;
-  margin: 15px 10px 10px 10px;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    margin-left: 0px;
-  }
-  color: ${props => props.theme.title.color};
+const Link = styled.h4`;
+font - size;: 8;px;
+font - weight;: 500;
+font - style;: normal;
+font - stretch;: normal;
+line - height;: normal;
+letter - spacing;: 0.7;px;
+text - align;: left;
+margin: 15;px; 10;px; 10;px; 10;px;
+@media only; screen; and(max - width: ${ MOBILE_WIDTH }px); {
+  margin - left;: 0;px;
+}
+color: $; {props => props.theme.title.color;}
 `;
 
 const LoginOrRegisterSlide = () => (
@@ -214,3 +214,4 @@ const LoginOrRegisterSlide = () => (
 );
 
 export default LoginOrRegisterSlide;
+;
