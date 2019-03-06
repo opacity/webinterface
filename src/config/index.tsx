@@ -89,6 +89,13 @@ export const DESKTOP_WIDTH = "997";
 export const MOBILE_WIDTH = "567";
 export const SUBSCRIPTION_DESKTOP_WIDTH = "1200";
 
+export const SIGNUP_PHASES = {
+  RECORD_RECOVERY_PHRASE: 1,
+  RECORD_STORAGE_PIN: 2,
+  SEND_PAYMENT: 3,
+  CONFIRM_PAYMENT: 4
+};
+
 export const theme = {
   background: "#ffffff",
   header: {
