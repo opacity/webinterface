@@ -20,17 +20,24 @@ const Title = styled.h1`
   font-weight: 600;
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.title.color};
+  line-height: ${props => props.theme.lineHeight};
+  margin-top: 35px;
   margin: auto;
+  padding-top: 30px;
   text-align: center;
 `;
 
 const ContentBox = styled.div`
-  margin: auto;
+
   background-color: ${props => props.theme.container.background};
-  padding: 80px;
+  margin: auto;
+  max-width: 452px;
+  padding: 20px 120px;
+  width: 100%;
+
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    width: auto;
     padding: 20px;
+    width: auto;
   }
 `;
 
@@ -92,9 +99,10 @@ const ContinueButton = styled.button`
 `;
 
 const ButtonWrapper = styled.div`
-  margin: 25px 0;
+
   text-align: right;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
+  margin: 25px 0;
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px)
     text-align: center;
   }
 `;

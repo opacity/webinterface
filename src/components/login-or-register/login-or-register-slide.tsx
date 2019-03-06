@@ -22,6 +22,7 @@ const StorageContainer = styled.div`
   max-width: 950px;
   margin: auto;
   background-color: ${props => props.theme.background};
+
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     padding: 25px 35px;
   }
@@ -37,8 +38,25 @@ const Storage = styled.div`
   grid-auto-flow: column;
   grid-auto-columns: auto;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    grid-template-rows: repeat(2, 150px);
+    grid-template-rows: repeat(2, 250px);
   }
+`;
+
+const Button = styled.button`
+  width: 171px;
+  height: 40px;
+  background-color: ${props => props.theme.button.background};
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.button.color};
+  text-align: center;
+  margin: auto;
+  border: none;
+  cursor: pointer;
 `;
 
 const Input = styled.input.attrs(({ size }) => ({
@@ -50,12 +68,14 @@ const Input = styled.input.attrs(({ size }) => ({
   color: black;
   width: 100%;
   height: 40px;
+  font-size: 1.6em;
   border: 1px solid ${props => props.theme.input.content};
 `;
 
 const Container = styled.div`
   font-size: 1.6em;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    margin: auto;
     text-align: center;
   }
 `;
@@ -123,6 +143,13 @@ const Button = styled.button`
 
 const Link = styled.span`
   font-size: 8.5px;
+const ButtonWrapper = styled.div`
+  text-align: left;
+  margin: 20px 0 40px 0;
+`;
+
+const TextLabel = styled.h3`
+  font-size: 16px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
@@ -145,17 +172,21 @@ const ForgotStorage = styled(Link)`
 
 const Content = styled.div`
   font-size: 10px;
+`;
+
+const Link = styled.h4`
+  font-size: 8px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.7px;
   text-align: left;
-  color: ${props => props.theme.container.content};
   margin: 15px 10px 10px 10px;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     margin-left: 0px;
   }
+  color: ${props => props.theme.title.color};
 `;
 
 const LoginOrRegisterSlide = () => (
@@ -168,18 +199,14 @@ const LoginOrRegisterSlide = () => (
         <Container>
           <Title>Sing in Opacity</Title>
           <Underline />
-          <Label>Storage Handle</Label>
+          <TextLabel>Storage Handle</TextLabel>
           <Input />
-          <Label>Storage PIN</Label>
+          <TextLabel>Storage PIN</TextLabel>
           <Input />
           <ButtonWrapper>
             <Button>SIGN IN</Button>
-            <Content>
-              (Or
-              <LinkContent> click here to register</LinkContent>)
-            </Content>
+            <Link>Forgot Sorage Handle?</Link>
           </ButtonWrapper>
-          <ForgotStorage>Forgot Sorage Handle?</ForgotStorage>
         </Container>
       </Storage>
     </StorageContainer>

@@ -7,6 +7,7 @@ import ScreenContainer from "../shared/screen-container";
 import RegisterPanel from "../shared/register-panel";
 
 const CHECKMARK = require("../../assets/images/checkmark.svg");
+const ICON_LOGO = require("../../assets/images/logo.svg");
 const IN_PROGRESS = require("../../assets/images/in-progress.svg");
 
 const Title = styled.h1`
@@ -24,7 +25,6 @@ const Title = styled.h1`
 `;
 
 const ContentBox = styled.div`
-  margin: auto;
   background-color: ${props => props.theme.container.background};
   margin: auto;
   max-width: 452px;
@@ -34,7 +34,6 @@ const ContentBox = styled.div`
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     padding: 20px;
     width: auto;
-    padding: 20px;
   }
 `;
 

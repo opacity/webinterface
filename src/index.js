@@ -79,6 +79,7 @@ const App = () => (
               path="/register-send-payment"
               component={RegisterSendPayment}
             />
+
             <Route
               path="/register-confirm-payment"
               component={RegisterConfirmPayment}
