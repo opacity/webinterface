@@ -10,7 +10,10 @@ import {
   REGISTER_SEND_PAYMENT
 } from "../../config";
 
-const ICON_LOGO = require("../../assets/images/logo.svg");
+const RECORD_PHASE_ICON = require("../../assets/images/record-phrase-icon.svg");
+const RECORD_PIN_ICON = require("../../assets/images/record-pin-icon.svg");
+const SEND_PAYMENT_ICON = require("../../assets/images/send-payment-icon.svg");
+const CONFIRM_PAYMENT_ICON = require("../../assets/images/confirm-payment-icon.svg");
 
 const Container = styled.div`
   display: flex;
@@ -67,7 +70,7 @@ const RegisterPanel = ({ step }) => (
   <ThemeProvider theme={theme}>
     <Container>
       <Item className={step !== REGISTER_RECORD_RECOVERY_PHASE ? "hidden" : ""}>
-        <Icon src={ICON_LOGO} alt="state" />
+        <Icon src={RECORD_PHASE_ICON} alt="state" />
         <Title>1. Record Recovery Phrase</Title>
       </Item>
       <Hr />
@@ -77,7 +80,7 @@ const RegisterPanel = ({ step }) => (
           (step === REGISTER_RECORD_RECOVERY_PHASE ? " opacity" : "")
         }
       >
-        <Icon src={ICON_LOGO} alt="state" />
+        <Icon src={RECORD_PIN_ICON} alt="state" />
         <Title>2. Record Storage Handle and PIN</Title>
       </Item>
       <Hr
@@ -90,7 +93,7 @@ const RegisterPanel = ({ step }) => (
           (step === REGISTER_RECORD_STORAGE_HANDLE ? " opacity" : "")
         }
       >
-        <Icon src={ICON_LOGO} alt="state" />
+        <Icon src={SEND_PAYMENT_ICON} alt="state" />
         <Title>3. Send Payment</Title>
       </Item>
       <Hr
@@ -107,7 +110,7 @@ const RegisterPanel = ({ step }) => (
           (step === REGISTER_SEND_PAYMENT ? " opacity" : "")
         }
       >
-        <Icon src={ICON_LOGO} alt="state" />
+        <Icon src={CONFIRM_PAYMENT_ICON} alt="state" />
         <Title>4. Confirm Payment</Title>
       </Item>
     </Container>

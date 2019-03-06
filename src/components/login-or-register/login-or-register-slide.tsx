@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
-const ICON_LOGO = require("../../assets/images/logo.svg");
+const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const Icon = styled.img`
   height: 250px;

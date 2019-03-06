@@ -6,12 +6,10 @@ import { MOBILE_WIDTH, theme, REGISTER_SEND_PAYMENT } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
 import RegisterPanel from "../shared/register-panel";
-
-import Metamask from "../../services/metamask";
-
-import ScreenContainer from "../shared/screen-container";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
+
+import Metamask from "../../services/metamask";
 
 const Title = styled.h1`
   color: ${props => props.theme.title.color};

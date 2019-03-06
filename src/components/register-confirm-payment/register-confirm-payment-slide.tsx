@@ -6,7 +6,8 @@ import { theme, MOBILE_WIDTH, REGISTER_CONFIRM_PAYMENT } from "../../config";
 import ScreenContainer from "../shared/screen-container";
 import RegisterPanel from "../shared/register-panel";
 
-const ICON_LOGO = require("../../assets/images/logo.svg");
+const CHECKMARK = require("../../assets/images/checkmark.svg");
+const IN_PROGRESS = require("../../assets/images/in-progress.svg");
 
 const Title = styled.h1`
   color: ${props => props.theme.title.color};
@@ -109,17 +110,17 @@ const RegisterConfirmPaymentSlide = () => (
         <Title>Confirm Payment</Title>
         <Hr />
         <StateWrapper>
-          <StateIcon src={ICON_LOGO} alt="state" />
+          <StateIcon src={CHECKMARK} alt="state" />
           <StateHr />
           <StateTitle>Confirming payment on Ethereum Blockchain…</StateTitle>
         </StateWrapper>
         <StateWrapper>
-          <StateIcon src={ICON_LOGO} alt="state" />
+          <StateIcon src={IN_PROGRESS} alt="state" />
           <StateHr />
           <StateTitle>Deploying storage smart contract…</StateTitle>
         </StateWrapper>
         <StateWrapper>
-          <StateIcon src={ICON_LOGO} alt="state" />
+          <StateIcon src={IN_PROGRESS} alt="state" />
           <StateHr />
           <StateTitle>Ensuring smart contract integrity…</StateTitle>
         </StateWrapper>

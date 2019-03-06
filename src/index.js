@@ -17,6 +17,7 @@ import DownloadForm from "./components/download-form";
 import DownloadStarted from "./components/download-started";
 import DownloadComplete from "./components/download-complete";
 import DownloadUploadHistory from "./components/download-upload-history";
+import FileManager from "./components/file-manager";
 import LoginOrRegister from "./components/login-or-register";
 import UploadForm from "./components/upload-form";
 import UploadStarted from "./components/upload-started";
@@ -84,6 +85,7 @@ const App = () => (
               component={RegisterConfirmPayment}
             />
             <Route path="/login-or-register" component={LoginOrRegister} />
+            <Route path="/file-manager" component={FileManager} />
 
             <Route
               path="/terms-of-service"

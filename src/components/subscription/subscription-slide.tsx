@@ -5,7 +5,7 @@ import { SUBSCRIPTION_DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
 
-const ICON_LOGO = require("../../assets/images/logo.svg");
+const FEATURES = require("../../assets/images/features.svg");
 
 const Container = styled.div`
   display: flex;
@@ -180,7 +180,7 @@ const SubscriptionSlide = () => (
           <ContentBold>128 GB secure, decentralized storage</ContentBold>
           <ContentBold>Unlimited downloads</ContentBold>
           <MoreFeatures>
-            <Features src={ICON_LOGO} alt="logo" />
+            <Features src={FEATURES} alt="logo" />
             Show features
           </MoreFeatures>
           <Price>2 OPQ</Price>
@@ -198,7 +198,7 @@ const SubscriptionSlide = () => (
           <ContentBold>512 GB secure, decentralized storage</ContentBold>
           <ContentBold>Unlimited downloads</ContentBold>
           <MoreFeatures>
-            <Features src={ICON_LOGO} alt="logo" />
+            <Features src={FEATURES} alt="logo" />
             Show features
           </MoreFeatures>
           <Price>8 OPQ</Price>
@@ -216,7 +216,7 @@ const SubscriptionSlide = () => (
           <ContentBold>1 TB secure, decentralized storage</ContentBold>
           <ContentBold>Unlimited downloads</ContentBold>
           <MoreFeatures>
-            <Features src={ICON_LOGO} alt="logo" />
+            <Features src={FEATURES} alt="logo" />
             Show features
           </MoreFeatures>
           <Price>16 OPQ</Price>

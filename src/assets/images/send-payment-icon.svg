@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34">
+    <g fill="none" fill-rule="evenodd" stroke="#2E6DDE">
+        <circle cx="16" cy="16" r="16" fill-rule="nonzero" stroke-width="1.2" transform="translate(1 1)"/>
+        <g stroke-width="1.12" transform="translate(9 9)">
+            <path d="M0 1.714V4c0 .947 1.522 1.714 3.4 1.714S6.8 4.947 6.8 4V1.714"/>
+            <path d="M0 4v2.286C0 7.233 1.522 8 3.4 8s3.4-.767 3.4-1.714V4"/>
+            <path d="M0 6.286V8.57c0 .947 1.522 1.715 3.4 1.715"/>
+            <path d="M0 8.571v2.286c0 .947 1.522 1.714 3.4 1.714"/>
+            <ellipse cx="3.4" cy="1.714" stroke-linecap="square" rx="3.4" ry="1.714"/>
+            <path d="M10.2 4v2.286C10.2 7.233 11.722 8 13.6 8S17 7.233 17 6.286V4"/>
+            <path d="M13.6 10.286c1.878 0 3.4-.768 3.4-1.715V6.286"/>
+            <path d="M13.6 12.571c1.878 0 3.4-.767 3.4-1.714V8.571"/>
+            <ellipse cx="13.6" cy="4" stroke-linecap="square" rx="3.4" ry="1.714"/>
+            <path d="M5.1 9.714V12c0 .947 1.522 1.714 3.4 1.714s3.4-.767 3.4-1.714V9.714"/>
+            <path d="M5.1 12v2.286C5.1 15.233 6.622 16 8.5 16s3.4-.767 3.4-1.714V12"/>
+            <ellipse cx="8.5" cy="9.714" stroke-linecap="square" rx="3.4" ry="1.714"/>
+        </g>
+    </g>
+</svg>
