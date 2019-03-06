@@ -2,15 +2,9 @@ import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import {
-  theme,
-  DESKTOP_WIDTH,
-  MOBILE_WIDTH,
-  REGISTER_RECORD_STORAGE_HANDLE
-} from "../../config";
+import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
-import RegisterPanel from "../shared/register-panel";
 
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
@@ -170,18 +164,17 @@ class RecordStorageHandleSlide extends Component<
     retypedStoragePin: ""
   };
 
-  save(storagePin) {
+  save (storagePin) {
     const { setStoragePin } = this.props;
     setStoragePin(storagePin);
   }
 
-  render() {
+  render () {
     const { handle } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
         <ScreenContainer title={"Register on Opacity"}>
-          <RegisterPanel step={REGISTER_RECORD_STORAGE_HANDLE} />
           <ContentBox>
             <Title>Record Storage Handle and PIN</Title>
             <Hr />
@@ -232,7 +225,7 @@ class RecordStorageHandleSlide extends Component<
                   this.state.storagePin === this.state.retypedStoragePin
                     ? this.save(this.state.storagePin)
                     : alert(
-                        "Your storage PINs do not match. Please type them again."
+                      "Your storage PINs do not match. Please type them again."
                       );
                 }}
               >

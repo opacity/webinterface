@@ -27,8 +27,8 @@ import RetrievingInvoice from "./components/retrieving-invoice";
 import PaymentInvoice from "./components/payment-invoice";
 import PaymentConfirm from "./components/payment-confirm";
 import PageNavigationPrompt from "./components/page-navigation-prompt";
+import Signup from "./components/signup";
 import Subscription from "./components/subscription";
-import RegisterRecordRecoveryPhrase from "./components/register-record-recovery-phrase";
 import RegisterRecordStorageHandle from "./components/register-record-storage-handle";
 import RegisterSendPayment from "./components/register-send-payment";
 import RegisterConfirmPayment from "./components/register-confirm-payment";
@@ -68,10 +68,9 @@ const App = () => (
             <Route path="/error-page" component={ErrorPage} />
             <Route path="/brokers-down" component={BrokersDown} />
             <Route path="/subscription" component={Subscription} />
-            <Route
-              path="/register-record-recovery-phrase"
-              component={RegisterRecordRecoveryPhrase}
-            />
+            <Route path="/sign-up" component={Signup} />
+            <Route path="/login-or-register" component={LoginOrRegister} />
+
             <Route
               path="/register-record-storage-handle"
               component={RegisterRecordStorageHandle}

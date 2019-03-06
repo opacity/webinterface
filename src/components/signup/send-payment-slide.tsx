@@ -2,19 +2,13 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import QRCode from "qrcode.react";
 
-import {
-  MOBILE_WIDTH,
-  theme,
-  REGISTER_SEND_PAYMENT,
-  EXCHANGE_LINK
-} from "../../config";
-
-import ScreenContainer from "../shared/screen-container";
-import RegisterPanel from "../shared/register-panel";
-import MetamaskButton from "../shared/metamask-button";
-import OutboundLink from "../shared/outbound-link";
+import { MOBILE_WIDTH, EXCHANGE_LINK, theme } from "../../config";
 
 import Metamask from "../../services/metamask";
+
+import ScreenContainer from "../shared/screen-container";
+import MetamaskButton from "../shared/metamask-button";
+import OutboundLink from "../shared/outbound-link";
 
 const Title = styled.h1`
   color: ${props => props.theme.title.color};
@@ -35,7 +29,6 @@ const PaymentWrapper = styled.div`
 `;
 
 const ContentBox = styled.div`
-  margin: auto;
   background-color: ${props => props.theme.container.background};
   margin: auto;
   max-width: 452px;
@@ -45,7 +38,6 @@ const ContentBox = styled.div`
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     padding: 20px;
     width: auto;
-    padding: 20px;
   }
 `;
 
@@ -107,9 +99,8 @@ const Bold = styled.span`
 const RegisterSendPaymentSlide = () => (
   <ThemeProvider theme={theme}>
     <ScreenContainer title={"Register on Opacity"}>
-      <RegisterPanel step={REGISTER_SEND_PAYMENT} />
       <ContentBox>
-        <Title>Send Payment</Title>
+        <Title>Record Recovery Phrase</Title>
         <Hr />
         <Content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa

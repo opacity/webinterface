@@ -2,15 +2,9 @@ import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Mnemonic from "bitcore-mnemonic";
 
-import {
-  theme,
-  DESKTOP_WIDTH,
-  MOBILE_WIDTH,
-  REGISTER_RECORD_RECOVERY_PHASE
-} from "../../config";
+import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
-import RegisterPanel from "../shared/register-panel";
 
 const Title = styled.h1`
   color: ${props => props.theme.title.color};
@@ -19,18 +13,23 @@ const Title = styled.h1`
   font-style: ${props => props.theme.fontStyle};
   font-weight: 600;
   letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.title.color};
+  line-height: ${props => props.theme.lineHeight};
+  margin-top: 35px;
   margin: auto;
+  padding-top: 30px;
   text-align: center;
 `;
 
 const ContentBox = styled.div`
-  margin: auto;
   background-color: ${props => props.theme.container.background};
-  padding: 80px;
+  margin: auto;
+  max-width: 452px;
+  padding: 20px 120px;
+  width: 100%;
+
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    width: auto;
     padding: 20px;
+    width: auto;
   }
 `;
 
@@ -46,7 +45,6 @@ const Hr = styled.div`
 
 const Content = styled.p`
   color: ${props => props.theme.container.content};
-  margin-top: 25px;
   font-size: 12px;
   font-stretch: ${props => props.theme.fontStretch};
   font-style: ${props => props.theme.fontStyle};
@@ -92,9 +90,9 @@ const ContinueButton = styled.button`
 `;
 
 const ButtonWrapper = styled.div`
-  margin: 25px 0;
   text-align: right;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
+  margin: 25px 0;
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px)
     text-align: center;
   }
 `;
@@ -140,7 +138,7 @@ class RecordRecoveryPhraseSlide extends Component<
     privateKey: ""
   };
 
-  downloadCsv(array) {
+  downloadCsv (array) {
     const csvContent = array.join(",");
     const blob = new Blob([csvContent], {
       type: "text/csv;charset=utf-8;"
@@ -153,12 +151,12 @@ class RecordRecoveryPhraseSlide extends Component<
     window.document.body.removeChild(elem);
   }
 
-  save(privateKey) {
+  save (privateKey) {
     const { setPrivateKey } = this.props;
     setPrivateKey(privateKey);
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const code = new Mnemonic();
     this.setState({
       mnemonic: code.toString().split(" "),
@@ -166,11 +164,10 @@ class RecordRecoveryPhraseSlide extends Component<
     });
   }
 
-  render() {
+  render () {
     return (
       <ThemeProvider theme={theme}>
         <ScreenContainer title={"Register on Opacity"}>
-          <RegisterPanel step={REGISTER_RECORD_RECOVERY_PHASE} />
           <ContentBox>
             <Title>Record Recovery Phrase</Title>
             <Hr />

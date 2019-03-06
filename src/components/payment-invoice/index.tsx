@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import PaymentInvoiceSlide from "./payment-invoice-slide";
-import uploadActions from "../../redux/actions/upload-actions";
+import metamaskActions from "../../redux/actions/metamask-actions";
 
 const mapStateToProps = state => ({
   cost: state.upload.invoice.cost,
@@ -11,9 +11,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
-    dispatch(
-      uploadActions.metamaskCreateTransaction({ cost, ethAddress, gasPrice })
-    )
+    dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice }))
 });
 
 const PaymentInvoice = ({ cost, ethAddress, gasPrice, openMetamask }: any) => (

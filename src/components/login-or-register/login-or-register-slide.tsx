@@ -53,7 +53,12 @@ const Input = styled.input.attrs(({ size }) => ({
   border: 1px solid ${props => props.theme.input.content};
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  font-size: 1.6em;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    text-align: center;
+  }
+`;
 
 const Title = styled.h1`
   font-size: ${props => props.theme.container.title.size}px;
