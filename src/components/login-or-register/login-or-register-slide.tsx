@@ -179,7 +179,7 @@ const LoginOrRegisterSlide = () => (
               <LinkContent> click here to register</LinkContent>)
             </Content>
           </ButtonWrapper>
-          <ForgotStorage>Forgot Sorage Handle?</ForgotStorage>
+          <ForgotStorage>Forgot Storage Handle?</ForgotStorage>
         </Container>
       </Storage>
     </StorageContainer>
