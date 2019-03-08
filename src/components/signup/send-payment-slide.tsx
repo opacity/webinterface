@@ -2,64 +2,19 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import QRCode from "qrcode.react";
 
-import { MOBILE_WIDTH, EXCHANGE_LINK, theme } from "../../config";
+import { EXCHANGE_LINK, theme } from "../../config";
 
 import Metamask from "../../services/metamask";
 
-import ScreenContainer from "../shared/screen-container";
+import ContentBox from "./content-box";
+import Content from "./content";
+import Hr from "./hr";
+import Title from "./title";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
 
-const Title = styled.h1`
-  color: ${props => props.theme.title.color};
-  font-size: ${props => props.theme.container.title.size}px;
-  font-stretch: ${props => props.theme.fontStretch};
-  font-style: ${props => props.theme.fontStyle};
-  font-weight: 600;
-  letter-spacing: ${props => props.theme.letterSpacing};
-  line-height: ${props => props.theme.lineHeight};
-  margin-top: 35px;
-  margin: auto;
-  padding-top: 30px;
-  text-align: center;
-`;
-
 const PaymentWrapper = styled.div`
   margin-top: 20px;
-`;
-
-const ContentBox = styled.div`
-  background-color: ${props => props.theme.container.background};
-  margin: auto;
-  max-width: 452px;
-  padding: 20px 120px;
-  width: 100%;
-
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    padding: 20px;
-    width: auto;
-  }
-`;
-
-const Hr = styled.div`
-  width: ${props => props.theme.container.title.underline.width}px;
-  border-top: ${props => props.theme.container.title.underline.height}px solid
-    ${props => props.theme.container.title.underline.color};
-  margin: auto;
-  margin-top: 5px;
-  margin-bottom: 15px;
-`;
-
-const Content = styled.p`
-  margin-top: 25px;
-  width: auto;
-  font-size: 12px;
-  font-weight: ${props => props.theme.fontWeight};
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.container.content};
 `;
 
 const Label = styled.h3`
@@ -98,45 +53,43 @@ const Bold = styled.span`
 
 const RegisterSendPaymentSlide = () => (
   <ThemeProvider theme={theme}>
-    <ScreenContainer title={"Register on Opacity"}>
-      <ContentBox>
-        <Title>Record Recovery Phrase</Title>
-        <Hr />
-        <Content>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
-          vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
-          tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Ut ac massa vestibulum, <Bold>16 OPQ </Bold>
-          nunc in, imperdiet augue.
-        </Content>
-        <LabelColored>Payment Address:</LabelColored>
-        <ImportantWrapper>
-          <Important>0xe99356bde974bbe08721d77712168fa070aa8da4</Important>
-        </ImportantWrapper>
-        {Metamask.isInstalled && (
-          <PaymentWrapper>
-            <MetamaskButton onClick={() => {}} />
-          </PaymentWrapper>
-        )}
-        <div>
-          <Label>Scan QR code to pay:</Label>
-          <QRCode
-            value={"ethAddress"}
-            size={200}
-            renderAs="svg"
-            bgColor="transparent"
-            fgColor="#2e3854"
-            level="H"
-            color="#ffffff"
-            includeMargin={true}
-          />
-        </div>
-        <Content>
-          Need OPQ?{" "}
-          <OutboundLink href={EXCHANGE_LINK}>Purchase some here</OutboundLink>
-        </Content>
-      </ContentBox>
-    </ScreenContainer>
+    <ContentBox>
+      <Title>Send Payment</Title>
+      <Hr />
+      <Content>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
+        vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
+        tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Ut ac massa vestibulum, <Bold>16 OPQ </Bold>
+        nunc in, imperdiet augue.
+      </Content>
+      <LabelColored>Payment Address:</LabelColored>
+      <ImportantWrapper>
+        <Important>0xe99356bde974bbe08721d77712168fa070aa8da4</Important>
+      </ImportantWrapper>
+      {Metamask.isInstalled && (
+        <PaymentWrapper>
+          <MetamaskButton onClick={() => {}} />
+        </PaymentWrapper>
+      )}
+      <div>
+        <Label>Scan QR code to pay:</Label>
+        <QRCode
+          value={"ethAddress"}
+          size={200}
+          renderAs="svg"
+          bgColor="transparent"
+          fgColor="#2e3854"
+          level="H"
+          color="#ffffff"
+          includeMargin={true}
+        />
+      </div>
+      <Content>
+        Need OPQ?{" "}
+        <OutboundLink href={EXCHANGE_LINK}>Purchase some here</OutboundLink>
+      </Content>
+    </ContentBox>
   </ThemeProvider>
 );
 
