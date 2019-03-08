@@ -27,7 +27,7 @@ class CreateAccount extends Component<CreateAccountProps, CreateAccountState> {
     phase: SIGNUP_PHASES.RECORD_RECOVERY_PHRASE
   };
 
-  render() {
+  render () {
     const { handle, setPrivateKey, setStoragePin } = this.props;
     return (
       <ThemeProvider theme={theme}>
