@@ -1,7 +1,7 @@
 import React from "react";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 
-import { SUBSCRIPTION_DESKTOP_WIDTH, theme } from "../../config";
+import { theme } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
 import Subscription from "../shared/subscription";
