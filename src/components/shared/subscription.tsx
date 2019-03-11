@@ -5,7 +5,14 @@ import { SUBSCRIPTION_DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
 const FEATURES = require("../../assets/images/features.svg");
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 15px 0 20px 0;
+  @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
+    display: block;
+  }
+`;
 
 const Collum = styled.div`
   width: 100%;
