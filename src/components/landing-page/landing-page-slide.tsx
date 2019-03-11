@@ -52,6 +52,11 @@ const Collum = styled.div`
   margin-inline-end: 10px;
 `;
 
+const Item = styled.div`
+  padding-top: 15px;
+  margin-inline-end: 10px;
+`;
+
 const Button = styled.button`
   width: 120px;
   height: 40px;
@@ -296,7 +301,7 @@ const LandingPageSlide = () => (
           Opacity, and why it is the right choice for you or your company.
         </InfoHeaderContent>
         <FlexContainer>
-          <Collum>
+          <Item>
             <ItemIcon src={ICON_INFO_OPACITY} />
             <InfoTitle>No Personal Info Required</InfoTitle>
             <InfoContent>
@@ -305,8 +310,8 @@ const LandingPageSlide = () => (
               massa vestibulum, vestibulum
             </InfoContent>
             <Button>Learn more</Button>
-          </Collum>
-          <Collum>
+          </Item>
+          <Item>
             <ItemIcon src={ICON_INFO_BENEFIT} />
             <InfoTitle>No Personal Info Required</InfoTitle>
             <InfoContent>
@@ -315,10 +320,10 @@ const LandingPageSlide = () => (
               massa vestibulum, vestibulum
             </InfoContent>
             <Button>Learn more</Button>
-          </Collum>
+          </Item>
         </FlexContainer>
         <FlexContainer>
-          <Collum>
+          <Item>
             <ItemIcon src={ICON_INFO_PERSONAL} />
             <InfoTitle>No Personal Info Required</InfoTitle>
             <InfoContent>
@@ -327,8 +332,8 @@ const LandingPageSlide = () => (
               massa vestibulum, vestibulum
             </InfoContent>
             <Button>Learn more</Button>
-          </Collum>
-          <Collum>
+          </Item>
+          <Item>
             <ItemIcon src={ICON_INFO_CRYPTOCUREENCY} />
             <InfoTitle>No Personal Info Required</InfoTitle>
             <InfoContent>
@@ -337,7 +342,7 @@ const LandingPageSlide = () => (
               massa vestibulum, vestibulum
             </InfoContent>
             <Button>Learn more</Button>
-          </Collum>
+          </Item>
         </FlexContainer>
       </Container>
     </ContainerWrapper>
