@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="155px" height="155px" viewBox="0 0 155 155" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52 (66869) - http://www.bohemiancoding.com/sketch -->
+    <title>0199C272-3D92-40E8-806C-15CEDE0B071C</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <circle id="path-1" cx="77.5" cy="77.5" r="77.5"></circle>
+    </defs>
+    <g id="Corp-Site-Redesign-2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing-Page---Desktop-HD" transform="translate(-280.000000, -659.000000)">
+            <g id="Group-+-Group-+-Group-Mask" transform="translate(280.000000, 659.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill-opacity="0.200039629" fill="#66A3FF" fill-rule="nonzero" xlink:href="#path-1"></use>
+                <g id="Group" mask="url(#mask-2)">
+                    <g transform="translate(35.000000, 53.000000)">
+                        <rect id="Rectangle" stroke="#2E6DDE" stroke-width="2" fill="#FFFFFF" fill-rule="nonzero" x="1" y="1" width="81.8028169" height="52.0591716" rx="1.80000007"></rect>
+                        <path d="M13.0948418,32.8103164 L10.5,38 L6,38 L6,16 L28,16 L28,38 L23.5,38 L20.9051582,32.8103164 C22.7720045,31.553121 24,29.4199674 24,27 C24,23.1340068 20.8659932,20 17,20 C13.1340068,20 10,23.1340068 10,27 C10,29.4199674 11.2279955,31.553121 13.0948418,32.8103164 Z" id="Combined-Shape" stroke="none" fill="#2E6DDE" fill-rule="nonzero"></path>
+                        <rect id="Rectangle" stroke="none" fill="#2E6DDE" fill-rule="nonzero" x="33" y="16.0710059" width="30.8274648" height="4.01775148"></rect>
+                        <rect id="Rectangle" stroke="none" fill="#2E6DDE" fill-rule="nonzero" x="33" y="25.035503" width="41.9014085" height="4.01775148"></rect>
+                        <rect id="Rectangle" stroke="none" fill="#2E6DDE" fill-rule="nonzero" x="33" y="34" width="41.9014085" height="4.01775148"></rect>
+                        <g id="s-ban" opacity="0.92078218" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(46.390845, 17.071006)">
+                            <path d="M19.3045775,0 C8.6599808,0 0,8.73172029 0,19.464497 C0,30.1972738 8.6599808,38.9289941 19.3045775,38.9289941 C29.9491741,38.9289941 38.6091549,30.1972738 38.6091549,19.464497 C38.6091549,8.73172029 29.9491741,0 19.3045775,0 Z M19.3045775,3.53899946 C23.0280356,3.53899946 26.4485698,4.85246372 29.1515967,7.03371719 L6.97592844,29.3930893 C4.81259606,26.6676704 3.50992318,23.2188004 3.50992318,19.464497 C3.50992318,10.683098 10.5953261,3.53899946 19.3045775,3.53899946 Z M19.3045775,35.3899946 C15.5811193,35.3899946 12.1605851,34.0765304 9.45755819,31.8952769 L31.6332265,9.53590483 C33.7965589,12.2613237 35.0992318,15.7101937 35.0992318,19.464497 C35.0992318,28.245896 28.0138288,35.3899946 19.3045775,35.3899946 Z" id="Shape" fill="#E86C60" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="Group" opacity="0.716424851" mask="url(#mask-2)" fill-rule="nonzero">
+                    <g transform="translate(125.000000, 58.000000)">
+                        <rect id="Rectangle" stroke="#2E6DDE" stroke-width="2" fill="#FFFFFF" x="1" y="1" width="81.8028169" height="42.0591716" rx="1.80000007"></rect>
+                        <path d="M12.0015165,25.8927998 L9.87676056,30.1775148 L5.98591549,30.1775148 L5.98591549,12.0710059 L23.943662,12.0710059 L23.943662,30.1775148 L20.3521127,30.1775148 L18.2273567,25.8927998 C19.6905652,24.8880425 20.6514085,23.1947332 20.6514085,21.2751479 C20.6514085,18.1918304 18.1724217,15.6923077 15.1144366,15.6923077 C12.0564515,15.6923077 9.57746479,18.1918304 9.57746479,21.2751479 C9.57746479,23.1947332 10.538308,24.8880425 12.0015165,25.8927998 Z" id="Combined-Shape" stroke="none" fill="#2E6DDE"></path>
+                        <rect id="Rectangle" stroke="#979797" stroke-width="0.5" fill="#2E6DDE" x="30.1795775" y="12.3210059" width="30.3274648" height="2.51775148"></rect>
+                        <rect id="Rectangle" stroke="none" fill="#2E6DDE" x="29.9295775" y="19.6153846" width="41.9014085" height="3.01775148"></rect>
+                        <rect id="Rectangle" stroke="#979797" stroke-width="0.5" fill="#2E6DDE" x="30.1795775" y="27.4097633" width="41.4014085" height="2.51775148"></rect>
+                    </g>
+                </g>
+                <g id="Group" opacity="0.722470238" mask="url(#mask-2)" fill-rule="nonzero">
+                    <g transform="translate(-55.000000, 58.000000)" id="Rectangle">
+                        <rect stroke="#2E6DDE" stroke-width="2" fill="#FFFFFF" x="1" y="1" width="81.8028169" height="42.0591716" rx="1.80000007"></rect>
+                        <rect stroke="none" fill="#2E6DDE" x="29.9295775" y="12.0710059" width="30.8274648" height="3.01775148"></rect>
+                        <rect stroke="none" fill="#2E6DDE" x="29.9295775" y="19.6153846" width="41.9014085" height="3.01775148"></rect>
+                        <rect stroke="none" fill="#2E6DDE" x="29.9295775" y="27.1597633" width="41.9014085" height="3.01775148"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
