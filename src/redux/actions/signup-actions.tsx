@@ -1,17 +1,23 @@
-const SET_PRIVATE_KEY = "opacity/signup/set-private-key";
-const SET_STORAGE_PIN = "opacity/signup/set-storage-pin";
+const GET_INVOICE_PENDING = "opacity/signup/get-invoice-pending";
+const GET_INVOICE_SUCCESS = "opacity/signup/get-invoice-success";
+const GET_INVOICE_FAILURE = "opacity/signup/get-invoice-failure";
 
 const ACTIONS = Object.freeze({
-  SET_PRIVATE_KEY,
-  SET_STORAGE_PIN,
+  GET_INVOICE_PENDING,
+  GET_INVOICE_SUCCESS,
+  GET_INVOICE_FAILURE,
 
-  setPrivateKey: ({ privateKey }) => ({
-    type: SET_PRIVATE_KEY,
-    payload: { privateKey }
+  getInvoicePending: ({ privateKey, storagePin }) => ({
+    type: GET_INVOICE_PENDING,
+    payload: { privateKey, storagePin }
   }),
-  setStoragePin: ({ storagePin }) => ({
-    type: SET_STORAGE_PIN,
-    payload: { storagePin }
+  getInvoiceSuccess: ({ invoice }) => ({
+    type: GET_INVOICE_SUCCESS,
+    payload: { invoice }
+  }),
+  getInvoiceFailure: ({ error }) => ({
+    type: GET_INVOICE_FAILURE,
+    payload: { error }
   })
 });
 

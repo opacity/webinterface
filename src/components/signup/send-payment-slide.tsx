@@ -51,7 +51,7 @@ const Bold = styled.span`
   font-weight: bold;
 `;
 
-const RegisterSendPaymentSlide = () => (
+const RegisterSendPaymentSlide = ({ invoice: { cost, ethAddress } }) => (
   <ThemeProvider theme={theme}>
     <ContentBox>
       <Title>Send Payment</Title>

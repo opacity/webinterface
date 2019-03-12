@@ -1,19 +1,21 @@
 import signupActions from "../actions/signup-actions";
 
+const PAYMENT_STATUSES = {
+  PENDING: "PENDING",
+  SUCCESS: "SUCCESS",
+  FAILURE: "FAILURE"
+};
+
 const initState = {
-  privateKey: null,
-  storagePin: null,
-  invoice: null // { cost, ethAddress }
+  invoice: null, // { cost, ethAddress }
+  paymentStatus: PAYMENT_STATUSES.PENDING
 };
 
 const signupReducer = (state = initState, action) => {
   switch (action.type) {
-    case signupActions.SET_PRIVATE_KEY:
-      const { privateKey } = action.payload;
-      return { ...state, privateKey };
-    case signupActions.SET_STORAGE_PIN:
-      const { storagePin } = action.payload;
-      return { ...state, storagePin };
+    case signupActions.GET_INVOICE_SUCCESS:
+      const { invoice } = action.payload;
+      return { ...state, invoice, paymentStatus: PAYMENT_STATUSES.PENDING };
 
     default:
       return state;

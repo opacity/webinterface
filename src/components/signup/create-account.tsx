@@ -10,25 +10,23 @@ import ConfirmPaymentSlide from "./confirm-payment-slide";
 import ScreenContainer from "../shared/screen-container";
 
 interface CreateAccountProps {
-  handle;
-  cost;
-  ethAddress;
-  gasPrice;
-  setStoragePin;
-  setPrivateKey;
+  getInvoice;
+  invoice;
 }
 
 interface CreateAccountState {
   phase;
+  privateKey;
 }
 
 class CreateAccount extends Component<CreateAccountProps, CreateAccountState> {
   state = {
-    phase: SIGNUP_PHASES.RECORD_RECOVERY_PHRASE
+    phase: SIGNUP_PHASES.RECORD_RECOVERY_PHRASE,
+    privateKey: null
   };
 
-  render () {
-    const { handle, setPrivateKey, setStoragePin } = this.props;
+  render() {
+    const { invoice, getInvoice } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <ScreenContainer title={"Register on Opacity"}>
@@ -36,22 +34,25 @@ class CreateAccount extends Component<CreateAccountProps, CreateAccountState> {
           {this.state.phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
             <RecordRecoveryPhraseSlide
               setPrivateKey={privateKey => {
-                setPrivateKey(privateKey);
-                this.setState({ phase: SIGNUP_PHASES.RECORD_STORAGE_PIN });
+                this.setState({
+                  phase: SIGNUP_PHASES.RECORD_STORAGE_PIN,
+                  privateKey
+                });
               }}
             />
           )}
           {this.state.phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
             <RecordStorageHandleSlide
-              handle={handle}
+              handle={this.state.privateKey}
               setStoragePin={storagePin => {
-                setStoragePin(storagePin);
+                const { privateKey } = this.state;
+                getInvoice({ privateKey, storagePin });
                 this.setState({ phase: SIGNUP_PHASES.SEND_PAYMENT });
               }}
             />
           )}
           {this.state.phase === SIGNUP_PHASES.SEND_PAYMENT && (
-            <SendPaymentSlide />
+            <SendPaymentSlide invoice={invoice} />
           )}
           {this.state.phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
             <ConfirmPaymentSlide />

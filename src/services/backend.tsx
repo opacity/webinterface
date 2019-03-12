@@ -28,6 +28,25 @@ const checkStatus = hosts =>
       });
   });
 
+const createUser = ({
+  accountId,
+  storageLimit,
+  durationInMonths,
+  metadataKey
+}) =>
+  axiosInstance
+    .post(`${API.BROKER_NODE_B}/api/v1/accounts`, {
+      accountId,
+      storageLimit,
+      durationInMonths,
+      metadataKey
+    })
+    .then(({ data }: any) => {
+      const { invoice } = data;
+      return invoice;
+    });
+
 export default {
-  checkStatus
+  checkStatus,
+  createUser
 };
