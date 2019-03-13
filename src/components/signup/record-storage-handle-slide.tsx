@@ -131,6 +131,7 @@ interface RecordStorageHandleProps {
 interface RecordStorageHandleState {
   storagePin;
   retypedStoragePin;
+  isCopied;
 }
 
 class RecordStorageHandleSlide extends Component<
@@ -139,7 +140,8 @@ class RecordStorageHandleSlide extends Component<
 > {
   state = {
     storagePin: "",
-    retypedStoragePin: ""
+    retypedStoragePin: "",
+    isCopied: false
   };
 
   save(storagePin) {
@@ -168,7 +170,10 @@ class RecordStorageHandleSlide extends Component<
           <Label>Storage Handle</Label>
           <HandleWrapper>
             <Handle>{handle}</Handle>
-            <CopyToClipboard text={handle}>
+            <CopyToClipboard
+              text={handle}
+              onCopy={() => this.setState({ isCopied: true })}
+            >
               <ClipboardIconWrrapper>
                 <ClipboardIcon src={ICON_CLIPBOARD} />
               </ClipboardIconWrrapper>
@@ -199,12 +204,15 @@ class RecordStorageHandleSlide extends Component<
           </Content>
           <ButtonWrapper>
             <ContinueButton
-              disabled={this.state.storagePin.length === 0}
               onClick={() => {
-                this.state.storagePin === this.state.retypedStoragePin
+                const { storagePin, retypedStoragePin, isCopied } = this.state;
+
+                storagePin.length !== 0 &&
+                storagePin === retypedStoragePin &&
+                isCopied
                   ? this.save(this.state.storagePin)
                   : alert(
-                      "Your storage PINs do not match. Please type them again."
+                      "Please make sure to copy your storage handle and input matching PINs before proceeding."
                     );
               }}
             >
