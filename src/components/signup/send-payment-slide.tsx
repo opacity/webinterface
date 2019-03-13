@@ -51,7 +51,7 @@ const Bold = styled.span`
   font-weight: bold;
 `;
 
-const SendPaymentSlide = ({ invoice }) => (
+const SendPaymentSlide = ({ invoice: { ethAddress, cost } }) => (
   <ThemeProvider theme={theme}>
     <ContentBox>
       <Title>Send Payment</Title>
@@ -60,12 +60,12 @@ const SendPaymentSlide = ({ invoice }) => (
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
         vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
         tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Ut ac massa vestibulum, <Bold>16 OPQ </Bold>
+        adipiscing elit. Ut ac massa vestibulum, <Bold>{cost} OPQ </Bold>
         nunc in, imperdiet augue.
       </Content>
       <LabelColored>Payment Address:</LabelColored>
       <ImportantWrapper>
-        <Important>0xe99356bde974bbe08721d77712168fa070aa8da4</Important>
+        <Important>{ethAddress}</Important>
       </ImportantWrapper>
       {Metamask.isInstalled && (
         <PaymentWrapper>
@@ -75,7 +75,7 @@ const SendPaymentSlide = ({ invoice }) => (
       <div>
         <Label>Scan QR code to pay:</Label>
         <QRCode
-          value={"ethAddress"}
+          value={ethAddress}
           size={200}
           renderAs="svg"
           bgColor="transparent"

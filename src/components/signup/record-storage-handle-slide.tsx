@@ -17,6 +17,10 @@ const ContentBold = styled(Content)`
   min-height: 28px;
 `;
 
+const ClipboardIconWrrapper = styled.div`
+  display: flex;
+`;
+
 const ContinueButton = styled.button`
   cursor: pointer;
   text-transform: uppercase;
@@ -86,18 +90,37 @@ const HandleWrapper = styled.div`
   background-color: ${props => props.theme.password.background};
   display: flex;
   justify-content: space-between;
-  padding: 10px;
 `;
 
 const Handle = styled.span`
   color: white;
   font-size: 12px;
+  overflow-x: auto;
+  padding: 10px;
+
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 const ClipboardIcon = styled.img`
   cursor: pointer;
   height: 20px;
   width: 20px;
+  padding: 0 10px;
+  object-fit: contain;
 `;
 
 interface RecordStorageHandleProps {
@@ -119,12 +142,12 @@ class RecordStorageHandleSlide extends Component<
     retypedStoragePin: ""
   };
 
-  save (storagePin) {
+  save(storagePin) {
     const { setStoragePin } = this.props;
     setStoragePin(storagePin);
   }
 
-  render () {
+  render() {
     const { handle } = this.props;
 
     return (
@@ -146,7 +169,9 @@ class RecordStorageHandleSlide extends Component<
           <HandleWrapper>
             <Handle>{handle}</Handle>
             <CopyToClipboard text={handle}>
-              <ClipboardIcon src={ICON_CLIPBOARD} />
+              <ClipboardIconWrrapper>
+                <ClipboardIcon src={ICON_CLIPBOARD} />
+              </ClipboardIconWrrapper>
             </CopyToClipboard>
           </HandleWrapper>
           <InputWrapper>
@@ -179,7 +204,7 @@ class RecordStorageHandleSlide extends Component<
                 this.state.storagePin === this.state.retypedStoragePin
                   ? this.save(this.state.storagePin)
                   : alert(
-                    "Your storage PINs do not match. Please type them again."
+                      "Your storage PINs do not match. Please type them again."
                     );
               }}
             >
