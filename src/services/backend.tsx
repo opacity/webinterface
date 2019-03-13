@@ -28,7 +28,7 @@ const checkStatus = hosts =>
       });
   });
 
-const createUser = ({
+const createAccount = ({
   accountId,
   storageLimit,
   durationInMonths,
@@ -48,5 +48,5 @@ const createUser = ({
 
 export default {
   checkStatus,
-  createUser
+  createAccount
 };
