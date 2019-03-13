@@ -41,19 +41,19 @@ class CreateAccount extends Component<CreateAccountProps, CreateAccountState> {
               }}
             />
           )}
-          {this.state.phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
+          {(this.state.phase === SIGNUP_PHASES.RECORD_STORAGE_PIN ||
+            (this.state.phase === SIGNUP_PHASES.SEND_PAYMENT && !invoice)) && (
             <RecordStorageHandleSlide
               handle={this.state.privateKey}
               setStoragePin={storagePin => {
                 const { privateKey } = this.state;
-                getInvoice({ privateKey, storagePin });
+                getInvoice(privateKey, storagePin);
                 this.setState({ phase: SIGNUP_PHASES.SEND_PAYMENT });
               }}
             />
           )}
-          {this.state.phase === SIGNUP_PHASES.SEND_PAYMENT && (
-            <SendPaymentSlide invoice={invoice} />
-          )}
+          {this.state.phase === SIGNUP_PHASES.SEND_PAYMENT &&
+            invoice && <SendPaymentSlide invoice={invoice} />}
           {this.state.phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
             <ConfirmPaymentSlide />
           )}

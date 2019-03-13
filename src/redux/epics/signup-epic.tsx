@@ -6,7 +6,7 @@ import signupActions from "../actions/signup-actions";
 import backend from "../../services/backend";
 
 const createAccountEpic = action$ =>
-  action$.ofType(signupActions.GET_INVOICE_PENDING).mergeMap(action => {
+  action$.ofType(signupActions.GET_INVOICE_PENDING).switchMap(action => {
     const { privateKey, storagePin } = action.payload;
 
     const md = forge.md.sha256.create();
