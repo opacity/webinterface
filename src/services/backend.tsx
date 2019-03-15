@@ -35,7 +35,7 @@ const createAccount = ({
   metadataKey
 }) =>
   axiosInstance
-    .post(`${API.BROKER_NODE_B}/api/v1/accounts`, {
+    .post(`http://18.188.230.212:3000/api/v1/accounts`, {
       accountId,
       storageLimit,
       durationInMonths,
@@ -46,7 +46,16 @@ const createAccount = ({
       return invoice;
     });
 
+const checkAccountPayment = ({ accountId }) =>
+  axiosInstance
+    .get(`http://18.188.230.212:3000/api/v1/accounts/${accountId}`)
+    .then(({ data }: any) => {
+      const { paid } = data;
+      return paid;
+    });
+
 export default {
   checkStatus,
-  createAccount
+  createAccount,
+  checkAccountPayment
 };

@@ -25,10 +25,33 @@ const createAccountEpic = action$ =>
         metadataKey
       })
     )
-      .map(invoice => signupActions.getInvoiceSuccess({ invoice }))
+      .map(invoice => signupActions.getInvoiceSuccess({ accountId, invoice }))
       .catch(error =>
         Observable.of(signupActions.getInvoiceFailure({ error }))
       );
   });
 
-export default combineEpics(createAccountEpic);
+const pollPaymentEpic = action$ =>
+  action$.ofType(signupActions.GET_INVOICE_SUCCESS).switchMap(action => {
+    const { accountId } = action.payload;
+
+    const INITIAL_DELAY_MS = 5000;
+    const PERIODIC_DELAY_MS = 5000;
+
+    return Observable.timer(INITIAL_DELAY_MS, PERIODIC_DELAY_MS)
+      .takeUntil(action$.ofType(signupActions.ACCOUNT_PAID_SUCCESS))
+      .mergeMap(() =>
+        Observable.fromPromise(
+          backend.checkAccountPayment({
+            accountId
+          })
+        )
+          .filter(paid => paid)
+          .map(invoice => signupActions.accountPaidSuccess())
+          .catch(error =>
+            Observable.of(signupActions.accountPaidFailure({ error }))
+          )
+      );
+  });
+
+export default combineEpics(createAccountEpic, pollPaymentEpic);
