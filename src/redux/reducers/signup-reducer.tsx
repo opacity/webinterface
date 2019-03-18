@@ -1,21 +1,22 @@
 import signupActions from "../actions/signup-actions";
-
-const PAYMENT_STATUSES = {
-  PENDING: "PENDING",
-  SUCCESS: "SUCCESS",
-  FAILURE: "FAILURE"
-};
+import { SIGNUP_PHASES } from "../../config";
 
 const initState = {
   invoice: null, // { cost, ethAddress }
-  paymentStatus: PAYMENT_STATUSES.PENDING
+  privateKey: null,
+  phase: SIGNUP_PHASES.RECORD_RECOVERY_PHRASE
 };
 
 const signupReducer = (state = initState, action) => {
   switch (action.type) {
+    case signupActions.SET_PRIVATE_KEY:
+      const { privateKey } = action.payload;
+      return { ...state, phase: SIGNUP_PHASES.RECORD_STORAGE_PIN, privateKey };
     case signupActions.GET_INVOICE_SUCCESS:
       const { invoice } = action.payload;
-      return { ...state, invoice, paymentStatus: PAYMENT_STATUSES.PENDING };
+      return { ...state, phase: SIGNUP_PHASES.SEND_PAYMENT, invoice };
+    case signupActions.ACCOUNT_PAID_SUCCESS:
+      return { ...state, phase: SIGNUP_PHASES.CONFIRM_PAYMENT };
 
     default:
       return state;

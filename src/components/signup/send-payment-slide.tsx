@@ -51,7 +51,7 @@ const Bold = styled.span`
   font-weight: bold;
 `;
 
-const SendPaymentSlide = ({ invoice: { ethAddress, cost } }) => (
+const SendPaymentSlide = ({ invoice: { ethAddress, cost }, openMetamask }) => (
   <ThemeProvider theme={theme}>
     <ContentBox>
       <Title>Send Payment</Title>
@@ -69,7 +69,9 @@ const SendPaymentSlide = ({ invoice: { ethAddress, cost } }) => (
       </ImportantWrapper>
       {Metamask.isInstalled && (
         <PaymentWrapper>
-          <MetamaskButton onClick={() => {}} />
+          <MetamaskButton
+            onClick={() => openMetamask({ ethAddress, cost, gasPrice: 20 })}
+          />
         </PaymentWrapper>
       )}
       <div>
