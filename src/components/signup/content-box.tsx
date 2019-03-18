@@ -8,6 +8,7 @@ export default styled.div`
   max-width: 452px;
   padding: 20px 120px;
   width: 100%;
+  min-height: 292px;
 
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     padding: 20px;
