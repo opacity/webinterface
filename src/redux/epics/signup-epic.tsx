@@ -42,11 +42,11 @@ const pollPaymentEpic = action$ =>
       .takeUntil(action$.ofType(signupActions.ACCOUNT_PAID_SUCCESS))
       .mergeMap(() =>
         Observable.fromPromise(
-          backend.checkAccountPayment({
+          backend.isAccountPaid({
             accountId
           })
         )
-          .filter(paid => paid)
+          .filter(isPaid => isPaid)
           .map(invoice => signupActions.accountPaidSuccess())
           .catch(error =>
             Observable.of(signupActions.accountPaidFailure({ error }))

@@ -2,6 +2,10 @@ import axios from "axios";
 
 import { API, IS_DEV } from "../config";
 
+enum PAYMENT_STATUSES {
+  PAID = "paid"
+}
+
 const axiosInstance = axios.create({ timeout: 200000 });
 
 const checkStatus = hosts =>
@@ -46,16 +50,16 @@ const createAccount = ({
       return invoice;
     });
 
-const checkAccountPayment = ({ accountId }) =>
+const isAccountPaid = ({ accountId }) =>
   axiosInstance
     .get(`http://18.188.230.212:3000/api/v1/accounts/${accountId}`)
     .then(({ data }: any) => {
-      const { paid } = data;
-      return paid;
+      const { paymentStatus } = data;
+      return paymentStatus === PAYMENT_STATUSES.PAID;
     });
 
 export default {
   checkStatus,
   createAccount,
-  checkAccountPayment
+  isAccountPaid
 };
