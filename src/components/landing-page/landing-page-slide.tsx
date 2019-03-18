@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { theme, DESKTOP_WIDTH } from "../../config";
+import { MOBILE_WIDTH, theme } from "../../config";
 import Subscription from "../shared/subscription";
 
 const ICON_CREDIT = require("../../assets/images/credit.svg");
@@ -21,10 +21,6 @@ const Container = styled.div`
   max-width: 950px;
   margin: auto;
   background-color: ${props => props.theme.background};
-
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
-    padding: 25px 35px;
-  }
 `;
 
 const SubscriptionContainer = styled(Container)`
@@ -35,26 +31,42 @@ const Header = styled.div`
   width: auto;
   background-color: #2e6dde;
   padding: 40px 0 70px 0;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    padding: 85px 0 140px 0;
+  }
 `;
 
 const FlexContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 60px 0 40px 0;
-  @media (max-width: ${DESKTOP_WIDTH}px) {
+  @media (max-width: ${MOBILE_WIDTH}px) {
     display: block;
+  }
+`;
+const FlexContainerReverse = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 60px 0 40px 0;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    flex-direction: column-reverse;
+  }
+`;
+
+const FlexWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    display: grid;
   }
 `;
 
 const Collum = styled.div`
-  width: 100%;
   padding-top: 15px;
-  margin-inline-end: 10px;
 `;
 
 const Item = styled.div`
   padding-top: 15px;
-  margin-inline-end: 10px;
 `;
 
 const Button = styled.button`
@@ -68,17 +80,26 @@ const Button = styled.button`
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.button.color};
   background-color: #2e6dde;
-  text-align: center;
-  margin: auto;
   border: 1px solid white;
   cursor: pointer;
   margin-right: 10px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 180px;
+  }
 `;
 
 const ButtonSecondary = styled(Button)`
-  margin-left: 10px;
   background-color: white;
   color: #2e6dde;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin-top: 30px;
+  }
+`;
+
+const ButtonItem = styled(Button)`
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 250px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -88,16 +109,30 @@ const Wrapper = styled.div`
 const ContentWrapper = styled.div`
   width: 470px;
   margin: auto;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 300px;
+  }
+`;
+
+const ItemButtonWrapper = styled.div`
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    text-align: center;
+    margin-bottom: 40px;
+  }
 `;
 
 const Icon = styled.img``;
 
 const BenefitIcon = styled.img`
-  height: 80%;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 100%;
+  }
 `;
 
 const ItemIcon = styled.img`
-  witdh: 70%;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.h1`
@@ -109,6 +144,9 @@ const Title = styled.h1`
   line-height: normal;
   letter-spacing: normal;
   color: white;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    font-size: 24px;
+  }
 `;
 
 const H2 = styled.h2`
@@ -132,10 +170,14 @@ const InfoTitle = styled(H2)`
   font-size: 18px;
   color: ${props => props.theme.title.color};
   text-align: left;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    text-align: center;
+  }
 `;
 
 const ItemTitle = styled(H2)`
   font-size: 16px;
+  font-weight: 600;
   color: ${props => props.theme.title.color};
 `;
 
@@ -163,6 +205,7 @@ const P = styled.p`
   color: black;
   text-align: left;
   font-size: 12px;
+  margin-inline-end: 10px;
 `;
 
 const BenefitContent = styled(P)`
@@ -173,6 +216,9 @@ const ItemContent = styled(P)`
   text-align: center;
   width: 170px;
   margin: auto;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin-bottom: 50px;
+  }
 `;
 
 const Content = styled(P)`
@@ -192,6 +238,10 @@ const SubscriptionContent = styled(P)`
 const InfoContent = styled(P)`
   width: 330px;
   padding-bottom: 10px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin: auto;
+    width: 250px;
+  }
 `;
 
 const InfoHeaderContent = styled(P)`
@@ -199,6 +249,10 @@ const InfoHeaderContent = styled(P)`
   font-size: 16px;
   width: 680px;
   margin: auto;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 275px;
+    font-size: 12px;
+  }
 `;
 
 const LandingPageSlide = () => (
@@ -214,8 +268,10 @@ const LandingPageSlide = () => (
           </Content>
         </ContentWrapper>
         <Wrapper>
-          <Button>Try for free</Button>
-          <ButtonSecondary>Sign up</ButtonSecondary>
+          <FlexWrapper>
+            <Button>Try for free</Button>
+            <ButtonSecondary>Sign up</ButtonSecondary>
+          </FlexWrapper>
         </Wrapper>
       </Header>
       <Container>
@@ -246,8 +302,8 @@ const LandingPageSlide = () => (
             </Wrapper>
             <ItemTitle>No Personal Info Required</ItemTitle>
             <ItemContent>
-              We will never ask for any personal information. No email, no
-              contact, nothing.
+              Using the <b>OPQ token</b>, you can pay for your storage needs
+              without ever having to use a credit card.
             </ItemContent>
           </Collum>
         </FlexContainer>
@@ -268,7 +324,7 @@ const LandingPageSlide = () => (
             </BenefitContent>
           </Collum>
         </FlexContainer>
-        <FlexContainer>
+        <FlexContainerReverse>
           <Collum>
             <BenefitTitle>Your Handle Your Rules.</BenefitTitle>
             <BenefitContent>
@@ -284,7 +340,7 @@ const LandingPageSlide = () => (
           <Collum>
             <BenefitIcon src={ICON_BENEFIT_HANDLE} />
           </Collum>
-        </FlexContainer>
+        </FlexContainerReverse>
       </Container>
       <SubscriptionContainer>
         <SubscriptionTitle>Our Plans</SubscriptionTitle>
@@ -309,7 +365,9 @@ const LandingPageSlide = () => (
               contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
               massa vestibulum, vestibulum
             </InfoContent>
-            <Button>Learn more</Button>
+            <ItemButtonWrapper>
+              <ButtonItem>Learn more</ButtonItem>
+            </ItemButtonWrapper>
           </Item>
           <Item>
             <ItemIcon src={ICON_INFO_BENEFIT} />
@@ -319,7 +377,9 @@ const LandingPageSlide = () => (
               contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
               massa vestibulum, vestibulum
             </InfoContent>
-            <Button>Learn more</Button>
+            <ItemButtonWrapper>
+              <ButtonItem>Learn more</ButtonItem>
+            </ItemButtonWrapper>
           </Item>
         </FlexContainer>
         <FlexContainer>
@@ -331,7 +391,9 @@ const LandingPageSlide = () => (
               contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
               massa vestibulum, vestibulum
             </InfoContent>
-            <Button>Learn more</Button>
+            <ItemButtonWrapper>
+              <ButtonItem>Learn more</ButtonItem>
+            </ItemButtonWrapper>
           </Item>
           <Item>
             <ItemIcon src={ICON_INFO_CRYPTOCUREENCY} />
@@ -341,7 +403,9 @@ const LandingPageSlide = () => (
               contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
               massa vestibulum, vestibulum
             </InfoContent>
-            <Button>Learn more</Button>
+            <ItemButtonWrapper>
+              <ButtonItem>Learn more</ButtonItem>
+            </ItemButtonWrapper>
           </Item>
         </FlexContainer>
       </Container>
