@@ -36,7 +36,7 @@ const Header = styled.div`
   }
 `;
 
-const FlexContainer = styled.div`
+const SubContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 60px 0 40px 0;
@@ -44,7 +44,7 @@ const FlexContainer = styled.div`
     display: block;
   }
 `;
-const FlexContainerReverse = styled.div`
+const BenefitContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 60px 0 40px 0;
@@ -53,7 +53,7 @@ const FlexContainerReverse = styled.div`
   }
 `;
 
-const FlexWrapper = styled.div`
+const HeaderWrapper = styled.div`
   display: flex;
   justify-content: center;
   @media (max-width: ${MOBILE_WIDTH}px) {
@@ -61,7 +61,7 @@ const FlexWrapper = styled.div`
   }
 `;
 
-const Collum = styled.div`
+const Column = styled.div`
   padding-top: 15px;
 `;
 
@@ -195,7 +195,7 @@ const BenefitTitle = styled(H2)`
   margin: 35px 35px 0 35px;
 `;
 
-const P = styled.p`
+const Paragraph = styled.p`
   font-weight: 500;
   font-weight: ${props => props.theme.fontWeight};
   font-style: ${props => props.theme.fontStyle};
@@ -208,11 +208,11 @@ const P = styled.p`
   margin-inline-end: 10px;
 `;
 
-const BenefitContent = styled(P)`
+const BenefitContent = styled(Paragraph)`
   margin: 25px 35px 0 35px;
 `;
 
-const ItemContent = styled(P)`
+const ItemContent = styled(Paragraph)`
   text-align: center;
   width: 170px;
   margin: auto;
@@ -221,7 +221,7 @@ const ItemContent = styled(P)`
   }
 `;
 
-const Content = styled(P)`
+const Content = styled(Paragraph)`
   font-size: 14px;
   letter-spacing: ${props => props.theme.letterSpacing};
   color: white;
@@ -229,13 +229,13 @@ const Content = styled(P)`
   padding-bottom: 40px;
 `;
 
-const SubscriptionContent = styled(P)`
+const SubscriptionContent = styled(Paragraph)`
   font-size: 14px;
   text-align: center;
   padding-bottom: 10px;
 `;
 
-const InfoContent = styled(P)`
+const InfoContent = styled(Paragraph)`
   width: 330px;
   padding-bottom: 10px;
   @media (max-width: ${MOBILE_WIDTH}px) {
@@ -244,7 +244,7 @@ const InfoContent = styled(P)`
   }
 `;
 
-const InfoHeaderContent = styled(P)`
+const InfoHeaderContent = styled(Paragraph)`
   text-align: center;
   font-size: 16px;
   width: 680px;
@@ -268,15 +268,15 @@ const LandingPageSlide = () => (
           </Content>
         </ContentWrapper>
         <Wrapper>
-          <FlexWrapper>
+          <HeaderWrapper>
             <Button>Try for free</Button>
             <ButtonSecondary>Sign up</ButtonSecondary>
-          </FlexWrapper>
+          </HeaderWrapper>
         </Wrapper>
       </Header>
       <Container>
-        <FlexContainer>
-          <Collum>
+        <SubContainer>
+          <Column>
             <Wrapper>
               <Icon src={ICON_CREDIT} />
             </Wrapper>
@@ -285,8 +285,8 @@ const LandingPageSlide = () => (
               We will never ask for any personal information. No email, no
               contact, nothing.
             </ItemContent>
-          </Collum>
-          <Collum>
+          </Column>
+          <Column>
             <Wrapper>
               <Icon src={ICON_SHARE_FILE} />
             </Wrapper>
@@ -295,8 +295,8 @@ const LandingPageSlide = () => (
               We will never ask for any personal information. No email, no
               contact, nothing.
             </ItemContent>
-          </Collum>
-          <Collum>
+          </Column>
+          <Column>
             <Wrapper>
               <Icon src={ICON_PAY_CURRENCY} />
             </Wrapper>
@@ -305,13 +305,13 @@ const LandingPageSlide = () => (
               Using the <b>OPQ token</b>, you can pay for your storage needs
               without ever having to use a credit card.
             </ItemContent>
-          </Collum>
-        </FlexContainer>
-        <FlexContainer>
-          <Collum>
+          </Column>
+        </SubContainer>
+        <SubContainer>
+          <Column>
             <BenefitIcon src={ICON_BENEFIT_FILES} />
-          </Collum>
-          <Collum>
+          </Column>
+          <Column>
             <BenefitTitle>Your Files. Safe and Secure.</BenefitTitle>
             <BenefitContent>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
@@ -322,10 +322,10 @@ const LandingPageSlide = () => (
               sed. Ut non elit tellus. Integer quis felis eget tortor interdum
               vulputate a ac dolor. Nullam tempus nisi ut magna
             </BenefitContent>
-          </Collum>
-        </FlexContainer>
-        <FlexContainerReverse>
-          <Collum>
+          </Column>
+        </SubContainer>
+        <BenefitContainer>
+          <Column>
             <BenefitTitle>Your Handle Your Rules.</BenefitTitle>
             <BenefitContent>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
@@ -336,11 +336,11 @@ const LandingPageSlide = () => (
               sed. Ut non elit tellus. Integer quis felis eget tortor interdum
               vulputate a ac dolor. Nullam tempus nisi ut magna
             </BenefitContent>
-          </Collum>
-          <Collum>
+          </Column>
+          <Column>
             <BenefitIcon src={ICON_BENEFIT_HANDLE} />
-          </Collum>
-        </FlexContainerReverse>
+          </Column>
+        </BenefitContainer>
       </Container>
       <SubscriptionContainer>
         <SubscriptionTitle>Our Plans</SubscriptionTitle>
@@ -356,7 +356,7 @@ const LandingPageSlide = () => (
           we get that. Check some of the links below for more information about
           Opacity, and why it is the right choice for you or your company.
         </InfoHeaderContent>
-        <FlexContainer>
+        <SubContainer>
           <Item>
             <ItemIcon src={ICON_INFO_OPACITY} />
             <InfoTitle>No Personal Info Required</InfoTitle>
@@ -381,8 +381,8 @@ const LandingPageSlide = () => (
               <ButtonItem>Learn more</ButtonItem>
             </ItemButtonWrapper>
           </Item>
-        </FlexContainer>
-        <FlexContainer>
+        </SubContainer>
+        <SubContainer>
           <Item>
             <ItemIcon src={ICON_INFO_PERSONAL} />
             <InfoTitle>No Personal Info Required</InfoTitle>
@@ -407,7 +407,7 @@ const LandingPageSlide = () => (
               <ButtonItem>Learn more</ButtonItem>
             </ItemButtonWrapper>
           </Item>
-        </FlexContainer>
+        </SubContainer>
       </Container>
     </ContainerWrapper>
   </ThemeProvider>
