@@ -20,6 +20,10 @@ const IOTA_PROVIDERS = IS_DEV
     ["18.222.173.29", "18.188.230.212"]
   : [PROD_IOTA_1, PROD_IOTA_2];
 
+const DEFAULT_BROKER_IP = IS_DEV
+  ? "18.188.230.212"
+  : "broker-1.opacitynodes.com";
+
 const BROKERS = IS_DEV
   ? ["18.222.173.29", "18.188.230.212"] // Rebel brokers
   : // ["52.14.218.135", "18.217.133.146"] // QA brokers
@@ -41,8 +45,10 @@ const [PROVIDER_1, PROVIDER_2] = randInstance(IOTA_PROVIDERS);
 export const API = Object.freeze({
   BROKER_NODE_A: `${PROTOCOL}://${ALPHA_IP}`,
   BROKER_NODE_B: `${PROTOCOL}://${BETA_IP}`,
+  DEFAULT_BROKER: `${PROTOCOL}://${DEFAULT_BROKER_IP}`,
   V2_UPLOAD_SESSIONS_PATH: ":3000/api/v2/upload-sessions",
   V2_STATUS_PATH: ":3000/api/v2/status",
+  V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",
   GAS_PRICE: "https://api.blockcypher.com/v1/eth/main",
   CHUNKS_PER_REQUEST: 10
 });
