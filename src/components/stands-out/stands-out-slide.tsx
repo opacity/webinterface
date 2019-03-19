@@ -6,10 +6,10 @@ import { DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 const ICON_INTRO = require("../../assets/images/intro.svg");
 const ICON_ACCESS_ACCOUNT = require("../../assets/images/access_account.svg");
 const ICON_ENCRYPTED = require("../../assets/images/encrypted.svg");
-const ICON_LASTPASS = require("../../assets/images/last_pass.png");
-const ICON_1PASSWORD = require("../../assets/images/1password.png");
-const ICON_KEEPASS = require("../../assets/images/kee_pass.png");
-const ICON_BIT = require("../../assets/images/bit.png");
+const ICON_LASTPASS = require("../../assets/images/last_pass.svg");
+const ICON_1PASSWORD = require("../../assets/images/1password.svg");
+const ICON_KEEPASS = require("../../assets/images/kee_pass.svg");
+const ICON_BIT = require("../../assets/images/bit.svg");
 
 const ContainerWrapper = styled.div``;
 
@@ -25,7 +25,7 @@ const Title = styled.h1`
   margin-top: 100px;
 `;
 
-const H2 = styled.h2`
+const HeaderTitle = styled.h2`
   font-size: 22px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
@@ -37,23 +37,23 @@ const H2 = styled.h2`
   margin-bottom: 20px;
 `;
 
-const TitleFunction = styled(H2)`
+const TitleFunction = styled(HeaderTitle)`
   font-size: 18px;
   margin: 52px 20px 26px 50px;
   width: 230px;
   text-align: left;
 `;
 
-const RecommendTitle = styled(H2)`
+const RecommendTitle = styled(HeaderTitle)`
   font-size: 18px;
   margin-bottom: 20px;
 `;
 
-const FooterTitle = styled(H2)`
+const FooterTitle = styled(HeaderTitle)`
   margin-top: 80px;
 `;
 
-const P = styled.p`
+const Paragraph = styled.p`
   font-size: 14px;
   font-weight: 500;
   font-style: normal;
@@ -64,14 +64,14 @@ const P = styled.p`
   text-align: center;
 `;
 
-const StorageSmallContent = styled(P)`
+const StorageSmallContent = styled(Paragraph)`
   font-size: 10px;
   color: #4f5e78;
   text-align: right;
   opacity: 0.7;
 `;
 
-const StorageSignUpContent = styled(P)`
+const StorageSignUpContent = styled(Paragraph)`
   font-size: 14px;
   text-align: left;
   color: #4f5e78;
@@ -82,7 +82,7 @@ const StorageSignUpContent = styled(P)`
   }
 `;
 
-const InfoContent = styled(P)`
+const InfoContent = styled(Paragraph)`
   text-align: left;
   color: #5c6a82;
   margin: 30px 0;
@@ -99,11 +99,11 @@ const FunctionContent = styled(InfoContent)`
   margin: 0 50px;
 `;
 
-const Content = styled(P)`
+const Content = styled(Paragraph)`
   font-size: 12px;
 `;
 
-const StorageContent = styled(P)`
+const StorageContent = styled(Paragraph)`
   font-size: 16px;
 `;
 
@@ -116,7 +116,7 @@ const Container = styled.div`
   }
 `;
 
-const FlexContainer = styled.div`
+const SubContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0 0 85px 0;
@@ -125,20 +125,20 @@ const FlexContainer = styled.div`
   }
 `;
 
-const FooterFlexContainer = styled(FlexContainer)`
+const FooterContainer = styled(SubContainer)`
   justify-content: space-evenly;
   margin: 100px 0;
 `;
 
-const FlexPasswordManager = styled(FlexContainer)`
+const PasswordManager = styled(SubContainer)`
   margin: 50px 0 150px 0;
 `;
 
-const FooterCollum = styled.div`
+const FooterColumn = styled.div`
   display: flex;
 `;
 
-const Collum = styled.div`
+const Column = styled.div`
   padding-top: 15px;
   @media (max-width: ${DESKTOP_WIDTH}px) {
     width: 100%;
@@ -152,7 +152,7 @@ const Collum = styled.div`
   }
 `;
 
-const CollumPasswordManager = styled(Collum)`
+const ColumnPasswordManager = styled(Column)`
   height: 200px;
   width: 200px;
 `;
@@ -304,23 +304,23 @@ const SubscriptionSlide = () => (
       <Container>
         <Title>With Opacity, You’re in Full Control</Title>
         <ContentWrapper>
-          <P>
+          <Paragraph>
             Unlike other storage solutions, Opacity relies on client-side
             encryption to ensure that you, and only you have access to your
             files. Our backend services keep zero knowledge regarding your file
             uploads.
-          </P>
+          </Paragraph>
         </ContentWrapper>
         <IconWrapper>
           <Icon src={ICON_INTRO} />
         </IconWrapper>
       </Container>
       <Container>
-        <FlexContainer>
-          <Collum>
+        <SubContainer>
+          <Column>
             <FunctionIcon src={ICON_ACCESS_ACCOUNT} />
-          </Collum>
-          <Collum>
+          </Column>
+          <Column>
             <TitleFunction>One Handle To Access Your Account.</TitleFunction>
             <FunctionContent>
               When you sign up with Opacity, a unique Storage Handle is
@@ -330,10 +330,10 @@ const SubscriptionSlide = () => (
               record your storage handle and password to avoid losing access to
               your account.
             </FunctionContent>
-          </Collum>
-        </FlexContainer>
-        <FlexContainer>
-          <Collum>
+          </Column>
+        </SubContainer>
+        <SubContainer>
+          <Column>
             <TitleFunction>
               Encrypted At Rest. Share Only What You Want.
             </TitleFunction>
@@ -345,11 +345,11 @@ const SubscriptionSlide = () => (
               your file, giving you granular control over who has access to your
               files.
             </FunctionContent>
-          </Collum>
-          <Collum>
+          </Column>
+          <Column>
             <FunctionIcon src={ICON_ENCRYPTED} />
-          </Collum>
-        </FlexContainer>
+          </Column>
+        </SubContainer>
       </Container>
       <Container>
         <RecommendTitle>Password Manager Recommended</RecommendTitle>
@@ -367,20 +367,20 @@ const SubscriptionSlide = () => (
             solutions below:
           </Content>
         </RecommendContentWrapper>
-        <FlexPasswordManager>
-          <CollumPasswordManager>
+        <PasswordManager>
+          <ColumnPasswordManager>
             <IconPasswordManager src={ICON_LASTPASS} />
-          </CollumPasswordManager>
-          <CollumPasswordManager>
+          </ColumnPasswordManager>
+          <ColumnPasswordManager>
             <IconPasswordManager src={ICON_1PASSWORD} />
-          </CollumPasswordManager>
-          <CollumPasswordManager>
+          </ColumnPasswordManager>
+          <ColumnPasswordManager>
             <IconPasswordManager src={ICON_KEEPASS} />
-          </CollumPasswordManager>
-        </FlexPasswordManager>
+          </ColumnPasswordManager>
+        </PasswordManager>
       </Container>
       <Container>
-        <H2>Best Bang For Your Buck.</H2>
+        <HeaderTitle>Best Bang For Your Buck.</HeaderTitle>
         <StorageContent>
           See How Opacity compares to other storage providers .
         </StorageContent>
@@ -430,9 +430,9 @@ const SubscriptionSlide = () => (
         </StorageSignUpContent>
       </Container>
       <Container>
-        <H2>Transparent Code Base</H2>
-        <FlexContainer>
-          <Collum>
+        <HeaderTitle>Transparent Code Base</HeaderTitle>
+        <SubContainer>
+          <Column>
             <InfoIcon src={ICON_KEEPASS} />
             <InfoContent>
               Wondering how things work? Take a peek under the hood! All of
@@ -440,8 +440,8 @@ const SubscriptionSlide = () => (
               how our system works.
             </InfoContent>
             <Button>Explore our code</Button>
-          </Collum>
-          <Collum>
+          </Column>
+          <Column>
             <InfoIcon src={ICON_KEEPASS} />
             <InfoContent>
               Want an overview of Opacity, its current architecture, and where
@@ -449,15 +449,15 @@ const SubscriptionSlide = () => (
               Current version: 1.0
             </InfoContent>
             <Button>Read our whitepaper</Button>
-          </Collum>
-        </FlexContainer>
+          </Column>
+        </SubContainer>
       </Container>
       <Footer>
         <FooterTitle>Are you ready to join our thriving community?</FooterTitle>
-        <FooterFlexContainer>
+        <FooterContainer>
           <FooterWrapper>
             <FooterContent>Number of Unique Opacity Accounts</FooterContent>
-            <FooterCollum>
+            <FooterColumn>
               <Input />
               <Input />
               <Input />
@@ -467,11 +467,11 @@ const SubscriptionSlide = () => (
               <Input />
               <Input />
               <Input />
-            </FooterCollum>
+            </FooterColumn>
           </FooterWrapper>
           <FooterWrapper>
             <FooterContent>Files Uploaded to Opacity</FooterContent>
-            <FooterCollum>
+            <FooterColumn>
               <Input />
               <Input />
               <Input />
@@ -481,9 +481,9 @@ const SubscriptionSlide = () => (
               <Input />
               <Input />
               <Input />
-            </FooterCollum>
+            </FooterColumn>
           </FooterWrapper>
-        </FooterFlexContainer>
+        </FooterContainer>
         <ButtonWrapper>
           <FooterButton>Try for free</FooterButton>{" "}
           <FooterButton>Sign up</FooterButton>
