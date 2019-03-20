@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { theme, DESKTOP_WIDTH } from "../../config";
+import { theme, MOBILE_WIDTH } from "../../config";
 
 const ICON_JASON = require("../../assets/images/credit.svg");
 const ICON_TAYLOR = require("../../assets/images/credit.svg");
@@ -41,27 +41,39 @@ const Container = styled.div`
   max-width: 950px;
   margin: auto;
   background-color: ${props => props.theme.background};
+  padding-bottom: 20px;
 `;
 
 const Header = styled.div`
   width: auto;
-  background-color: #2e6dde;
+  background-color: ;
   padding: 70px 0 70px 0;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    padding: 70px 0 0px 0;
+  }
 `;
 
 const PeopleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 40px 0 40px 0;
-  @media (max-width: ${DESKTOP_WIDTH}px) {
-    display: block;
+  display: grid;
+  grid-gap: 100px;
+  grid-template-rows: repeat(3, 0.5fr);
+  grid-template-columns: repeat(3, 1fr);
+  @media only screen and (max-width: 1020px) {
+    grid-gap: 50px;
+  }
+  @media only screen and (max-width: 750px) {
+    grid-gap: 20px;
+  }
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    grid-template-rows: repeat(9, 0.5fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 
 const PeopleWrapper = styled.div`
-  width: 100%;
-  padding-top: 15px;
-  margin-inline-end: 10px;
+  border: solid 0.5px #acb3bf;
+  padding: 30px 0;
+  margin: auto;
 `;
 
 const Wrapper = styled.div`
@@ -71,9 +83,15 @@ const Wrapper = styled.div`
 const ContentWrapper = styled.div`
   width: 470px;
   margin: auto;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    width: auto;
+  }
 `;
 
-const Icon = styled.img``;
+const Icon = styled.img`
+  width: 70px;
+  height: 70px;
+`;
 
 const Title = styled.h1`
   font-size: 32px;
@@ -83,19 +101,19 @@ const Title = styled.h1`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: white;
+  color: #2e6dde;
 `;
 
 const PersonTitle = styled.h2`
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
-  letter-spacing: 0.7px;
+  letter-spacing: normal;
   color: black;
   text-align: center;
   color: ${props => props.theme.title.color};
+  font-weight: bold;
 `;
 
 const Parapraph = styled.p`
@@ -106,21 +124,25 @@ const Parapraph = styled.p`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: 0.7px;
   color: black;
-  text-align: left;
+  text-align: center;
   font-size: 12px;
 `;
 
 const PersonRole = styled(Parapraph)`
-  text-align: center;
+  font-size: 10px;
   width: 170px;
   margin: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.3px;
+  color: #4f5e78;
 `;
 
 const Content = styled(Parapraph)`
   font-size: 14px;
   letter-spacing: ${props => props.theme.letterSpacing};
-  color: white;
-  text-align: center;
   padding-bottom: 40px;
 `;
 
@@ -130,12 +152,12 @@ const TeamPageSlide = () => (
       <Header>
         <Title>Meet the Team</Title>
         <ContentWrapper>
-          <Content>Meet the grat people behind Opacity.</Content>
+          <Content>Meet the great people behind Opacity.</Content>
         </ContentWrapper>
       </Header>
       <Container>
         <PeopleContainer>
-          {_.map(people, person => (
+          {_.map(people, (person, i) => (
             <PeopleWrapper>
               <Wrapper>
                 <Icon src={person.icon} />
