@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
+import { MOBILE_WIDTH, theme } from "../../config";
 
 const ICON_INTRO = require("../../assets/images/intro.svg");
 const ICON_ACCESS_ACCOUNT = require("../../assets/images/access_account.svg");
@@ -23,6 +23,11 @@ const Title = styled.h1`
   color: ${props => props.theme.title.color};
   text-align: center;
   margin-top: 100px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    text-align: left;
+    font-size: 23px;
+    padding: 0 40px;
+  }
 `;
 
 const HeaderTitle = styled.h2`
@@ -42,11 +47,20 @@ const TitleFunction = styled(HeaderTitle)`
   margin: 52px 20px 26px 50px;
   width: 230px;
   text-align: left;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    font-size: 22px;
+    text-align: left;
+    margin: 40px 20px 26px 40px;
+  }
 `;
 
 const RecommendTitle = styled(HeaderTitle)`
   font-size: 18px;
   margin-bottom: 20px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    padding: 0 40px;
+    font-size: 22px;
+  }
 `;
 
 const FooterTitle = styled(HeaderTitle)`
@@ -69,6 +83,9 @@ const StorageSmallContent = styled(Paragraph)`
   color: #4f5e78;
   text-align: right;
   opacity: 0.7;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    padding: 0 20px;
+  }
 `;
 
 const StorageSignUpContent = styled(Paragraph)`
@@ -80,6 +97,10 @@ const StorageSignUpContent = styled(Paragraph)`
     font-weight: bold;
     color: #2e6dde;
   }
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin-bottom: 50px;
+    padding: 0 20px;
+  }
 `;
 
 const InfoContent = styled(Paragraph)`
@@ -87,16 +108,28 @@ const InfoContent = styled(Paragraph)`
   color: #5c6a82;
   margin: 30px 0;
   width: 400px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: auto;
+    height: auto;
+    padding: 0 25px;
+  }
 `;
 
 const FooterContent = styled(InfoContent)`
   color: #5c6a82;
   font-size: 18px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    font-size: 16px;
+  }
 `;
 
 const FunctionContent = styled(InfoContent)`
   font-size: 12px;
   margin: 0 50px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: auto;
+    margin: 0px;
+  }
 `;
 
 const Content = styled(Paragraph)`
@@ -105,56 +138,60 @@ const Content = styled(Paragraph)`
 
 const StorageContent = styled(Paragraph)`
   font-size: 16px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    padding: 0 20px;
+  }
 `;
 
 const Container = styled.div`
   max-width: 950px;
   margin: auto;
   background-color: ${props => props.theme.background};
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
-    padding: 25px 35px;
-  }
 `;
 
 const SubContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0 0 85px 0;
-  @media (max-width: ${DESKTOP_WIDTH}px) {
+  @media (max-width: ${MOBILE_WIDTH}px) {
     display: block;
+    margin: 0 0 55px 0;
   }
 `;
 
 const FooterContainer = styled(SubContainer)`
   justify-content: space-evenly;
   margin: 100px 0;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin: 60px 0;
+  }
 `;
 
 const PasswordManager = styled(SubContainer)`
   margin: 50px 0 150px 0;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin: 50px 0 50px 0;
+  }
 `;
 
 const FooterColumn = styled.div`
   display: flex;
+  padding: 0 25px;
 `;
 
 const Column = styled.div`
   padding-top: 15px;
-  @media (max-width: ${DESKTOP_WIDTH}px) {
-    width: 100%;
-    border-bottom: 1px solid #8faacc;
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    height: 230px;
-  }
 `;
 
 const ColumnPasswordManager = styled(Column)`
   height: 200px;
   width: 200px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    margin: auto;
+  }
 `;
 
 const Footer = styled.div`
@@ -162,8 +199,9 @@ const Footer = styled.div`
   height: 550px;
   background-color: #e0edff;
   padding-top: 15px;
-  @media (max-width: ${DESKTOP_WIDTH}px) {
-    width: 100%;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    height: auto;
+    padding-bottom: 25px;
   }
 `;
 
@@ -182,11 +220,18 @@ const ButtonWrapper = styled.div`
 const ContentWrapper = styled.div`
   width: 450px;
   margin: auto;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: auto;
+    padding: 0 25px;
+  }
 `;
 
 const RecommendContentWrapper = styled.div`
   width: 400px;
   margin: auto;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: auto;
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -194,6 +239,10 @@ const IconWrapper = styled.div`
   margin: auto;
   margin-top: 50px;
   margin-bottom: 180px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: auto;
+    margin-bottom: 80px;
+  }
 `;
 
 const FooterWrapper = styled.div``;
@@ -213,19 +262,44 @@ const Button = styled.button`
   margin: auto;
   border: 1px solid white;
   cursor: pointer;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: -webkit-fill-available;
+    margin: 0 25px;
+  }
 `;
 
 const FooterButton = styled(Button)`
   width: 160px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: -webkit-fill-available;
+    margin-bottom: 20px;
+  }
 `;
 
 const Icon = styled.img`
   height: 300px;
   width: 550px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const FunctionIcon = styled.img`
   width: 475px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    display: none;
+  }
+`;
+
+const FunctionIconMobile = styled(FunctionIcon)`
+  display: none;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 25px 0;
+  }
 `;
 
 const IconPasswordManager = styled.img`
@@ -237,6 +311,11 @@ const InfoIcon = styled.img`
   width: 400px;
   height: 160px;
   margin-top: 60px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 100%;
+    height: auto;
+    margin-top: 30px;
+  }
 `;
 
 const TableIcon = styled.img`
@@ -255,19 +334,19 @@ const Table = styled.table`
   tbody tr:nth-child(1) {
     opacity: 1;
   }
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin-top: 0px;
+    padding: 0 20px;
+  }
 `;
 
 const Tr = styled.tr`
   @media (max-width: ${MOBILE_WIDTH}px) {
-    th:nth-child(3),
-    th:nth-child(4),
-    td:nth-child(3),
-    td:nth-child(4) {
-      display: none;
-    }
     th:nth-child(2),
-    td:nth-child(2) {
-      width: 95%;
+    th:nth-child(5),
+    td:nth-child(2),
+    td:nth-child(5) {
+      display: none;
     }
   }
 `;
@@ -322,6 +401,7 @@ const SubscriptionSlide = () => (
           </Column>
           <Column>
             <TitleFunction>One Handle To Access Your Account.</TitleFunction>
+            <FunctionIconMobile src={ICON_ACCESS_ACCOUNT} />
             <FunctionContent>
               When you sign up with Opacity, a unique Storage Handle is
               generated. This Handle and a user-chosen password is what is
@@ -337,6 +417,7 @@ const SubscriptionSlide = () => (
             <TitleFunction>
               Encrypted At Rest. Share Only What You Want.
             </TitleFunction>
+            <FunctionIconMobile src={ICON_ENCRYPTED} />
             <FunctionContent>
               The key to decrypting your files is generated client-side, so not
               even Opacity can access your files. When you want to share a file
