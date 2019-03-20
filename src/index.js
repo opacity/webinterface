@@ -19,7 +19,7 @@ import DownloadComplete from "./components/download-complete";
 import DownloadUploadHistory from "./components/download-upload-history";
 import FileManager from "./components/file-manager";
 import LandingPage from "./components/landing-page";
-import LoginOrRegister from "./components/login-or-register";
+// import LoginOrRegister from "./components/login-or-register";
 import UploadForm from "./components/upload-form";
 import UploadStarted from "./components/upload-started";
 import UploadProgress from "./components/upload-progress";
@@ -28,8 +28,8 @@ import RetrievingInvoice from "./components/retrieving-invoice";
 import PaymentInvoice from "./components/payment-invoice";
 import PaymentConfirm from "./components/payment-confirm";
 import PageNavigationPrompt from "./components/page-navigation-prompt";
-import Subscription from "./components/subscription";
-import Signup from "./components/signup";
+// import Subscription from "./components/subscription";
+// import Signup from "./components/signup";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -87,9 +87,6 @@ const App = () => (
             )}
           </SubRoute>
 
-            <Route path="/subscription" component={Subscription} />
-            <Route path="/sign-up" component={Signup} />
-            <Route path="/login-or-register" component={LoginOrRegister} />
           <SubRoute sub="storage">
             {path => (
               <Switch>
