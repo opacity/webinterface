@@ -37,6 +37,38 @@ import { unregister } from "./register-service-worker";
 
 import { AGREEMENT_TYPES } from "./config";
 
+// regular routes must now be wrapped in a subroute
+// this is because they need to only render when there is no subdomain
+// if they are NOT wrapped then they multiple routes could render at the same time
+// they CANNOT be wrapped in a Switch, otherwise they will NOT render after the first
+// this is because each will actually match the path ("/" matches any path)
+// which is to allow a custom middleware which checks to see if the subdomain matches
+const SubRoute = ({ sub = "", children, ...props }) => (
+  <Route
+    path="/"
+    render={({ location }) => {
+      const host = window.location.host;
+      const curSub = host.slice(0, (host.lastIndexOf(".") + 1 || 1) - 1);
+      const pathStart = window.location.pathname.split("/")[1];
+      console.log(sub, curSub, location);
+      // using subdomain
+      if (sub === curSub) {
+        return children("");
+      }
+      // no subdomain instead using path
+      if (curSub.length === 0 && sub === pathStart) {
+        return children(`/${pathStart}`);
+      }
+      // not using subdomain and not using path
+      if (curSub.length === 0 && sub.length === 0) {
+        return children("");
+      }
+
+      return null;
+    }}
+  />
+);
+
 const App = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
@@ -44,59 +76,72 @@ const App = () => (
         <Root>
           <PageNavigationPrompt />
           <Header />
-          <Switch>
-            <Route exact path="/" component={LandingPage} />
-            <Route path="/storage" component={PathChoice} />
-            <Route path="/storage/download-form" component={DownloadForm} />
-            <Route
-              path="/storage/download-started"
-              component={DownloadStarted}
-            />
-            <Route
-              path="/storage/download-complete"
-              component={DownloadComplete}
-            />
-            <Route
-              path="/storage/download-upload-history"
-              component={DownloadUploadHistory}
-            />
-            <Route path="/storage/upload-form" component={UploadForm} />
-            <Route path="/storage/upload-started" component={UploadStarted} />
-            <Route path="/storage/upload-progress" component={UploadProgress} />
-            <Route path="/storage/upload-complete" component={UploadComplete} />
-            <Route
-              path="/storage/retrieving-invoice"
-              component={RetrievingInvoice}
-            />
-            <Route path="/storage/payment-invoice" component={PaymentInvoice} />
-            <Route path="/storage/payment-confirm" component={PaymentConfirm} />
-            <Route path="/storage/error-page" component={ErrorPage} />
-            <Route path="/storage/brokers-down" component={BrokersDown} />
-            <Route path="/storage/file-manager" component={FileManager} />
+          <SubRoute>
+            {path => (
+              <Switch>
+                <Route exact path="/" component={LandingPage} />
+                {/* <Route path="/subscription" component={Subscription} /> */}
+                {/* <Route path="/sign-up" component={Signup} /> */}
+                {/* <Route path="/login-or-register" component={LoginOrRegister} /> */}
+              </Switch>
+            )}
+          </SubRoute>
 
             <Route path="/subscription" component={Subscription} />
             <Route path="/sign-up" component={Signup} />
             <Route path="/login-or-register" component={LoginOrRegister} />
+          <SubRoute sub="storage">
+            {path => (
+              <Switch>
+                <Route exact path={`${path}`} component={PathChoice} />
+                <Route path={`${path}/download-form`} component={DownloadForm} />
+                <Route
+                  path={`${path}/download-started`}
+                  component={DownloadStarted}
+                />
+                <Route
+                  path={`${path}/download-complete`}
+                  component={DownloadComplete}
+                />
+                <Route
+                  path={`${path}/download-upload-history`}
+                  component={DownloadUploadHistory}
+                />
+                <Route path={`${path}/upload-form`} component={UploadForm} />
+                <Route path={`${path}/upload-started`} component={UploadStarted} />
+                <Route path={`${path}/upload-progress`} component={UploadProgress} />
+                <Route path={`${path}/upload-complete`} component={UploadComplete} />
+                <Route
+                  path={`${path}/retrieving-invoice`}
+                  component={RetrievingInvoice}
+                />
+                <Route path={`${path}/payment-invoice`} component={PaymentInvoice} />
+                <Route path={`${path}/payment-confirm`} component={PaymentConfirm} />
+                <Route path={`${path}/error-page`} component={ErrorPage} />
+                <Route path={`${path}/brokers-down`} component={BrokersDown} />
+                <Route path={`${path}/file-manager`} component={FileManager} />
 
-            <Route
-              path="/terms-of-service"
-              render={() => (
-                <Agreement
-                  title="Terms of Service"
-                  type={AGREEMENT_TYPES.TERMS_OF_SERVICE}
+                <Route
+                  path="/terms-of-service"
+                  render={() => (
+                    <Agreement
+                      title="Terms of Service"
+                      type={AGREEMENT_TYPES.TERMS_OF_SERVICE}
+                    />
+                  )}
                 />
-              )}
-            />
-            <Route
-              path="/privacy-policy"
-              render={() => (
-                <Agreement
-                  title="Privacy Policy"
-                  type={AGREEMENT_TYPES.PRIVACY_POLICY}
+                <Route
+                  path="/privacy-policy"
+                  render={() => (
+                    <Agreement
+                      title="Privacy Policy"
+                      type={AGREEMENT_TYPES.PRIVACY_POLICY}
+                    />
+                  )}
                 />
-              )}
-            />
-          </Switch>
+              </Switch>
+            )}
+          </SubRoute>
         </Root>
       </ConnectedRouter>
     </PersistGate>

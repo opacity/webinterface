@@ -10,19 +10,19 @@ These instructions will get you a copy of the project up and running on your loc
 
 Clone the repo
 
-```
+```console
 git clone https://github.com/opacity/webinterface.git
 ```
 
 Install dependencies
 
-```
+```console
 npm ci
 ```
 
 Start web server
 
-```
+```console
 npm start
 ```
 
@@ -34,20 +34,14 @@ Navigate to url
 
 Clone the repo
 
-```
+```console
 git clone https://github.com/opacity/webinterface.git
 ```
 
-Install dependencies
+Deploy
 
-```
-npm ci
-```
-
-Build static assets
-
-```
-npm run build
+```console
+npm run deploy
 ```
 
 ## Running the tests
@@ -56,19 +50,19 @@ npm run build
 
 Run Once
 
-```
+```console
 npm test
 ```
 
 Run with watcher
 
-```
+```console
 npm test:watch
 ```
 
 Run with code coverage
 
-```
+```console
 npm test:coverage
 ```
 
@@ -76,13 +70,13 @@ npm test:coverage
 
 Run
 
-```
+```console
 npm cypress:open
 ```
 
 Run and publish results to [Cypress Dashboard](https://dashboard.cypress.io/#/projects/runs)
 
-```
+```console
 npm cypress:publish
 ```
 
@@ -114,7 +108,6 @@ git pull
 
 - [React](https://reactjs.org/) - The web framework used
 - [Redux](https://redux.js.org/) - State Management
-- [IOTA](https://github.com/iotaledger/iota.lib.js/) - IOTA Core API
 - [Webpack](https://webpack.js.org/) - Build tools
 
 ## Project Status

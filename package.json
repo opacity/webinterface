@@ -121,6 +121,7 @@
     "jest-enzyme": "^4.2.0",
     "nock": "^9.2.5",
     "regenerator-runtime": "^0.11.1",
+    "shx": "^0.3.2",
     "ts-jest": "^23.10.5",
     "tslint": "^5.12.1",
     "tslint-config-standard": "^8.0.1",
@@ -128,8 +129,9 @@
     "tslint-react": "^3.6.0"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development PORT=3001 webpack-dev-server --config='config/webpack.config.js' --mode development && node ./index.js",
-    "start:prod": "NODE_ENV=production npm start --port=3001",
+    "start": "cross-env NODE_ENV=development PORT=3001 webpack-dev-server --config='config/webpack.config.js' --mode development",
+    "start:prod": "cross-env NODE_ENV=production node router.js --port=3001",
+    "deploy": "npx shx rm -rf node_modules && npx shx rm -rf build && npm ci && npm run build && npm run start:prod",
     "build": "cross-env NODE_ENV=production webpack --config='config/webpack.config.js' --mode production",
     "test": "jest",
     "lint": "tslint --project . --config tslint.config.js",
