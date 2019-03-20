@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ScreenContainer from "../shared/screen-container";
 import ScreenDescription from "../shared/screen-description";
 
-const ICON_SPINNER = require("../../assets/images/icon_spinner.png");
+const ICON_SPINNER = `/${require("../../assets/images/icon_spinner.png")}`;
 
 const Icon = styled.img`
   animation: spin 2s linear infinite;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const PAY_WITH_METAMASK_IMG = require("../../assets/images/pay_with_metamask.png");
+const PAY_WITH_METAMASK_IMG = `/${require("../../assets/images/pay_with_metamask.png")}`;
 
 const Button = styled.button`
   cursor: pointer;

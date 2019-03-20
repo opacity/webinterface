@@ -5,7 +5,7 @@ import Button from "../shared/button";
 import Spinner from "../shared/spinner";
 
 import { DOWNLOAD_STATUSES, DESKTOP_WIDTH, theme } from "../../config";
-const ICON_DOWNLOAD = require("../../assets/images/icon_download.svg");
+const ICON_DOWNLOAD = `/${require("../../assets/images/icon_download.svg")}`;
 
 import ScreenContainer from "../shared/screen-container";
 import ScreenDescription from "../shared/screen-description";

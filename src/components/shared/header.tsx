@@ -6,7 +6,7 @@ import "../root.css";
 
 import { theme } from "../../config";
 
-const ICON_LOGO = require("../../assets/images/logo.svg");
+const ICON_LOGO = `/${require("../../assets/images/logo.svg")}`;
 
 const Container = styled.div`
   background: ${props => props.theme.header.background};

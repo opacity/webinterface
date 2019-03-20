@@ -1,6 +1,6 @@
 import React from "react";
 
-const ICON_TANGLE_UP = require("../../assets/images/icon_tangle_up.png");
+const ICON_TANGLE_UP = `/${require("../../assets/images/icon_tangle_up.png")}`;
 
 const Slide = ({ children, title, image }: any) => {
   return (

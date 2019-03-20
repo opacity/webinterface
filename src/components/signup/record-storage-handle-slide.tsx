@@ -9,7 +9,7 @@ import Content from "./content";
 import Hr from "./hr";
 import Title from "./title";
 
-const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
+const ICON_CLIPBOARD = `/${require("../../assets/images/icon_clipboard.svg")}`;
 
 const ContentBold = styled(Content)`
   margin-top: 25px;

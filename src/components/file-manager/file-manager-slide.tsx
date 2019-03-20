@@ -3,8 +3,8 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
-const ICON_LOGO = require("../../assets/images/logo-login.svg");
-const ICON_CHECK = require("../../assets/images/checkmark.svg");
+const ICON_LOGO = `/${require("../../assets/images/logo-login.svg")}`;
+const ICON_CHECK = `/${require("../../assets/images/checkmark.svg")}`;
 
 const ContainerWrapper = styled.div``;
 

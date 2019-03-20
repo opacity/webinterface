@@ -4,15 +4,15 @@ import styled, { ThemeProvider } from "styled-components";
 import { theme, DESKTOP_WIDTH } from "../../config";
 import Subscription from "../shared/subscription";
 
-const ICON_CREDIT = require("../../assets/images/credit.svg");
-const ICON_SHARE_FILE = require("../../assets/images/share_file.svg");
-const ICON_PAY_CURRENCY = require("../../assets/images/pay_currency.svg");
-const ICON_BENEFIT_HANDLE = require("../../assets/images/benefit_handle.svg");
-const ICON_BENEFIT_FILES = require("../../assets/images/benefit_files.svg");
-const ICON_INFO_OPACITY = require("../../assets/images/info_opacity.svg");
-const ICON_INFO_BENEFIT = require("../../assets/images/info_benefit.svg");
-const ICON_INFO_PERSONAL = require("../../assets/images/info_personal.svg");
-const ICON_INFO_CRYPTOCUREENCY = require("../../assets/images/info_cryptocurrency.svg");
+const ICON_CREDIT = `/${require("../../assets/images/credit.svg")}`;
+const ICON_SHARE_FILE = `/${require("../../assets/images/share_file.svg")}`;
+const ICON_PAY_CURRENCY = `/${require("../../assets/images/pay_currency.svg")}`;
+const ICON_BENEFIT_HANDLE = `/${require("../../assets/images/benefit_handle.svg")}`;
+const ICON_BENEFIT_FILES = `/${require("../../assets/images/benefit_files.svg")}`;
+const ICON_INFO_OPACITY = `/${require("../../assets/images/info_opacity.svg")}`;
+const ICON_INFO_BENEFIT = `/${require("../../assets/images/info_benefit.svg")}`;
+const ICON_INFO_PERSONAL = `/${require("../../assets/images/info_personal.svg")}`;
+const ICON_INFO_CRYPTOCUREENCY = `/${require("../../assets/images/info_cryptocurrency.svg")}`;
 
 const ContainerWrapper = styled.div``;
 

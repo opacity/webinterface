@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { SIGNUP_PHASES } from "../../config";
 
-const ICON_RECOVERY = require("../../assets/images/icon_signup_recovery.svg");
-const ICON_PIN = require("../../assets/images/icon_signup_pin.svg");
-const ICON_PAYMENT = require("../../assets/images/icon_signup_payment.svg");
-const ICON_CONFIRM = require("../../assets/images/icon_signup_confirm.svg");
+const ICON_RECOVERY = `/${require("../../assets/images/icon_signup_recovery.svg")}`;
+const ICON_PIN = `/${require("../../assets/images/icon_signup_pin.svg")}`;
+const ICON_PAYMENT = `/${require("../../assets/images/icon_signup_payment.svg")}`;
+const ICON_CONFIRM = `/${require("../../assets/images/icon_signup_confirm.svg")}`;
 
 const Container = styled.div`
   display: flex;

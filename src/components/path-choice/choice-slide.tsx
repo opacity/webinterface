@@ -7,8 +7,8 @@ import ScreenDescription from "../shared/screen-description";
 
 import { DESKTOP_WIDTH, theme } from "../../config";
 
-const ICON_DOWNLOAD = require("../../assets/images/icon_download.svg");
-const ICON_UPLOAD = require("../../assets/images/icon_upload.svg");
+const ICON_DOWNLOAD = `/${require("../../assets/images/icon_download.svg")}`;
+const ICON_UPLOAD = `/${require("../../assets/images/icon_upload.svg")}`;
 
 const LinkContainer = styled.div`
   display: flex;

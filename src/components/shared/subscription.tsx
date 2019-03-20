@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { SUBSCRIPTION_DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
-const FEATURES = require("../../assets/images/features.svg");
+const FEATURES = `/${require("../../assets/images/features.svg")}`;
 
 const Container = styled.div`
   display: flex;

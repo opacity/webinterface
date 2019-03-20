@@ -6,7 +6,7 @@ import Button from "./button";
 
 import { MOBILE_WIDTH, theme } from "../../config";
 
-const ICON_COPY = require("../../assets/images/icon_copy.svg");
+const ICON_COPY = `/${require("../../assets/images/icon_copy.svg")}`;
 
 const Icon = styled.img`
   height: 18px;

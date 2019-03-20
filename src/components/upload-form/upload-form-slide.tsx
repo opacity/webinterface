@@ -14,8 +14,8 @@ import OutboundLink from "../shared/outbound-link";
 import Spinner from "../shared/spinner";
 import ScreenContainer from "../shared/screen-container";
 
-const ICON_FOLDER = require("../../assets/images/icon_folder.svg");
-const ICON_UPLOAD = require("../../assets/images/icon_upload.svg");
+const ICON_FOLDER = `/${require("../../assets/images/icon_folder.svg")}`;
+const ICON_UPLOAD = `/${require("../../assets/images/icon_upload.svg")}`;
 
 const DEFAULT_FILE_INPUT_TEXT = "No file selected";
 const DEFAULT_FILE_INPUT_SIZE = 0;

@@ -8,7 +8,7 @@ import Content from "./content";
 import Hr from "./hr";
 import Title from "./title";
 
-const ICON_LOGO = require("../../assets/images/logo.svg");
+const ICON_LOGO = `/${require("../../assets/images/logo.svg")}`;
 
 const HrContent = styled(Hr)`
   width: 80px;
