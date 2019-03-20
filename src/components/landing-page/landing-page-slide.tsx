@@ -44,6 +44,22 @@ const SubContainer = styled.div`
     display: block;
   }
 `;
+const BenefitContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 60px 0 40px 0;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    flex-direction: column-reverse;
+  }
+`;
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    display: grid;
+  }
+`;
 
 const BenefitSubContainer = styled(SubContainer)`
   @media (max-width: ${MOBILE_WIDTH}px) {
