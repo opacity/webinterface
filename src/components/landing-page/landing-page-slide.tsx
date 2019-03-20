@@ -32,7 +32,7 @@ const Header = styled.div`
   background-color: #2e6dde;
   padding: 40px 0 70px 0;
   @media (max-width: ${MOBILE_WIDTH}px) {
-    padding: 85px 0 140px 0;
+    padding: 85px 0 85px 0;
   }
 `;
 
@@ -44,13 +44,15 @@ const SubContainer = styled.div`
     display: block;
   }
 `;
-const BenefitContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 60px 0 40px 0;
+
+const BenefitSubContainer = styled(SubContainer)`
   @media (max-width: ${MOBILE_WIDTH}px) {
     flex-direction: column-reverse;
   }
+`;
+
+const BuySubContainer = styled(SubContainer)`
+  justify-content: space-around;
 `;
 
 const HeaderWrapper = styled.div`
@@ -102,6 +104,13 @@ const ButtonItem = styled(Button)`
   }
 `;
 
+const ButtonBuy = styled(Button)`
+  width: 100%;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 250px;
+  }
+`;
+
 const Wrapper = styled.div`
   text-align: center;
 `;
@@ -115,6 +124,13 @@ const ContentWrapper = styled.div`
 `;
 
 const ItemButtonWrapper = styled.div`
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+`;
+
+const ButtonWrapper = styled.div`
   @media (max-width: ${MOBILE_WIDTH}px) {
     text-align: center;
     margin-bottom: 40px;
@@ -135,6 +151,10 @@ const ItemIcon = styled.img`
   }
 `;
 
+const BuyIcon = styled.img`
+  width: 200px;
+`;
+
 const Title = styled.h1`
   font-size: 32px;
   text-align: center;
@@ -149,7 +169,7 @@ const Title = styled.h1`
   }
 `;
 
-const H2 = styled.h2`
+const HeaderTitle = styled.h2`
   font-size: 22px;
   font-weight: 500;
   font-style: normal;
@@ -160,13 +180,13 @@ const H2 = styled.h2`
   text-align: center;
 `;
 
-const SubscriptionTitle = styled(H2)`
+const SubscriptionTitle = styled(HeaderTitle)`
   color: ${props => props.theme.title.color};
   text-align: center;
   font-weight: bold;
 `;
 
-const InfoTitle = styled(H2)`
+const InfoTitle = styled(HeaderTitle)`
   font-size: 18px;
   color: ${props => props.theme.title.color};
   text-align: left;
@@ -175,19 +195,19 @@ const InfoTitle = styled(H2)`
   }
 `;
 
-const ItemTitle = styled(H2)`
+const ItemTitle = styled(HeaderTitle)`
   font-size: 16px;
   font-weight: 600;
   color: ${props => props.theme.title.color};
 `;
 
-const InfoHeaderTitle = styled(H2)`
+const InfoHeaderTitle = styled(HeaderTitle)`
   color: ${props => props.theme.title.color};
   text-align: center;
   font-weight: bold;
 `;
 
-const BenefitTitle = styled(H2)`
+const BenefitTitle = styled(HeaderTitle)`
   font-size: 18px;
   font-weight: bold;
   color: ${props => props.theme.title.color};
@@ -227,6 +247,11 @@ const Content = styled(Paragraph)`
   color: white;
   text-align: center;
   padding-bottom: 40px;
+`;
+
+const ContentPurchase = styled(Content)`
+  font-weight: bold;
+  margin-top: 25px;
 `;
 
 const SubscriptionContent = styled(Paragraph)`
@@ -272,6 +297,11 @@ const LandingPageSlide = () => (
             <Button>Try for free</Button>
             <ButtonSecondary>Sign up</ButtonSecondary>
           </HeaderWrapper>
+        </Wrapper>
+        <Wrapper>
+          <ContentPurchase>
+            Click here to purchase the OPQ token
+          </ContentPurchase>
         </Wrapper>
       </Header>
       <Container>
@@ -324,7 +354,7 @@ const LandingPageSlide = () => (
             </BenefitContent>
           </Column>
         </SubContainer>
-        <BenefitContainer>
+        <BenefitSubContainer>
           <Column>
             <BenefitTitle>Your Handle Your Rules.</BenefitTitle>
             <BenefitContent>
@@ -340,7 +370,7 @@ const LandingPageSlide = () => (
           <Column>
             <BenefitIcon src={ICON_BENEFIT_HANDLE} />
           </Column>
-        </BenefitContainer>
+        </BenefitSubContainer>
       </Container>
       <SubscriptionContainer>
         <SubscriptionTitle>Our Plans</SubscriptionTitle>
@@ -408,6 +438,27 @@ const LandingPageSlide = () => (
             </ItemButtonWrapper>
           </Item>
         </SubContainer>
+      </Container>
+      <Container>
+        <BuySubContainer>
+          <Column>
+            <Wrapper>
+              <BuyIcon src={ICON_BENEFIT_FILES} />
+            </Wrapper>
+
+            <ButtonWrapper>
+              <ButtonBuy>Buy OPQ on KuCoin</ButtonBuy>
+            </ButtonWrapper>
+          </Column>
+          <Column>
+            <Wrapper>
+              <BuyIcon src={ICON_BENEFIT_FILES} />
+            </Wrapper>
+            <ButtonWrapper>
+              <ButtonBuy>Buy OPQ on COSS</ButtonBuy>
+            </ButtonWrapper>
+          </Column>
+        </BuySubContainer>
       </Container>
     </ContainerWrapper>
   </ThemeProvider>
