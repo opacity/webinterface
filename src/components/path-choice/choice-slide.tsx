@@ -48,7 +48,7 @@ const Link = styled.a`
   }
 `;
 
-const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn, history }) => (
+const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn, location, history }) => (
   <ThemeProvider theme={theme}>
     <ScreenContainer title={"Welcome to Opacity Storage"}>
       <ScreenDescription>
@@ -56,11 +56,11 @@ const ChoiceSlide = ({ visitUploadFormFn, visitDownloadFormFn, history }) => (
         always free!
       </ScreenDescription>
       <LinkContainer>
-        <Link id="upload-btn" onClick={() => history.push("/upload-form")}>
+        <Link id="upload-btn" onClick={() => history.push(`${location.pathname.slice(1)}/upload-form`)}>
           <Icon src={ICON_UPLOAD} />
           Upload a file
         </Link>
-        <Link onClick={() => history.push("/download-form")}>
+        <Link onClick={() => history.push(`${location.pathname.slice(1)}/download-form`)}>
           <Icon src={ICON_DOWNLOAD} />
           Retrieve a file
         </Link>

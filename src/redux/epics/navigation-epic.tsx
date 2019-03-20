@@ -14,7 +14,7 @@ const LOCATION_CHANGE_ACTION = "@@router/LOCATION_CHANGE";
 const goToDownloadForm = (action$, store) => {
   return action$
     .ofType(navigationActions.VISIT_DOWNLOAD_FORM)
-    .map(() => push("/download-form"));
+    .map(() => push(`${`${location.pathname}/`.split(/\/+/).slice(0, -1).join("/")}/download-form`));
 };
 
 const goToUploadForm = (action$, store) => {
@@ -23,11 +23,11 @@ const goToUploadForm = (action$, store) => {
       [API.BROKER_NODE_A, API.BROKER_NODE_B],
       () =>
         Observable.create(o => {
-          o.next(push("/upload-form"));
+          o.next(push(`${`${location.pathname}/`.split(/\/+/).slice(0, -1).join("/")}/upload-form`));
         }),
       () =>
         Observable.create(o => {
-          o.next(replace("/brokers-down"));
+          o.next(replace(`${`${location.pathname}/`.split(/\/+/).slice(0, -1).join("/")}/brokers-down`));
         })
     );
   });
@@ -36,49 +36,49 @@ const goToUploadForm = (action$, store) => {
 const goToUploadStarted = (action$, store) => {
   return action$
     .ofType(uploadActions.PAYMENT_CONFIRMED)
-    .map(action => replace("/upload-started"));
+    .map(action => replace(`${`${location.pathname}/`.split(/\/+/).slice(0, -1).join("/")}/upload-started`));
 };
 
 const goToUploadProgress = (action$, store) => {
   return action$
     .ofType(uploadActions.CHUNKS_DELIVERED)
-    .map(action => replace(`/upload-progress#handle=${action.payload.handle}`));
+    .map(action => replace(`${`${location.pathname}/`.split(/\/+/).slice(0, -1).join("/")}/upload-progress#handle=${action.payload.handle}`));
 };
 
 const goToUploadCompleteStream = (action$, store) => {
   return action$
     .ofType(uploadActions.UPLOAD_SUCCESS)
-    .map(() => replace("/upload-complete"));
+    .map(() => replace(`${`${location.pathname}/`.split(/\/+/).slice(0, -1).join("/")}/upload-complete`));
 };
 
 const goToPaymentInvoiceStream = (action$, store) => {
   return action$
     .ofType(uploadActions.INVOICED)
-    .map(() => replace("/payment-invoice"));
+    .map(() => replace(`${`${location.pathname}/`.split(/\/+/).slice(0, -1).join("/")}/payment-invoice`));
 };
 
 const goToPaymentConfirmationStream = (action$, store) => {
   return action$
     .ofType(uploadActions.PAYMENT_PENDING)
-    .map(action => replace("/payment-confirm"));
+    .map(action => replace(`${`${location.pathname}/`.split(/\/+/).slice(0, -1).join("/")}/payment-confirm`));
 };
 
 const goToErrorPage = (action$, store) => {
   return action$
     .ofType(navigationActions.ERROR_PAGE)
-    .map(() => replace("/error-page"));
+    .map(() => replace(`${`${location.pathname}/`.split(/\/+/).slice(0, -1).join("/")}/error-page`));
 };
 
 const goToBrokersDownPage = (action$, store) => {
   return action$
     .ofType(navigationActions.BROKERS_DOWN)
-    .map(() => replace("/brokers-down"));
+    .map(() => replace(`${`${location.pathname}/`.split(/\/+/).slice(0, -1).join("/")}/brokers-down`));
 };
 
 const uploadProgressListener = (action$, store) => {
   return action$
     .ofType(LOCATION_CHANGE_ACTION)
-    .filter(({ payload: { pathname } }) => pathname === "/upload-progress")
+    .filter(({ payload: { pathname } }) => `${pathname}/`.split(/\/+/).slice(-2, -1)[0] === "upload-progress")
     .switchMap(({ payload: { hash } }) => {
       const {
         upload: { uploadState }
