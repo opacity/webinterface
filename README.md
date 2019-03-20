@@ -92,13 +92,13 @@ Save the Opacity SSH Key for AWS (found on 1password) in ~/.ssh/opacity.pem
 
 SSH into server
 
-```
+```console
 ssh ubuntu@18.218.209.199 -i ~/.ssh/opacity.pem
 ```
 
 Run these commands
 
-```
+```console
 cd /var/www/storage
 sudo su
 git pull
