@@ -320,17 +320,17 @@ const LandingPageSlide = () => (
             <Wrapper>
               <Icon src={ICON_SHARE_FILE} />
             </Wrapper>
-            <ItemTitle>No Personal Info Required</ItemTitle>
+            <ItemTitle>Share Files Your Way</ItemTitle>
             <ItemContent>
-              We will never ask for any personal information. No email, no
-              contact, nothing.
+              You control who can view your files. By default, you and only you
+              even know these files exist.
             </ItemContent>
           </Column>
           <Column>
             <Wrapper>
               <Icon src={ICON_PAY_CURRENCY} />
             </Wrapper>
-            <ItemTitle>No Personal Info Required</ItemTitle>
+            <ItemTitle>Pay Using Cryptocurrency</ItemTitle>
             <ItemContent>
               Using the <b>OPQ token</b>, you can pay for your storage needs
               without ever having to use a credit card.
@@ -344,13 +344,10 @@ const LandingPageSlide = () => (
           <Column>
             <BenefitTitle>Your Files. Safe and Secure.</BenefitTitle>
             <BenefitContent>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum nunc in, imperdiet augue. Phasellus
-              nisl est, tristique ac magna sed, aliquet faucibus eros. Vivamus
-              tempus est eget risus tincidunt cursus. Praesent ac malesuada
-              nulla. Curabitur ullamcorper velit urna, id ornare nisl convallis
-              sed. Ut non elit tellus. Integer quis felis eget tortor interdum
-              vulputate a ac dolor. Nullam tempus nisi ut magna
+              Opacity uses state-of-the-art encryption algorithms to ensure that
+              your files are secure. The Opacity platform encrypts your files at
+              rest to provide comprehesive protection for your files. As long as
+              you protect your Opacity Handle, your data is safe.
             </BenefitContent>
           </Column>
         </SubContainer>
@@ -358,13 +355,13 @@ const LandingPageSlide = () => (
           <Column>
             <BenefitTitle>Your Handle Your Rules.</BenefitTitle>
             <BenefitContent>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum nunc in, imperdiet augue. Phasellus
-              nisl est, tristique ac magna sed, aliquet faucibus eros. Vivamus
-              tempus est eget risus tincidunt cursus. Praesent ac malesuada
-              nulla. Curabitur ullamcorper velit urna, id ornare nisl convallis
-              sed. Ut non elit tellus. Integer quis felis eget tortor interdum
-              vulputate a ac dolor. Nullam tempus nisi ut magna
+              Your unique Opacity Account Handle is the single point of access
+              to your storage account. Only you know this handle, and only you
+              have access to your files unless you decide to share the handle.
+              Opacity applies zero-knowledge principles, meaning we do not track
+              anything you upload or download. You may also choose individual
+              files to share with a unique file handle that others may use to
+              view shared files on the Opacity platform.
             </BenefitContent>
           </Column>
           <Column>
@@ -389,11 +386,11 @@ const LandingPageSlide = () => (
         <SubContainer>
           <Item>
             <ItemIcon src={ICON_INFO_OPACITY} />
-            <InfoTitle>No Personal Info Required</InfoTitle>
+            <InfoTitle>The Brains Behind Opacity</InfoTitle>
             <InfoContent>
-              We will never ask for any personal information. No email, no
-              contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum
+              We are a group of privacy enthusiasts looking to build a true
+              zero-knowledge storage solution. Take a peek at the team behind
+              the Opacity platform.
             </InfoContent>
             <ItemButtonWrapper>
               <ButtonItem>Learn more</ButtonItem>
@@ -401,11 +398,11 @@ const LandingPageSlide = () => (
           </Item>
           <Item>
             <ItemIcon src={ICON_INFO_BENEFIT} />
-            <InfoTitle>No Personal Info Required</InfoTitle>
+            <InfoTitle>Benefits of Zero-knowledge Cloud Storage</InfoTitle>
             <InfoContent>
-              We will never ask for any personal information. No email, no
-              contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum
+              Not many storeage providers offer a true, zero-knowledge solution.
+              Learn exactly what zero-knowledge means and how it can be of
+              benefit to you.
             </InfoContent>
             <ItemButtonWrapper>
               <ButtonItem>Learn more</ButtonItem>
@@ -415,11 +412,10 @@ const LandingPageSlide = () => (
         <SubContainer>
           <Item>
             <ItemIcon src={ICON_INFO_PERSONAL} />
-            <InfoTitle>No Personal Info Required</InfoTitle>
+            <InfoTitle>Why Opacity Stands Out</InfoTitle>
             <InfoContent>
-              We will never ask for any personal information. No email, no
-              contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum
+              We do things differently than most sotrage providers. Learn
+              exactly what makes us stand out from the competition.
             </InfoContent>
             <ItemButtonWrapper>
               <ButtonItem>Learn more</ButtonItem>
@@ -427,11 +423,11 @@ const LandingPageSlide = () => (
           </Item>
           <Item>
             <ItemIcon src={ICON_INFO_CRYPTOCUREENCY} />
-            <InfoTitle>No Personal Info Required</InfoTitle>
+            <InfoTitle>New to Cryptocurrency?</InfoTitle>
             <InfoContent>
-              We will never ask for any personal information. No email, no
-              contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum
+              Cryptocurrency can be a little confusing, but it doesn’t have to
+              be. Take a look at this video to learn how you can get started
+              with cryptocurrency.
             </InfoContent>
             <ItemButtonWrapper>
               <ButtonItem>Learn more</ButtonItem>
@@ -440,12 +436,12 @@ const LandingPageSlide = () => (
         </SubContainer>
       </Container>
       <Container>
+        <InfoHeaderTitle>Where to Buy OPQ</InfoHeaderTitle>
         <BuySubContainer>
           <Column>
             <Wrapper>
               <BuyIcon src={ICON_BENEFIT_FILES} />
             </Wrapper>
-
             <ButtonWrapper>
               <ButtonBuy>Buy OPQ on KuCoin</ButtonBuy>
             </ButtonWrapper>
