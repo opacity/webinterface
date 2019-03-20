@@ -90,6 +90,34 @@ const HandleWrapper = styled.div`
   background-color: ${props => props.theme.password.background};
   display: flex;
   justify-content: space-between;
+  position: relative;
+`;
+
+const CopiedReminder = styled.span`
+  color: ${props => props.theme.label.color};
+  font-size: 10px;
+  position: absolute;
+  right: -100px;
+  animation: fadeinout 2s ease-in-out 0s forwards;
+  -webkit-animation: fadeinout 2s ease-in-out 0s forwards;
+
+  @-webkit-keyframes fadeinout {
+    100% {
+      opacity: 0;
+    }
+    0% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeinout {
+    100% {
+      opacity: 0;
+    }
+    0% {
+      opacity: 1;
+    }
+  }
 `;
 
 const Handle = styled.span`
@@ -144,12 +172,12 @@ class RecordStorageHandleSlide extends Component<
     isCopied: false
   };
 
-  save (storagePin) {
+  save(storagePin) {
     const { setStoragePin } = this.props;
     setStoragePin(storagePin);
   }
 
-  render () {
+  render() {
     const { handle } = this.props;
 
     return (
@@ -178,6 +206,9 @@ class RecordStorageHandleSlide extends Component<
                 <ClipboardIcon src={ICON_CLIPBOARD} />
               </ClipboardIconWrrapper>
             </CopyToClipboard>
+            {this.state.isCopied && (
+              <CopiedReminder>Copied to clipboard!</CopiedReminder>
+            )}
           </HandleWrapper>
           <InputWrapper>
             <InputColumnWrapper>
@@ -212,7 +243,7 @@ class RecordStorageHandleSlide extends Component<
                 isCopied
                   ? this.save(this.state.storagePin)
                   : alert(
-                    "Please make sure to copy your storage handle and input matching PINs before proceeding."
+                      "Please make sure to copy your storage handle and input matching PINs before proceeding."
                     );
               }}
             >
