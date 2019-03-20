@@ -31,6 +31,7 @@ import PageNavigationPrompt from "./components/page-navigation-prompt";
 import Subscription from "./components/subscription";
 import Signup from "./components/signup";
 import TeamPage from "./components/team-page";
+import StandsOut from "./components/stands-out";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -68,6 +69,7 @@ const App = () => (
             <Route path="/brokers-down" component={BrokersDown} />
             <Route path="/subscription" component={Subscription} />
             <Route path="/sign-up" component={Signup} />
+            <Route path="/stands-out" component={StandsOut} />
             <Route path="/file-manager" component={FileManager} />
             <Route path="/login-or-register" component={LoginOrRegister} />
             <Route path="/landing-page" component={LandingPage} />
