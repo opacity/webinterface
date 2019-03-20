@@ -46,7 +46,6 @@ const Container = styled.div`
 
 const Header = styled.div`
   width: auto;
-  background-color: ;
   padding: 70px 0 70px 0;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     padding: 70px 0 0px 0;
@@ -157,8 +156,8 @@ const TeamPageSlide = () => (
       </Header>
       <Container>
         <PeopleContainer>
-          {_.map(people, (person, i) => (
-            <PeopleWrapper>
+          {_.map(people, person => (
+            <PeopleWrapper key={_.random(true)}>
               <Wrapper>
                 <Icon src={person.icon} />
               </Wrapper>
