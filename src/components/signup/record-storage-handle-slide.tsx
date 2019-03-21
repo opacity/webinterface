@@ -98,10 +98,10 @@ const CopiedReminder = styled.span`
   font-size: 10px;
   position: absolute;
   right: -100px;
-  animation: fadeinout 2s ease-in-out 0s forwards;
-  -webkit-animation: fadeinout 2s ease-in-out 0s forwards;
+  animation: fadeout 2s ease-in-out 0s forwards;
+  -webkit-animation: fadeout 2s ease-in-out 0s forwards;
 
-  @-webkit-keyframes fadeinout {
+  @-webkit-keyframes fadeout {
     100% {
       opacity: 0;
     }
@@ -110,7 +110,7 @@ const CopiedReminder = styled.span`
     }
   }
 
-  @keyframes fadeinout {
+  @keyframes fadeout {
     100% {
       opacity: 0;
     }
