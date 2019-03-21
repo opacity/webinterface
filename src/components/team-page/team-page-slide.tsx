@@ -4,15 +4,15 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { theme, MOBILE_WIDTH } from "../../config";
 
-const ICON_JASON = require("../../assets/images/credit.svg");
-const ICON_TAYLOR = require("../../assets/images/credit.svg");
-const ICON_TIM = require("../../assets/images/credit.svg");
-const ICON_WILLIAM = require("../../assets/images/credit.svg");
-const ICON_CONOR = require("../../assets/images/credit.svg");
-const ICON_MARCEL = require("../../assets/images/credit.svg");
-const ICON_INFO_EDMUND = require("../../assets/images/credit.svg");
-const ICON_INFO_REBEL = require("../../assets/images/credit.svg");
-const ICON_INFO_LADISLAV = require("../../assets/images/credit.svg");
+const ICON_JASON = require("../../assets/images/jason.jpg");
+const ICON_TAYLOR = require("../../assets/images/taylor.jfif");
+const ICON_TIM = require("../../assets/images/tim.png");
+const ICON_WILLIAM = require("../../assets/images/william.jfif");
+const ICON_CONNOR = require("../../assets/images/connor.png");
+const ICON_MARCEL = require("../../assets/images/marcel.png");
+const ICON_EDMUND = require("../../assets/images/edmund.png");
+const ICON_REBEL = require("../../assets/images/rebel.jfif");
+const ICON_LADISLAV = require("../../assets/images/ladislav.png");
 
 const people = [
   {
@@ -27,11 +27,11 @@ const people = [
   },
   { title: "Tim", icon: ICON_TIM, role: "Community Manager" },
   { title: "William", icon: ICON_WILLIAM, role: "Community Manager" },
-  { title: "Conor", icon: ICON_CONOR, role: "Developer" },
+  { title: "Conor", icon: ICON_CONNOR, role: "Developer" },
   { title: "Marcel", icon: ICON_MARCEL, role: "Developer" },
-  { title: "Edmund", icon: ICON_INFO_EDMUND, role: "Software Engineer" },
-  { title: "Rebel", icon: ICON_INFO_REBEL, role: "Technical Lead" },
-  { title: "Ladislav", icon: ICON_INFO_LADISLAV, role: "Fullstack Developer" }
+  { title: "Edmund", icon: ICON_EDMUND, role: "Software Engineer" },
+  { title: "Rebel", icon: ICON_REBEL, role: "Technical Lead" },
+  { title: "Ladislav", icon: ICON_LADISLAV, role: "Fullstack Developer" }
 ];
 
 const ContainerWrapper = styled.div``;
@@ -90,6 +90,7 @@ const ContentWrapper = styled.div`
 const Icon = styled.img`
   width: 70px;
   height: 70px;
+  border-radius: 40px;
 `;
 
 const Title = styled.h1`
