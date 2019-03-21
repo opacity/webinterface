@@ -466,19 +466,19 @@ const SubscriptionSlide = () => (
           <ColumnPasswordManager>
             <IconPasswordManager
               src={ICON_LASTPASS}
-              onClick={() => (location.href = "https://www.lastpass.com/")}
+              onClick={() => window.open("https://www.lastpass.com/", "_blank")}
             />
           </ColumnPasswordManager>
           <ColumnPasswordManager>
             <IconPasswordManager
               src={ICON_1PASSWORD}
-              onClick={() => (location.href = "https://1password.com/")}
+              onClick={() => window.open("https://1password.com/", "_blank")}
             />
           </ColumnPasswordManager>
           <ColumnPasswordManager>
             <IconPasswordManager
               src={ICON_KEEPASS}
-              onClick={() => (location.href = "https://keepass.info/")}
+              onClick={() => window.open("https://keepass.info/", "_blank")}
             />
           </ColumnPasswordManager>
         </PasswordManager>
@@ -571,7 +571,9 @@ const SubscriptionSlide = () => (
               how our system works.
             </InfoContent>
             <Button
-              onClick={() => (location.href = "https://github.com/opacity")}
+              onClick={() =>
+                window.open("https://github.com/opacity", "_blank")
+              }
             >
               Explore our code
             </Button>
@@ -585,8 +587,10 @@ const SubscriptionSlide = () => (
             </InfoContent>
             <Button
               onClick={() =>
-                (location.href =
-                  "https://alpha.opacity.io/#/OpacityS6ba809778cee8b017d48aa13564f32351213b108b8c724c83c69ee37ab366912VEKcnYtf")
+                window.open(
+                  "https://alpha.opacity.io/#/OpacityS6ba809778cee8b017d48aa13564f32351213b108b8c724c83c69ee37ab366912VEKcnYtf",
+                  "_blank"
+                )
               }
             >
               Read our whitepaper
