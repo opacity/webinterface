@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { withRouter } from "react-router";
 
 import { MOBILE_WIDTH, theme } from "../../config";
 import Subscription from "../shared/subscription";
@@ -12,7 +13,10 @@ const ICON_BENEFIT_FILES = require("../../assets/images/benefit_files.svg");
 const ICON_INFO_OPACITY = require("../../assets/images/info_opacity.svg");
 const ICON_INFO_BENEFIT = require("../../assets/images/info_benefit.svg");
 const ICON_INFO_PERSONAL = require("../../assets/images/info_personal.svg");
-const ICON_INFO_CRYPTOCUREENCY = require("../../assets/images/info_cryptocurrency.svg");
+const ICON_INFO_CRYPTOCURRENCY = require("../../assets/images/info_cryptocurrency.svg");
+const ICON_KUCOIN = require("../../assets/images/kucoin.png");
+const ICON_COSSIO = require("../../assets/images/cossio.png");
+const BACKGROUND_BUBBLES = require("../../assets/images/bubbles.svg");
 
 const ContainerWrapper = styled.div``;
 
@@ -23,8 +27,13 @@ const Container = styled.div`
   background-color: ${props => props.theme.background};
 `;
 
+const SubscriptionContainerImage = styled.div`
+  background-image: url(${BACKGROUND_BUBBLES});
+`;
+
 const SubscriptionContainer = styled(Container)`
   padding: 60px 0 60px 0;
+  background-color: transparent;
 `;
 
 const Header = styled.div`
@@ -32,7 +41,7 @@ const Header = styled.div`
   background-color: #2e6dde;
   padding: 40px 0 70px 0;
   @media (max-width: ${MOBILE_WIDTH}px) {
-    padding: 85px 0 140px 0;
+    padding: 85px 0 85px 0;
   }
 `;
 
@@ -44,13 +53,15 @@ const SubContainer = styled.div`
     display: block;
   }
 `;
-const BenefitContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 60px 0 40px 0;
+
+const BenefitSubContainer = styled(SubContainer)`
   @media (max-width: ${MOBILE_WIDTH}px) {
     flex-direction: column-reverse;
   }
+`;
+
+const BuySubContainer = styled(SubContainer)`
+  justify-content: space-around;
 `;
 
 const HeaderWrapper = styled.div`
@@ -59,6 +70,12 @@ const HeaderWrapper = styled.div`
   @media (max-width: ${MOBILE_WIDTH}px) {
     display: grid;
   }
+`;
+
+const CoinMarketCapWrapper = styled.div`
+  width: 300px;
+  padding-top: 80px;
+  margin: auto;
 `;
 
 const Column = styled.div`
@@ -102,6 +119,13 @@ const ButtonItem = styled(Button)`
   }
 `;
 
+const ButtonBuy = styled(Button)`
+  width: 200px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 250px;
+  }
+`;
+
 const Wrapper = styled.div`
   text-align: center;
 `;
@@ -115,6 +139,13 @@ const ContentWrapper = styled.div`
 `;
 
 const ItemButtonWrapper = styled.div`
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+`;
+
+const ButtonWrapper = styled.div`
   @media (max-width: ${MOBILE_WIDTH}px) {
     text-align: center;
     margin-bottom: 40px;
@@ -135,6 +166,10 @@ const ItemIcon = styled.img`
   }
 `;
 
+const BuyIcon = styled.img`
+  width: 150px;
+`;
+
 const Title = styled.h1`
   font-size: 32px;
   text-align: center;
@@ -149,7 +184,7 @@ const Title = styled.h1`
   }
 `;
 
-const H2 = styled.h2`
+const HeaderTitle = styled.h2`
   font-size: 22px;
   font-weight: 500;
   font-style: normal;
@@ -160,13 +195,13 @@ const H2 = styled.h2`
   text-align: center;
 `;
 
-const SubscriptionTitle = styled(H2)`
+const SubscriptionTitle = styled(HeaderTitle)`
   color: ${props => props.theme.title.color};
   text-align: center;
   font-weight: bold;
 `;
 
-const InfoTitle = styled(H2)`
+const InfoTitle = styled(HeaderTitle)`
   font-size: 18px;
   color: ${props => props.theme.title.color};
   text-align: left;
@@ -175,19 +210,19 @@ const InfoTitle = styled(H2)`
   }
 `;
 
-const ItemTitle = styled(H2)`
+const ItemTitle = styled(HeaderTitle)`
   font-size: 16px;
   font-weight: 600;
   color: ${props => props.theme.title.color};
 `;
 
-const InfoHeaderTitle = styled(H2)`
+const InfoHeaderTitle = styled(HeaderTitle)`
   color: ${props => props.theme.title.color};
   text-align: center;
   font-weight: bold;
 `;
 
-const BenefitTitle = styled(H2)`
+const BenefitTitle = styled(HeaderTitle)`
   font-size: 18px;
   font-weight: bold;
   color: ${props => props.theme.title.color};
@@ -229,12 +264,6 @@ const Content = styled(Paragraph)`
   padding-bottom: 40px;
 `;
 
-const SubscriptionContent = styled(Paragraph)`
-  font-size: 14px;
-  text-align: center;
-  padding-bottom: 10px;
-`;
-
 const InfoContent = styled(Paragraph)`
   width: 330px;
   padding-bottom: 10px;
@@ -255,7 +284,20 @@ const InfoHeaderContent = styled(Paragraph)`
   }
 `;
 
-const LandingPageSlide = () => (
+const ContentPurchase = styled.a`
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  font-size: 28px;
+  color: white;
+  text-align: center;
+  padding-bottom: 40px;
+  text-decoration: none;
+  display: block;
+`;
+const LandingPageSlide = ({ history }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
       <Header>
@@ -268,10 +310,19 @@ const LandingPageSlide = () => (
           </Content>
         </ContentWrapper>
         <Wrapper>
-          <HeaderWrapper>
-            <Button>Try for free</Button>
-            <ButtonSecondary>Sign up</ButtonSecondary>
-          </HeaderWrapper>
+          <HeaderWrapper />
+        </Wrapper>
+        <Wrapper>
+          <ContentPurchase href="http://twitter.com/opacity_storage">
+            Opacity 1.0 Coming May 2019
+          </ContentPurchase>
+          <ButtonSecondary
+            onClick={() =>
+              (location.href = "http://twitter.com/opacity_storage")
+            }
+          >
+            Stay Informed
+          </ButtonSecondary>
         </Wrapper>
       </Header>
       <Container>
@@ -290,17 +341,17 @@ const LandingPageSlide = () => (
             <Wrapper>
               <Icon src={ICON_SHARE_FILE} />
             </Wrapper>
-            <ItemTitle>No Personal Info Required</ItemTitle>
+            <ItemTitle>Share Files Your Way</ItemTitle>
             <ItemContent>
-              We will never ask for any personal information. No email, no
-              contact, nothing.
+              You control who can view your files. By default, you and only you
+              even know these files exist.
             </ItemContent>
           </Column>
           <Column>
             <Wrapper>
               <Icon src={ICON_PAY_CURRENCY} />
             </Wrapper>
-            <ItemTitle>No Personal Info Required</ItemTitle>
+            <ItemTitle>Pay Using Cryptocurrency</ItemTitle>
             <ItemContent>
               Using the <b>OPQ token</b>, you can pay for your storage needs
               without ever having to use a credit card.
@@ -314,41 +365,37 @@ const LandingPageSlide = () => (
           <Column>
             <BenefitTitle>Your Files. Safe and Secure.</BenefitTitle>
             <BenefitContent>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum nunc in, imperdiet augue. Phasellus
-              nisl est, tristique ac magna sed, aliquet faucibus eros. Vivamus
-              tempus est eget risus tincidunt cursus. Praesent ac malesuada
-              nulla. Curabitur ullamcorper velit urna, id ornare nisl convallis
-              sed. Ut non elit tellus. Integer quis felis eget tortor interdum
-              vulputate a ac dolor. Nullam tempus nisi ut magna
+              Opacity uses state-of-the-art encryption algorithms to ensure that
+              your files are secure. The Opacity platform encrypts your files at
+              rest to provide comprehesive protection for your files. As long as
+              you protect your Opacity Handle, your data is safe.
             </BenefitContent>
           </Column>
         </SubContainer>
-        <BenefitContainer>
+        <BenefitSubContainer>
           <Column>
             <BenefitTitle>Your Handle Your Rules.</BenefitTitle>
             <BenefitContent>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum nunc in, imperdiet augue. Phasellus
-              nisl est, tristique ac magna sed, aliquet faucibus eros. Vivamus
-              tempus est eget risus tincidunt cursus. Praesent ac malesuada
-              nulla. Curabitur ullamcorper velit urna, id ornare nisl convallis
-              sed. Ut non elit tellus. Integer quis felis eget tortor interdum
-              vulputate a ac dolor. Nullam tempus nisi ut magna
+              Your unique Opacity Account Handle is the single point of access
+              to your storage account. Only you know this handle, and only you
+              have access to your files unless you decide to share the handle.
+              Opacity applies zero-knowledge principles, meaning we do not track
+              anything you upload or download. You may also choose individual
+              files to share with a unique file handle that others may use to
+              view shared files on the Opacity platform.
             </BenefitContent>
           </Column>
           <Column>
             <BenefitIcon src={ICON_BENEFIT_HANDLE} />
           </Column>
-        </BenefitContainer>
+        </BenefitSubContainer>
       </Container>
-      <SubscriptionContainer>
-        <SubscriptionTitle>Our Plans</SubscriptionTitle>
-        <SubscriptionContent>
-          More details for each plan available on our <b>pricing page</b>
-        </SubscriptionContent>
-        <Subscription />
-      </SubscriptionContainer>
+      <SubscriptionContainerImage>
+        <SubscriptionContainer>
+          <SubscriptionTitle>Our Plans</SubscriptionTitle>
+          <Subscription />
+        </SubscriptionContainer>
+      </SubscriptionContainerImage>
       <Container>
         <InfoHeaderTitle>More Info? No Problem.</InfoHeaderTitle>
         <InfoHeaderContent>
@@ -358,24 +405,26 @@ const LandingPageSlide = () => (
         </InfoHeaderContent>
         <SubContainer>
           <Item>
-            <ItemIcon src={ICON_INFO_OPACITY} />
-            <InfoTitle>No Personal Info Required</InfoTitle>
+            <ItemIcon src={ICON_INFO_PERSONAL} />
+            <InfoTitle>The Brains Behind Opacity</InfoTitle>
             <InfoContent>
-              We will never ask for any personal information. No email, no
-              contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum
+              We are a group of privacy enthusiasts looking to build a true
+              zero-knowledge storage solution. Take a peek at the team behind
+              the Opacity platform.
             </InfoContent>
             <ItemButtonWrapper>
-              <ButtonItem>Learn more</ButtonItem>
+              <ButtonItem onClick={() => history.push("/team-page")}>
+                Learn more
+              </ButtonItem>
             </ItemButtonWrapper>
           </Item>
           <Item>
             <ItemIcon src={ICON_INFO_BENEFIT} />
-            <InfoTitle>No Personal Info Required</InfoTitle>
+            <InfoTitle>Benefits of Zero-knowledge Cloud Storage</InfoTitle>
             <InfoContent>
-              We will never ask for any personal information. No email, no
-              contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum
+              Not many storeage providers offer a true, zero-knowledge solution.
+              Learn exactly what zero-knowledge means and how it can be of
+              benefit to you.
             </InfoContent>
             <ItemButtonWrapper>
               <ButtonItem>Learn more</ButtonItem>
@@ -384,24 +433,25 @@ const LandingPageSlide = () => (
         </SubContainer>
         <SubContainer>
           <Item>
-            <ItemIcon src={ICON_INFO_PERSONAL} />
-            <InfoTitle>No Personal Info Required</InfoTitle>
+            <ItemIcon src={ICON_INFO_OPACITY} />
+            <InfoTitle>Why Opacity Stands Out</InfoTitle>
             <InfoContent>
-              We will never ask for any personal information. No email, no
-              contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum
+              We do things differently than most sotrage providers. Learn
+              exactly what makes us stand out from the competition.
             </InfoContent>
             <ItemButtonWrapper>
-              <ButtonItem>Learn more</ButtonItem>
+              <ButtonItem onClick={() => history.push("/stands-out")}>
+                Learn more
+              </ButtonItem>
             </ItemButtonWrapper>
           </Item>
           <Item>
-            <ItemIcon src={ICON_INFO_CRYPTOCUREENCY} />
-            <InfoTitle>No Personal Info Required</InfoTitle>
+            <ItemIcon src={ICON_INFO_CRYPTOCURRENCY} />
+            <InfoTitle>New to Cryptocurrency?</InfoTitle>
             <InfoContent>
-              We will never ask for any personal information. No email, no
-              contLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac
-              massa vestibulum, vestibulum
+              Cryptocurrency can be a little confusing, but it doesn’t have to
+              be. Take a look at this video to learn how you can get started
+              with cryptocurrency.
             </InfoContent>
             <ItemButtonWrapper>
               <ButtonItem>Learn more</ButtonItem>
@@ -409,8 +459,57 @@ const LandingPageSlide = () => (
           </Item>
         </SubContainer>
       </Container>
+      <Container id="buyOPQ">
+        <InfoHeaderTitle>Where to Buy OPQ</InfoHeaderTitle>
+        <BuySubContainer>
+          <Column>
+            <Wrapper>
+              <BuyIcon src={ICON_KUCOIN} />
+            </Wrapper>
+            <ButtonWrapper>
+              <ButtonBuy
+                onClick={() =>
+                  (location.href = "https://www.kucoin.com/trade/OPQ-ETH")
+                }
+              >
+                Buy OPQ on KuCoin
+              </ButtonBuy>
+            </ButtonWrapper>
+          </Column>
+          <Column>
+            <Wrapper>
+              <BuyIcon src={ICON_COSSIO} />
+            </Wrapper>
+            <ButtonWrapper>
+              <ButtonBuy
+                onClick={() =>
+                  (location.href = "https://coss.io/c/trade?s=OPQ_ETH")
+                }
+              >
+                Buy OPQ on COSS
+              </ButtonBuy>
+            </ButtonWrapper>
+          </Column>
+        </BuySubContainer>
+      </Container>
+      <Container>
+        <CoinMarketCapWrapper>
+          <div
+            className="coinmarketcap-currency-widget"
+            data-currencyid="3632"
+            data-base="USD"
+            data-secondary="BTC"
+            data-ticker="true"
+            data-rank="true"
+            data-marketcap="true"
+            data-volume="true"
+            data-stats="USD"
+            data-statsticker="false"
+          />
+        </CoinMarketCapWrapper>
+      </Container>
     </ContainerWrapper>
   </ThemeProvider>
 );
 
-export default LandingPageSlide;
+export default withRouter(LandingPageSlide);
