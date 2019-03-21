@@ -14,7 +14,7 @@ const Container = styled.div`
   }
 `;
 
-const Collum = styled.div`
+const Column = styled.div`
   width: 100%;
   height: 451px;
   background-color: ${props => props.theme.container.background};
@@ -51,7 +51,7 @@ const Title = styled.h1`
   }
 `;
 
-const Hr = styled.div`
+const Line = styled.div`
   width: ${props => props.theme.container.title.underline.width}px;
   border-top: ${props => props.theme.container.title.underline.height}px solid
     ${props => props.theme.container.title.underline.color};
@@ -60,6 +60,26 @@ const Hr = styled.div`
   margin-bottom: 15px;
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
     margin: 5px 20px 15px 20px;
+  }
+`;
+
+const Price = styled.p`
+  width: 90px;
+  min-height: 50px;
+  font-size: ${props => props.theme.container.title.size}px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.container.content};
+  text-align: center;
+  margin: auto;
+  margin-top: 20px;
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+    position: relative;
+    top: -120px;
+    right: -100px;
   }
 `;
 
@@ -89,26 +109,6 @@ const ContentBold = styled(Content)`
   min-height: 28px;
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
     display: none;
-  }
-`;
-
-const Price = styled.p`
-  width: 90px;
-  min-height: 50px;
-  font-size: ${props => props.theme.container.title.size}px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.container.content};
-  text-align: center;
-  margin: auto;
-  margin-top: 20px;
-  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    position: relative;
-    top: -120px;
-    right: -100px;
   }
 `;
 
@@ -167,60 +167,63 @@ const Features = styled.img`
 const Subscription = () => (
   <ThemeProvider theme={theme}>
     <Container>
-      <Collum>
+      <Column>
         <Title>Basic</Title>
-        <Hr />
+        <Line />
         <Content>
           Secure, encrypted storage solution perfect for the needs of the
           individual.
         </Content>
-        <ContentBold>128 GB secure, decentralized storage</ContentBold>
+        <ContentBold>100 GB secure storage</ContentBold>
         <ContentBold>Unlimited downloads</ContentBold>
+        <ContentBold>Anonymous account</ContentBold>
+        <Price />
         <MoreFeatures>
           <Features src={FEATURES} alt="logo" />
           Show features
         </MoreFeatures>
-        <Price>2 OPQ</Price>
         <ButtonWrapper>
-          <Button>CHOOSE PLAN</Button>
+          <Button>COMING SOON</Button>
         </ButtonWrapper>
-      </Collum>
-      <Collum>
+      </Column>
+      <Column>
         <Title>Professional</Title>
-        <Hr />
+        <Line />
         <Content>
           For professionals looking for a secure, easily accessible storage
           solution while on the move.
         </Content>
-        <ContentBold>512 GB secure, decentralized storage</ContentBold>
+        <ContentBold>1 TB secure storage</ContentBold>
         <ContentBold>Unlimited downloads</ContentBold>
+        <ContentBold>Anonymous account</ContentBold>
+        <Price />
         <MoreFeatures>
           <Features src={FEATURES} alt="logo" />
           Show features
         </MoreFeatures>
-        <Price>8 OPQ</Price>
         <ButtonWrapper>
-          <Button>CHOOSE PLAN</Button>
+          <Button>COMING SOON</Button>
         </ButtonWrapper>
-      </Collum>
-      <Collum>
+      </Column>
+      <Column>
         <Title>Business</Title>
-        <Hr />
+        <Line />
         <Content>
           A secure, encrypted storage solution for growing businesses. Perfect
           for small teams.
         </Content>
-        <ContentBold>1 TB secure, decentralized storage</ContentBold>
+        <ContentBold>2 TB secure storage</ContentBold>
         <ContentBold>Unlimited downloads</ContentBold>
+        <ContentBold>Anonymous account</ContentBold>
+        <Price />
         <MoreFeatures>
           <Features src={FEATURES} alt="logo" />
           Show features
         </MoreFeatures>
-        <Price>16 OPQ</Price>
         <ButtonWrapper>
-          <Button>CHOOSE PLAN</Button>
+          <Button>COMING SOON</Button>
         </ButtonWrapper>
-      </Collum>
+      </Column>
     </Container>
   </ThemeProvider>
 );
