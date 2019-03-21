@@ -3,13 +3,21 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { MOBILE_WIDTH, theme } from "../../config";
 
-const ICON_INTRO = require("../../assets/images/intro.svg");
-const ICON_ACCESS_ACCOUNT = require("../../assets/images/access_account.svg");
-const ICON_ENCRYPTED = require("../../assets/images/encrypted.svg");
-const ICON_LASTPASS = require("../../assets/images/last_pass.svg");
-const ICON_1PASSWORD = require("../../assets/images/1password.svg");
-const ICON_KEEPASS = require("../../assets/images/kee_pass.svg");
+const ICON_INTRO = require("../../assets/images/so_intro.svg");
+const ICON_ACCESS_ACCOUNT = require("../../assets/images/so_access_account.svg");
 const ICON_BIT = require("../../assets/images/bit.svg");
+const ICON_ENCRYPTED = require("../../assets/images/so_encrypted.svg");
+const ICON_TRANSPARENT_BASE = require("../../assets/images/so_transparent_base.svg");
+const ICON_EXPLORE_CODE = require("../../assets/images/so_explore_code.svg");
+const ICON_LASTPASS = require("../../assets/images/last_pass.png");
+const ICON_1PASSWORD = require("../../assets/images/1password.png");
+const ICON_KEEPASS = require("../../assets/images/kee_pass.png");
+const ICON_OPACITY_LOGO = require("../../assets/images/logo-login.svg");
+const ICON_GOOGLE_ONE = require("../../assets/images/google_one.png");
+const ICON_BOX_PERSONAL_PRO = require("../../assets/images/box_personal_pro.png");
+const ICON_MEGA_PRO_LITE = require("../../assets/images/mega_pro_lite.png");
+const ICON_SYNC_PERSONAL_PRO = require("../../assets/images/sync_personal_pro.png");
+const ICON_DROPBOX = require("../../assets/images/dropbox_plus.jpg");
 
 const ContainerWrapper = styled.div``;
 
@@ -176,7 +184,9 @@ const PasswordManager = styled(SubContainer)`
 
 const FooterColumn = styled.div`
   display: flex;
-  padding: 0 25px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    padding: 0 25px;
+  }
 `;
 
 const Column = styled.div`
@@ -305,6 +315,7 @@ const FunctionIconMobile = styled(FunctionIcon)`
 const IconPasswordManager = styled.img`
   height: 150px;
   width: 150px;
+  cursor: pointer;
 `;
 
 const InfoIcon = styled.img`
@@ -333,6 +344,9 @@ const Table = styled.table`
   }
   tbody tr:nth-child(1) {
     opacity: 1;
+    td {
+      font-weight: bold;
+    }
   }
   @media (max-width: ${MOBILE_WIDTH}px) {
     margin-top: 0px;
@@ -403,12 +417,12 @@ const SubscriptionSlide = () => (
             <TitleFunction>One Handle To Access Your Account.</TitleFunction>
             <FunctionIconMobile src={ICON_ACCESS_ACCOUNT} />
             <FunctionContent>
-              When you sign up with Opacity, a unique Storage Handle is
-              generated. This Handle and a user-chosen password is what is
-              required to access your storage account. By default, you are the
-              only person with this information, so it is important that you
-              record your storage handle and password to avoid losing access to
-              your account.
+              When you sign up with Opacity, a unique Account Handle is created
+              just for you. This Handle and a user-chosen password is all that
+              is required to access your storage account. By default, you are
+              the only person with this information, so it is important that you
+              record your Account Handle and password to avoid trouble accessing
+              your account. Keep it safe!
             </FunctionContent>
           </Column>
         </SubContainer>
@@ -419,12 +433,12 @@ const SubscriptionSlide = () => (
             </TitleFunction>
             <FunctionIconMobile src={ICON_ENCRYPTED} />
             <FunctionContent>
-              The key to decrypting your files is generated client-side, so not
-              even Opacity can access your files. When you want to share a file
+              The key to unlocking your files is generated client-side - not
+              even Opacity can access your files! When you want to share a file
               with a friend, you can easily generate a shareable link with a
-              single button click. Only the people with that link can access
-              your file, giving you granular control over who has access to your
-              files.
+              single button click. Only people with that link can access your
+              file, giving you granular control over who has access to your
+              data.
             </FunctionContent>
           </Column>
           <Column>
@@ -436,27 +450,36 @@ const SubscriptionSlide = () => (
         <RecommendTitle>Password Manager Recommended</RecommendTitle>
         <RecommendContentWrapper>
           <Content>
-            We understand the need for privacy, that’s why our architecture
-            ensures that you are the only person controlling access to your
-            files. However, this level of prviacy also means that Opacity does
-            not keep any record of your account information, or the Storage
-            Handle and password used to access your account.
+            We understand the need for privacy. That’s why our architecture
+            ensures only you control access to your personal data. However, this
+            level of account privacy means that Opacity does not retain any
+            record of your account information, including the Account Handle and
+            password used to create and access your account.
           </Content>
           <Content>
             To avoid any potential loss of access, we recommend using a password
-            manager to store your Opacity credentials. Check out some of the
-            solutions below:
+            manager to safely store your Opacity credentials. Check out some of
+            the solutions below:
           </Content>
         </RecommendContentWrapper>
         <PasswordManager>
           <ColumnPasswordManager>
-            <IconPasswordManager src={ICON_LASTPASS} />
+            <IconPasswordManager
+              src={ICON_LASTPASS}
+              onClick={() => window.open("https://www.lastpass.com/", "_blank")}
+            />
           </ColumnPasswordManager>
           <ColumnPasswordManager>
-            <IconPasswordManager src={ICON_1PASSWORD} />
+            <IconPasswordManager
+              src={ICON_1PASSWORD}
+              onClick={() => window.open("https://1password.com/", "_blank")}
+            />
           </ColumnPasswordManager>
           <ColumnPasswordManager>
-            <IconPasswordManager src={ICON_KEEPASS} />
+            <IconPasswordManager
+              src={ICON_KEEPASS}
+              onClick={() => window.open("https://keepass.info/", "_blank")}
+            />
           </ColumnPasswordManager>
         </PasswordManager>
       </Container>
@@ -478,30 +501,57 @@ const SubscriptionSlide = () => (
           <tbody>
             <Tr>
               <Td>
-                <TableIcon src={ICON_BIT} />
+                <TableIcon src={ICON_OPACITY_LOGO} />
               </Td>
-              <Td>Opacity</Td>
-              <Td>HR STUFF</Td>
-              <Td>01/03/2019</Td>
-              <Td>40 FILES</Td>
+              <Td>OPACITY</Td>
+              <Td>100 GB</Td>
+              <Td>$0.03</Td>
+              <Td>$0.02</Td>
             </Tr>
             <Tr>
               <Td>
-                <TableIcon src={ICON_BIT} />
+                <TableIcon src={ICON_GOOGLE_ONE} />
               </Td>
-              <Td>Opacity</Td>
-              <Td>STUFF</Td>
-              <Td>01/03/2019.</Td>
-              <Td>25 FILES</Td>
+              <Td>Google One</Td>
+              <Td>100 GB</Td>
+              <Td>$23.86</Td>
+              <Td>$15.28</Td>
             </Tr>
             <Tr>
               <Td>
-                <TableIcon src={ICON_BIT} />
+                <TableIcon src={ICON_BOX_PERSONAL_PRO} />
               </Td>
-              <Td>Opacity</Td>
-              <Td>Maine</Td>
-              <Td>01/03/2019</Td>
-              <Td>30 FILES</Td>
+              <Td>Box Personal Pro</Td>
+              <Td>100 GB</Td>
+              <Td>$120.00</Td>
+              <Td>$76.80</Td>
+            </Tr>
+            <Tr>
+              <Td>
+                <TableIcon src={ICON_MEGA_PRO_LITE} />
+              </Td>
+              <Td>Mega Pro Lite</Td>
+              <Td>200 GB</Td>
+              <Td>$68.16</Td>
+              <Td>$21.81</Td>
+            </Tr>
+            <Tr>
+              <Td>
+                <TableIcon src={ICON_SYNC_PERSONAL_PRO} />
+              </Td>
+              <Td>Sync Personal Pro</Td>
+              <Td>500 GB</Td>
+              <Td>$49.00</Td>
+              <Td>$6.27</Td>
+            </Tr>
+            <Tr>
+              <Td>
+                <TableIcon src={ICON_DROPBOX} />
+              </Td>
+              <Td>Dropbox Plus</Td>
+              <Td>1000 GB</Td>
+              <Td>$99.00</Td>
+              <Td>$6.34</Td>
             </Tr>
           </tbody>
         </Table>
@@ -514,22 +564,37 @@ const SubscriptionSlide = () => (
         <HeaderTitle>Transparent Code Base</HeaderTitle>
         <SubContainer>
           <Column>
-            <InfoIcon src={ICON_KEEPASS} />
+            <InfoIcon src={ICON_TRANSPARENT_BASE} />
             <InfoContent>
               Wondering how things work? Take a peek under the hood! All of
               Opacity’s codebase is completely open source for anyone wondering
               how our system works.
             </InfoContent>
-            <Button>Explore our code</Button>
+            <Button
+              onClick={() =>
+                window.open("https://github.com/opacity", "_blank")
+              }
+            >
+              Explore our code
+            </Button>
           </Column>
           <Column>
-            <InfoIcon src={ICON_KEEPASS} />
+            <InfoIcon src={ICON_EXPLORE_CODE} />
             <InfoContent>
               Want an overview of Opacity, its current architecture, and where
               we want to go in the future? Check out the Opacity Whitepaper!
               Current version: 1.0
             </InfoContent>
-            <Button>Read our whitepaper</Button>
+            <Button
+              onClick={() =>
+                window.open(
+                  "https://alpha.opacity.io/#/OpacityS6ba809778cee8b017d48aa13564f32351213b108b8c724c83c69ee37ab366912VEKcnYtf",
+                  "_blank"
+                )
+              }
+            >
+              Read our whitepaper
+            </Button>
           </Column>
         </SubContainer>
       </Container>
