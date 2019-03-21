@@ -30,6 +30,7 @@ import PaymentConfirm from "./components/payment-confirm";
 import PageNavigationPrompt from "./components/page-navigation-prompt";
 import Subscription from "./components/subscription";
 import Signup from "./components/signup";
+import TeamPage from "./components/team-page";
 import StandsOut from "./components/stands-out";
 
 import ErrorPage from "./components/error-page";
@@ -72,6 +73,7 @@ const App = () => (
             <Route path="/file-manager" component={FileManager} />
             <Route path="/login-or-register" component={LoginOrRegister} />
             <Route path="/landing-page" component={LandingPage} />
+            <Route patch="/team-page" component={TeamPage} />
 
             <Route
               path="/terms-of-service"
