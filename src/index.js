@@ -30,7 +30,6 @@ import PaymentConfirm from "./components/payment-confirm";
 import PageNavigationPrompt from "./components/page-navigation-prompt";
 import Subscription from "./components/subscription";
 import Signup from "./components/signup";
-import StandsOut from "./components/stands-out";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -46,40 +45,31 @@ const App = () => (
           <PageNavigationPrompt />
           <Header />
           <Switch>
-            <Route exact path="/" component={LandingPage} />
-            <Route path="/storage" component={PathChoice} />
-            <Route path="/storage/download-form" component={DownloadForm} />
+            <Route exact path="/" component={PathChoice} />
+            <Route path="/download-form" component={DownloadForm} />
+            <Route path="/download-started" component={DownloadStarted} />
+            <Route path="/download-complete" component={DownloadComplete} />
             <Route
-              path="/storage/download-started"
-              component={DownloadStarted}
-            />
-            <Route
-              path="/storage/download-complete"
-              component={DownloadComplete}
-            />
-            <Route
-              path="/storage/download-upload-history"
+              path="/download-upload-history"
               component={DownloadUploadHistory}
             />
-            <Route path="/storage/upload-form" component={UploadForm} />
-            <Route path="/storage/upload-started" component={UploadStarted} />
-            <Route path="/storage/upload-progress" component={UploadProgress} />
-            <Route path="/storage/upload-complete" component={UploadComplete} />
-            <Route
-              path="/storage/retrieving-invoice"
-              component={RetrievingInvoice}
-            />
-            <Route path="/storage/payment-invoice" component={PaymentInvoice} />
-            <Route path="/storage/payment-confirm" component={PaymentConfirm} />
-            <Route path="/storage/error-page" component={ErrorPage} />
-            <Route path="/storage/brokers-down" component={BrokersDown} />
-            <Route path="/storage/file-manager" component={FileManager} />
+            <Route path="/upload-form" component={UploadForm} />
+            <Route path="/upload-started" component={UploadStarted} />
+            <Route path="/upload-progress" component={UploadProgress} />
+            <Route path="/upload-complete" component={UploadComplete} />
 
+            <Route path="/retrieving-invoice" component={RetrievingInvoice} />
+
+            <Route path="/payment-invoice" component={PaymentInvoice} />
+            <Route path="/payment-confirm" component={PaymentConfirm} />
+
+            <Route path="/error-page" component={ErrorPage} />
+            <Route path="/brokers-down" component={BrokersDown} />
             <Route path="/subscription" component={Subscription} />
             <Route path="/sign-up" component={Signup} />
-            <Route path="/stands-out" component={StandsOut} />
             <Route path="/file-manager" component={FileManager} />
             <Route path="/login-or-register" component={LoginOrRegister} />
+            <Route path="/landing-page" component={LandingPage} />
 
             <Route
               path="/terms-of-service"

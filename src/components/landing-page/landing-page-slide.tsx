@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { withRouter } from "react-router";
 
 import { MOBILE_WIDTH, theme } from "../../config";
 import Subscription from "../shared/subscription";
@@ -12,7 +13,10 @@ const ICON_BENEFIT_FILES = require("../../assets/images/benefit_files.svg");
 const ICON_INFO_OPACITY = require("../../assets/images/info_opacity.svg");
 const ICON_INFO_BENEFIT = require("../../assets/images/info_benefit.svg");
 const ICON_INFO_PERSONAL = require("../../assets/images/info_personal.svg");
-const ICON_INFO_CRYPTOCUREENCY = require("../../assets/images/info_cryptocurrency.svg");
+const ICON_INFO_CRYPTOCURRENCY = require("../../assets/images/info_cryptocurrency.svg");
+const ICON_KUCOIN = require("../../assets/images/kucoin.png");
+const ICON_COSSIO = require("../../assets/images/cossio.png");
+const BACKGROUND_BUBBLES = require("../../assets/images/bubbles.svg");
 
 const ContainerWrapper = styled.div``;
 
@@ -23,8 +27,13 @@ const Container = styled.div`
   background-color: ${props => props.theme.background};
 `;
 
+const SubscriptionContainerImage = styled.div`
+  background-image: url(${BACKGROUND_BUBBLES});
+`;
+
 const SubscriptionContainer = styled(Container)`
   padding: 60px 0 60px 0;
+  background-color: transparent;
 `;
 
 const Header = styled.div`
@@ -44,22 +53,6 @@ const SubContainer = styled.div`
     display: block;
   }
 `;
-const BenefitContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 60px 0 40px 0;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    flex-direction: column-reverse;
-  }
-`;
-
-const HeaderWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    display: grid;
-  }
-`;
 
 const BenefitSubContainer = styled(SubContainer)`
   @media (max-width: ${MOBILE_WIDTH}px) {
@@ -77,6 +70,12 @@ const HeaderWrapper = styled.div`
   @media (max-width: ${MOBILE_WIDTH}px) {
     display: grid;
   }
+`;
+
+const CoinMarketCapWrapper = styled.div`
+  width: 300px;
+  padding-top: 80px;
+  margin: auto;
 `;
 
 const Column = styled.div`
@@ -121,7 +120,7 @@ const ButtonItem = styled(Button)`
 `;
 
 const ButtonBuy = styled(Button)`
-  width: 100%;
+  width: 200px;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: 250px;
   }
@@ -168,7 +167,7 @@ const ItemIcon = styled.img`
 `;
 
 const BuyIcon = styled.img`
-  width: 200px;
+  width: 150px;
 `;
 
 const Title = styled.h1`
@@ -265,17 +264,6 @@ const Content = styled(Paragraph)`
   padding-bottom: 40px;
 `;
 
-const ContentPurchase = styled(Content)`
-  font-weight: bold;
-  margin-top: 25px;
-`;
-
-const SubscriptionContent = styled(Paragraph)`
-  font-size: 14px;
-  text-align: center;
-  padding-bottom: 10px;
-`;
-
 const InfoContent = styled(Paragraph)`
   width: 330px;
   padding-bottom: 10px;
@@ -296,7 +284,20 @@ const InfoHeaderContent = styled(Paragraph)`
   }
 `;
 
-const LandingPageSlide = () => (
+const ContentPurchase = styled.a`
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  font-size: 28px;
+  color: white;
+  text-align: center;
+  padding-bottom: 40px;
+  text-decoration: none;
+  display: block;
+`;
+const LandingPageSlide = ({ history }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
       <Header>
@@ -309,15 +310,19 @@ const LandingPageSlide = () => (
           </Content>
         </ContentWrapper>
         <Wrapper>
-          <HeaderWrapper>
-            <Button>Try for free</Button>
-            <ButtonSecondary>Sign up</ButtonSecondary>
-          </HeaderWrapper>
+          <HeaderWrapper />
         </Wrapper>
         <Wrapper>
-          <ContentPurchase>
-            Click here to purchase the OPQ token
+          <ContentPurchase href="http://twitter.com/opacity_storage">
+            Opacity 1.0 Coming May 2019
           </ContentPurchase>
+          <ButtonSecondary
+            onClick={() =>
+              (location.href = "http://twitter.com/opacity_storage")
+            }
+          >
+            Stay Informed
+          </ButtonSecondary>
         </Wrapper>
       </Header>
       <Container>
@@ -385,13 +390,12 @@ const LandingPageSlide = () => (
           </Column>
         </BenefitSubContainer>
       </Container>
-      <SubscriptionContainer>
-        <SubscriptionTitle>Our Plans</SubscriptionTitle>
-        <SubscriptionContent>
-          More details for each plan available on our <b>pricing page</b>
-        </SubscriptionContent>
-        <Subscription />
-      </SubscriptionContainer>
+      <SubscriptionContainerImage>
+        <SubscriptionContainer>
+          <SubscriptionTitle>Our Plans</SubscriptionTitle>
+          <Subscription />
+        </SubscriptionContainer>
+      </SubscriptionContainerImage>
       <Container>
         <InfoHeaderTitle>More Info? No Problem.</InfoHeaderTitle>
         <InfoHeaderContent>
@@ -401,7 +405,7 @@ const LandingPageSlide = () => (
         </InfoHeaderContent>
         <SubContainer>
           <Item>
-            <ItemIcon src={ICON_INFO_OPACITY} />
+            <ItemIcon src={ICON_INFO_PERSONAL} />
             <InfoTitle>The Brains Behind Opacity</InfoTitle>
             <InfoContent>
               We are a group of privacy enthusiasts looking to build a true
@@ -409,7 +413,9 @@ const LandingPageSlide = () => (
               the Opacity platform.
             </InfoContent>
             <ItemButtonWrapper>
-              <ButtonItem>Learn more</ButtonItem>
+              <ButtonItem onClick={() => history.push("/team-page")}>
+                Learn more
+              </ButtonItem>
             </ItemButtonWrapper>
           </Item>
           <Item>
@@ -427,18 +433,20 @@ const LandingPageSlide = () => (
         </SubContainer>
         <SubContainer>
           <Item>
-            <ItemIcon src={ICON_INFO_PERSONAL} />
+            <ItemIcon src={ICON_INFO_OPACITY} />
             <InfoTitle>Why Opacity Stands Out</InfoTitle>
             <InfoContent>
               We do things differently than most sotrage providers. Learn
               exactly what makes us stand out from the competition.
             </InfoContent>
             <ItemButtonWrapper>
-              <ButtonItem>Learn more</ButtonItem>
+              <ButtonItem onClick={() => history.push("/stands-out")}>
+                Learn more
+              </ButtonItem>
             </ItemButtonWrapper>
           </Item>
           <Item>
-            <ItemIcon src={ICON_INFO_CRYPTOCUREENCY} />
+            <ItemIcon src={ICON_INFO_CRYPTOCURRENCY} />
             <InfoTitle>New to Cryptocurrency?</InfoTitle>
             <InfoContent>
               Cryptocurrency can be a little confusing, but it doesn’t have to
@@ -451,29 +459,57 @@ const LandingPageSlide = () => (
           </Item>
         </SubContainer>
       </Container>
-      <Container>
+      <Container id="buyOPQ">
         <InfoHeaderTitle>Where to Buy OPQ</InfoHeaderTitle>
         <BuySubContainer>
           <Column>
             <Wrapper>
-              <BuyIcon src={ICON_BENEFIT_FILES} />
+              <BuyIcon src={ICON_KUCOIN} />
             </Wrapper>
             <ButtonWrapper>
-              <ButtonBuy>Buy OPQ on KuCoin</ButtonBuy>
+              <ButtonBuy
+                onClick={() =>
+                  (location.href = "https://www.kucoin.com/trade/OPQ-ETH")
+                }
+              >
+                Buy OPQ on KuCoin
+              </ButtonBuy>
             </ButtonWrapper>
           </Column>
           <Column>
             <Wrapper>
-              <BuyIcon src={ICON_BENEFIT_FILES} />
+              <BuyIcon src={ICON_COSSIO} />
             </Wrapper>
             <ButtonWrapper>
-              <ButtonBuy>Buy OPQ on COSS</ButtonBuy>
+              <ButtonBuy
+                onClick={() =>
+                  (location.href = "https://coss.io/c/trade?s=OPQ_ETH")
+                }
+              >
+                Buy OPQ on COSS
+              </ButtonBuy>
             </ButtonWrapper>
           </Column>
         </BuySubContainer>
+      </Container>
+      <Container>
+        <CoinMarketCapWrapper>
+          <div
+            className="coinmarketcap-currency-widget"
+            data-currencyid="3632"
+            data-base="USD"
+            data-secondary="BTC"
+            data-ticker="true"
+            data-rank="true"
+            data-marketcap="true"
+            data-volume="true"
+            data-stats="USD"
+            data-statsticker="false"
+          />
+        </CoinMarketCapWrapper>
       </Container>
     </ContainerWrapper>
   </ThemeProvider>
 );
 
-export default LandingPageSlide;
+export default withRouter(LandingPageSlide);
