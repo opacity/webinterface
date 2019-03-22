@@ -188,7 +188,7 @@ const Footer = ({ history }) => (
           <Link href="https://medium.com/opacity-storage/" target="_blank">
             Blog <IconArrow src={ICON_ARROW_RIGHT} />
           </Link>
-          <Link href=" https://www.kucoin.com/trade/OPQ-ETH" target="_blank">
+          <Link href=" https://www.kucoin.com/trade/OPQ-BTC" target="_blank">
             Buy OPQ <IconArrow src={ICON_ARROW_RIGHT} />
           </Link>
         </FooterLinks>
