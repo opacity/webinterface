@@ -62,7 +62,7 @@ const SubRoute = ({ sub = "", children, ...props }) => (
         return children(`/${pathStart}`);
       }
       // not using subdomain and not using path
-      if (curSub.length === 0 && sub.length === 0) {
+      if (curSub === "www" || (curSub.length === 0 && sub.length === 0)) {
         return children("");
       }
 
