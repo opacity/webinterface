@@ -2,7 +2,9 @@ import _ from "lodash";
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { theme, MOBILE_WIDTH } from "../../config";
+import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
+import Footer from "../shared/footer";
+import Header from "../shared/header";
 
 const ICON_JASON = require("../../assets/images/jason.jpg");
 const ICON_TAYLOR = require("../../assets/images/taylor.jfif");
@@ -44,7 +46,7 @@ const Container = styled.div`
   padding-bottom: 20px;
 `;
 
-const Header = styled.div`
+const HeaderContainer = styled.div`
   width: auto;
   padding: 70px 0 70px 0;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
@@ -71,7 +73,7 @@ const PeopleContainer = styled.div`
 
 const PeopleWrapper = styled.div`
   border: solid 0.5px #acb3bf;
-  padding: 30px 0;
+  padding: 50px 20px;
   margin: auto;
 `;
 
@@ -110,7 +112,7 @@ const PersonTitle = styled.h2`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: black;
+  color: #4f5e78;
   text-align: center;
   color: ${props => props.theme.title.color};
   font-weight: bold;
@@ -123,13 +125,13 @@ const Parapraph = styled.p`
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: 0.7px;
-  color: black;
+  color: #4f5e78;
   text-align: center;
   font-size: 12px;
 `;
 
 const PersonRole = styled(Parapraph)`
-  font-size: 10px;
+  font-size: 12px;
   width: 170px;
   margin: auto;
   font-weight: 500;
@@ -149,12 +151,13 @@ const Content = styled(Parapraph)`
 const TeamPageSlide = () => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header>
+      <Header type={HEADER_TEAM_PAGE} />
+      <HeaderContainer>
         <Title>Meet the Team</Title>
         <ContentWrapper>
           <Content>Meet the great people behind Opacity.</Content>
         </ContentWrapper>
-      </Header>
+      </HeaderContainer>
       <Container>
         <PeopleContainer>
           {_.map(people, person => (
@@ -168,6 +171,7 @@ const TeamPageSlide = () => (
           ))}
         </PeopleContainer>
       </Container>
+      <Footer />
     </ContainerWrapper>
   </ThemeProvider>
 );

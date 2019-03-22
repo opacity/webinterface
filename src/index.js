@@ -9,8 +9,6 @@ import { store, persistor } from "./redux";
 import history from "./redux/history";
 
 import Root from "./components/root";
-import PathChoice from "./components/path-choice";
-import Header from "./components/shared/header";
 import Agreement from "./components/agreement";
 import BrokersDown from "./components/brokers-down";
 import DownloadForm from "./components/download-form";
@@ -45,9 +43,8 @@ const App = () => (
       <ConnectedRouter history={history}>
         <Root>
           <PageNavigationPrompt />
-          <Header />
           <Switch>
-            <Route exact path="/" component={PathChoice} />
+            <Route exact path="/" component={LandingPage} />
             <Route path="/download-form" component={DownloadForm} />
             <Route path="/download-started" component={DownloadStarted} />
             <Route path="/download-complete" component={DownloadComplete} />

@@ -2,8 +2,10 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
 
-import { MOBILE_WIDTH, theme } from "../../config";
+import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
 import Subscription from "../shared/subscription";
+import Footer from "../shared/footer";
+import Header from "../shared/header";
 
 const ICON_CREDIT = require("../../assets/images/credit.svg");
 const ICON_SHARE_FILE = require("../../assets/images/share_file.svg");
@@ -29,6 +31,9 @@ const Container = styled.div`
 
 const SubscriptionContainerImage = styled.div`
   background-image: url(${BACKGROUND_BUBBLES});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top center;
 `;
 
 const SubscriptionContainer = styled(Container)`
@@ -36,7 +41,7 @@ const SubscriptionContainer = styled(Container)`
   background-color: transparent;
 `;
 
-const Header = styled.div`
+const HeaderContainer = styled.div`
   width: auto;
   background-color: #2e6dde;
   padding: 40px 0 70px 0;
@@ -120,6 +125,7 @@ const ButtonItem = styled(Button)`
 `;
 
 const ButtonBuy = styled(Button)`
+  margin-top: 40px;
   width: 200px;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: 250px;
@@ -191,7 +197,7 @@ const HeaderTitle = styled.h2`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.7px;
-  color: black;
+  color: #4f5e78;
   text-align: center;
 `;
 
@@ -237,9 +243,9 @@ const Paragraph = styled.p`
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: 0.7px;
-  color: black;
+  color: #4f5e78;
   text-align: left;
-  font-size: 12px;
+  font-size: 14px;
   margin-inline-end: 10px;
 `;
 
@@ -300,7 +306,8 @@ const ContentPurchase = styled.a`
 const LandingPageSlide = ({ history }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header>
+      <Header type={HEADER_TEAM_PAGE} />
+      <HeaderContainer>
         <Title>Secure. Anonymous. Opaque.</Title>
         <ContentWrapper>
           <Content>
@@ -324,7 +331,7 @@ const LandingPageSlide = ({ history }) => (
             Stay Informed
           </ButtonSecondary>
         </Wrapper>
-      </Header>
+      </HeaderContainer>
       <Container>
         <SubContainer>
           <Column>
@@ -427,7 +434,16 @@ const LandingPageSlide = ({ history }) => (
               benefit to you.
             </InfoContent>
             <ItemButtonWrapper>
-              <ButtonItem>Learn more</ButtonItem>
+              <ButtonItem
+                onClick={() =>
+                  window.open(
+                    "https://www.cloudwards.net/what-exactly-is-zero-knowledge-in-the-cloud-and-how-does-it-work",
+                    "_blank"
+                  )
+                }
+              >
+                Learn more
+              </ButtonItem>
             </ItemButtonWrapper>
           </Item>
         </SubContainer>
@@ -454,7 +470,16 @@ const LandingPageSlide = ({ history }) => (
               with cryptocurrency.
             </InfoContent>
             <ItemButtonWrapper>
-              <ButtonItem>Learn more</ButtonItem>
+              <ButtonItem
+                onClick={() =>
+                  window.open(
+                    "https://www.youtube.com/watch?v=6Gu2QMTAkEU",
+                    "_blank"
+                  )
+                }
+              >
+                Learn more
+              </ButtonItem>
             </ItemButtonWrapper>
           </Item>
         </SubContainer>
@@ -469,7 +494,7 @@ const LandingPageSlide = ({ history }) => (
             <ButtonWrapper>
               <ButtonBuy
                 onClick={() =>
-                  (location.href = "https://www.kucoin.com/trade/OPQ-ETH")
+                  window.open("https://www.kucoin.com/trade/OPQ-ETH", "_blank")
                 }
               >
                 Buy OPQ on KuCoin
@@ -483,7 +508,7 @@ const LandingPageSlide = ({ history }) => (
             <ButtonWrapper>
               <ButtonBuy
                 onClick={() =>
-                  (location.href = "https://coss.io/c/trade?s=OPQ_ETH")
+                  window.open("https://coss.io/c/trade?s=OPQ_ETH", "_blank")
                 }
               >
                 Buy OPQ on COSS
@@ -508,6 +533,7 @@ const LandingPageSlide = ({ history }) => (
           />
         </CoinMarketCapWrapper>
       </Container>
+      <Footer />
     </ContainerWrapper>
   </ThemeProvider>
 );

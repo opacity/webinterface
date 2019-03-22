@@ -1,7 +1,10 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { MOBILE_WIDTH, theme } from "../../config";
+import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
+
+import Header from "../shared/header";
+import Footer from "../shared/footer";
 
 const ICON_INTRO = require("../../assets/images/so_intro.svg");
 const ICON_ACCESS_ACCOUNT = require("../../assets/images/so_access_account.svg");
@@ -70,7 +73,7 @@ const RecommendTitle = styled(HeaderTitle)`
   }
 `;
 
-const FooterTitle = styled(HeaderTitle)`
+const CommunityTitle = styled(HeaderTitle)`
   margin-top: 80px;
 `;
 
@@ -81,7 +84,7 @@ const Paragraph = styled.p`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: ${props => props.theme.letterSpacing};
-  color: black;
+  color: #4f5e78;
   text-align: center;
 `;
 
@@ -122,7 +125,7 @@ const InfoContent = styled(Paragraph)`
   }
 `;
 
-const FooterContent = styled(InfoContent)`
+const CommunityContent = styled(InfoContent)`
   color: #5c6a82;
   font-size: 18px;
   @media (max-width: ${MOBILE_WIDTH}px) {
@@ -131,7 +134,7 @@ const FooterContent = styled(InfoContent)`
 `;
 
 const FunctionContent = styled(InfoContent)`
-  font-size: 12px;
+  font-size: 14px;
   margin: 0 50px;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: auto;
@@ -140,7 +143,7 @@ const FunctionContent = styled(InfoContent)`
 `;
 
 const Content = styled(Paragraph)`
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 const StorageContent = styled(Paragraph)`
@@ -166,7 +169,7 @@ const SubContainer = styled.div`
   }
 `;
 
-const FooterContainer = styled(SubContainer)`
+const CommunityContainer = styled(SubContainer)`
   justify-content: space-evenly;
   margin: 100px 0;
   @media (max-width: ${MOBILE_WIDTH}px) {
@@ -181,7 +184,7 @@ const PasswordManager = styled(SubContainer)`
   }
 `;
 
-const FooterColumn = styled.div`
+const CommunityColumn = styled.div`
   display: flex;
   @media (max-width: ${MOBILE_WIDTH}px) {
     padding: 0 25px;
@@ -203,7 +206,7 @@ const ColumnPasswordManager = styled(Column)`
   }
 `;
 
-const Footer = styled.div`
+const Community = styled.div`
   width: auto;
   height: 550px;
   background-color: #e0edff;
@@ -254,7 +257,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const FooterWrapper = styled.div``;
+const CommunityWrapper = styled.div``;
 
 const Button = styled.button`
   width: 220px;
@@ -274,14 +277,6 @@ const Button = styled.button`
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: -webkit-fill-available;
     margin: 0 25px;
-  }
-`;
-
-const FooterButton = styled(Button)`
-  width: 160px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    width: -webkit-fill-available;
-    margin-bottom: 20px;
   }
 `;
 
@@ -365,7 +360,7 @@ const Tr = styled.tr`
 `;
 
 const Th = styled.th`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
@@ -393,6 +388,7 @@ const Td = styled.td`
 const SubscriptionSlide = () => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
+      <Header type={HEADER_TEAM_PAGE} />
       <Container>
         <Title>With Opacity, You’re in Full Control</Title>
         <ContentWrapper>
@@ -555,9 +551,7 @@ const SubscriptionSlide = () => (
           </tbody>
         </Table>
         <StorageSmallContent>Prices as of March 2019</StorageSmallContent>
-        <StorageSignUpContent>
-          Ready to experience true zero-knowledge storage? <b>Sign up here.</b>
-        </StorageSignUpContent>
+        <StorageSignUpContent />
       </Container>
       <Container>
         <HeaderTitle>Transparent Code Base</HeaderTitle>
@@ -584,25 +578,20 @@ const SubscriptionSlide = () => (
               we want to go in the future? Check out the Opacity Whitepaper!
               Current version: 1.0
             </InfoContent>
-            <Button
-              onClick={() =>
-                window.open(
-                  "https://alpha.opacity.io/#/OpacityS6ba809778cee8b017d48aa13564f32351213b108b8c724c83c69ee37ab366912VEKcnYtf",
-                  "_blank"
-                )
-              }
-            >
-              Read our whitepaper
-            </Button>
+            <Button>Coming soon</Button>
           </Column>
         </SubContainer>
       </Container>
-      <Footer>
-        <FooterTitle>Are you ready to join our thriving community?</FooterTitle>
-        <FooterContainer>
-          <FooterWrapper>
-            <FooterContent>Number of Unique Opacity Accounts</FooterContent>
-            <FooterColumn>
+      <Community>
+        <CommunityTitle>
+          Are you ready to join our thriving community?
+        </CommunityTitle>
+        <CommunityContainer>
+          <CommunityWrapper>
+            <CommunityContent>
+              Number of Unique Opacity Accounts
+            </CommunityContent>
+            <CommunityColumn>
               <Input />
               <Input />
               <Input />
@@ -612,11 +601,11 @@ const SubscriptionSlide = () => (
               <Input />
               <Input />
               <Input />
-            </FooterColumn>
-          </FooterWrapper>
-          <FooterWrapper>
-            <FooterContent>Files Uploaded to Opacity</FooterContent>
-            <FooterColumn>
+            </CommunityColumn>
+          </CommunityWrapper>
+          <CommunityWrapper>
+            <CommunityContent>Files Uploaded to Opacity</CommunityContent>
+            <CommunityColumn>
               <Input />
               <Input />
               <Input />
@@ -626,14 +615,12 @@ const SubscriptionSlide = () => (
               <Input />
               <Input />
               <Input />
-            </FooterColumn>
-          </FooterWrapper>
-        </FooterContainer>
-        <ButtonWrapper>
-          <FooterButton>Try for free</FooterButton>{" "}
-          <FooterButton>Sign up</FooterButton>
-        </ButtonWrapper>
-      </Footer>
+            </CommunityColumn>
+          </CommunityWrapper>
+        </CommunityContainer>
+        <ButtonWrapper />
+      </Community>
+      <Footer />
     </ContainerWrapper>
   </ThemeProvider>
 );
