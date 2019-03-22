@@ -14,7 +14,7 @@ const Widget = styled.div`
   border-radius: 10px;
 `;
 
-const CurrencyWidget = () =>
+const CurrencyWidget = () => (
   <Container>
     <Widget
       className="coinmarketcap-currency-widget"
@@ -28,6 +28,7 @@ const CurrencyWidget = () =>
       data-stats="USD"
       data-statsticker="false"
     />
-  </Container>;
+  </Container>
+);
 
 export default CurrencyWidget;
