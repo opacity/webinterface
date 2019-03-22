@@ -1,7 +1,14 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
+import {
+  HEADER_FILE_MANAGER,
+  DESKTOP_WIDTH,
+  MOBILE_WIDTH,
+  theme
+} from "../../config";
+
+import Header from "../shared/header";
 
 const ICON_LOGO = `/${require("../../assets/images/logo-login.svg")}`;
 const ICON_CHECK = `/${require("../../assets/images/checkmark.svg")}`;
@@ -441,6 +448,7 @@ const ModalDropdown = styled(Dropdown)`
 const FileManagerSlide = () => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
+      <Header type={HEADER_FILE_MANAGER} />
       <ModalDropdown />
       <Modal>
         <ModalTitle>Storage handle successfully recovered.</ModalTitle>

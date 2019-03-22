@@ -10,7 +10,6 @@ import history from "./redux/history";
 
 import Root from "./components/root";
 import PathChoice from "./components/path-choice";
-import Header from "./components/shared/header";
 import Agreement from "./components/agreement";
 import BrokersDown from "./components/brokers-down";
 import DownloadForm from "./components/download-form";
@@ -77,7 +76,6 @@ const App = () => (
       <ConnectedRouter history={history}>
         <Root>
           <PageNavigationPrompt />
-          <Header />
           <SubRoute>
             {path => (
               <Switch>

@@ -1,7 +1,14 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
+import {
+  HEADER_SCREEEN_CONTAINER,
+  DESKTOP_WIDTH,
+  MOBILE_WIDTH,
+  theme
+} from "../../config";
+
+import Header from "../shared/header";
 
 const ICON_LOGO = `/${require("../../assets/images/logo-login.svg")}`;
 
@@ -160,6 +167,7 @@ const Content = styled.div`
 const LoginOrRegisterSlide = () => (
   <ThemeProvider theme={theme}>
     <StorageContainer>
+      <Header type={HEADER_SCREEEN_CONTAINER} />
       <Storage>
         <Container>
           <Icon src={ICON_LOGO} />
