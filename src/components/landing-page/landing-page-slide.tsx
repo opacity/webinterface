@@ -30,6 +30,7 @@ const Container = styled.div`
 
 const SubscriptionContainerImage = styled.div`
   background-image: url(${BACKGROUND_BUBBLES});
+  background-repeat: round;
 `;
 
 const SubscriptionContainer = styled(Container)`
@@ -192,7 +193,7 @@ const HeaderTitle = styled.h2`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.7px;
-  color: black;
+  color: #4f5e78;
   text-align: center;
 `;
 
@@ -238,9 +239,9 @@ const Paragraph = styled.p`
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: 0.7px;
-  color: black;
+  color: #4f5e78;
   text-align: left;
-  font-size: 12px;
+  font-size: 14px;
   margin-inline-end: 10px;
 `;
 
@@ -428,7 +429,16 @@ const LandingPageSlide = ({ history }) => (
               benefit to you.
             </InfoContent>
             <ItemButtonWrapper>
-              <ButtonItem>Learn more</ButtonItem>
+              <ButtonItem
+                onClick={() =>
+                  window.open(
+                    "https://www.cloudwards.net/what-exactly-is-zero-knowledge-in-the-cloud-and-how-does-it-work",
+                    "_blank"
+                  )
+                }
+              >
+                Learn more
+              </ButtonItem>
             </ItemButtonWrapper>
           </Item>
         </SubContainer>
@@ -455,7 +465,16 @@ const LandingPageSlide = ({ history }) => (
               with cryptocurrency.
             </InfoContent>
             <ItemButtonWrapper>
-              <ButtonItem>Learn more</ButtonItem>
+              <ButtonItem
+                onClick={() =>
+                  window.open(
+                    "https://www.youtube.com/watch?v=6Gu2QMTAkEU",
+                    "_blank"
+                  )
+                }
+              >
+                Learn more
+              </ButtonItem>
             </ItemButtonWrapper>
           </Item>
         </SubContainer>
@@ -470,7 +489,7 @@ const LandingPageSlide = ({ history }) => (
             <ButtonWrapper>
               <ButtonBuy
                 onClick={() =>
-                  (location.href = "https://www.kucoin.com/trade/OPQ-ETH")
+                  window.open("https://www.kucoin.com/trade/OPQ-ETH", "_blank")
                 }
               >
                 Buy OPQ on KuCoin
@@ -484,7 +503,7 @@ const LandingPageSlide = ({ history }) => (
             <ButtonWrapper>
               <ButtonBuy
                 onClick={() =>
-                  (location.href = "https://coss.io/c/trade?s=OPQ_ETH")
+                  window.open("https://coss.io/c/trade?s=OPQ_ETH", "_blank")
                 }
               >
                 Buy OPQ on COSS
