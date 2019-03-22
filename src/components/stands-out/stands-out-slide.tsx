@@ -59,6 +59,12 @@ const TelegramLinkContainer = styled.div`
   align-items: center;
 `
 
+const PriceContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 const TitleFunction = styled(HeaderTitle)`
   font-size: 18px;
   padding: 52px 20px 26px 50px;
@@ -632,6 +638,9 @@ const SubscriptionSlide = () => (
         </CommunityContainer>
         <ButtonWrapper />
       </Community>
+      <PriceContainer>
+        <div className="coinmarketcap-currency-widget" data-currencyid="3632" data-base="USD"  data-secondary="BTC"></div>
+      </PriceContainer>
       <Footer />
     </ContainerWrapper>
   </ThemeProvider>
