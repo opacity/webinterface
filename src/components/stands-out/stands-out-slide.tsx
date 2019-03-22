@@ -607,16 +607,7 @@ const SubscriptionSlide = () => (
               we want to go in the future? Check out the Opacity Whitepaper!
               Current version: 1.0
             </InfoContent>
-            <Button
-              onClick={() =>
-                window.open(
-                  "https://alpha.opacity.io/#/OpacityS6ba809778cee8b017d48aa13564f32351213b108b8c724c83c69ee37ab366912VEKcnYtf",
-                  "_blank"
-                )
-              }
-            >
-              Read our whitepaper
-            </Button>
+            <Button>Coming soon</Button>
           </Column>
         </SubContainer>
       </Container>
