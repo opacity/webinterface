@@ -69,6 +69,7 @@ const App = () => (
             <Route path="/brokers-down" component={BrokersDown} />
             <Route path="/subscription" component={Subscription} />
             <Route path="/sign-up" component={Signup} />
+            <Route path="/stands-out" component={StandsOut} />
             <Route path="/file-manager" component={FileManager} />
             <Route path="/login-or-register" component={LoginOrRegister} />
             <Route path="/landing-page" component={LandingPage} />
