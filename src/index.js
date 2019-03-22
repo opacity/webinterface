@@ -11,20 +11,8 @@ import history from "./redux/history";
 import Root from "./components/root";
 import Agreement from "./components/agreement";
 import BrokersDown from "./components/brokers-down";
-import DownloadForm from "./components/download-form";
-import DownloadStarted from "./components/download-started";
-import DownloadComplete from "./components/download-complete";
-import DownloadUploadHistory from "./components/download-upload-history";
-import FileManager from "./components/file-manager";
 import LandingPage from "./components/landing-page";
 import LoginOrRegister from "./components/login-or-register";
-import UploadForm from "./components/upload-form";
-import UploadStarted from "./components/upload-started";
-import UploadProgress from "./components/upload-progress";
-import UploadComplete from "./components/upload-complete";
-import RetrievingInvoice from "./components/retrieving-invoice";
-import PaymentInvoice from "./components/payment-invoice";
-import PaymentConfirm from "./components/payment-confirm";
 import PageNavigationPrompt from "./components/page-navigation-prompt";
 import Subscription from "./components/subscription";
 import Signup from "./components/signup";
@@ -51,31 +39,13 @@ const App = () => (
           <PageNavigationPrompt />
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route path="/download-form" component={DownloadForm} />
-            <Route path="/download-started" component={DownloadStarted} />
-            <Route path="/download-complete" component={DownloadComplete} />
-            <Route
-              path="/download-upload-history"
-              component={DownloadUploadHistory}
-            />
-            <Route path="/upload-form" component={UploadForm} />
-            <Route path="/upload-started" component={UploadStarted} />
-            <Route path="/upload-progress" component={UploadProgress} />
-            <Route path="/upload-complete" component={UploadComplete} />
-
-            <Route path="/retrieving-invoice" component={RetrievingInvoice} />
-
-            <Route path="/payment-invoice" component={PaymentInvoice} />
-            <Route path="/payment-confirm" component={PaymentConfirm} />
 
             <Route path="/error-page" component={ErrorPage} />
             <Route path="/brokers-down" component={BrokersDown} />
             <Route path="/subscription" component={Subscription} />
             <Route path="/sign-up" component={Signup} />
             <Route path="/stands-out" component={StandsOut} />
-            <Route path="/file-manager" component={FileManager} />
             <Route path="/login-or-register" component={LoginOrRegister} />
-            <Route path="/landing-page" component={LandingPage} />
             <Route path="/team-page" component={TeamPage} />
 
             <Route
