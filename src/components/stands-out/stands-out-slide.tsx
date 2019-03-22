@@ -5,6 +5,7 @@ import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
 
 import Header from "../shared/header";
 import Footer from "../shared/footer";
+import OutboundLink from "../shared/outbound-link";
 
 const ICON_INTRO = require("../../assets/images/so_intro.svg");
 const ICON_ACCESS_ACCOUNT = require("../../assets/images/so_access_account.svg");
@@ -52,10 +53,15 @@ const HeaderTitle = styled.h2`
   margin-bottom: 20px;
 `;
 
+const TelegramLinkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 const TitleFunction = styled(HeaderTitle)`
   font-size: 18px;
-  margin: 52px 20px 26px 50px;
-  width: 230px;
+  padding: 52px 20px 26px 50px;
   text-align: left;
   @media (max-width: ${MOBILE_WIDTH}px) {
     font-size: 22px;
@@ -218,10 +224,13 @@ const Community = styled.div`
 `;
 
 const Input = styled.div`
-  width: 40px;
-  height: 40px;
+  align-items: center;
   border: 1px solid #2e6dde;
+  display: flex;
+  height: 40px;
+  justify-content: center;
   margin-right: 2px;
+  width: 40px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -413,10 +422,10 @@ const SubscriptionSlide = () => (
             <FunctionIconMobile src={ICON_ACCESS_ACCOUNT} />
             <FunctionContent>
               When you sign up with Opacity, a unique Account Handle is created
-              just for you. This Handle and a user-chosen password is all that
+              just for you. This Handle and a user-chosen pin is all that
               is required to access your storage account. By default, you are
               the only person with this information, so it is important that you
-              record your Account Handle and password to avoid trouble accessing
+              record your Account Handle and pin to avoid trouble accessing
               your account. Keep it safe!
             </FunctionContent>
           </Column>
@@ -449,7 +458,7 @@ const SubscriptionSlide = () => (
             ensures only you control access to your personal data. However, this
             level of account privacy means that Opacity does not retain any
             record of your account information, including the Account Handle and
-            password used to create and access your account.
+            pin used to create and access your account.
           </Content>
           <Content>
             To avoid any potential loss of access, we recommend using a password
@@ -481,7 +490,7 @@ const SubscriptionSlide = () => (
       <Container>
         <HeaderTitle>Best Bang For Your Buck.</HeaderTitle>
         <StorageContent>
-          See How Opacity compares to other storage providers .
+          See how Opacity compares to other storage providers.
         </StorageContent>
         <Table>
           <thead>
@@ -586,35 +595,38 @@ const SubscriptionSlide = () => (
         <CommunityTitle>
           Are you ready to join our thriving community?
         </CommunityTitle>
+        <TelegramLinkContainer>
+          <OutboundLink href="https://t.me/opacitystorage">Join us on Telegram</OutboundLink>
+        </TelegramLinkContainer>
         <CommunityContainer>
           <CommunityWrapper>
             <CommunityContent>
               Number of Unique Opacity Accounts
             </CommunityContent>
             <CommunityColumn>
-              <Input />
-              <Input />
-              <Input />
-              <Input />
-              <Input />
-              <Input />
-              <Input />
-              <Input />
-              <Input />
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
             </CommunityColumn>
           </CommunityWrapper>
           <CommunityWrapper>
             <CommunityContent>Files Uploaded to Opacity</CommunityContent>
             <CommunityColumn>
-              <Input />
-              <Input />
-              <Input />
-              <Input />
-              <Input />
-              <Input />
-              <Input />
-              <Input />
-              <Input />
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
+              <Input>0</Input>
             </CommunityColumn>
           </CommunityWrapper>
         </CommunityContainer>

@@ -326,7 +326,7 @@ const LandingPageSlide = ({ history }) => (
           <ButtonSecondary
             onClick={() =>
               window.open(
-                "https://t.me/opacitystorage",
+                "https://.cloudwards.net/what-exactly-is-zero-knowledge-in-the-cloud-and-how-does-it-work",
                 "_blank"
               )
             }
@@ -497,7 +497,7 @@ const LandingPageSlide = ({ history }) => (
             <ButtonWrapper>
               <ButtonBuy
                 onClick={() =>
-                  window.open("https://www.kucoin.com/trade/OPQ-ETH", "_blank")
+                  window.open("https://www.kucoin.com/trade/OPQ-BTC", "_blank")
                 }
               >
                 Buy OPQ on KuCoin
@@ -511,7 +511,7 @@ const LandingPageSlide = ({ history }) => (
             <ButtonWrapper>
               <ButtonBuy
                 onClick={() =>
-                  window.open("https://coss.io/c/trade?s=OPQ_ETH", "_blank")
+                  window.open("https://coss.io/c/trade?s=OPQ_BTC", "_blank")
                 }
               >
                 Buy OPQ on COSS
