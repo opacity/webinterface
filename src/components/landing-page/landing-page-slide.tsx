@@ -6,6 +6,7 @@ import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
 import Subscription from "../shared/subscription";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
+import CurrencyWidget from "../shared/currency-widget";
 
 const ICON_CREDIT = require("../../assets/images/credit.svg");
 const ICON_SHARE_FILE = require("../../assets/images/share_file.svg");
@@ -75,12 +76,6 @@ const HeaderWrapper = styled.div`
   @media (max-width: ${MOBILE_WIDTH}px) {
     display: grid;
   }
-`;
-
-const CoinMarketCapWrapper = styled.div`
-  width: 300px;
-  padding-top: 80px;
-  margin: auto;
 `;
 
 const Column = styled.div`
@@ -325,7 +320,10 @@ const LandingPageSlide = ({ history }) => (
           </ContentPurchase>
           <ButtonSecondary
             onClick={() =>
-              (location.href = "http://twitter.com/opacity_storage")
+              window.open(
+                "https://t.me/opacitystorage",
+                "_blank"
+              )
             }
           >
             Stay Informed
@@ -381,7 +379,7 @@ const LandingPageSlide = ({ history }) => (
         </SubContainer>
         <BenefitSubContainer>
           <Column>
-            <BenefitTitle>Your Handle Your Rules.</BenefitTitle>
+            <BenefitTitle>Your Handle, Your Rules.</BenefitTitle>
             <BenefitContent>
               Your unique Opacity Account Handle is the single point of access
               to your storage account. Only you know this handle, and only you
@@ -494,7 +492,7 @@ const LandingPageSlide = ({ history }) => (
             <ButtonWrapper>
               <ButtonBuy
                 onClick={() =>
-                  window.open("https://www.kucoin.com/trade/OPQ-ETH", "_blank")
+                  window.open("https://www.kucoin.com/trade/OPQ-BTC", "_blank")
                 }
               >
                 Buy OPQ on KuCoin
@@ -508,7 +506,7 @@ const LandingPageSlide = ({ history }) => (
             <ButtonWrapper>
               <ButtonBuy
                 onClick={() =>
-                  window.open("https://coss.io/c/trade?s=OPQ_ETH", "_blank")
+                  window.open("https://coss.io/c/trade?s=OPQ_BTC", "_blank")
                 }
               >
                 Buy OPQ on COSS
@@ -518,20 +516,7 @@ const LandingPageSlide = ({ history }) => (
         </BuySubContainer>
       </Container>
       <Container>
-        <CoinMarketCapWrapper>
-          <div
-            className="coinmarketcap-currency-widget"
-            data-currencyid="3632"
-            data-base="USD"
-            data-secondary="BTC"
-            data-ticker="true"
-            data-rank="true"
-            data-marketcap="true"
-            data-volume="true"
-            data-stats="USD"
-            data-statsticker="false"
-          />
-        </CoinMarketCapWrapper>
+        <CurrencyWidget />
       </Container>
       <Footer />
     </ContainerWrapper>

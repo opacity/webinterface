@@ -37,11 +37,17 @@ import { unregister } from "./register-service-worker";
 
 import { AGREEMENT_TYPES } from "./config";
 
+const ScrollToTop = () => {
+  window.scrollTo(0, 0);
+  return null;
+};
+
 const App = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <ConnectedRouter history={history}>
         <Root>
+          <Route component={ScrollToTop} />
           <PageNavigationPrompt />
           <Switch>
             <Route exact path="/" component={LandingPage} />
