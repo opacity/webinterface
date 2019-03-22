@@ -122,6 +122,7 @@ const ButtonItem = styled(Button)`
 `;
 
 const ButtonBuy = styled(Button)`
+  margin-top: 40px;
   width: 200px;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: 250px;
