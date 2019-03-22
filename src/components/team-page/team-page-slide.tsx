@@ -2,8 +2,9 @@ import _ from "lodash";
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { theme, MOBILE_WIDTH } from "../../config";
+import { HEADER_LANDING_PAGE, MOBILE_WIDTH, theme } from "../../config";
 import Footer from "../shared/footer";
+import Header from "../shared/header";
 
 const ICON_JASON = require("../../assets/images/jason.jpg");
 const ICON_TAYLOR = require("../../assets/images/taylor.jfif");
@@ -45,7 +46,7 @@ const Container = styled.div`
   padding-bottom: 20px;
 `;
 
-const Header = styled.div`
+const HeaderContainer = styled.div`
   width: auto;
   padding: 70px 0 70px 0;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
@@ -150,12 +151,13 @@ const Content = styled(Parapraph)`
 const TeamPageSlide = () => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header>
+      <Header type={HEADER_LANDING_PAGE} />
+      <HeaderContainer>
         <Title>Meet the Team</Title>
         <ContentWrapper>
           <Content>Meet the great people behind Opacity.</Content>
         </ContentWrapper>
-      </Header>
+      </HeaderContainer>
       <Container>
         <PeopleContainer>
           {_.map(people, person => (

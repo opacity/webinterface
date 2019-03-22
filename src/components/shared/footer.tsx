@@ -9,6 +9,8 @@ const ICON_TELEGRAM = require("../../assets/images/telegram.svg");
 const ICON_REDDIT = require("../../assets/images/reddit.svg");
 const ICON_TWITTER = require("../../assets/images/twitter.svg");
 
+const ICON_ARROW_RIGHT = require("../../assets/images/arrow_right.svg");
+
 const Container = styled.div`
   max-width: 950px;
   margin: auto;
@@ -32,6 +34,9 @@ const IconContainer = styled.div`
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
+  }
+  @media only screen and (max-width: 440px) {
+    grid-template-columns: 100%;
   }
 `;
 
@@ -88,6 +93,10 @@ const LinkTerms = styled(Link)`
 
 const LinkIcon = styled(Link)`
   border: none;
+  @media only screen and (max-width: 440px) {
+    text-align: center;
+    padding: 20px 0;
+  }
 `;
 
 const LinkButton = styled.a`
@@ -128,6 +137,16 @@ const Icon = styled.img`
   width: 50px;
 `;
 
+const IconArrow = styled.img`
+  display: none;
+  width: 20px;
+  color: white;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    display: inline-block;
+    float: right;
+  }
+`;
+
 const Copyright = styled.span`
   opacity: 0.85;
   font-size: 14px;
@@ -158,15 +177,19 @@ const Footer = ({ history }) => (
       <Container>
         <FooterLinks>
           <Link href="https://storage.opacity.io" target="_blank">
-            Opacity Storage
+            Opacity Storage <IconArrow src={ICON_ARROW_RIGHT} />
           </Link>
-          <Link onClick={() => history.push("/stands-out")}>The Platform</Link>
-          <Link onClick={() => history.push("/team-page")}>Team</Link>
+          <Link onClick={() => history.push("/stands-out")}>
+            The Platform <IconArrow src={ICON_ARROW_RIGHT} />
+          </Link>
+          <Link onClick={() => history.push("/team-page")}>
+            Team <IconArrow src={ICON_ARROW_RIGHT} />
+          </Link>
           <Link href="https://medium.com/opacity-storage/" target="_blank">
-            Blog
+            Blog <IconArrow src={ICON_ARROW_RIGHT} />
           </Link>
           <Link href=" https://www.kucoin.com/trade/OPQ-ETH" target="_blank">
-            Buy OPQ
+            Buy OPQ <IconArrow src={ICON_ARROW_RIGHT} />
           </Link>
         </FooterLinks>
         <FooterIcons>
