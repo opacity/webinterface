@@ -12,7 +12,7 @@ const Container = styled.div`
 const Widget = styled.div`
   background-color: #ffffff;
   border-radius: 10px;
-`
+`;
 
 const CurrencyWidget = () =>
   <Container>
@@ -28,6 +28,6 @@ const CurrencyWidget = () =>
       data-stats="USD"
       data-statsticker="false"
     />
-  </Container>
+  </Container>;
 
 export default CurrencyWidget;

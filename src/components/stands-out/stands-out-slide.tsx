@@ -57,7 +57,7 @@ const TelegramLinkContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const TitleFunction = styled(HeaderTitle)`
   font-size: 18px;
