@@ -321,7 +321,7 @@ const LandingPageSlide = ({ history }) => (
           <ButtonSecondary
             onClick={() =>
               window.open(
-                "https://.cloudwards.net/what-exactly-is-zero-knowledge-in-the-cloud-and-how-does-it-work",
+                "https://t.me/opacitystorage",
                 "_blank"
               )
             }
