@@ -72,7 +72,7 @@ const PeopleContainer = styled.div`
 
 const PeopleWrapper = styled.div`
   border: solid 0.5px #acb3bf;
-  padding: 30px 0;
+  padding: 50px 20px;
   margin: auto;
 `;
 
@@ -111,7 +111,7 @@ const PersonTitle = styled.h2`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: black;
+  color: #4f5e78;
   text-align: center;
   color: ${props => props.theme.title.color};
   font-weight: bold;
@@ -124,13 +124,13 @@ const Parapraph = styled.p`
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: 0.7px;
-  color: black;
+  color: #4f5e78;
   text-align: center;
   font-size: 12px;
 `;
 
 const PersonRole = styled(Parapraph)`
-  font-size: 10px;
+  font-size: 12px;
   width: 170px;
   margin: auto;
   font-weight: 500;

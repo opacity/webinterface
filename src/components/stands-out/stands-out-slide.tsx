@@ -83,7 +83,7 @@ const Paragraph = styled.p`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: ${props => props.theme.letterSpacing};
-  color: black;
+  color: #4f5e78;
   text-align: center;
 `;
 
@@ -133,7 +133,7 @@ const CommunityContent = styled(InfoContent)`
 `;
 
 const FunctionContent = styled(InfoContent)`
-  font-size: 12px;
+  font-size: 14px;
   margin: 0 50px;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: auto;
@@ -142,7 +142,7 @@ const FunctionContent = styled(InfoContent)`
 `;
 
 const Content = styled(Paragraph)`
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 const StorageContent = styled(Paragraph)`
@@ -367,7 +367,7 @@ const Tr = styled.tr`
 `;
 
 const Th = styled.th`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
