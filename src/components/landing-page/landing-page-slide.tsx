@@ -31,7 +31,9 @@ const Container = styled.div`
 
 const SubscriptionContainerImage = styled.div`
   background-image: url(${BACKGROUND_BUBBLES});
-  background-repeat: round;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top center;
 `;
 
 const SubscriptionContainer = styled(Container)`
