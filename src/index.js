@@ -73,7 +73,7 @@ const App = () => (
             <Route path="/file-manager" component={FileManager} />
             <Route path="/login-or-register" component={LoginOrRegister} />
             <Route path="/landing-page" component={LandingPage} />
-            <Route patch="/team-page" component={TeamPage} />
+            <Route path="/team-page" component={TeamPage} />
 
             <Route
               path="/terms-of-service"
