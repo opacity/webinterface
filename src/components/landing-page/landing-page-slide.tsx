@@ -6,6 +6,7 @@ import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
 import Subscription from "../shared/subscription";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
+import CurrencyWidget from "../shared/currency-widget";
 
 const ICON_CREDIT = require("../../assets/images/credit.svg");
 const ICON_SHARE_FILE = require("../../assets/images/share_file.svg");
@@ -75,12 +76,6 @@ const HeaderWrapper = styled.div`
   @media (max-width: ${MOBILE_WIDTH}px) {
     display: grid;
   }
-`;
-
-const CoinMarketCapWrapper = styled.div`
-  width: 300px;
-  padding-top: 80px;
-  margin: auto;
 `;
 
 const Column = styled.div`
@@ -521,20 +516,7 @@ const LandingPageSlide = ({ history }) => (
         </BuySubContainer>
       </Container>
       <Container>
-        <CoinMarketCapWrapper>
-          <div
-            className="coinmarketcap-currency-widget"
-            data-currencyid="3632"
-            data-base="USD"
-            data-secondary="BTC"
-            data-ticker="true"
-            data-rank="true"
-            data-marketcap="true"
-            data-volume="true"
-            data-stats="USD"
-            data-statsticker="false"
-          />
-        </CoinMarketCapWrapper>
+        <CurrencyWidget />
       </Container>
       <Footer />
     </ContainerWrapper>

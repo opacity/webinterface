@@ -59,12 +59,6 @@ const TelegramLinkContainer = styled.div`
   align-items: center;
 `
 
-const PriceContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
 const TitleFunction = styled(HeaderTitle)`
   font-size: 18px;
   padding: 52px 20px 26px 50px;
@@ -220,9 +214,8 @@ const ColumnPasswordManager = styled(Column)`
 
 const Community = styled.div`
   width: auto;
-  height: 550px;
   background-color: #e0edff;
-  padding-top: 15px;
+  padding: 15px;
   @media (max-width: ${MOBILE_WIDTH}px) {
     height: auto;
     padding-bottom: 25px;
@@ -230,6 +223,8 @@ const Community = styled.div`
 `;
 
 const Input = styled.div`
+  background: #ffffff;
+  color: #4f5e78;
   align-items: center;
   border: 1px solid #2e6dde;
   display: flex;
@@ -237,11 +232,6 @@ const Input = styled.div`
   justify-content: center;
   margin-right: 2px;
   width: 40px;
-`;
-
-const ButtonWrapper = styled.div`
-  margin: 80px 0 20px 0;
-  text-align: center;
 `;
 
 const ContentWrapper = styled.div`
@@ -636,11 +626,7 @@ const SubscriptionSlide = () => (
             </CommunityColumn>
           </CommunityWrapper>
         </CommunityContainer>
-        <ButtonWrapper />
       </Community>
-      <PriceContainer>
-        <div className="coinmarketcap-currency-widget" data-currencyid="3632" data-base="USD"  data-secondary="BTC"></div>
-      </PriceContainer>
       <Footer />
     </ContainerWrapper>
   </ThemeProvider>
