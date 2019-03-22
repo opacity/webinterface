@@ -22,7 +22,7 @@ before_script:
   - npm start -- --silent & # Silent to run E2E tests
 script:
   - npm run lint
-  - npm build
+  - npm run build
   - npm run test:coverage # Unit Tests
   # remove until updated to match the current state of the interface
   # - npm run test:record # E2E Tests
