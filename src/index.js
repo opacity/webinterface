@@ -31,7 +31,7 @@ import PageNavigationPrompt from "./components/page-navigation-prompt";
 // import Subscription from "./components/subscription";
 // import Signup from "./components/signup";
 import TeamPage from "./components/team-page";
-// import StandsOut from "./components/stands-out";
+import StandsOut from "./components/stands-out";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -86,7 +86,9 @@ const App = () => (
                 {/* <Route path="/sign-up" component={Signup} /> */}
                 {/* <Route path="/login-or-register" component={LoginOrRegister} /> */}
                 <Route path="/file-manager" component={FileManager} />
-                <Route patch="/team-page" component={TeamPage} />
+                <Route path="/team-page" component={TeamPage} />
+                <Route path="/stands-out" component={StandsOut} />
+                <Route path="/error-page" component={ErrorPage} />
               </Switch>
             )}
           </SubRoute>
