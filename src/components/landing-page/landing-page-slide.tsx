@@ -325,7 +325,10 @@ const LandingPageSlide = ({ history }) => (
           </ContentPurchase>
           <ButtonSecondary
             onClick={() =>
-              (location.href = "http://twitter.com/opacity_storage")
+              window.open(
+                "https://t.me/opacitystorage",
+                "_blank"
+              )
             }
           >
             Stay Informed
@@ -381,7 +384,7 @@ const LandingPageSlide = ({ history }) => (
         </SubContainer>
         <BenefitSubContainer>
           <Column>
-            <BenefitTitle>Your Handle Your Rules.</BenefitTitle>
+            <BenefitTitle>Your Handle, Your Rules.</BenefitTitle>
             <BenefitContent>
               Your unique Opacity Account Handle is the single point of access
               to your storage account. Only you know this handle, and only you
