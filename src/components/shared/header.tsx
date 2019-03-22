@@ -7,7 +7,8 @@ import "../root.css";
 import {
   theme,
   HEADER_LANDING_PAGE,
-  HEADER_SCREEEN_CONTAINER
+  HEADER_SCREEEN_CONTAINER,
+  HEADER_TEAM_PAGE
 } from "../../config";
 
 const ICON_LOGO = require("../../assets/images/logo.svg");
@@ -88,6 +89,16 @@ const renderLinks = (type, history) => {
       <LinkContainer>
         <Link onClick={() => history.push("/team-page")}>ABOUT US</Link>
         <Link onClick={() => history.push("/team-page")}>RESOURCES</Link>
+        <Link href=" https://medium.com/opacity-storage/" target="_blank">
+          BLOG
+        </Link>
+      </LinkContainer>
+    );
+  } else if (type === HEADER_TEAM_PAGE) {
+    return (
+      <LinkContainer>
+        <Link onClick={() => history.push("/stands-out")}>THE PLATFORM</Link>
+        <Link onClick={() => history.push("/team-page")}>TEAM</Link>
         <Link href=" https://medium.com/opacity-storage/" target="_blank">
           BLOG
         </Link>

@@ -88,6 +88,7 @@ export const AGREEMENT_TYPES = Object.freeze({
 export const HEADER_LANDING_PAGE = "LandingPage";
 export const HEADER_FILE_MANAGER = "FileManager";
 export const HEADER_SCREEEN_CONTAINER = "ScreenContainer";
+export const HEADER_TEAM_PAGE = "TeamPage";
 
 export const DESKTOP_WIDTH = "997";
 export const MOBILE_WIDTH = "567";
