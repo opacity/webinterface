@@ -88,7 +88,6 @@ const App = () => (
                 <Route path="/file-manager" component={FileManager} />
                 <Route path="/team-page" component={TeamPage} />
                 <Route path="/stands-out" component={StandsOut} />
-                <Route path="/error-page" component={ErrorPage} />
               </Switch>
             )}
           </SubRoute>
