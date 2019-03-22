@@ -2,9 +2,10 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
 
-import { MOBILE_WIDTH, theme } from "../../config";
+import { HEADER_LANDING_PAGE, MOBILE_WIDTH, theme } from "../../config";
 import Subscription from "../shared/subscription";
 import Footer from "../shared/footer";
+import Header from "../shared/header";
 
 const ICON_CREDIT = require("../../assets/images/credit.svg");
 const ICON_SHARE_FILE = require("../../assets/images/share_file.svg");
@@ -38,7 +39,7 @@ const SubscriptionContainer = styled(Container)`
   background-color: transparent;
 `;
 
-const Header = styled.div`
+const HeaderContainer = styled.div`
   width: auto;
   background-color: #2e6dde;
   padding: 40px 0 70px 0;
@@ -303,7 +304,8 @@ const ContentPurchase = styled.a`
 const LandingPageSlide = ({ history }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header>
+      <Header type={HEADER_LANDING_PAGE} />
+      <HeaderContainer>
         <Title>Secure. Anonymous. Opaque.</Title>
         <ContentWrapper>
           <Content>
@@ -327,7 +329,7 @@ const LandingPageSlide = ({ history }) => (
             Stay Informed
           </ButtonSecondary>
         </Wrapper>
-      </Header>
+      </HeaderContainer>
       <Container>
         <SubContainer>
           <Column>

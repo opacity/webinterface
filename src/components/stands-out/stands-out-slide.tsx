@@ -1,8 +1,9 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { MOBILE_WIDTH, theme } from "../../config";
+import { HEADER_LANDING_PAGE, MOBILE_WIDTH, theme } from "../../config";
 
+import Header from "../shared/header";
 import Footer from "../shared/footer";
 
 const ICON_INTRO = require("../../assets/images/so_intro.svg");
@@ -395,6 +396,7 @@ const Td = styled.td`
 const SubscriptionSlide = () => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
+      <Header type={HEADER_LANDING_PAGE} />
       <Container>
         <Title>With Opacity, You’re in Full Control</Title>
         <ContentWrapper>

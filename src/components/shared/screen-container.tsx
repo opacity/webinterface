@@ -1,9 +1,13 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { DESKTOP_WIDTH, theme } from "../../config";
+import { HEADER_SCREEEN_CONTAINER, DESKTOP_WIDTH, theme } from "../../config";
 
-const Container = styled.div`
+import Header from "./header";
+
+const Container = styled.div``;
+
+const Screen = styled.div`
   padding: 70px 250px;
   height: 100%;
   max-width: 950px;
@@ -42,9 +46,12 @@ const Underline = styled.hr`
 const ScreenContainer = ({ title, children }) => (
   <ThemeProvider theme={theme}>
     <Container>
-      <Title>{title}</Title>
-      <Underline />
-      {children}
+      <Header type={HEADER_SCREEEN_CONTAINER} />
+      <Screen>
+        <Title>{title}</Title>
+        <Underline />
+        {children}
+      </Screen>
     </Container>
   </ThemeProvider>
 );

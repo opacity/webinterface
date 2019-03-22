@@ -4,7 +4,11 @@ import { withRouter } from "react-router";
 
 import "../root.css";
 
-import { theme } from "../../config";
+import {
+  theme,
+  HEADER_LANDING_PAGE,
+  HEADER_SCREEEN_CONTAINER
+} from "../../config";
 
 const ICON_LOGO = require("../../assets/images/logo.svg");
 
@@ -17,7 +21,6 @@ const Navbar = styled.div`
   display: flex;
   margin: 0 auto;
   height: 100%;
-  max-width: 950px;
   justify-content: space-between;
 `;
 
@@ -31,6 +34,7 @@ const LinkContainer = styled.div`
 `;
 
 const Link = styled.a`
+  margin-right: 95px;
   align-items: center;
   color: ${props => props.theme.header.color};
   cursor: pointer;
@@ -67,7 +71,33 @@ const CompanyName = styled.span`
   color: ${props => props.theme.header.color};
 `;
 
-const Header = ({ history }) => (
+const renderLinks = (type, history) => {
+  if (type === HEADER_LANDING_PAGE) {
+    return (
+      <LinkContainer>
+        <Link onClick={() => history.push("/stands-out")}>STANDS OUT</Link>
+        <Link onClick={() => history.push("/team-page")}>TEAM</Link>
+
+        <Link href=" https://medium.com/opacity-storage/" target="_blank">
+          BLOG
+        </Link>
+      </LinkContainer>
+    );
+  } else if (type === HEADER_SCREEEN_CONTAINER) {
+    return (
+      <LinkContainer>
+        <Link onClick={() => history.push("/team-page")}>ABOUT US</Link>
+        <Link onClick={() => history.push("/team-page")}>RESOURCES</Link>
+        <Link href=" https://medium.com/opacity-storage/" target="_blank">
+          BLOG
+        </Link>
+      </LinkContainer>
+    );
+  }
+  return null;
+};
+
+const Header = ({ type, history }) => (
   <ThemeProvider theme={theme}>
     <Container>
       <Navbar>
@@ -80,11 +110,7 @@ const Header = ({ history }) => (
             <CompanyName>Opacity</CompanyName>
           </Link>
         </LogoContainer>
-        <LinkContainer>
-          <Link href="https://opacity.io" target="_blank">
-            Home
-          </Link>
-        </LinkContainer>
+        {renderLinks(type, history)}{" "}
       </Navbar>
     </Container>
   </ThemeProvider>

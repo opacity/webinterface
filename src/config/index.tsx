@@ -85,6 +85,10 @@ export const AGREEMENT_TYPES = Object.freeze({
   PRIVACY_POLICY: "PRIVACY_POLICY"
 });
 
+export const HEADER_LANDING_PAGE = "LandingPage";
+export const HEADER_FILE_MANAGER = "FileManager";
+export const HEADER_SCREEEN_CONTAINER = "ScreenContainer";
+
 export const DESKTOP_WIDTH = "997";
 export const MOBILE_WIDTH = "567";
 export const SUBSCRIPTION_DESKTOP_WIDTH = "1200";
