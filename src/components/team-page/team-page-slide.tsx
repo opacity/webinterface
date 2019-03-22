@@ -3,6 +3,7 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import { theme, MOBILE_WIDTH } from "../../config";
+import Footer from "../shared/footer";
 
 const ICON_JASON = require("../../assets/images/jason.jpg");
 const ICON_TAYLOR = require("../../assets/images/taylor.jfif");
@@ -168,6 +169,7 @@ const TeamPageSlide = () => (
           ))}
         </PeopleContainer>
       </Container>
+      <Footer />
     </ContainerWrapper>
   </ThemeProvider>
 );

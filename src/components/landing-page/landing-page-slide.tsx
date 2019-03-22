@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 
 import { MOBILE_WIDTH, theme } from "../../config";
 import Subscription from "../shared/subscription";
+import Footer from "../shared/footer";
 
 const ICON_CREDIT = require("../../assets/images/credit.svg");
 const ICON_SHARE_FILE = require("../../assets/images/share_file.svg");
@@ -508,6 +509,7 @@ const LandingPageSlide = ({ history }) => (
           />
         </CoinMarketCapWrapper>
       </Container>
+      <Footer />
     </ContainerWrapper>
   </ThemeProvider>
 );

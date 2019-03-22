@@ -3,9 +3,10 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { MOBILE_WIDTH, theme } from "../../config";
 
+import Footer from "../shared/footer";
+
 const ICON_INTRO = require("../../assets/images/so_intro.svg");
 const ICON_ACCESS_ACCOUNT = require("../../assets/images/so_access_account.svg");
-const ICON_BIT = require("../../assets/images/bit.svg");
 const ICON_ENCRYPTED = require("../../assets/images/so_encrypted.svg");
 const ICON_TRANSPARENT_BASE = require("../../assets/images/so_transparent_base.svg");
 const ICON_EXPLORE_CODE = require("../../assets/images/so_explore_code.svg");
@@ -71,7 +72,7 @@ const RecommendTitle = styled(HeaderTitle)`
   }
 `;
 
-const FooterTitle = styled(HeaderTitle)`
+const CommunityTitle = styled(HeaderTitle)`
   margin-top: 80px;
 `;
 
@@ -123,7 +124,7 @@ const InfoContent = styled(Paragraph)`
   }
 `;
 
-const FooterContent = styled(InfoContent)`
+const CommunityContent = styled(InfoContent)`
   color: #5c6a82;
   font-size: 18px;
   @media (max-width: ${MOBILE_WIDTH}px) {
@@ -167,7 +168,7 @@ const SubContainer = styled.div`
   }
 `;
 
-const FooterContainer = styled(SubContainer)`
+const CommunityContainer = styled(SubContainer)`
   justify-content: space-evenly;
   margin: 100px 0;
   @media (max-width: ${MOBILE_WIDTH}px) {
@@ -182,7 +183,7 @@ const PasswordManager = styled(SubContainer)`
   }
 `;
 
-const FooterColumn = styled.div`
+const CommunityColumn = styled.div`
   display: flex;
   @media (max-width: ${MOBILE_WIDTH}px) {
     padding: 0 25px;
@@ -204,7 +205,7 @@ const ColumnPasswordManager = styled(Column)`
   }
 `;
 
-const Footer = styled.div`
+const Community = styled.div`
   width: auto;
   height: 550px;
   background-color: #e0edff;
@@ -255,7 +256,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const FooterWrapper = styled.div``;
+const CommunityWrapper = styled.div``;
 
 const Button = styled.button`
   width: 220px;
@@ -278,7 +279,7 @@ const Button = styled.button`
   }
 `;
 
-const FooterButton = styled(Button)`
+const CommunityButton = styled(Button)`
   width: 160px;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: -webkit-fill-available;
@@ -598,12 +599,16 @@ const SubscriptionSlide = () => (
           </Column>
         </SubContainer>
       </Container>
-      <Footer>
-        <FooterTitle>Are you ready to join our thriving community?</FooterTitle>
-        <FooterContainer>
-          <FooterWrapper>
-            <FooterContent>Number of Unique Opacity Accounts</FooterContent>
-            <FooterColumn>
+      <Community>
+        <CommunityTitle>
+          Are you ready to join our thriving community?
+        </CommunityTitle>
+        <CommunityContainer>
+          <CommunityWrapper>
+            <CommunityContent>
+              Number of Unique Opacity Accounts
+            </CommunityContent>
+            <CommunityColumn>
               <Input />
               <Input />
               <Input />
@@ -613,11 +618,11 @@ const SubscriptionSlide = () => (
               <Input />
               <Input />
               <Input />
-            </FooterColumn>
-          </FooterWrapper>
-          <FooterWrapper>
-            <FooterContent>Files Uploaded to Opacity</FooterContent>
-            <FooterColumn>
+            </CommunityColumn>
+          </CommunityWrapper>
+          <CommunityWrapper>
+            <CommunityContent>Files Uploaded to Opacity</CommunityContent>
+            <CommunityColumn>
               <Input />
               <Input />
               <Input />
@@ -627,14 +632,15 @@ const SubscriptionSlide = () => (
               <Input />
               <Input />
               <Input />
-            </FooterColumn>
-          </FooterWrapper>
-        </FooterContainer>
+            </CommunityColumn>
+          </CommunityWrapper>
+        </CommunityContainer>
         <ButtonWrapper>
-          <FooterButton>Try for free</FooterButton>{" "}
-          <FooterButton>Sign up</FooterButton>
+          <CommunityButton>Try for free</CommunityButton>{" "}
+          <CommunityButton>Sign up</CommunityButton>
         </ButtonWrapper>
-      </Footer>
+      </Community>
+      <Footer />
     </ContainerWrapper>
   </ThemeProvider>
 );
