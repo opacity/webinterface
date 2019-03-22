@@ -48,9 +48,9 @@ const SubRoute = ({ sub = "", children, ...props }) => (
   <Route
     path="/"
     render={({ location }) => {
-      const host = window.location.host;
+      const host = ((window.location || {}).host || "");
       const curSub = host.slice(0, (host.lastIndexOf(".") + 1 || 1) - 1);
-      const pathStart = window.location.pathname.split("/")[1];
+      const pathStart = ((window.location || {}).pathname || "").split("/")[1];
       console.log(sub, curSub, location);
       // using subdomain
       if (sub === curSub) {
