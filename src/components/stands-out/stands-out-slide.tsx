@@ -393,6 +393,24 @@ const Td = styled.td`
   padding: 15px 10px 15px 10px;
 `;
 
+const Link = styled.a`
+  align-items: center;
+  cursor: hand;
+  font-size: 14px;
+  font-weight: bold;
+  color: #2e6dde;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+    opacity: 0.8;
+    color: #2e6dde;
+  }
+`;
+
 const SubscriptionSlide = () => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
@@ -560,7 +578,8 @@ const SubscriptionSlide = () => (
         </Table>
         <StorageSmallContent>Prices as of March 2019</StorageSmallContent>
         <StorageSignUpContent>
-          Ready to experience true zero-knowledge storage? <b>Sign up here.</b>
+          Ready to experience true zero-knowledge storage?{" "}
+          <Link href="/sign-up">Sign up here.</Link>
         </StorageSignUpContent>
       </Container>
       <Container>
@@ -637,10 +656,7 @@ const SubscriptionSlide = () => (
             </CommunityColumn>
           </CommunityWrapper>
         </CommunityContainer>
-        <ButtonWrapper>
-          <CommunityButton>Try for free</CommunityButton>{" "}
-          <CommunityButton>Sign up</CommunityButton>
-        </ButtonWrapper>
+        <ButtonWrapper />
       </Community>
       <Footer />
     </ContainerWrapper>
