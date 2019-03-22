@@ -280,14 +280,6 @@ const Button = styled.button`
   }
 `;
 
-const CommunityButton = styled(Button)`
-  width: 160px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    width: -webkit-fill-available;
-    margin-bottom: 20px;
-  }
-`;
-
 const Icon = styled.img`
   height: 300px;
   width: 550px;
@@ -391,24 +383,6 @@ const Td = styled.td`
   width: 20%;
   border-bottom: 1px solid #2e6dde;
   padding: 15px 10px 15px 10px;
-`;
-
-const Link = styled.a`
-  align-items: center;
-  cursor: hand;
-  font-size: 14px;
-  font-weight: bold;
-  color: #2e6dde;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-decoration: none;
-  &:hover {
-    text-decoration: none;
-    opacity: 0.8;
-    color: #2e6dde;
-  }
 `;
 
 const SubscriptionSlide = () => (
