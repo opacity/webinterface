@@ -2,7 +2,7 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
 
-import { HEADER_LANDING_PAGE, MOBILE_WIDTH, theme } from "../../config";
+import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
 import Subscription from "../shared/subscription";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
@@ -304,7 +304,7 @@ const ContentPurchase = styled.a`
 const LandingPageSlide = ({ history }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header type={HEADER_LANDING_PAGE} />
+      <Header type={HEADER_TEAM_PAGE} />
       <HeaderContainer>
         <Title>Secure. Anonymous. Opaque.</Title>
         <ContentWrapper>
