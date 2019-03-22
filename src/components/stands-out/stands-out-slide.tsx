@@ -577,10 +577,7 @@ const SubscriptionSlide = () => (
           </tbody>
         </Table>
         <StorageSmallContent>Prices as of March 2019</StorageSmallContent>
-        <StorageSignUpContent>
-          Ready to experience true zero-knowledge storage?{" "}
-          <Link href="/sign-up">Sign up here.</Link>
-        </StorageSignUpContent>
+        <StorageSignUpContent />
       </Container>
       <Container>
         <HeaderTitle>Transparent Code Base</HeaderTitle>
