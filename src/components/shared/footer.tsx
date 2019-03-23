@@ -193,14 +193,14 @@ const Footer = ({ history }) => (
           </Link>
         </FooterLinks>
         <FooterIcons>
-          <LinkButton href="https://telegram.me/opacity" target="_blank">
+          <LinkButton href="https://telegram.me/opacitystorage" target="_blank">
             Contact Us
           </LinkButton>
           <IconContainer>
             <LinkIcon href="https://github.com/opacity" target="_blank">
               <Icon src={ICON_GITHUB} />
             </LinkIcon>
-            <LinkIcon href="https://telegram.me/opacity" target="_blank">
+            <LinkIcon href="https://telegram.me/opacitystorage" target="_blank">
               <Icon src={ICON_TELEGRAM} />
             </LinkIcon>
             <LinkIcon href="https://www.reddit.com/r/Opacity/" target="_blank">
