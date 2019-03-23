@@ -427,7 +427,7 @@ const LandingPageSlide = ({ history }) => (
             <ItemIcon src={ICON_INFO_BENEFIT} />
             <InfoTitle>Benefits of Zero-knowledge Cloud Storage</InfoTitle>
             <InfoContent>
-              Not many storeage providers offer a true, zero-knowledge solution.
+              Not many storage providers offer a true, zero-knowledge solution.
               Learn exactly what zero-knowledge means and how it can be of
               benefit to you.
             </InfoContent>
@@ -450,7 +450,7 @@ const LandingPageSlide = ({ history }) => (
             <ItemIcon src={ICON_INFO_OPACITY} />
             <InfoTitle>Why Opacity Stands Out</InfoTitle>
             <InfoContent>
-              We do things differently than most sotrage providers. Learn
+              We do things differently than most storage providers. Learn
               exactly what makes us stand out from the competition.
             </InfoContent>
             <ItemButtonWrapper>
