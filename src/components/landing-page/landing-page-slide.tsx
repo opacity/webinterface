@@ -321,7 +321,7 @@ const LandingPageSlide = ({ history }) => (
           <ButtonSecondary
             onClick={() =>
               window.open(
-                "https://t.me/opacitystorage",
+                "https://twitter.com/opacity_storage",
                 "_blank"
               )
             }

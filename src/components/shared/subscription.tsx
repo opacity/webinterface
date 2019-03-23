@@ -64,7 +64,7 @@ const Line = styled.div`
 `;
 
 const Price = styled.p`
-  width: 90px;
+  width: 200px;
   min-height: 50px;
   font-size: ${props => props.theme.container.title.size}px;
   font-weight: bold;
@@ -177,7 +177,7 @@ const Subscription = () => (
         <ContentBold>100 GB secure storage</ContentBold>
         <ContentBold>Unlimited downloads</ContentBold>
         <ContentBold>Anonymous account</ContentBold>
-        <Price>1.56&nbsp;OPQ</Price>
+        <Price>1.56&nbsp;OPQ&nbsp;/&nbsp;year</Price>
         <MoreFeatures>
           <Features src={FEATURES} alt="logo" />
           Show features
@@ -196,7 +196,7 @@ const Subscription = () => (
         <ContentBold>1 TB secure storage</ContentBold>
         <ContentBold>Unlimited downloads</ContentBold>
         <ContentBold>Anonymous account</ContentBold>
-        <Price>15.625&nbsp;OPQ</Price>
+        <Price>15.625&nbsp;OPQ&nbsp;/&nbsp;year</Price>
         <MoreFeatures>
           <Features src={FEATURES} alt="logo" />
           Show features
@@ -215,7 +215,7 @@ const Subscription = () => (
         <ContentBold>2 TB secure storage</ContentBold>
         <ContentBold>Unlimited downloads</ContentBold>
         <ContentBold>Anonymous account</ContentBold>
-        <Price>31.25&nbsp;OPQ</Price>
+        <Price>31.25&nbsp;OPQ&nbsp;/&nbsp;year</Price>
         <MoreFeatures>
           <Features src={FEATURES} alt="logo" />
           Show features
