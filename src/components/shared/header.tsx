@@ -16,9 +16,13 @@ const ICON_LOGO = require("../../assets/images/logo.svg");
 const ICON_HAMBURGER = require("../../assets/images/hamburger.svg");
 const ICON_CLOSE = require("../../assets/images/close.svg");
 
-const Container = styled.div`
+const Container = styled.div<{ menuOpen: number }>`
   background: ${props => props.theme.header.background};
   padding: 17px 32px;
+  position: ${props => (props.menuOpen ? "fixed" : "static")};
+  top: 0;
+  left: 0;
+  right: 0;
 `;
 
 const Navbar = styled.div`
@@ -32,6 +36,7 @@ const LogoContainer = styled.div`
   align-items: center;
   display: flex;
 `;
+
 const LinkContainer = styled.div`
   align-items: center;
   display: flex;
@@ -41,15 +46,33 @@ const LinkContainer = styled.div`
 `;
 
 const DesktopNavigation = styled.div`
+  margin-top: 5px;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     display: none;
   }
 `;
 
-const MobileNavigation = styled.div`
+const MobileNavigationContainer = styled.div`
   @media only screen and (min-width: ${MOBILE_WIDTH}px) {
     display: none;
   }
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    a {
+      font-size: 20px;
+      margin: 25px;
+    }
+  }
+`;
+
+const MobileNavigation = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${props => props.theme.header.background};
+  top: 60px;
+  left: 0;
+  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+  z-index: 1000;
 `;
 
 const Link = styled.a`
@@ -100,8 +123,8 @@ const HamburgerIcon = styled.img`
 `;
 
 const CloseIcon = styled.img`
-  width: 28px;
-  height: 28px;
+  width: 25px;
+  height: 25px;
 `;
 
 const renderLinks = (type, history) => {
@@ -170,7 +193,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     const { menuOpen } = this.state;
     return (
       <ThemeProvider theme={theme}>
-        <Container>
+        <Container menuOpen={menuOpen}>
           <Navbar>
             <LogoContainer>
               <Link
@@ -191,7 +214,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               />
             ) : null}
             {menuOpen ? (
-              <MobileNavigation>
+              <MobileNavigationContainer>
                 <CloseIcon
                   src={ICON_CLOSE}
                   alt="close"
@@ -199,8 +222,10 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                     this.closeClick();
                   }}
                 />
-                {renderLinks(type, history)}
-              </MobileNavigation>
+                <MobileNavigation>
+                  {renderLinks(type, history)}
+                </MobileNavigation>
+              </MobileNavigationContainer>
             ) : null}
             <DesktopNavigation>{renderLinks(type, history)}</DesktopNavigation>
           </Navbar>
