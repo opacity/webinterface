@@ -173,22 +173,22 @@ interface HeaderState {
 }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       menuOpen: false
     };
   }
 
-  hamburgerClick() {
+  hamburgerClick () {
     this.setState({ menuOpen: true });
   }
 
-  closeClick() {
+  closeClick () {
     this.setState({ menuOpen: false });
   }
 
-  render() {
+  render () {
     const { type, history } = this.props;
     const { menuOpen } = this.state;
     return (
