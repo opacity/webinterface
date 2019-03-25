@@ -2,6 +2,10 @@ import axios from "axios";
 
 import { API, IS_DEV } from "../config";
 
+enum PAYMENT_STATUSES {
+  PAID = "paid"
+}
+
 const axiosInstance = axios.create({ timeout: 200000 });
 
 const checkStatus = hosts =>
@@ -28,6 +32,34 @@ const checkStatus = hosts =>
       });
   });
 
+const createAccount = ({
+  accountId,
+  storageLimit,
+  durationInMonths,
+  metadataKey
+}) =>
+  axiosInstance
+    .post(`${API.DEFAULT_BROKER}${API.V1_ACCOUNTS_PATH}`, {
+      accountId,
+      storageLimit,
+      durationInMonths,
+      metadataKey
+    })
+    .then(({ data }: any) => {
+      const { invoice } = data;
+      return invoice;
+    });
+
+const isAccountPaid = ({ accountId }) =>
+  axiosInstance
+    .get(`${API.DEFAULT_BROKER}${API.V1_ACCOUNTS_PATH}/${accountId}`)
+    .then(({ data }: any) => {
+      const { paymentStatus } = data;
+      return paymentStatus === PAYMENT_STATUSES.PAID;
+    });
+
 export default {
-  checkStatus
+  checkStatus,
+  createAccount,
+  isAccountPaid
 };

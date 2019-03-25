@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider, keyframes } from "styled-components";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
@@ -15,6 +15,10 @@ const ContentBold = styled(Content)`
   margin-top: 25px;
   font-weight: bold;
   min-height: 28px;
+`;
+
+const ClipboardIconWrrapper = styled.div`
+  display: flex;
 `;
 
 const ContinueButton = styled.button`
@@ -86,18 +90,55 @@ const HandleWrapper = styled.div`
   background-color: ${props => props.theme.password.background};
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  position: relative;
+`;
+
+const fadeout = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
+const CopiedReminder = styled.span`
+  color: ${props => props.theme.label.color};
+  font-size: 10px;
+  position: absolute;
+  right: -100px;
+  animation: ${fadeout} 2s ease-in-out 0s forwards;
 `;
 
 const Handle = styled.span`
   color: white;
   font-size: 12px;
+  overflow-x: auto;
+  padding: 10px;
+
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 const ClipboardIcon = styled.img`
   cursor: pointer;
   height: 20px;
   width: 20px;
+  padding: 0 10px;
+  object-fit: contain;
 `;
 
 interface RecordStorageHandleProps {
@@ -108,6 +149,7 @@ interface RecordStorageHandleProps {
 interface RecordStorageHandleState {
   storagePin;
   retypedStoragePin;
+  isCopied;
 }
 
 class RecordStorageHandleSlide extends Component<
@@ -116,7 +158,8 @@ class RecordStorageHandleSlide extends Component<
 > {
   state = {
     storagePin: "",
-    retypedStoragePin: ""
+    retypedStoragePin: "",
+    isCopied: false
   };
 
   save (storagePin) {
@@ -145,9 +188,17 @@ class RecordStorageHandleSlide extends Component<
           <Label>Storage Handle</Label>
           <HandleWrapper>
             <Handle>{handle}</Handle>
-            <CopyToClipboard text={handle}>
-              <ClipboardIcon src={ICON_CLIPBOARD} />
+            <CopyToClipboard
+              text={handle}
+              onCopy={() => this.setState({ isCopied: true })}
+            >
+              <ClipboardIconWrrapper>
+                <ClipboardIcon src={ICON_CLIPBOARD} />
+              </ClipboardIconWrrapper>
             </CopyToClipboard>
+            {this.state.isCopied && (
+              <CopiedReminder>Copied to clipboard!</CopiedReminder>
+            )}
           </HandleWrapper>
           <InputWrapper>
             <InputColumnWrapper>
@@ -174,12 +225,15 @@ class RecordStorageHandleSlide extends Component<
           </Content>
           <ButtonWrapper>
             <ContinueButton
-              disabled={this.state.storagePin.length === 0}
               onClick={() => {
-                this.state.storagePin === this.state.retypedStoragePin
+                const { storagePin, retypedStoragePin, isCopied } = this.state;
+
+                storagePin.length !== 0 &&
+                storagePin === retypedStoragePin &&
+                isCopied
                   ? this.save(this.state.storagePin)
                   : alert(
-                    "Your storage PINs do not match. Please type them again."
+                    "Please make sure to copy your storage handle and input matching PINs before proceeding."
                     );
               }}
             >
