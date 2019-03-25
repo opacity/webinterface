@@ -6,12 +6,15 @@ import "../root.css";
 
 import {
   theme,
+  MOBILE_WIDTH,
   HEADER_LANDING_PAGE,
   HEADER_SCREEEN_CONTAINER,
   HEADER_TEAM_PAGE
 } from "../../config";
 
 const ICON_LOGO = require("../../assets/images/logo.svg");
+const ICON_HAMBURGER = require("../../assets/images/hamburger.svg");
+const ICON_CLOSE = require("../../assets/images/close.svg");
 
 const Container = styled.div`
   background: ${props => props.theme.header.background};
@@ -32,6 +35,21 @@ const LogoContainer = styled.div`
 const LinkContainer = styled.div`
   align-items: center;
   display: flex;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    display: block;
+  }
+`;
+
+const DesktopNavigation = styled.div`
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    display: none;
+  }
+`;
+
+const MobileNavigation = styled.div`
+  @media only screen and (min-width: ${MOBILE_WIDTH}px) {
+    display: none;
+  }
 `;
 
 const Link = styled.a`
@@ -72,6 +90,20 @@ const CompanyName = styled.span`
   color: ${props => props.theme.header.color};
 `;
 
+const HamburgerIcon = styled.img`
+  width: 28px;
+  height: 28px;
+  display: none;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    display: inline-block;
+  }
+`;
+
+const CloseIcon = styled.img`
+  width: 28px;
+  height: 28px;
+`;
+
 const renderLinks = (type, history) => {
   if (type === HEADER_LANDING_PAGE) {
     return (
@@ -108,23 +140,74 @@ const renderLinks = (type, history) => {
   return null;
 };
 
-const Header = ({ type, history }) => (
-  <ThemeProvider theme={theme}>
-    <Container>
-      <Navbar>
-        <LogoContainer>
-          <Link
-            title="Opacity Storage's Logo"
-            onClick={() => history.push("/")}
-          >
-            <Logo src={ICON_LOGO} alt="logo" />
-            <CompanyName>Opacity</CompanyName>
-          </Link>
-        </LogoContainer>
-        {renderLinks(type, history)}{" "}
-      </Navbar>
-    </Container>
-  </ThemeProvider>
-);
+interface HeaderProps {
+  type;
+  history;
+}
+
+interface HeaderState {
+  menuOpen;
+}
+
+class Header extends React.Component<HeaderProps, HeaderState> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menuOpen: false
+    };
+  }
+
+  hamburgerClick() {
+    this.setState({ menuOpen: true });
+  }
+
+  closeClick() {
+    this.setState({ menuOpen: false });
+  }
+
+  render() {
+    const { type, history } = this.props;
+    const { menuOpen } = this.state;
+    return (
+      <ThemeProvider theme={theme}>
+        <Container>
+          <Navbar>
+            <LogoContainer>
+              <Link
+                title="Opacity Storage's Logo"
+                onClick={() => history.push("/")}
+              >
+                <Logo src={ICON_LOGO} alt="logo" />
+                <CompanyName>Opacity</CompanyName>
+              </Link>
+            </LogoContainer>
+            {!menuOpen ? (
+              <HamburgerIcon
+                src={ICON_HAMBURGER}
+                alt="navigation"
+                onClick={() => {
+                  this.hamburgerClick();
+                }}
+              />
+            ) : null}
+            {menuOpen ? (
+              <MobileNavigation>
+                <CloseIcon
+                  src={ICON_CLOSE}
+                  alt="close"
+                  onClick={() => {
+                    this.closeClick();
+                  }}
+                />
+                {renderLinks(type, history)}
+              </MobileNavigation>
+            ) : null}
+            <DesktopNavigation>{renderLinks(type, history)}</DesktopNavigation>
+          </Navbar>
+        </Container>
+      </ThemeProvider>
+    );
+  }
+}
 
 export default withRouter(Header);
