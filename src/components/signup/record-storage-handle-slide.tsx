@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider, keyframes } from "styled-components";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
@@ -93,31 +93,21 @@ const HandleWrapper = styled.div`
   position: relative;
 `;
 
+const fadeout = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
 const CopiedReminder = styled.span`
   color: ${props => props.theme.label.color};
   font-size: 10px;
   position: absolute;
   right: -100px;
-  animation: fadeout 2s ease-in-out 0s forwards;
-  -webkit-animation: fadeout 2s ease-in-out 0s forwards;
-
-  @-webkit-keyframes fadeout {
-    100% {
-      opacity: 0;
-    }
-    0% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeout {
-    100% {
-      opacity: 0;
-    }
-    0% {
-      opacity: 1;
-    }
-  }
+  animation: ${fadeout} 2s ease-in-out 0s forwards;
 `;
 
 const Handle = styled.span`
