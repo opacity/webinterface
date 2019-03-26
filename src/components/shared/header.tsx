@@ -6,16 +6,23 @@ import "../root.css";
 
 import {
   theme,
+  MOBILE_WIDTH,
   HEADER_LANDING_PAGE,
   HEADER_SCREEEN_CONTAINER,
   HEADER_TEAM_PAGE
 } from "../../config";
 
 const ICON_LOGO = require("../../assets/images/logo.svg");
+const ICON_HAMBURGER = require("../../assets/images/hamburger.svg");
+const ICON_CLOSE = require("../../assets/images/close.svg");
 
-const Container = styled.div`
+const Container = styled.div<{ menuOpen: boolean }>`
   background: ${props => props.theme.header.background};
   padding: 17px 32px;
+  position: ${props => (props.menuOpen ? "fixed" : "static")};
+  top: 0;
+  left: 0;
+  right: 0;
 `;
 
 const Navbar = styled.div`
@@ -29,9 +36,39 @@ const LogoContainer = styled.div`
   align-items: center;
   display: flex;
 `;
+
 const LinkContainer = styled.div`
   align-items: center;
   display: flex;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    flex-direction: column;
+    align-items: baseline;
+    padding-left: 15px;
+  }
+`;
+
+const DesktopNavigation = styled.div`
+  margin-top: 5px;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    display: none;
+  }
+`;
+
+const MobileNavigationContainer = styled.div`
+  @media only screen and (min-width: ${MOBILE_WIDTH}px) {
+    display: none;
+  }
+`;
+
+const MobileNavigation = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${props => props.theme.header.background};
+  top: 60px;
+  left: 0;
+  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+  z-index: 1000;
 `;
 
 const Link = styled.a`
@@ -55,6 +92,13 @@ const Link = styled.a`
   }
 `;
 
+const LinkNavigation = styled(Link)`
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    font-size: 20px;
+    margin: 25px;
+  }
+`;
+
 const Logo = styled.img`
   width: 28px;
   height: 28px;
@@ -72,59 +116,147 @@ const CompanyName = styled.span`
   color: ${props => props.theme.header.color};
 `;
 
-const renderLinks = (type, history) => {
+const HamburgerIcon = styled.img`
+  width: 28px;
+  height: 28px;
+  display: none;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    display: inline-block;
+  }
+`;
+
+const CloseIcon = styled.img`
+  width: 22px;
+  height: 22px;
+`;
+
+const renderNavigation = (type, history) => {
   if (type === HEADER_LANDING_PAGE) {
     return (
       <LinkContainer>
-        <Link onClick={() => history.push("/stands-out")}>STANDS OUT</Link>
-        <Link onClick={() => history.push("/team-page")}>TEAM</Link>
+        <LinkNavigation onClick={() => history.push("/stands-out")}>
+          STANDS OUT
+        </LinkNavigation>
+        <LinkNavigation onClick={() => history.push("/team-page")}>
+          TEAM
+        </LinkNavigation>
 
-        <Link href=" https://medium.com/opacity-storage/" target="_blank">
+        <LinkNavigation
+          href="https://medium.com/opacity-storage/"
+          target="_blank"
+        >
           BLOG
-        </Link>
+        </LinkNavigation>
       </LinkContainer>
     );
   } else if (type === HEADER_SCREEEN_CONTAINER) {
     return (
       <LinkContainer>
-        <Link onClick={() => history.push("/team-page")}>ABOUT US</Link>
-        <Link onClick={() => history.push("/team-page")}>RESOURCES</Link>
-        <Link href=" https://medium.com/opacity-storage/" target="_blank">
+        <LinkNavigation onClick={() => history.push("/team-page")}>
+          ABOUT US
+        </LinkNavigation>
+        <LinkNavigation onClick={() => history.push("/team-page")}>
+          RESOURCES
+        </LinkNavigation>
+        <LinkNavigation
+          href="https://medium.com/opacity-storage/"
+          target="_blank"
+        >
           BLOG
-        </Link>
+        </LinkNavigation>
       </LinkContainer>
     );
   } else if (type === HEADER_TEAM_PAGE) {
     return (
       <LinkContainer>
-        <Link onClick={() => history.push("/stands-out")}>THE PLATFORM</Link>
-        <Link onClick={() => history.push("/team-page")}>TEAM</Link>
-        <Link href=" https://medium.com/opacity-storage/" target="_blank">
+        <LinkNavigation onClick={() => history.push("/stands-out")}>
+          THE PLATFORM
+        </LinkNavigation>
+        <LinkNavigation onClick={() => history.push("/team-page")}>
+          TEAM
+        </LinkNavigation>
+        <LinkNavigation
+          href="https://medium.com/opacity-storage/"
+          target="_blank"
+        >
           BLOG
-        </Link>
+        </LinkNavigation>
       </LinkContainer>
     );
   }
   return null;
 };
 
-const Header = ({ type, history }) => (
-  <ThemeProvider theme={theme}>
-    <Container>
-      <Navbar>
-        <LogoContainer>
-          <Link
-            title="Opacity Storage's Logo"
-            onClick={() => history.push("/")}
-          >
-            <Logo src={ICON_LOGO} alt="logo" />
-            <CompanyName>Opacity</CompanyName>
-          </Link>
-        </LogoContainer>
-        {renderLinks(type, history)}{" "}
-      </Navbar>
-    </Container>
-  </ThemeProvider>
-);
+interface HeaderProps {
+  type;
+  history;
+}
+
+interface HeaderState {
+  menuOpen: boolean;
+}
+
+class Header extends React.Component<HeaderProps, HeaderState> {
+  state = {
+    menuOpen: false
+  };
+
+  hamburgerClick () {
+    this.setState({ menuOpen: true });
+  }
+
+  closeClick () {
+    this.setState({ menuOpen: false });
+  }
+
+  render () {
+    const { type, history } = this.props;
+    const { menuOpen } = this.state;
+    return (
+      <ThemeProvider theme={theme}>
+        <Container menuOpen={menuOpen}>
+          <Navbar>
+            <LogoContainer>
+              <Link
+                title="Opacity Storage's Logo"
+                onClick={() => history.push("/")}
+              >
+                <Logo src={ICON_LOGO} alt="logo" />
+                <CompanyName>Opacity</CompanyName>
+              </Link>
+            </LogoContainer>
+
+            {!menuOpen && (
+              <HamburgerIcon
+                src={ICON_HAMBURGER}
+                alt="navigation"
+                onClick={() => {
+                  this.hamburgerClick();
+                }}
+              />
+            )}
+            {menuOpen && (
+              <MobileNavigationContainer>
+                <CloseIcon
+                  src={ICON_CLOSE}
+                  alt="close"
+                  onClick={() => {
+                    this.closeClick();
+                  }}
+                />
+                <MobileNavigation>
+                  {renderNavigation(type, history)}
+                </MobileNavigation>
+              </MobileNavigationContainer>
+            )}
+            <DesktopNavigation>
+              {renderNavigation(type, history)}
+            </DesktopNavigation>
+          </Navbar>
+        </Container>
+      </ThemeProvider>
+    );
+  }
+}
 
 export default withRouter(Header);
