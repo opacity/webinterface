@@ -166,7 +166,7 @@ const Content = styled.div`
   }
 `;
 
-const LoginOrRegisterSlide = () => (
+const LoginOrRegisterSlide = ({ login }) => (
   <ThemeProvider theme={theme}>
     <LoginContainer>
       <Header type={HEADER_SCREEEN_CONTAINER} />

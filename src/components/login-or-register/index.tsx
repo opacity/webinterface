@@ -1,13 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import authenticationActions from "../../redux/actions/authentication-actions";
 import LoginOrRegisterSlide from "./login-or-register-slide";
 
 const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  login: (storagePin, privateKey) =>
+    dispatch(authenticationActions.loginPending({ storagePin, privateKey }))
+});
 
-const LoginOrRegister = () => <LoginOrRegisterSlide />;
+const LoginOrRegister = ({ login }) => <LoginOrRegisterSlide login={login} />;
 
 export default connect(
   mapStateToProps,
