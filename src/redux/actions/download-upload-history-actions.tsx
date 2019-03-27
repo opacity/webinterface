@@ -11,15 +11,15 @@ const ACTIONS = Object.freeze({
   DOWNLOAD_UPLOAD_HISTORY_FAILURE,
 
   // actionCreators
-  beginDownloadUploadHistoryAction: () => ({
+  beginDownloadUploadHistory: () => ({
     type: ACTIONS.BEGIN_UPLOAD_HISTORY_DOWNLOAD
   }),
 
-  downloadUploadHistorySuccessAction: () => ({
+  downloadUploadHistorySuccess: () => ({
     type: ACTIONS.DOWNLOAD_UPLOAD_HISTORY_SUCCESS
   }),
 
-  downloadUploadHistoryFailureAction: () => ({
+  downloadUploadHistoryFailure: () => ({
     type: ACTIONS.DOWNLOAD_UPLOAD_HISTORY_FAILURE
   })
 });

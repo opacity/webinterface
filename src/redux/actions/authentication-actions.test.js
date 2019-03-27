@@ -1,6 +1,6 @@
 import actions from "./authentication-actions";
 
-test("LOGIN_PENDING", () => {
+test("loginPending", () => {
   const privateKey = "foo";
   const storagePin = "bar";
 
@@ -14,7 +14,7 @@ test("LOGIN_PENDING", () => {
   expect(actions.loginPending({ privateKey, storagePin })).toEqual(expected);
 });
 
-test("LOGIN_SUCCESS", () => {
+test("loginSuccess", () => {
   const metadataKey = "foo";
 
   const expected = {
@@ -26,7 +26,7 @@ test("LOGIN_SUCCESS", () => {
   expect(actions.loginSuccess({ metadataKey })).toEqual(expected);
 });
 
-test("LOGIN_FAILURE", () => {
+test("loginFailure", () => {
   const error = new Error();
 
   const expected = {

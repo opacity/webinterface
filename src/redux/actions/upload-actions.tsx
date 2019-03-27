@@ -41,11 +41,11 @@ const ACTIONS = Object.freeze({
   UPLOAD_SUCCESS,
   UPLOAD_ERROR,
 
-  selectAlphaBrokerAction: url => ({
+  selectAlphaBroker: url => ({
     type: ACTIONS.SELECT_ALPHA_BROKER,
     payload: url
   }),
-  selectBetaBrokerAction: url => ({
+  selectBetaBroker: url => ({
     type: ACTIONS.SELECT_BETA_BROKER,
     payload: url
   }),

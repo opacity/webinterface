@@ -15,18 +15,18 @@ const mockStore = configureMockStore([]);
 test("downloadUploadHistoryEpic beginDownloadUploadHistory", () => {
   const state = {
     upload: {
-      history: [
-        "ahoj", "jooo"
-      ]
+      history: ["ahoj", "jooo"]
     }
   };
   const store = mockStore(state);
-  const action = ActionsObservable.of(
-    { type: downloadUploadHistoryActions.BEGIN_UPLOAD_HISTORY_DOWNLOAD }
-  );
+  const action = ActionsObservable.of({
+    type: downloadUploadHistoryActions.BEGIN_UPLOAD_HISTORY_DOWNLOAD
+  });
   downloadUploadHistoryEpic(action, store)
     .toArray()
     .subscribe(actions => {
-      expect(actions).toEqual([downloadUploadHistoryActions.downloadUploadHistorySuccessAction()]);
+      expect(actions).toEqual([
+        downloadUploadHistoryActions.downloadUploadHistorySuccess()
+      ]);
     });
 });
