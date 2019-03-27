@@ -166,6 +166,7 @@ const Content = styled.div`
 
 interface LoginOrRegisterSlideProps {
   login;
+  status;
 }
 
 interface LoginOrRegisterSlideState {
