@@ -7,8 +7,8 @@ import LoginOrRegisterSlide from "./login-or-register-slide";
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-  login: (storagePin, privateKey) =>
-    dispatch(authenticationActions.loginPending({ storagePin, privateKey }))
+  login: (privateKey, storagePin) =>
+    dispatch(authenticationActions.loginPending({ privateKey, storagePin }))
 });
 
 const LoginOrRegister = ({ login }) => <LoginOrRegisterSlide login={login} />;

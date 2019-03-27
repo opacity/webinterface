@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import {
@@ -11,8 +11,6 @@ import {
 import Header from "../shared/header";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
-
-const LoginContainer = styled.div``;
 
 const Icon = styled.img`
   height: 250px;
@@ -166,35 +164,67 @@ const Content = styled.div`
   }
 `;
 
-const LoginOrRegisterSlide = ({ login }) => (
-  <ThemeProvider theme={theme}>
-    <LoginContainer>
-      <Header type={HEADER_SCREEEN_CONTAINER} />
-      <StorageContainer>
-        <Storage>
-          <Container>
-            <Icon src={ICON_LOGO} />
-          </Container>
-          <Container>
-            <Title>Sign in to Opacity</Title>
-            <Underline />
-            <Label>Storage Handle</Label>
-            <Input />
-            <Label>Storage PIN</Label>
-            <Input />
-            <ButtonWrapper>
-              <Button>SIGN IN</Button>
-              <Content>
-                (Or
-                <LinkContent> click here to register</LinkContent>)
-              </Content>
-            </ButtonWrapper>
-            <ForgotStorage>Forgot Storage Handle?</ForgotStorage>
-          </Container>
-        </Storage>
-      </StorageContainer>
-    </LoginContainer>
-  </ThemeProvider>
-);
+interface LoginOrRegisterSlideProps {
+  login;
+}
+
+interface LoginOrRegisterSlideState {
+  privateKey;
+  storagePin;
+}
+
+class LoginOrRegisterSlide extends Component<
+  LoginOrRegisterSlideProps,
+  LoginOrRegisterSlideState
+> {
+  state = {
+    privateKey: "",
+    storagePin: ""
+  };
+
+  render() {
+    const { login } = this.props;
+
+    return (
+      <ThemeProvider theme={theme}>
+        <StorageContainer>
+          <Header type={HEADER_SCREEEN_CONTAINER} />
+          <Storage>
+            <Container>
+              <Icon src={ICON_LOGO} />
+            </Container>
+            <Container>
+              <Title>Sign in Opacity</Title>
+              <Underline />
+              <Label>Storage Handle</Label>
+              <Input
+                onChange={e => this.setState({ privateKey: e.target.value })}
+              />
+              <Label>Storage PIN</Label>
+              <Input
+                type="password"
+                onChange={e => this.setState({ storagePin: e.target.value })}
+              />
+              <ButtonWrapper>
+                <Button
+                  onClick={() =>
+                    login(this.state.privateKey, this.state.storagePin)
+                  }
+                >
+                  SIGN IN
+                </Button>
+                <Content>
+                  (Or
+                  <LinkContent> click here to register</LinkContent>)
+                </Content>
+              </ButtonWrapper>
+              <ForgotStorage>Forgot Storage Handle?</ForgotStorage>
+            </Container>
+          </Storage>
+        </StorageContainer>
+      </ThemeProvider>
+    );
+  }
+}
 
 export default LoginOrRegisterSlide;
