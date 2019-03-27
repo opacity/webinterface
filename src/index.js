@@ -12,7 +12,7 @@ import Root from "./components/root";
 import Agreement from "./components/agreement";
 import BrokersDown from "./components/brokers-down";
 import LandingPage from "./components/landing-page";
-import LoginOrRegister from "./components/login-or-register";
+import Login from "./components/login";
 import PageNavigationPrompt from "./components/page-navigation-prompt";
 import Subscription from "./components/subscription";
 import Signup from "./components/signup";
@@ -45,7 +45,7 @@ const App = () => (
             <Route path="/subscription" component={Subscription} />
             <Route path="/sign-up" component={Signup} />
             <Route path="/stands-out" component={StandsOut} />
-            <Route path="/login-or-register" component={LoginOrRegister} />
+            <Route path="/login" component={Login} />
             <Route path="/team-page" component={TeamPage} />
 
             <Route
