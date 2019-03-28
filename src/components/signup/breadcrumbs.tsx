@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { SIGNUP_PHASES } from "../../config";
+import { MOBILE_WIDTH, SIGNUP_PHASES } from "../../config";
 
 const ICON_RECOVERY = require("../../assets/images/icon_signup_recovery.svg");
 const ICON_PIN = require("../../assets/images/icon_signup_pin.svg");
@@ -11,19 +11,29 @@ const Container = styled.div`
   display: flex;
   padding: 20px 100px;
   margin-bottom: 70px;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    display: block;
+  }
 `;
 
 interface PhaseProps {
-  inActive?: boolean;
+  inOpacity?: boolean;
+  inActive: boolean;
 }
 
 const Phase = styled.div`
   display: flex;
-  opacity: ${(props: PhaseProps) => (props.inActive ? 0.5 : 1)};
+  opacity: ${(props: PhaseProps) => (props.inOpacity ? 0.5 : 1)};
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    display: ${(props: PhaseProps) => (props.inActive ? "block" : "none")};
+  }
 `;
 
 const PhaseInformation = styled.div`
   position: relative;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    text-align: center;
+  }
 `;
 
 const PhaseIcon = styled.img`
@@ -51,32 +61,47 @@ const Line = styled.hr`
   border-top: 1px solid ${props => props.theme.title.color};
   margin: 1em 29px;
   padding: 0;
+  @media only screen and (max-width: 1400px) {
+    width: 80px;
+  }
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    display: none;
+  }
 `;
 
 const Breadcrumbs = ({ phase }) => (
   <Container>
-    <Phase>
+    <Phase inActive={phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE}>
       <PhaseInformation>
         <PhaseIcon src={ICON_RECOVERY} />
         <PhaseNumber>1. Record Recovery Phrase</PhaseNumber>
       </PhaseInformation>
       <Line />
     </Phase>
-    <Phase inActive={phase < SIGNUP_PHASES.RECORD_STORAGE_PIN}>
+    <Phase
+      inActive={phase === SIGNUP_PHASES.RECORD_STORAGE_PIN}
+      inOpacity={phase < SIGNUP_PHASES.RECORD_STORAGE_PIN}
+    >
       <PhaseInformation>
         <PhaseIcon src={ICON_PIN} />
         <PhaseNumber>2. Record Storage Handle and PIN</PhaseNumber>
       </PhaseInformation>
       <Line />
     </Phase>
-    <Phase inActive={phase < SIGNUP_PHASES.SEND_PAYMENT}>
+    <Phase
+      inActive={phase === SIGNUP_PHASES.SEND_PAYMENT}
+      inOpacity={phase < SIGNUP_PHASES.SEND_PAYMENT}
+    >
       <PhaseInformation>
         <PhaseIcon src={ICON_PAYMENT} />
         <PhaseNumber>3. Send Payment</PhaseNumber>
       </PhaseInformation>
       <Line />
     </Phase>
-    <Phase inActive={phase < SIGNUP_PHASES.CONFIRM_PAYMENT}>
+    <Phase
+      inActive={phase === SIGNUP_PHASES.CONFIRM_PAYMENT}
+      inOpacity={phase < SIGNUP_PHASES.CONFIRM_PAYMENT}
+    >
       <PhaseInformation>
         <PhaseIcon src={ICON_CONFIRM} />
         <PhaseNumber>4. Confirm Payment</PhaseNumber>
