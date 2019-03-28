@@ -151,6 +151,9 @@ export const theme = {
   label: {
     color: "#2e6dde"
   },
+  error: {
+    color: "#ff6767"
+  },
   input: {
     content: "#b0bed1",
     background: "rgba(46, 109, 222, 0.2)",
