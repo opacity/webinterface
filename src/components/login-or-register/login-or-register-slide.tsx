@@ -12,6 +12,8 @@ import Header from "../shared/header";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
+const LoginContainer = styled.div``;
+
 const Icon = styled.img`
   height: 250px;
   width: 250px;
@@ -166,30 +168,32 @@ const Content = styled.div`
 
 const LoginOrRegisterSlide = () => (
   <ThemeProvider theme={theme}>
-    <StorageContainer>
+    <LoginContainer>
       <Header type={HEADER_SCREEEN_CONTAINER} />
-      <Storage>
-        <Container>
-          <Icon src={ICON_LOGO} />
-        </Container>
-        <Container>
-          <Title>Sing in Opacity</Title>
-          <Underline />
-          <Label>Storage Handle</Label>
-          <Input />
-          <Label>Storage PIN</Label>
-          <Input />
-          <ButtonWrapper>
-            <Button>SIGN IN</Button>
-            <Content>
-              (Or
-              <LinkContent> click here to register</LinkContent>)
-            </Content>
-          </ButtonWrapper>
-          <ForgotStorage>Forgot Storage Handle?</ForgotStorage>
-        </Container>
-      </Storage>
-    </StorageContainer>
+      <StorageContainer>
+        <Storage>
+          <Container>
+            <Icon src={ICON_LOGO} />
+          </Container>
+          <Container>
+            <Title>Sing in Opacity</Title>
+            <Underline />
+            <Label>Storage Handle</Label>
+            <Input />
+            <Label>Storage PIN</Label>
+            <Input />
+            <ButtonWrapper>
+              <Button>SIGN IN</Button>
+              <Content>
+                (Or
+                <LinkContent> click here to register</LinkContent>)
+              </Content>
+            </ButtonWrapper>
+            <ForgotStorage>Forgot Storage Handle?</ForgotStorage>
+          </Container>
+        </Storage>
+      </StorageContainer>
+    </LoginContainer>
   </ThemeProvider>
 );
 
