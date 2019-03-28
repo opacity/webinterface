@@ -1,19 +1,30 @@
-### 1.  Introduction
-### 2.  Definitions
-### 3.  Information We Collect
-### 4.  What Do We Do With Your Information
-### 5.  How Do We Protect Your Information?
-### 6.  Do We Disclose Any Information To Outside Parties?
-### 7.  Information Retention
-### 8.  Other Technologies
-### 9.  Third-Party Links
+### 1. Introduction
+
+### 2. Definitions
+
+### 3. Information We Collect
+
+### 4. What Do We Do With Your Information
+
+### 5. How Do We Protect Your Information?
+
+### 6. Do We Disclose Any Information To Outside Parties?
+
+### 7. Information Retention
+
+### 8. Other Technologies
+
+### 9. Third-Party Links
+
 ### 10. California's Shine the Light Law
+
 ### 11. Modification To Our Privacy Policy
+
 ### 12. Contact
 
 ---
 
-#### 1.  Introduction
+#### 1. Introduction
 
 > Here at Opacity Storage Inc., your privacy is extremely important to us. This Privacy Policy is provided so that we may better explain our privacy practices, and inform you of your choices regarding the way your information is collected and used.
 
@@ -23,7 +34,7 @@
 
 > Supplying information to us, including any information deemed sensitive by applicable law, is entirely voluntary on your part. You have the right to withdraw your consent to Opacity’s collection and processing of the information you provide at any time, in accordance with the terms of this Privacy Policy and the Terms of Service . You expressly give your consent to our usage and storage of your information consistent with this Privacy Policy and our Terms of Service.
 
-#### 2.  Definitions
+#### 2. Definitions
 
 > **2.1.** “Opacity,” "Opacity Storage," “our,” “us” or “we” refers to Opacity Storage Inc., a Delaware corporation.
 
@@ -37,7 +48,8 @@
 
 > **2.6.** “Data attachments” is data that you may attach, such as documents, for storage.
 
-#### 3.  Information We Collect
+#### 3. Information We Collect
+
 > **3.1.** Scope of Collection
 >
 > > This online Privacy Policy applies to information collected when you use our:
@@ -46,8 +58,8 @@
 >
 > > **3.1.2.** “Site”, which collectively refers to all online areas owned and operated by us, including the following list provided below:
 >
-> > - [Opacity Website](opacity.io)
-> > - [Opacity Storage Portal](storage.opacity.io)
+> > - [Opacity Website](https://opacity.io)
+> > - [Opacity Storage Portal](https://storage.opacity.io)
 > > - [Opacity Blog](https://medium.com/opacity-storage)
 > > - [Opacity Twitter Page](https://twitter.com/opacity_storage)
 > > - [Opacity Reddit](reddit.com/r/opacity)
@@ -55,12 +67,14 @@
 > > - [Opacity Trading Telegram Channel](https://t.me/opacitytrading)
 
 > **3.2.** Voluntary Disclosure
+>
 > > We collect information that you provide us voluntarily. We will also collect any additional information you provide, such as data attachments, that you submit to our Site.
 
 > **3.3.** Purpose of Collection
+>
 > > Any and all information we gather is for the purpose of optimizing Opacity Services for you, our users, and is not shared or sold to any third parties, except as expressly provided for in this Privacy Policy and our Terms of Use.
 
-#### 4.  What Do We Do With Your Information?
+#### 4. What Do We Do With Your Information?
 
 > In general, Opacity will not ask for or collect personally identifiable information. However, any personal and non-identifiable information you provide may be used to create a better user experience and improve our Services/Site’s overall functionality.
 
@@ -82,7 +96,7 @@
 
 > **4.8.** We use financial information solely as authorized by you in accordance with the service.
 
-#### 5.  How Do We Protect Your Information?
+#### 5. How Do We Protect Your Information?
 
 > **5.1.** Safeguards
 >
@@ -102,7 +116,7 @@
 
 > > We expressly disclaim any liability should any other individuals obtain the information you submitted to us. For any unauthorized access to or use of our secure servers or any personal and financial information stored therein, you agree to hold Opacity harmless for any damages that may result therefrom.
 
-#### 6.  Do We Disclose Any information To Outside Parties?
+#### 6. Do We Disclose Any information To Outside Parties?
 
 > **6.1.** Contracted Parties
 >
@@ -136,15 +150,15 @@
 >
 > > **6.5.6.** Act in urgent circumstances to protect the personal safety of users of Opacity, our Services/Site and policies, or the public.
 
-#### 7.  Information Retention
+#### 7. Information Retention
 
 > Opacity will retain the information you provide as needed to provide you services. Opacity may retain your information if retention is reasonably necessary to comply with our legal obligations, meet regulatory requirements, resolve disputes, prevent fraud and abuse, or enforce this Privacy Policy and our Terms of Service. We may retain information, for a limited period of time, if requested by law enforcement.
 
-#### 8.  Other Technologies
+#### 8. Other Technologies
 
 > Opacity may collect information via analytics tools. This information is used to monitor geographic traffic for users and combat fraud.
 
-#### 9.  Third-Party Links
+#### 9. Third-Party Links
 
 > Our Site may contain links to the sites of third-party providers of goods or services. These third-party sites have separate and independent privacy policies; therefore, we have no responsibility or liability for the personal information provided to these linked sites. Additionally, we do not have access or control over third-party usage of information or tracking technologies. If you land upon a third-party site, we recommend that you review their privacy policy and terms of service prior to engaging with their site.
 
