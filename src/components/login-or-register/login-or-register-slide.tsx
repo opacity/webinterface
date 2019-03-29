@@ -176,7 +176,7 @@ const LoginOrRegisterSlide = () => (
             <Icon src={ICON_LOGO} />
           </Container>
           <Container>
-            <Title>Sing in Opacity</Title>
+            <Title>Sign in Opacity</Title>
             <Underline />
             <Label>Storage Handle</Label>
             <Input />
