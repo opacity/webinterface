@@ -17,15 +17,15 @@ const Container = styled.div`
 `;
 
 interface PhaseProps {
-  inOpacity?: boolean;
-  inActive: boolean;
+  isHighlighted?: boolean;
+  isActive: boolean;
 }
 
 const Phase = styled.div`
   display: flex;
-  opacity: ${(props: PhaseProps) => (props.inOpacity ? 0.5 : 1)};
+  opacity: ${(props: PhaseProps) => (props.isHighlighted ? 1 : 0.5)};
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    display: ${(props: PhaseProps) => (props.inActive ? "block" : "none")};
+    display: ${(props: PhaseProps) => (props.isActive ? "block" : "none")};
   }
 `;
 
@@ -71,7 +71,10 @@ const Line = styled.hr`
 
 const Breadcrumbs = ({ phase }) => (
   <Container>
-    <Phase inActive={phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE}>
+    <Phase
+      isActive={phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE}
+      isHighlighted={phase >= SIGNUP_PHASES.RECORD_RECOVERY_PHRASE}
+    >
       <PhaseInformation>
         <PhaseIcon src={ICON_RECOVERY} />
         <PhaseNumber>1. Record Recovery Phrase</PhaseNumber>
@@ -79,8 +82,8 @@ const Breadcrumbs = ({ phase }) => (
       <Line />
     </Phase>
     <Phase
-      inActive={phase === SIGNUP_PHASES.RECORD_STORAGE_PIN}
-      inOpacity={phase < SIGNUP_PHASES.RECORD_STORAGE_PIN}
+      isActive={phase === SIGNUP_PHASES.RECORD_STORAGE_PIN}
+      isHighlighted={phase >= SIGNUP_PHASES.RECORD_STORAGE_PIN}
     >
       <PhaseInformation>
         <PhaseIcon src={ICON_PIN} />
@@ -89,8 +92,8 @@ const Breadcrumbs = ({ phase }) => (
       <Line />
     </Phase>
     <Phase
-      inActive={phase === SIGNUP_PHASES.SEND_PAYMENT}
-      inOpacity={phase < SIGNUP_PHASES.SEND_PAYMENT}
+      isActive={phase === SIGNUP_PHASES.SEND_PAYMENT}
+      isHighlighted={phase >= SIGNUP_PHASES.SEND_PAYMENT}
     >
       <PhaseInformation>
         <PhaseIcon src={ICON_PAYMENT} />
@@ -99,8 +102,8 @@ const Breadcrumbs = ({ phase }) => (
       <Line />
     </Phase>
     <Phase
-      inActive={phase === SIGNUP_PHASES.CONFIRM_PAYMENT}
-      inOpacity={phase < SIGNUP_PHASES.CONFIRM_PAYMENT}
+      isActive={phase === SIGNUP_PHASES.CONFIRM_PAYMENT}
+      isHighlighted={phase >= SIGNUP_PHASES.CONFIRM_PAYMENT}
     >
       <PhaseInformation>
         <PhaseIcon src={ICON_CONFIRM} />
