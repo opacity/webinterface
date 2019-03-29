@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -14,21 +14,33 @@ const Widget = styled.div`
   border-radius: 10px;
 `;
 
-const CurrencyWidget = () => (
-  <Container>
-    <Widget
-      className="coinmarketcap-currency-widget"
-      data-currencyid="3632"
-      data-base="USD"
-      data-secondary="BTC"
-      data-ticker="true"
-      data-rank="true"
-      data-marketcap="true"
-      data-volume="true"
-      data-stats="USD"
-      data-statsticker="false"
-    />
-  </Container>
-);
+class CurrencyWidget extends Component {
+  componentDidMount () {
+    const script = document.createElement("script");
+    script.src = "https://files.coinmarketcap.com/static/widget/currency.js";
+    script.type = "text/javascript";
+    script.async = true;
+    document.body.appendChild(script);
+  }
+
+  render () {
+    return (
+      <Container>
+        <Widget
+          className="coinmarketcap-currency-widget"
+          data-currencyid="3632"
+          data-base="USD"
+          data-secondary="BTC"
+          data-ticker="true"
+          data-rank="true"
+          data-marketcap="true"
+          data-volume="true"
+          data-stats="USD"
+          data-statsticker="false"
+        />
+      </Container>
+    );
+  }
+}
 
 export default CurrencyWidget;
