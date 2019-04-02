@@ -34,11 +34,11 @@
 >
 > > **1.2.3.** The term "Site" collectively refers to all online areas owned and operated by us, including the following listed below:
 >
-> > - [Opacity Website](opacity.io)
-> > - [Opacity Storage Portal](storage.opacity.io)
+> > - [Opacity Website](https://opacity.io)
+> > - [Opacity Storage Portal](https://storage.opacity.io)
 > > - [Opacity Blog](https://medium.com/opacity-storage)
 > > - [Opacity Twitter Page](https://twitter.com/opacity_storage)
-> > - [Opacity Reddit](reddit.com/r/opacity)
+> > - [Opacity Reddit](https://www.reddit.com/r/opacity)
 > > - [Opacity Telegram Channel](https://t.me/opacitystorage)
 > > - [Opacity Trading Telegram Channel](https://t.me/opacitytrading)
 >
@@ -130,7 +130,7 @@
 
 > **7.3.** Total Liability
 >
-> > Opacity's total liability under or in connection with these Terms of Service whether in contract, tort (including negligence) or otherwise shall not exceed in aggregate the amount you paid for Services in the 12 months period prior to the date of the event giving rise to the relevant claim, subject to a maximum of $1,000 USD in all cases irrespective of whether you have paid for the services.
+> > Opacity's total liability under or in connection with these Terms of Service whether in contract, tort (including negligence) or otherwise shall not exceed in aggregate the amount you paid for Services in the 12 months period prior to the date of the event giving rise to the relevant claim, subject to a maximum of \$1,000 USD in all cases irrespective of whether you have paid for the services.
 
 #### 8. Specific Disclaimer of Liability for Third Party Goods, Services, and Content
 

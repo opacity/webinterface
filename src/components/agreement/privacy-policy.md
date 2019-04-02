@@ -62,7 +62,7 @@
 > > - [Opacity Storage Portal](https://storage.opacity.io)
 > > - [Opacity Blog](https://medium.com/opacity-storage)
 > > - [Opacity Twitter Page](https://twitter.com/opacity_storage)
-> > - [Opacity Reddit](reddit.com/r/opacity)
+> > - [Opacity Reddit](https://www.reddit.com/r/opacity)
 > > - [Opacity Telegram Channel](https://t.me/opacitystorage)
 > > - [Opacity Trading Telegram Channel](https://t.me/opacitytrading)
 
