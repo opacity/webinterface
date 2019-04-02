@@ -4,7 +4,7 @@ const PROTOCOL = IS_DEV ? "http" : "https";
 
 const POLLING_NODE = IS_DEV
   ? // ? ["18.191.77.193"] // Travis broker
-    ["18.188.230.212"]
+    ["13.58.191.143"]
   : ["poll2.opacitynodes.com"];
 
 export const OLD_TANGLE_NODE_1 = "https://download.opacitynodes.com:14265";
@@ -17,15 +17,15 @@ export const EXCHANGE_LINK = "https://www.kucoin.com/";
 
 const IOTA_PROVIDERS = IS_DEV
   ? // ? ["18.222.56.121", "18.191.77.193"]
-    ["18.222.173.29", "18.188.230.212"]
+    ["18.222.173.29", "13.58.191.143"]
   : [PROD_IOTA_1, PROD_IOTA_2];
 
 const DEFAULT_BROKER_IP = IS_DEV
-  ? "18.188.230.212"
+  ? "13.58.191.143"
   : "broker-1.opacitynodes.com";
 
 const BROKERS = IS_DEV
-  ? ["18.222.173.29", "18.188.230.212"] // Rebel brokers
+  ? ["18.222.173.29", "13.58.191.143"] // Rebel brokers
   : // ["52.14.218.135", "18.217.133.146"] // QA brokers
     ["broker-1.opacitynodes.com", "broker-2.opacitynodes.com"];
 

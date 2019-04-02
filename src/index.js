@@ -18,6 +18,7 @@ import Subscription from "./components/subscription";
 import Signup from "./components/signup";
 import TeamPage from "./components/team-page";
 import StandsOut from "./components/stands-out";
+import FileManager from "./components/file-manager";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -47,6 +48,7 @@ const App = () => (
             <Route path="/stands-out" component={StandsOut} />
             <Route path="/login" component={Login} />
             <Route path="/team-page" component={TeamPage} />
+            <Route path="/file-manager" component={FileManager} />
 
             <Route
               path="/terms-of-service"
