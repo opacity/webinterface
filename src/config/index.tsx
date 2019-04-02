@@ -50,7 +50,9 @@ export const API = Object.freeze({
   V2_STATUS_PATH: ":3000/api/v2/status",
   V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",
   GAS_PRICE: "https://api.blockcypher.com/v1/eth/main",
-  CHUNKS_PER_REQUEST: 10
+  CHUNKS_PER_REQUEST: 10,
+  COINMARKETCAP:
+    "https://widgets.coinmarketcap.com/v2/ticker/3632/?ref=widget&convert=USD"
 });
 
 export const IOTA_API = Object.freeze({
