@@ -10,7 +10,7 @@ const ICON_GITHUB = require("../../assets/images/tp-github.svg");
 const ICON_LINKEDIN = require("../../assets/images/tp-linkedin.svg");
 
 const ICON_JASON = require("../../assets/images/jason.jpg");
-const ICON_TAYLOR = require("../../assets/images/taylor.jfif");
+const ICON_ARON = require("../../assets/images/aron.jfif");
 const ICON_TIM = require("../../assets/images/tim.png");
 const ICON_WILLIAM = require("../../assets/images/william.jfif");
 const ICON_CONNOR = require("../../assets/images/default_profile_picture.png");
@@ -28,11 +28,11 @@ const people = [
     linkedin: "https://www.linkedin.com/in/jasoncoppola"
   },
   {
-    title: "Taylor",
-    icon: ICON_TAYLOR,
-    role: "UI/UX",
-    github: "https://github.com/tfrench93",
-    linkedin: "https://www.linkedin.com/in/taylorfrench93/"
+    title: "Aron",
+    icon: ICON_ARON,
+    role: "Marketing",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/aronhiltzik/"
   },
   {
     title: "Tim",
