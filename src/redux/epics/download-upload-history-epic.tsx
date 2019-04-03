@@ -23,7 +23,7 @@ const beginDownloadUploadHistory = (action$, store) => {
       if (FileSaver !== undefined) {
         FileSaver.saveAs(blob, "handle.json");
       }
-      return downloadUploadHistoryActions.downloadUploadHistorySuccessAction();
+      return downloadUploadHistoryActions.downloadUploadHistorySuccess();
     });
 };
 

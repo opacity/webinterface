@@ -6,6 +6,7 @@ import downloadUploadHistoryEpic from "./download-upload-history-epic";
 import metamaskEpic from "./metamask-epic";
 import navigationEpic from "./navigation-epic";
 import signupEpic from "./signup-epic";
+import authenticationEpic from "./authentication-epic";
 
 export default combineEpics(
   uploadEpic,
@@ -13,5 +14,6 @@ export default combineEpics(
   downloadUploadHistoryEpic,
   metamaskEpic,
   navigationEpic,
-  signupEpic
+  signupEpic,
+  authenticationEpic
 );

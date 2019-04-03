@@ -63,7 +63,7 @@ const streamUploadEpic = action$ =>
         }),
       () =>
         Observable.create(o => {
-          o.next(navigationActions.brokersDownPageAction());
+          o.next(navigationActions.brokersDownPage());
         })
     );
   });

@@ -11,16 +11,16 @@ const ACTIONS = Object.freeze({
   BROKERS_DOWN,
 
   // actionCreators
-  visitUploadFormAction: () => ({
+  visitUploadForm: () => ({
     type: ACTIONS.VISIT_UPLOAD_FORM
   }),
-  visitDownloadFormAction: () => ({
+  visitDownloadForm: () => ({
     type: ACTIONS.VISIT_DOWNLOAD_FORM
   }),
-  errorPageAction: () => ({
+  errorPage: () => ({
     type: ACTIONS.ERROR_PAGE
   }),
-  brokersDownPageAction: () => ({
+  brokersDownPage: () => ({
     type: ACTIONS.BROKERS_DOWN
   })
 });

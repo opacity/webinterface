@@ -4,7 +4,7 @@ const PROTOCOL = IS_DEV ? "http" : "https";
 
 const POLLING_NODE = IS_DEV
   ? // ? ["18.191.77.193"] // Travis broker
-    ["18.188.230.212"]
+    ["13.58.191.143"]
   : ["poll2.opacitynodes.com"];
 
 export const OLD_TANGLE_NODE_1 = "https://download.opacitynodes.com:14265";
@@ -17,15 +17,15 @@ export const EXCHANGE_LINK = "https://www.kucoin.com/";
 
 const IOTA_PROVIDERS = IS_DEV
   ? // ? ["18.222.56.121", "18.191.77.193"]
-    ["18.222.173.29", "18.188.230.212"]
+    ["18.222.173.29", "13.58.191.143"]
   : [PROD_IOTA_1, PROD_IOTA_2];
 
 const DEFAULT_BROKER_IP = IS_DEV
-  ? "18.188.230.212"
+  ? "13.58.191.143"
   : "broker-1.opacitynodes.com";
 
 const BROKERS = IS_DEV
-  ? ["18.222.173.29", "18.188.230.212"] // Rebel brokers
+  ? ["18.222.173.29", "13.58.191.143"] // Rebel brokers
   : // ["52.14.218.135", "18.217.133.146"] // QA brokers
     ["broker-1.opacitynodes.com", "broker-2.opacitynodes.com"];
 
@@ -49,6 +49,7 @@ export const API = Object.freeze({
   V2_UPLOAD_SESSIONS_PATH: ":3000/api/v2/upload-sessions",
   V2_STATUS_PATH: ":3000/api/v2/status",
   V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",
+  V1_LOGIN_PATH: ":3000/api/v1/metadata",
   GAS_PRICE: "https://api.blockcypher.com/v1/eth/main",
   CHUNKS_PER_REQUEST: 10
 });
@@ -100,6 +101,13 @@ export const DESKTOP_WIDTH = "997";
 export const MOBILE_WIDTH = "567";
 export const SUBSCRIPTION_DESKTOP_WIDTH = "1200";
 
+export enum AUTHENTICATION_STATUSES {
+  LOGGED_OUT = 0,
+  LOGIN_PENDING,
+  LOGIN_FAILURE,
+  LOGGED_IN
+}
+
 export const SIGNUP_PHASES = {
   RECORD_RECOVERY_PHRASE: 1,
   RECORD_STORAGE_PIN: 2,
@@ -142,6 +150,9 @@ export const theme = {
   },
   label: {
     color: "#2e6dde"
+  },
+  error: {
+    color: "#ff6767"
   },
   input: {
     content: "#b0bed1",

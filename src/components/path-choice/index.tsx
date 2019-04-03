@@ -6,9 +6,8 @@ import navigationActions from "../../redux/actions/navigation-actions";
 
 const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
-  visitUploadFormFn: () => dispatch(navigationActions.visitUploadFormAction()),
-  visitDownloadFormFn: () =>
-    dispatch(navigationActions.visitDownloadFormAction())
+  visitUploadFormFn: () => dispatch(navigationActions.visitUploadForm()),
+  visitDownloadFormFn: () => dispatch(navigationActions.visitDownloadForm())
 });
 
 const PathChoice = ({ visitUploadFormFn, visitDownloadFormFn }) => (
@@ -18,4 +17,7 @@ const PathChoice = ({ visitUploadFormFn, visitDownloadFormFn }) => (
   />
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(PathChoice);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PathChoice);

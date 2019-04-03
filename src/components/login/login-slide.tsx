@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import {
+  AUTHENTICATION_STATUSES,
   HEADER_SCREEEN_CONTAINER,
   DESKTOP_WIDTH,
   MOBILE_WIDTH,
@@ -13,6 +14,11 @@ import Header from "../shared/header";
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const LoginContainer = styled.div``;
+
+const ErrorMessage = styled.p`
+  color: ${props => props.theme.error.color};
+  font-size: 14px;
+`;
 
 const Icon = styled.img`
   height: 250px;
@@ -40,29 +46,29 @@ const StorageContainer = styled.div`
 `;
 
 const Storage = styled.div`
-  display: grid;
-  grid-gap: 10px;
-  grid-template-rows: repeat(1, 28px);
-  grid-auto-flow: column;
-  grid-auto-columns: auto;
+  display: flex;
+
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    grid-template-rows: repeat(2, 150px);
+    flex-direction: column;
   }
 `;
 
-const Input = styled.input.attrs(({ size }) => ({
-  type: "password",
+interface InputProps {
+  hasError?: boolean;
+}
 
-  margin: size || "1em",
-  padding: size || "1em"
-}))`
+const Input = styled.input<InputProps>`
   color: black;
   width: 100%;
   height: 40px;
-  border: 1px solid ${props => props.theme.input.content};
+  padding: 0 8px;
+  border: 0.5px solid
+    ${props =>
+      props.hasError ? props.theme.error.color : props.theme.input.content};
 `;
 
 const Container = styled.div`
+  flex: 1;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     text-align: center;
   }
@@ -129,8 +135,8 @@ const Button = styled.button`
   }
 `;
 
-const Link = styled.span`
-  font-size: 8.5px;
+const Link = styled.a`
+  font-size: 10px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
@@ -138,10 +144,6 @@ const Link = styled.span`
   letter-spacing: 0.7px;
   text-align: left;
   color: ${props => props.theme.title.color};
-`;
-
-const LinkContent = styled(Link)`
-  font-size: 10px;
 `;
 
 const ForgotStorage = styled(Link)`
@@ -166,35 +168,77 @@ const Content = styled.div`
   }
 `;
 
-const LoginOrRegisterSlide = () => (
-  <ThemeProvider theme={theme}>
-    <LoginContainer>
-      <Header type={HEADER_SCREEEN_CONTAINER} />
-      <StorageContainer>
-        <Storage>
-          <Container>
-            <Icon src={ICON_LOGO} />
-          </Container>
-          <Container>
-            <Title>Sign in to Opacity</Title>
-            <Underline />
-            <Label>Storage Handle</Label>
-            <Input />
-            <Label>Storage PIN</Label>
-            <Input />
-            <ButtonWrapper>
-              <Button>SIGN IN</Button>
-              <Content>
-                (Or
-                <LinkContent> click here to register</LinkContent>)
-              </Content>
-            </ButtonWrapper>
-            <ForgotStorage>Forgot Storage Handle?</ForgotStorage>
-          </Container>
-        </Storage>
-      </StorageContainer>
-    </LoginContainer>
-  </ThemeProvider>
-);
+interface LoginOrRegisterSlideProps {
+  login;
+  status;
+}
+
+interface LoginOrRegisterSlideState {
+  privateKey;
+  storagePin;
+}
+
+class LoginOrRegisterSlide extends Component<
+  LoginOrRegisterSlideProps,
+  LoginOrRegisterSlideState
+> {
+  state = {
+    privateKey: "",
+    storagePin: ""
+  };
+
+  render () {
+    const { login, status } = this.props;
+
+    return (
+      <ThemeProvider theme={theme}>
+        <LoginContainer>
+          <Header type={HEADER_SCREEEN_CONTAINER} />
+          <StorageContainer>
+            <Storage>
+              <Container>
+                <Icon src={ICON_LOGO} />
+              </Container>
+              <Container>
+                <Title>Sign in Opacity</Title>
+                <Underline />
+                <Label>Storage Handle</Label>
+                <Input
+                  onChange={e => this.setState({ privateKey: e.target.value })}
+                  hasError={status === AUTHENTICATION_STATUSES.LOGIN_FAILURE}
+                />
+                <Label>Storage PIN</Label>
+                <Input
+                  type="password"
+                  onChange={e => this.setState({ storagePin: e.target.value })}
+                  hasError={status === AUTHENTICATION_STATUSES.LOGIN_FAILURE}
+                />
+                {status === AUTHENTICATION_STATUSES.LOGIN_FAILURE && (
+                  <ErrorMessage>
+                    The Storage Handle or Storage PIN do not match up. Please
+                    try again.
+                  </ErrorMessage>
+                )}
+                <ButtonWrapper>
+                  <Button
+                    onClick={() =>
+                      login(this.state.privateKey, this.state.storagePin)
+                    }
+                  >
+                    SIGN IN
+                  </Button>
+                  <Content>
+                    (Or <Link href="/sign-up">click here to register</Link>)
+                  </Content>
+                </ButtonWrapper>
+                <ForgotStorage>Forgot Storage Handle?</ForgotStorage>
+              </Container>
+            </Storage>
+          </StorageContainer>
+        </LoginContainer>
+      </ThemeProvider>
+    );
+  }
+}
 
 export default LoginOrRegisterSlide;

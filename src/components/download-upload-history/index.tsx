@@ -8,13 +8,14 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   beginDownloadUploadHistoryFn: () =>
-    dispatch(downloadUploadHistoryActions.beginDownloadUploadHistoryAction())
+    dispatch(downloadUploadHistoryActions.beginDownloadUploadHistory())
 });
 
 const DownloadUploadHistory = ({ beginDownloadUploadHistoryFn }) => (
   <DownloadUploadHistoryButton download={beginDownloadUploadHistoryFn} />
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  DownloadUploadHistory
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DownloadUploadHistory);
