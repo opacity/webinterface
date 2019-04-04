@@ -61,7 +61,7 @@
     "raven-for-redux": "^1.4.0",
     "raven-js": "^3.26.3",
     "rc-progress": "^2.3.0",
-    "react": "^16.7.0",
+    "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.7.0",
