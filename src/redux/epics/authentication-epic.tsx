@@ -26,7 +26,6 @@ const loginEpic = (action$, state$, dependencies$) =>
         })
       ).pipe(
         flatMap(() => {
-          console.log("here!!!!");
           return [
             authenticationActions.loginSuccess({ metadataKey }),
             push("/file-manager")
