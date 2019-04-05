@@ -58,7 +58,7 @@ const isAccountPaid = ({ accountId }) =>
       return paymentStatus === PAYMENT_STATUSES.PAID;
     });
 
-const login = ({ metadataKey }) =>
+export const login = ({ metadataKey }) =>
   axiosInstance
     .get(`${API.DEFAULT_BROKER}${API.V1_LOGIN_PATH}/${metadataKey}`)
     .then(({ data }: any) => data);
