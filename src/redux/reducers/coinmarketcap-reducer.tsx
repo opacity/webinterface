@@ -1,8 +1,8 @@
-import coinMarketCapActions from "../actions/coinmarketcap-action";
+import coinMarketCapActions from "../actions/coinmarketcap-actions";
 
 const initState = { data: null };
 
-const downloadReducer = (state = initState, action) => {
+const coinMarketCapReducer = (state = initState, action) => {
   switch (action.type) {
     case coinMarketCapActions.COINMARKETCAP_SUCCESS:
       const { data } = action.payload;
@@ -15,4 +15,4 @@ const downloadReducer = (state = initState, action) => {
   }
 };
 
-export default downloadReducer;
+export default coinMarketCapReducer;

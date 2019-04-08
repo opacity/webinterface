@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { combineEpics } from "redux-observable";
 
-import coinMarketCapActions from "../actions/coinmarketcap-action";
+import coinMarketCapActions from "../actions/coinmarketcap-actions";
 import coinMarketCap from "../../services/coinmarketcap";
 
 const downloadCoinMarketCap = action$ =>

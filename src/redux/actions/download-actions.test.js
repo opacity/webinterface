@@ -28,7 +28,7 @@ test("download-action DOWNLOAD_SUCCESS", () => {
   expect(actions.streamDownloadSuccess()).toEqual(expected);
 });
 
-test("download-action DOWNLOAD_SUCCESS", () => {
+test("download-action DOWNLOAD_ERROR", () => {
   const err = "err";
   const expected = {
     type: actions.DOWNLOAD_ERROR,

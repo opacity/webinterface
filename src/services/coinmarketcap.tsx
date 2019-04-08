@@ -1,11 +1,11 @@
 import axios from "axios";
 
-import { API } from "../config";
+import { THIRD_PARTY } from "../config";
 
 const axiosInstance = axios.create({ timeout: 200000 });
 
 const getTicketCoinMarketCap = () =>
-  axiosInstance.get(`${API.COINMARKETCAP}`).then(({ data }: any) => {
+  axiosInstance.get(`${THIRD_PARTY.COINMARKETCAP}`).then(({ data }: any) => {
     return data;
   });
 

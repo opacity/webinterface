@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import coinMarketCapActions from "../../../redux/actions/coinmarketcap-action";
+import coinMarketCapActions from "../../../redux/actions/coinmarketcap-actions";
 import CurrencyWidgetSlide from "./currency-widget-slide";
 
 const mapStateToProps = state => ({

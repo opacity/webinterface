@@ -10,16 +10,16 @@ const ACTIONS = Object.freeze({
 
   // coinMarketCap actions
   coinMarketCapDownload: () => ({
-    type: ACTIONS.COINMARKETCAP_DOWNLOAD
+    type: COINMARKETCAP_DOWNLOAD
   }),
 
   coinMarketCapSuccess: ({ data }) => ({
-    type: ACTIONS.COINMARKETCAP_SUCCESS,
+    type: COINMARKETCAP_SUCCESS,
     payload: data
   }),
 
   coinMarketCapFailure: ({ error }) => ({
-    type: ACTIONS.COINMARKETCAP_ERROR,
+    type: COINMARKETCAP_ERROR,
     payload: error
   })
 });

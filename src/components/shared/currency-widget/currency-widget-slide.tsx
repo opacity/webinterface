@@ -19,7 +19,11 @@ const Widget = styled.div`
   min-width: 285px;
 `;
 
-const Header = styled.div``;
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
 
 const Logo = styled.img`
   width: 64px;
@@ -27,8 +31,6 @@ const Logo = styled.img`
 `;
 
 const HeaderData = styled.div`
-  float: right;
-  width: 67%;
   border: none;
   text-align: left;
   padding: 5px 0px;
@@ -38,7 +40,6 @@ const HeaderData = styled.div`
 const HeaderLogo = styled.div`
   text-align: center;
   padding: 5px 0px;
-  width: 33%;
 `;
 
 const HeaderTitle = styled.div`
@@ -73,34 +74,34 @@ const HeaderLink = styled.a`
 const Content = styled.div`
   border-top: 1px solid #e1e5ea;
   clear: both;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 `;
 
 const ContentRank = styled.div`
   text-align: center;
-  float: left;
-  width: 33%;
   font-size: 12px;
   padding: 12px 0;
   border-right: 1px solid #e1e5ea;
+  flex: 1;
 `;
 
 const ContentVolume = styled.div`
   text-align: center;
-  float: left;
-  width: 33%;
   font-size: 12px;
   padding: 12px 0 16px 0;
   line-height: 1.25em;
+  flex: 1;
 `;
 
 const ContentMarketCap = styled.div`
   text-align: center;
-  float: left;
-  width: 33%;
   font-size: 12px;
   padding: 12px 0 16px 0;
   border-right: 1px solid #e1e5ea;
   line-height: 1.25em;
+  flex: 1;
 `;
 
 const ContentData = styled.div`
@@ -135,18 +136,21 @@ interface CurrencyWidgetSlideProps {
 }
 
 class CurrencyWidgetSlide extends React.Component<CurrencyWidgetSlideProps> {
-  componentDidMount () {
+  componentDidMount() {
     const { download } = this.props;
     download();
   }
 
-  render () {
+  render() {
     const { data } = this.props;
     if (data) {
       return (
         <Container>
           <Widget>
             <Header>
+              <HeaderLogo>
+                <Logo src={ICON_LOGO} />
+              </HeaderLogo>
               <HeaderData>
                 <HeaderTitle>
                   <HeaderLink
@@ -182,9 +186,6 @@ class CurrencyWidgetSlide extends React.Component<CurrencyWidgetSlideProps> {
                   </HeaderBTC>
                 </HeaderTitle>
               </HeaderData>
-              <HeaderLogo>
-                <Logo src={ICON_LOGO} />
-              </HeaderLogo>
             </Header>
             <Content>
               <ContentRank>

@@ -50,9 +50,7 @@ export const API = Object.freeze({
   V2_STATUS_PATH: ":3000/api/v2/status",
   V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",
   GAS_PRICE: "https://api.blockcypher.com/v1/eth/main",
-  CHUNKS_PER_REQUEST: 10,
-  COINMARKETCAP:
-    "https://widgets.coinmarketcap.com/v2/ticker/3632/?ref=widget&convert=USD"
+  CHUNKS_PER_REQUEST: 10
 });
 
 export const IOTA_API = Object.freeze({
@@ -91,6 +89,11 @@ export const IOTA_POLL_INTERVAL = 2000;
 export const AGREEMENT_TYPES = Object.freeze({
   TERMS_OF_SERVICE: "TERMS_OF_SERVICE",
   PRIVACY_POLICY: "PRIVACY_POLICY"
+});
+
+export const THIRD_PARTY = Object.freeze({
+  COINMARKETCAP:
+    "https://widgets.coinmarketcap.com/v2/ticker/3632/?ref=widget&convert=USD"
 });
 
 export const HEADER_LANDING_PAGE = "LandingPage";
