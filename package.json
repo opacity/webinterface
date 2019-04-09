@@ -148,7 +148,6 @@
       "<rootDir>/config/polyfills.js"
     ],
     "testMatch": [
-      "<rootDir>/src/**/*.{js,jsx,mjs,ts}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs,ts}"
     ],
     "globals": {

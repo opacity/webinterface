@@ -24,10 +24,12 @@ const goToUploadForm = (action$, store) => {
       () =>
         Observable.create(o => {
           o.next(push("/upload-form"));
+          o.complete();
         }),
       () =>
         Observable.create(o => {
           o.next(replace("/brokers-down"));
+          o.complete();
         })
     );
   });
