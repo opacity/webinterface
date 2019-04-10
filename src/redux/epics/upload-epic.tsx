@@ -24,7 +24,7 @@ const streamUploadEpic = action$ =>
     return execObservableIfBackendAvailable(
       [API.BROKER_NODE_A, API.BROKER_NODE_B],
       () =>
-        Observable.create(o => {
+        new Observable(o => {
           streamUpload(file, params, {
             invoiceCb: invoice => {
               o.next(uploadActions.streamInvoiced(invoice));
@@ -62,7 +62,7 @@ const streamUploadEpic = action$ =>
           });
         }),
       () =>
-        Observable.create(o => {
+        new Observable(o => {
           o.next(navigationActions.brokersDownPage());
         })
     );
@@ -72,7 +72,7 @@ const streamUploadProgressEpic = action$ =>
   action$.ofType(uploadActions.CHUNKS_DELIVERED).mergeMap(action => {
     const { handle } = action.payload;
 
-    return Observable.create(o => {
+    return new Observable(o => {
       streamUploadProgress(handle, {
         uploadProgressCb: ({ progress }) => {
           o.next(uploadActions.streamUploadProgress({ progress }));
