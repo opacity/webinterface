@@ -13,7 +13,7 @@ const streamDownloadEpic = action$ => {
     const { handle } = action.payload;
     const params = {};
 
-    const downloadObservable = Observable.create(o => {
+    const downloadObservable = new Observable(o => {
       streamDownload(handle, params, {
         metaCb: () => {}, // no-op
         progressCb: () => {}, // no-op

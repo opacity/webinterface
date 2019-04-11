@@ -1,6 +1,7 @@
 import { combineEpics } from "redux-observable";
 import { push, replace } from "react-router-redux";
 import { Observable } from "rxjs/Rx";
+import { EMPTY } from "rxjs";
 import queryString from "query-string";
 
 import { API } from "../../config";
@@ -22,12 +23,14 @@ const goToUploadForm = (action$, store) => {
     return execObservableIfBackendAvailable(
       [API.BROKER_NODE_A, API.BROKER_NODE_B],
       () =>
-        Observable.create(o => {
+        new Observable(o => {
           o.next(push("/upload-form"));
+          o.complete();
         }),
       () =>
-        Observable.create(o => {
+        new Observable(o => {
           o.next(replace("/brokers-down"));
+          o.complete();
         })
     );
   });
@@ -85,7 +88,7 @@ const uploadProgressListener = (action$, store) => {
       } = store.getState();
 
       // Prevent from getting into a cycle from the normal synchronous flow.
-      if (uploadState === UPLOAD_STATE.COMPLETE) return Observable.empty();
+      if (uploadState === UPLOAD_STATE.COMPLETE) return EMPTY;
 
       const { handle } = queryString.parse(hash);
       return Observable.of(uploadActions.streamChunksDelivered({ handle }));

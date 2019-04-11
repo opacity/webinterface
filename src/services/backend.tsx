@@ -8,7 +8,7 @@ enum PAYMENT_STATUSES {
 
 const axiosInstance = axios.create({ timeout: 200000 });
 
-const checkStatus = hosts =>
+export const checkStatus = hosts =>
   new Promise((resolve, reject) => {
     // TODO: Quick fix to get this deployed ASAP and pass Travis.
     // This should be removed later
@@ -32,7 +32,7 @@ const checkStatus = hosts =>
       });
   });
 
-const createAccount = ({
+export const createAccount = ({
   accountId,
   storageLimit,
   durationInMonths,
@@ -50,7 +50,7 @@ const createAccount = ({
       return invoice;
     });
 
-const isAccountPaid = ({ accountId }) =>
+export const isAccountPaid = ({ accountId }) =>
   axiosInstance
     .get(`${API.DEFAULT_BROKER}${API.V1_ACCOUNTS_PATH}/${accountId}`)
     .then(({ data }: any) => {
@@ -58,7 +58,7 @@ const isAccountPaid = ({ accountId }) =>
       return paymentStatus === PAYMENT_STATUSES.PAID;
     });
 
-const login = ({ metadataKey }) =>
+export const login = ({ metadataKey }) =>
   axiosInstance
     .get(`${API.DEFAULT_BROKER}${API.V1_LOGIN_PATH}/${metadataKey}`)
     .then(({ data }: any) => data);

@@ -4,6 +4,7 @@ import "rxjs/add/operator/mergeMap";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/toArray";
 
+import { push, replace } from "react-router-redux";
 import navigationActions from "../actions/navigation-actions";
 import uploadActions from "../actions/upload-actions";
 import navigationEpic from "./navigation-epic";
@@ -13,167 +14,98 @@ import configureMockStore from "redux-mock-store";
 
 const mockStore = configureMockStore([]);
 
-test("navigationEpic goToDownloadForm", () => {
-  const state = {};
-  const store = mockStore(state);
-  const action = ActionsObservable.of(
-    { type: navigationActions.VISIT_DOWNLOAD_FORM }
-  );
-  const expected = [
-    {
-      "payload": {
-        "args": ["/download-form"],
-        "method": "push"
-      },
-      "type": "@@router/CALL_HISTORY_METHOD"
-    }
-  ];
-  navigationEpic(action, store)
-    .toArray()
-    .subscribe(actions => {
-      expect(actions).toEqual(expected);
-    });
+jest.mock("../../services/backend", () => ({
+  checkStatus: () => new Promise((resolve, reject) => resolve(true))
+}));
+
+test("navigationEpic goToDownloadForm", done => {
+  const action$ = ActionsObservable.of({
+    type: navigationActions.VISIT_DOWNLOAD_FORM
+  });
+  const state$ = null;
+  const dependencies$ = {};
+
+  navigationEpic(action$, state$, dependencies$).subscribe(actions => {
+    expect(actions).toEqual(push("/download-form"));
+    done();
+  });
 });
 
-test("navigationEpic goToUploadForm", () => {
-  const state = {};
-  const store = mockStore(state);
-  const action = ActionsObservable.of(
-    { type: navigationActions.VISIT_UPLOAD_FORM }
-  );
-  const expected = [
-    {
-      "payload": {
-        "args": ["/upload-form"],
-        "method": "push"
-      },
-      "type": "@@router/CALL_HISTORY_METHOD"
-    }
-  ];
-  navigationEpic(action, store)
-    .toArray()
-    .subscribe(actions => {
-      expect(actions).toEqual(expected);
-    });
+test("navigationEpic goToUploadForm", done => {
+  const action$ = ActionsObservable.of({
+    type: navigationActions.VISIT_UPLOAD_FORM
+  });
+  const state$ = null;
+  const dependencies$ = {};
+
+  navigationEpic(action$, state$, dependencies$).subscribe(actions => {
+    expect(actions).toEqual(push("/upload-form"));
+    done();
+  });
 });
 
-test("navigationEpic goToUploadStartedStream", () => {
-  const state = {};
-  const store = mockStore(state);
-  const action = ActionsObservable.of(
-    {
-      type: uploadActions.PAYMENT_CONFIRMED,
-      payload: { handle: "handle" }
-    }
-  );
-  const expected = [
-    {
-      "payload": {
-        "args": ["/upload-started"],
-        "method": "replace"
-      },
-      "type": "@@router/CALL_HISTORY_METHOD"
-    }
-  ];
-  navigationEpic(action, store)
-    .toArray()
-    .subscribe(actions => {
-      expect(actions).toEqual(expected);
-    });
+test("navigationEpic goToUploadStartedStream", done => {
+  const action$ = ActionsObservable.of({
+    type: uploadActions.PAYMENT_CONFIRMED,
+    payload: { handle: "handle" }
+  });
+  const state$ = null;
+  const dependencies$ = {};
+
+  navigationEpic(action$, state$, dependencies$).subscribe(actions => {
+    expect(actions).toEqual(replace("/upload-started"));
+    done();
+  });
 });
 
-test("navigationEpic goToUploadCompleteStream", () => {
-  const state = {};
-  const store = mockStore(state);
-  const action = ActionsObservable.of(
-    {
-      type: uploadActions.UPLOAD_SUCCESS
-    }
-  );
-  const expected = [
-    {
-      "payload": {
-        "args": ["/upload-complete"],
-        "method": "replace"
-      },
-      "type": "@@router/CALL_HISTORY_METHOD"
-    }
-  ];
-  navigationEpic(action, store)
-    .toArray()
-    .subscribe(actions => {
-      expect(actions).toEqual(expected);
-    });
+test("navigationEpic goToUploadCompleteStream", done => {
+  const action$ = ActionsObservable.of({
+    type: uploadActions.UPLOAD_SUCCESS
+  });
+  const state$ = null;
+  const dependencies$ = {};
+
+  navigationEpic(action$, state$, dependencies$).subscribe(actions => {
+    expect(actions).toEqual(replace("/upload-complete"));
+    done();
+  });
 });
 
-test("navigationEpic goToPaymentInvoiceStream", () => {
-  const state = {};
-  const store = mockStore(state);
-  const action = ActionsObservable.of(
-    {
-      type: uploadActions.INVOICED
-    }
-  );
-  const expected = [
-    {
-      "payload": {
-        "args": ["/payment-invoice"],
-        "method": "replace"
-      },
-      "type": "@@router/CALL_HISTORY_METHOD"
-    }
-  ];
-  navigationEpic(action, store)
-    .toArray()
-    .subscribe(actions => {
-      expect(actions).toEqual(expected);
-    });
+test("navigationEpic goToPaymentInvoiceStream", done => {
+  const action$ = ActionsObservable.of({
+    type: uploadActions.INVOICED
+  });
+  const state$ = null;
+  const dependencies$ = {};
+
+  navigationEpic(action$, state$, dependencies$).subscribe(actions => {
+    expect(actions).toEqual(replace("/payment-invoice"));
+    done();
+  });
 });
 
-test("navigationEpic goToPaymentConfirmationStream", () => {
-  const state = {};
-  const store = mockStore(state);
-  const action = ActionsObservable.of(
-    {
-      type: uploadActions.PAYMENT_PENDING
-    }
-  );
-  const expected = [
-    {
-      "payload": {
-        "args": ["/payment-confirm"],
-        "method": "replace"
-      },
-      "type": "@@router/CALL_HISTORY_METHOD"
-    }
-  ];
-  navigationEpic(action, store)
-    .toArray()
-    .subscribe(actions => {
-      expect(actions).toEqual(expected);
-    });
+test("navigationEpic goToPaymentConfirmationStream", done => {
+  const action$ = ActionsObservable.of({
+    type: uploadActions.PAYMENT_PENDING
+  });
+  const state$ = null;
+  const dependencies$ = {};
+
+  navigationEpic(action$, state$, dependencies$).subscribe(actions => {
+    expect(actions).toEqual(replace("/payment-confirm"));
+    done();
+  });
 });
 
-test("navigationEpic goToErrorPage", () => {
-  const state = {};
-  const store = mockStore(state);
-  const action = ActionsObservable.of(
-    {
-      type: navigationActions.ERROR_PAGE
-    }
-  );
-  const expected = [
-    {
-      "payload": {
-        "args": ["/error-page"],
-        "method": "replace"
-      },
-      "type": "@@router/CALL_HISTORY_METHOD"
-    }
-  ];
-  navigationEpic(action, store)
-    .toArray()
-    .subscribe(actions => {
-      expect(actions).toEqual(expected);
-    });
+test("navigationEpic goToErrorPage", done => {
+  const action$ = ActionsObservable.of({
+    type: navigationActions.ERROR_PAGE
+  });
+  const state$ = null;
+  const dependencies$ = {};
+
+  navigationEpic(action$, state$, dependencies$).subscribe(actions => {
+    expect(actions).toEqual(replace("/error-page"));
+    done();
+  });
 });
