@@ -136,12 +136,12 @@ interface CurrencyWidgetSlideProps {
 }
 
 class CurrencyWidgetSlide extends React.Component<CurrencyWidgetSlideProps> {
-  componentDidMount() {
+  componentDidMount () {
     const { download } = this.props;
     download();
   }
 
-  render() {
+  render () {
     const { data } = this.props;
     if (data) {
       return (

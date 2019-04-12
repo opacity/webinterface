@@ -94,7 +94,7 @@ export const AGREEMENT_TYPES = Object.freeze({
 
 export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP:
-    "https://widgets.coinmarketcap.com/v2/ticker/3632/?ref=widget&convert=USD"
+    "https://opacity.io/widget.php"
 });
 
 export const HEADER_LANDING_PAGE = "LandingPage";
