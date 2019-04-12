@@ -13,9 +13,12 @@ import Raven from "../services/error-tracker";
 import { UPLOAD_STATUSES } from "../config";
 
 const composeFn = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const epicMiddleware = createEpicMiddleware();
+
 const middleware = [
   process.env.NODE_ENV === "development" && createLogger(),
-  createEpicMiddleware(epics),
+  epicMiddleware,
   routerMiddleware(history),
   createRavenMiddleware(Raven, {})
 ].filter(x => !!x);
@@ -45,3 +48,5 @@ export const store = createStore(
 export const persistor = persistStore(store, {}, () => {
   // store.dispatch(uploadActions.refreshIncompleteUploads());
 });
+
+epicMiddleware.run(epics);

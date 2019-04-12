@@ -1,6 +1,6 @@
 import actions from "./download-actions";
 
-test("download-action DOWNLOAD", () => {
+test("streamDownload", () => {
   const handle = "handle";
   const expected = {
     type: actions.DOWNLOAD,
@@ -11,7 +11,7 @@ test("download-action DOWNLOAD", () => {
   expect(actions.streamDownload({ handle })).toEqual(expected);
 });
 
-test("download-action DOWNLOAD_PROGRESS", () => {
+test("streamDownloadProgress", () => {
   const progress = 0.15;
   const expected = {
     type: actions.DOWNLOAD_PROGRESS,
@@ -20,7 +20,7 @@ test("download-action DOWNLOAD_PROGRESS", () => {
   expect(actions.streamDownloadProgress({ progress })).toEqual(expected);
 });
 
-test("download-action DOWNLOAD_SUCCESS", () => {
+test("streamDownloadSuccess", () => {
   const expected = {
     type: actions.DOWNLOAD_SUCCESS,
     payload: {}
@@ -28,7 +28,7 @@ test("download-action DOWNLOAD_SUCCESS", () => {
   expect(actions.streamDownloadSuccess()).toEqual(expected);
 });
 
-test("download-action DOWNLOAD_ERROR", () => {
+test("streamDownloadError", () => {
   const err = "err";
   const expected = {
     type: actions.DOWNLOAD_ERROR,

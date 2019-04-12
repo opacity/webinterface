@@ -1,22 +1,22 @@
 import actions from "./download-upload-history-actions";
 
-test("download-upload-history-action BEGIN_UPLOAD_HISTORY_DOWNLOAD", () => {
+test("beginDownloadUploadHistory", () => {
   const expected = {
     type: actions.BEGIN_UPLOAD_HISTORY_DOWNLOAD
   };
-  expect(actions.beginDownloadUploadHistoryAction()).toEqual(expected);
+  expect(actions.beginDownloadUploadHistory()).toEqual(expected);
 });
 
-test("download-upload-history-action DOWNLOAD_UPLOAD_HISTORY_SUCCESS", () => {
+test("downloadUploadHistorySuccess", () => {
   const expected = {
     type: actions.DOWNLOAD_UPLOAD_HISTORY_SUCCESS
   };
-  expect(actions.downloadUploadHistorySuccessAction()).toEqual(expected);
+  expect(actions.downloadUploadHistorySuccess()).toEqual(expected);
 });
 
-test("download-upload-history-action DOWNLOAD_UPLOAD_HISTORY_FAILURE", () => {
+test("downloadUploadHistoryFailure", () => {
   const expected = {
     type: actions.DOWNLOAD_UPLOAD_HISTORY_FAILURE
   };
-  expect(actions.downloadUploadHistoryFailureAction()).toEqual(expected);
+  expect(actions.downloadUploadHistoryFailure()).toEqual(expected);
 });
