@@ -11,7 +11,6 @@ import {
 import Header from "../shared/header";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
-const ICON_CHECK = require("../../assets/images/checkmark.svg");
 
 const ContainerWrapper = styled.div``;
 
@@ -138,22 +137,6 @@ const RightSideNav = styled.div`
 
 const RightSideNavOpen = styled(RightSideNav)`
   right: 0;
-`;
-
-const Dropdown = styled.div`
-  display: none;
-  filter: alpha(opacity=13);
-  opacity: 0.13;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1120;
-  background-color: #000;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    display: block;
-  }
 `;
 
 const Table = styled.table`
@@ -346,204 +329,84 @@ const FileBackTitle = styled.span`
   float: left;
 `;
 
-const ModalTitle = styled.h1`
-  font-size: ${props => props.theme.container.title.size}px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.title.color};
-  margin: auto;
-  margin: 35px 0 20px 0;
-`;
-
-const ModalContent = styled.p`
-  width: auto;
-  font-size: 12px;
-  font-weight: ${props => props.theme.fontWeight};
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.container.content};
-`;
-
-const ModalContentNoMargin = styled(ModalContent)`
-  margin: 0px;
-  padding: 0px;
-`;
-
-const ModalContentColor = styled(ModalContentNoMargin)`
-  color: ${props => props.theme.title.color};
-`;
-
-const ModalButton = styled.button`
-  width: 171px;
-  height: 40px;
-  background-color: ${props => props.theme.button.background};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.button.color};
-  text-align: center;
-  margin: auto;
-  border: none;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    width: 100%;
-  }
-`;
-
-const ModalButtonWrapper = styled.div`
-  text-align: left;
-`;
-
-const Modal = styled.div`
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2),
-    0 3px 15px 2.5px rgba(0, 0, 0, 0.12), 0 8px 12px 1px rgba(0, 0, 0, 0.14);
-  position: fixed;
-  top: 100px;
-  left: 50%;
-  transform: translate(-50%, 100px);
-  z-index: 2000;
-  min-width: 400px;
-  background-color: white;
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box;
-  padding: 20px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    position: fixed;
-    box-shadow: none;
-    padding: 0px 54px 54px 54px;
-    width: auto;
-    height: 100%;
-    top: 0;
-  }
-`;
-
-const ModalIcon = styled.img`
-  height: 100px;
-  width: 100px;
-`;
-
-const ModalIconWrapper = styled.div`
-  text-align: center;
-  margin-bottom: 20px;
-`;
-
-const ModalDropdown = styled(Dropdown)`
-  display: block;
-  z-index: 1900;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    background-color: white;
-    opacity: 1;
-    top: 62px;
-  }
-`;
-
-const FileManagerSlide = () => (
-  <ThemeProvider theme={theme}>
-    <ContainerWrapper>
-      <Header type={HEADER_FILE_MANAGER} />
-      <ModalDropdown />
-      <Modal>
-        <ModalTitle>Storage handle successfully recovered.</ModalTitle>
-        <ModalIconWrapper>
-          <ModalIcon src={ICON_CHECK} />
-        </ModalIconWrapper>
-        <ModalContent>
-          Your storage handle has been successfully recovered and you are now
-          logged into your Opacity storage account.
-        </ModalContent>
-        <ModalContentNoMargin>
-          Your recovered storage handle is:
-        </ModalContentNoMargin>
-        <ModalContentColor>test123-345463879452359784365345</ModalContentColor>
-        <ModalContent>
-          Don’t forget to record your storage handle, as it will be required to
-          log into your account .
-        </ModalContent>
-        <ModalButtonWrapper>
-          <ModalButton>Close window</ModalButton>
-        </ModalButtonWrapper>
-      </Modal>
-      <LeftSideNavOpen>
-        <StorageInfo>
-          <StorageTitleWrapper>
-            <StorageTitle>30GB/100GB USED</StorageTitle>
-          </StorageTitleWrapper>
-          <StorageProgressWrapper>
-            <StorageProgress />
-          </StorageProgressWrapper>
-        </StorageInfo>
-      </LeftSideNavOpen>
-      <RightSideNavOpen>
-        <FileBackButton>
-          <FileBackIcon src={ICON_LOGO} />
-          <FileBackTitle>Back</FileBackTitle>
-        </FileBackButton>
-        <FileWrapper>
-          <FileIconWrapper>
-            <FileIcon src={ICON_LOGO} />
-          </FileIconWrapper>
-          <FileTitle>Proposal Revision #2</FileTitle>
-          <FileInfo>MODIFIED</FileInfo>
-          <FileData>03/15/2019</FileData>
-          <FileInfo>SIZE</FileInfo>
-          <FileData>1.8 MB</FileData>
-          <FileButton>Download</FileButton>
-        </FileWrapper>
-      </RightSideNavOpen>
-      <Dropdown />
-      <Container>
-        <Title>All Files</Title>
-        <ButtonWrapper>
-          <Button>Upload</Button>
-        </ButtonWrapper>
-        <Table>
-          <thead>
-            <Tr>
-              <Th />
-              <Th>Name</Th>
-              <Th>Modifed</Th>
-              <Th>Size</Th>
-            </Tr>
-          </thead>
-          <tbody>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_LOGO} />
-              </Td>
-              <Td>HR STUFF</Td>
-              <Td>01/03/2019</Td>
-              <Td>40 FILES</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_LOGO} />
-              </Td>
-              <Td>STUFF</Td>
-              <Td>01/03/2019.</Td>
-              <Td>25 FILES</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_LOGO} />
-              </Td>
-              <Td>Maine</Td>
-              <Td>01/03/2019</Td>
-              <Td>30 FILES</Td>
-            </Tr>
-          </tbody>
-        </Table>
-        <ButtonMobileWrapper />
-      </Container>
-    </ContainerWrapper>
-  </ThemeProvider>
-);
+const FileManagerSlide = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <ContainerWrapper>
+        <Header type={HEADER_FILE_MANAGER} />
+        <LeftSideNavOpen>
+          <StorageInfo>
+            <StorageTitleWrapper>
+              <StorageTitle>30GB/100GB USED</StorageTitle>
+            </StorageTitleWrapper>
+            <StorageProgressWrapper>
+              <StorageProgress />
+            </StorageProgressWrapper>
+          </StorageInfo>
+        </LeftSideNavOpen>
+        <RightSideNavOpen>
+          <FileBackButton>
+            <FileBackIcon src={ICON_LOGO} />
+            <FileBackTitle>Back</FileBackTitle>
+          </FileBackButton>
+          <FileWrapper>
+            <FileIconWrapper>
+              <FileIcon src={ICON_LOGO} />
+            </FileIconWrapper>
+            <FileTitle>Proposal Revision #2</FileTitle>
+            <FileInfo>MODIFIED</FileInfo>
+            <FileData>03/15/2019</FileData>
+            <FileInfo>SIZE</FileInfo>
+            <FileData>1.8 MB</FileData>
+            <FileButton>Download</FileButton>
+          </FileWrapper>
+        </RightSideNavOpen>
+        <Container>
+          <Title>All Files</Title>
+          <ButtonWrapper>
+            <Button>Upload</Button>
+          </ButtonWrapper>
+          <Table>
+            <thead>
+              <Tr>
+                <Th />
+                <Th>Name</Th>
+                <Th>Modifed</Th>
+                <Th>Size</Th>
+              </Tr>
+            </thead>
+            <tbody>
+              <Tr>
+                <Td>
+                  <TableIcon src={ICON_LOGO} />
+                </Td>
+                <Td>HR STUFF</Td>
+                <Td>01/03/2019</Td>
+                <Td>40 FILES</Td>
+              </Tr>
+              <Tr>
+                <Td>
+                  <TableIcon src={ICON_LOGO} />
+                </Td>
+                <Td>STUFF</Td>
+                <Td>01/03/2019.</Td>
+                <Td>25 FILES</Td>
+              </Tr>
+              <Tr>
+                <Td>
+                  <TableIcon src={ICON_LOGO} />
+                </Td>
+                <Td>Maine</Td>
+                <Td>01/03/2019</Td>
+                <Td>30 FILES</Td>
+              </Tr>
+            </tbody>
+          </Table>
+          <ButtonMobileWrapper />
+        </Container>
+      </ContainerWrapper>
+    </ThemeProvider>
+  );
+};
 
 export default FileManagerSlide;
