@@ -6,8 +6,11 @@ import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
 
+const ICON_GITHUB = require("../../assets/images/tp-github.svg");
+const ICON_LINKEDIN = require("../../assets/images/tp-linkedin.svg");
+
 const ICON_JASON = require("../../assets/images/jason.jpg");
-const ICON_TAYLOR = require("../../assets/images/taylor.jfif");
+const ICON_ARON = require("../../assets/images/aron.jfif");
 const ICON_TIM = require("../../assets/images/tim.png");
 const ICON_WILLIAM = require("../../assets/images/william.jfif");
 const ICON_CONNOR = require("../../assets/images/default_profile_picture.png");
@@ -20,20 +23,66 @@ const people = [
   {
     title: "Jason",
     icon: ICON_JASON,
-    role: "CEO"
+    role: "CEO",
+    github: "https://github.com/funkydrummer",
+    linkedin: "https://www.linkedin.com/in/jasoncoppola"
   },
   {
-    title: "Taylor",
-    icon: ICON_TAYLOR,
-    role: "UI/UX"
+    title: "Aron",
+    icon: ICON_ARON,
+    role: "Marketing",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/aronhiltzik/"
   },
-  { title: "Tim", icon: ICON_TIM, role: "Community Manager" },
-  { title: "William", icon: ICON_WILLIAM, role: "Community Manager" },
-  { title: "Connor", icon: ICON_CONNOR, role: "Developer" },
-  { title: "Marcel", icon: ICON_MARCEL, role: "Developer" },
-  { title: "Edmund", icon: ICON_EDMUND, role: "Software Engineer" },
-  { title: "Rebel", icon: ICON_REBEL, role: "Technical Lead" },
-  { title: "Ladislav", icon: ICON_LADISLAV, role: "Fullstack Developer" }
+  {
+    title: "Tim",
+    icon: ICON_TIM,
+    role: "Community Manager",
+    github: "",
+    linkedin: ""
+  },
+  {
+    title: "William",
+    icon: ICON_WILLIAM,
+    role: "Community Manager",
+    github: "https://github.com/WHalunen",
+    linkedin: "https://www.linkedin.com/in/william-halunen-080987156/"
+  },
+  {
+    title: "Connor",
+    icon: ICON_CONNOR,
+    role: "Developer",
+    github: "https://github.com/CKH4",
+    linkedin: ""
+  },
+  {
+    title: "Marcel",
+    icon: ICON_MARCEL,
+    role: "Developer",
+    github: "https://github.com/nullpilot",
+    linkedin: ""
+  },
+  {
+    title: "Edmund",
+    icon: ICON_EDMUND,
+    role: "Software Engineer",
+    github: "https://github.com/EdmundMai",
+    linkedin: "https://www.linkedin.com/in/edmundmai/"
+  },
+  {
+    title: "Rebel",
+    icon: ICON_REBEL,
+    role: "Technical Lead",
+    github: "https://github.com/rfornea",
+    linkedin: "https://www.linkedin.com/in/rebel-fornea-7640b8122/"
+  },
+  {
+    title: "Ladislav",
+    icon: ICON_LADISLAV,
+    role: "Fullstack Developer",
+    github: "https://github.com/tenisakb",
+    linkedin: "https://www.linkedin.com/in/ladislav-balon-00134b54/"
+  }
 ];
 
 const ContainerWrapper = styled.div``;
@@ -89,10 +138,15 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const Icon = styled.img`
+const PersonIcon = styled.img`
   width: 70px;
   height: 70px;
   border-radius: 40px;
+`;
+
+const Icon = styled.img`
+  width: 22px;
+  height: 22px;
 `;
 
 const Title = styled.h1`
@@ -148,6 +202,15 @@ const Content = styled(Parapraph)`
   padding-bottom: 40px;
 `;
 
+const PersonLinkContainer = styled.div`
+  position: absolute;
+  margin: 10px 0px 0px -10px;
+`;
+
+const PersonLink = styled.a`
+  display: inline-block;
+`;
+
 const TeamPageSlide = () => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
@@ -163,10 +226,24 @@ const TeamPageSlide = () => (
           {_.map(people, person => (
             <PeopleWrapper key={_.random(true)}>
               <Wrapper>
-                <Icon src={person.icon} />
+                <PersonIcon src={person.icon} />
               </Wrapper>
               <PersonTitle>{person.title}</PersonTitle>
               <PersonRole>{person.role}</PersonRole>
+              {(person.linkedin || person.github) && (
+                <PersonLinkContainer>
+                  {person.linkedin && (
+                    <PersonLink href={person.linkedin} target="_blank">
+                      <Icon src={ICON_LINKEDIN} />
+                    </PersonLink>
+                  )}
+                  {person.github && (
+                    <PersonLink href={person.github} target="_blank">
+                      <Icon src={ICON_GITHUB} />
+                    </PersonLink>
+                  )}
+                </PersonLinkContainer>
+              )}
             </PeopleWrapper>
           ))}
         </PeopleContainer>

@@ -92,6 +92,11 @@ export const AGREEMENT_TYPES = Object.freeze({
   PRIVACY_POLICY: "PRIVACY_POLICY"
 });
 
+export const THIRD_PARTY = Object.freeze({
+  COINMARKETCAP:
+    "https://opacity.io/widget.php"
+});
+
 export const HEADER_LANDING_PAGE = "LandingPage";
 export const HEADER_FILE_MANAGER = "FileManager";
 export const HEADER_SCREEEN_CONTAINER = "ScreenContainer";
