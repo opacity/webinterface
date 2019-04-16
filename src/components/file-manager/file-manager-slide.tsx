@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { slide as Menu } from "react-burger-menu";
 
 import {
   HEADER_FILE_MANAGER,
@@ -10,36 +9,18 @@ import {
 } from "../../config";
 
 import Header from "../shared/header";
+import FileBurger from "./file-burger";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
-
-const FileBurger = styled(Menu)`
-  background: white;
-  width: 100px;
-  height: 100px;
-`;
 
 const Container = styled.div``;
 
 const TableContainer = styled.div`
   height: 100%;
   max-width: 850px;
-  margin-left: 270px;
+  width: 100%;
+  padding: 20px;
   background-color: ${props => props.theme.background};
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    margin-left: 145px;
-    max-width: 540px;
-  }
-  @media only screen and (max-width: 1374px) {
-    max-width: 600px;
-  }
-  @media only screen and (max-width: 1130px) {
-    max-width: 500px;
-  }
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    margin: 0px;
-    padding: 25px;
-  }
 `;
 
 const Title = styled.h1`
@@ -104,9 +85,6 @@ const LeftSideNav = styled.div`
   height: 100%;
   width: 250px;
   background-color: #cfe3fc;
-  overflow-x: hidden;
-  transition: 0.5s;
-  margin-top: 62px;
 `;
 
 const Table = styled.table`
@@ -170,8 +148,6 @@ const Td = styled.td`
 `;
 
 const StorageInfo = styled.div`
-  position: absolute;
-  bottom: 120px;
   width: 100%;
 `;
 
@@ -209,179 +185,114 @@ const StorageProgress = styled.div`
   height: 10px;
 `;
 
-const FileWrapper = styled.div`
-  width: 200px;
-  margin: auto;
-  margin-top: 150px;
+const Contents = styled.div`
+  display: flex;
 `;
 
-const FileIconWrapper = styled.div`
-  text-align: center;
-`;
-
-const FileIcon = styled.img`
-  height: 60px;
-  width: 60px;
-  text-align: center;
-`;
-
-const FileTitle = styled.p`
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #687892;
-`;
-
-const FileInfo = styled.p`
-  margin-top: 15px;
-  font-size: 8px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.1px;
-  color: #4f5e78;
-`;
-
-const FileData = styled.p`
-  font-size: 12px;
-  font-weight: 300;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #687892;
-`;
-
-const FileButton = styled.button`
-  width: 200px;
-  height: 40px;
-  background-color: ${props => props.theme.button.background};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.button.color};
-  text-align: center;
-  margin: auto;
-  border: none;
-  cursor: pointer;
-`;
-
-const FileBackButton = styled.div`
-  display: none;
-  margin-top: 10px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    display: block;
-  }
-`;
-
-const FileBackIcon = styled.img`
-  height: 17px;
-  width: 17px;
-  margin-left: 5px;
-  float: left;
-`;
-const FileBackTitle = styled.span`
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #687892;
-  margin-left: 5px;
-  float: left;
-`;
+interface FileDescription {
+  name?: string;
+  modifiedAt?: string;
+  size?: number;
+  type?: string;
+  downloadUrl?: string;
+}
 
 const FileManagerSlide = () => {
+  const [fileDescription, setFileDescription] = useState<FileDescription>({});
+
   return (
     <ThemeProvider theme={theme}>
       <Container>
         <Header type={HEADER_FILE_MANAGER} />
-        <LeftSideNav>
-          <StorageInfo>
-            <StorageTitleWrapper>
-              <StorageTitle>30GB/100GB USED</StorageTitle>
-            </StorageTitleWrapper>
-            <StorageProgressWrapper>
-              <StorageProgress />
-            </StorageProgressWrapper>
-          </StorageInfo>
-        </LeftSideNav>
         <FileBurger
-          onStateChange={console.log}
-          customBurgerIcon={false}
-          customCrossIcon={false}
-          isOpen={false}
-          right
-          noOverlay
-          disableOverlayClick
-        >
-          <FileBackButton>
-            <FileBackIcon src={ICON_LOGO} />
-            <FileBackTitle>Back</FileBackTitle>
-          </FileBackButton>
-          <FileWrapper>
-            <FileIconWrapper>
-              <FileIcon src={ICON_LOGO} />
-            </FileIconWrapper>
-            <FileTitle>Proposal Revision #2</FileTitle>
-            <FileInfo>MODIFIED</FileInfo>
-            <FileData>03/15/2019</FileData>
-            <FileInfo>SIZE</FileInfo>
-            <FileData>1.8 MB</FileData>
-            <FileButton>Download</FileButton>
-          </FileWrapper>
-        </FileBurger>
-        <TableContainer>
-          <Title>All Files</Title>
-          <ButtonWrapper>
-            <Button>Upload</Button>
-          </ButtonWrapper>
-          <Table>
-            <thead>
-              <Tr>
-                <Th />
-                <Th>Name</Th>
-                <Th>Modifed</Th>
-                <Th>Size</Th>
-              </Tr>
-            </thead>
-            <tbody>
-              <Tr>
-                <Td>
-                  <TableIcon src={ICON_LOGO} />
-                </Td>
-                <Td>HR STUFF</Td>
-                <Td>01/03/2019</Td>
-                <Td>40 FILES</Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <TableIcon src={ICON_LOGO} />
-                </Td>
-                <Td>STUFF</Td>
-                <Td>01/03/2019.</Td>
-                <Td>25 FILES</Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <TableIcon src={ICON_LOGO} />
-                </Td>
-                <Td>Maine</Td>
-                <Td>01/03/2019</Td>
-                <Td>30 FILES</Td>
-              </Tr>
-            </tbody>
-          </Table>
-          <ButtonMobileWrapper />
-        </TableContainer>
+          isOpen={Object.entries(fileDescription).length > 0}
+          file={fileDescription}
+        />
+        <Contents>
+          <LeftSideNav>
+            <StorageInfo>
+              <StorageTitleWrapper>
+                <StorageTitle>30GB/100GB USED</StorageTitle>
+              </StorageTitleWrapper>
+              <StorageProgressWrapper>
+                <StorageProgress />
+              </StorageProgressWrapper>
+            </StorageInfo>
+          </LeftSideNav>
+          <TableContainer>
+            <Title>All Files</Title>
+            <ButtonWrapper>
+              <Button>Upload</Button>
+            </ButtonWrapper>
+            <Table>
+              <thead>
+                <Tr>
+                  <Th />
+                  <Th>Name</Th>
+                  <Th>Modifed</Th>
+                  <Th>Size</Th>
+                </Tr>
+              </thead>
+              <tbody>
+                <Tr
+                  onClick={() =>
+                    setFileDescription({
+                      name: "HR STUFF",
+                      modifiedAt: "01/03/2019",
+                      size: 40,
+                      type: "folder",
+                      downloadUrl: "www.google.com"
+                    })
+                  }
+                >
+                  <Td>
+                    <TableIcon src={ICON_LOGO} />
+                  </Td>
+                  <Td>HR STUFF</Td>
+                  <Td>01/03/2019</Td>
+                  <Td>40 FILES</Td>
+                </Tr>
+                <Tr
+                  onClick={() =>
+                    setFileDescription({
+                      name: "STUFF",
+                      modifiedAt: "01/03/2019",
+                      size: 25,
+                      type: "folder",
+                      downloadUrl: "www.google.com"
+                    })
+                  }
+                >
+                  <Td>
+                    <TableIcon src={ICON_LOGO} />
+                  </Td>
+                  <Td>STUFF</Td>
+                  <Td>01/03/2019.</Td>
+                  <Td>25 FILES</Td>
+                </Tr>
+                <Tr
+                  onClick={() =>
+                    setFileDescription({
+                      name: "Maine",
+                      modifiedAt: "01/03/2019",
+                      size: 30.5,
+                      type: "file",
+                      downloadUrl: "www.google.com"
+                    })
+                  }
+                >
+                  <Td>
+                    <TableIcon src={ICON_LOGO} />
+                  </Td>
+                  <Td>Maine</Td>
+                  <Td>01/03/2019</Td>
+                  <Td>30 FILES</Td>
+                </Tr>
+              </tbody>
+            </Table>
+            <ButtonMobileWrapper />
+          </TableContainer>
+        </Contents>
       </Container>
     </ThemeProvider>
   );
