@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router";
 import styled, { ThemeProvider } from "styled-components";
 
 import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
@@ -68,6 +69,9 @@ const TitleFunction = styled(HeaderTitle)`
     text-align: left;
     margin: 40px 20px 26px 40px;
   }
+  @media (max-width: 300px) {
+    margin: 0px;
+  }
 `;
 
 const RecommendTitle = styled(HeaderTitle)`
@@ -124,10 +128,12 @@ const InfoContent = styled(Paragraph)`
   color: #5c6a82;
   margin: 30px 0;
   width: 400px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: 872px) {
     width: auto;
     height: auto;
     padding: 0 25px;
+    width: auto;
+    text-align: center;
   }
 `;
 
@@ -175,11 +181,24 @@ const SubContainer = styled.div`
   }
 `;
 
+const FunctionSubContainer = styled(SubContainer)`
+  @media (max-width: 1000px) {
+    display: block;
+  }
+`;
+
+const InfoSubContainer = styled(SubContainer)`
+  @media (max-width: 872px) {
+    display: block;
+  }
+`;
+
 const CommunityContainer = styled(SubContainer)`
   justify-content: space-evenly;
   margin: 100px 0;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: 870px) {
     margin: 60px 0;
+    display: block;
   }
 `;
 
@@ -192,8 +211,9 @@ const PasswordManager = styled(SubContainer)`
 
 const CommunityColumn = styled.div`
   display: flex;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: 872px) {
     padding: 0 25px;
+    justify-content: center;
   }
 `;
 
@@ -234,6 +254,11 @@ const Input = styled.div`
   width: 40px;
 `;
 
+const CommunityButtonWrapper = styled.div`
+  text-align: center;
+  padding-bottom: 40px;
+`;
+
 const ContentWrapper = styled.div`
   width: 450px;
   margin: auto;
@@ -262,8 +287,6 @@ const IconWrapper = styled.div`
   }
 `;
 
-const CommunityWrapper = styled.div``;
-
 const Button = styled.button`
   width: 220px;
   height: 40px;
@@ -285,6 +308,33 @@ const Button = styled.button`
   }
 `;
 
+const CommunityWrapper = styled.div``;
+
+const CommunityButton = styled.button`
+  width: 180px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.button.color};
+  background-color: #2e6dde;
+  border: 1px solid white;
+  cursor: pointer;
+  margin-right: 10px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 180px;
+  }
+`;
+
+const CommunityButtonSecondary = styled(CommunityButton)`
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin-top: 30px;
+  }
+`;
+
 const Icon = styled.img`
   height: 300px;
   width: 550px;
@@ -296,14 +346,14 @@ const Icon = styled.img`
 
 const FunctionIcon = styled.img`
   width: 475px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: 1000px) {
     display: none;
   }
 `;
 
 const FunctionIconMobile = styled(FunctionIcon)`
   display: none;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: 1000px) {
     width: 100%;
     height: auto;
     display: block;
@@ -321,7 +371,7 @@ const InfoIcon = styled.img`
   width: 400px;
   height: 160px;
   margin-top: 60px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: 872px) {
     width: 100%;
     height: auto;
     margin-top: 30px;
@@ -390,7 +440,7 @@ const Td = styled.td`
   padding: 15px 10px 15px 10px;
 `;
 
-const SubscriptionSlide = () => (
+const SubscriptionSlide = ({ history }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
       <Header type={HEADER_TEAM_PAGE} />
@@ -409,7 +459,7 @@ const SubscriptionSlide = () => (
         </IconWrapper>
       </Container>
       <Container>
-        <SubContainer>
+        <FunctionSubContainer>
           <Column>
             <FunctionIcon src={ICON_ACCESS_ACCOUNT} />
           </Column>
@@ -418,15 +468,15 @@ const SubscriptionSlide = () => (
             <FunctionIconMobile src={ICON_ACCESS_ACCOUNT} />
             <FunctionContent>
               When you sign up with Opacity, a unique Account Handle is created
-              just for you. This Handle and a user-chosen pin is all that
-              is required to access your storage account. By default, you are
-              the only person with this information, so it is important that you
-              record your Account Handle and pin to avoid trouble accessing
-              your account. Keep it safe!
+              just for you. This Handle and a user-chosen pin is all that is
+              required to access your storage account. By default, you are the
+              only person with this information, so it is important that you
+              record your Account Handle and pin to avoid trouble accessing your
+              account. Keep it safe!
             </FunctionContent>
           </Column>
-        </SubContainer>
-        <SubContainer>
+        </FunctionSubContainer>
+        <FunctionSubContainer>
           <Column>
             <TitleFunction>
               Encrypted At Rest. Share Only What You Want.
@@ -444,7 +494,7 @@ const SubscriptionSlide = () => (
           <Column>
             <FunctionIcon src={ICON_ENCRYPTED} />
           </Column>
-        </SubContainer>
+        </FunctionSubContainer>
       </Container>
       <Container>
         <RecommendTitle>Password Manager Recommended</RecommendTitle>
@@ -560,7 +610,7 @@ const SubscriptionSlide = () => (
       </Container>
       <Container>
         <HeaderTitle>Transparent Code Base</HeaderTitle>
-        <SubContainer>
+        <InfoSubContainer>
           <Column>
             <InfoIcon src={ICON_TRANSPARENT_BASE} />
             <InfoContent>
@@ -585,14 +635,16 @@ const SubscriptionSlide = () => (
             </InfoContent>
             <Button>Coming soon</Button>
           </Column>
-        </SubContainer>
+        </InfoSubContainer>
       </Container>
       <Community>
         <CommunityTitle>
           Are you ready to join our thriving community?
         </CommunityTitle>
         <TelegramLinkContainer>
-          <OutboundLink href="https://t.me/opacitystorage">Join us on Telegram</OutboundLink>
+          <OutboundLink href="https://t.me/opacitystorage">
+            Join us on Telegram
+          </OutboundLink>
         </TelegramLinkContainer>
         <CommunityContainer>
           <CommunityWrapper>
@@ -626,10 +678,18 @@ const SubscriptionSlide = () => (
             </CommunityColumn>
           </CommunityWrapper>
         </CommunityContainer>
+        <CommunityButtonWrapper>
+          <CommunityButton onClick={() => history.push("/login")}>
+            Login
+          </CommunityButton>
+          <CommunityButtonSecondary onClick={() => history.push("/sign-up")}>
+            Sign up
+          </CommunityButtonSecondary>
+        </CommunityButtonWrapper>
       </Community>
       <Footer />
     </ContainerWrapper>
   </ThemeProvider>
 );
 
-export default SubscriptionSlide;
+export default withRouter(SubscriptionSlide);
