@@ -21,22 +21,20 @@ const ErrorMessage = styled.p`
 `;
 
 const Icon = styled.img`
-  height: 250px;
-  width: 250px;
-  margin: 0 50px 50px 0;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     margin: 0px;
-    height: 125px;
-    width: 125px;
+    height: 150px;
+    width: 150px;
   }
 `;
 
 const StorageContainer = styled.div`
-  padding: 70px 250px;
+  padding: 150px;
   height: 100%;
   max-width: 950px;
   margin: auto;
   background-color: ${props => props.theme.background};
+  text-align: center;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     padding: 25px 35px;
   }
@@ -47,7 +45,8 @@ const StorageContainer = styled.div`
 
 const Storage = styled.div`
   display: flex;
-
+  align-items: center;
+  justify-content: center;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     flex-direction: column;
   }
