@@ -9,6 +9,7 @@ import Title from "./title";
 
 const Link = styled.span`
   color: ${props => props.theme.link.color};
+  text-align: center;
 `;
 
 const RegisterConfirmPaymentSlide = () => (
@@ -16,8 +17,7 @@ const RegisterConfirmPaymentSlide = () => (
     <ContentBox>
       <Title>Your Opacity Account is Ready!</Title>
       <Content>
-        Login using your Storage Handle and Storage PIN using{" "}
-        <Link>the Opacity web interface.</Link>
+        <Link>Login now with your Account Handle and PIN</Link>
       </Content>
     </ContentBox>
   </ThemeProvider>

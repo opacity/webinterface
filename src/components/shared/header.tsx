@@ -6,7 +6,6 @@ import "../root.css";
 
 import {
   theme,
-  MOBILE_WIDTH,
   HEADER_LANDING_PAGE,
   HEADER_SCREEEN_CONTAINER,
   HEADER_TEAM_PAGE
@@ -15,6 +14,8 @@ import {
 const ICON_LOGO = require("../../assets/images/logo.svg");
 const ICON_HAMBURGER = require("../../assets/images/hamburger.svg");
 const ICON_CLOSE = require("../../assets/images/close.svg");
+
+const MOBILE_WIDTH = "980";
 
 const Container = styled.div<{ menuOpen: boolean }>`
   background: ${props => props.theme.header.background};
@@ -130,6 +131,48 @@ const CloseIcon = styled.img`
   height: 22px;
 `;
 
+const CommunityWrapper = styled.div``;
+
+const CommunityButton = styled.button`
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.button.color};
+  background-color: #2e6dde;
+  border: 1px solid white;
+  cursor: pointer;
+  margin-right: 10px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 180px;
+  }
+`;
+
+const CommunityButtonSecondary = styled(CommunityButton)`
+  background-color: white;
+  color: #2e6dde;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin-top: 30px;
+  }
+`;
+
+const renderButtons = history => {
+  return (
+    <CommunityWrapper>
+      <CommunityButtonSecondary onClick={() => history.push("/sign-up")}>
+        Sign up
+      </CommunityButtonSecondary>
+      <CommunityButton onClick={() => history.push("/login")}>
+        Login
+      </CommunityButton>
+    </CommunityWrapper>
+  );
+};
+
 const renderNavigation = (type, history) => {
   if (type === HEADER_LANDING_PAGE) {
     return (
@@ -140,13 +183,13 @@ const renderNavigation = (type, history) => {
         <LinkNavigation onClick={() => history.push("/team-page")}>
           TEAM
         </LinkNavigation>
-
         <LinkNavigation
           href="https://medium.com/opacity-storage/"
           target="_blank"
         >
           BLOG
         </LinkNavigation>
+        {renderButtons(history)}
       </LinkContainer>
     );
   } else if (type === HEADER_SCREEEN_CONTAINER) {
@@ -164,6 +207,7 @@ const renderNavigation = (type, history) => {
         >
           BLOG
         </LinkNavigation>
+        {renderButtons(history)}
       </LinkContainer>
     );
   } else if (type === HEADER_TEAM_PAGE) {
@@ -181,6 +225,7 @@ const renderNavigation = (type, history) => {
         >
           BLOG
         </LinkNavigation>
+        {renderButtons(history)}
       </LinkContainer>
     );
   }

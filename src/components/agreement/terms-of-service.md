@@ -56,7 +56,7 @@
 
 > **2.1.** Our Services
 >
-> > Our Platform enables you to purchase anonymous and private online storage on a private tangle of files that have been chunked and encrypted and are only accessible and decryptable via a handle that is provided solely to you, and which you can share with others at your own discretion.
+> > Our Platform enables you to purchase access to online storage in order to store your personal files, which are encrypted and only accessible and decryptable via an Account Handle and File Handle that are provided solely to you, and which you can share with others at your own discretion.
 
 > **2.2.** Interruptions and Delays
 >
@@ -116,7 +116,7 @@
 
 #### 6. Modifications, and Cancellations
 
-> Once a user has started an upload session and submitted payment for it, no modifications or cancellations are possible. The user must remain on the site and allow the upload to the Opacity servers to complete and until confirmation is received, otherwise the upload won't complete and payment may be forfeit.
+> Once a user has started a registration session and submitted payment for it, no modifications or cancellations are possible. The user must remain on the site and allow payment to Opacity to complete and until payment confirmation is received, otherwise account setup won't complete and payment may be forfeit.
 
 #### 7. Liability
 
@@ -156,7 +156,7 @@
 >
 > > **9.1.2.** When you submit your consent to these Terms of Service on the Platform after having placed a check inside the consent box and read and understood these Terms of Service.
 >
-> > This policy was last modified on January 24, 2019.
+> > This policy was last modified on April 9, 2019.
 
 > **9.2.** Termination
 >

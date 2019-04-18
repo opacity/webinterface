@@ -4,7 +4,7 @@ import { SIGNUP_PHASES, theme } from "../../config";
 
 import Breadcrumbs from "./breadcrumbs";
 import RecordRecoveryPhraseSlide from "./record-recovery-phrase-slide";
-import RecordStorageHandleSlide from "./record-storage-handle-slide";
+import RecordAccountHandleSlide from "./record-account-handle-slide";
 import SendPaymentSlide from "./send-payment-slide";
 import ConfirmPaymentSlide from "./confirm-payment-slide";
 import ScreenContainer from "../shared/screen-container";
@@ -26,7 +26,7 @@ const CreateAccount = ({
         />
       )}
       {phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
-        <RecordStorageHandleSlide
+        <RecordAccountHandleSlide
           handle={privateKey}
           setStoragePin={storagePin => getInvoice(privateKey, storagePin)}
         />

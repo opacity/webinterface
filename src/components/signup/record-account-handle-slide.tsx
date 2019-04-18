@@ -141,20 +141,20 @@ const ClipboardIcon = styled.img`
   object-fit: contain;
 `;
 
-interface RecordStorageHandleProps {
+interface RecordAccountHandleProps {
   handle;
   setStoragePin;
 }
 
-interface RecordStorageHandleState {
+interface RecordAccountHandleState {
   storagePin;
   retypedStoragePin;
   isCopied;
 }
 
-class RecordStorageHandleSlide extends Component<
-  RecordStorageHandleProps,
-  RecordStorageHandleState
+class RecordAccountHandleSlide extends Component<
+  RecordAccountHandleProps,
+  RecordAccountHandleState
 > {
   state = {
     storagePin: "",
@@ -173,19 +173,20 @@ class RecordStorageHandleSlide extends Component<
     return (
       <ThemeProvider theme={theme}>
         <ContentBox>
-          <Title>Record Storage Handle and PIN</Title>
+          <Title>
+            IMPORTANT: Save Your Private Opacity Account Handle and PIN
+          </Title>
           <Hr />
           <Content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
-            vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
-            tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Ut ac massa vestibulum, vestibulum nunc in,
-            imperdiet
+            Your Opacity Account Handle is the key to your account. It is
+            important that you keep it safe and private. This key will allow
+            anyone that has it to access your storage account. It should not be
+            shared with anyone that you do not wish to have access to your data.
           </Content>
           <ContentBold>
-            Phaugue. Phasellus nisl est, tristique ac magna sed:
+            Your privacy and security is in your hands. Keep these numbers safe.
           </ContentBold>
-          <Label>Storage Handle</Label>
+          <Label>Here is your Opacity Account Handle</Label>
           <HandleWrapper>
             <Handle>{handle}</Handle>
             <CopyToClipboard
@@ -219,9 +220,10 @@ class RecordStorageHandleSlide extends Component<
             </InputColumnWrapper>
           </InputWrapper>
           <Content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
-            vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
-            tristique ac magna sed.
+            Before you continue, make sure you have copied your Account Handle
+            and safely recorded your PIN. Without this information, you will not
+            be able to access your account. Opacity does not have access to this
+            information and will not be able to recover it for you.
           </Content>
           <ButtonWrapper>
             <ContinueButton
@@ -246,4 +248,4 @@ class RecordStorageHandleSlide extends Component<
   }
 }
 
-export default RecordStorageHandleSlide;
+export default RecordAccountHandleSlide;

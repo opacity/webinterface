@@ -13,6 +13,12 @@ import Title from "./title";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
 
+const ContentBold = styled(Content)`
+  margin-top: 25px;
+  font-weight: bold;
+  min-height: 28px;
+`;
+
 const PaymentWrapper = styled.div`
   margin-top: 20px;
 `;
@@ -54,16 +60,25 @@ const Bold = styled.span`
 const SendPaymentSlide = ({ invoice: { ethAddress, cost }, openMetamask }) => (
   <ThemeProvider theme={theme}>
     <ContentBox>
-      <Title>Send Payment</Title>
+      <Title>Send Payment with OPQ</Title>
       <Hr />
       <Content>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
-        vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
-        tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Ut ac massa vestibulum, <Bold>{cost} OPQ </Bold>
-        nunc in, imperdiet augue.
+        Use the Opacity Storage Token, OPQ, to pay for your storage account.
+        Send your total amount of <Bold>{cost} OPQ </Bold> to the address below
+        or you may use Metamask to easily make your payment right in your
+        browser.
       </Content>
-      <LabelColored>Payment Address:</LabelColored>
+      <ContentBold>
+        IMPORTANT: Do not send any other coin or token to this account address
+        as it may result in a loss of funds.
+      </ContentBold>
+      <Content>
+        Once your payment is sent, it may take some time to confirm your payment
+        on the Ethereum network. We will confirm receipt and complete setup of
+        your account once the network transaction is confirmed. Please be
+        patient.
+      </Content>
+      <LabelColored>Send {cost} OPQ to Payment Address:</LabelColored>
       <ImportantWrapper>
         <Important>{ethAddress}</Important>
       </ImportantWrapper>
@@ -75,7 +90,7 @@ const SendPaymentSlide = ({ invoice: { ethAddress, cost }, openMetamask }) => (
         </PaymentWrapper>
       )}
       <div>
-        <Label>Scan QR code to pay:</Label>
+        <Label>Scan QR code to pay</Label>
         <QRCode
           value={ethAddress}
           size={200}
@@ -89,7 +104,7 @@ const SendPaymentSlide = ({ invoice: { ethAddress, cost }, openMetamask }) => (
       </div>
       <Content>
         Need OPQ?{" "}
-        <OutboundLink href={EXCHANGE_LINK}>Purchase some here</OutboundLink>
+        <OutboundLink href={EXCHANGE_LINK}>Purchase here</OutboundLink>
       </Content>
     </ContentBox>
   </ThemeProvider>

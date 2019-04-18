@@ -62,9 +62,16 @@ const SubContainer = styled.div`
   }
 `;
 
+const ItemSubContainer = styled(SubContainer)`
+  @media (max-width: 800px) {
+    display: block;
+  }
+`;
+
 const BenefitSubContainer = styled(SubContainer)`
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: 800px) {
     flex-direction: column-reverse;
+    display: block;
   }
 `;
 
@@ -142,7 +149,7 @@ const ContentWrapper = styled.div`
 `;
 
 const ItemButtonWrapper = styled.div`
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: 800px) {
     text-align: center;
     margin-bottom: 40px;
   }
@@ -158,13 +165,13 @@ const ButtonWrapper = styled.div`
 const Icon = styled.img``;
 
 const BenefitIcon = styled.img`
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: 800px) {
     width: 100%;
   }
 `;
 
 const ItemIcon = styled.img`
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: 800px) {
     width: 100%;
   }
 `;
@@ -208,7 +215,7 @@ const InfoTitle = styled(HeaderTitle)`
   font-size: 18px;
   color: ${props => props.theme.title.color};
   text-align: left;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: 800px) {
     text-align: center;
   }
 `;
@@ -276,6 +283,13 @@ const InfoContent = styled(Paragraph)`
   }
 `;
 
+const ItemInfoContent = styled(InfoContent)`
+  @media (max-width: 800px) {
+    margin: auto;
+    width: 250px;
+  }
+`;
+
 const InfoHeaderContent = styled(Paragraph)`
   text-align: center;
   font-size: 16px;
@@ -293,10 +307,10 @@ const ContentPurchase = styled.a`
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
-  font-size: 28px;
+  font-size: 16px;
   color: white;
   text-align: center;
-  padding-bottom: 40px;
+  padding-top: 20px;
   text-decoration: none;
   display: block;
 `;
@@ -317,20 +331,17 @@ const LandingPageSlide = ({ history }) => (
           <HeaderWrapper />
         </Wrapper>
         <Wrapper>
-          <ContentPurchase href="http://twitter.com/opacity_storage">
-            Opacity 1.0 Coming May 2019
-          </ContentPurchase>
-          <ButtonSecondary
-            onClick={() =>
-              window.open("https://twitter.com/opacity_storage", "_blank")
-            }
-          >
-            Stay Informed
+          <Button onClick={() => history.push("/login")}>Login</Button>
+          <ButtonSecondary onClick={() => history.push("/sign-up")}>
+            Sign up
           </ButtonSecondary>
+          <ContentPurchase href="#buyOPQ">
+            Click here to purchase the OPQ token
+          </ContentPurchase>
         </Wrapper>
       </HeaderContainer>
       <Container>
-        <SubContainer>
+        <BenefitSubContainer>
           <Column>
             <Wrapper>
               <Icon src={ICON_CREDIT} />
@@ -361,8 +372,8 @@ const LandingPageSlide = ({ history }) => (
               without ever having to use a credit card.
             </ItemContent>
           </Column>
-        </SubContainer>
-        <SubContainer>
+        </BenefitSubContainer>
+        <BenefitSubContainer>
           <Column>
             <BenefitIcon src={ICON_BENEFIT_FILES} />
           </Column>
@@ -371,11 +382,11 @@ const LandingPageSlide = ({ history }) => (
             <BenefitContent>
               Opacity uses state-of-the-art encryption algorithms to ensure that
               your files are secure. The Opacity platform encrypts your files at
-              rest to provide comprehesive protection for your files. As long as
-              you protect your Opacity Handle, your data is safe.
+              rest to provide comprehensive protection for your files. As long
+              as you protect your Opacity Handle, your data is safe.
             </BenefitContent>
           </Column>
-        </SubContainer>
+        </BenefitSubContainer>
         <BenefitSubContainer>
           <Column>
             <BenefitTitle>Your Handle, Your Rules.</BenefitTitle>
@@ -407,15 +418,15 @@ const LandingPageSlide = ({ history }) => (
           we get that. Check some of the links below for more information about
           Opacity, and why it is the right choice for you or your company.
         </InfoHeaderContent>
-        <SubContainer>
+        <ItemSubContainer>
           <Item>
             <ItemIcon src={ICON_INFO_PERSONAL} />
             <InfoTitle>The Brains Behind Opacity</InfoTitle>
-            <InfoContent>
+            <ItemInfoContent>
               We are a group of privacy enthusiasts looking to build a true
               zero-knowledge storage solution. Take a peek at the team behind
               the Opacity platform.
-            </InfoContent>
+            </ItemInfoContent>
             <ItemButtonWrapper>
               <ButtonItem onClick={() => history.push("/team-page")}>
                 Learn more
@@ -425,11 +436,11 @@ const LandingPageSlide = ({ history }) => (
           <Item>
             <ItemIcon src={ICON_INFO_BENEFIT} />
             <InfoTitle>Benefits of Zero-knowledge Cloud Storage</InfoTitle>
-            <InfoContent>
+            <ItemInfoContent>
               Not many storage providers offer a true, zero-knowledge solution.
               Learn exactly what zero-knowledge means and how it can be of
               benefit to you.
-            </InfoContent>
+            </ItemInfoContent>
             <ItemButtonWrapper>
               <ButtonItem
                 onClick={() =>
@@ -443,15 +454,15 @@ const LandingPageSlide = ({ history }) => (
               </ButtonItem>
             </ItemButtonWrapper>
           </Item>
-        </SubContainer>
-        <SubContainer>
+        </ItemSubContainer>
+        <ItemSubContainer>
           <Item>
             <ItemIcon src={ICON_INFO_OPACITY} />
             <InfoTitle>Why Opacity Stands Out</InfoTitle>
-            <InfoContent>
+            <ItemInfoContent>
               We do things differently than most storage providers. Learn
               exactly what makes us stand out from the competition.
-            </InfoContent>
+            </ItemInfoContent>
             <ItemButtonWrapper>
               <ButtonItem onClick={() => history.push("/stands-out")}>
                 Learn more
@@ -461,11 +472,11 @@ const LandingPageSlide = ({ history }) => (
           <Item>
             <ItemIcon src={ICON_INFO_CRYPTOCURRENCY} />
             <InfoTitle>New to Cryptocurrency?</InfoTitle>
-            <InfoContent>
+            <ItemInfoContent>
               Cryptocurrency can be a little confusing, but it doesn’t have to
               be. Take a look at this video to learn how you can get started
               with cryptocurrency.
-            </InfoContent>
+            </ItemInfoContent>
             <ItemButtonWrapper>
               <ButtonItem
                 onClick={() =>
@@ -479,7 +490,7 @@ const LandingPageSlide = ({ history }) => (
               </ButtonItem>
             </ItemButtonWrapper>
           </Item>
-        </SubContainer>
+        </ItemSubContainer>
       </Container>
       <Container id="buyOPQ">
         <InfoHeaderTitle>Where to Buy OPQ</InfoHeaderTitle>
