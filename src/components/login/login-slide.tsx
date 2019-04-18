@@ -203,7 +203,7 @@ class LoginOrRegisterSlide extends Component<
               <Container>
                 <Title>Sign in Opacity</Title>
                 <Underline />
-                <Label>Storage Handle</Label>
+                <Label>Account Handle</Label>
                 <Input
                   onChange={e => this.setState({ privateKey: e.target.value })}
                   hasError={status === AUTHENTICATION_STATUSES.LOGIN_FAILURE}
@@ -216,7 +216,7 @@ class LoginOrRegisterSlide extends Component<
                 />
                 {status === AUTHENTICATION_STATUSES.LOGIN_FAILURE && (
                   <ErrorMessage>
-                    The Storage Handle or Storage PIN do not match up. Please
+                    The Account Handle or Storage PIN do not match up. Please
                     try again.
                   </ErrorMessage>
                 )}
@@ -232,7 +232,7 @@ class LoginOrRegisterSlide extends Component<
                     (Or <Link href="/sign-up">click here to register</Link>)
                   </Content>
                 </ButtonWrapper>
-                <ForgotStorage>Forgot Storage Handle?</ForgotStorage>
+                <ForgotStorage>Forgot Account Handle?</ForgotStorage>
               </Container>
             </Storage>
           </StorageContainer>

@@ -141,20 +141,20 @@ const ClipboardIcon = styled.img`
   object-fit: contain;
 `;
 
-interface RecordAccountHandleProps {
+interface RecordStorageHandleProps {
   handle;
   setStoragePin;
 }
 
-interface RecordAccountHandleState {
+interface RecordStorageHandleState {
   storagePin;
   retypedStoragePin;
   isCopied;
 }
 
-class RecordAccountHandleSlide extends Component<
-  RecordAccountHandleProps,
-  RecordAccountHandleState
+class RecordStorageHandleSlide extends Component<
+  RecordStorageHandleProps,
+  RecordStorageHandleState
 > {
   state = {
     storagePin: "",
@@ -162,31 +162,30 @@ class RecordAccountHandleSlide extends Component<
     isCopied: false
   };
 
-  save (storagePin) {
+  save(storagePin) {
     const { setStoragePin } = this.props;
     setStoragePin(storagePin);
   }
 
-  render () {
+  render() {
     const { handle } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
         <ContentBox>
-          <Title>
-            IMPORTANT: Save Your Private Opacity Account Handle and PIN
-          </Title>
+          <Title>Record Account Handle and PIN</Title>
           <Hr />
           <Content>
-            Your Opacity Account Handle is the key to your account. It is
-            important that you keep it safe and private. This key will allow
-            anyone that has it to access your storage account. It should not be
-            shared with anyone that you do not wish to have access to your data.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
+            vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
+            tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Ut ac massa vestibulum, vestibulum nunc in,
+            imperdiet
           </Content>
           <ContentBold>
-            Your privacy and security is in your hands. Keep these numbers safe.
+            Phaugue. Phasellus nisl est, tristique ac magna sed:
           </ContentBold>
-          <Label>Here is your Opacity Account Handle</Label>
+          <Label>Account Handle</Label>
           <HandleWrapper>
             <Handle>{handle}</Handle>
             <CopyToClipboard
@@ -220,10 +219,9 @@ class RecordAccountHandleSlide extends Component<
             </InputColumnWrapper>
           </InputWrapper>
           <Content>
-            Before you continue, make sure you have copied your Account Handle
-            and safely recorded your PIN. Without this information, you will not
-            be able to access your account. Opacity does not have access to this
-            information and will not be able to recover it for you.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
+            vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
+            tristique ac magna sed.
           </Content>
           <ButtonWrapper>
             <ContinueButton
@@ -235,7 +233,7 @@ class RecordAccountHandleSlide extends Component<
                 isCopied
                   ? this.save(this.state.storagePin)
                   : alert(
-                    "Please make sure to copy your account handle and input matching PINs before proceeding."
+                      "Please make sure to copy your account handle and input matching PINs before proceeding."
                     );
               }}
             >
@@ -248,4 +246,4 @@ class RecordAccountHandleSlide extends Component<
   }
 }
 
-export default RecordAccountHandleSlide;
+export default RecordStorageHandleSlide;
