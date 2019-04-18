@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import {
@@ -9,7 +9,6 @@ import {
 } from "../../config";
 
 import Header from "../shared/header";
-import FileBurger from "./file-burger";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
@@ -17,7 +16,6 @@ const Container = styled.div``;
 
 const TableContainer = styled.div`
   height: 100%;
-  max-width: 850px;
   width: 100%;
   padding: 20px;
   background-color: ${props => props.theme.background};
@@ -45,7 +43,7 @@ const Button = styled.button`
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.button.color};
   text-align: center;
-  margin: auto;
+  margin: 0 10px;
   border: none;
   cursor: pointer;
 `;
@@ -82,9 +80,11 @@ const TableIcon = styled.img`
 `;
 
 const LeftSideNav = styled.div`
-  height: 100%;
-  width: 250px;
   background-color: #cfe3fc;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 20px 0;
+  width: 250px;
 `;
 
 const Table = styled.table`
@@ -189,25 +189,11 @@ const Contents = styled.div`
   display: flex;
 `;
 
-interface FileDescription {
-  name?: string;
-  modifiedAt?: string;
-  size?: number;
-  type?: string;
-  downloadUrl?: string;
-}
-
 const FileManagerSlide = () => {
-  const [fileDescription, setFileDescription] = useState<FileDescription>({});
-
   return (
     <ThemeProvider theme={theme}>
       <Container>
         <Header type={HEADER_FILE_MANAGER} />
-        <FileBurger
-          isOpen={Object.entries(fileDescription).length > 0}
-          file={fileDescription}
-        />
         <Contents>
           <LeftSideNav>
             <StorageInfo>
@@ -223,6 +209,7 @@ const FileManagerSlide = () => {
             <Title>All Files</Title>
             <ButtonWrapper>
               <Button>Upload</Button>
+              <Button>Download</Button>
             </ButtonWrapper>
             <Table>
               <thead>
@@ -234,17 +221,7 @@ const FileManagerSlide = () => {
                 </Tr>
               </thead>
               <tbody>
-                <Tr
-                  onClick={() =>
-                    setFileDescription({
-                      name: "HR STUFF",
-                      modifiedAt: "01/03/2019",
-                      size: 40,
-                      type: "folder",
-                      downloadUrl: "www.google.com"
-                    })
-                  }
-                >
+                <Tr onClick={() => console.log("clicked")}>
                   <Td>
                     <TableIcon src={ICON_LOGO} />
                   </Td>
@@ -252,17 +229,7 @@ const FileManagerSlide = () => {
                   <Td>01/03/2019</Td>
                   <Td>40 FILES</Td>
                 </Tr>
-                <Tr
-                  onClick={() =>
-                    setFileDescription({
-                      name: "STUFF",
-                      modifiedAt: "01/03/2019",
-                      size: 25,
-                      type: "folder",
-                      downloadUrl: "www.google.com"
-                    })
-                  }
-                >
+                <Tr onClick={() => console.log("clicked")}>
                   <Td>
                     <TableIcon src={ICON_LOGO} />
                   </Td>
@@ -270,17 +237,7 @@ const FileManagerSlide = () => {
                   <Td>01/03/2019.</Td>
                   <Td>25 FILES</Td>
                 </Tr>
-                <Tr
-                  onClick={() =>
-                    setFileDescription({
-                      name: "Maine",
-                      modifiedAt: "01/03/2019",
-                      size: 30.5,
-                      type: "file",
-                      downloadUrl: "www.google.com"
-                    })
-                  }
-                >
+                <Tr onClick={() => console.log("clicked")}>
                   <Td>
                     <TableIcon src={ICON_LOGO} />
                   </Td>
