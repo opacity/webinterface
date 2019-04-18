@@ -162,12 +162,12 @@ class RecordStorageHandleSlide extends Component<
     isCopied: false
   };
 
-  save(storagePin) {
+  save (storagePin) {
     const { setStoragePin } = this.props;
     setStoragePin(storagePin);
   }
 
-  render() {
+  render () {
     const { handle } = this.props;
 
     return (
@@ -233,7 +233,7 @@ class RecordStorageHandleSlide extends Component<
                 isCopied
                   ? this.save(this.state.storagePin)
                   : alert(
-                      "Please make sure to copy your account handle and input matching PINs before proceeding."
+                    "Please make sure to copy your account handle and input matching PINs before proceeding."
                     );
               }}
             >

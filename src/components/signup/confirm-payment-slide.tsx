@@ -4,21 +4,26 @@ import styled, { ThemeProvider } from "styled-components";
 import { theme } from "../../config";
 
 import ContentBox from "./content-box";
-import Content from "./content";
 import Title from "./title";
 
-const Link = styled.span`
-  color: ${props => props.theme.link.color};
+const Content = styled.p`
   text-align: center;
+  margin-top: 25px;
+  width: auto;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: ${props => props.theme.link.color};
 `;
 
 const RegisterConfirmPaymentSlide = () => (
   <ThemeProvider theme={theme}>
     <ContentBox>
       <Title>Your Opacity Account is Ready!</Title>
-      <Content>
-        <Link>Login now with your Account Handle and PIN</Link>
-      </Content>
+      <Content>Login now with your Account Handle and PIN</Content>
     </ContentBox>
   </ThemeProvider>
 );
