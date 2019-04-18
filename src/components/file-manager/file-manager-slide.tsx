@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
+import backend from "../../services/backend";
 
 import {
   HEADER_FILE_MANAGER,
@@ -13,6 +14,14 @@ import Header from "../shared/header";
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const Container = styled.div``;
+
+const ActionLink = styled.a`
+  padding: 5px 10px;
+
+  &:hover {
+    font-weight: bold;
+  }
+`;
 
 const TableContainer = styled.div`
   height: 100%;
@@ -145,6 +154,7 @@ const Td = styled.td`
   width: 20%;
   border-bottom: 1px solid #cfd7e6;
   padding: 15px 10px 15px 10px;
+  white-space: nowrap;
 `;
 
 const StorageInfo = styled.div`
@@ -189,7 +199,44 @@ const Contents = styled.div`
   display: flex;
 `;
 
+interface File {
+  name: string;
+  handle: string;
+  modifiedAt: string;
+  size: number;
+}
+
 const FileManagerSlide = () => {
+  const [files, setFiles] = useState<File[]>([]);
+
+  useEffect(() => {
+    backend
+      .filesIndex({ metadataKey: "0x0x" })
+      .then(setFiles)
+      .catch(() =>
+        setFiles([
+          {
+            name: "HR Stuff",
+            handle: "0x0x0x",
+            modifiedAt: "01/03/2019",
+            size: 40
+          },
+          {
+            name: "Stuff",
+            handle: "1x0x0x0x",
+            modifiedAt: "02/03/2019",
+            size: 30
+          },
+          {
+            name: "Maine",
+            handle: "2xx2x2x2",
+            modifiedAt: "03/03/2019",
+            size: 20
+          }
+        ])
+      );
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Container>
@@ -216,35 +263,29 @@ const FileManagerSlide = () => {
                 <Tr>
                   <Th />
                   <Th>Name</Th>
-                  <Th>Modifed</Th>
+                  <Th>File Handle</Th>
+                  <Th>Date</Th>
                   <Th>Size</Th>
+                  <Th>Actions</Th>
                 </Tr>
               </thead>
               <tbody>
-                <Tr onClick={() => console.log("clicked")}>
-                  <Td>
-                    <TableIcon src={ICON_LOGO} />
-                  </Td>
-                  <Td>HR STUFF</Td>
-                  <Td>01/03/2019</Td>
-                  <Td>40 FILES</Td>
-                </Tr>
-                <Tr onClick={() => console.log("clicked")}>
-                  <Td>
-                    <TableIcon src={ICON_LOGO} />
-                  </Td>
-                  <Td>STUFF</Td>
-                  <Td>01/03/2019.</Td>
-                  <Td>25 FILES</Td>
-                </Tr>
-                <Tr onClick={() => console.log("clicked")}>
-                  <Td>
-                    <TableIcon src={ICON_LOGO} />
-                  </Td>
-                  <Td>Maine</Td>
-                  <Td>01/03/2019</Td>
-                  <Td>30 FILES</Td>
-                </Tr>
+                {files.map(({ name, handle, modifiedAt, size }) => (
+                  <Tr onClick={() => console.log("clicked")}>
+                    <Td>
+                      <TableIcon src={ICON_LOGO} />
+                    </Td>
+                    <Td>{name}</Td>
+                    <Td>{handle}</Td>
+                    <Td>{modifiedAt}</Td>
+                    <Td>{size} FILES</Td>
+                    <Td>
+                      <ActionLink>View</ActionLink>
+                      <ActionLink>Download</ActionLink>
+                      <ActionLink>Delete</ActionLink>
+                    </Td>
+                  </Tr>
+                ))}
               </tbody>
             </Table>
             <ButtonMobileWrapper />

@@ -63,9 +63,15 @@ export const login = ({ metadataKey }) =>
     .get(`${API.DEFAULT_BROKER}${API.V1_LOGIN_PATH}/${metadataKey}`)
     .then(({ data }: any) => data);
 
+export const filesIndex = ({ metadataKey }) =>
+  axiosInstance
+    .get(`${API.DEFAULT_BROKER}${API.V1_FILES_PATH}/${metadataKey}`)
+    .then(({ data }: any) => data);
+
 export default {
   checkStatus,
   createAccount,
   isAccountPaid,
-  login
+  login,
+  filesIndex
 };
