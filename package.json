@@ -62,7 +62,6 @@
     "raven-js": "^3.26.3",
     "rc-progress": "^2.3.0",
     "react": "^16.8.6",
-    "react-burger-menu": "^2.6.8",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.8.6",
