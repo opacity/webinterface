@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import backend from "../../services/backend";
 
@@ -10,6 +10,7 @@ import {
 } from "../../config";
 
 import Header from "../shared/header";
+import UploadButton from "./upload-button";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
@@ -214,15 +215,6 @@ interface File {
 const FileManagerSlide = () => {
   const [files, setFiles] = useState<File[]>([]);
 
-  const uploadFileInput = useRef<HTMLInputElement>(null);
-
-  const onUploadButtonClick = () => {
-    if (uploadFileInput && uploadFileInput.current) {
-      uploadFileInput.current!.click();
-    }
-  }
-
-
   useEffect(() => {
     backend
       .filesIndex({ metadataKey: "0x0x" })
@@ -269,9 +261,8 @@ const FileManagerSlide = () => {
           <TableContainer>
             <Title>All Files</Title>
             <ButtonWrapper>
-              <Button onClick={onUploadButtonClick}>Upload</Button>
+              <UploadButton onSelected={console.log}/>
               <Button>Download</Button>
-              <input type="file" id="file" ref={uploadFileInput} onChange={console.log}/>
             </ButtonWrapper>
             <Table>
               <thead>
