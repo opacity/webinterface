@@ -276,7 +276,7 @@ const FileManagerSlide = () => {
               </thead>
               <tbody>
                 {files.map(({ name, handle, modifiedAt, size }) => (
-                  <Tr onClick={() => console.log("clicked")}>
+                  <Tr onClick={() => console.log("clicked")} key={handle}>
                     <Td>
                       <TableIcon src={ICON_LOGO} />
                     </Td>
