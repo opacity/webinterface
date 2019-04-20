@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import backend from "../../services/backend";
+import _ from "lodash";
 
 import {
   HEADER_FILE_MANAGER,
@@ -107,7 +108,14 @@ const Table = styled.table`
   border-spacing: 0px;
 `;
 
+
+interface TrProps {
+  isSelected?: boolean;
+}
+
 const Tr = styled.tr`
+  background-color: ${(props: TrProps) => props.isSelected ? "#cfe3fc": "none"};
+
   &:hover td {
     background-color: #cfe3fc;
     cursor: pointer;
@@ -214,6 +222,13 @@ interface File {
 
 const FileManagerSlide = () => {
   const [files, setFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+  const downloadFiles = () => {
+    console.log("SELECTED FILES: ", selectedFiles);
+  }
+
+  const isFileSelected = (fileHandle: string): boolean => selectedFiles.map(f => f.handle).includes(fileHandle)
 
   useEffect(() => {
     backend
@@ -262,7 +277,7 @@ const FileManagerSlide = () => {
             <Title>All Files</Title>
             <ButtonWrapper>
               <UploadButton onSelected={console.log}/>
-              <Button>Download</Button>
+              <Button onClick={ () => downloadFiles() }>Download</Button>
             </ButtonWrapper>
             <Table>
               <thead>
@@ -277,7 +292,17 @@ const FileManagerSlide = () => {
               </thead>
               <tbody>
                 {files.map(({ name, handle, modifiedAt, size }) => (
-                  <Tr onClick={() => console.log("clicked")} key={handle}>
+                  <Tr
+                    onClick={() => {
+                      if (isFileSelected(handle)) {
+                        setSelectedFiles(selectedFiles.filter(f => f.handle !== handle))
+                      } else {
+                        setSelectedFiles(_.uniq([...selectedFiles, { name, handle, modifiedAt, size } as File]))
+                      }
+                    }}
+                    key={handle}
+                    isSelected={isFileSelected(handle)}
+                  >
                     <Td>
                       <TableIcon src={ICON_LOGO} />
                     </Td>
