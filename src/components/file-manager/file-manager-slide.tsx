@@ -13,7 +13,11 @@ import Header from "../shared/header";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
-const Container = styled.div``;
+const Container = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
 
 const ActionLink = styled.a`
   padding: 5px 10px;
@@ -197,6 +201,7 @@ const StorageProgress = styled.div`
 
 const Contents = styled.div`
   display: flex;
+  height: 100%;
 `;
 
 interface File {
