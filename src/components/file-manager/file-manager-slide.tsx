@@ -9,6 +9,7 @@ import {
 } from "../../config";
 
 import Header from "../shared/header";
+import RecoveryModal from "./recovery-modal";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
@@ -333,6 +334,7 @@ const FileManagerSlide = () => {
   return (
     <ThemeProvider theme={theme}>
       <ContainerWrapper>
+        <RecoveryModal />
         <Header type={HEADER_FILE_MANAGER} />
         <LeftSideNavOpen>
           <StorageInfo>
