@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import backend from "../../services/backend";
-import _ from "lodash";
 
 import {
   HEADER_FILE_MANAGER,
@@ -23,10 +22,6 @@ const Container = styled.div`
 
 const ActionLink = styled.a`
   padding: 5px 10px;
-
-  &:hover {
-    font-weight: bold;
-  }
 `;
 
 const TableContainer = styled.div`
@@ -44,23 +39,6 @@ const Title = styled.h1`
   line-height: normal;
   letter-spacing: normal;
   color: #687892;
-`;
-
-const Button = styled.button`
-  width: 120px;
-  height: 40px;
-  background-color: ${props => props.theme.button.background};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.button.color};
-  text-align: center;
-  margin: 0 10px;
-  border: none;
-  cursor: pointer;
 `;
 
 const ButtonWrapper = styled.div`
@@ -108,14 +86,7 @@ const Table = styled.table`
   border-spacing: 0px;
 `;
 
-
-interface TrProps {
-  isSelected?: boolean;
-}
-
 const Tr = styled.tr`
-  background-color: ${(props: TrProps) => props.isSelected ? "#cfe3fc": "none"};
-
   &:hover td {
     background-color: #cfe3fc;
     cursor: pointer;
@@ -222,13 +193,6 @@ interface File {
 
 const FileManagerSlide = () => {
   const [files, setFiles] = useState<File[]>([]);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-
-  const downloadFiles = () => {
-    console.log("SELECTED FILES: ", selectedFiles);
-  }
-
-  const isFileSelected = (fileHandle: string): boolean => selectedFiles.map(f => f.handle).includes(fileHandle)
 
   useEffect(() => {
     backend
@@ -276,8 +240,7 @@ const FileManagerSlide = () => {
           <TableContainer>
             <Title>All Files</Title>
             <ButtonWrapper>
-              <UploadButton onSelected={console.log}/>
-              <Button onClick={ () => downloadFiles() }>Download</Button>
+              <UploadButton onSelected={console.log} />
             </ButtonWrapper>
             <Table>
               <thead>
@@ -292,17 +255,7 @@ const FileManagerSlide = () => {
               </thead>
               <tbody>
                 {files.map(({ name, handle, modifiedAt, size }) => (
-                  <Tr
-                    onClick={() => {
-                      if (isFileSelected(handle)) {
-                        setSelectedFiles(selectedFiles.filter(f => f.handle !== handle))
-                      } else {
-                        setSelectedFiles(_.uniq([...selectedFiles, { name, handle, modifiedAt, size } as File]))
-                      }
-                    }}
-                    key={handle}
-                    isSelected={isFileSelected(handle)}
-                  >
+                  <Tr key={handle}>
                     <Td>
                       <TableIcon src={ICON_LOGO} />
                     </Td>

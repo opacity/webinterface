@@ -28,18 +28,23 @@ const UploadButton = ({ onSelected }) => {
     const files = Array.from(uploadFileInput.current!.files || []);
     uploadForm.current!.reset();
     if (files.length > 0) onSelected(files);
-  }
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <Fragment>
-        <Button onClick={() => uploadFileInput.current!.click() }>Upload</Button>
-        <form ref={uploadForm} style={{display: "none"}}>
-          <input type="file" id="file" ref={uploadFileInput} onChange={ e => selectFiles() } multiple/>
+        <Button onClick={() => uploadFileInput.current!.click()}>Upload</Button>
+        <form ref={uploadForm} style={{ display: "none" }}>
+          <input
+            type="file"
+            id="file"
+            ref={uploadFileInput}
+            onChange={e => selectFiles()}
+          />
         </form>
       </Fragment>
     </ThemeProvider>
   );
-}
+};
 
 export default UploadButton;
