@@ -13,29 +13,33 @@ import forge from "node-forge";
 import signupActions from "../actions/signup-actions";
 import backend from "../../services/backend";
 
-const createAccountEpic = action$ =>
-  action$.ofType(signupActions.GET_INVOICE_PENDING).switchMap(action => {
-    const { privateKey, storagePin } = action.payload;
+const createAccountEpic = (action$, state$, dependencies$) =>
+  action$.pipe(
+    ofType(signupActions.GET_INVOICE_PENDING),
+    switchMap(({ payload }) => {
+      const { privateKey, storagePin } = payload;
 
-    const md = forge.md.sha256.create();
-    md.update(privateKey + storagePin);
+      const md = forge.md.sha256.create();
+      md.update(privateKey + storagePin);
 
-    const accountId = md.digest().toHex();
-    const storageLimit = 100;
-    const durationInMonths = 12;
-    const metadataKey = md.digest().toHex();
+      const accountId = md.digest().toHex();
+      const storageLimit = 100;
+      const durationInMonths = 12;
+      const metadataKey = md.digest().toHex();
 
-    return from(
-      backend.createAccount({
-        accountId,
-        storageLimit,
-        durationInMonths,
-        metadataKey
-      })
-    )
-      .map(invoice => signupActions.getInvoiceSuccess({ accountId, invoice }))
-      .catch(error => of(signupActions.getInvoiceFailure({ error })));
-  });
+      return from(
+        backend.createAccount({
+          accountId,
+          storageLimit,
+          durationInMonths,
+          metadataKey
+        })
+      ).pipe(
+        map(invoice => signupActions.getInvoiceSuccess({ accountId, invoice })),
+        catchError(error => of(signupActions.getInvoiceFailure({ error })))
+      );
+    })
+  );
 
 const pollPaymentEpic = (action$, state$, dependencies$) =>
   action$.pipe(
