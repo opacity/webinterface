@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
+import backend from "../../services/backend";
 
 import {
   HEADER_FILE_MANAGER,
@@ -9,31 +10,25 @@ import {
 } from "../../config";
 
 import Header from "../shared/header";
+import UploadButton from "./upload-button";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
-const ICON_CHECK = require("../../assets/images/checkmark.svg");
-
-const ContainerWrapper = styled.div``;
 
 const Container = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ActionLink = styled.a`
+  padding: 5px 10px;
+`;
+
+const TableContainer = styled.div`
   height: 100%;
-  max-width: 850px;
-  margin-left: 270px;
+  width: 100%;
+  padding: 20px;
   background-color: ${props => props.theme.background};
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    margin-left: 145px;
-    max-width: 540px;
-  }
-  @media only screen and (max-width: 1374px) {
-    max-width: 600px;
-  }
-  @media only screen and (max-width: 1130px) {
-    max-width: 500px;
-  }
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    margin: 0px;
-    padding: 25px;
-  }
 `;
 
 const Title = styled.h1`
@@ -44,23 +39,6 @@ const Title = styled.h1`
   line-height: normal;
   letter-spacing: normal;
   color: #687892;
-`;
-
-const Button = styled.button`
-  width: 120px;
-  height: 40px;
-  background-color: ${props => props.theme.button.background};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.button.color};
-  text-align: center;
-  margin: auto;
-  border: none;
-  cursor: pointer;
 `;
 
 const ButtonWrapper = styled.div`
@@ -95,65 +73,11 @@ const TableIcon = styled.img`
 `;
 
 const LeftSideNav = styled.div`
-  height: 100%;
-  width: 250px;
-  position: fixed;
-  z-index: 1110;
-  top: 0;
-  left: -250px;
   background-color: #cfe3fc;
-  overflow-x: hidden;
-  transition: 0.5s;
-  margin-top: 62px;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    width: 125px;
-    left: -125px;
-  }
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    width: 80%;
-    left: 80%;
-  }
-`;
-
-const LeftSideNavOpen = styled(LeftSideNav)`
-  left: 0;
-`;
-
-const RightSideNav = styled.div`
-  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 20px 0;
   width: 250px;
-  position: fixed;
-  z-index: 1130;
-  top: 0;
-  right: -250px;
-  background-color: #ffffff;
-  overflow-x: hidden;
-  transition: 0.5s;
-  margin-top: 62px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    width: 100%;
-    right: 100%;
-  }
-`;
-
-const RightSideNavOpen = styled(RightSideNav)`
-  right: 0;
-`;
-
-const Dropdown = styled.div`
-  display: none;
-  filter: alpha(opacity=13);
-  opacity: 0.13;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1120;
-  background-color: #000;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    display: block;
-  }
 `;
 
 const Table = styled.table`
@@ -214,11 +138,10 @@ const Td = styled.td`
   width: 20%;
   border-bottom: 1px solid #cfd7e6;
   padding: 15px 10px 15px 10px;
+  white-space: nowrap;
 `;
 
 const StorageInfo = styled.div`
-  position: absolute;
-  bottom: 120px;
   width: 100%;
 `;
 
@@ -256,294 +179,104 @@ const StorageProgress = styled.div`
   height: 10px;
 `;
 
-const FileWrapper = styled.div`
-  width: 200px;
-  margin: auto;
-  margin-top: 150px;
+const Contents = styled.div`
+  display: flex;
+  height: 100%;
 `;
 
-const FileIconWrapper = styled.div`
-  text-align: center;
-`;
+interface File {
+  name: string;
+  handle: string;
+  modifiedAt: string;
+  size: number;
+}
 
-const FileIcon = styled.img`
-  height: 60px;
-  width: 60px;
-  text-align: center;
-`;
+const FileManagerSlide = () => {
+  const [files, setFiles] = useState<File[]>([]);
 
-const FileTitle = styled.p`
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #687892;
-`;
+  useEffect(() => {
+    backend
+      .filesIndex({ metadataKey: "0x0x" })
+      .then(setFiles)
+      .catch(() =>
+        setFiles([
+          {
+            name: "HR Stuff",
+            handle: "0x0x0x",
+            modifiedAt: "01/03/2019",
+            size: 40
+          },
+          {
+            name: "Stuff",
+            handle: "1x0x0x0x",
+            modifiedAt: "02/03/2019",
+            size: 30
+          },
+          {
+            name: "Maine",
+            handle: "2xx2x2x2",
+            modifiedAt: "03/03/2019",
+            size: 20
+          }
+        ])
+      );
+  }, []);
 
-const FileInfo = styled.p`
-  margin-top: 15px;
-  font-size: 8px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.1px;
-  color: #4f5e78;
-`;
-
-const FileData = styled.p`
-  font-size: 12px;
-  font-weight: 300;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #687892;
-`;
-
-const FileButton = styled.button`
-  width: 200px;
-  height: 40px;
-  background-color: ${props => props.theme.button.background};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.button.color};
-  text-align: center;
-  margin: auto;
-  border: none;
-  cursor: pointer;
-`;
-
-const FileBackButton = styled.div`
-  display: none;
-  margin-top: 10px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    display: block;
-  }
-`;
-
-const FileBackIcon = styled.img`
-  height: 17px;
-  width: 17px;
-  margin-left: 5px;
-  float: left;
-`;
-const FileBackTitle = styled.span`
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #687892;
-  margin-left: 5px;
-  float: left;
-`;
-
-const ModalTitle = styled.h1`
-  font-size: ${props => props.theme.container.title.size}px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.title.color};
-  margin: auto;
-  margin: 35px 0 20px 0;
-`;
-
-const ModalContent = styled.p`
-  width: auto;
-  font-size: 12px;
-  font-weight: ${props => props.theme.fontWeight};
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.container.content};
-`;
-
-const ModalContentNoMargin = styled(ModalContent)`
-  margin: 0px;
-  padding: 0px;
-`;
-
-const ModalContentColor = styled(ModalContentNoMargin)`
-  color: ${props => props.theme.title.color};
-`;
-
-const ModalButton = styled.button`
-  width: 171px;
-  height: 40px;
-  background-color: ${props => props.theme.button.background};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.button.color};
-  text-align: center;
-  margin: auto;
-  border: none;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    width: 100%;
-  }
-`;
-
-const ModalButtonWrapper = styled.div`
-  text-align: left;
-`;
-
-const Modal = styled.div`
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2),
-    0 3px 15px 2.5px rgba(0, 0, 0, 0.12), 0 8px 12px 1px rgba(0, 0, 0, 0.14);
-  position: fixed;
-  top: 100px;
-  left: 50%;
-  transform: translate(-50%, 100px);
-  z-index: 2000;
-  min-width: 400px;
-  background-color: white;
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box;
-  padding: 20px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    position: fixed;
-    box-shadow: none;
-    padding: 0px 54px 54px 54px;
-    width: auto;
-    height: 100%;
-    top: 0;
-  }
-`;
-
-const ModalIcon = styled.img`
-  height: 100px;
-  width: 100px;
-`;
-
-const ModalIconWrapper = styled.div`
-  text-align: center;
-  margin-bottom: 20px;
-`;
-
-const ModalDropdown = styled(Dropdown)`
-  display: block;
-  z-index: 1900;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    background-color: white;
-    opacity: 1;
-    top: 62px;
-  }
-`;
-
-const FileManagerSlide = () => (
-  <ThemeProvider theme={theme}>
-    <ContainerWrapper>
-      <Header type={HEADER_FILE_MANAGER} />
-      <ModalDropdown />
-      <Modal>
-        <ModalTitle>Storage handle successfully recovered.</ModalTitle>
-        <ModalIconWrapper>
-          <ModalIcon src={ICON_CHECK} />
-        </ModalIconWrapper>
-        <ModalContent>
-          Your storage handle has been successfully recovered and you are now
-          logged into your Opacity storage account.
-        </ModalContent>
-        <ModalContentNoMargin>
-          Your recovered storage handle is:
-        </ModalContentNoMargin>
-        <ModalContentColor>test123-345463879452359784365345</ModalContentColor>
-        <ModalContent>
-          Don’t forget to record your storage handle, as it will be required to
-          log into your account .
-        </ModalContent>
-        <ModalButtonWrapper>
-          <ModalButton>Close window</ModalButton>
-        </ModalButtonWrapper>
-      </Modal>
-      <LeftSideNavOpen>
-        <StorageInfo>
-          <StorageTitleWrapper>
-            <StorageTitle>30GB/100GB USED</StorageTitle>
-          </StorageTitleWrapper>
-          <StorageProgressWrapper>
-            <StorageProgress />
-          </StorageProgressWrapper>
-        </StorageInfo>
-      </LeftSideNavOpen>
-      <RightSideNavOpen>
-        <FileBackButton>
-          <FileBackIcon src={ICON_LOGO} />
-          <FileBackTitle>Back</FileBackTitle>
-        </FileBackButton>
-        <FileWrapper>
-          <FileIconWrapper>
-            <FileIcon src={ICON_LOGO} />
-          </FileIconWrapper>
-          <FileTitle>Proposal Revision #2</FileTitle>
-          <FileInfo>MODIFIED</FileInfo>
-          <FileData>03/15/2019</FileData>
-          <FileInfo>SIZE</FileInfo>
-          <FileData>1.8 MB</FileData>
-          <FileButton>Download</FileButton>
-        </FileWrapper>
-      </RightSideNavOpen>
-      <Dropdown />
+  return (
+    <ThemeProvider theme={theme}>
       <Container>
-        <Title>All Files</Title>
-        <ButtonWrapper>
-          <Button>Upload</Button>
-        </ButtonWrapper>
-        <Table>
-          <thead>
-            <Tr>
-              <Th />
-              <Th>Name</Th>
-              <Th>Modifed</Th>
-              <Th>Size</Th>
-            </Tr>
-          </thead>
-          <tbody>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_LOGO} />
-              </Td>
-              <Td>HR STUFF</Td>
-              <Td>01/03/2019</Td>
-              <Td>40 FILES</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_LOGO} />
-              </Td>
-              <Td>STUFF</Td>
-              <Td>01/03/2019.</Td>
-              <Td>25 FILES</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_LOGO} />
-              </Td>
-              <Td>Maine</Td>
-              <Td>01/03/2019</Td>
-              <Td>30 FILES</Td>
-            </Tr>
-          </tbody>
-        </Table>
-        <ButtonMobileWrapper />
+        <Header type={HEADER_FILE_MANAGER} />
+        <Contents>
+          <LeftSideNav>
+            <StorageInfo>
+              <StorageTitleWrapper>
+                <StorageTitle>30GB/100GB USED</StorageTitle>
+              </StorageTitleWrapper>
+              <StorageProgressWrapper>
+                <StorageProgress />
+              </StorageProgressWrapper>
+            </StorageInfo>
+          </LeftSideNav>
+          <TableContainer>
+            <Title>All Files</Title>
+            <ButtonWrapper>
+              <UploadButton onSelected={console.log} />
+            </ButtonWrapper>
+            <Table>
+              <thead>
+                <Tr>
+                  <Th />
+                  <Th>Name</Th>
+                  <Th>File Handle</Th>
+                  <Th>Date</Th>
+                  <Th>Size</Th>
+                  <Th>Actions</Th>
+                </Tr>
+              </thead>
+              <tbody>
+                {files.map(({ name, handle, modifiedAt, size }) => (
+                  <Tr key={handle}>
+                    <Td>
+                      <TableIcon src={ICON_LOGO} />
+                    </Td>
+                    <Td>{name}</Td>
+                    <Td>{handle}</Td>
+                    <Td>{modifiedAt}</Td>
+                    <Td>{size} FILES</Td>
+                    <Td>
+                      <ActionLink>Download</ActionLink>
+                      <ActionLink>Delete</ActionLink>
+                    </Td>
+                  </Tr>
+                ))}
+              </tbody>
+            </Table>
+            <ButtonMobileWrapper />
+          </TableContainer>
+        </Contents>
       </Container>
-    </ContainerWrapper>
-  </ThemeProvider>
-);
+    </ThemeProvider>
+  );
+};
 
 export default FileManagerSlide;
