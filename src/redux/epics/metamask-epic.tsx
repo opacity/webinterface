@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { from as fromPromise, of } from "rxjs";
 import { combineEpics } from "redux-observable";
 
 import metamaskActions from "../actions/metamask-actions";
@@ -9,7 +9,7 @@ const METAMASK_URL = "https://metamask.io/";
 const metamaskAccountEpic = action$ =>
   action$.ofType(metamaskActions.CREATE_TRANSACTION).mergeMap(action => {
     const { cost, ethAddress, gasPrice } = action.payload;
-    return Observable.fromPromise(Metamask.fetchDefaultMetamaskAccount())
+    return fromPromise(Metamask.fetchDefaultMetamaskAccount())
       .map(account =>
         metamaskActions.paymentPending({
           to: ethAddress,
@@ -18,7 +18,7 @@ const metamaskAccountEpic = action$ =>
           gasPrice
         })
       )
-      .catch(e => Observable.of(metamaskActions.accountError(e)));
+      .catch(e => of(metamaskActions.accountError(e)));
   });
 
 const metamaskTransactionEpic = action$ =>
@@ -27,7 +27,7 @@ const metamaskTransactionEpic = action$ =>
     .mergeMap(action => {
       const { from, to, cost, gasPrice } = action.payload;
 
-      return Observable.fromPromise(Metamask.getTransactionNonce(from))
+      return fromPromise(Metamask.getTransactionNonce(from))
         .map(nonce => {
           return {
             to,
@@ -37,12 +37,12 @@ const metamaskTransactionEpic = action$ =>
             nonce
           };
         })
-        .catch(e => Observable.of(metamaskActions.paymentError(e)));
+        .catch(e => of(metamaskActions.paymentError(e)));
     })
     .mergeMap(transaction => {
       const { cost, to, from, gasPrice, nonce } = transaction;
 
-      return Observable.fromPromise(
+      return fromPromise(
         Metamask.sendTransaction({
           cost,
           to,
@@ -52,7 +52,7 @@ const metamaskTransactionEpic = action$ =>
         })
       )
         .map(() => metamaskActions.paymentSuccess())
-        .catch(e => Observable.of(metamaskActions.paymentError(e)));
+        .catch(e => of(metamaskActions.paymentError(e)));
     });
 
 const metamaskAccountErrorEpic = action$ =>
