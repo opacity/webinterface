@@ -2,11 +2,17 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
 
-import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
+import {
+  HEADER_TEAM_PAGE,
+  MOBILE_WIDTH,
+  LANDING_PAGE_VIDEO,
+  theme
+} from "../../config";
 import Subscription from "../shared/subscription";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
 import CurrencyWidget from "../shared/currency-widget";
+import VideoPlayer from "../shared/video-player";
 
 const ICON_CREDIT = require("../../assets/images/credit.svg");
 const ICON_SHARE_FILE = require("../../assets/images/share_file.svg");
@@ -70,14 +76,6 @@ const BenefitSubContainer = styled(SubContainer)`
 
 const BuySubContainer = styled(SubContainer)`
   justify-content: space-around;
-`;
-
-const HeaderWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    display: grid;
-  }
 `;
 
 const Column = styled.div`
@@ -314,9 +312,7 @@ const LandingPageSlide = ({ history }) => (
           </Content>
         </ContentWrapper>
         <Wrapper>
-          <HeaderWrapper />
-        </Wrapper>
-        <Wrapper>
+          <VideoPlayer src={LANDING_PAGE_VIDEO} />
           <ContentPurchase href="http://twitter.com/opacity_storage">
             Opacity 1.0 Coming May 2019
           </ContentPurchase>
