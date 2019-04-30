@@ -8,6 +8,7 @@ import ContentBox from "./content-box";
 import Content from "./content";
 import Hr from "./hr";
 import Title from "./title";
+import ContinueButton from "./continue-button";
 
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
@@ -19,27 +20,6 @@ const ContentBold = styled(Content)`
 
 const ClipboardIconWrrapper = styled.div`
   display: flex;
-`;
-
-const ContinueButton = styled.button`
-  cursor: pointer;
-  text-transform: uppercase;
-  background-color: ${props => props.theme.button.background};
-  border: none;
-  color: ${props => props.theme.button.color};
-  font-size: 16px;
-  font-stretch: ${props => props.theme.fontStretch};
-  font-style: ${props => props.theme.fontStyle};
-  height: 40px;
-  letter-spacing: ${props => props.theme.letterSpacing};
-  line-height: ${props => props.theme.lineHeight};
-  margin: auto;
-  text-align: center;
-  width: 171px;
-
-  @media (max-width: ${DESKTOP_WIDTH}px) {
-    width: 100%;
-  }
 `;
 
 const ButtonWrapper = styled.div`

@@ -9,6 +9,7 @@ import Content from "./content";
 import Hr from "./hr";
 import OutboundLink from "../shared/outbound-link";
 import Title from "./title";
+import ContinueButton from "./continue-button";
 
 const ContentBold = styled(Content)`
   margin-top: 25px;
@@ -22,27 +23,6 @@ const DownloadButton = styled.button`
   border: none;
   color: ${props => props.theme.link.color};
   cursor: pointer;
-`;
-
-const ContinueButton = styled.button`
-  cursor: pointer;
-  text-transform: uppercase;
-  background-color: ${props => props.theme.button.background};
-  border: none;
-  color: ${props => props.theme.button.color};
-  font-size: 16px;
-  font-stretch: ${props => props.theme.fontStretch};
-  font-style: ${props => props.theme.fontStyle};
-  height: 40px;
-  letter-spacing: ${props => props.theme.letterSpacing};
-  line-height: ${props => props.theme.lineHeight};
-  margin: auto;
-  text-align: center;
-  width: 171px;
-
-  @media (max-width: ${DESKTOP_WIDTH}px) {
-    width: 100%;
-  }
 `;
 
 const TermsOfService = styled.div`

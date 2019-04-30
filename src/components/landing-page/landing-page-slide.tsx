@@ -2,7 +2,12 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
 
-import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
+import {
+  HEADER_TEAM_PAGE,
+  MOBILE_WIDTH,
+  LANDING_PAGE_MOBILE_WIDTH,
+  theme
+} from "../../config";
 import Subscription from "../shared/subscription";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
@@ -63,13 +68,13 @@ const SubContainer = styled.div`
 `;
 
 const ItemSubContainer = styled(SubContainer)`
-  @media (max-width: 800px) {
+  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
     display: block;
   }
 `;
 
 const BenefitSubContainer = styled(SubContainer)`
-  @media (max-width: 800px) {
+  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
     flex-direction: column-reverse;
     display: block;
   }
@@ -149,7 +154,7 @@ const ContentWrapper = styled.div`
 `;
 
 const ItemButtonWrapper = styled.div`
-  @media (max-width: 800px) {
+  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
     text-align: center;
     margin-bottom: 40px;
   }
@@ -165,13 +170,13 @@ const ButtonWrapper = styled.div`
 const Icon = styled.img``;
 
 const BenefitIcon = styled.img`
-  @media (max-width: 800px) {
+  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
     width: 100%;
   }
 `;
 
 const ItemIcon = styled.img`
-  @media (max-width: 800px) {
+  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
     width: 100%;
   }
 `;
@@ -215,7 +220,7 @@ const InfoTitle = styled(HeaderTitle)`
   font-size: 18px;
   color: ${props => props.theme.title.color};
   text-align: left;
-  @media (max-width: 800px) {
+  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
     text-align: center;
   }
 `;
@@ -284,7 +289,7 @@ const InfoContent = styled(Paragraph)`
 `;
 
 const ItemInfoContent = styled(InfoContent)`
-  @media (max-width: 800px) {
+  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
     margin: auto;
     width: 250px;
   }

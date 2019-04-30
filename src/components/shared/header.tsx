@@ -1,21 +1,20 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { withRouter } from "react-router";
-
 import "../root.css";
 
 import {
   theme,
+  HEADER_MOBILE_WIDTH,
   HEADER_LANDING_PAGE,
   HEADER_SCREEEN_CONTAINER,
   HEADER_TEAM_PAGE
 } from "../../config";
 
+import Button from "./generic/button";
+
 const ICON_LOGO = require("../../assets/images/logo.svg");
 const ICON_HAMBURGER = require("../../assets/images/hamburger.svg");
 const ICON_CLOSE = require("../../assets/images/close.svg");
-
-const MOBILE_WIDTH = "980";
 
 const Container = styled.div<{ menuOpen: boolean }>`
   background: ${props => props.theme.header.background};
@@ -41,7 +40,7 @@ const LogoContainer = styled.div`
 const LinkContainer = styled.div`
   align-items: center;
   display: flex;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
     flex-direction: column;
     align-items: baseline;
     padding-left: 15px;
@@ -50,13 +49,13 @@ const LinkContainer = styled.div`
 
 const DesktopNavigation = styled.div`
   margin-top: 5px;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
   }
 `;
 
 const MobileNavigationContainer = styled.div`
-  @media only screen and (min-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (min-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
   }
 `;
@@ -94,7 +93,7 @@ const Link = styled.a`
 `;
 
 const LinkNavigation = styled(Link)`
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
     font-size: 20px;
     margin: 25px;
   }
@@ -121,7 +120,7 @@ const HamburgerIcon = styled.img`
   width: 28px;
   height: 28px;
   display: none;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: inline-block;
   }
 `;
@@ -133,21 +132,9 @@ const CloseIcon = styled.img`
 
 const CommunityWrapper = styled.div``;
 
-const CommunityButton = styled.button`
-  width: 100px;
-  height: 40px;
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.button.color};
-  background-color: #2e6dde;
-  border: 1px solid white;
-  cursor: pointer;
+const CommunityButton = styled(Button)`
   margin-right: 10px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     width: 180px;
   }
 `;
@@ -155,77 +142,74 @@ const CommunityButton = styled.button`
 const CommunityButtonSecondary = styled(CommunityButton)`
   background-color: white;
   color: #2e6dde;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     margin-top: 30px;
   }
 `;
 
-const renderButtons = history => {
+const CommunityLink = styled.a`
+  display: inline-block;
+`;
+
+const renderButtons = () => {
   return (
     <CommunityWrapper>
-      <CommunityButtonSecondary onClick={() => history.push("/sign-up")}>
-        Sign up
-      </CommunityButtonSecondary>
-      <CommunityButton onClick={() => history.push("/login")}>
-        Login
-      </CommunityButton>
+      <CommunityLink href={"/sign-up"}>
+        <CommunityButtonSecondary>Sign up</CommunityButtonSecondary>
+      </CommunityLink>
+      <CommunityLink href={"/login"}>
+        <CommunityButton>Login</CommunityButton>
+      </CommunityLink>
+      <CommunityLink href={"/sign-out"}>
+        <CommunityButton>Sign out</CommunityButton>
+      </CommunityLink>
     </CommunityWrapper>
   );
 };
 
-const renderNavigation = (type, history) => {
+const renderNavigation = type => {
   if (type === HEADER_LANDING_PAGE) {
     return (
       <LinkContainer>
-        <LinkNavigation onClick={() => history.push("/stands-out")}>
-          STANDS OUT
-        </LinkNavigation>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          TEAM
-        </LinkNavigation>
+        <LinkNavigation href={"/stands-out"} />
+        STANDS OUT
+        <LinkNavigation href={"/team-page"}>TEAM</LinkNavigation>
+        <LinkNavigation href={"/stands-out"} />
         <LinkNavigation
-          href="https://medium.com/opacity-storage/"
+          href={"https://medium.com/opacity-storage/"}
           target="_blank"
         >
           BLOG
         </LinkNavigation>
-        {renderButtons(history)}
+        {renderButtons()}
       </LinkContainer>
     );
   } else if (type === HEADER_SCREEEN_CONTAINER) {
     return (
       <LinkContainer>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          ABOUT US
-        </LinkNavigation>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          RESOURCES
-        </LinkNavigation>
+        <LinkNavigation href={"/team-page"}>ABOUT US</LinkNavigation>
+        <LinkNavigation href={"/team-page"}>RESOURCES</LinkNavigation>
         <LinkNavigation
-          href="https://medium.com/opacity-storage/"
+          href={"https://medium.com/opacity-storage/"}
           target="_blank"
         >
           BLOG
         </LinkNavigation>
-        {renderButtons(history)}
+        {renderButtons()}
       </LinkContainer>
     );
   } else if (type === HEADER_TEAM_PAGE) {
     return (
       <LinkContainer>
-        <LinkNavigation onClick={() => history.push("/stands-out")}>
-          THE PLATFORM
-        </LinkNavigation>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          TEAM
-        </LinkNavigation>
+        <LinkNavigation href={"/stands-out"}>THE PLATFORM</LinkNavigation>
+        <LinkNavigation href={"/team-page"}>TEAM</LinkNavigation>
         <LinkNavigation
-          href="https://medium.com/opacity-storage/"
+          href={"https://medium.com/opacity-storage/"}
           target="_blank"
         >
           BLOG
         </LinkNavigation>
-        {renderButtons(history)}
+        {renderButtons()}
       </LinkContainer>
     );
   }
@@ -234,7 +218,6 @@ const renderNavigation = (type, history) => {
 
 interface HeaderProps {
   type;
-  history;
 }
 
 interface HeaderState {
@@ -255,17 +238,14 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   }
 
   render () {
-    const { type, history } = this.props;
+    const { type } = this.props;
     const { menuOpen } = this.state;
     return (
       <ThemeProvider theme={theme}>
         <Container menuOpen={menuOpen}>
           <Navbar>
             <LogoContainer>
-              <Link
-                title="Opacity Storage's Logo"
-                onClick={() => history.push("/")}
-              >
+              <Link title="Opacity Storage's Logo" href={"/"}>
                 <Logo src={ICON_LOGO} alt="logo" />
                 <CompanyName>Opacity</CompanyName>
               </Link>
@@ -289,14 +269,10 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                     this.closeClick();
                   }}
                 />
-                <MobileNavigation>
-                  {renderNavigation(type, history)}
-                </MobileNavigation>
+                <MobileNavigation>{renderNavigation(type)}</MobileNavigation>
               </MobileNavigationContainer>
             )}
-            <DesktopNavigation>
-              {renderNavigation(type, history)}
-            </DesktopNavigation>
+            <DesktopNavigation>{renderNavigation(type)}</DesktopNavigation>
           </Navbar>
         </Container>
       </ThemeProvider>
@@ -304,4 +280,4 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   }
 }
 
-export default withRouter(Header);
+export default Header;
