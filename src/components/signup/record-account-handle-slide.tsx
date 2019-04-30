@@ -9,6 +9,7 @@ import Content from "./content";
 import Hr from "./hr";
 import Title from "./title";
 import ContinueButton from "./continue-button";
+import Input from "../shared/generic/Input";
 
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
@@ -39,20 +40,6 @@ const InputWrapper = styled.div`
 `;
 const InputColumnWrapper = styled.div`
   flex: 50%;
-`;
-
-const Input = styled.input.attrs({
-  type: "text"
-})`
-  background: transparent;
-  border: 1px solid ${props => props.theme.input.border.color};
-  outline: none;
-  padding: 10px;
-  width: 80%;
-
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    width: 90%;
-  }
 `;
 
 const Label = styled.h3`

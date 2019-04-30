@@ -5,7 +5,7 @@ import { theme } from "../../../config";
 const Button = styled.button`
   background-color: ${(props: any) => props.backgroundColor || "#2e6dde"};
   color: ${(props: any) => props.color || theme.button.color};
-  border: ${(props: any) => props.border || " 1px solid white"};
+  border: ${(props: any) => props.border || "1px solid white"};
   border-radius: ${(props: any) => props.borderRadius || "0px"};
   cursor: ${(props: any) => props.cursor || "pointer"};
   font: ${(props: any) => props.font || ""};

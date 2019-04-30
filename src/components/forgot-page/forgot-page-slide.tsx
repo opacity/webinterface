@@ -7,6 +7,7 @@ import ContentBox from "../signup/content-box";
 import Hr from "../signup/hr";
 import Title from "../signup/title";
 import ScreenContainer from "../shared/screen-container";
+import Input from "../shared/generic/Input";
 
 const ContinueButton = styled.button`
   cursor: pointer;
@@ -46,20 +47,6 @@ const InputWrapper = styled.div`
 `;
 const InputColumnWrapper = styled.div`
   flex: 50%;
-`;
-
-const Input = styled.input.attrs({
-  type: "text"
-})`
-  background: transparent;
-  border: 1px solid ${props => props.theme.input.border.color};
-  outline: none;
-  padding: 10px;
-  width: 80%;
-
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    width: 90%;
-  }
 `;
 
 const Label = styled.h3`

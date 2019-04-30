@@ -10,6 +10,7 @@ import Hr from "./hr";
 import OutboundLink from "../shared/outbound-link";
 import Title from "./title";
 import ContinueButton from "./continue-button";
+import Checkbox from "../shared/generic/checkbox";
 
 const ContentBold = styled(Content)`
   margin-top: 25px;
@@ -27,18 +28,6 @@ const DownloadButton = styled.button`
 
 const TermsOfService = styled.div`
   margin: 10px 0;
-`;
-
-const CheckboxInput = styled.input.attrs({
-  type: "checkbox"
-})`
-  margin-right: 10px;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
-    height: 20px;
-    width: 20px;
-    position: relative;
-    top: 5px;
-  }
 `;
 
 const CheckboxLabel = styled.label`
@@ -153,7 +142,7 @@ class RecordRecoveryPhraseSlide extends Component<
           </DownloadButton>
           <TermsOfService>
             <CheckboxLabel htmlFor="terms-checkbox">
-              <CheckboxInput
+              <Checkbox
                 id="terms-checkbox"
                 value="checked"
                 onChange={e =>
