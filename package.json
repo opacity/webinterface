@@ -92,6 +92,7 @@
     "typescript": "^2.9.2",
     "url-loader": "0.6.2",
     "uuid": "^3.2.1",
+    "video-react": "^0.13.6",
     "webpack": "^4.29.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.2.1",
