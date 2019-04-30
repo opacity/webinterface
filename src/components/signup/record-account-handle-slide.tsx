@@ -203,14 +203,14 @@ class RecordAccountHandleSlide extends Component<
           </HandleWrapper>
           <InputWrapper>
             <InputColumnWrapper>
-              <Label>Choose Storage PIN</Label>
+              <Label>Choose Account PIN</Label>
               <Input
                 name="storage-pin"
                 onChange={e => this.setState({ storagePin: e.target.value })}
               />
             </InputColumnWrapper>
             <InputColumnWrapper>
-              <Label>Re-Type Storage PIN</Label>
+              <Label>Re-Type Account PIN</Label>
               <Input
                 name="retyped-storage-pin"
                 onChange={e =>

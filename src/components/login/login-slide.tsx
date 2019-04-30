@@ -208,7 +208,7 @@ class LoginOrRegisterSlide extends Component<
                   onChange={e => this.setState({ privateKey: e.target.value })}
                   hasError={status === AUTHENTICATION_STATUSES.LOGIN_FAILURE}
                 />
-                <Label>Storage PIN</Label>
+                <Label>Account PIN</Label>
                 <Input
                   type="password"
                   onChange={e => this.setState({ storagePin: e.target.value })}
@@ -216,7 +216,7 @@ class LoginOrRegisterSlide extends Component<
                 />
                 {status === AUTHENTICATION_STATUSES.LOGIN_FAILURE && (
                   <ErrorMessage>
-                    The Account Handle or Storage PIN do not match up. Please
+                    The Account Handle or Account PIN do not match up. Please
                     try again.
                   </ErrorMessage>
                 )}
@@ -232,7 +232,9 @@ class LoginOrRegisterSlide extends Component<
                     (Or <Link href="/sign-up">click here to register</Link>)
                   </Content>
                 </ButtonWrapper>
-                <ForgotStorage>Forgot Account Handle?</ForgotStorage>
+                <ForgotStorage href="/forgot-page">
+                  Forgot Account Handle?
+                </ForgotStorage>
               </Container>
             </Storage>
           </StorageContainer>

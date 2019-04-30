@@ -160,7 +160,7 @@ const subscriptionList = [
     title: "Professional",
     content:
       "For professionals looking for a secure, easily accessible storage solution while on the move.",
-    price: "15.625 OPQ / year",
+    price: "16 OPQ / year",
     button: "COMING SOON",
     features: [
       {
@@ -178,7 +178,7 @@ const subscriptionList = [
     title: "Business",
     content:
       "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
-    price: "31.25 OPQ / year",
+    price: "32 OPQ / year",
     button: "COMING SOON",
     features: [
       {

@@ -6,7 +6,7 @@ import { theme } from "../../config";
 import ContentBox from "./content-box";
 import Title from "./title";
 
-const Content = styled.p`
+const Content = styled.a`
   text-align: center;
   margin-top: 25px;
   width: auto;
@@ -23,7 +23,9 @@ const RegisterConfirmPaymentSlide = () => (
   <ThemeProvider theme={theme}>
     <ContentBox>
       <Title>Your Opacity Account is Ready!</Title>
-      <Content>Login now with your Account Handle and PIN</Content>
+      <Content href="/login">
+        Login now with your Account Handle and PIN
+      </Content>
     </ContentBox>
   </ThemeProvider>
 );
