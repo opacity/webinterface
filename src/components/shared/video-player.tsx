@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Player } from "video-react";
 
@@ -10,16 +10,14 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-class VideoPlayer extends Component<any, any> {
-  render() {
-    console.log(this.props);
-    const { src } = this.props;
-    return (
-      <Container>
-        <Player playsInline autoPlay src={src} preload="auto" />
-      </Container>
-    );
-  }
+interface VideoPlayerProps {
+  src: string;
 }
+
+const VideoPlayer = ({ src }: VideoPlayerProps) => (
+  <Container>
+    <Player playsInline autoPlay src={src} preload="auto" />
+  </Container>
+);
 
 export default VideoPlayer;
