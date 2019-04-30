@@ -97,8 +97,7 @@ export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
-export const LANDING_PAGE_VIDEO =
-  "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+export const LANDING_PAGE_VIDEO = "https://www.sms-zdarma.info/opacity480.mov";
 
 export const HEADER_LANDING_PAGE = "LandingPage";
 export const HEADER_FILE_MANAGER = "FileManager";
