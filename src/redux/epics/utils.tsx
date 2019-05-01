@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { from } from "rxjs";
 
 import * as Backend from "../../services/backend";
 
@@ -7,8 +7,6 @@ export const execObservableIfBackendAvailable = (
   availableObsFn,
   unavailableObsFn
 ) =>
-  Observable.fromPromise(Backend.checkStatus(hosts)).mergeMap(
-    (available: any) => {
-      return available ? availableObsFn() : unavailableObsFn();
-    }
-  );
+  from(Backend.checkStatus(hosts)).mergeMap((available: any) => {
+    return available ? availableObsFn() : unavailableObsFn();
+  });

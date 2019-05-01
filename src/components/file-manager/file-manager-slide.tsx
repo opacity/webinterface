@@ -25,7 +25,6 @@ const ActionLink = styled.a`
 `;
 
 const TableContainer = styled.div`
-  height: 100%;
   width: 100%;
   padding: 20px;
   background-color: ${props => props.theme.background};

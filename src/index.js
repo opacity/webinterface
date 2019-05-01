@@ -13,7 +13,6 @@ import Agreement from "./components/agreement";
 import BrokersDown from "./components/brokers-down";
 import LandingPage from "./components/landing-page";
 import Login from "./components/login";
-import PageNavigationPrompt from "./components/page-navigation-prompt";
 import Subscription from "./components/subscription";
 import Signup from "./components/signup";
 import TeamPage from "./components/team-page";
@@ -37,7 +36,6 @@ const App = () => (
       <ConnectedRouter history={history}>
         <Root>
           <Route component={ScrollToTop} />
-          <PageNavigationPrompt />
           <Switch>
             <Route exact path="/" component={LandingPage} />
 
