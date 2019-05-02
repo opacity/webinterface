@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import backend from "../../services/backend";
@@ -183,6 +184,44 @@ const Contents = styled.div`
   height: 100%;
 `;
 
+const Arrow = styled.span`
+  width: 0;
+  height: 0;
+  position: relative;
+  left: 5px;
+`;
+
+const ArrowTop = styled(Arrow)`
+  top: -10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+`;
+
+const ArrowDown = styled(Arrow)`
+  top: 10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+`;
+
+const TableHeader = ({ param, title, sortBy }) => {
+  const [order, setOrder] = useState("desc");
+  const [arrow, setArrow] = useState(true);
+
+  const changeOrder = () => {
+    sortBy(param, order);
+    setArrow(false);
+    setOrder(order === "asc" ? "desc" : "asc");
+  };
+
+  return (
+    <Th onClick={() => changeOrder()}>
+      {title} {arrow || (order === "desc" ? <ArrowDown /> : <ArrowTop />)}
+    </Th>
+  );
+};
+
 interface File {
   name: string;
   handle: string;
@@ -192,6 +231,10 @@ interface File {
 
 const FileManagerSlide = () => {
   const [files, setFiles] = useState<File[]>([]);
+
+  const sortBy = (param, order) => {
+    setFiles(_.orderBy(files, param, order));
+  };
 
   useEffect(() => {
     backend
@@ -245,10 +288,22 @@ const FileManagerSlide = () => {
               <thead>
                 <Tr>
                   <Th />
-                  <Th>Name</Th>
+                  <TableHeader
+                    param="name"
+                    title="Name"
+                    sortBy={(param, order) => sortBy(param, order)}
+                  />
                   <Th>File Handle</Th>
-                  <Th>Date</Th>
-                  <Th>Size</Th>
+                  <TableHeader
+                    param="modifiedAt"
+                    title="Date"
+                    sortBy={(param, order) => sortBy(param, order)}
+                  />
+                  <TableHeader
+                    param="size"
+                    title="Size"
+                    sortBy={(param, order) => sortBy(param, order)}
+                  />
                   <Th>Actions</Th>
                 </Tr>
               </thead>
