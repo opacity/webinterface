@@ -13,7 +13,9 @@ import Header from "../shared/header";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
-const LoginContainer = styled.div``;
+const LoginContainer = styled.div`
+  width: 100%;
+`;
 
 const ErrorMessage = styled.p`
   color: ${props => props.theme.error.color};
@@ -187,7 +189,7 @@ class LoginOrRegisterSlide extends Component<
     storagePin: ""
   };
 
-  render () {
+  render() {
     const { login, status } = this.props;
 
     return (
