@@ -190,7 +190,7 @@ interface File {
   size: number;
 }
 
-const FileManagerSlide = () => {
+const FileManagerSlide = ({ upload }) => {
   const [files, setFiles] = useState<File[]>([]);
 
   useEffect(() => {
