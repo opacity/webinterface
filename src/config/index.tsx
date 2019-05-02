@@ -64,12 +64,6 @@ export const IOTA_API = Object.freeze({
   BUNDLE_SIZE: 100
 });
 
-export const UPLOAD_STATUSES = Object.freeze({
-  PENDING: "PENDING",
-  SENT: "SENT",
-  FAILED: "FAILED"
-});
-
 export const DOWNLOAD_STATUSES = Object.freeze({
   PENDING: "PENDING",
   STANDBY: "STANDBY"
@@ -111,6 +105,13 @@ export enum AUTHENTICATION_STATUSES {
   LOGIN_PENDING,
   LOGIN_FAILURE,
   LOGGED_IN
+}
+
+export enum UPLOAD_STATUSES {
+  PENDING = "PENDING",
+  SENDING = "SENDING",
+  SENT = "SENT",
+  FAILED = "FAILED"
 }
 
 export const SIGNUP_PHASES = {
