@@ -205,19 +205,19 @@ const ArrowDown = styled(Arrow)`
   border-top: 5px solid black;
 `;
 
-const TableHeader = ({ param, title, sortBy }) => {
+const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
-  const [arrow, setArrow] = useState(true);
 
   const changeOrder = () => {
     sortBy(param, order);
-    setArrow(false);
     setOrder(order === "asc" ? "desc" : "asc");
   };
 
   return (
     <Th onClick={() => changeOrder()}>
-      {title} {arrow || (order === "desc" ? <ArrowDown /> : <ArrowTop />)}
+      {title}
+      {paramArrow === param &&
+        (order === "desc" ? <ArrowTop /> : <ArrowDown />)}
     </Th>
   );
 };
@@ -231,8 +231,10 @@ interface File {
 
 const FileManagerSlide = () => {
   const [files, setFiles] = useState<File[]>([]);
+  const [paramArrow, setParamArrow] = useState("");
 
   const sortBy = (param, order) => {
+    setParamArrow(param);
     setFiles(_.orderBy(files, param, order));
   };
 
@@ -263,7 +265,6 @@ const FileManagerSlide = () => {
         ])
       );
   }, []);
-
   return (
     <ThemeProvider theme={theme}>
       <Container>
@@ -291,17 +292,20 @@ const FileManagerSlide = () => {
                   <TableHeader
                     param="name"
                     title="Name"
+                    paramArrow={paramArrow}
                     sortBy={(param, order) => sortBy(param, order)}
                   />
                   <Th>File Handle</Th>
                   <TableHeader
                     param="modifiedAt"
                     title="Date"
+                    paramArrow={paramArrow}
                     sortBy={(param, order) => sortBy(param, order)}
                   />
                   <TableHeader
                     param="size"
                     title="Size"
+                    paramArrow={paramArrow}
                     sortBy={(param, order) => sortBy(param, order)}
                   />
                   <Th>Actions</Th>
