@@ -59,10 +59,10 @@ const CloseIcon = styled.img`
   height: 22px;
 `;
 
-const HamburgerMenu = ({ history, close }) => (
+const HamburgerMenu = ({ history, close, isOpen }) => (
   <ThemeProvider theme={theme}>
     <Modal
-      isOpen={true}
+      isOpen={isOpen}
       style={{
         overlay: {
           backgroundColor: theme.header.background,

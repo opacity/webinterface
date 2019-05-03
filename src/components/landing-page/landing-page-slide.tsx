@@ -1,7 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
-
 import {
   HEADER_TEAM_PAGE,
   MOBILE_WIDTH,
@@ -525,7 +524,7 @@ const LandingPageSlide = ({
         <CurrencyWidget />
       </Container>
       <Footer />
-      {isHamburgerOpen && <HamburgerMenu close={closeHamburgerMenu} />}
+      <HamburgerMenu isOpen={isHamburgerOpen} close={closeHamburgerMenu} />
     </ContainerWrapper>
   </ThemeProvider>
 );
