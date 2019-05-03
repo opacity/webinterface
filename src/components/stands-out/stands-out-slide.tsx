@@ -3,9 +3,9 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
 
-import Header from "../shared/header";
 import Footer from "../shared/footer";
 import OutboundLink from "../shared/outbound-link";
+import PageContainer from "../shared/page-container";
 
 const ICON_INTRO = require("../../assets/images/so_intro.svg");
 const ICON_ACCESS_ACCOUNT = require("../../assets/images/so_access_account.svg");
@@ -21,10 +21,6 @@ const ICON_BOX_PERSONAL_PRO = require("../../assets/images/box_personal_pro.png"
 const ICON_MEGA_PRO_LITE = require("../../assets/images/mega_pro_lite.png");
 const ICON_SYNC_PERSONAL_PRO = require("../../assets/images/sync_personal_pro.png");
 const ICON_DROPBOX = require("../../assets/images/dropbox_plus.jpg");
-
-const ContainerWrapper = styled.div`
-  width: 100%;
-`;
 
 const Title = styled.h1`
   font-size: 35px;
@@ -394,8 +390,7 @@ const Td = styled.td`
 
 const SubscriptionSlide = () => (
   <ThemeProvider theme={theme}>
-    <ContainerWrapper>
-      <Header type={HEADER_TEAM_PAGE} />
+    <PageContainer type={HEADER_TEAM_PAGE}>
       <Container>
         <Title>With Opacity, You’re in Full Control</Title>
         <ContentWrapper>
@@ -632,7 +627,7 @@ const SubscriptionSlide = () => (
         </CommunityContainer>
       </Community>
       <Footer />
-    </ContainerWrapper>
+    </PageContainer>
   </ThemeProvider>
 );
 
