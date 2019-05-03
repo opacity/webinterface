@@ -141,6 +141,10 @@ const Td = styled.td`
   white-space: nowrap;
 `;
 
+const ThPointer = styled(Th)`
+  cursor: pointer;
+`;
+
 const StorageInfo = styled.div`
   width: 100%;
 `;
@@ -214,11 +218,11 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   };
 
   return (
-    <Th onClick={() => changeOrder()}>
+    <ThPointer onClick={() => changeOrder()}>
       {title}
       {paramArrow === param &&
         (order === "desc" ? <ArrowTop /> : <ArrowDown />)}
-    </Th>
+    </ThPointer>
   );
 };
 
@@ -241,30 +245,39 @@ const FileManagerSlide = () => {
   useEffect(() => {
     backend
       .filesIndex({ metadataKey: "0x0x" })
-      .then(setFiles)
+      .then(files => {
+        setFiles(_.orderBy(files, "modifiedAt", "desc"));
+      })
       .catch(() =>
-        setFiles([
-          {
-            name: "HR Stuff",
-            handle: "0x0x0x",
-            modifiedAt: "01/03/2019",
-            size: 40
-          },
-          {
-            name: "Stuff",
-            handle: "1x0x0x0x",
-            modifiedAt: "02/03/2019",
-            size: 30
-          },
-          {
-            name: "Maine",
-            handle: "2xx2x2x2",
-            modifiedAt: "03/03/2019",
-            size: 20
-          }
-        ])
+        setFiles(
+          _.orderBy(
+            [
+              {
+                name: "HR Stuff",
+                handle: "0x0x0x",
+                modifiedAt: "01/03/2019",
+                size: 40
+              },
+              {
+                name: "Stuff",
+                handle: "1x0x0x0x",
+                modifiedAt: "02/03/2019",
+                size: 30
+              },
+              {
+                name: "Maine",
+                handle: "2xx2x2x2",
+                modifiedAt: "03/03/2019",
+                size: 20
+              }
+            ],
+            "modifiedAt",
+            "desc"
+          )
+        )
       );
   }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Container>
