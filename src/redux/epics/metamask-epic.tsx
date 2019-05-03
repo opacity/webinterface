@@ -1,5 +1,6 @@
-import { Observable } from "rxjs";
-import { combineEpics } from "redux-observable";
+import { from as fromPromise, of } from "rxjs";
+import { mergeMap, map, catchError, ignoreElements, tap } from "rxjs/operators";
+import { ofType, combineEpics } from "redux-observable";
 
 import metamaskActions from "../actions/metamask-actions";
 import Metamask from "../../services/metamask";
@@ -7,28 +8,31 @@ import Metamask from "../../services/metamask";
 const METAMASK_URL = "https://metamask.io/";
 
 const metamaskAccountEpic = action$ =>
-  action$.ofType(metamaskActions.CREATE_TRANSACTION).mergeMap(action => {
-    const { cost, ethAddress, gasPrice } = action.payload;
-    return Observable.fromPromise(Metamask.fetchDefaultMetamaskAccount())
-      .map(account =>
-        metamaskActions.paymentPending({
-          to: ethAddress,
-          from: account,
-          cost,
-          gasPrice
-        })
-      )
-      .catch(e => Observable.of(metamaskActions.accountError(e)));
-  });
+  action$.pipe(
+    ofType(metamaskActions.CREATE_TRANSACTION),
+    mergeMap(({ payload }) => {
+      const { cost, ethAddress, gasPrice } = payload;
+      return fromPromise(Metamask.fetchDefaultMetamaskAccount()).pipe(
+        map(account =>
+          metamaskActions.paymentPending({
+            to: ethAddress,
+            from: account,
+            cost,
+            gasPrice
+          })
+        ),
+        catchError(e => of(metamaskActions.accountError(e)))
+      );
+    })
+  );
 
 const metamaskTransactionEpic = action$ =>
-  action$
-    .ofType(metamaskActions.PAYMENT_PENDING)
-    .mergeMap(action => {
-      const { from, to, cost, gasPrice } = action.payload;
-
-      return Observable.fromPromise(Metamask.getTransactionNonce(from))
-        .map(nonce => {
+  action$.pipe(
+    ofType(metamaskActions.PAYMENT_PENDING),
+    mergeMap(({ payload }) => {
+      const { from, to, cost, gasPrice } = payload;
+      return fromPromise(Metamask.getTransactionNonce(from)).pipe(
+        map(nonce => {
           return {
             to,
             from,
@@ -36,13 +40,12 @@ const metamaskTransactionEpic = action$ =>
             gasPrice,
             nonce
           };
-        })
-        .catch(e => Observable.of(metamaskActions.paymentError(e)));
-    })
-    .mergeMap(transaction => {
-      const { cost, to, from, gasPrice, nonce } = transaction;
-
-      return Observable.fromPromise(
+        }),
+        catchError(e => of(metamaskActions.paymentError(e)))
+      );
+    }),
+    mergeMap(({ cost, to, from, gasPrice, nonce }) => {
+      return fromPromise(
         Metamask.sendTransaction({
           cost,
           to,
@@ -50,18 +53,21 @@ const metamaskTransactionEpic = action$ =>
           gasPrice,
           nonce: nonce + 1
         })
-      )
-        .map(() => metamaskActions.paymentSuccess())
-        .catch(e => Observable.of(metamaskActions.paymentError(e)));
-    });
-
-const metamaskAccountErrorEpic = action$ =>
-  action$
-    .ofType(metamaskActions.ACCOUNT_ERROR)
-    .do(() => {
-      window.open(METAMASK_URL, " _blank");
+      ).pipe(
+        map(() => metamaskActions.paymentSuccess()),
+        catchError(e => of(metamaskActions.paymentError(e)))
+      );
     })
-    .ignoreElements();
+  );
+
+const metamaskAccountErrorEpic = (action$, state$, dependencies$) =>
+  action$.pipe(
+    ofType(metamaskActions.ACCOUNT_ERROR),
+    tap(() => {
+      window.open(METAMASK_URL, " _blank");
+    }),
+    ignoreElements()
+  );
 
 export default combineEpics(
   metamaskAccountEpic,

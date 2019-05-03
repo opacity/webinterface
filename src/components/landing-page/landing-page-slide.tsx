@@ -21,7 +21,9 @@ const ICON_KUCOIN = require("../../assets/images/kucoin.png");
 const ICON_COSSIO = require("../../assets/images/cossio.png");
 const BACKGROUND_BUBBLES = require("../../assets/images/bubbles.svg");
 
-const ContainerWrapper = styled.div``;
+const ContainerWrapper = styled.div`
+  width: 100%;
+`;
 
 const Container = styled.div`
   height: 100%;
@@ -320,10 +322,7 @@ const LandingPageSlide = ({ history }) => (
           </ContentPurchase>
           <ButtonSecondary
             onClick={() =>
-              window.open(
-                "https://twitter.com/opacity_storage",
-                "_blank"
-              )
+              window.open("https://twitter.com/opacity_storage", "_blank")
             }
           >
             Stay Informed

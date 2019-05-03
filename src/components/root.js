@@ -8,6 +8,7 @@ import "./responsive.css";
 import { theme } from "../config";
 
 const Container = styled.div`
+  display: flex;
   min-height: 100%;
   background-color: ${props => props.theme.background};
 `;

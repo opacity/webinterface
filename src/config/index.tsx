@@ -50,6 +50,7 @@ export const API = Object.freeze({
   V2_STATUS_PATH: ":3000/api/v2/status",
   V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",
   V1_LOGIN_PATH: ":3000/api/v1/metadata",
+  V1_FILES_PATH: ":3000/api/v1/files",
   GAS_PRICE: "https://api.blockcypher.com/v1/eth/main",
   CHUNKS_PER_REQUEST: 10
 });
@@ -93,8 +94,7 @@ export const AGREEMENT_TYPES = Object.freeze({
 });
 
 export const THIRD_PARTY = Object.freeze({
-  COINMARKETCAP:
-    "https://opacity.io/widget.php"
+  COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
 export const HEADER_LANDING_PAGE = "LandingPage";
