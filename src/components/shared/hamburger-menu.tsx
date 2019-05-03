@@ -65,7 +65,8 @@ const HamburgerMenu = ({ history, close }) => (
       isOpen={true}
       style={{
         overlay: {
-          backgroundColor: theme.header.background
+          backgroundColor: theme.header.background,
+          zIndex: 1000
         },
         content: {
           top: 0,
