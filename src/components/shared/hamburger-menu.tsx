@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { withRouter } from "react-router";
 import Modal from "react-modal";
 
 import { theme, MOBILE_WIDTH } from "../../config";
@@ -24,42 +23,16 @@ const MobileNavigation = styled.div`
 const IconWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-`;
-
-const Link = styled.a`
-  margin-right: 95px;
-  align-items: center;
-  color: ${props => props.theme.header.color};
-  cursor: pointer;
-  display: flex;
-  font-size: 14px;
-  font-stretch: normal;
-  font-style: normal;
-  font-weight: bold;
-  letter-spacing: 0.4px;
-  line-height: normal;
-  text-decoration: none;
-  text-transform: uppercase;
-
-  &:hover {
-    text-decoration: none;
-    opacity: 0.8;
-  }
-`;
-
-const LinkNavigation = styled(Link)`
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    font-size: 20px;
-    margin: 25px;
-  }
+  padding-right: 10px;
 `;
 
 const CloseIcon = styled.img`
+  cursor: pointer;
   width: 22px;
   height: 22px;
 `;
 
-const HamburgerMenu = ({ history, close, isOpen }) => (
+const HamburgerMenu = ({ close, isOpen, children }) => (
   <ThemeProvider theme={theme}>
     <Modal
       isOpen={isOpen}
@@ -81,24 +54,10 @@ const HamburgerMenu = ({ history, close, isOpen }) => (
         <CloseIcon src={ICON_CLOSE} alt="close" onClick={close} />
       </IconWrapper>
       <MobileNavigation>
-        <LinkContainer>
-          <LinkNavigation onClick={() => history.push("/stands-out")}>
-            STANDS OUT
-          </LinkNavigation>
-          <LinkNavigation onClick={() => history.push("/team-page")}>
-            TEAM
-          </LinkNavigation>
-
-          <LinkNavigation
-            href="https://medium.com/opacity-storage/"
-            target="_blank"
-          >
-            BLOG
-          </LinkNavigation>
-        </LinkContainer>
+        <LinkContainer>{children}</LinkContainer>
       </MobileNavigation>
     </Modal>
   </ThemeProvider>
 );
 
-export default withRouter(HamburgerMenu);
+export default HamburgerMenu;

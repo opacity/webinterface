@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
 
@@ -11,6 +11,8 @@ import {
   HEADER_SCREEEN_CONTAINER,
   HEADER_TEAM_PAGE
 } from "../../config";
+
+import HamburgerMenu from "./hamburger-menu";
 
 const ICON_LOGO = require("../../assets/images/logo.svg");
 const ICON_HAMBURGER = require("../../assets/images/hamburger.svg");
@@ -99,6 +101,7 @@ const CompanyName = styled.span`
 `;
 
 const HamburgerIcon = styled.img`
+  cursor: pointer;
   width: 28px;
   height: 28px;
   display: none;
@@ -107,98 +110,87 @@ const HamburgerIcon = styled.img`
   }
 `;
 
-const renderNavigation = (type, history) => {
-  if (type === HEADER_LANDING_PAGE) {
-    return (
-      <LinkContainer>
-        <LinkNavigation onClick={() => history.push("/stands-out")}>
-          STANDS OUT
-        </LinkNavigation>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          TEAM
-        </LinkNavigation>
+const renderNavigation = type => {
+  switch (type) {
+    case HEADER_LANDING_PAGE:
+      return (
+        <LinkContainer>
+          <LinkNavigation href="/stands-out">STANDS OUT</LinkNavigation>
+          <LinkNavigation href="/team-page">TEAM</LinkNavigation>
 
-        <LinkNavigation
-          href="https://medium.com/opacity-storage/"
-          target="_blank"
-        >
-          BLOG
-        </LinkNavigation>
-      </LinkContainer>
-    );
-  } else if (type === HEADER_SCREEEN_CONTAINER) {
-    return (
-      <LinkContainer>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          ABOUT US
-        </LinkNavigation>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          RESOURCES
-        </LinkNavigation>
-        <LinkNavigation
-          href="https://medium.com/opacity-storage/"
-          target="_blank"
-        >
-          BLOG
-        </LinkNavigation>
-      </LinkContainer>
-    );
-  } else if (type === HEADER_TEAM_PAGE) {
-    return (
-      <LinkContainer>
-        <LinkNavigation onClick={() => history.push("/stands-out")}>
-          THE PLATFORM
-        </LinkNavigation>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          TEAM
-        </LinkNavigation>
-        <LinkNavigation
-          href="https://medium.com/opacity-storage/"
-          target="_blank"
-        >
-          BLOG
-        </LinkNavigation>
-      </LinkContainer>
-    );
+          <LinkNavigation
+            href="https://medium.com/opacity-storage/"
+            target="_blank"
+          >
+            BLOG
+          </LinkNavigation>
+        </LinkContainer>
+      );
+    case HEADER_SCREEEN_CONTAINER:
+      return (
+        <LinkContainer>
+          <LinkNavigation href="/team-page">ABOUT US</LinkNavigation>
+          <LinkNavigation href="/team-page">RESOURCES</LinkNavigation>
+          <LinkNavigation
+            href="https://medium.com/opacity-storage/"
+            target="_blank"
+          >
+            BLOG
+          </LinkNavigation>
+        </LinkContainer>
+      );
+    case HEADER_TEAM_PAGE:
+      return (
+        <LinkContainer>
+          <LinkNavigation href="/stands-out">THE PLATFORM</LinkNavigation>
+          <LinkNavigation href="/team-page">TEAM</LinkNavigation>
+          <LinkNavigation
+            href="https://medium.com/opacity-storage/"
+            target="_blank"
+          >
+            BLOG
+          </LinkNavigation>
+        </LinkContainer>
+      );
+    default:
+      return null;
   }
-  return null;
 };
 
 interface HeaderProps {
   type;
   history;
-  openHamburgerMenu;
 }
 
-class Header extends React.Component<HeaderProps, {}> {
-  render() {
-    const { type, history, openHamburgerMenu } = this.props;
-    return (
-      <ThemeProvider theme={theme}>
-        <Container>
-          <Navbar>
-            <LogoContainer>
-              <Link
-                title="Opacity Storage's Logo"
-                onClick={() => history.push("/")}
-              >
-                <Logo src={ICON_LOGO} alt="logo" />
-                <CompanyName>Opacity</CompanyName>
-              </Link>
-            </LogoContainer>
-            <HamburgerIcon
-              src={ICON_HAMBURGER}
-              alt="navigation"
-              onClick={openHamburgerMenu}
-            />
-            <DesktopNavigation>
-              {renderNavigation(type, history)}
-            </DesktopNavigation>
-          </Navbar>
-        </Container>
-      </ThemeProvider>
-    );
-  }
-}
+const Header = ({ type, history }: HeaderProps) => {
+  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Navbar>
+          <LogoContainer>
+            <Link title="Opacity Storage's Logo" href="/">
+              <Logo src={ICON_LOGO} alt="logo" />
+              <CompanyName>Opacity</CompanyName>
+            </Link>
+          </LogoContainer>
+          <HamburgerIcon
+            src={ICON_HAMBURGER}
+            alt="navigation"
+            onClick={() => setIsHamburgerOpen(true)}
+          />
+          <DesktopNavigation>{renderNavigation(type)}</DesktopNavigation>
+          <HamburgerMenu
+            isOpen={isHamburgerOpen}
+            close={() => setIsHamburgerOpen(false)}
+          >
+            {renderNavigation(type)}
+          </HamburgerMenu>
+        </Navbar>
+      </Container>
+    </ThemeProvider>
+  );
+};
 
 export default withRouter(Header);
