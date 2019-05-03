@@ -16,10 +16,10 @@ const ICON_LOGO = require("../../assets/images/logo.svg");
 const ICON_HAMBURGER = require("../../assets/images/hamburger.svg");
 const ICON_CLOSE = require("../../assets/images/close.svg");
 
-const Container = styled.div<{ menuOpen: boolean }>`
+const Container = styled.div`
   background: ${props => props.theme.header.background};
   padding: 17px 32px;
-  position: ${props => (props.menuOpen ? "fixed" : "static")};
+  position: static;
   top: 0;
   left: 0;
   right: 0;
@@ -52,23 +52,6 @@ const DesktopNavigation = styled.div`
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     display: none;
   }
-`;
-
-const MobileNavigationContainer = styled.div`
-  @media only screen and (min-width: ${MOBILE_WIDTH}px) {
-    display: none;
-  }
-`;
-
-const MobileNavigation = styled.div`
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  background-color: ${props => props.theme.header.background};
-  top: 60px;
-  left: 0;
-  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
-  z-index: 1000;
 `;
 
 const Link = styled.a`
@@ -123,11 +106,6 @@ const HamburgerIcon = styled.img`
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     display: inline-block;
   }
-`;
-
-const CloseIcon = styled.img`
-  width: 22px;
-  height: 22px;
 `;
 
 const renderNavigation = (type, history) => {
@@ -190,31 +168,23 @@ const renderNavigation = (type, history) => {
 interface HeaderProps {
   type;
   history;
+  openHamburgerMenu;
+  closeHamburgerMenu;
+  isHamburgerOpen;
 }
 
-interface HeaderState {
-  menuOpen: boolean;
-}
-
-class Header extends React.Component<HeaderProps, HeaderState> {
-  state = {
-    menuOpen: false
-  };
-
-  hamburgerClick () {
-    this.setState({ menuOpen: true });
-  }
-
-  closeClick () {
-    this.setState({ menuOpen: false });
-  }
-
-  render () {
-    const { type, history } = this.props;
-    const { menuOpen } = this.state;
+class Header extends React.Component<HeaderProps, {}> {
+  render() {
+    const {
+      type,
+      history,
+      openHamburgerMenu,
+      closeHamburgerMenu,
+      isHamburgerOpen
+    } = this.props;
     return (
       <ThemeProvider theme={theme}>
-        <Container menuOpen={menuOpen}>
+        <Container>
           <Navbar>
             <LogoContainer>
               <Link
@@ -225,29 +195,18 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 <CompanyName>Opacity</CompanyName>
               </Link>
             </LogoContainer>
-
-            {!menuOpen && (
+            {isHamburgerOpen ? (
+              <HamburgerIcon
+                src={ICON_CLOSE}
+                alt="navigation"
+                onClick={closeHamburgerMenu}
+              />
+            ) : (
               <HamburgerIcon
                 src={ICON_HAMBURGER}
                 alt="navigation"
-                onClick={() => {
-                  this.hamburgerClick();
-                }}
+                onClick={openHamburgerMenu}
               />
-            )}
-            {menuOpen && (
-              <MobileNavigationContainer>
-                <CloseIcon
-                  src={ICON_CLOSE}
-                  alt="close"
-                  onClick={() => {
-                    this.closeClick();
-                  }}
-                />
-                <MobileNavigation>
-                  {renderNavigation(type, history)}
-                </MobileNavigation>
-              </MobileNavigationContainer>
             )}
             <DesktopNavigation>
               {renderNavigation(type, history)}

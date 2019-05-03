@@ -13,6 +13,7 @@ import Footer from "../shared/footer";
 import Header from "../shared/header";
 import CurrencyWidget from "../shared/currency-widget";
 import VideoPlayer from "../shared/video-player";
+import HamburgerMenu from "../shared/hamburger-menu";
 
 const ICON_CREDIT = require("../../assets/images/credit.svg");
 const ICON_SHARE_FILE = require("../../assets/images/share_file.svg");
@@ -297,10 +298,21 @@ const ContentPurchase = styled.a`
   text-decoration: none;
   display: block;
 `;
-const LandingPageSlide = ({ history }) => (
+
+const LandingPageSlide = ({
+  history,
+  isHamburgerOpen,
+  openHamburgerMenu,
+  closeHamburgerMenu
+}) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header type={HEADER_TEAM_PAGE} />
+      <Header
+        type={HEADER_TEAM_PAGE}
+        isHamburgerOpen={isHamburgerOpen}
+        openHamburgerMenu={openHamburgerMenu}
+        closeHamburgerMenu={closeHamburgerMenu}
+      />
       <HeaderContainer>
         <Title>Secure. Anonymous. Opaque.</Title>
         <ContentWrapper>
@@ -513,6 +525,7 @@ const LandingPageSlide = ({ history }) => (
         <CurrencyWidget />
       </Container>
       <Footer />
+      {isHamburgerOpen && <HamburgerMenu close={closeHamburgerMenu} />}
     </ContainerWrapper>
   </ThemeProvider>
 );

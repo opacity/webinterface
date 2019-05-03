@@ -7,6 +7,7 @@ import uploadHistory from "../reducers/upload-history-reducer";
 import download from "../reducers/download-reducer";
 import signup from "../reducers/signup-reducer";
 import authentication from "../reducers/authentication-reducer";
+import hamburger from "../reducers/hamburger-reducer";
 
 export default combineReducers({
   coinMarketCap,
@@ -15,5 +16,6 @@ export default combineReducers({
   download,
   signup,
   authentication,
+  hamburger,
   router: routerReducer
 });
