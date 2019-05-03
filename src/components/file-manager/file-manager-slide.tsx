@@ -190,7 +190,7 @@ interface File {
   size: number;
 }
 
-const FileManagerSlide = ({ upload }) => {
+const FileManagerSlide = ({ upload, accountId }) => {
   const [files, setFiles] = useState<File[]>([]);
 
   useEffect(() => {
@@ -239,7 +239,7 @@ const FileManagerSlide = ({ upload }) => {
           <TableContainer>
             <Title>All Files</Title>
             <ButtonWrapper>
-              <UploadButton onSelected={console.log} />
+              <UploadButton onSelected={files => upload(files, accountId)} />
             </ButtonWrapper>
             <Table>
               <thead>

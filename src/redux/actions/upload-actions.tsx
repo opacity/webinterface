@@ -9,9 +9,9 @@ const ACTIONS = Object.freeze({
   UPLOAD_SUCCESS,
   UPLOAD_ERROR,
 
-  streamUpload: ({ file }) => ({
+  streamUpload: ({ files, accountId }) => ({
     type: UPLOAD,
-    payload: { file }
+    payload: { files, accountId }
   }),
   streamUploadProgress: ({ progress }) => ({
     type: UPLOAD_PROGRESS,
