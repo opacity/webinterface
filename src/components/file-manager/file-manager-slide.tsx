@@ -14,14 +14,14 @@ import UploadButton from "./upload-button";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
-const ActionLink = styled.a`
-  padding: 5px 10px;
-`;
-
 const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+`;
+
+const ActionLink = styled.a`
+  padding: 5px 10px;
 `;
 
 const TableContainer = styled.div`
@@ -193,7 +193,6 @@ interface File {
 
 const FileManagerSlide = () => {
   const [files, setFiles] = useState<File[]>([]);
-  const [showScreen, setShowScreen] = useState(true);
 
   useEffect(() => {
     backend
@@ -223,67 +222,58 @@ const FileManagerSlide = () => {
       );
   }, []);
 
-  const renderContens = () => {
-    return (
-      <Contents>
-        <LeftSideNav>
-          <StorageInfo>
-            <StorageTitleWrapper>
-              <StorageTitle>30GB/100GB USED</StorageTitle>
-            </StorageTitleWrapper>
-            <StorageProgressWrapper>
-              <StorageProgress />
-            </StorageProgressWrapper>
-          </StorageInfo>
-        </LeftSideNav>
-        <TableContainer>
-          <Title>All Files</Title>
-          <ButtonWrapper>
-            <UploadButton onSelected={console.log} />
-          </ButtonWrapper>
-          <Table>
-            <thead>
-              <Tr>
-                <Th />
-                <Th>Name</Th>
-                <Th>File Handle</Th>
-                <Th>Date</Th>
-                <Th>Size</Th>
-                <Th>Actions</Th>
-              </Tr>
-            </thead>
-            <tbody>
-              {files.map(({ name, handle, modifiedAt, size }) => (
-                <Tr key={handle}>
-                  <Td>
-                    <TableIcon src={ICON_LOGO} />
-                  </Td>
-                  <Td>{name}</Td>
-                  <Td>{handle}</Td>
-                  <Td>{modifiedAt}</Td>
-                  <Td>{size} FILES</Td>
-                  <Td>
-                    <ActionLink>Download</ActionLink>
-                    <ActionLink>Delete</ActionLink>
-                  </Td>
-                </Tr>
-              ))}
-            </tbody>
-          </Table>
-          <ButtonMobileWrapper />
-        </TableContainer>
-      </Contents>
-    );
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Header
-          type={HEADER_FILE_MANAGER}
-          setShowScreen={show => setShowScreen(show)}
-        />
-        {showScreen && renderContens()}
+        <Header type={HEADER_FILE_MANAGER} />
+        <Contents>
+          <LeftSideNav>
+            <StorageInfo>
+              <StorageTitleWrapper>
+                <StorageTitle>30GB/100GB USED</StorageTitle>
+              </StorageTitleWrapper>
+              <StorageProgressWrapper>
+                <StorageProgress />
+              </StorageProgressWrapper>
+            </StorageInfo>
+          </LeftSideNav>
+          <TableContainer>
+            <Title>All Files</Title>
+            <ButtonWrapper>
+              <UploadButton onSelected={console.log} />
+            </ButtonWrapper>
+            <Table>
+              <thead>
+                <Tr>
+                  <Th />
+                  <Th>Name</Th>
+                  <Th>File Handle</Th>
+                  <Th>Date</Th>
+                  <Th>Size</Th>
+                  <Th>Actions</Th>
+                </Tr>
+              </thead>
+              <tbody>
+                {files.map(({ name, handle, modifiedAt, size }) => (
+                  <Tr key={handle}>
+                    <Td>
+                      <TableIcon src={ICON_LOGO} />
+                    </Td>
+                    <Td>{name}</Td>
+                    <Td>{handle}</Td>
+                    <Td>{modifiedAt}</Td>
+                    <Td>{size} FILES</Td>
+                    <Td>
+                      <ActionLink>Download</ActionLink>
+                      <ActionLink>Delete</ActionLink>
+                    </Td>
+                  </Tr>
+                ))}
+              </tbody>
+            </Table>
+            <ButtonMobileWrapper />
+          </TableContainer>
+        </Contents>
       </Container>
     </ThemeProvider>
   );

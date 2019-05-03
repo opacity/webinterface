@@ -10,7 +10,7 @@ import {
 } from "../../config";
 import Subscription from "../shared/subscription";
 import Footer from "../shared/footer";
-import PageContainer from "../shared/page-container";
+import Header from "../shared/header";
 import CurrencyWidget from "../shared/currency-widget";
 import VideoPlayer from "../shared/video-player";
 
@@ -26,6 +26,10 @@ const ICON_INFO_CRYPTOCURRENCY = require("../../assets/images/info_cryptocurrenc
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
 const ICON_COSSIO = require("../../assets/images/cossio.png");
 const BACKGROUND_BUBBLES = require("../../assets/images/bubbles.svg");
+
+const ContainerWrapper = styled.div`
+  width: 100%;
+`;
 
 const Container = styled.div`
   max-width: 950px;
@@ -295,7 +299,8 @@ const ContentPurchase = styled.a`
 `;
 const LandingPageSlide = ({ history }) => (
   <ThemeProvider theme={theme}>
-    <PageContainer type={HEADER_TEAM_PAGE}>
+    <ContainerWrapper>
+      <Header type={HEADER_TEAM_PAGE} />
       <HeaderContainer>
         <Title>Secure. Anonymous. Opaque.</Title>
         <ContentWrapper>
@@ -508,7 +513,7 @@ const LandingPageSlide = ({ history }) => (
         <CurrencyWidget />
       </Container>
       <Footer />
-    </PageContainer>
+    </ContainerWrapper>
   </ThemeProvider>
 );
 
