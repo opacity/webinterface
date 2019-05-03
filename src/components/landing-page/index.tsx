@@ -7,7 +7,7 @@ const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({});
 
-const LandingPage = () => <LandingPageSlide />;
+const LandingPage = ({}) => <LandingPageSlide />;
 
 export default connect(
   mapStateToProps,

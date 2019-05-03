@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import { HEADER_SCREEEN_CONTAINER, DESKTOP_WIDTH, theme } from "../../config";
@@ -43,26 +43,17 @@ const Underline = styled.hr`
   }
 `;
 
-const ScreenContainer = ({ title, children }) => {
-  const [showScreen, setShowScreen] = useState(true);
-
-  return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <Header
-          setShowScreen={show => setShowScreen(show)}
-          type={HEADER_SCREEEN_CONTAINER}
-        />
-        {showScreen && (
-          <Screen>
-            <Title>{title}</Title>
-            <Underline />
-            {children}
-          </Screen>
-        )}
-      </Container>
-    </ThemeProvider>
-  );
-};
+const ScreenContainer = ({ title, children }) => (
+  <ThemeProvider theme={theme}>
+    <Container>
+      <Header type={HEADER_SCREEEN_CONTAINER} />
+      <Screen>
+        <Title>{title}</Title>
+        <Underline />
+        {children}
+      </Screen>
+    </Container>
+  </ThemeProvider>
+);
 
 export default ScreenContainer;

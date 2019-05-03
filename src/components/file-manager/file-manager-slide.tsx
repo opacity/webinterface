@@ -15,14 +15,14 @@ import UploadButton from "./upload-button";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
-const ActionLink = styled.a`
-  padding: 5px 10px;
-`;
-
 const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+`;
+
+const ActionLink = styled.a`
+  padding: 5px 10px;
 `;
 
 const TableContainer = styled.div`

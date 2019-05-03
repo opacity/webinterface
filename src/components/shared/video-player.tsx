@@ -6,8 +6,6 @@ import { MOBILE_WIDTH } from "../../config";
 
 import "video-react/dist/video-react.css";
 
-const POSTER = require("../../assets/images/landing-page-video-poster.png");
-
 const Container = styled.div`
   padding: 10px;
   max-width: 800px;
@@ -24,7 +22,7 @@ interface VideoPlayerProps {
 
 const VideoPlayer = ({ src }: VideoPlayerProps) => (
   <Container>
-    <Player playsInline={true} autoPlay={true} src={src} poster={POSTER} preload="auto" />
+    <Player playsInline={true} autoPlay={true} src={src} preload="auto" />
   </Container>
 );
 
