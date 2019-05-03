@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
+import Modal from "react-modal";
 
 import { theme, MOBILE_WIDTH } from "../../config";
 
@@ -16,21 +17,13 @@ const LinkContainer = styled.div`
   }
 `;
 
-const MobileNavigationContainer = styled.div`
-  @media only screen and (min-width: ${MOBILE_WIDTH}px) {
-    display: none;
-  }
+const MobileNavigation = styled.div`
+  background-color: ${props => props.theme.header.background};
 `;
 
-const MobileNavigation = styled.div`
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  background-color: ${props => props.theme.header.background};
-  top: 60px;
-  left: 0;
-  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
-  z-index: 1000;
+const IconWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const Link = styled.a`
@@ -68,8 +61,24 @@ const CloseIcon = styled.img`
 
 const HamburgerMenu = ({ history, close }) => (
   <ThemeProvider theme={theme}>
-    <MobileNavigationContainer>
-      <CloseIcon src={ICON_CLOSE} alt="close" onClick={close} />
+    <Modal
+      isOpen={true}
+      style={{
+        overlay: {
+          backgroundColor: theme.header.background
+        },
+        content: {
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: theme.header.background
+        }
+      }}
+    >
+      <IconWrapper>
+        <CloseIcon src={ICON_CLOSE} alt="close" onClick={close} />
+      </IconWrapper>
       <MobileNavigation>
         <LinkContainer>
           <LinkNavigation onClick={() => history.push("/stands-out")}>
@@ -87,7 +96,7 @@ const HamburgerMenu = ({ history, close }) => (
           </LinkNavigation>
         </LinkContainer>
       </MobileNavigation>
-    </MobileNavigationContainer>
+    </Modal>
   </ThemeProvider>
 );
 

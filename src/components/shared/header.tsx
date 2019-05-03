@@ -14,7 +14,6 @@ import {
 
 const ICON_LOGO = require("../../assets/images/logo.svg");
 const ICON_HAMBURGER = require("../../assets/images/hamburger.svg");
-const ICON_CLOSE = require("../../assets/images/close.svg");
 
 const Container = styled.div`
   background: ${props => props.theme.header.background};
@@ -169,19 +168,11 @@ interface HeaderProps {
   type;
   history;
   openHamburgerMenu;
-  closeHamburgerMenu;
-  isHamburgerOpen;
 }
 
 class Header extends React.Component<HeaderProps, {}> {
   render() {
-    const {
-      type,
-      history,
-      openHamburgerMenu,
-      closeHamburgerMenu,
-      isHamburgerOpen
-    } = this.props;
+    const { type, history, openHamburgerMenu } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <Container>
@@ -195,19 +186,11 @@ class Header extends React.Component<HeaderProps, {}> {
                 <CompanyName>Opacity</CompanyName>
               </Link>
             </LogoContainer>
-            {isHamburgerOpen ? (
-              <HamburgerIcon
-                src={ICON_CLOSE}
-                alt="navigation"
-                onClick={closeHamburgerMenu}
-              />
-            ) : (
-              <HamburgerIcon
-                src={ICON_HAMBURGER}
-                alt="navigation"
-                onClick={openHamburgerMenu}
-              />
-            )}
+            <HamburgerIcon
+              src={ICON_HAMBURGER}
+              alt="navigation"
+              onClick={openHamburgerMenu}
+            />
             <DesktopNavigation>
               {renderNavigation(type, history)}
             </DesktopNavigation>
