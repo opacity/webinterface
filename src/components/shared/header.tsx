@@ -189,6 +189,7 @@ const renderNavigation = (type, history) => {
 
 interface HeaderProps {
   type;
+  setShowScreen;
   history;
 }
 
@@ -203,10 +204,12 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 
   hamburgerClick () {
     this.setState({ menuOpen: true });
+    this.props.setShowScreen(false);
   }
 
   closeClick () {
     this.setState({ menuOpen: false });
+    this.props.setShowScreen(true);
   }
 
   render () {

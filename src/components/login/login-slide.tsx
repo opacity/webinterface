@@ -9,13 +9,9 @@ import {
   theme
 } from "../../config";
 
-import Header from "../shared/header";
+import PageContainer from "../shared/page-container";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
-
-const LoginContainer = styled.div`
-  width: 100%;
-`;
 
 const ErrorMessage = styled.p`
   color: ${props => props.theme.error.color};
@@ -189,13 +185,12 @@ class LoginOrRegisterSlide extends Component<
     storagePin: ""
   };
 
-  render () {
+  render() {
     const { login, status } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
-        <LoginContainer>
-          <Header type={HEADER_SCREEEN_CONTAINER} />
+        <PageContainer type={HEADER_SCREEEN_CONTAINER}>
           <StorageContainer>
             <Storage>
               <Container>
@@ -237,7 +232,7 @@ class LoginOrRegisterSlide extends Component<
               </Container>
             </Storage>
           </StorageContainer>
-        </LoginContainer>
+        </PageContainer>
       </ThemeProvider>
     );
   }

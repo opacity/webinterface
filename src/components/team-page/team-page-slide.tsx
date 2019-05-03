@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
 import Footer from "../shared/footer";
-import Header from "../shared/header";
+import PageContainer from "../shared/page-container";
 
 const ICON_GITHUB = require("../../assets/images/tp-github.svg");
 const ICON_LINKEDIN = require("../../assets/images/tp-linkedin.svg");
@@ -84,10 +84,6 @@ const people = [
     linkedin: "https://www.linkedin.com/in/ladislav-balon-00134b54/"
   }
 ];
-
-const ContainerWrapper = styled.div`
-  width: 100%;
-`;
 
 const Container = styled.div`
   max-width: 950px;
@@ -214,8 +210,7 @@ const PersonLink = styled.a`
 
 const TeamPageSlide = () => (
   <ThemeProvider theme={theme}>
-    <ContainerWrapper>
-      <Header type={HEADER_TEAM_PAGE} />
+    <PageContainer type={HEADER_TEAM_PAGE}>
       <HeaderContainer>
         <Title>Meet the Team</Title>
         <ContentWrapper>
@@ -250,7 +245,7 @@ const TeamPageSlide = () => (
         </PeopleContainer>
       </Container>
       <Footer />
-    </ContainerWrapper>
+    </PageContainer>
   </ThemeProvider>
 );
 
