@@ -22,7 +22,7 @@ interface VideoPlayerProps {
 
 const VideoPlayer = ({ src }: VideoPlayerProps) => (
   <Container>
-    <Player playsInline autoPlay src={src} preload="auto" />
+    <Player playsInline={true} autoPlay={true} src={src} preload="auto" />
   </Container>
 );
 
