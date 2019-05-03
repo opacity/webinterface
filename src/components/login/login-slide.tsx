@@ -189,7 +189,7 @@ class LoginOrRegisterSlide extends Component<
     storagePin: ""
   };
 
-  render() {
+  render () {
     const { login, status } = this.props;
 
     return (
