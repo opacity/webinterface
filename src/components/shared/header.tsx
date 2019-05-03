@@ -171,10 +171,8 @@ const renderNavigation = type => {
   if (type === HEADER_LANDING_PAGE) {
     return (
       <LinkContainer>
-        <LinkNavigation href={"/stands-out"} />
-        STANDS OUT
+        <LinkNavigation href={"/stands-out"}>STANDS OUT</LinkNavigation>
         <LinkNavigation href={"/team-page"}>TEAM</LinkNavigation>
-        <LinkNavigation href={"/stands-out"} />
         <LinkNavigation
           href={"https://medium.com/opacity-storage/"}
           target="_blank"
