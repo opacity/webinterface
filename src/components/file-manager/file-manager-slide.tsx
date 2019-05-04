@@ -1,7 +1,8 @@
 import _ from "lodash";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import backend from "../../services/backend";
+import { useDropzone } from "react-dropzone";
 
 import {
   HEADER_FILE_MANAGER,
@@ -13,6 +14,7 @@ import {
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
 import RecoveryModal from "./recovery-modal";
+import DragAndDropOverlay from "./drag-and-drop-overlay";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
@@ -249,6 +251,13 @@ interface File {
 const FileManagerSlide = ({ upload, download, accountId }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [paramArrow, setParamArrow] = useState("");
+  const onDrop = useCallback(
+    draggedFiles => upload(draggedFiles, accountId),
+    []
+  );
+  const { getRootProps, isDragActive } = useDropzone({
+    onDrop
+  });
 
   const sortBy = (param, order) => {
     setParamArrow(param);
@@ -293,7 +302,7 @@ const FileManagerSlide = ({ upload, download, accountId }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container>
+      <Container {...getRootProps({ refKey: "dropzone" })}>
         <RecoveryModal />
         <Header type={HEADER_FILE_MANAGER} />
         <Contents>
@@ -361,6 +370,7 @@ const FileManagerSlide = ({ upload, download, accountId }) => {
             <ButtonMobileWrapper />
           </TableContainer>
         </Contents>
+        {isDragActive && <DragAndDropOverlay />}
       </Container>
     </ThemeProvider>
   );
