@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { DragDropContextProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 
 import uploadActions from "../../redux/actions/upload-actions";
 import downloadActions from "../../redux/actions/download-actions";
@@ -16,7 +18,13 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const FileManager = ({ upload, download, accountId }) => (
-  <FileManagerSlide upload={upload} download={download} accountId={accountId} />
+  <DragDropContextProvider backend={HTML5Backend}>
+    <FileManagerSlide
+      upload={upload}
+      download={download}
+      accountId={accountId}
+    />
+  </DragDropContextProvider>
 );
 
 export default connect(
