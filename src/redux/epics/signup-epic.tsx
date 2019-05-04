@@ -12,6 +12,7 @@ import forge from "node-forge";
 
 import signupActions from "../actions/signup-actions";
 import backend from "../../services/backend";
+import * as Account from "../../services/account";
 
 const createAccountEpic = (action$, state$, dependencies$) =>
   action$.pipe(
@@ -22,10 +23,10 @@ const createAccountEpic = (action$, state$, dependencies$) =>
       const md = forge.md.sha256.create();
       md.update(privateKey + storagePin);
 
-      const accountId = md.digest().toHex();
+      const accountId = Account.getAccountId({ privateKey, storagePin });
+      const metadataKey = Account.getMetadataKey({ privateKey, storagePin });
       const storageLimit = 100;
       const durationInMonths = 12;
-      const metadataKey = md.digest().toHex();
 
       return from(
         backend.createAccount({

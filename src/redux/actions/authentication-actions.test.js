@@ -15,15 +15,15 @@ test("loginPending", () => {
 });
 
 test("loginSuccess", () => {
-  const metadataKey = "foo";
+  const accountId = "foo";
 
   const expected = {
     type: actions.LOGIN_SUCCESS,
     payload: {
-      metadataKey
+      accountId
     }
   };
-  expect(actions.loginSuccess({ metadataKey })).toEqual(expected);
+  expect(actions.loginSuccess({ accountId })).toEqual(expected);
 });
 
 test("loginFailure", () => {

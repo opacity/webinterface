@@ -5,19 +5,13 @@ import { push } from "react-router-redux";
 import authenticationActions from "../actions/authentication-actions";
 import authenticationEpic from "./authentication-epic";
 
-jest.mock("node-forge", () => ({
-  md: {
-    sha256: {
-      create: () => ({
-        update: () => {},
-        digest: () => ({ toHex: () => "FAKE_METADATA_KEY" })
-      })
-    }
-  }
+jest.mock("../../services/backend", () => ({
+  login: ({ accountId }) => new Promise((resolve, reject) => resolve())
 }));
 
-jest.mock("../../services/backend", () => ({
-  login: ({ metadataKey }) => new Promise((resolve, reject) => resolve())
+jest.mock("../../services/account", () => ({
+  getMetadataKey: () => "FAKE_METADATA_KEY",
+  getAccountId: () => "FAKE_ACCOUNT_ID"
 }));
 
 test("authenticationEpic loginEpic", async done => {
@@ -36,7 +30,7 @@ test("authenticationEpic loginEpic", async done => {
     .subscribe(actions => {
       expect(actions).toEqual([
         authenticationActions.loginSuccess({
-          metadataKey: "FAKE_METADATA_KEY"
+          accountId: "FAKE_ACCOUNT_ID"
         }),
         push("/file-manager")
       ]);
