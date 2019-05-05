@@ -226,15 +226,15 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     menuOpen: false
   };
 
-  hamburgerClick() {
+  hamburgerClick () {
     this.setState({ menuOpen: true });
   }
 
-  closeClick() {
+  closeClick () {
     this.setState({ menuOpen: false });
   }
 
-  render() {
+  render () {
     const { type } = this.props;
     const { menuOpen } = this.state;
     return (
