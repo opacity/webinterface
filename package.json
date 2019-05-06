@@ -116,9 +116,10 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "husky": "^0.14.3",
+    "husky": "^2.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest-enzyme": "^4.2.0",
+    "lint-staged": "^8.1.6",
     "nock": "^9.2.5",
     "numeral": "^2.0.6",
     "regenerator-runtime": "^0.11.1",
@@ -134,6 +135,7 @@
     "build": "cross-env NODE_ENV=production webpack --config='config/webpack.config.js' --mode production",
     "test": "jest",
     "lint": "tslint --project . --config tslint.config.js",
+    "lint-staged": "lint-staged",
     "pretty": "tslint --project . --config tslint.config.js --fix",
     "test:install": "cypress install",
     "test:watch": "cross-env NODE_PATH=src jest --watch --colors",
@@ -178,6 +180,12 @@
       "mjs",
       "ts",
       "tsx"
+    ]
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "tslint --project . --config tslint.config.js --fix",
+      "git add"
     ]
   }
 }
