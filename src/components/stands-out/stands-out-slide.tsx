@@ -30,7 +30,9 @@ const ICON_MEGA_PRO_LITE = require("../../assets/images/mega_pro_lite.png");
 const ICON_SYNC_PERSONAL_PRO = require("../../assets/images/sync_personal_pro.png");
 const ICON_DROPBOX = require("../../assets/images/dropbox_plus.jpg");
 
-const ContainerWrapper = styled.div``;
+const ContainerWrapper = styled.div`
+  width: 100%;
+`;
 
 const Title = styled.h1`
   font-size: 35px;

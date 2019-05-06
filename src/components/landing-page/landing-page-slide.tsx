@@ -31,7 +31,6 @@ const ContainerWrapper = styled.div`
 `;
 
 const Container = styled.div`
-  height: 100%;
   max-width: 950px;
   margin: auto;
   background-color: ${props => props.theme.background};
