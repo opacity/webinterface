@@ -66,7 +66,8 @@ export const IOTA_API = Object.freeze({
 
 export const DOWNLOAD_STATUSES = Object.freeze({
   PENDING: "PENDING",
-  STANDBY: "STANDBY"
+  DOWNLOADING: "DOWNLOADING",
+  DOWNLOAD: "DOWNLOAD"
 });
 
 export const FILE = Object.freeze({
