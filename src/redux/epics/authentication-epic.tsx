@@ -4,10 +4,10 @@ import { switchMap, flatMap, catchError } from "rxjs/operators";
 import { ofType, combineEpics } from "redux-observable";
 
 import { push } from "react-router-redux";
-import * as forge from "node-forge";
 
 import authenticationActions from "../actions/authentication-actions";
 import * as Backend from "../../services/backend";
+import * as Account from "../../services/account";
 
 const loginEpic = (action$, state$, dependencies$) =>
   action$.pipe(
@@ -15,10 +15,7 @@ const loginEpic = (action$, state$, dependencies$) =>
     switchMap(({ payload }) => {
       const { privateKey, storagePin } = payload;
 
-      const m = forge.md.sha256.create();
-      m.update(privateKey + storagePin);
-
-      const metadataKey = m.digest().toHex();
+      const metadataKey = Account.getMetadataKey({ privateKey, storagePin });
 
       return from(
         Backend.login({
@@ -26,8 +23,9 @@ const loginEpic = (action$, state$, dependencies$) =>
         })
       ).pipe(
         flatMap(() => {
+          const accountId = Account.getAccountId({ privateKey, storagePin });
           return [
-            authenticationActions.loginSuccess({ metadataKey }),
+            authenticationActions.loginSuccess({ accountId }),
             push("/file-manager")
           ];
         }),

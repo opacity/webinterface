@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import backend from "../../services/backend";
@@ -153,6 +154,10 @@ const Td = styled.td`
   white-space: nowrap;
 `;
 
+const ThPointer = styled(Th)`
+  cursor: pointer;
+`;
+
 const StorageInfo = styled.div`
   width: 100%;
 `;
@@ -196,6 +201,44 @@ const Contents = styled.div`
   height: 100%;
 `;
 
+const Arrow = styled.span`
+  width: 0;
+  height: 0;
+  position: relative;
+  left: 5px;
+`;
+
+const ArrowTop = styled(Arrow)`
+  top: -10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #687892;
+`;
+
+const ArrowDown = styled(Arrow)`
+  top: 10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #687892;
+`;
+
+const TableHeader = ({ param, title, sortBy, paramArrow }) => {
+  const [order, setOrder] = useState("desc");
+
+  const changeOrder = () => {
+    sortBy(param, order);
+    setOrder(order === "asc" ? "desc" : "asc");
+  };
+
+  return (
+    <ThPointer onClick={() => changeOrder()}>
+      {title}
+      {paramArrow === param &&
+        (order === "desc" ? <ArrowTop /> : <ArrowDown />)}
+    </ThPointer>
+  );
+};
+
 interface File {
   name: string;
   handle: string;
@@ -203,34 +246,48 @@ interface File {
   size: number;
 }
 
-const FileManagerSlide = () => {
+const FileManagerSlide = ({ upload, accountId }) => {
   const [files, setFiles] = useState<File[]>([]);
+  const [paramArrow, setParamArrow] = useState("");
+
+  const sortBy = (param, order) => {
+    setParamArrow(param);
+    setFiles(_.orderBy(files, param, order));
+  };
 
   useEffect(() => {
     backend
       .filesIndex({ metadataKey: "0x0x" })
-      .then(setFiles)
+      .then(files => {
+        setFiles(_.orderBy(files, "modifiedAt", "desc"));
+      })
       .catch(() =>
-        setFiles([
-          {
-            name: "HR Stuff",
-            handle: "0x0x0x",
-            modifiedAt: "01/03/2019",
-            size: 40
-          },
-          {
-            name: "Stuff",
-            handle: "1x0x0x0x",
-            modifiedAt: "02/03/2019",
-            size: 30
-          },
-          {
-            name: "Maine",
-            handle: "2xx2x2x2",
-            modifiedAt: "03/03/2019",
-            size: 20
-          }
-        ])
+        setFiles(
+          _.orderBy(
+            [
+              {
+                name: "HR Stuff",
+                handle: "0x0x0x",
+                modifiedAt: "01/03/2019",
+                size: 40
+              },
+              {
+                name: "Stuff",
+                handle: "1x0x0x0x",
+                modifiedAt: "02/03/2019",
+                size: 30
+              },
+              {
+                name: "Maine",
+                handle: "2xx2x2x2",
+                modifiedAt: "03/03/2019",
+                size: 20
+              }
+            ],
+            "modifiedAt",
+            "desc"
+          )
+        )
       );
   }, []);
 
@@ -253,16 +310,31 @@ const FileManagerSlide = () => {
           <TableContainer>
             <Title>All Files</Title>
             <ButtonWrapper>
-              <UploadButton onSelected={console.log} />
+              <UploadButton onSelected={files => upload(files, accountId)} />
             </ButtonWrapper>
             <Table>
               <thead>
                 <Tr>
                   <Th />
-                  <Th>Name</Th>
+                  <TableHeader
+                    param="name"
+                    title="Name"
+                    paramArrow={paramArrow}
+                    sortBy={(param, order) => sortBy(param, order)}
+                  />
                   <Th>File Handle</Th>
-                  <Th>Date</Th>
-                  <Th>Size</Th>
+                  <TableHeader
+                    param="modifiedAt"
+                    title="Date"
+                    paramArrow={paramArrow}
+                    sortBy={(param, order) => sortBy(param, order)}
+                  />
+                  <TableHeader
+                    param="size"
+                    title="Size"
+                    paramArrow={paramArrow}
+                    sortBy={(param, order) => sortBy(param, order)}
+                  />
                   <Th>Actions</Th>
                 </Tr>
               </thead>
