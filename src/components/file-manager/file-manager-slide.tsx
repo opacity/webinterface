@@ -12,6 +12,7 @@ import {
 
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
+import RecoveryModal from "./recovery-modal";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
@@ -78,6 +79,18 @@ const LeftSideNav = styled.div`
   flex-direction: column-reverse;
   padding: 20px 0;
   width: 250px;
+  position: fixed;
+  z-index: 1130;
+  top: 0;
+  right: -250px;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  transition: 0.5s;
+  margin-top: 62px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 100%;
+    right: 100%;
+  }
 `;
 
 const Table = styled.table`
@@ -281,6 +294,7 @@ const FileManagerSlide = ({ upload, download, accountId }) => {
   return (
     <ThemeProvider theme={theme}>
       <Container>
+        <RecoveryModal />
         <Header type={HEADER_FILE_MANAGER} />
         <Contents>
           <LeftSideNav>
