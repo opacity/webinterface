@@ -67,6 +67,8 @@
     "react-dom": "^16.8.6",
     "react-markdown": "^4.0.6",
     "react-md-spinner": "^0.2.5",
+    "react-modal": "^3.8.1",
+    "react-motion-ui-pack": "^0.10.3",
     "react-redux": "^5.1.1",
     "react-router": "^4.2.0",
     "react-router-redux": "next",
@@ -91,6 +93,7 @@
     "typescript": "^2.9.2",
     "url-loader": "0.6.2",
     "uuid": "^3.2.1",
+    "video-react": "^0.13.6",
     "webpack": "^4.29.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.2.1",
@@ -117,9 +120,10 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "husky": "^0.14.3",
+    "husky": "^2.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest-enzyme": "^4.2.0",
+    "lint-staged": "^8.1.6",
     "nock": "^9.2.5",
     "numeral": "^2.0.6",
     "regenerator-runtime": "^0.11.1",
@@ -135,6 +139,7 @@
     "build": "cross-env NODE_ENV=production webpack --config='config/webpack.config.js' --mode production",
     "test": "jest",
     "lint": "tslint --project . --config tslint.config.js",
+    "lint-staged": "lint-staged",
     "pretty": "tslint --project . --config tslint.config.js --fix",
     "test:install": "cypress install",
     "test:watch": "cross-env NODE_PATH=src jest --watch --colors",
@@ -179,6 +184,12 @@
       "mjs",
       "ts",
       "tsx"
+    ]
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "tslint --project . --config tslint.config.js --fix",
+      "git add"
     ]
   }
 }
