@@ -233,7 +233,7 @@ interface File {
   size: number;
 }
 
-const FileManagerSlide = ({ upload, accountId }) => {
+const FileManagerSlide = ({ upload, download, accountId }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [paramArrow, setParamArrow] = useState("");
 
@@ -335,7 +335,9 @@ const FileManagerSlide = ({ upload, accountId }) => {
                     <Td>{modifiedAt}</Td>
                     <Td>{size} FILES</Td>
                     <Td>
-                      <ActionLink>Download</ActionLink>
+                      <ActionLink onClick={() => download(handle)}>
+                        Download
+                      </ActionLink>
                       <ActionLink>Delete</ActionLink>
                     </Td>
                   </Tr>
