@@ -22,7 +22,9 @@ const ICON_MEGA_PRO_LITE = require("../../assets/images/mega_pro_lite.png");
 const ICON_SYNC_PERSONAL_PRO = require("../../assets/images/sync_personal_pro.png");
 const ICON_DROPBOX = require("../../assets/images/dropbox_plus.jpg");
 
-const ContainerWrapper = styled.div``;
+const ContainerWrapper = styled.div`
+  width: 100%;
+`;
 
 const Title = styled.h1`
   font-size: 35px;
@@ -418,11 +420,11 @@ const SubscriptionSlide = () => (
             <FunctionIconMobile src={ICON_ACCESS_ACCOUNT} />
             <FunctionContent>
               When you sign up with Opacity, a unique Account Handle is created
-              just for you. This Handle and a user-chosen pin is all that
-              is required to access your storage account. By default, you are
-              the only person with this information, so it is important that you
-              record your Account Handle and pin to avoid trouble accessing
-              your account. Keep it safe!
+              just for you. This Handle and a user-chosen pin is all that is
+              required to access your storage account. By default, you are the
+              only person with this information, so it is important that you
+              record your Account Handle and pin to avoid trouble accessing your
+              account. Keep it safe!
             </FunctionContent>
           </Column>
         </SubContainer>
@@ -592,7 +594,9 @@ const SubscriptionSlide = () => (
           Are you ready to join our thriving community?
         </CommunityTitle>
         <TelegramLinkContainer>
-          <OutboundLink href="https://t.me/opacitystorage">Join us on Telegram</OutboundLink>
+          <OutboundLink href="https://t.me/opacitystorage">
+            Join us on Telegram
+          </OutboundLink>
         </TelegramLinkContainer>
         <CommunityContainer>
           <CommunityWrapper>

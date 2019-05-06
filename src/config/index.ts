@@ -92,6 +92,8 @@ export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
+export const LANDING_PAGE_VIDEO = "https://www.sms-zdarma.info/opacity480.mov";
+
 export const HEADER_LANDING_PAGE = "LandingPage";
 export const HEADER_FILE_MANAGER = "FileManager";
 export const HEADER_SCREEEN_CONTAINER = "ScreenContainer";

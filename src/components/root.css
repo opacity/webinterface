@@ -778,3 +778,7 @@ div.Select-control {
   border: none;
   border-radius: 0;
 }
+
+.ReactModal__Body--open {
+  overflow: hidden;
+}

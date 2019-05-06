@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
 
@@ -12,14 +12,15 @@ import {
   HEADER_TEAM_PAGE
 } from "../../config";
 
+import HamburgerMenu from "./hamburger-menu";
+
 const ICON_LOGO = require("../../assets/images/logo.svg");
 const ICON_HAMBURGER = require("../../assets/images/hamburger.svg");
-const ICON_CLOSE = require("../../assets/images/close.svg");
 
-const Container = styled.div<{ menuOpen: boolean }>`
+const Container = styled.div`
   background: ${props => props.theme.header.background};
   padding: 17px 32px;
-  position: ${props => (props.menuOpen ? "fixed" : "static")};
+  position: static;
   top: 0;
   left: 0;
   right: 0;
@@ -52,23 +53,6 @@ const DesktopNavigation = styled.div`
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     display: none;
   }
-`;
-
-const MobileNavigationContainer = styled.div`
-  @media only screen and (min-width: ${MOBILE_WIDTH}px) {
-    display: none;
-  }
-`;
-
-const MobileNavigation = styled.div`
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  background-color: ${props => props.theme.header.background};
-  top: 60px;
-  left: 0;
-  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
-  z-index: 1000;
 `;
 
 const Link = styled.a`
@@ -117,6 +101,7 @@ const CompanyName = styled.span`
 `;
 
 const HamburgerIcon = styled.img`
+  cursor: pointer;
   width: 28px;
   height: 28px;
   display: none;
@@ -125,66 +110,51 @@ const HamburgerIcon = styled.img`
   }
 `;
 
-const CloseIcon = styled.img`
-  width: 22px;
-  height: 22px;
-`;
+const renderNavigation = type => {
+  switch (type) {
+    case HEADER_LANDING_PAGE:
+      return (
+        <LinkContainer>
+          <LinkNavigation href="/stands-out">STANDS OUT</LinkNavigation>
+          <LinkNavigation href="/team-page">TEAM</LinkNavigation>
 
-const renderNavigation = (type, history) => {
-  if (type === HEADER_LANDING_PAGE) {
-    return (
-      <LinkContainer>
-        <LinkNavigation onClick={() => history.push("/stands-out")}>
-          STANDS OUT
-        </LinkNavigation>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          TEAM
-        </LinkNavigation>
-
-        <LinkNavigation
-          href="https://medium.com/opacity-storage/"
-          target="_blank"
-        >
-          BLOG
-        </LinkNavigation>
-      </LinkContainer>
-    );
-  } else if (type === HEADER_SCREEEN_CONTAINER) {
-    return (
-      <LinkContainer>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          ABOUT US
-        </LinkNavigation>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          RESOURCES
-        </LinkNavigation>
-        <LinkNavigation
-          href="https://medium.com/opacity-storage/"
-          target="_blank"
-        >
-          BLOG
-        </LinkNavigation>
-      </LinkContainer>
-    );
-  } else if (type === HEADER_TEAM_PAGE) {
-    return (
-      <LinkContainer>
-        <LinkNavigation onClick={() => history.push("/stands-out")}>
-          THE PLATFORM
-        </LinkNavigation>
-        <LinkNavigation onClick={() => history.push("/team-page")}>
-          TEAM
-        </LinkNavigation>
-        <LinkNavigation
-          href="https://medium.com/opacity-storage/"
-          target="_blank"
-        >
-          BLOG
-        </LinkNavigation>
-      </LinkContainer>
-    );
+          <LinkNavigation
+            href="https://medium.com/opacity-storage/"
+            target="_blank"
+          >
+            BLOG
+          </LinkNavigation>
+        </LinkContainer>
+      );
+    case HEADER_SCREEEN_CONTAINER:
+      return (
+        <LinkContainer>
+          <LinkNavigation href="/team-page">ABOUT US</LinkNavigation>
+          <LinkNavigation href="/team-page">RESOURCES</LinkNavigation>
+          <LinkNavigation
+            href="https://medium.com/opacity-storage/"
+            target="_blank"
+          >
+            BLOG
+          </LinkNavigation>
+        </LinkContainer>
+      );
+    case HEADER_TEAM_PAGE:
+      return (
+        <LinkContainer>
+          <LinkNavigation href="/stands-out">THE PLATFORM</LinkNavigation>
+          <LinkNavigation href="/team-page">TEAM</LinkNavigation>
+          <LinkNavigation
+            href="https://medium.com/opacity-storage/"
+            target="_blank"
+          >
+            BLOG
+          </LinkNavigation>
+        </LinkContainer>
+      );
+    default:
+      return null;
   }
-  return null;
 };
 
 interface HeaderProps {
@@ -192,71 +162,35 @@ interface HeaderProps {
   history;
 }
 
-interface HeaderState {
-  menuOpen: boolean;
-}
+const Header = ({ type, history }: HeaderProps) => {
+  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
-class Header extends React.Component<HeaderProps, HeaderState> {
-  state = {
-    menuOpen: false
-  };
-
-  hamburgerClick () {
-    this.setState({ menuOpen: true });
-  }
-
-  closeClick () {
-    this.setState({ menuOpen: false });
-  }
-
-  render () {
-    const { type, history } = this.props;
-    const { menuOpen } = this.state;
-    return (
-      <ThemeProvider theme={theme}>
-        <Container menuOpen={menuOpen}>
-          <Navbar>
-            <LogoContainer>
-              <Link
-                title="Opacity Storage's Logo"
-                onClick={() => history.push("/")}
-              >
-                <Logo src={ICON_LOGO} alt="logo" />
-                <CompanyName>Opacity</CompanyName>
-              </Link>
-            </LogoContainer>
-
-            {!menuOpen && (
-              <HamburgerIcon
-                src={ICON_HAMBURGER}
-                alt="navigation"
-                onClick={() => {
-                  this.hamburgerClick();
-                }}
-              />
-            )}
-            {menuOpen && (
-              <MobileNavigationContainer>
-                <CloseIcon
-                  src={ICON_CLOSE}
-                  alt="close"
-                  onClick={() => {
-                    this.closeClick();
-                  }}
-                />
-                <MobileNavigation>
-                  {renderNavigation(type, history)}
-                </MobileNavigation>
-              </MobileNavigationContainer>
-            )}
-            <DesktopNavigation>
-              {renderNavigation(type, history)}
-            </DesktopNavigation>
-          </Navbar>
-        </Container>
-      </ThemeProvider>
-    );
-  }
-}
+  return (
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Navbar>
+          <LogoContainer>
+            <Link title="Opacity Storage's Logo" href="/">
+              <Logo src={ICON_LOGO} alt="logo" />
+              <CompanyName>Opacity</CompanyName>
+            </Link>
+          </LogoContainer>
+          <HamburgerIcon
+            src={ICON_HAMBURGER}
+            alt="navigation"
+            onClick={() => setIsHamburgerOpen(true)}
+          />
+          <DesktopNavigation>{renderNavigation(type)}</DesktopNavigation>
+          <HamburgerMenu
+            isOpen={isHamburgerOpen}
+            close={() => setIsHamburgerOpen(false)}
+          >
+            {renderNavigation(type)}
+          </HamburgerMenu>
+        </Navbar>
+      </Container>
+    </ThemeProvider>
+  );
+};
 
 export default withRouter(Header);
