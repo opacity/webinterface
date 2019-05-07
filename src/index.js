@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { ConnectedRouter } from "react-router-redux";
 import { Route, Switch } from "react-router";
+import Modal from "react-modal";
 
 import { store, persistor } from "./redux";
 import history from "./redux/history";
@@ -30,6 +31,8 @@ const ScrollToTop = () => {
   window.scrollTo(0, 0);
   return null;
 };
+
+Modal.setAppElement("#root");
 
 const App = () => (
   <Provider store={store}>

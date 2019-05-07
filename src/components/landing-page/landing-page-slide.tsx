@@ -6,12 +6,14 @@ import {
   HEADER_TEAM_PAGE,
   MOBILE_WIDTH,
   LANDING_PAGE_MOBILE_WIDTH,
+  LANDING_PAGE_VIDEO,
   theme
 } from "../../config";
 import Subscription from "../shared/subscription";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
 import CurrencyWidget from "../shared/currency-widget";
+import VideoPlayer from "../shared/video-player";
 
 const ICON_CREDIT = require("../../assets/images/credit.svg");
 const ICON_SHARE_FILE = require("../../assets/images/share_file.svg");
@@ -81,14 +83,6 @@ const BenefitSubContainer = styled(SubContainer)`
 
 const BuySubContainer = styled(SubContainer)`
   justify-content: space-around;
-`;
-
-const HeaderWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    display: grid;
-  }
 `;
 
 const Column = styled.div`
@@ -318,6 +312,7 @@ const ContentPurchase = styled.a`
   text-decoration: none;
   display: block;
 `;
+
 const LandingPageSlide = ({ history }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
@@ -332,17 +327,19 @@ const LandingPageSlide = ({ history }) => (
           </Content>
         </ContentWrapper>
         <Wrapper>
-          <HeaderWrapper />
+          <VideoPlayer src={LANDING_PAGE_VIDEO} />
         </Wrapper>
         <Wrapper>
           <Button onClick={() => history.push("/login")}>Login</Button>
           <ButtonSecondary onClick={() => history.push("/sign-up")}>
             Sign up
           </ButtonSecondary>
-          <ContentPurchase href="#buyOPQ">
+        </Wrapper>
+        <Wrapper>
+        <ContentPurchase href="#buyOPQ">
             Click here to purchase the OPQ token
           </ContentPurchase>
-        </Wrapper>
+          </Wrapper>
       </HeaderContainer>
       <Container>
         <BenefitSubContainer>
