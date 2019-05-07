@@ -9,13 +9,11 @@ import {
   MOBILE_WIDTH,
   HEADER_LANDING_PAGE,
   HEADER_SCREEEN_CONTAINER,
-  HEADER_MOBILE_WIDTH,
-  HEADER_TEAM_PAGE,
-  AUTHENTICATION_STATUSES
+  HEADER_TEAM_PAGE
 } from "../../config";
 
-import Button from "./generic/button";
 import HamburgerMenu from "./hamburger-menu";
+import HeaderButtons from "./header-buttons";
 
 const ICON_LOGO = require("../../assets/images/logo.svg");
 const ICON_HAMBURGER = require("../../assets/images/hamburger.svg");
@@ -112,27 +110,6 @@ const HamburgerIcon = styled.img`
   }
 `;
 
-const CommunityWrapper = styled.div``;
-
-const CommunityButton = styled(Button)`
-  margin-right: 10px;
-  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
-    width: 180px;
-  }
-`;
-
-const CommunityButtonSecondary = styled(CommunityButton)`
-  background-color: white;
-  color: #2e6dde;
-  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
-    margin-top: 30px;
-  }
-`;
-
-const CommunityLink = styled.a`
-  display: inline-block;
-`;
-
 interface HeaderProps {
   type;
   history;
@@ -140,30 +117,6 @@ interface HeaderProps {
 
 const Header = ({ type, history }: HeaderProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
-
-  const renderButtons = () => {
-    const authentication = 0;
-    if (authentication === AUTHENTICATION_STATUSES.LOGGED_IN) {
-      return (
-        <CommunityWrapper>
-          <CommunityLink href={"/sign-out"}>
-            <CommunityButton>Sign out</CommunityButton>
-          </CommunityLink>
-        </CommunityWrapper>
-      );
-    } else {
-      return (
-        <CommunityWrapper>
-          <CommunityLink href={"/sign-up"}>
-            <CommunityButtonSecondary>Sign up</CommunityButtonSecondary>
-          </CommunityLink>
-          <CommunityLink href={"/login"}>
-            <CommunityButton>Login</CommunityButton>
-          </CommunityLink>
-        </CommunityWrapper>
-      );
-    }
-  };
 
   const renderNavigation = () => {
     switch (type) {
@@ -179,7 +132,7 @@ const Header = ({ type, history }: HeaderProps) => {
             >
               BLOG
             </LinkNavigation>
-            {renderButtons()}
+            <HeaderButtons />
           </LinkContainer>
         );
       case HEADER_SCREEEN_CONTAINER:
@@ -193,7 +146,7 @@ const Header = ({ type, history }: HeaderProps) => {
             >
               BLOG
             </LinkNavigation>
-            {renderButtons()}
+            <HeaderButtons />
           </LinkContainer>
         );
       case HEADER_TEAM_PAGE:
@@ -207,7 +160,7 @@ const Header = ({ type, history }: HeaderProps) => {
             >
               BLOG
             </LinkNavigation>
-            {renderButtons()}
+            <HeaderButtons />
           </LinkContainer>
         );
       default:
