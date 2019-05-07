@@ -9,6 +9,7 @@ import {
   LANDING_PAGE_VIDEO,
   theme
 } from "../../config";
+
 import Subscription from "../shared/subscription";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
@@ -313,7 +314,7 @@ const ContentPurchase = styled.a`
   display: block;
 `;
 
-const LandingPageSlide = ({ history }) => (
+const LandingPageSlide = ({ authentication, history }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
       <Header type={HEADER_TEAM_PAGE} />
@@ -329,17 +330,19 @@ const LandingPageSlide = ({ history }) => (
         <Wrapper>
           <VideoPlayer src={LANDING_PAGE_VIDEO} />
         </Wrapper>
+        {authentication || (
+          <Wrapper>
+            <Button onClick={() => history.push("/login")}>Login</Button>
+            <ButtonSecondary onClick={() => history.push("/sign-up")}>
+              Sign up
+            </ButtonSecondary>
+          </Wrapper>
+        )}
         <Wrapper>
-          <Button onClick={() => history.push("/login")}>Login</Button>
-          <ButtonSecondary onClick={() => history.push("/sign-up")}>
-            Sign up
-          </ButtonSecondary>
-        </Wrapper>
-        <Wrapper>
-        <ContentPurchase href="#buyOPQ">
+          <ContentPurchase href="#buyOPQ">
             Click here to purchase the OPQ token
           </ContentPurchase>
-          </Wrapper>
+        </Wrapper>
       </HeaderContainer>
       <Container>
         <BenefitSubContainer>

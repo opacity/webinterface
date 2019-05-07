@@ -1,11 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import {
-  theme,
-  HEADER_MOBILE_WIDTH,
-  AUTHENTICATION_STATUSES
-} from "../../../config";
+import { theme, HEADER_MOBILE_WIDTH } from "../../../config";
 
 import Button from "../generic/button";
 
@@ -38,7 +34,7 @@ interface HeaderButtonsProps {
 const HeaderButtons = ({ authentication, logout }: HeaderButtonsProps) => {
   return (
     <ThemeProvider theme={theme}>
-      {authentication === AUTHENTICATION_STATUSES.LOGGED_IN ? (
+      {authentication ? (
         <ButtonsWrapper>
           <CommunityLink onClick={() => logout()}>
             <CommunityButton>Sign out</CommunityButton>
