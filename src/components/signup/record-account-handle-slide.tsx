@@ -8,6 +8,8 @@ import ContentBox from "./content-box";
 import Content from "./content";
 import Hr from "./hr";
 import Title from "./title";
+import ContinueButton from "./continue-button";
+import Input from "../shared/generic/Input";
 
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
@@ -19,27 +21,6 @@ const ContentBold = styled(Content)`
 
 const ClipboardIconWrrapper = styled.div`
   display: flex;
-`;
-
-const ContinueButton = styled.button`
-  cursor: pointer;
-  text-transform: uppercase;
-  background-color: ${props => props.theme.button.background};
-  border: none;
-  color: ${props => props.theme.button.color};
-  font-size: 16px;
-  font-stretch: ${props => props.theme.fontStretch};
-  font-style: ${props => props.theme.fontStyle};
-  height: 40px;
-  letter-spacing: ${props => props.theme.letterSpacing};
-  line-height: ${props => props.theme.lineHeight};
-  margin: auto;
-  text-align: center;
-  width: 171px;
-
-  @media (max-width: ${DESKTOP_WIDTH}px) {
-    width: 100%;
-  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -59,20 +40,6 @@ const InputWrapper = styled.div`
 `;
 const InputColumnWrapper = styled.div`
   flex: 50%;
-`;
-
-const Input = styled.input.attrs({
-  type: "text"
-})`
-  background: transparent;
-  border: 1px solid ${props => props.theme.input.border.color};
-  outline: none;
-  padding: 10px;
-  width: 80%;
-
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    width: 90%;
-  }
 `;
 
 const Label = styled.h3`
@@ -141,20 +108,20 @@ const ClipboardIcon = styled.img`
   object-fit: contain;
 `;
 
-interface RecordStorageHandleProps {
+interface RecordAccountHandleProps {
   handle;
   setStoragePin;
 }
 
-interface RecordStorageHandleState {
+interface RecordAccountHandleState {
   storagePin;
   retypedStoragePin;
   isCopied;
 }
 
-class RecordStorageHandleSlide extends Component<
-  RecordStorageHandleProps,
-  RecordStorageHandleState
+class RecordAccountHandleSlide extends Component<
+  RecordAccountHandleProps,
+  RecordAccountHandleState
 > {
   state = {
     storagePin: "",
@@ -173,19 +140,20 @@ class RecordStorageHandleSlide extends Component<
     return (
       <ThemeProvider theme={theme}>
         <ContentBox>
-          <Title>Record Storage Handle and PIN</Title>
+          <Title>
+            IMPORTANT: Save Your Private Opacity Account Handle and PIN
+          </Title>
           <Hr />
           <Content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
-            vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
-            tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Ut ac massa vestibulum, vestibulum nunc in,
-            imperdiet
+            Your Opacity Account Handle is the key to your account. It is
+            important that you keep it safe and private. This key will allow
+            anyone that has it to access your storage account. It should not be
+            shared with anyone that you do not wish to have access to your data.
           </Content>
           <ContentBold>
-            Phaugue. Phasellus nisl est, tristique ac magna sed:
+            Your privacy and security is in your hands. Keep these numbers safe.
           </ContentBold>
-          <Label>Storage Handle</Label>
+          <Label>Here is your Opacity Account Handle</Label>
           <HandleWrapper>
             <Handle>{handle}</Handle>
             <CopyToClipboard
@@ -202,14 +170,14 @@ class RecordStorageHandleSlide extends Component<
           </HandleWrapper>
           <InputWrapper>
             <InputColumnWrapper>
-              <Label>Choose Storage PIN</Label>
+              <Label>Choose Account PIN</Label>
               <Input
                 name="storage-pin"
                 onChange={e => this.setState({ storagePin: e.target.value })}
               />
             </InputColumnWrapper>
             <InputColumnWrapper>
-              <Label>Re-Type Storage PIN</Label>
+              <Label>Re-Type Account PIN</Label>
               <Input
                 name="retyped-storage-pin"
                 onChange={e =>
@@ -219,9 +187,10 @@ class RecordStorageHandleSlide extends Component<
             </InputColumnWrapper>
           </InputWrapper>
           <Content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
-            vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
-            tristique ac magna sed.
+            Before you continue, make sure you have copied your Account Handle
+            and safely recorded your PIN. Without this information, you will not
+            be able to access your account. Opacity does not have access to this
+            information and will not be able to recover it for you.
           </Content>
           <ButtonWrapper>
             <ContinueButton
@@ -233,7 +202,7 @@ class RecordStorageHandleSlide extends Component<
                 isCopied
                   ? this.save(this.state.storagePin)
                   : alert(
-                    "Please make sure to copy your storage handle and input matching PINs before proceeding."
+                    "Please make sure to copy your account handle and input matching PINs before proceeding."
                     );
               }}
             >
@@ -246,4 +215,4 @@ class RecordStorageHandleSlide extends Component<
   }
 }
 
-export default RecordStorageHandleSlide;
+export default RecordAccountHandleSlide;

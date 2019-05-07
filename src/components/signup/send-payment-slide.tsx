@@ -1,6 +1,7 @@
-import React from "react";
-import styled, { ThemeProvider } from "styled-components";
+import React, { Component } from "react";
+import styled, { ThemeProvider, keyframes } from "styled-components";
 import QRCode from "qrcode.react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { EXCHANGE_LINK, theme } from "../../config";
 
@@ -12,6 +13,14 @@ import Hr from "./hr";
 import Title from "./title";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
+
+const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
+
+const ContentBold = styled(Content)`
+  margin-top: 25px;
+  font-weight: bold;
+  min-height: 28px;
+`;
 
 const PaymentWrapper = styled.div`
   margin-top: 20px;
@@ -31,68 +40,158 @@ const LabelColored = styled(Label)`
   color: ${props => props.theme.title.color};
 `;
 
-const ImportantWrapper = styled.div`
-  color: ${props => props.theme.button.color};
-  background-color: ${props => props.theme.container.content};
-  padding: 10px;
-`;
-
-const Important = styled.span`
-  color: ${props => props.theme.button.color};
-  font-size: 12px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.7px;
-`;
-
 const Bold = styled.span`
   font-weight: bold;
 `;
 
-const SendPaymentSlide = ({ invoice: { ethAddress, cost }, openMetamask }) => (
-  <ThemeProvider theme={theme}>
-    <ContentBox>
-      <Title>Send Payment</Title>
-      <Hr />
-      <Content>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
-        vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
-        tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Ut ac massa vestibulum, <Bold>{cost} OPQ </Bold>
-        nunc in, imperdiet augue.
-      </Content>
-      <LabelColored>Payment Address:</LabelColored>
-      <ImportantWrapper>
-        <Important>{ethAddress}</Important>
-      </ImportantWrapper>
-      {Metamask.isInstalled && (
-        <PaymentWrapper>
-          <MetamaskButton
-            onClick={() => openMetamask({ ethAddress, cost, gasPrice: 20 })}
-          />
-        </PaymentWrapper>
-      )}
-      <div>
-        <Label>Scan QR code to pay:</Label>
-        <QRCode
-          value={ethAddress}
-          size={200}
-          renderAs="svg"
-          bgColor="transparent"
-          fgColor="#2e3854"
-          level="H"
-          color="#ffffff"
-          includeMargin={true}
-        />
-      </div>
-      <Content>
-        Need OPQ?{" "}
-        <OutboundLink href={EXCHANGE_LINK}>Purchase some here</OutboundLink>
-      </Content>
-    </ContentBox>
-  </ThemeProvider>
-);
+const EthAddressWrapper = styled.div`
+  align-items: center;
+  background-color: ${props => props.theme.password.background};
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+`;
+
+const fadeout = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
+const CopiedReminder = styled.span`
+  color: ${props => props.theme.label.color};
+  font-size: 10px;
+  position: absolute;
+  right: -100px;
+  animation: ${fadeout} 2s ease-in-out 0s forwards;
+`;
+
+const EthAddress = styled.span`
+  color: white;
+  font-size: 12px;
+  overflow-x: auto;
+  padding: 10px;
+
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+`;
+
+const ClipboardIconWrrapper = styled.div`
+  display: flex;
+`;
+
+const ClipboardIcon = styled.img`
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  padding: 0 10px;
+  object-fit: contain;
+`;
+
+interface SendPaymentHandleProps {
+  invoice;
+  openMetamask;
+}
+
+interface SendPaymentHandleState {
+  isCopied;
+}
+
+class SendPaymentSlide extends Component<
+  SendPaymentHandleProps,
+  SendPaymentHandleState
+> {
+  state = {
+    isCopied: false
+  };
+
+  render () {
+    const {
+      invoice: { ethAddress, cost },
+      openMetamask
+    } = this.props;
+
+    return (
+      <ThemeProvider theme={theme}>
+        <ContentBox>
+          <Title>Send Payment with OPQ</Title>
+          <Hr />
+          <Content>
+            Use the Opacity Storage Token, OPQ, to pay for your storage account.
+            Send your total amount of <Bold>{cost} OPQ </Bold> to the address
+            below or you may use Metamask to easily make your payment right in
+            your browser.
+          </Content>
+          <ContentBold>
+            IMPORTANT: Do not send any other coin or token to this account
+            address as it may result in a loss of funds.
+          </ContentBold>
+          <Content>
+            Once your payment is sent, it may take some time to confirm your
+            payment on the Ethereum network. We will confirm receipt and
+            complete setup of your account once the network transaction is
+            confirmed. Please be patient.
+          </Content>
+          <LabelColored>Send {cost} OPQ to Payment Address:</LabelColored>
+          <EthAddressWrapper>
+            <EthAddress>{ethAddress}</EthAddress>
+            <CopyToClipboard
+              text={ethAddress}
+              onCopy={() => this.setState({ isCopied: true })}
+            >
+              <ClipboardIconWrrapper>
+                <ClipboardIcon src={ICON_CLIPBOARD} />
+              </ClipboardIconWrrapper>
+            </CopyToClipboard>
+            {this.state.isCopied && (
+              <CopiedReminder>Copied to clipboard!</CopiedReminder>
+            )}
+          </EthAddressWrapper>
+
+          {Metamask.isInstalled && (
+            <PaymentWrapper>
+              <MetamaskButton
+                onClick={() => openMetamask({ ethAddress, cost, gasPrice: 20 })}
+              />
+            </PaymentWrapper>
+          )}
+          <div>
+            <Label>Scan QR code to pay</Label>
+            <QRCode
+              value={ethAddress}
+              size={200}
+              renderAs="svg"
+              bgColor="transparent"
+              fgColor="#2e3854"
+              level="H"
+              color="#ffffff"
+              includeMargin={true}
+            />
+          </div>
+          <Content>
+            Need OPQ?{" "}
+            <OutboundLink href={EXCHANGE_LINK}>Purchase here</OutboundLink>
+          </Content>
+        </ContentBox>
+      </ThemeProvider>
+    );
+  }
+}
 
 export default SendPaymentSlide;

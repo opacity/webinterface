@@ -102,6 +102,10 @@ export const HEADER_TEAM_PAGE = "TeamPage";
 export const DESKTOP_WIDTH = "997";
 export const MOBILE_WIDTH = "567";
 export const SUBSCRIPTION_DESKTOP_WIDTH = "1200";
+export const LANDING_PAGE_MOBILE_WIDTH = "800";
+export const HEADER_MOBILE_WIDTH = "980";
+export const STANDS_OUT_TABLET_WIDTH = "872";
+export const STANDS_OUT_DESKTOP_WIDTH = "1000";
 
 export enum AUTHENTICATION_STATUSES {
   LOGGED_OUT = 0,

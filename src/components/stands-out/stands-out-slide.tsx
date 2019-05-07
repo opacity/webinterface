@@ -1,11 +1,19 @@
 import React from "react";
+import { withRouter } from "react-router";
 import styled, { ThemeProvider } from "styled-components";
 
-import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
+import {
+  HEADER_TEAM_PAGE,
+  MOBILE_WIDTH,
+  STANDS_OUT_TABLET_WIDTH,
+  STANDS_OUT_DESKTOP_WIDTH,
+  theme
+} from "../../config";
 
 import Header from "../shared/header";
 import Footer from "../shared/footer";
 import OutboundLink from "../shared/outbound-link";
+import Button from "../shared/generic/button";
 
 const ICON_INTRO = require("../../assets/images/so_intro.svg");
 const ICON_ACCESS_ACCOUNT = require("../../assets/images/so_access_account.svg");
@@ -70,6 +78,9 @@ const TitleFunction = styled(HeaderTitle)`
     text-align: left;
     margin: 40px 20px 26px 40px;
   }
+  @media (max-width: 300px) {
+    margin: 0px;
+  }
 `;
 
 const RecommendTitle = styled(HeaderTitle)`
@@ -126,10 +137,12 @@ const InfoContent = styled(Paragraph)`
   color: #5c6a82;
   margin: 30px 0;
   width: 400px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${STANDS_OUT_TABLET_WIDTH}px) {
     width: auto;
     height: auto;
     padding: 0 25px;
+    width: auto;
+    text-align: center;
   }
 `;
 
@@ -177,11 +190,24 @@ const SubContainer = styled.div`
   }
 `;
 
+const FunctionSubContainer = styled(SubContainer)`
+  @media (max-width: ${STANDS_OUT_DESKTOP_WIDTH}px) {
+    display: block;
+  }
+`;
+
+const InfoSubContainer = styled(SubContainer)`
+  @media (max-width: ${STANDS_OUT_TABLET_WIDTH}px) {
+    display: block;
+  }
+`;
+
 const CommunityContainer = styled(SubContainer)`
   justify-content: space-evenly;
   margin: 100px 0;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${STANDS_OUT_TABLET_WIDTH}px) {
     margin: 60px 0;
+    display: block;
   }
 `;
 
@@ -194,8 +220,9 @@ const PasswordManager = styled(SubContainer)`
 
 const CommunityColumn = styled.div`
   display: flex;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${STANDS_OUT_TABLET_WIDTH}px) {
     padding: 0 25px;
+    justify-content: center;
   }
 `;
 
@@ -236,6 +263,11 @@ const Input = styled.div`
   width: 40px;
 `;
 
+const CommunityButtonWrapper = styled.div`
+  text-align: center;
+  padding-bottom: 40px;
+`;
+
 const ContentWrapper = styled.div`
   width: 450px;
   margin: auto;
@@ -264,26 +296,26 @@ const IconWrapper = styled.div`
   }
 `;
 
-const CommunityWrapper = styled.div``;
-
-const Button = styled.button`
+const StandsOutButton = styled(Button)`
   width: 220px;
-  height: 40px;
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.button.color};
-  background-color: #2e6dde;
-  text-align: center;
   margin: auto;
-  border: 1px solid white;
-  cursor: pointer;
+  text-align: center;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: -webkit-fill-available;
     margin: 0 25px;
+  }
+`;
+
+const CommunityWrapper = styled.div``;
+
+const CommunityButton = styled(Button)`
+  width: 180px;
+  margin-right: 10px;
+`;
+
+const CommunityButtonSecondary = styled(CommunityButton)`
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin-top: 30px;
   }
 `;
 
@@ -298,14 +330,14 @@ const Icon = styled.img`
 
 const FunctionIcon = styled.img`
   width: 475px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${STANDS_OUT_DESKTOP_WIDTH}px) {
     display: none;
   }
 `;
 
 const FunctionIconMobile = styled(FunctionIcon)`
   display: none;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${STANDS_OUT_DESKTOP_WIDTH}px) {
     width: 100%;
     height: auto;
     display: block;
@@ -323,7 +355,7 @@ const InfoIcon = styled.img`
   width: 400px;
   height: 160px;
   margin-top: 60px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${STANDS_OUT_TABLET_WIDTH}px) {
     width: 100%;
     height: auto;
     margin-top: 30px;
@@ -392,7 +424,7 @@ const Td = styled.td`
   padding: 15px 10px 15px 10px;
 `;
 
-const SubscriptionSlide = () => (
+const SubscriptionSlide = ({ history }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
       <Header type={HEADER_TEAM_PAGE} />
@@ -411,7 +443,7 @@ const SubscriptionSlide = () => (
         </IconWrapper>
       </Container>
       <Container>
-        <SubContainer>
+        <FunctionSubContainer>
           <Column>
             <FunctionIcon src={ICON_ACCESS_ACCOUNT} />
           </Column>
@@ -427,8 +459,8 @@ const SubscriptionSlide = () => (
               account. Keep it safe!
             </FunctionContent>
           </Column>
-        </SubContainer>
-        <SubContainer>
+        </FunctionSubContainer>
+        <FunctionSubContainer>
           <Column>
             <TitleFunction>
               Encrypted At Rest. Share Only What You Want.
@@ -446,7 +478,7 @@ const SubscriptionSlide = () => (
           <Column>
             <FunctionIcon src={ICON_ENCRYPTED} />
           </Column>
-        </SubContainer>
+        </FunctionSubContainer>
       </Container>
       <Container>
         <RecommendTitle>Password Manager Recommended</RecommendTitle>
@@ -562,7 +594,7 @@ const SubscriptionSlide = () => (
       </Container>
       <Container>
         <HeaderTitle>Transparent Code Base</HeaderTitle>
-        <SubContainer>
+        <InfoSubContainer>
           <Column>
             <InfoIcon src={ICON_TRANSPARENT_BASE} />
             <InfoContent>
@@ -570,13 +602,13 @@ const SubscriptionSlide = () => (
               Opacity’s codebase is completely open source for anyone wondering
               how our system works.
             </InfoContent>
-            <Button
+            <StandsOutButton
               onClick={() =>
                 window.open("https://github.com/opacity", "_blank")
               }
             >
               Explore our code
-            </Button>
+            </StandsOutButton>
           </Column>
           <Column>
             <InfoIcon src={ICON_EXPLORE_CODE} />
@@ -585,9 +617,9 @@ const SubscriptionSlide = () => (
               we want to go in the future? Check out the Opacity Whitepaper!
               Current version: 1.0
             </InfoContent>
-            <Button>Coming soon</Button>
+            <StandsOutButton>Coming soon</StandsOutButton>
           </Column>
-        </SubContainer>
+        </InfoSubContainer>
       </Container>
       <Community>
         <CommunityTitle>
@@ -630,10 +662,18 @@ const SubscriptionSlide = () => (
             </CommunityColumn>
           </CommunityWrapper>
         </CommunityContainer>
+        <CommunityButtonWrapper>
+          <CommunityButton onClick={() => history.push("/login")}>
+            Login
+          </CommunityButton>
+          <CommunityButtonSecondary onClick={() => history.push("/sign-up")}>
+            Sign up
+          </CommunityButtonSecondary>
+        </CommunityButtonWrapper>
       </Community>
       <Footer />
     </ContainerWrapper>
   </ThemeProvider>
 );
 
-export default SubscriptionSlide;
+export default withRouter(SubscriptionSlide);

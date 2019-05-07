@@ -9,9 +9,12 @@ import {
   MOBILE_WIDTH,
   HEADER_LANDING_PAGE,
   HEADER_SCREEEN_CONTAINER,
-  HEADER_TEAM_PAGE
+  HEADER_MOBILE_WIDTH,
+  HEADER_TEAM_PAGE,
+  AUTHENTICATION_STATUSES
 } from "../../config";
 
+import Button from "./generic/button";
 import HamburgerMenu from "./hamburger-menu";
 
 const ICON_LOGO = require("../../assets/images/logo.svg");
@@ -69,7 +72,6 @@ const Link = styled.a`
   line-height: normal;
   text-decoration: none;
   text-transform: uppercase;
-
   &:hover {
     text-decoration: none;
     opacity: 0.8;
@@ -110,52 +112,26 @@ const HamburgerIcon = styled.img`
   }
 `;
 
-const renderNavigation = type => {
-  switch (type) {
-    case HEADER_LANDING_PAGE:
-      return (
-        <LinkContainer>
-          <LinkNavigation href="/stands-out">STANDS OUT</LinkNavigation>
-          <LinkNavigation href="/team-page">TEAM</LinkNavigation>
+const CommunityWrapper = styled.div``;
 
-          <LinkNavigation
-            href="https://medium.com/opacity-storage/"
-            target="_blank"
-          >
-            BLOG
-          </LinkNavigation>
-        </LinkContainer>
-      );
-    case HEADER_SCREEEN_CONTAINER:
-      return (
-        <LinkContainer>
-          <LinkNavigation href="/team-page">ABOUT US</LinkNavigation>
-          <LinkNavigation href="/team-page">RESOURCES</LinkNavigation>
-          <LinkNavigation
-            href="https://medium.com/opacity-storage/"
-            target="_blank"
-          >
-            BLOG
-          </LinkNavigation>
-        </LinkContainer>
-      );
-    case HEADER_TEAM_PAGE:
-      return (
-        <LinkContainer>
-          <LinkNavigation href="/stands-out">THE PLATFORM</LinkNavigation>
-          <LinkNavigation href="/team-page">TEAM</LinkNavigation>
-          <LinkNavigation
-            href="https://medium.com/opacity-storage/"
-            target="_blank"
-          >
-            BLOG
-          </LinkNavigation>
-        </LinkContainer>
-      );
-    default:
-      return null;
+const CommunityButton = styled(Button)`
+  margin-right: 10px;
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    width: 180px;
   }
-};
+`;
+
+const CommunityButtonSecondary = styled(CommunityButton)`
+  background-color: white;
+  color: #2e6dde;
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    margin-top: 30px;
+  }
+`;
+
+const CommunityLink = styled.a`
+  display: inline-block;
+`;
 
 interface HeaderProps {
   type;
@@ -164,6 +140,80 @@ interface HeaderProps {
 
 const Header = ({ type, history }: HeaderProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+
+  const renderButtons = () => {
+    const authentication = 0;
+    if (authentication === AUTHENTICATION_STATUSES.LOGGED_IN) {
+      return (
+        <CommunityWrapper>
+          <CommunityLink href={"/sign-out"}>
+            <CommunityButton>Sign out</CommunityButton>
+          </CommunityLink>
+        </CommunityWrapper>
+      );
+    } else {
+      return (
+        <CommunityWrapper>
+          <CommunityLink href={"/sign-up"}>
+            <CommunityButtonSecondary>Sign up</CommunityButtonSecondary>
+          </CommunityLink>
+          <CommunityLink href={"/login"}>
+            <CommunityButton>Login</CommunityButton>
+          </CommunityLink>
+        </CommunityWrapper>
+      );
+    }
+  };
+
+  const renderNavigation = () => {
+    switch (type) {
+      case HEADER_LANDING_PAGE:
+        return (
+          <LinkContainer>
+            <LinkNavigation href="/stands-out">STANDS OUT</LinkNavigation>
+            <LinkNavigation href="/team-page">TEAM</LinkNavigation>
+
+            <LinkNavigation
+              href="https://medium.com/opacity-storage/"
+              target="_blank"
+            >
+              BLOG
+            </LinkNavigation>
+            {renderButtons()}
+          </LinkContainer>
+        );
+      case HEADER_SCREEEN_CONTAINER:
+        return (
+          <LinkContainer>
+            <LinkNavigation href="/team-page">ABOUT US</LinkNavigation>
+            <LinkNavigation href="/team-page">RESOURCES</LinkNavigation>
+            <LinkNavigation
+              href="https://medium.com/opacity-storage/"
+              target="_blank"
+            >
+              BLOG
+            </LinkNavigation>
+            {renderButtons()}
+          </LinkContainer>
+        );
+      case HEADER_TEAM_PAGE:
+        return (
+          <LinkContainer>
+            <LinkNavigation href="/stands-out">THE PLATFORM</LinkNavigation>
+            <LinkNavigation href="/team-page">TEAM</LinkNavigation>
+            <LinkNavigation
+              href="https://medium.com/opacity-storage/"
+              target="_blank"
+            >
+              BLOG
+            </LinkNavigation>
+            {renderButtons()}
+          </LinkContainer>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -180,12 +230,12 @@ const Header = ({ type, history }: HeaderProps) => {
             alt="navigation"
             onClick={() => setIsHamburgerOpen(true)}
           />
-          <DesktopNavigation>{renderNavigation(type)}</DesktopNavigation>
+          <DesktopNavigation>{renderNavigation()}</DesktopNavigation>
           <HamburgerMenu
             isOpen={isHamburgerOpen}
             close={() => setIsHamburgerOpen(false)}
           >
-            {renderNavigation(type)}
+            {renderNavigation()}
           </HamburgerMenu>
         </Navbar>
       </Container>

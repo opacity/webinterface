@@ -7,7 +7,10 @@ import { theme, DESKTOP_WIDTH } from "../../config";
 import ContentBox from "./content-box";
 import Content from "./content";
 import Hr from "./hr";
+import OutboundLink from "../shared/outbound-link";
 import Title from "./title";
+import ContinueButton from "./continue-button";
+import Checkbox from "../shared/generic/checkbox";
 
 const ContentBold = styled(Content)`
   margin-top: 25px;
@@ -23,25 +26,13 @@ const DownloadButton = styled.button`
   cursor: pointer;
 `;
 
-const ContinueButton = styled.button`
-  cursor: pointer;
-  text-transform: uppercase;
-  background-color: ${props => props.theme.button.background};
-  border: none;
-  color: ${props => props.theme.button.color};
-  font-size: 16px;
-  font-stretch: ${props => props.theme.fontStretch};
-  font-style: ${props => props.theme.fontStyle};
-  height: 40px;
-  letter-spacing: ${props => props.theme.letterSpacing};
-  line-height: ${props => props.theme.lineHeight};
-  margin: auto;
-  text-align: center;
-  width: 171px;
+const TermsOfService = styled.div`
+  margin: 10px 0;
+`;
 
-  @media (max-width: ${DESKTOP_WIDTH}px) {
-    width: 100%;
-  }
+const CheckboxLabel = styled.label`
+  margin-top: -5px;
+  color: ${props => props.theme.container.content};
 `;
 
 const ButtonWrapper = styled.div`
@@ -82,6 +73,7 @@ interface RecordRecoveryPhraseProps {
 interface RecordRecoveryPhraseState {
   mnemonic;
   privateKey;
+  isTermsChecked;
 }
 
 class RecordRecoveryPhraseSlide extends Component<
@@ -90,7 +82,8 @@ class RecordRecoveryPhraseSlide extends Component<
 > {
   state = {
     mnemonic: [],
-    privateKey: ""
+    privateKey: "",
+    isTermsChecked: false
   };
 
   downloadCsv (array) {
@@ -123,17 +116,19 @@ class RecordRecoveryPhraseSlide extends Component<
     return (
       <ThemeProvider theme={theme}>
         <ContentBox>
-          <Title>Record Recovery Phrase</Title>
+          <Title>IMPORTANT: Save Your Account Handle Recovery Phrase</Title>
           <Hr />
           <Content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac massa
-            vestibulum, vestibulum nunc in, imperdiet augue. Phasellus nisl est,
-            tristique ac magna sed. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Ut ac massa vestibulum, vestibulum nunc in,
-            imperdiet
+            Your Opacity Account Handle is the key to your account. If you lose
+            the key, the 12 recovery words below will help you recover the key.
+            Record these words now and keep them in a safe place. These words
+            will allow anyone to recover your Account Handle and possibly enable
+            access to your storage account. They should not be shared with
+            anyone that you do not wish to have access to your data.
           </Content>
           <ContentBold>
-            Phaugue. Phasellus nisl est, tristique ac magna sed:
+            Your privacy and security is in your hands. Keep these recovery
+            words safe.
           </ContentBold>
           <Grid>
             {this.state.mnemonic.map((word, i) => (
@@ -145,8 +140,32 @@ class RecordRecoveryPhraseSlide extends Component<
           <DownloadButton onClick={() => this.downloadCsv(this.state.mnemonic)}>
             Download phrase as CSV
           </DownloadButton>
+          <TermsOfService>
+            <CheckboxLabel htmlFor="terms-checkbox">
+              <Checkbox
+                id="terms-checkbox"
+                value="checked"
+                onChange={e =>
+                  this.setState({ isTermsChecked: e.target.checked })
+                }
+                checked={this.state.isTermsChecked}
+              />
+              Accept{" "}
+              <OutboundLink href="/terms-of-service">
+                Terms of Service
+              </OutboundLink>
+            </CheckboxLabel>
+          </TermsOfService>
           <ButtonWrapper>
-            <ContinueButton onClick={() => this.save(this.state.privateKey)}>
+            <ContinueButton
+              onClick={() => {
+                const { isTermsChecked } = this.state;
+
+                isTermsChecked
+                  ? this.save(this.state.privateKey)
+                  : alert("Please tick the Terms of Service condition.");
+              }}
+            >
               Continue
             </ContinueButton>
           </ButtonWrapper>
