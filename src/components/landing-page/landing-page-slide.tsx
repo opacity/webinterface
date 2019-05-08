@@ -520,7 +520,7 @@ const LandingPageSlide = ({ authentication, history }) => (
             <ButtonWrapper>
               <ButtonBuy
                 onClick={() =>
-                  window.open("https://coss.io/c/trade?s=OPQ_BTC", "_blank")
+                  window.open("https://coss.io/c/trade?s=OPQ_ETH", "_blank")
                 }
               >
                 Buy OPQ on COSS

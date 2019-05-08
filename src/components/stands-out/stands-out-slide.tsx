@@ -13,6 +13,7 @@ import {
 import Header from "../shared/header";
 import Footer from "../shared/footer";
 import OutboundLink from "../shared/outbound-link";
+import InsideLink from "../shared/inside-link";
 import Button from "../shared/generic/button";
 
 const ICON_INTRO = require("../../assets/images/so_intro.svg");
@@ -204,7 +205,7 @@ const InfoSubContainer = styled(SubContainer)`
 
 const CommunityContainer = styled(SubContainer)`
   justify-content: space-evenly;
-  margin: 100px 0;
+  margin: 5 0px 0;
   @media (max-width: ${STANDS_OUT_TABLET_WIDTH}px) {
     margin: 60px 0;
     display: block;
@@ -539,8 +540,8 @@ const SubscriptionSlide = ({ history }) => (
               </Td>
               <Td>OPACITY</Td>
               <Td>100 GB</Td>
-              <Td>$0.03</Td>
-              <Td>$0.02</Td>
+              <Td>$0.07</Td>
+              <Td>$0.05</Td>
             </Tr>
             <Tr>
               <Td>
@@ -589,8 +590,11 @@ const SubscriptionSlide = ({ history }) => (
             </Tr>
           </tbody>
         </Table>
-        <StorageSmallContent>Prices as of March 2019</StorageSmallContent>
-        <StorageSignUpContent />
+        <StorageSmallContent>Prices as of May 2019</StorageSmallContent>
+        <StorageSignUpContent>
+          Ready to experience true zero-knowledge storage?&nbsp;
+          <InsideLink href="/sign-up">Sign up here.</InsideLink>
+        </StorageSignUpContent>
       </Container>
       <Container>
         <HeaderTitle>Transparent Code Base</HeaderTitle>
