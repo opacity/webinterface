@@ -205,12 +205,14 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
             {renderButtons()}
           </LinkContainer>
         );
-      default:
+      case HEADER_TYPES.FILE_MANAGER:
         return (
           <LinkContainer>
             <LinkNavigation href="/logout">Logout</LinkNavigation>
           </LinkContainer>
         );
+      default:
+        return null;
     }
   };
 
