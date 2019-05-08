@@ -10,6 +10,7 @@ import { store, persistor } from "./redux";
 import history from "./redux/history";
 
 import Root from "./components/root";
+import AuthenticatedRoute from "./components/routes/authenticated-route";
 import Agreement from "./components/agreement";
 import BrokersDown from "./components/brokers-down";
 import LandingPage from "./components/landing-page";
@@ -53,7 +54,7 @@ const App = () => (
             <Route path="/logout" component={Logout} />
             <Route path="/forgot-page" component={ForgotPage} />
             <Route path="/team-page" component={TeamPage} />
-            <Route path="/file-manager" component={FileManager} />
+            <AuthenticatedRoute path="/file-manager" component={FileManager} />
 
             <Route
               path="/terms-of-service"
