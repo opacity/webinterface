@@ -7,8 +7,7 @@ import {
   theme,
   MOBILE_WIDTH,
   HEADER_MOBILE_WIDTH,
-  HEADER_TYPES,
-  AUTHENTICATION_STATUSES
+  HEADER_TYPES
 } from "../../config";
 
 import Button from "./generic/button";
@@ -56,8 +55,8 @@ const DesktopNavigation = styled.div`
 `;
 
 const Link = styled.a`
-  margin-right: 95px;
   align-items: center;
+  padding: 0 30px;
   color: ${props => props.theme.header.color};
   cursor: pointer;
   display: flex;
@@ -132,14 +131,14 @@ const CommunityLink = styled.a`
 
 interface HeaderProps {
   type;
+  isLoggedIn;
 }
 
-const Header = ({ type }: HeaderProps) => {
+const Header = ({ type, isLoggedIn }: HeaderProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
   const renderButtons = () => {
-    const authentication = 0;
-    if (authentication !== AUTHENTICATION_STATUSES.LOGGED_IN) {
+    if (isLoggedIn) {
       return (
         <CommunityWrapper>
           <CommunityLink href={"/logout"}>
@@ -207,7 +206,11 @@ const Header = ({ type }: HeaderProps) => {
           </LinkContainer>
         );
       default:
-        return null;
+        return (
+          <LinkContainer>
+            <LinkNavigation href="/logout">Logout</LinkNavigation>
+          </LinkContainer>
+        );
     }
   };
 

@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 
 import StandsOutSlide from "./stands-out-slide";
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  authenticationStatus: state.authentication.status
+});
 
 const mapDispatchToProps = dispatch => ({});
 

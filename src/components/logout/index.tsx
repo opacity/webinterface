@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
+import { withRouter } from "react-router";
 
 import authenticationActions from "../../redux/actions/authentication-actions";
 
@@ -10,10 +10,10 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(authenticationActions.logout())
 });
 
-const Logout = ({ logout }) => {
+const Logout = ({ history, logout }) => {
   useEffect(() => {
     logout();
-    push("/");
+    history.push("/");
   }, []);
 
   return null;
@@ -22,4 +22,4 @@ const Logout = ({ logout }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Logout);
+)(withRouter(Logout));
