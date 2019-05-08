@@ -141,8 +141,8 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
     if (isLoggedIn) {
       return (
         <CommunityWrapper>
-          <CommunityLink href={"/logout"}>
-            <CommunityButton>Sign out</CommunityButton>
+          <CommunityLink href={"/file-manager"}>
+            <CommunityButton>Dashboard</CommunityButton>
           </CommunityLink>
         </CommunityWrapper>
       );

@@ -313,10 +313,10 @@ const ContentPurchase = styled.a`
   display: block;
 `;
 
-const LandingPageSlide = ({ history }) => (
+const LandingPageSlide = ({ history, isLoggedIn }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header type={HEADER_TYPES.TEAM_PAGE} />
+      <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
       <HeaderContainer>
         <Title>Secure. Anonymous. Opaque.</Title>
         <ContentWrapper>
