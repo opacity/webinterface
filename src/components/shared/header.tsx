@@ -6,10 +6,8 @@ import "../root.css";
 import {
   theme,
   MOBILE_WIDTH,
-  HEADER_LANDING_PAGE,
-  HEADER_SCREEEN_CONTAINER,
   HEADER_MOBILE_WIDTH,
-  HEADER_TEAM_PAGE,
+  HEADER_TYPES,
   AUTHENTICATION_STATUSES
 } from "../../config";
 
@@ -141,10 +139,10 @@ const Header = ({ type }: HeaderProps) => {
 
   const renderButtons = () => {
     const authentication = 0;
-    if (authentication === AUTHENTICATION_STATUSES.LOGGED_IN) {
+    if (authentication !== AUTHENTICATION_STATUSES.LOGGED_IN) {
       return (
         <CommunityWrapper>
-          <CommunityLink href={"/sign-out"}>
+          <CommunityLink href={"/logout"}>
             <CommunityButton>Sign out</CommunityButton>
           </CommunityLink>
         </CommunityWrapper>
@@ -165,7 +163,7 @@ const Header = ({ type }: HeaderProps) => {
 
   const renderNavigation = () => {
     switch (type) {
-      case HEADER_LANDING_PAGE:
+      case HEADER_TYPES.LANDING_PAGE:
         return (
           <LinkContainer>
             <LinkNavigation href="/stands-out">STANDS OUT</LinkNavigation>
@@ -180,7 +178,7 @@ const Header = ({ type }: HeaderProps) => {
             {renderButtons()}
           </LinkContainer>
         );
-      case HEADER_SCREEEN_CONTAINER:
+      case HEADER_TYPES.SCREEN_CONTAINER:
         return (
           <LinkContainer>
             <LinkNavigation href="/team-page">ABOUT US</LinkNavigation>
@@ -194,7 +192,7 @@ const Header = ({ type }: HeaderProps) => {
             {renderButtons()}
           </LinkContainer>
         );
-      case HEADER_TEAM_PAGE:
+      case HEADER_TYPES.TEAM_PAGE:
         return (
           <LinkContainer>
             <LinkNavigation href="/stands-out">THE PLATFORM</LinkNavigation>

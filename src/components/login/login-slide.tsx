@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 
 import {
   AUTHENTICATION_STATUSES,
-  HEADER_SCREEEN_CONTAINER,
+  HEADER_TYPES,
   DESKTOP_WIDTH,
   MOBILE_WIDTH,
   theme
@@ -186,13 +186,13 @@ class LoginOrRegisterSlide extends Component<
     storagePin: ""
   };
 
-  render () {
+  render() {
     const { login, status } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
         <LoginContainer>
-          <Header type={HEADER_SCREEEN_CONTAINER} />
+          <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
           <StorageContainer>
             <Storage>
               <Container>

@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
 
 import {
-  HEADER_TEAM_PAGE,
+  HEADER_TYPES,
   MOBILE_WIDTH,
   LANDING_PAGE_MOBILE_WIDTH,
   LANDING_PAGE_VIDEO,
@@ -316,7 +316,7 @@ const ContentPurchase = styled.a`
 const LandingPageSlide = ({ history }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header type={HEADER_TEAM_PAGE} />
+      <Header type={HEADER_TYPES.TEAM_PAGE} />
       <HeaderContainer>
         <Title>Secure. Anonymous. Opaque.</Title>
         <ContentWrapper>
@@ -336,10 +336,10 @@ const LandingPageSlide = ({ history }) => (
           </ButtonSecondary>
         </Wrapper>
         <Wrapper>
-        <ContentPurchase href="#buyOPQ">
+          <ContentPurchase href="#buyOPQ">
             Click here to purchase the OPQ token
           </ContentPurchase>
-          </Wrapper>
+        </Wrapper>
       </HeaderContainer>
       <Container>
         <BenefitSubContainer>

@@ -14,6 +14,7 @@ import Agreement from "./components/agreement";
 import BrokersDown from "./components/brokers-down";
 import LandingPage from "./components/landing-page";
 import Login from "./components/login";
+import Logout from "./components/logout";
 import ForgotPage from "./components/forgot-page";
 import Subscription from "./components/subscription";
 import Signup from "./components/signup";
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/sign-up" component={Signup} />
             <Route path="/stands-out" component={StandsOut} />
             <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
             <Route path="/forgot-page" component={ForgotPage} />
             <Route path="/team-page" component={TeamPage} />
             <Route path="/file-manager" component={FileManager} />

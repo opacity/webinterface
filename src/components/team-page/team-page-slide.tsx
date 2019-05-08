@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { HEADER_TEAM_PAGE, MOBILE_WIDTH, theme } from "../../config";
+import { HEADER_TYPES, MOBILE_WIDTH, theme } from "../../config";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
 
@@ -215,7 +215,7 @@ const PersonLink = styled.a`
 const TeamPageSlide = () => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header type={HEADER_TEAM_PAGE} />
+      <Header type={HEADER_TYPES.TEAM_PAGE} />
       <HeaderContainer>
         <Title>Meet the Team</Title>
         <ContentWrapper>
