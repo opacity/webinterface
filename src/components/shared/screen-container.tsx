@@ -1,9 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { HEADER_SCREEEN_CONTAINER, DESKTOP_WIDTH, theme } from "../../config";
-
-import Header from "./header";
+import { DESKTOP_WIDTH, theme } from "../../config";
 
 const Container = styled.div``;
 
@@ -46,7 +44,6 @@ const Underline = styled.hr`
 const ScreenContainer = ({ title, children }) => (
   <ThemeProvider theme={theme}>
     <Container>
-      <Header type={HEADER_SCREEEN_CONTAINER} />
       <Screen>
         <Title>{title}</Title>
         <Underline />

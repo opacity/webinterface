@@ -3,8 +3,13 @@ import styled, { ThemeProvider } from "styled-components";
 
 import ScreenContainer from "../shared/screen-container";
 import ScreenDescription from "../shared/screen-description";
+import Header from "../shared/header";
 
-import { theme } from "../../config";
+import { HEADER_TYPES, theme } from "../../config";
+
+const Container = styled.div`
+  width: 100%;
+`;
 
 const Link = styled.a`
   color: ${props => props.theme.title.color};
@@ -13,14 +18,17 @@ const Link = styled.a`
 
 const BrokersDownSlide = () => (
   <ThemeProvider theme={theme}>
-    <ScreenContainer title={"Broker Nodes Offline"}>
-      <ScreenDescription>
-        Opacity Storage’s broker nodes are currently offline. Uploads are
-        unavailable at this time. Please visit our{" "}
-        <Link href="https://t.me/OpacityStorage">Telegram Channel</Link> for
-        more information. We apologize for the inconvenience.
-      </ScreenDescription>
-    </ScreenContainer>
+    <Container>
+      <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+      <ScreenContainer title={"Broker Nodes Offline"}>
+        <ScreenDescription>
+          Opacity Storage’s broker nodes are currently offline. Uploads are
+          unavailable at this time. Please visit our{" "}
+          <Link href="https://t.me/OpacityStorage">Telegram Channel</Link> for
+          more information. We apologize for the inconvenience.
+        </ScreenDescription>
+      </ScreenContainer>
+    </Container>
   </ThemeProvider>
 );
 

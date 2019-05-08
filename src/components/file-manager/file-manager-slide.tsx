@@ -5,12 +5,7 @@ import backend from "../../services/backend";
 import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
 
-import {
-  HEADER_FILE_MANAGER,
-  DESKTOP_WIDTH,
-  MOBILE_WIDTH,
-  theme
-} from "../../config";
+import { HEADER_TYPES, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
@@ -317,7 +312,7 @@ const FileManagerSlide = ({
     <DroppableZone innerRef={instance => connectDropTarget(instance)}>
       <ThemeProvider theme={theme}>
         <Container>
-          <Header type={HEADER_FILE_MANAGER} />
+          <Header type={HEADER_TYPES.FILE_MANAGER} />
           <Contents>
             <LeftSideNav>
               <StorageInfo>

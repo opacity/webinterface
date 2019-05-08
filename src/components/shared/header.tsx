@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { withRouter } from "react-router";
 
 import "../root.css";
 
 import {
   theme,
   MOBILE_WIDTH,
-  HEADER_LANDING_PAGE,
-  HEADER_SCREEEN_CONTAINER,
   HEADER_MOBILE_WIDTH,
-  HEADER_TEAM_PAGE,
-  AUTHENTICATION_STATUSES
+  HEADER_TYPES
 } from "../../config";
 
 import Button from "./generic/button";
@@ -59,8 +55,8 @@ const DesktopNavigation = styled.div`
 `;
 
 const Link = styled.a`
-  margin-right: 95px;
   align-items: center;
+  padding: 0 30px;
   color: ${props => props.theme.header.color};
   cursor: pointer;
   display: flex;
@@ -134,20 +130,19 @@ const CommunityLink = styled.a`
 `;
 
 interface HeaderProps {
-  type;
-  history;
+  type: string;
+  isLoggedIn?: boolean;
 }
 
-const Header = ({ type, history }: HeaderProps) => {
+const Header = ({ type, isLoggedIn }: HeaderProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
   const renderButtons = () => {
-    const authentication = 0;
-    if (authentication === AUTHENTICATION_STATUSES.LOGGED_IN) {
+    if (isLoggedIn) {
       return (
         <CommunityWrapper>
-          <CommunityLink href={"/sign-out"}>
-            <CommunityButton>Sign out</CommunityButton>
+          <CommunityLink href={"/file-manager"}>
+            <CommunityButton>Dashboard</CommunityButton>
           </CommunityLink>
         </CommunityWrapper>
       );
@@ -167,7 +162,7 @@ const Header = ({ type, history }: HeaderProps) => {
 
   const renderNavigation = () => {
     switch (type) {
-      case HEADER_LANDING_PAGE:
+      case HEADER_TYPES.LANDING_PAGE:
         return (
           <LinkContainer>
             <LinkNavigation href="/stands-out">STANDS OUT</LinkNavigation>
@@ -182,7 +177,7 @@ const Header = ({ type, history }: HeaderProps) => {
             {renderButtons()}
           </LinkContainer>
         );
-      case HEADER_SCREEEN_CONTAINER:
+      case HEADER_TYPES.SCREEN_CONTAINER:
         return (
           <LinkContainer>
             <LinkNavigation href="/team-page">ABOUT US</LinkNavigation>
@@ -193,10 +188,9 @@ const Header = ({ type, history }: HeaderProps) => {
             >
               BLOG
             </LinkNavigation>
-            {renderButtons()}
           </LinkContainer>
         );
-      case HEADER_TEAM_PAGE:
+      case HEADER_TYPES.TEAM_PAGE:
         return (
           <LinkContainer>
             <LinkNavigation href="/stands-out">THE PLATFORM</LinkNavigation>
@@ -208,6 +202,12 @@ const Header = ({ type, history }: HeaderProps) => {
               BLOG
             </LinkNavigation>
             {renderButtons()}
+          </LinkContainer>
+        );
+      case HEADER_TYPES.FILE_MANAGER:
+        return (
+          <LinkContainer>
+            <LinkNavigation href="/logout">Logout</LinkNavigation>
           </LinkContainer>
         );
       default:
@@ -243,4 +243,4 @@ const Header = ({ type, history }: HeaderProps) => {
   );
 };
 
-export default withRouter(Header);
+export default Header;

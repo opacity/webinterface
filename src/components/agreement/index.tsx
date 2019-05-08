@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import LandingPageSlide from "./landing-page-slide";
+import Contents from "./contents";
 
 import { AUTHENTICATION_STATUSES } from "../../config";
 
@@ -11,8 +11,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({});
 
-const LandingPage = ({ authenticationStatus }) => (
-  <LandingPageSlide
+const Agreement = ({ authenticationStatus, type, title }) => (
+  <Contents
+    type={type}
+    title={title}
     isLoggedIn={authenticationStatus === AUTHENTICATION_STATUSES.LOGGED_IN}
   />
 );
@@ -20,4 +22,4 @@ const LandingPage = ({ authenticationStatus }) => (
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LandingPage);
+)(Agreement);
