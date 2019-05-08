@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { withRouter } from "react-router";
 
 import "../root.css";
 
@@ -135,10 +134,9 @@ const CommunityLink = styled.a`
 
 interface HeaderProps {
   type;
-  history;
 }
 
-const Header = ({ type, history }: HeaderProps) => {
+const Header = ({ type }: HeaderProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
   const renderButtons = () => {
@@ -243,4 +241,4 @@ const Header = ({ type, history }: HeaderProps) => {
   );
 };
 
-export default withRouter(Header);
+export default Header;
