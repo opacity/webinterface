@@ -5,11 +5,12 @@ import { HEADER_SCREEEN_CONTAINER, DESKTOP_WIDTH, theme } from "../../config";
 
 import Header from "./header";
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const Screen = styled.div`
   padding: 70px 250px;
-  height: 100%;
   max-width: 950px;
   margin: auto;
   background-color: ${props => props.theme.background};

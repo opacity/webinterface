@@ -40,10 +40,12 @@ export const createAccount = ({
 }) =>
   axiosInstance
     .post(`${API.DEFAULT_BROKER}${API.V1_ACCOUNTS_PATH}`, {
-      accountId,
-      storageLimit,
-      durationInMonths,
-      metadataKey
+      accountCreation: {
+        storageLimit,
+        durationInMonths,
+        metadataKey
+      },
+      signature: accountId
     })
     .then(({ data }: any) => {
       const { invoice } = data;
