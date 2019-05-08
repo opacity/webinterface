@@ -115,6 +115,7 @@ const Button = styled.button`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.button.color};
+  cursor: pointer;
   text-align: center;
   margin: auto;
   border: none;
@@ -142,11 +143,11 @@ const subscriptionList = [
     title: "Basic",
     content:
       "Secure, encrypted storage solution perfect for the needs of the individual",
-    price: "1.56 OPQ / year",
-    button: "COMING SOON",
+    price: "2 OPQ / year",
+    button: "SIGN UP",
     features: [
       {
-        title: "100 GB secure storage"
+        title: "128 GB secure storage"
       },
       {
         title: "Unlimited downloads"
@@ -161,7 +162,7 @@ const subscriptionList = [
     content:
       "For professionals looking for a secure, easily accessible storage solution while on the move.",
     price: "16 OPQ / year",
-    button: "COMING SOON",
+    button: "SIGN UP",
     features: [
       {
         title: "1 TB secure storage"
@@ -179,7 +180,7 @@ const subscriptionList = [
     content:
       "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
     price: "32 OPQ / year",
-    button: "COMING SOON",
+    button: "SIGN UP",
     features: [
       {
         title: "2 TB secure storage"
@@ -208,7 +209,9 @@ const Subscription = () => (
           <Footer>
             <Price>{item.price}</Price>
             <ButtonWrapper>
-              <Button>{item.button}</Button>
+              <Button onClick={() => window.open("/sign-up", "_self")}>
+                {item.button}
+              </Button>
             </ButtonWrapper>
           </Footer>
         </Column>

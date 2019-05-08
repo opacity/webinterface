@@ -16,6 +16,7 @@ const ContentBold = styled(Content)`
   margin-top: 25px;
   font-weight: bold;
   min-height: 28px;
+  text-transform: uppercase;
 `;
 
 const DownloadButton = styled.button`
@@ -163,7 +164,7 @@ class RecordRecoveryPhraseSlide extends Component<
 
                 isTermsChecked
                   ? this.save(this.state.privateKey)
-                  : alert("Please tick the Terms of Service condition.");
+                  : alert("Please accept the Terms of Service");
               }}
             >
               Continue

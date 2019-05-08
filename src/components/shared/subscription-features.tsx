@@ -49,10 +49,14 @@ const Features = styled.img`
 `;
 
 const Item = styled.p`
+  display: list-item;
+  list-style-type: disc;
+  list-style-position: inside;
   width: 171px;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 12.5px;
   min-height: 28px;
+  text-transform: uppercase;
   font-style: ${props => props.theme.fontStyle};
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};

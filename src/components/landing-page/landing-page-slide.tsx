@@ -336,10 +336,10 @@ const LandingPageSlide = ({ history }) => (
           </ButtonSecondary>
         </Wrapper>
         <Wrapper>
-        <ContentPurchase href="#buyOPQ">
+          <ContentPurchase href="#buyOPQ">
             Click here to purchase the OPQ token
           </ContentPurchase>
-          </Wrapper>
+        </Wrapper>
       </HeaderContainer>
       <Container>
         <BenefitSubContainer>
@@ -517,7 +517,7 @@ const LandingPageSlide = ({ history }) => (
             <ButtonWrapper>
               <ButtonBuy
                 onClick={() =>
-                  window.open("https://coss.io/c/trade?s=OPQ_BTC", "_blank")
+                  window.open("https://coss.io/c/trade?s=OPQ_ETH", "_blank")
                 }
               >
                 Buy OPQ on COSS

@@ -17,6 +17,7 @@ const ContentBold = styled(Content)`
   margin-top: 25px;
   font-weight: bold;
   min-height: 28px;
+  text-transform: uppercase;
 `;
 
 const ClipboardIconWrrapper = styled.div`
