@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { SIGNUP_PHASES, theme } from "../../config";
 
 import Breadcrumbs from "./breadcrumbs";
 import RecordRecoveryPhraseSlide from "./record-recovery-phrase-slide";
@@ -10,7 +9,7 @@ import ConfirmPaymentSlide from "./confirm-payment-slide";
 import ScreenContainer from "../shared/screen-container";
 import Header from "../shared/header";
 
-import { HEADER_TYPES } from "../../config";
+import { HEADER_TYPES, SIGNUP_PHASES, theme } from "../../config";
 
 const Container = styled.div``;
 
