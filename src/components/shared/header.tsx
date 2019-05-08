@@ -130,8 +130,8 @@ const CommunityLink = styled.a`
 `;
 
 interface HeaderProps {
-  type;
-  isLoggedIn;
+  type: string;
+  isLoggedIn?: boolean;
 }
 
 const Header = ({ type, isLoggedIn }: HeaderProps) => {

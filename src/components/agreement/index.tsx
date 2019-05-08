@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import StandsOutSlide from "./stands-out-slide";
+import Contents from "./contents";
 
 import { AUTHENTICATION_STATUSES } from "../../config";
 
@@ -11,8 +11,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({});
 
-const StandsOut = ({ authenticationStatus }) => (
-  <StandsOutSlide
+const Agreement = ({ authenticationStatus, type, title }) => (
+  <Contents
+    type={type}
+    title={title}
     isLoggedIn={authenticationStatus === AUTHENTICATION_STATUSES.LOGGED_IN}
   />
 );
@@ -20,4 +22,4 @@ const StandsOut = ({ authenticationStatus }) => (
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StandsOut);
+)(Agreement);

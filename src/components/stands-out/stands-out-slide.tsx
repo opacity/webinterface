@@ -424,10 +424,10 @@ const Td = styled.td`
   padding: 15px 10px 15px 10px;
 `;
 
-const SubscriptionSlide = ({ history }) => (
+const SubscriptionSlide = ({ history, isLoggedIn }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header type={HEADER_TYPES.TEAM_PAGE} />
+      <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
       <Container>
         <Title>With Opacity, You’re in Full Control</Title>
         <ContentWrapper>

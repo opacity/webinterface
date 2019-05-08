@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Markdown from "react-markdown";
 
@@ -23,33 +23,31 @@ const AgreementMarkdown = styled(AgreementMarkdownComponent)`
   }
 `;
 
-class Agreement extends Component {
-  state = { text: "" };
+const Contents = ({ type, title, isLoggedIn }) => {
+  const [text, setText] = useState("");
 
-  componentDidMount () {
+  useEffect(() => {
     const file = (type => {
       switch (type) {
-        case AGREEMENT_TYPES.TERMS_OF_SERVICE:
-          return TOS_MARKDOWN;
         case AGREEMENT_TYPES.PRIVACY_POLICY:
           return PRIVACY_POLICY;
+        default:
+          return TOS_MARKDOWN;
       }
-    })(this.props.type);
+    })(type);
 
     fetch(file)
       .then(resp => resp.text())
-      .then(text => this.setState({ text }));
-  }
+      .then(text => setText(text));
+  }, []);
 
-  render () {
-    const { title } = this.props;
-    return (
-      <ThemeProvider theme={theme}>
-        <ScreenContainer title={title}>
-          <AgreementMarkdown source={this.state.text} />
-        </ScreenContainer>
-      </ThemeProvider>
-    );
-  }
-}
-export default Agreement;
+  return (
+    <ThemeProvider theme={theme}>
+      <ScreenContainer title={title}>
+        <AgreementMarkdown source={text} />
+      </ScreenContainer>
+    </ThemeProvider>
+  );
+};
+
+export default Contents;

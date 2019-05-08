@@ -212,10 +212,10 @@ const PersonLink = styled.a`
   display: inline-block;
 `;
 
-const TeamPageSlide = () => (
+const TeamPageSlide = ({ isLoggedIn }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header type={HEADER_TYPES.TEAM_PAGE} />
+      <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
       <HeaderContainer>
         <Title>Meet the Team</Title>
         <ContentWrapper>
