@@ -41,7 +41,10 @@ const Contents = ({ type, title, isLoggedIn }) => {
 
     fetch(file)
       .then(resp => resp.text())
-      .then(text => setText(text));
+      .then(text => setText(text))
+      .catch(() =>
+        setText("There was a problem with the file. Please try again later!")
+      );
   }, []);
 
   return (
