@@ -2,6 +2,8 @@ import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import backend from "../../services/backend";
+import { NativeTypes } from "react-dnd-html5-backend";
+import { DropTarget } from "react-dnd";
 
 import {
   HEADER_FILE_MANAGER,
@@ -12,9 +14,23 @@ import {
 
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
-import RecoveryModal from "./recovery-modal";
+import DragAndDropOverlay from "./drag-and-drop-overlay";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
+
+const fileTarget = {
+  drop (props, monitor) {
+    const { upload, accountId } = props;
+    const { files } = monitor.getItem();
+    upload(files, accountId);
+  }
+};
+
+const DroppableZone = styled.div`
+  width: 100%;
+  display: flex;
+  flex: 1;
+`;
 
 const Container = styled.div`
   flex: 1;
@@ -246,7 +262,13 @@ interface File {
   size: number;
 }
 
-const FileManagerSlide = ({ upload, download, accountId }) => {
+const FileManagerSlide = ({
+  upload,
+  download,
+  accountId,
+  connectDropTarget,
+  isOver
+}) => {
   const [files, setFiles] = useState<File[]>([]);
   const [paramArrow, setParamArrow] = useState("");
 
@@ -292,78 +314,83 @@ const FileManagerSlide = ({ upload, download, accountId }) => {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <RecoveryModal />
-        <Header type={HEADER_FILE_MANAGER} />
-        <Contents>
-          <LeftSideNav>
-            <StorageInfo>
-              <StorageTitleWrapper>
-                <StorageTitle>30GB/100GB USED</StorageTitle>
-              </StorageTitleWrapper>
-              <StorageProgressWrapper>
-                <StorageProgress />
-              </StorageProgressWrapper>
-            </StorageInfo>
-          </LeftSideNav>
-          <TableContainer>
-            <Title>All Files</Title>
-            <ButtonWrapper>
-              <UploadButton onSelected={files => upload(files, accountId)} />
-            </ButtonWrapper>
-            <Table>
-              <thead>
-                <Tr>
-                  <Th />
-                  <TableHeader
-                    param="name"
-                    title="Name"
-                    paramArrow={paramArrow}
-                    sortBy={(param, order) => sortBy(param, order)}
-                  />
-                  <Th>File Handle</Th>
-                  <TableHeader
-                    param="modifiedAt"
-                    title="Date"
-                    paramArrow={paramArrow}
-                    sortBy={(param, order) => sortBy(param, order)}
-                  />
-                  <TableHeader
-                    param="size"
-                    title="Size"
-                    paramArrow={paramArrow}
-                    sortBy={(param, order) => sortBy(param, order)}
-                  />
-                  <Th>Actions</Th>
-                </Tr>
-              </thead>
-              <tbody>
-                {files.map(({ name, handle, modifiedAt, size }) => (
-                  <Tr key={handle}>
-                    <Td>
-                      <TableIcon src={ICON_LOGO} />
-                    </Td>
-                    <Td>{name}</Td>
-                    <Td>{handle}</Td>
-                    <Td>{modifiedAt}</Td>
-                    <Td>{size} FILES</Td>
-                    <Td>
-                      <ActionLink onClick={() => download(handle)}>
-                        Download
-                      </ActionLink>
-                      <ActionLink>Delete</ActionLink>
-                    </Td>
+    <DroppableZone innerRef={instance => connectDropTarget(instance)}>
+      <ThemeProvider theme={theme}>
+        <Container>
+          <Header type={HEADER_FILE_MANAGER} />
+          <Contents>
+            <LeftSideNav>
+              <StorageInfo>
+                <StorageTitleWrapper>
+                  <StorageTitle>30GB/100GB USED</StorageTitle>
+                </StorageTitleWrapper>
+                <StorageProgressWrapper>
+                  <StorageProgress />
+                </StorageProgressWrapper>
+              </StorageInfo>
+            </LeftSideNav>
+            <TableContainer>
+              <Title>All Files</Title>
+              <ButtonWrapper>
+                <UploadButton onSelected={files => upload(files, accountId)} />
+              </ButtonWrapper>
+              <Table>
+                <thead>
+                  <Tr>
+                    <Th />
+                    <TableHeader
+                      param="name"
+                      title="Name"
+                      paramArrow={paramArrow}
+                      sortBy={(param, order) => sortBy(param, order)}
+                    />
+                    <Th>File Handle</Th>
+                    <TableHeader
+                      param="modifiedAt"
+                      title="Date"
+                      paramArrow={paramArrow}
+                      sortBy={(param, order) => sortBy(param, order)}
+                    />
+                    <TableHeader
+                      param="size"
+                      title="Size"
+                      paramArrow={paramArrow}
+                      sortBy={(param, order) => sortBy(param, order)}
+                    />
+                    <Th>Actions</Th>
                   </Tr>
-                ))}
-              </tbody>
-            </Table>
-            <ButtonMobileWrapper />
-          </TableContainer>
-        </Contents>
-      </Container>
-    </ThemeProvider>
+                </thead>
+                <tbody>
+                  {files.map(({ name, handle, modifiedAt, size }) => (
+                    <Tr key={handle}>
+                      <Td>
+                        <TableIcon src={ICON_LOGO} />
+                      </Td>
+                      <Td>{name}</Td>
+                      <Td>{handle}</Td>
+                      <Td>{modifiedAt}</Td>
+                      <Td>{size} FILES</Td>
+                      <Td>
+                        <ActionLink onClick={() => download(handle)}>
+                          Download
+                        </ActionLink>
+                        <ActionLink>Delete</ActionLink>
+                      </Td>
+                    </Tr>
+                  ))}
+                </tbody>
+              </Table>
+              <ButtonMobileWrapper />
+            </TableContainer>
+          </Contents>
+          {isOver && <DragAndDropOverlay />}
+        </Container>
+      </ThemeProvider>
+    </DroppableZone>
   );
 };
 
-export default FileManagerSlide;
+export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver()
+}))(FileManagerSlide);
