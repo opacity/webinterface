@@ -13,7 +13,9 @@ import Header from "../shared/header";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
-const LoginContainer = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const ErrorMessage = styled.p`
   color: ${props => props.theme.error.color};
@@ -66,7 +68,7 @@ const Input = styled.input<InputProps>`
       props.hasError ? props.theme.error.color : props.theme.input.content};
 `;
 
-const Container = styled.div`
+const Column = styled.div`
   flex: 1;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     text-align: center;
@@ -186,19 +188,19 @@ class LoginOrRegisterSlide extends Component<
     storagePin: ""
   };
 
-  render () {
+  render() {
     const { login, status } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
-        <LoginContainer>
+        <Container>
           <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
           <StorageContainer>
             <Storage>
-              <Container>
+              <Column>
                 <Icon src={ICON_LOGO} />
-              </Container>
-              <Container>
+              </Column>
+              <Column>
                 <Title>Sign in Opacity</Title>
                 <Underline />
                 <Label>Account Handle</Label>
@@ -233,10 +235,10 @@ class LoginOrRegisterSlide extends Component<
                 <ForgotStorage href="/forgot-page">
                   Forgot Account Handle?
                 </ForgotStorage>
-              </Container>
+              </Column>
             </Storage>
           </StorageContainer>
-        </LoginContainer>
+        </Container>
       </ThemeProvider>
     );
   }

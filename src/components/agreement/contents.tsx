@@ -3,10 +3,13 @@ import styled, { ThemeProvider } from "styled-components";
 import Markdown from "react-markdown";
 
 import ScreenContainer from "../shared/screen-container";
+import Header from "../shared/header";
 
-import { AGREEMENT_TYPES, theme } from "../../config";
+import { HEADER_TYPES, AGREEMENT_TYPES, theme } from "../../config";
 import TOS_MARKDOWN from "./terms-of-service.md";
 import PRIVACY_POLICY from "./privacy-policy.md";
+
+const Container = styled.div``;
 
 const AgreementMarkdownComponent = props => (
   <div>
@@ -43,9 +46,12 @@ const Contents = ({ type, title, isLoggedIn }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <ScreenContainer title={title}>
-        <AgreementMarkdown source={text} />
-      </ScreenContainer>
+      <Container>
+        <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+        <ScreenContainer title={title}>
+          <AgreementMarkdown source={text} />
+        </ScreenContainer>
+      </Container>
     </ThemeProvider>
   );
 };

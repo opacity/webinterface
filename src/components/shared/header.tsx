@@ -188,7 +188,6 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
             >
               BLOG
             </LinkNavigation>
-            {renderButtons()}
           </LinkContainer>
         );
       case HEADER_TYPES.TEAM_PAGE:
