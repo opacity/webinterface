@@ -1,9 +1,9 @@
 const UPLOAD_FILES = "opacity/upload/upload-files";
 const UPLOAD_FILE = "opacity/upload/upload-file";
 const MONITOR_FILE = "opacity/upload/monitor-file";
-const UPLOAD_PROGRESS = "opacity/upload/stream-upload-progress";
-const UPLOAD_SUCCESS = "opacity/upload/stream-upload-success";
-const UPLOAD_ERROR = "opacity/upload/stream-upload-error";
+const UPLOAD_PROGRESS = "opacity/upload/upload-progress";
+const UPLOAD_SUCCESS = "opacity/upload/upload-success";
+const UPLOAD_ERROR = "opacity/upload/upload-error";
 
 const ACTIONS = Object.freeze({
   UPLOAD_FILES,
