@@ -10,6 +10,7 @@ import { HEADER_TYPES, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
+import FilePanel from "./file-panel";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
@@ -266,10 +267,17 @@ const FileManagerSlide = ({
 }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [paramArrow, setParamArrow] = useState("");
+  const [showFilePanel, setShowFilePanel] = useState(false);
+  const [fileHandle, setFileHandle] = useState("");
 
   const sortBy = (param, order) => {
     setParamArrow(param);
     setFiles(_.orderBy(files, param, order));
+  };
+
+  const filePanel = handle => {
+    setShowFilePanel(!showFilePanel);
+    setFileHandle(handle);
   };
 
   useEffect(() => {
@@ -324,6 +332,13 @@ const FileManagerSlide = ({
                 </StorageProgressWrapper>
               </StorageInfo>
             </LeftSideNav>
+            {showFilePanel && (
+              <FilePanel
+                download={handle => download(handle)}
+                handle={fileHandle}
+                closeButton={() => setShowFilePanel(false)}
+              />
+            )}
             <TableContainer>
               <Title>All Files</Title>
               <ButtonWrapper>
@@ -358,13 +373,13 @@ const FileManagerSlide = ({
                 <tbody>
                   {files.map(({ name, handle, modifiedAt, size }) => (
                     <Tr key={handle}>
-                      <Td>
+                      <Td onClick={() => filePanel(handle)}>
                         <TableIcon src={ICON_LOGO} />
                       </Td>
-                      <Td>{name}</Td>
-                      <Td>{handle}</Td>
-                      <Td>{modifiedAt}</Td>
-                      <Td>{size} FILES</Td>
+                      <Td onClick={() => filePanel(handle)}>{name}</Td>
+                      <Td onClick={() => filePanel(handle)}>{handle}</Td>
+                      <Td onClick={() => filePanel(handle)}>{modifiedAt}</Td>
+                      <Td onClick={() => filePanel(handle)}>{size} FILES</Td>
                       <Td>
                         <ActionLink onClick={() => download(handle)}>
                           Download

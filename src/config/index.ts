@@ -51,6 +51,7 @@ export const API = Object.freeze({
   V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",
   V1_LOGIN_PATH: ":3000/api/v1/metadata",
   V1_FILES_PATH: ":3000/api/v1/files",
+  V1_FILE_PATH: ":3000/api/v1/file",
   GAS_PRICE: "https://api.blockcypher.com/v1/eth/main",
   CHUNKS_PER_REQUEST: 10
 });

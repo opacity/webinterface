@@ -70,10 +70,16 @@ export const filesIndex = ({ metadataKey }) =>
     .get(`${API.DEFAULT_BROKER}${API.V1_FILES_PATH}/${metadataKey}`)
     .then(({ data }: any) => data);
 
+export const fileIndex = ({ metadataKey, handle }) =>
+  axiosInstance
+    .get(`${API.DEFAULT_BROKER}${API.V1_FILE_PATH}/${metadataKey}/${handle}`)
+    .then(({ data }: any) => data);
+
 export default {
   checkStatus,
   createAccount,
   isAccountPaid,
   login,
-  filesIndex
+  filesIndex,
+  fileIndex
 };
