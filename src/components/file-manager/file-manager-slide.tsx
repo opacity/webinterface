@@ -4,6 +4,8 @@ import styled, { ThemeProvider } from "styled-components";
 import backend from "../../services/backend";
 import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { HEADER_TYPES, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
@@ -14,7 +16,7 @@ import DragAndDropOverlay from "./drag-and-drop-overlay";
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
+  drop(props, monitor) {
     const { upload, accountId } = props;
     const { files } = monitor.getItem();
     upload(files, accountId);
@@ -378,6 +380,12 @@ const FileManagerSlide = ({
               <ButtonMobileWrapper />
             </TableContainer>
           </Contents>
+          <ToastContainer
+            pauseOnHover={false}
+            draggable={true}
+            progressClassName="toast-progress-bar"
+            bodyClassName="toast-body"
+          />
           {isOver && <DragAndDropOverlay />}
         </Container>
       </ThemeProvider>

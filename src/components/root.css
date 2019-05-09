@@ -782,3 +782,14 @@ div.Select-control {
 .ReactModal__Body--open {
   overflow: hidden;
 }
+
+div.toast-progress-bar {
+  background: #92b7fc;
+}
+
+.toast-body {
+  font-size: 17px;
+  padding: 10px;
+  font-family: "proxima-nova", sans-serif;
+  color: #687892;
+}
