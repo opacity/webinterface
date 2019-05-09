@@ -22,10 +22,14 @@ const loginEpic = (action$, state$, dependencies$) =>
           metadataKey
         })
       ).pipe(
-        flatMap(() => {
+        flatMap(metadata => {
           const accountId = Account.getAccountId({ privateKey, storagePin });
           return [
-            authenticationActions.loginSuccess({ accountId }),
+            authenticationActions.loginSuccess({
+              accountId,
+              metadata,
+              metadataKey
+            }),
             push("/file-manager")
           ];
         }),
