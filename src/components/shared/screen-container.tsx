@@ -3,11 +3,12 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { DESKTOP_WIDTH, theme } from "../../config";
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const Screen = styled.div`
   padding: 70px 250px;
-  height: 100%;
   max-width: 950px;
   margin: auto;
   background-color: ${props => props.theme.background};
