@@ -205,9 +205,12 @@ const InfoSubContainer = styled(SubContainer)`
 
 const CommunityContainer = styled(SubContainer)`
   justify-content: space-evenly;
-  margin: 5 0px 0;
+  width: 60%;
+  margin: auto;
+  margin-bottom: 30px;
   @media (max-width: ${STANDS_OUT_TABLET_WIDTH}px) {
     margin: 60px 0;
+    width: 100%;
     display: block;
   }
 `;
