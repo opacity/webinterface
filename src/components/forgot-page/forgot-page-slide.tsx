@@ -7,7 +7,7 @@ import ContentBox from "../signup/content-box";
 import Hr from "../signup/hr";
 import Title from "../signup/title";
 import ScreenContainer from "../shared/screen-container";
-import Input from "../shared/generic/Input";
+import Input from "../shared/generic/input";
 
 const ContinueButton = styled.button`
   cursor: pointer;

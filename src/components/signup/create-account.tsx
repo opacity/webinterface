@@ -11,7 +11,9 @@ import Header from "../shared/header";
 
 import { HEADER_TYPES, SIGNUP_PHASES, theme } from "../../config";
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const CreateAccount = ({
   invoice,
