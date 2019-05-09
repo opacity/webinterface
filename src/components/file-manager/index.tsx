@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   upload: (files, accountId) =>
-    dispatch(uploadActions.streamUpload({ files, accountId })),
+    dispatch(uploadActions.uploadFiles({ files, accountId })),
   download: handle => dispatch(downloadActions.streamDownload({ handle }))
 });
 
