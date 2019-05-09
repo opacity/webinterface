@@ -3,11 +3,19 @@ import { connect } from "react-redux";
 
 import TeamPageSlide from "./team-page-slide";
 
-const mapStateToProps = state => ({});
+import { AUTHENTICATION_STATUSES } from "../../config";
+
+const mapStateToProps = state => ({
+  authenticationStatus: state.authentication.status
+});
 
 const mapDispatchToProps = dispatch => ({});
 
-const TeamPage = () => <TeamPageSlide />;
+const TeamPage = ({ authenticationStatus }) => (
+  <TeamPageSlide
+    isLoggedIn={authenticationStatus === AUTHENTICATION_STATUSES.LOGGED_IN}
+  />
+);
 
 export default connect(
   mapStateToProps,

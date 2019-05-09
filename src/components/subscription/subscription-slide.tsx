@@ -1,16 +1,24 @@
 import React from "react";
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
-import { theme } from "../../config";
+import { HEADER_TYPES, theme } from "../../config";
 
 import ScreenContainer from "../shared/screen-container";
 import Subscription from "../shared/subscription";
+import Header from "../shared/header";
+
+const Container = styled.div`
+  width: 100%;
+`;
 
 const SubscriptionSlide = () => (
   <ThemeProvider theme={theme}>
-    <ScreenContainer title={"Choose Subscription Plan"}>
-      <Subscription />
-    </ScreenContainer>
+    <Container>
+      <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+      <ScreenContainer title={"Choose Subscription Plan"}>
+        <Subscription />
+      </ScreenContainer>
+    </Container>
   </ThemeProvider>
 );
 

@@ -1,15 +1,14 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { HEADER_SCREEEN_CONTAINER, DESKTOP_WIDTH, theme } from "../../config";
+import { DESKTOP_WIDTH, theme } from "../../config";
 
-import Header from "./header";
-
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const Screen = styled.div`
   padding: 70px 250px;
-  height: 100%;
   max-width: 950px;
   margin: auto;
   background-color: ${props => props.theme.background};
@@ -46,7 +45,6 @@ const Underline = styled.hr`
 const ScreenContainer = ({ title, children }) => (
   <ThemeProvider theme={theme}>
     <Container>
-      <Header type={HEADER_SCREEEN_CONTAINER} />
       <Screen>
         <Title>{title}</Title>
         <Underline />

@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 import styled, { ThemeProvider } from "styled-components";
 
 import {
-  HEADER_TEAM_PAGE,
+  HEADER_TYPES,
   MOBILE_WIDTH,
   STANDS_OUT_TABLET_WIDTH,
   STANDS_OUT_DESKTOP_WIDTH,
@@ -425,10 +425,10 @@ const Td = styled.td`
   padding: 15px 10px 15px 10px;
 `;
 
-const SubscriptionSlide = ({ history }) => (
+const SubscriptionSlide = ({ history, isLoggedIn }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header type={HEADER_TEAM_PAGE} />
+      <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
       <Container>
         <Title>With Opacity, You’re in Full Control</Title>
         <ContentWrapper>

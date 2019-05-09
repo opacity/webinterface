@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { withRouter } from "react-router";
 
 import "../root.css";
 
@@ -57,8 +56,8 @@ const DesktopNavigation = styled.div`
 `;
 
 const Link = styled.a`
-  margin-right: 95px;
   align-items: center;
+  padding: 0 30px;
   color: ${props => props.theme.header.color};
   cursor: pointer;
   display: flex;
@@ -111,16 +110,16 @@ const HamburgerIcon = styled.img`
 `;
 
 interface HeaderProps {
-  type;
-  history;
+  type: string;
+  isLoggedIn?: boolean;
 }
 
-const Header = ({ type, history }: HeaderProps) => {
+const Header = ({ type, isLoggedIn }: HeaderProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
   const renderNavigation = () => {
     switch (type) {
-      case HEADER_LANDING_PAGE:
+      case HEADER_TYPES.LANDING_PAGE:
         return (
           <LinkContainer>
             <LinkNavigation href="/stands-out">STANDS OUT</LinkNavigation>
@@ -135,7 +134,7 @@ const Header = ({ type, history }: HeaderProps) => {
             <HeaderButtons />
           </LinkContainer>
         );
-      case HEADER_SCREEEN_CONTAINER:
+      case HEADER_TYPES.SCREEN_CONTAINER:
         return (
           <LinkContainer>
             <LinkNavigation href="/team-page">ABOUT US</LinkNavigation>
@@ -149,7 +148,7 @@ const Header = ({ type, history }: HeaderProps) => {
             <HeaderButtons />
           </LinkContainer>
         );
-      case HEADER_TEAM_PAGE:
+      case HEADER_TYPES.TEAM_PAGE:
         return (
           <LinkContainer>
             <LinkNavigation href="/stands-out">THE PLATFORM</LinkNavigation>
@@ -160,6 +159,12 @@ const Header = ({ type, history }: HeaderProps) => {
             >
               BLOG
             </LinkNavigation>
+            <HeaderButtons />
+          </LinkContainer>
+        );
+      case HEADER_TYPES.FILE_MANAGER:
+        return (
+          <LinkContainer>
             <HeaderButtons />
           </LinkContainer>
         );
@@ -196,4 +201,4 @@ const Header = ({ type, history }: HeaderProps) => {
   );
 };
 
-export default withRouter(Header);
+export default Header;

@@ -16,11 +16,7 @@ const authenticationReducer = (state = initState, action) => {
       const { accountId } = action.payload;
       return { ...state, status: AUTHENTICATION_STATUSES.LOGGED_IN, accountId };
     case authenticationActions.LOGOUT:
-      return {
-        ...state,
-        status: AUTHENTICATION_STATUSES.LOGGED_OUT,
-        accountId: null
-      };
+      return initState;
     default:
       return state;
   }

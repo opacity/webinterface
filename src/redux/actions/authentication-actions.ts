@@ -1,7 +1,7 @@
-const LOGIN_PENDING = "opacity/login/login-pending";
-const LOGIN_SUCCESS = "opacity/login/login-success";
-const LOGIN_FAILURE = "opacity/login/login-failure";
-const LOGOUT = "opacity/login/logout";
+const LOGIN_PENDING = "opacity/authentication/login-pending";
+const LOGIN_SUCCESS = "opacity/authentication/login-success";
+const LOGIN_FAILURE = "opacity/authentication/login-failure";
+const LOGOUT = "opacity/authentication/logout";
 
 const ACTIONS = Object.freeze({
   LOGIN_PENDING,
