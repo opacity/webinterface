@@ -6,11 +6,13 @@ const initState = {
 
 interface UploadedFile {
   handle: string;
+  filename: string;
   progress: number;
 }
 
-const fileGenerator = ({ handle, progress }): UploadedFile => ({
+const fileGenerator = ({ handle, filename, progress }): UploadedFile => ({
   handle,
+  filename,
   progress
 });
 
@@ -19,10 +21,20 @@ const uploadReducer = (state = initState, action) => {
     case uploadActions.MONITOR_FILE:
       return {
         ...state,
-        files: fileGenerator({ handle: action.payload.handle, progress: 0 })
+        files: [
+          ...state.files,
+          fileGenerator({
+            handle: action.payload.handle,
+            filename: action.payload.filename,
+            progress: 0
+          })
+        ]
       };
 
     case uploadActions.UPLOAD_PROGRESS:
+      const file = state.files.find(
+        (f: UploadedFile) => f.handle === action.payload.handle
+      );
       return {
         ...state,
         files: [
@@ -30,6 +42,7 @@ const uploadReducer = (state = initState, action) => {
             (f: UploadedFile) => f.handle !== action.payload.handle
           ),
           fileGenerator({
+            filename: file ? (file as UploadedFile).filename : "Unknown",
             handle: action.payload.handle,
             progress: action.payload.progress
           })
