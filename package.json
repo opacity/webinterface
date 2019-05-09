@@ -50,7 +50,6 @@
     "mini-css-extract-plugin": "^0.4.5",
     "node-forge": "^0.7.5",
     "object-assign": "4.1.1",
-    "opacity-streamable": "^2.2.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "preact": "^8.4.2",
