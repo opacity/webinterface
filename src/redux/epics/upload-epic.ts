@@ -11,7 +11,7 @@ import * as Backend from "../../services/backend";
 import * as Metadata from "../../services/metadata";
 
 import * as Backend from "../../services/backend";
-// import * as Metadata from "../../services/metadata";
+import * as Metadata from "../../services/metadata";
 
 const uploadFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
