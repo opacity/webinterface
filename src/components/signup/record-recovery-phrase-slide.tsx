@@ -29,6 +29,7 @@ const DownloadButton = styled.button`
 
 const TermsOfService = styled.div`
   margin: 10px 0;
+  text-align: right;
 `;
 
 const CheckboxLabel = styled.label`
@@ -141,22 +142,6 @@ class RecordRecoveryPhraseSlide extends Component<
           <DownloadButton onClick={() => this.downloadCsv(this.state.mnemonic)}>
             Download phrase as CSV
           </DownloadButton>
-          <TermsOfService>
-            <CheckboxLabel htmlFor="terms-checkbox">
-              <Checkbox
-                id="terms-checkbox"
-                value="checked"
-                onChange={e =>
-                  this.setState({ isTermsChecked: e.target.checked })
-                }
-                checked={this.state.isTermsChecked}
-              />
-              Accept{" "}
-              <OutboundLink href="/terms-of-service">
-                Terms of Service
-              </OutboundLink>
-            </CheckboxLabel>
-          </TermsOfService>
           <ButtonWrapper>
             <ContinueButton
               onClick={() => {
@@ -170,6 +155,22 @@ class RecordRecoveryPhraseSlide extends Component<
               Continue
             </ContinueButton>
           </ButtonWrapper>
+          <TermsOfService>
+            <CheckboxLabel htmlFor="terms-checkbox">
+              <Checkbox
+                id="terms-checkbox"
+                value="checked"
+                onChange={e =>
+                  this.setState({ isTermsChecked: e.target.checked })
+                }
+                checked={this.state.isTermsChecked}
+              />
+              I agree to the{" "}
+              <OutboundLink href="/terms-of-service">
+                Terms of Service
+              </OutboundLink>
+            </CheckboxLabel>
+          </TermsOfService>
         </ContentBox>
       </ThemeProvider>
     );

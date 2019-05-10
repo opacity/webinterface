@@ -2,7 +2,14 @@ import styled from "styled-components";
 
 import { theme } from "../../../config";
 
-const Button = styled.button`
+interface ButtonProps {
+  backgroundColor?: string;
+  border?: string;
+  color?: string;
+  margin?: string;
+}
+
+const Button = styled.button<ButtonProps>`
   background-color: ${(props: any) => props.backgroundColor || "#2e6dde"};
   color: ${(props: any) => props.color || theme.button.color};
   border: ${(props: any) => props.border || "1px solid white"};

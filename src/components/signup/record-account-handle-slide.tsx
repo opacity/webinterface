@@ -9,7 +9,8 @@ import Content from "./content";
 import Hr from "./hr";
 import Title from "./title";
 import ContinueButton from "./continue-button";
-import Input from "../shared/generic/Input";
+import Input from "../shared/generic/input";
+import Button from "../shared/generic/button";
 
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
@@ -194,6 +195,15 @@ class RecordAccountHandleSlide extends Component<
             information and will not be able to recover it for you.
           </Content>
           <ButtonWrapper>
+            <Button
+              backgroundColor="transparent"
+              border="1px solid #2e6dde"
+              color="#2e6dde"
+              margin="0 10px 0 0"
+              onClick={() => window.location.reload()}
+            >
+              Back
+            </Button>
             <ContinueButton
               onClick={() => {
                 const { storagePin, retypedStoragePin, isCopied } = this.state;
