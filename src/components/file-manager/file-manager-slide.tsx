@@ -6,6 +6,7 @@ import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import moment from "moment";
 
 import { HEADER_TYPES, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
@@ -349,7 +350,7 @@ const FileManagerSlide = ({
                       </Td>
                       <Td>{filename}</Td>
                       <Td>{_.truncate(handle, { length: 30 })}</Td>
-                      <Td>{createdAt}</Td>
+                      <Td>{moment(createdAt).format("MM/DD/YYYY")}</Td>
                       <Td>{Math.round(size / 1000.0)} KB</Td>
                       <Td>
                         <ActionLink onClick={() => download(handle)}>
