@@ -350,7 +350,7 @@ const FileManagerSlide = ({
                       <Td>{filename}</Td>
                       <Td>{_.truncate(handle, { length: 30 })}</Td>
                       <Td>{createdAt}</Td>
-                      <Td>{size} FILES</Td>
+                      <Td>{Math.round(size / 1000.0)} KB</Td>
                       <Td>
                         <ActionLink onClick={() => download(handle)}>
                           Download
