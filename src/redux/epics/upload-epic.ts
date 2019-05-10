@@ -10,7 +10,8 @@ import authenticationActions from "../actions/authentication-actions";
 import * as Backend from "../../services/backend";
 import * as Metadata from "../../services/metadata";
 
-import { Upload } from "opaque";
+import * as Backend from "../../services/backend";
+// import * as Metadata from "../../services/metadata";
 
 const uploadFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
