@@ -5,9 +5,10 @@ import { toast } from "react-toastify";
 import { Upload } from "opaque";
 
 import uploadActions from "../actions/upload-actions";
+import authenticationActions from "../actions/authentication-actions";
 
 import * as Backend from "../../services/backend";
-// import * as Metadata from "../../services/metadata";
+import * as Metadata from "../../services/metadata";
 
 const uploadFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
@@ -66,7 +67,14 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
             toast.dismiss(handle);
           }, 3000);
 
-          o.next(uploadActions.uploadSuccess({ handle }));
+          o.next(
+            uploadActions.uploadSuccess({
+              handle,
+              filename: file.name,
+              size: file.size,
+              createdAt: Date.now()
+            })
+          );
           o.complete();
         });
 
@@ -93,13 +101,8 @@ const updateMetadataEpic = (action$, state$, dependencies$) =>
     mergeMap(({ payload }) => {
       const { handle, filename, size, createdAt } = payload;
 
-      // const { metadataKey, metadata } = state$.value.authentication;
-      const { metadataKey } = state$.value.authentication;
-
-      // const decryptedMetadata = Metadata.decrypt(metadata);
-      const decryptedMetadata = {
-        files: []
-      };
+      const { metadataKey, metadata } = state$.value.authentication;
+      const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
 
       const newMetadata = {
         ...decryptedMetadata,
@@ -109,13 +112,17 @@ const updateMetadataEpic = (action$, state$, dependencies$) =>
         ]
       };
 
+      const metadataAsString = Metadata.encrypt(metadataKey, newMetadata);
+
       return from(
-        Backend.updateMetadata({ metadataKey, metadata: newMetadata })
+        Backend.updateMetadata({ metadataKey, metadata: metadataAsString })
       ).pipe(
         map(({ metadata }) =>
-          uploadActions.updateMetadataSuccess({ metadata })
+          authenticationActions.updateMetadataSuccess({ metadata })
         ),
-        catchError(error => of(uploadActions.updateMetadataFailure({ error })))
+        catchError(error =>
+          of(authenticationActions.updateMetadataFailure({ error }))
+        )
       );
     })
   );

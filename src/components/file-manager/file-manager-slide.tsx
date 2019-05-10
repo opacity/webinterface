@@ -13,10 +13,12 @@ import Header from "../shared/header";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 
+import * as Metadata from "../../services/metadata";
+
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
+  drop(props, monitor) {
     const { upload, accountId } = props;
     const { files } = monitor.getItem();
     upload(files, accountId);
@@ -253,9 +255,9 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
 };
 
 interface File {
-  name: string;
+  filename: string;
   handle: string;
-  modifiedAt: string;
+  createdAt: string;
   size: number;
 }
 
@@ -263,6 +265,8 @@ const FileManagerSlide = ({
   upload,
   download,
   accountId,
+  metadataKey,
+  metadata,
   connectDropTarget,
   isOver
 }) => {
@@ -274,41 +278,21 @@ const FileManagerSlide = ({
     setFiles(_.orderBy(files, param, order));
   };
 
-  useEffect(() => {
-    backend
-      .filesIndex({ metadataKey: "0x0x" })
-      .then(files => {
-        setFiles(_.orderBy(files, "modifiedAt", "desc"));
-      })
-      .catch(() =>
-        setFiles(
-          _.orderBy(
-            [
-              {
-                name: "HR Stuff",
-                handle: "0x0x0x",
-                modifiedAt: "01/03/2019",
-                size: 40
-              },
-              {
-                name: "Stuff",
-                handle: "1x0x0x0x",
-                modifiedAt: "02/03/2019",
-                size: 30
-              },
-              {
-                name: "Maine",
-                handle: "2xx2x2x2",
-                modifiedAt: "03/03/2019",
-                size: 20
-              }
-            ],
-            "modifiedAt",
-            "desc"
-          )
-        )
-      );
-  }, []);
+  useEffect(
+    () => {
+      backend
+        .getMetadata({ metadataKey })
+        .then(({ metadata }) => {
+          const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
+          const unorderedFiles = decryptedMetadata
+            ? decryptedMetadata.files
+            : [];
+          setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
+        })
+        .catch(console.log);
+    },
+    [metadata]
+  );
 
   return (
     <DroppableZone innerRef={instance => connectDropTarget(instance)}>
@@ -343,7 +327,7 @@ const FileManagerSlide = ({
                     />
                     <Th>File Handle</Th>
                     <TableHeader
-                      param="modifiedAt"
+                      param="createdAt"
                       title="Date"
                       paramArrow={paramArrow}
                       sortBy={(param, order) => sortBy(param, order)}
@@ -358,14 +342,14 @@ const FileManagerSlide = ({
                   </Tr>
                 </thead>
                 <tbody>
-                  {files.map(({ name, handle, modifiedAt, size }) => (
+                  {files.map(({ filename, handle, createdAt, size }) => (
                     <Tr key={handle}>
                       <Td>
                         <TableIcon src={ICON_LOGO} />
                       </Td>
-                      <Td>{name}</Td>
-                      <Td>{handle}</Td>
-                      <Td>{modifiedAt}</Td>
+                      <Td>{filename}</Td>
+                      <Td>{_.truncate(handle, { length: 30 })}</Td>
+                      <Td>{createdAt}</Td>
                       <Td>{size} FILES</Td>
                       <Td>
                         <ActionLink onClick={() => download(handle)}>
