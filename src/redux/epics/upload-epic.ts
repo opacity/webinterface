@@ -69,6 +69,15 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
         });
 
         upload.on("error", err => {
+          toast.update(handle, {
+            render: `An error occurred while uploading ${file.name}.`,
+            type: toast.TYPE.ERROR,
+            progress: 1
+          });
+          setTimeout(() => {
+            toast.dismiss(handle);
+          }, 3000);
+
           o.next(uploadActions.uploadError({ err }));
           o.complete();
         });

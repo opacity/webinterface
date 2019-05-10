@@ -787,6 +787,13 @@ div.toast-progress-bar {
   background: #92b7fc;
 }
 
+div.Toastify__toast--error {
+  background: #ffffff;
+}
+.Toastify__toast--error .toast-progress-bar {
+  background: #e74c3c;
+}
+
 .toast-body {
   font-size: 17px;
   padding: 10px;
