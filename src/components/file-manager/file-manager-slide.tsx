@@ -256,6 +256,7 @@ interface File {
   handle: string;
   modifiedAt: string;
   size: number;
+  icon: string;
 }
 
 const FileManagerSlide = ({
@@ -268,16 +269,16 @@ const FileManagerSlide = ({
   const [files, setFiles] = useState<File[]>([]);
   const [paramArrow, setParamArrow] = useState("");
   const [showFilePanel, setShowFilePanel] = useState(false);
-  const [fileHandle, setFileHandle] = useState("");
+  const [file, setFile] = useState("");
 
   const sortBy = (param, order) => {
     setParamArrow(param);
     setFiles(_.orderBy(files, param, order));
   };
 
-  const filePanel = handle => {
-    setShowFilePanel(!showFilePanel);
-    setFileHandle(handle);
+  const filePanel = file => {
+    setShowFilePanel(true);
+    setFile(file);
   };
 
   useEffect(() => {
@@ -294,19 +295,22 @@ const FileManagerSlide = ({
                 name: "HR Stuff",
                 handle: "0x0x0x",
                 modifiedAt: "01/03/2019",
-                size: 40
+                size: 40,
+                icon: ICON_LOGO
               },
               {
                 name: "Stuff",
                 handle: "1x0x0x0x",
                 modifiedAt: "02/03/2019",
-                size: 30
+                size: 30,
+                icon: ICON_LOGO
               },
               {
                 name: "Maine",
                 handle: "2xx2x2x2",
                 modifiedAt: "03/03/2019",
-                size: 20
+                size: 20,
+                icon: ICON_LOGO
               }
             ],
             "modifiedAt",
@@ -315,6 +319,10 @@ const FileManagerSlide = ({
         )
       );
   }, []);
+
+  const ThFilePanel = ({ file, children }) => (
+    <Td onClick={() => filePanel(file)}>{children}</Td>
+  );
 
   return (
     <DroppableZone innerRef={instance => connectDropTarget(instance)}>
@@ -335,7 +343,7 @@ const FileManagerSlide = ({
             {showFilePanel && (
               <FilePanel
                 download={handle => download(handle)}
-                handle={fileHandle}
+                file={file}
                 closeButton={() => setShowFilePanel(false)}
               />
             )}
@@ -371,17 +379,17 @@ const FileManagerSlide = ({
                   </Tr>
                 </thead>
                 <tbody>
-                  {files.map(({ name, handle, modifiedAt, size }) => (
-                    <Tr key={handle}>
-                      <Td onClick={() => filePanel(handle)}>
-                        <TableIcon src={ICON_LOGO} />
-                      </Td>
-                      <Td onClick={() => filePanel(handle)}>{name}</Td>
-                      <Td onClick={() => filePanel(handle)}>{handle}</Td>
-                      <Td onClick={() => filePanel(handle)}>{modifiedAt}</Td>
-                      <Td onClick={() => filePanel(handle)}>{size} FILES</Td>
+                  {files.map(file => (
+                    <Tr key={file.handle}>
+                      <ThFilePanel file={file}>
+                        <TableIcon src={file.icon} />
+                      </ThFilePanel>
+                      <ThFilePanel file={file}>{file.name}</ThFilePanel>
+                      <ThFilePanel file={file}>{file.handle}</ThFilePanel>
+                      <ThFilePanel file={file}>{file.modifiedAt}</ThFilePanel>
+                      <ThFilePanel file={file}>{file.size} FILES</ThFilePanel>
                       <Td>
-                        <ActionLink onClick={() => download(handle)}>
+                        <ActionLink onClick={() => download(file.handle)}>
                           Download
                         </ActionLink>
                         <ActionLink>Delete</ActionLink>

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import backend from "../../services/backend";
 
 import { theme, MOBILE_WIDTH } from "../../config";
 
@@ -115,51 +114,26 @@ const FileBackTitle = styled.span`
   float: left;
 `;
 
-const FilePanel = ({ handle, download, closeButton }) => {
-  const [file, setFile] = useState({
-    name: "HR Stuff",
-    handle: "0x0x0x",
-    modifiedAt: "01/03/2019",
-    size: 40,
-    icon: ICON_LOGO
-  });
-
-  useEffect(() => {
-    backend
-      .fileIndex({ metadataKey: "0x0x", handle })
-      .then(setFile)
-      .catch(() =>
-        setFile({
-          name: "HR Stuff",
-          handle: "0x0x0x",
-          modifiedAt: "01/03/2019",
-          size: 40,
-          icon: ICON_LOGO
-        })
-      );
-  }, []);
-
-  return (
-    <ThemeProvider theme={theme}>
-      <Panel>
-        <FileBackButton onClick={() => closeButton()}>
-          <FileBackIcon src={ICON_LOGO} />
-          <FileBackTitle>Back</FileBackTitle>
-        </FileBackButton>
-        <FileWrapper>
-          <FileIconWrapper>
-            <FileIcon src={file.icon} />
-          </FileIconWrapper>
-          <FileTitle>{file.name}</FileTitle>
-          <FileInfo>MODIFIED</FileInfo>
-          <FileData>{file.modifiedAt}</FileData>
-          <FileInfo>SIZE</FileInfo>
-          <FileData>{file.size} FILES</FileData>
-          <FileButton onClick={() => download(handle)}>Download</FileButton>
-        </FileWrapper>
-      </Panel>
-    </ThemeProvider>
-  );
-};
+const FilePanel = ({ file, download, closeButton }) => (
+  <ThemeProvider theme={theme}>
+    <Panel>
+      <FileBackButton onClick={() => closeButton()}>
+        <FileBackIcon src={ICON_LOGO} />
+        <FileBackTitle>Back</FileBackTitle>
+      </FileBackButton>
+      <FileWrapper>
+        <FileIconWrapper>
+          <FileIcon src={file.icon} />
+        </FileIconWrapper>
+        <FileTitle>{file.name}</FileTitle>
+        <FileInfo>MODIFIED</FileInfo>
+        <FileData>{file.modifiedAt}</FileData>
+        <FileInfo>SIZE</FileInfo>
+        <FileData>{file.size} FILES</FileData>
+        <FileButton onClick={() => download(file.handle)}>Download</FileButton>
+      </FileWrapper>
+    </Panel>
+  </ThemeProvider>
+);
 
 export default FilePanel;
