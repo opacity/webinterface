@@ -68,10 +68,19 @@ export const filesIndex = ({ metadataKey }) =>
     .get(`${API.DEFAULT_BROKER}${API.V1_FILES_PATH}/${metadataKey}`)
     .then(({ data }: any) => data);
 
+export const updateMetadata = ({ metadataKey, metadata }) =>
+  axiosInstance
+    .post(`${API.DEFAULT_BROKER}${API.V1_METADATA_PATH}`, {
+      metadataKey,
+      metadata
+    })
+    .then(({ data }: any) => data);
+
 export default {
   checkStatus,
   createAccount,
   isAccountPaid,
   login,
-  filesIndex
+  filesIndex,
+  updateMetadata
 };

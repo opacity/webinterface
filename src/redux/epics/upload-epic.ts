@@ -1,11 +1,13 @@
-import { Observable } from "rxjs";
+import { Observable, from, of } from "rxjs";
+import { map, mergeMap, flatMap, catchError } from "rxjs/operators";
 import { ofType, combineEpics } from "redux-observable";
-import { mergeMap, flatMap } from "rxjs/operators";
 import { toast } from "react-toastify";
+import { Upload } from "opaque";
 
 import uploadActions from "../actions/upload-actions";
 
-import { Upload } from "opaque";
+import * as Backend from "../../services/backend";
+// import * as Metadata from "../../services/metadata";
 
 const uploadFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
@@ -68,7 +70,7 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
           o.complete();
         });
 
-        upload.on("error", err => {
+        upload.on("error", error => {
           toast.update(handle, {
             render: `An error occurred while uploading ${file.name}.`,
             type: toast.TYPE.ERROR,
@@ -78,10 +80,48 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
             toast.dismiss(handle);
           }, 3000);
 
-          o.next(uploadActions.uploadError({ err }));
+          o.next(uploadActions.uploadError({ error }));
           o.complete();
         });
       });
     })
   );
-export default combineEpics(uploadFilesEpic, uploadFileEpic);
+
+const updateMetadataEpic = (action$, state$, dependencies$) =>
+  action$.pipe(
+    ofType(uploadActions.UPLOAD_SUCCESS),
+    mergeMap(({ payload }) => {
+      const { handle, filename, size, createdAt } = payload;
+
+      // const { metadataKey, metadata } = state$.value.authentication;
+      const { metadataKey } = state$.value.authentication;
+
+      // const decryptedMetadata = Metadata.decrypt(metadata);
+      const decryptedMetadata = {
+        files: []
+      };
+
+      const newMetadata = {
+        ...decryptedMetadata,
+        files: [
+          ...decryptedMetadata.files,
+          { handle, filename, size, createdAt }
+        ]
+      };
+
+      return from(
+        Backend.updateMetadata({ metadataKey, metadata: newMetadata })
+      ).pipe(
+        map(({ metadata }) =>
+          uploadActions.updateMetadataSuccess({ metadata })
+        ),
+        catchError(error => of(uploadActions.updateMetadataFailure({ error })))
+      );
+    })
+  );
+
+export default combineEpics(
+  uploadFilesEpic,
+  uploadFileEpic,
+  updateMetadataEpic
+);

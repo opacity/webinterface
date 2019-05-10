@@ -4,6 +4,8 @@ const MONITOR_FILE = "opacity/upload/monitor-file";
 const UPLOAD_PROGRESS = "opacity/upload/upload-progress";
 const UPLOAD_SUCCESS = "opacity/upload/upload-success";
 const UPLOAD_ERROR = "opacity/upload/upload-error";
+const UPDATE_METADATA_SUCCESS = "opacity/upload/update-metadata-success";
+const UPDATE_METADATA_ERROR = "opacity/upload/update-metadata-error";
 
 const ACTIONS = Object.freeze({
   UPLOAD_FILES,
@@ -12,6 +14,8 @@ const ACTIONS = Object.freeze({
   UPLOAD_PROGRESS,
   UPLOAD_SUCCESS,
   UPLOAD_ERROR,
+  UPDATE_METADATA_SUCCESS,
+  UPDATE_METADATA_ERROR,
 
   uploadFiles: ({ files, accountId }) => ({
     type: UPLOAD_FILES,
@@ -29,13 +33,21 @@ const ACTIONS = Object.freeze({
     type: UPLOAD_PROGRESS,
     payload: { handle, progress }
   }),
-  uploadSuccess: ({ handle }) => ({
+  uploadSuccess: ({ handle, filename, size, createdAt }) => ({
     type: UPLOAD_SUCCESS,
-    payload: { handle }
+    payload: { handle, filename, size, createdAt }
   }),
-  uploadError: ({ handle, err }) => ({
+  uploadError: ({ handle, error }) => ({
     type: UPLOAD_ERROR,
-    payload: { err }
+    payload: { error }
+  }),
+  updateMetadataSuccess: ({ metadata }) => ({
+    type: UPDATE_METADATA_SUCCESS,
+    payload: { metadata }
+  }),
+  updateMetadataFailure: ({ error }) => ({
+    type: UPDATE_METADATA_ERROR,
+    payload: { error }
   })
 });
 
