@@ -22,7 +22,7 @@ const loginEpic = (action$, state$, dependencies$) =>
           metadataKey
         })
       ).pipe(
-        flatMap(metadata => {
+        flatMap(({ metadata }) => {
           const accountId = Account.getAccountId({ privateKey, storagePin });
           return [
             authenticationActions.loginSuccess({
