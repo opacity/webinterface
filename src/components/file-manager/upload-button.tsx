@@ -38,7 +38,7 @@ const UploadButton = ({ onSelected }) => {
           <input
             type="file"
             id="file"
-            multiple
+            multiple={true}
             ref={uploadFileInput}
             onChange={e => selectFiles()}
           />
