@@ -3,7 +3,9 @@ import { AUTHENTICATION_STATUSES } from "../../config";
 
 const initState = {
   status: AUTHENTICATION_STATUSES.LOGGED_OUT,
-  accountId: null
+  accountId: null,
+  metadataKey: null,
+  metadata: null
 };
 
 const authenticationReducer = (state = initState, action) => {
@@ -13,8 +15,16 @@ const authenticationReducer = (state = initState, action) => {
     case authenticationActions.LOGIN_FAILURE:
       return { ...state, status: AUTHENTICATION_STATUSES.LOGIN_FAILURE };
     case authenticationActions.LOGIN_SUCCESS:
-      const { accountId } = action.payload;
-      return { ...state, status: AUTHENTICATION_STATUSES.LOGGED_IN, accountId };
+      const { accountId, metadataKey, metadata } = action.payload;
+      return {
+        ...state,
+        status: AUTHENTICATION_STATUSES.LOGGED_IN,
+        accountId,
+        metadataKey,
+        metadata
+      };
+    case authenticationActions.UPDATE_METADATA_SUCCESS:
+      return { ...state, metadata: action.payload.metadata };
     case authenticationActions.LOGOUT:
       return initState;
 

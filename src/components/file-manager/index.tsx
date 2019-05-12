@@ -8,21 +8,31 @@ import downloadActions from "../../redux/actions/download-actions";
 import FileManagerSlide from "./file-manager-slide";
 
 const mapStateToProps = state => ({
-  accountId: state.authentication.accountId
+  accountId: state.authentication.accountId,
+  metadataKey: state.authentication.metadataKey,
+  metadata: state.authentication.metadata
 });
 
 const mapDispatchToProps = dispatch => ({
   upload: (files, accountId) =>
-    dispatch(uploadActions.streamUpload({ files, accountId })),
+    dispatch(uploadActions.uploadFiles({ files, accountId })),
   download: handle => dispatch(downloadActions.streamDownload({ handle }))
 });
 
-const FileManager = ({ upload, download, accountId }) => (
+const FileManager = ({
+  upload,
+  download,
+  accountId,
+  metadataKey,
+  metadata
+}) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
       upload={upload}
       download={download}
       accountId={accountId}
+      metadataKey={metadataKey}
+      metadata={metadata}
     />
   </DragDropContextProvider>
 );

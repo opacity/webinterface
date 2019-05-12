@@ -1,30 +1,61 @@
 import uploadActions from "../actions/upload-actions";
 
-import { UPLOAD_STATUSES } from "../../config";
-
 const initState = {
-  uploadProgress: 0,
-  status: UPLOAD_STATUSES.PENDING
+  files: []
 };
+
+interface UploadedFile {
+  handle: string;
+  filename: string;
+  progress: number;
+}
+
+const fileGenerator = ({ handle, filename, progress }): UploadedFile => ({
+  handle,
+  filename,
+  progress
+});
 
 const uploadReducer = (state = initState, action) => {
   switch (action.type) {
-    case uploadActions.UPLOAD: {
-      return { ...state, uploadProgress: 0, status: UPLOAD_STATUSES.PENDING };
-    }
-
-    case uploadActions.UPLOAD_PROGRESS: {
-      const { progress } = action.payload;
+    case uploadActions.MONITOR_FILE:
       return {
         ...state,
-        uploadProgress: progress,
-        status: UPLOAD_STATUSES.SENDING
+        files: [
+          ...state.files,
+          fileGenerator({
+            handle: action.payload.handle,
+            filename: action.payload.filename,
+            progress: 0
+          })
+        ]
       };
-    }
 
-    case uploadActions.UPLOAD_SUCCESS: {
-      return { ...state, uploadProgress: 100, status: UPLOAD_STATUSES.SENT };
-    }
+    case uploadActions.UPLOAD_PROGRESS:
+      const file = state.files.find(
+        (f: UploadedFile) => f.handle === action.payload.handle
+      );
+      return {
+        ...state,
+        files: [
+          ...state.files.filter(
+            (f: UploadedFile) => f.handle !== action.payload.handle
+          ),
+          fileGenerator({
+            filename: file ? (file as UploadedFile).filename : "Unknown",
+            handle: action.payload.handle,
+            progress: action.payload.progress
+          })
+        ]
+      };
+
+    case uploadActions.UPLOAD_SUCCESS:
+      return {
+        ...state,
+        files: state.files.filter(
+          (f: UploadedFile) => f.handle !== action.payload.handle
+        )
+      };
 
     default:
       return state;
