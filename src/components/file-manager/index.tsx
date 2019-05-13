@@ -15,7 +15,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  upload: (files, accountId) =>  dispatch(uploadActions.uploadFiles({ files, accountId })),
+  upload: (files, accountId) =>
+    dispatch(uploadActions.uploadFiles({ files, accountId })),
   discard: handle => dispatch(discardActions.streamDiscard({ handle })),
   download: handle => dispatch(downloadActions.streamDownload({ handle }))
 });

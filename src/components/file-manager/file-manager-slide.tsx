@@ -279,7 +279,7 @@ const FileManagerSlide = ({
     setParam(param);
     setFiles(_.orderBy(files, param, order));
   };
-        
+
   const deleteFile = handle => {
     setFiles(_.filter(files, file => file.handle !== handle));
     discard(handle);
