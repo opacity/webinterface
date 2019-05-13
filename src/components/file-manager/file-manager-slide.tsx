@@ -361,9 +361,7 @@ const FileManagerSlide = ({
                       <Td>{moment(createdAt).format("MM/DD/YYYY")}</Td>
                       <Td>{formatBytes(size)}</Td>
                       <Td>
-                        <ActionButton
-                          onClick={() => download(handle, filename)}
-                        >
+                        <ActionButton onClick={() => download(handle)}>
                           Download
                         </ActionButton>
                         <ActionButton onClick={() => remove(handle)}>
