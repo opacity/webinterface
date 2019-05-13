@@ -18,7 +18,7 @@ const streamDownloadEpic = (action$, state$, dependencies$) =>
           endpoint: "http://176.9.147.13:8081"
         });
 
-        toast(`${filename} is being downloaded...`, {
+        toast(`${filename} is downloading. Please wait...`, {
           autoClose: false,
           position: toast.POSITION.BOTTOM_RIGHT,
           toastId: handle
@@ -26,7 +26,7 @@ const streamDownloadEpic = (action$, state$, dependencies$) =>
 
         download.on("download-progress", event => {
           toast.update(handle, {
-            render: `${filename} progress: ${Math.round(
+            render: `${filename} download progress: ${Math.round(
               event.progress * 100.0
             )}%`,
             progress: event.progress
