@@ -13,7 +13,7 @@ export const OLD_TANGLE_NODE_2 = "https://poll.opacitynodes.com:14265";
 export const PROD_IOTA_1 = "prodiota1.opacitynodes.com";
 export const PROD_IOTA_2 = "prodiota2.opacitynodes.com";
 
-export const EXCHANGE_LINK = "https://www.kucoin.com/";
+export const EXCHANGE_LINK = "https://www.kucoin.com/trade/OPQ-BTC";
 
 const IOTA_PROVIDERS = IS_DEV
   ? // ? ["18.222.56.121", "18.191.77.193"]
