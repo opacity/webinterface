@@ -259,17 +259,23 @@ interface File {
 
 const FileManagerSlide = ({
   upload,
+  discard,
   download,
   accountId,
   connectDropTarget,
   isOver
 }) => {
   const [files, setFiles] = useState<File[]>([]);
-  const [paramArrow, setParamArrow] = useState("");
+  const [param, setParam] = useState("");
 
   const sortBy = (param, order) => {
-    setParamArrow(param);
+    setParam(param);
     setFiles(_.orderBy(files, param, order));
+  };
+
+  const deleteFile = handle => {
+    setFiles(_.filter(files, file => file.handle !== handle));
+    discard(handle);
   };
 
   useEffect(() => {
@@ -336,20 +342,20 @@ const FileManagerSlide = ({
                     <TableHeader
                       param="name"
                       title="Name"
-                      paramArrow={paramArrow}
+                      paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
                     />
                     <Th>File Handle</Th>
                     <TableHeader
                       param="modifiedAt"
                       title="Date"
-                      paramArrow={paramArrow}
+                      paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
                     />
                     <TableHeader
                       param="size"
                       title="Size"
-                      paramArrow={paramArrow}
+                      paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
                     />
                     <Th>Actions</Th>
@@ -369,7 +375,9 @@ const FileManagerSlide = ({
                         <ActionLink onClick={() => download(handle)}>
                           Download
                         </ActionLink>
-                        <ActionLink>Delete</ActionLink>
+                        <ActionLink onClick={() => deleteFile(handle)}>
+                          Delete
+                        </ActionLink>
                       </Td>
                     </Tr>
                   ))}
