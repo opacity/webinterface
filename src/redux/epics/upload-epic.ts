@@ -10,9 +10,6 @@ import authenticationActions from "../actions/authentication-actions";
 import * as Backend from "../../services/backend";
 import * as Metadata from "../../services/metadata";
 
-import * as Backend from "../../services/backend";
-import * as Metadata from "../../services/metadata";
-
 const uploadFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(uploadActions.UPLOAD_FILES),
