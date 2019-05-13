@@ -3,7 +3,7 @@ import { switchMap, flatMap, catchError } from "rxjs/operators";
 
 import { ofType, combineEpics } from "redux-observable";
 
-import { push } from "react-router-redux";
+import { push } from "connected-react-router";
 
 import authenticationActions from "../actions/authentication-actions";
 import * as Backend from "../../services/backend";
