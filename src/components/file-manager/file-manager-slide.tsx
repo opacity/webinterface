@@ -38,8 +38,14 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const ActionLink = styled.a`
+const ActionButton = styled.button`
   padding: 5px 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #687892;
+  font-size: 14px;
+  margin-right: 2px;
 `;
 
 const TableContainer = styled.div`
@@ -118,7 +124,6 @@ const Table = styled.table`
 const Tr = styled.tr`
   &:hover td {
     background-color: #cfe3fc;
-    cursor: pointer;
   }
   th:first-child,
   td:first-child {
@@ -360,10 +365,12 @@ const FileManagerSlide = ({
                       <Td>{moment(createdAt).format("MM/DD/YYYY")}</Td>
                       <Td>{formatBytes(size)}</Td>
                       <Td>
-                        <ActionLink onClick={() => download(handle)}>
+                        <ActionButton
+                          onClick={() => download(handle, filename)}
+                        >
                           Download
-                        </ActionLink>
-                        <ActionLink>Delete</ActionLink>
+                        </ActionButton>
+                        <ActionButton>Delete</ActionButton>
                       </Td>
                     </Tr>
                   ))}
