@@ -6,7 +6,8 @@ import authenticationActions from "../actions/authentication-actions";
 import authenticationEpic from "./authentication-epic";
 
 jest.mock("../../services/backend", () => ({
-  login: ({ accountId }) => new Promise((resolve, reject) => resolve())
+  login: ({ metadataKey }) =>
+    new Promise((resolve, reject) => resolve({ metadata: "FAKE_METADATA" }))
 }));
 
 jest.mock("../../services/account", () => ({
@@ -30,7 +31,9 @@ test("authenticationEpic loginEpic", async done => {
     .subscribe(actions => {
       expect(actions).toEqual([
         authenticationActions.loginSuccess({
-          accountId: "FAKE_ACCOUNT_ID"
+          accountId: "FAKE_ACCOUNT_ID",
+          metadata: "FAKE_METADATA",
+          metadataKey: "FAKE_METADATA_KEY"
         }),
         push("/file-manager")
       ]);

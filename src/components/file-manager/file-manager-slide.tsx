@@ -4,12 +4,17 @@ import styled, { ThemeProvider } from "styled-components";
 import backend from "../../services/backend";
 import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import moment from "moment";
 
 import { HEADER_TYPES, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
+
+import * as Metadata from "../../services/metadata";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
@@ -251,9 +256,9 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
 };
 
 interface File {
-  name: string;
+  filename: string;
   handle: string;
-  modifiedAt: string;
+  createdAt: string;
   size: number;
 }
 
@@ -262,6 +267,8 @@ const FileManagerSlide = ({
   discard,
   download,
   accountId,
+  metadataKey,
+  metadata,
   connectDropTarget,
   isOver
 }) => {
@@ -272,47 +279,34 @@ const FileManagerSlide = ({
     setParam(param);
     setFiles(_.orderBy(files, param, order));
   };
-
+        
   const deleteFile = handle => {
     setFiles(_.filter(files, file => file.handle !== handle));
     discard(handle);
   };
 
-  useEffect(() => {
-    backend
-      .filesIndex({ metadataKey: "0x0x" })
-      .then(files => {
-        setFiles(_.orderBy(files, "modifiedAt", "desc"));
-      })
-      .catch(() =>
-        setFiles(
-          _.orderBy(
-            [
-              {
-                name: "HR Stuff",
-                handle: "0x0x0x",
-                modifiedAt: "01/03/2019",
-                size: 40
-              },
-              {
-                name: "Stuff",
-                handle: "1x0x0x0x",
-                modifiedAt: "02/03/2019",
-                size: 30
-              },
-              {
-                name: "Maine",
-                handle: "2xx2x2x2",
-                modifiedAt: "03/03/2019",
-                size: 20
-              }
-            ],
-            "modifiedAt",
-            "desc"
-          )
-        )
-      );
-  }, []);
+  const formatBytes = bytes => {
+    if (bytes < 1024) return bytes + " Bytes";
+    else if (bytes < 1048576) return (bytes / 1024).toFixed(2) + " KB";
+    else if (bytes < 1073741824) return (bytes / 1048576).toFixed(2) + " MB";
+    else return (bytes / 1073741824).toFixed(3) + " GB";
+  };
+
+  useEffect(
+    () => {
+      backend
+        .getMetadata({ metadataKey })
+        .then(({ metadata }) => {
+          const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
+          const unorderedFiles = decryptedMetadata
+            ? decryptedMetadata.files
+            : [];
+          setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
+        })
+        .catch(console.log);
+    },
+    [metadata]
+  );
 
   return (
     <DroppableZone innerRef={instance => connectDropTarget(instance)}>
@@ -347,7 +341,7 @@ const FileManagerSlide = ({
                     />
                     <Th>File Handle</Th>
                     <TableHeader
-                      param="modifiedAt"
+                      param="createdAt"
                       title="Date"
                       paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
@@ -362,15 +356,15 @@ const FileManagerSlide = ({
                   </Tr>
                 </thead>
                 <tbody>
-                  {files.map(({ name, handle, modifiedAt, size }) => (
+                  {files.map(({ filename, handle, createdAt, size }) => (
                     <Tr key={handle}>
                       <Td>
                         <TableIcon src={ICON_LOGO} />
                       </Td>
-                      <Td>{name}</Td>
-                      <Td>{handle}</Td>
-                      <Td>{modifiedAt}</Td>
-                      <Td>{size} FILES</Td>
+                      <Td>{filename}</Td>
+                      <Td>{_.truncate(handle, { length: 30 })}</Td>
+                      <Td>{moment(createdAt).format("MM/DD/YYYY")}</Td>
+                      <Td>{formatBytes(size)}</Td>
                       <Td>
                         <ActionLink onClick={() => download(handle)}>
                           Download
@@ -386,6 +380,12 @@ const FileManagerSlide = ({
               <ButtonMobileWrapper />
             </TableContainer>
           </Contents>
+          <ToastContainer
+            pauseOnHover={false}
+            draggable={true}
+            progressClassName="toast-progress-bar"
+            bodyClassName="toast-body"
+          />
           {isOver && <DragAndDropOverlay />}
         </Container>
       </ThemeProvider>
