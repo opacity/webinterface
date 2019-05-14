@@ -40,7 +40,7 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
         const handle = upload.handle;
 
         o.next(uploadActions.monitorFile({ handle }));
-        toast(`${file.name} is being uploaded...`, {
+        toast(`${file.name} is uploading. Please wait...`, {
           autoClose: false,
           position: toast.POSITION.BOTTOM_RIGHT,
           toastId: handle

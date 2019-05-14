@@ -38,8 +38,14 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const ActionLink = styled.a`
+const ActionButton = styled.button`
   padding: 5px 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #687892;
+  font-size: 14px;
+  margin-right: 2px;
 `;
 
 const TableContainer = styled.div`
@@ -118,7 +124,6 @@ const Table = styled.table`
 const Tr = styled.tr`
   &:hover td {
     background-color: #cfe3fc;
-    cursor: pointer;
   }
   th:first-child,
   td:first-child {
@@ -280,11 +285,6 @@ const FileManagerSlide = ({
     setFiles(_.orderBy(files, param, order));
   };
 
-  const deleteFile = handle => {
-    setFiles(_.filter(files, file => file.handle !== handle));
-    discard(handle);
-  };
-
   const formatBytes = bytes => {
     if (bytes < 1024) return bytes + " Bytes";
     else if (bytes < 1048576) return (bytes / 1024).toFixed(2) + " KB";
@@ -366,12 +366,14 @@ const FileManagerSlide = ({
                       <Td>{moment(createdAt).format("MM/DD/YYYY")}</Td>
                       <Td>{formatBytes(size)}</Td>
                       <Td>
-                        <ActionLink onClick={() => download(handle)}>
+                        <ActionButton
+                          onClick={() => download(handle, filename)}
+                        >
                           Download
                         </ActionLink>
-                        <ActionLink onClick={() => deleteFile(handle)}>
+                        <ActionLink onClick={() => discard(handle)}>
                           Delete
-                        </ActionLink>
+                        </ActionButton>
                       </Td>
                     </Tr>
                   ))}
