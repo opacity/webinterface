@@ -7,8 +7,47 @@ import { HEADER_TYPES, theme } from "../../config";
 
 import Header from "../shared/header";
 
+const ICON_DOWNLOAD = require("../../assets/images/icon_download.png");
+
 const Container = styled.div`
   width: 100%;
+`;
+
+const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+`;
+
+const FileInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+const Title = styled.h2`
+  color: ${props => props.theme.title.color};
+  text-align: center;
+`;
+
+const DownloadIcon = styled.img`
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+`;
+
+const FileName = styled.h3``;
+
+const FileSize = styled.h3``;
+
+const DownloadButton = styled.button`
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  color: ${props => props.theme.button.color};
+  background: ${props => props.theme.button.background};
 `;
 
 interface FileMetadata {
@@ -34,8 +73,17 @@ const Main = ({ handle, download }) => {
     <ThemeProvider theme={theme}>
       <Container>
         <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
-        <div>{JSON.stringify(metadata)}</div>
-        <button onClick={() => download(handle)}>Download file</button>
+        <Body>
+          <DownloadIcon src={ICON_DOWNLOAD} />
+          <Title>You have been invited to view a file!</Title>
+          <FileInfo>
+            <FileName>{metadata.name}</FileName>
+            <FileSize>{metadata.size}</FileSize>
+            <DownloadButton onClick={() => download(handle)}>
+              Download file
+            </DownloadButton>
+          </FileInfo>
+        </Body>
         <ToastContainer
           pauseOnHover={false}
           draggable={true}
