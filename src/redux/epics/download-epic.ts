@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 import downloadActions from "../actions/download-actions";
 
-const streamDownloadEpic = (action$, state$, dependencies$) =>
+const downloadEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(downloadActions.DOWNLOAD_FILE),
     mergeMap(({ payload }) => {
@@ -58,4 +58,4 @@ const streamDownloadEpic = (action$, state$, dependencies$) =>
     })
   );
 
-export default combineEpics(streamDownloadEpic);
+export default combineEpics(downloadEpic);

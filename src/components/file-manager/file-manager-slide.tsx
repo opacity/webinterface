@@ -269,7 +269,7 @@ interface File {
 
 const FileManagerSlide = ({
   upload,
-  discard,
+  remove,
   download,
   accountId,
   metadataKey,
@@ -292,21 +292,16 @@ const FileManagerSlide = ({
     else return (bytes / 1073741824).toFixed(3) + " GB";
   };
 
-  useEffect(
-    () => {
-      backend
-        .getMetadata({ metadataKey })
-        .then(({ metadata }) => {
-          const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
-          const unorderedFiles = decryptedMetadata
-            ? decryptedMetadata.files
-            : [];
-          setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
-        })
-        .catch(console.log);
-    },
-    [metadata]
-  );
+  useEffect(() => {
+    backend
+      .getMetadata({ metadataKey })
+      .then(({ metadata }) => {
+        const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
+        const unorderedFiles = decryptedMetadata ? decryptedMetadata.files : [];
+        setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
+      })
+      .catch(console.log);
+  }, [metadata]);
 
   return (
     <DroppableZone innerRef={instance => connectDropTarget(instance)}>
@@ -370,8 +365,8 @@ const FileManagerSlide = ({
                           onClick={() => download(handle, filename)}
                         >
                           Download
-                        </ActionLink>
-                        <ActionLink onClick={() => discard(handle)}>
+                        </ActionButton>
+                        <ActionButton onClick={() => remove(handle)}>
                           Delete
                         </ActionButton>
                       </Td>
