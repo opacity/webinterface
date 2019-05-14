@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { Download } from "opaque";
 
 import { HEADER_TYPES, theme } from "../../config";
+import { formatBytes } from "../../helpers";
 
 import Header from "../shared/header";
 
@@ -76,13 +77,15 @@ const Main = ({ handle, download }) => {
         <Body>
           <DownloadIcon src={ICON_DOWNLOAD} />
           <Title>You have been invited to view a file!</Title>
-          <FileInfo>
-            <FileName>{metadata.name}</FileName>
-            <FileSize>{metadata.size}</FileSize>
-            <DownloadButton onClick={() => download(handle)}>
-              Download file
-            </DownloadButton>
-          </FileInfo>
+          {Object.keys(metadata).length ? (
+            <FileInfo>
+              <FileName>{metadata.name}</FileName>
+              <FileSize>{formatBytes(metadata.size)}</FileSize>
+              <DownloadButton onClick={() => download(handle)}>
+                Download file
+              </DownloadButton>
+            </FileInfo>
+          ) : null}
         </Body>
         <ToastContainer
           pauseOnHover={false}

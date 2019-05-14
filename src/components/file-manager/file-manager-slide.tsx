@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import moment from "moment";
 
 import { HEADER_TYPES, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
+import { formatBytes } from "../../helpers";
 
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
