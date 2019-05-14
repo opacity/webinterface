@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 // import Modal from "react-modal";
 import Modal, { ModalProvider } from "styled-react-modal";
 
-import { MOBILE_WIDTH, theme } from "../../config";
+import { FRONT_END_URL, MOBILE_WIDTH, theme } from "../../config";
 
 import ClipboardWidget from "../shared/clipboard-widget";
 
@@ -28,7 +28,11 @@ const StyledModal = Modal.styled`
 // }
 // `;
 
-const Title = styled.h3`
+// const Title = styled.h3`
+// font-size: 20px;
+// `;
+
+const Filename = styled.h3`
   font-size: 20px;
 `;
 
@@ -37,14 +41,13 @@ const ShareModal = ({ close, isOpen, file }) => (
     <ModalProvider>
       <StyledModal
         isOpen={isOpen}
-        onBackgroundClick={() => console.log("xxxxx")}
+        onBackgroundClick={() => close()}
         onEscapeKeydown={() => close()}
       >
         <Body>
-          <Title>Share file with others</Title>
-          {file ? file.filename : "No file selected"}
+          <Filename>{file && file.filename}</Filename>
           <ClipboardWidget
-            text={file ? file.handle : "N/A"}
+            text={`${FRONT_END_URL}/share?handle=${file && file.handle}`}
             property="URL"
             title="Anyone with this link can view the file"
           />
