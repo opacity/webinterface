@@ -12,6 +12,7 @@ import { HEADER_TYPES, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
+import ShareModal from "./share-modal";
 
 import * as Metadata from "../../services/metadata";
 
@@ -360,6 +361,13 @@ const FileManagerSlide = ({
                       <Td>{moment(createdAt).format("MM/DD/YYYY")}</Td>
                       <Td>{formatBytes(size)}</Td>
                       <Td>
+                        <ActionButton
+                          onClick={() =>
+                            setSharedFile({ filename, handle, createdAt, size })
+                          }
+                        >
+                          Share
+                        </ActionButton>
                         <ActionButton onClick={() => download(handle)}>
                           Download
                         </ActionButton>
@@ -381,6 +389,11 @@ const FileManagerSlide = ({
             bodyClassName="toast-body"
           />
           {isOver && <DragAndDropOverlay />}
+          <ShareModal
+            file={sharedFile}
+            isOpen={!!sharedFile}
+            close={() => setSharedFile(null)}
+          />
         </Container>
       </ThemeProvider>
     </DroppableZone>
