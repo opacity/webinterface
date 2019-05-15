@@ -74,6 +74,15 @@ const App = () => (
                 />
               )}
             />
+            <Route
+              path="/code-review-license"
+              render={() => (
+                <Agreement
+                  title="Opacity Code Review License"
+                  type={AGREEMENT_TYPES.CODE_REVIEW_LICENSE}
+                />
+              )}
+            />
           </Switch>
         </Root>
       </ConnectedRouter>
