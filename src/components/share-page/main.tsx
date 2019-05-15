@@ -36,17 +36,19 @@ const Title = styled.h2`
 const DownloadIcon = styled.img`
   width: 100px;
   height: 100px;
-  cursor: pointer;
 `;
 
 const FileName = styled.h3``;
 
-const FileSize = styled.h3``;
+const FileSize = styled.h4`
+  font-weight: normal;
+`;
 
 const DownloadButton = styled.button`
   padding: 10px 15px;
   font-size: 16px;
   border: none;
+  cursor: pointer;
   color: ${props => props.theme.button.color};
   background: ${props => props.theme.button.background};
 `;
