@@ -42,7 +42,9 @@ const CreateAccount = ({
         {phase === SIGNUP_PHASES.SEND_PAYMENT && (
           <SendPaymentSlide invoice={invoice} openMetamask={openMetamask} />
         )}
-        {phase === SIGNUP_PHASES.CONFIRM_PAYMENT && <ConfirmPaymentSlide />}
+        {phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
+          <ConfirmPaymentSlide handle={privateKey} />
+        )}
       </ScreenContainer>
     </Container>
   </ThemeProvider>

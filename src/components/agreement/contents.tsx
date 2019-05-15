@@ -9,7 +9,9 @@ import { HEADER_TYPES, AGREEMENT_TYPES, theme } from "../../config";
 import TOS_MARKDOWN from "./terms-of-service.md";
 import PRIVACY_POLICY from "./privacy-policy.md";
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const AgreementMarkdownComponent = props => (
   <div>

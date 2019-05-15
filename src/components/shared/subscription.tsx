@@ -162,7 +162,7 @@ const subscriptionList = [
     content:
       "For professionals looking for a secure, easily accessible storage solution while on the move.",
     price: "16 OPQ / year",
-    button: "COMING SOON",
+    button: "SIGN UP",
     features: [
       {
         title: "1 TB secure storage"
@@ -180,7 +180,7 @@ const subscriptionList = [
     content:
       "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
     price: "32 OPQ / year",
-    button: "COMING SOON",
+    button: "SIGN UP",
     features: [
       {
         title: "2 TB secure storage"

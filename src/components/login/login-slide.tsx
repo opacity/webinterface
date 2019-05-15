@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import {
@@ -11,8 +11,6 @@ import {
 
 import Header from "../shared/header";
 
-const ICON_LOGO = require("../../assets/images/logo-login.svg");
-
 const Container = styled.div`
   width: 100%;
 `;
@@ -22,18 +20,9 @@ const ErrorMessage = styled.p`
   font-size: 14px;
 `;
 
-const Icon = styled.img`
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    margin: 0px;
-    height: 150px;
-    width: 150px;
-  }
-`;
-
-const StorageContainer = styled.div`
+const LoginContainer = styled.div`
   padding: 150px;
-  height: 100%;
-  max-width: 950px;
+  max-width: 600px;
   margin: auto;
   background-color: ${props => props.theme.background};
   text-align: center;
@@ -45,15 +34,6 @@ const StorageContainer = styled.div`
   }
 `;
 
-const Storage = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    flex-direction: column;
-  }
-`;
-
 interface InputProps {
   hasError?: boolean;
 }
@@ -62,17 +42,9 @@ const Input = styled.input<InputProps>`
   color: black;
   width: 100%;
   height: 40px;
-  padding: 0 8px;
   border: 0.5px solid
     ${props =>
       props.hasError ? props.theme.error.color : props.theme.input.content};
-`;
-
-const Column = styled.div`
-  flex: 1;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    text-align: center;
-  }
 `;
 
 const Title = styled.h1`
@@ -84,17 +56,18 @@ const Title = styled.h1`
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.title.color};
   margin: auto;
-  text-align: left;
+  text-align: center;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     margin-top: 35px;
   }
 `;
 const Underline = styled.div`
-  margin-top: 10px;
   width: ${props => props.theme.container.title.underline.width}px;
   background-color: ${props => props.theme.container.title.underline.color};
   display: block;
   height: ${props => props.theme.container.title.underline.height}px;
+  margin: auto;
+  margin-top: 10px;
 `;
 
 const Label = styled.label`
@@ -106,19 +79,13 @@ const Label = styled.label`
   letter-spacing: 0.7px;
   text-align: left;
   margin: 20px 0 10px 0;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  text-align: left;
-  margin: 20px 0 0 0;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    display: block;
-  }
+  color: #778291;
 `;
 
 const Button = styled.button`
-  width: 171px;
+  margin-top: 22px;
+  display: block;
+  width: 100%;
   height: 40px;
   background-color: ${props => props.theme.button.background};
   font-size: 16px;
@@ -129,119 +96,89 @@ const Button = styled.button`
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.button.color};
   text-align: center;
-  border: none;
+  border: 1px solid ${props => props.theme.button.background};
   cursor: pointer;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    width: 100%;
-  }
+  text-transform: uppercase;
 `;
 
-const Link = styled.a`
-  font-size: 10px;
+const RegisterButton = styled(Button)`
+  background-color: white;
+  color: ${props => props.theme.button.background};
+  border: 1px solid ${props => props.theme.button.background};
+`;
+
+const ForgotLink = styled.a`
+  font-size: 14px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.7px;
-  text-align: left;
   color: ${props => props.theme.title.color};
 `;
 
-const ForgotStorage = styled(Link)`
-  margin-top: 15px;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    display: block;
+const Forgot = styled.div`
+  text-align: center;
+  margin-top: 22px;
+`;
+
+const OrRegister = styled.span`
+  display: flex;
+  flex-direction: row;
+  color: #778291;
+  margin: 22px;
+
+  :before,
+  :after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid #778291;
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 `;
 
-const Content = styled.div`
-  font-size: 10px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.7px;
-  text-align: left;
-  color: ${props => props.theme.container.content};
-  margin: 15px 10px 10px 10px;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    margin-left: 0px;
-  }
-`;
+const LoginOrRegisterSlide = ({ login, status }) => {
+  const [privateKey, setPrivateKey] = useState("");
+  const [storagePin, setStoragePin] = useState("");
 
-interface LoginOrRegisterSlideProps {
-  login;
-  status;
-}
-
-interface LoginOrRegisterSlideState {
-  privateKey;
-  storagePin;
-}
-
-class LoginOrRegisterSlide extends Component<
-  LoginOrRegisterSlideProps,
-  LoginOrRegisterSlideState
-> {
-  state = {
-    privateKey: "",
-    storagePin: ""
-  };
-
-  render () {
-    const { login, status } = this.props;
-
-    return (
-      <ThemeProvider theme={theme}>
-        <Container>
-          <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
-          <StorageContainer>
-            <Storage>
-              <Column>
-                <Icon src={ICON_LOGO} />
-              </Column>
-              <Column>
-                <Title>Sign in Opacity</Title>
-                <Underline />
-                <Label>Account Handle</Label>
-                <Input
-                  onChange={e => this.setState({ privateKey: e.target.value })}
-                  hasError={status === AUTHENTICATION_STATUSES.LOGIN_FAILURE}
-                />
-                <Label>Account PIN</Label>
-                <Input
-                  type="password"
-                  onChange={e => this.setState({ storagePin: e.target.value })}
-                  hasError={status === AUTHENTICATION_STATUSES.LOGIN_FAILURE}
-                />
-                {status === AUTHENTICATION_STATUSES.LOGIN_FAILURE && (
-                  <ErrorMessage>
-                    The Account Handle or Account PIN do not match up. Please
-                    try again.
-                  </ErrorMessage>
-                )}
-                <ButtonWrapper>
-                  <Button
-                    onClick={() =>
-                      login(this.state.privateKey, this.state.storagePin)
-                    }
-                  >
-                    SIGN IN
-                  </Button>
-                  <Content>
-                    (Or <Link href="/sign-up">click here to register</Link>)
-                  </Content>
-                </ButtonWrapper>
-                <ForgotStorage href="/forgot-page">
-                  Forgot Account Handle?
-                </ForgotStorage>
-              </Column>
-            </Storage>
-          </StorageContainer>
-        </Container>
-      </ThemeProvider>
-    );
-  }
-}
+  return (
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+        <LoginContainer>
+          <Title>Sign in Opacity</Title>
+          <Underline />
+          <Label>Account Handle</Label>
+          <Input
+            onChange={e => setPrivateKey(e.target.value)}
+            hasError={status === AUTHENTICATION_STATUSES.LOGIN_FAILURE}
+          />
+          <Label>Account PIN</Label>
+          <Input
+            type="password"
+            onChange={e => setStoragePin(e.target.value)}
+            hasError={status === AUTHENTICATION_STATUSES.LOGIN_FAILURE}
+          />
+          {status === AUTHENTICATION_STATUSES.LOGIN_FAILURE && (
+            <ErrorMessage>
+              The Account Handle or Account PIN do not match up. Please try
+              again.
+            </ErrorMessage>
+          )}
+          <Button onClick={() => login(privateKey, storagePin)}>Sign in</Button>
+          <Forgot>
+            <ForgotLink href="/forgot-page">Forgot Account Handle?</ForgotLink>
+          </Forgot>
+          <OrRegister>or</OrRegister>
+          <RegisterButton onClick={() => window.open("/sign-up", "self")}>
+            Create an account
+          </RegisterButton>
+        </LoginContainer>
+      </Container>
+    </ThemeProvider>
+  );
+};
 
 export default LoginOrRegisterSlide;
