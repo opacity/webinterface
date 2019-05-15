@@ -34,4 +34,4 @@ We may suspend, terminate or vary the terms of this license and any access to th
 #### Section 5 -- General
 Questions and comments regarding this license are welcomed and should be addressed to [support@opacity.io].
 
-Last updated 05 May 2019.
+Last updated 15 May 2019.
