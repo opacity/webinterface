@@ -5,14 +5,15 @@ import backend from "../../services/backend";
 import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 
 import { HEADER_TYPES, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
+import { formatBytes } from "../../helpers";
 
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
+import ShareModal from "./share-modal";
 
 import * as Metadata from "../../services/metadata";
 
@@ -279,32 +280,31 @@ const FileManagerSlide = ({
 }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
+  const [sharedFile, setSharedFile] = useState<File | null>(null);
 
   const sortBy = (param, order) => {
     setParam(param);
     setFiles(_.orderBy(files, param, order));
   };
 
-  const formatBytes = bytes => {
-    if (bytes < 1024) return bytes + " Bytes";
-    else if (bytes < 1048576) return (bytes / 1024).toFixed(2) + " KB";
-    else if (bytes < 1073741824) return (bytes / 1048576).toFixed(2) + " MB";
-    else return (bytes / 1073741824).toFixed(3) + " GB";
-  };
-
-  useEffect(() => {
-    backend
-      .getMetadata({ metadataKey })
-      .then(({ metadata }) => {
-        const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
-        const unorderedFiles = decryptedMetadata ? decryptedMetadata.files : [];
-        setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
-      })
-      .catch(console.log);
-  }, [metadata]);
+  useEffect(
+    () => {
+      backend
+        .getMetadata({ metadataKey })
+        .then(({ metadata }) => {
+          const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
+          const unorderedFiles = decryptedMetadata
+            ? decryptedMetadata.files
+            : [];
+          setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
+        })
+        .catch(console.log);
+    },
+    [metadata]
+  );
 
   return (
-    <DroppableZone innerRef={instance => connectDropTarget(instance)}>
+    <DroppableZone ref={connectDropTarget}>
       <ThemeProvider theme={theme}>
         <Container>
           <Header type={HEADER_TYPES.FILE_MANAGER} />
@@ -362,8 +362,13 @@ const FileManagerSlide = ({
                       <Td>{formatBytes(size)}</Td>
                       <Td>
                         <ActionButton
-                          onClick={() => download(handle, filename)}
+                          onClick={() =>
+                            setSharedFile({ filename, handle, createdAt, size })
+                          }
                         >
+                          Share
+                        </ActionButton>
+                        <ActionButton onClick={() => download(handle)}>
                           Download
                         </ActionButton>
                         <ActionButton onClick={() => remove(handle)}>
@@ -384,6 +389,11 @@ const FileManagerSlide = ({
             bodyClassName="toast-body"
           />
           {isOver && <DragAndDropOverlay />}
+          <ShareModal
+            file={sharedFile}
+            isOpen={!!sharedFile}
+            close={() => setSharedFile(null)}
+          />
         </Container>
       </ThemeProvider>
     </DroppableZone>

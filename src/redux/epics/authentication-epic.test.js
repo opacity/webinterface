@@ -1,6 +1,6 @@
 import { ActionsObservable } from "redux-observable";
 import "rxjs/add/operator/toArray";
-import { push } from "react-router-redux";
+import { push } from "connected-react-router";
 
 import authenticationActions from "../actions/authentication-actions";
 import authenticationEpic from "./authentication-epic";
