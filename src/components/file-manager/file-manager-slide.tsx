@@ -20,7 +20,7 @@ import * as Metadata from "../../services/metadata";
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
+  drop(props, monitor) {
     const { upload, accountId } = props;
     const { files } = monitor.getItem();
     upload(files, accountId);
@@ -280,29 +280,28 @@ const FileManagerSlide = ({
 }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
+  const [sharedFile, setSharedFile] = useState<File | null>(null);
 
   const sortBy = (param, order) => {
     setParam(param);
     setFiles(_.orderBy(files, param, order));
   };
 
-  const formatBytes = bytes => {
-    if (bytes < 1024) return bytes + " Bytes";
-    else if (bytes < 1048576) return (bytes / 1024).toFixed(2) + " KB";
-    else if (bytes < 1073741824) return (bytes / 1048576).toFixed(2) + " MB";
-    else return (bytes / 1073741824).toFixed(3) + " GB";
-  };
-
-  useEffect(() => {
-    backend
-      .getMetadata({ metadataKey })
-      .then(({ metadata }) => {
-        const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
-        const unorderedFiles = decryptedMetadata ? decryptedMetadata.files : [];
-        setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
-      })
-      .catch(console.log);
-  }, [metadata]);
+  useEffect(
+    () => {
+      backend
+        .getMetadata({ metadataKey })
+        .then(({ metadata }) => {
+          const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
+          const unorderedFiles = decryptedMetadata
+            ? decryptedMetadata.files
+            : [];
+          setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
+        })
+        .catch(console.log);
+    },
+    [metadata]
+  );
 
   return (
     <DroppableZone ref={connectDropTarget}>
