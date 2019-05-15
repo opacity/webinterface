@@ -305,7 +305,7 @@ const FileManagerSlide = ({
   }, [metadata]);
 
   return (
-    <DroppableZone innerRef={instance => connectDropTarget(instance)}>
+    <DroppableZone ref={connectDropTarget}>
       <ThemeProvider theme={theme}>
         <Container>
           <Header type={HEADER_TYPES.FILE_MANAGER} />
