@@ -67,9 +67,13 @@ const Main = ({ handle, download }) => {
       autoStart: false
     });
 
-    download.metadata.then(({ name, size }) => {
-      setMetadata({ name, size } as FileMetadata);
-    });
+    download.metadata
+      .then(({ name, size }) => {
+        setMetadata({ name, size } as FileMetadata);
+      })
+      .catch(error => {
+        console.log("METADATA ERROR: ", error);
+      });
   }, []);
 
   return (

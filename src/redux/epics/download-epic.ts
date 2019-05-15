@@ -18,44 +18,49 @@ const downloadEpic = (action$, state$, dependencies$) =>
           endpoint: "http://176.9.147.13:8081"
         });
 
-        download.metadata.then(({ name: filename }) => {
-          toast(`${filename} is downloading. Please wait...`, {
-            autoClose: false,
-            position: toast.POSITION.BOTTOM_RIGHT,
-            toastId: handle
-          });
-
-          download.on("download-progress", event => {
-            toast.update(handle, {
-              render: `${filename} download progress: ${Math.round(
-                event.progress * 100.0
-              )}%`,
-              progress: event.progress
+        download.metadata
+          .then(({ name: filename }) => {
+            toast(`${filename} is downloading. Please wait...`, {
+              autoClose: false,
+              position: toast.POSITION.BOTTOM_RIGHT,
+              toastId: handle
             });
-          });
 
-          download
-            .toFile()
-            .then(file => {
-              const f = file as File;
-              FileSaver.saveAs(f);
-
+            download.on("download-progress", event => {
               toast.update(handle, {
-                render: `${filename} has finished downloading.`,
-                progress: 1
+                render: `${filename} download progress: ${Math.round(
+                  event.progress * 100.0
+                )}%`,
+                progress: event.progress
               });
-              setTimeout(() => {
-                toast.dismiss(handle);
-              }, 3000);
-
-              o.next(downloadActions.downloadSuccess({ handle }));
-              o.complete();
-            })
-            .catch(error => {
-              o.next(downloadActions.downloadError({ error }));
-              o.complete();
             });
-        });
+
+            download
+              .toFile()
+              .then(file => {
+                const f = file as File;
+                FileSaver.saveAs(f);
+
+                toast.update(handle, {
+                  render: `${filename} has finished downloading.`,
+                  progress: 1
+                });
+                setTimeout(() => {
+                  toast.dismiss(handle);
+                }, 3000);
+
+                o.next(downloadActions.downloadSuccess({ handle }));
+                o.complete();
+              })
+              .catch(error => {
+                o.next(downloadActions.downloadError({ error }));
+                o.complete();
+              });
+          })
+          .catch(error => {
+            o.next(downloadActions.downloadError({ error }));
+            o.complete();
+          });
       });
     })
   );
