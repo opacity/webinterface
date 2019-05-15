@@ -81,6 +81,15 @@ export const updateMetadata = ({ metadataKey, metadata }) =>
     })
     .then(({ data }: any) => data);
 
+export const getAccountData = ({ publicKey, signature, requestBody = null }) =>
+  axiosInstance
+    .post(`${API.DEFAULT_BROKER}${API.V1_ACCCOUNT_DATA}`, {
+      publicKey,
+      requestBody,
+      signature
+    })
+    .then(({ data }: any) => data);
+
 export default {
   checkStatus,
   createAccount,
@@ -88,5 +97,6 @@ export default {
   login,
   filesIndex,
   updateMetadata,
-  getMetadata
+  getMetadata,
+  getAccountData
 };

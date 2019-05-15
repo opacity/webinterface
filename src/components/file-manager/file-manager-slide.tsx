@@ -8,11 +8,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 
-import { HEADER_TYPES, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
+import { HEADER_TYPES, MOBILE_WIDTH, theme } from "../../config";
 
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
+import UserPanel from "./user-panel";
 
 import * as Metadata from "../../services/metadata";
 
@@ -95,26 +96,6 @@ const TableIcon = styled.img`
   width: 20px;
 `;
 
-const LeftSideNav = styled.div`
-  background-color: #cfe3fc;
-  display: flex;
-  flex-direction: column-reverse;
-  padding: 20px 0;
-  width: 250px;
-  position: fixed;
-  z-index: 1130;
-  top: 0;
-  right: -250px;
-  background-color: #ffffff;
-  overflow-x: hidden;
-  transition: 0.5s;
-  margin-top: 62px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    width: 100%;
-    right: 100%;
-  }
-`;
-
 const Table = styled.table`
   width: 100%;
   text-align: left;
@@ -179,44 +160,6 @@ const ThPointer = styled(Th)`
   cursor: pointer;
 `;
 
-const StorageInfo = styled.div`
-  width: 100%;
-`;
-
-const StorageTitleWrapper = styled.div`
-  width: 138px;
-  margin: auto;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    width: 100px;
-  }
-`;
-
-const StorageTitle = styled.p`
-  font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #687892;
-`;
-
-const StorageProgressWrapper = styled.div`
-  width: 138px;
-  height: 10px;
-  background-color: #acc5e3;
-  margin: auto;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    width: 100px;
-  }
-`;
-
-const StorageProgress = styled.div`
-  background-color: #2e6dde;
-  width: 30%;
-  height: 10px;
-`;
-
 const Contents = styled.div`
   display: flex;
   height: 100%;
@@ -277,7 +220,12 @@ const FileManagerSlide = ({
   isOver
 }) => {
   const [files, setFiles] = useState<File[]>([]);
+  const [accountData, setAccountData] = useState("");
   const [paramArrow, setParamArrow] = useState("");
+  const account = {
+    storageUsed: 25,
+    storageLimit: 100
+  };
 
   const sortBy = (param, order) => {
     setParamArrow(param);
@@ -291,21 +239,26 @@ const FileManagerSlide = ({
     else return (bytes / 1073741824).toFixed(3) + " GB";
   };
 
-  useEffect(
-    () => {
-      backend
-        .getMetadata({ metadataKey })
-        .then(({ metadata }) => {
-          const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
-          const unorderedFiles = decryptedMetadata
-            ? decryptedMetadata.files
-            : [];
-          setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
-        })
-        .catch(console.log);
-    },
-    [metadata]
-  );
+  useEffect(() => {
+    backend
+      .getMetadata({ metadataKey })
+      .then(({ metadata }) => {
+        const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
+        const unorderedFiles = decryptedMetadata ? decryptedMetadata.files : [];
+        setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
+      })
+      .catch(console.log);
+
+    const publicKey = "";
+    const signature = "";
+
+    backend
+      .getAccountData({ publicKey, signature })
+      .then(({ account }) => {
+        setAccountData(account);
+      })
+      .catch(console.log);
+  }, [metadata]);
 
   return (
     <DroppableZone innerRef={instance => connectDropTarget(instance)}>
@@ -313,16 +266,7 @@ const FileManagerSlide = ({
         <Container>
           <Header type={HEADER_TYPES.FILE_MANAGER} />
           <Contents>
-            <LeftSideNav>
-              <StorageInfo>
-                <StorageTitleWrapper>
-                  <StorageTitle>30GB/100GB USED</StorageTitle>
-                </StorageTitleWrapper>
-                <StorageProgressWrapper>
-                  <StorageProgress />
-                </StorageProgressWrapper>
-              </StorageInfo>
-            </LeftSideNav>
+            <UserPanel account={account} />
             <TableContainer>
               <Title>All Files</Title>
               <ButtonWrapper>

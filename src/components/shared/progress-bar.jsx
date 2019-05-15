@@ -16,7 +16,7 @@ const InnerBar = styled.div`
   background-color: ${props => props.theme.title.color};
 `;
 
-const ProgressBar = ({ progress }) => (
+const ProgressBar = ({ progress, max }) => (
   <ThemeProvider theme={theme}>
     <ProgressBorder className="progress">
       <InnerBar
