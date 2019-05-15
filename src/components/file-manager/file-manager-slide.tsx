@@ -269,6 +269,7 @@ interface File {
 
 const FileManagerSlide = ({
   upload,
+  remove,
   download,
   accountId,
   metadataKey,
@@ -277,10 +278,10 @@ const FileManagerSlide = ({
   isOver
 }) => {
   const [files, setFiles] = useState<File[]>([]);
-  const [paramArrow, setParamArrow] = useState("");
+  const [param, setParam] = useState("");
 
   const sortBy = (param, order) => {
-    setParamArrow(param);
+    setParam(param);
     setFiles(_.orderBy(files, param, order));
   };
 
@@ -291,21 +292,16 @@ const FileManagerSlide = ({
     else return (bytes / 1073741824).toFixed(3) + " GB";
   };
 
-  useEffect(
-    () => {
-      backend
-        .getMetadata({ metadataKey })
-        .then(({ metadata }) => {
-          const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
-          const unorderedFiles = decryptedMetadata
-            ? decryptedMetadata.files
-            : [];
-          setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
-        })
-        .catch(console.log);
-    },
-    [metadata]
-  );
+  useEffect(() => {
+    backend
+      .getMetadata({ metadataKey })
+      .then(({ metadata }) => {
+        const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
+        const unorderedFiles = decryptedMetadata ? decryptedMetadata.files : [];
+        setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
+      })
+      .catch(console.log);
+  }, [metadata]);
 
   return (
     <DroppableZone innerRef={instance => connectDropTarget(instance)}>
@@ -335,20 +331,20 @@ const FileManagerSlide = ({
                     <TableHeader
                       param="name"
                       title="Name"
-                      paramArrow={paramArrow}
+                      paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
                     />
                     <Th>File Handle</Th>
                     <TableHeader
                       param="createdAt"
                       title="Date"
-                      paramArrow={paramArrow}
+                      paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
                     />
                     <TableHeader
                       param="size"
                       title="Size"
-                      paramArrow={paramArrow}
+                      paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
                     />
                     <Th>Actions</Th>
@@ -370,7 +366,9 @@ const FileManagerSlide = ({
                         >
                           Download
                         </ActionButton>
-                        <ActionButton>Delete</ActionButton>
+                        <ActionButton onClick={() => remove(handle)}>
+                          Delete
+                        </ActionButton>
                       </Td>
                     </Tr>
                   ))}
