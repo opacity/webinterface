@@ -20,7 +20,7 @@ import * as Metadata from "../../services/metadata";
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
+  drop(props, monitor) {
     const { upload, accountId } = props;
     const { files } = monitor.getItem();
     upload(files, accountId);
@@ -40,13 +40,13 @@ const Container = styled.div`
 `;
 
 const ActionButton = styled.button`
-  padding: 5px 10px;
+  padding: 5px 0;
   border: none;
   background: none;
   cursor: pointer;
   color: #687892;
   font-size: 14px;
-  margin-right: 2px;
+  margin-right: 10px;
 `;
 
 const TableContainer = styled.div`
@@ -270,7 +270,6 @@ interface File {
 
 const FileManagerSlide = ({
   upload,
-  remove,
   download,
   accountId,
   metadataKey,
@@ -370,9 +369,6 @@ const FileManagerSlide = ({
                         </ActionButton>
                         <ActionButton onClick={() => download(handle)}>
                           Download
-                        </ActionButton>
-                        <ActionButton onClick={() => remove(handle)}>
-                          Delete
                         </ActionButton>
                       </Td>
                     </Tr>
