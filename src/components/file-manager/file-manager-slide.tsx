@@ -20,7 +20,7 @@ import * as Metadata from "../../services/metadata";
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop(props, monitor) {
+  drop (props, monitor) {
     const { upload, accountId } = props;
     const { files } = monitor.getItem();
     upload(files, accountId);
