@@ -17,7 +17,7 @@ import ShareModal from "./share-modal";
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop(props, monitor) {
+  drop (props, monitor) {
     const { upload, masterHandle } = props;
     const { files } = monitor.getItem();
     upload(files, masterHandle);
