@@ -20,10 +20,10 @@ import * as Metadata from "../../services/metadata";
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
-    const { upload, accountId } = props;
+  drop(props, monitor) {
+    const { upload, masterHandle } = props;
     const { files } = monitor.getItem();
-    upload(files, accountId);
+    upload(files, masterHandle);
   }
 };
 
@@ -271,7 +271,7 @@ interface File {
 const FileManagerSlide = ({
   upload,
   download,
-  accountId,
+  masterHandle,
   metadataKey,
   metadata,
   connectDropTarget,
@@ -321,7 +321,9 @@ const FileManagerSlide = ({
             <TableContainer>
               <Title>All Files</Title>
               <ButtonWrapper>
-                <UploadButton onSelected={files => upload(files, accountId)} />
+                <UploadButton
+                  onSelected={files => upload(files, masterHandle)}
+                />
               </ButtonWrapper>
               <Table>
                 <thead>

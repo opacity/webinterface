@@ -1,9 +1,11 @@
 import { from, of } from "rxjs";
 import { switchMap, flatMap, catchError } from "rxjs/operators";
-
 import { ofType, combineEpics } from "redux-observable";
-
 import { push } from "connected-react-router";
+
+// import { Account as A, MasterHandle } from "opaque";
+// console.log("a: ", A);
+// console.log("m: ", MasterHandle);
 
 import authenticationActions from "../actions/authentication-actions";
 import * as Backend from "../../services/backend";
@@ -29,6 +31,7 @@ const loginEpic = (action$, state$, dependencies$) =>
               accountId,
               metadata,
               metadataKey
+              // masterHandle
             }),
             push("/file-manager")
           ];

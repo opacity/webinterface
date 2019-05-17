@@ -112,7 +112,7 @@ const ClipboardIcon = styled.img`
 
 interface RecordAccountHandleProps {
   handle;
-  setStoragePin;
+  next;
 }
 
 interface RecordAccountHandleState {
@@ -131,13 +131,8 @@ class RecordAccountHandleSlide extends Component<
     isCopied: false
   };
 
-  save (storagePin) {
-    const { setStoragePin } = this.props;
-    setStoragePin(storagePin);
-  }
-
-  render () {
-    const { handle } = this.props;
+  render() {
+    const { handle, next } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
@@ -211,9 +206,9 @@ class RecordAccountHandleSlide extends Component<
                 storagePin.length !== 0 &&
                 storagePin === retypedStoragePin &&
                 isCopied
-                  ? this.save(this.state.storagePin)
+                  ? next()
                   : alert(
-                    "Please make sure to copy your account handle and input matching PINs before proceeding."
+                      "Please make sure to copy your account handle and input matching PINs before proceeding."
                     );
               }}
             >

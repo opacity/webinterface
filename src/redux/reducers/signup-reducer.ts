@@ -12,7 +12,7 @@ const signupReducer = (state = initState, action) => {
     case signupActions.SET_PRIVATE_KEY:
       const { privateKey } = action.payload;
       return { ...state, phase: SIGNUP_PHASES.RECORD_STORAGE_PIN, privateKey };
-    case signupActions.GET_INVOICE_SUCCESS:
+    case signupActions.POLL_PAYMENT:
       const { invoice } = action.payload;
       return { ...state, phase: SIGNUP_PHASES.SEND_PAYMENT, invoice };
     case signupActions.ACCOUNT_PAID_SUCCESS:
