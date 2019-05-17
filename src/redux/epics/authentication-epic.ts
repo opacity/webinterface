@@ -3,13 +3,10 @@ import { switchMap, flatMap, catchError } from "rxjs/operators";
 import { ofType, combineEpics } from "redux-observable";
 import { push } from "connected-react-router";
 
-// import { Account as A, MasterHandle } from "opaque";
-// console.log("a: ", A);
-// console.log("m: ", MasterHandle);
-
 import authenticationActions from "../actions/authentication-actions";
-import * as Backend from "../../services/backend";
 import * as Account from "../../services/account";
+
+import { MasterHandle, HDKey } from "opaque";
 
 const loginEpic = (action$, state$, dependencies$) =>
   action$.pipe(
@@ -19,19 +16,37 @@ const loginEpic = (action$, state$, dependencies$) =>
 
       const metadataKey = Account.getMetadataKey({ privateKey, storagePin });
 
-      return from(
-        Backend.login({
-          metadataKey
-        })
-      ).pipe(
-        flatMap(({ metadata }) => {
+      const uploadOpts = {
+        autostart: true,
+        endpoint: "http://3.19.75.128:3000",
+        params: {
+          blockSize: 64 * 1024, // 256 KiB encryption blocks
+          partSize: 10 * 1024 * 1024
+        }
+      };
+
+      const downloadOpts = {
+        endpoint: "http://3.19.75.128:3000"
+      };
+      const masterHandle: MasterHandle & HDKey = new MasterHandle(
+        {
+          handle: privateKey
+        },
+        {
+          uploadOpts,
+          downloadOpts
+        }
+      );
+
+      return from(masterHandle.isPaid()).pipe(
+        flatMap(() => {
           const accountId = Account.getAccountId({ privateKey, storagePin });
           return [
             authenticationActions.loginSuccess({
               accountId,
-              metadata,
-              metadataKey
-              // masterHandle
+              metadata: {},
+              metadataKey,
+              masterHandle
             }),
             push("/file-manager")
           ];

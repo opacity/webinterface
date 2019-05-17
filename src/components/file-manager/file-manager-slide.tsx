@@ -1,7 +1,6 @@
 import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import backend from "../../services/backend";
 import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
 import { ToastContainer } from "react-toastify";
@@ -15,12 +14,10 @@ import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
 
-import * as Metadata from "../../services/metadata";
-
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
+  drop(props, monitor) {
     const { upload, masterHandle } = props;
     const { files } = monitor.getItem();
     upload(files, masterHandle);
@@ -288,16 +285,9 @@ const FileManagerSlide = ({
 
   useEffect(
     () => {
-      backend
-        .getMetadata({ metadataKey })
-        .then(({ metadata }) => {
-          const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
-          const unorderedFiles = decryptedMetadata
-            ? decryptedMetadata.files
-            : [];
-          setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
-        })
-        .catch(console.log);
+      masterHandle.getFolderMetadata("/").then(({ files }) => {
+        setFiles(_.orderBy(files, "createdAt", "desc"));
+      });
     },
     [metadata]
   );
