@@ -25,7 +25,7 @@ const middleware = [
 const persistConfig = {
   key: "opacity",
   storage: storage,
-  whitelist: ["authentication"]
+  whitelist: []
 };
 
 export const store = createStore(
