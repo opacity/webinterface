@@ -266,6 +266,8 @@ interface File {
 }
 
 const FileManagerSlide = ({
+  files,
+  getFileList,
   upload,
   download,
   masterHandle,
@@ -274,24 +276,27 @@ const FileManagerSlide = ({
   connectDropTarget,
   isOver
 }) => {
-  const [files, setFiles] = useState<File[]>([]);
+  const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
   const [sharedFile, setSharedFile] = useState<File | null>(null);
 
   const sortBy = (param, order) => {
     setParam(param);
-    setFiles(_.orderBy(files, param, order));
+    setOrderedFiles(_.orderBy(orderedFiles, param, order));
   };
 
   useEffect(
     () => {
-      masterHandle.getFolderMetadata("/").then(({ files }) => {
-        console.log("FILESSSSSSSSSSS: ", files);
-        setFiles(_.orderBy(files, "createdAt", "desc"));
-      });
+      setOrderedFiles(_.orderBy(files, "createdAt", "desc"));
     },
-    [metadata]
+    [files]
   );
+
+  useEffect(() => {
+    getFileList(masterHandle);
+    // masterHandle.getFolderMetadata("/").then(({ files }) => {
+    // });
+  }, []);
 
   return (
     <DroppableZone ref={connectDropTarget}>
