@@ -105,9 +105,7 @@ const RegisterConfirmPaymentSlide = ({ handle }) => {
       <ContentBox>
         <Title>Your Opacity Account is Ready!</Title>
         <Wrapper>
-          <Content href="/login">
-            Login now with your Account Handle and PIN
-          </Content>
+          <Content href="/login">Login now with your Account Handle</Content>
         </Wrapper>
         <Label>Opacity Account Handle</Label>
         <HandleWrapper>

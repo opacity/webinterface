@@ -1,7 +1,6 @@
 import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import backend from "../../services/backend";
 import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
 import { ToastContainer } from "react-toastify";
@@ -15,15 +14,13 @@ import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
 
-import * as Metadata from "../../services/metadata";
-
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
   drop (props, monitor) {
-    const { upload, accountId } = props;
+    const { upload, masterHandle } = props;
     const { files } = monitor.getItem();
-    upload(files, accountId);
+    upload(files, masterHandle);
   }
 };
 
@@ -269,38 +266,37 @@ interface File {
 }
 
 const FileManagerSlide = ({
+  files,
+  getFileList,
   upload,
   download,
-  accountId,
+  masterHandle,
   metadataKey,
   metadata,
   connectDropTarget,
   isOver
 }) => {
-  const [files, setFiles] = useState<File[]>([]);
+  const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
   const [sharedFile, setSharedFile] = useState<File | null>(null);
 
   const sortBy = (param, order) => {
     setParam(param);
-    setFiles(_.orderBy(files, param, order));
+    setOrderedFiles(_.orderBy(orderedFiles, param, order));
   };
 
   useEffect(
     () => {
-      backend
-        .getMetadata({ metadataKey })
-        .then(({ metadata }) => {
-          const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
-          const unorderedFiles = decryptedMetadata
-            ? decryptedMetadata.files
-            : [];
-          setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
-        })
-        .catch(console.log);
+      setOrderedFiles(_.orderBy(files, "createdAt", "desc"));
     },
-    [metadata]
+    [files]
   );
+
+  useEffect(() => {
+    getFileList(masterHandle);
+    // masterHandle.getFolderMetadata("/").then(({ files }) => {
+    // });
+  }, []);
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -321,7 +317,9 @@ const FileManagerSlide = ({
             <TableContainer>
               <Title>All Files</Title>
               <ButtonWrapper>
-                <UploadButton onSelected={files => upload(files, accountId)} />
+                <UploadButton
+                  onSelected={files => upload(files, masterHandle)}
+                />
               </ButtonWrapper>
               <Table>
                 <thead>
@@ -350,24 +348,31 @@ const FileManagerSlide = ({
                   </Tr>
                 </thead>
                 <tbody>
-                  {files.map(({ filename, handle, createdAt, size }) => (
-                    <Tr key={handle}>
+                  {files.map(({ name, versions, created }, i) => (
+                    <Tr key={versions.length ? versions[0].handle : i}>
                       <Td>
                         <TableIcon src={ICON_LOGO} />
                       </Td>
-                      <Td>{filename}</Td>
-                      <Td>{_.truncate(handle, { length: 30 })}</Td>
-                      <Td>{moment(createdAt).format("MM/DD/YYYY")}</Td>
-                      <Td>{formatBytes(size)}</Td>
+                      <Td>{name}</Td>
+                      <Td>{_.truncate(versions[0].handle, { length: 30 })}</Td>
+                      <Td>{moment(created).format("MM/DD/YYYY")}</Td>
+                      <Td>{formatBytes(versions[0].size)}</Td>
                       <Td>
                         <ActionButton
                           onClick={() =>
-                            setSharedFile({ filename, handle, createdAt, size })
+                            setSharedFile({
+                              filename: name,
+                              handle: versions[0].handle,
+                              createdAt: created,
+                              size: versions[0].size
+                            })
                           }
                         >
                           Share
                         </ActionButton>
-                        <ActionButton onClick={() => download(handle)}>
+                        <ActionButton
+                          onClick={() => download(versions[0].handle)}
+                        >
                           Download
                         </ActionButton>
                       </Td>

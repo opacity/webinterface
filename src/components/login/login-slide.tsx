@@ -39,6 +39,7 @@ interface InputProps {
 }
 
 const Input = styled.input<InputProps>`
+  padding: 0 10px;
   color: black;
   width: 100%;
   height: 40px;
@@ -107,21 +108,6 @@ const RegisterButton = styled(Button)`
   border: 1px solid ${props => props.theme.button.background};
 `;
 
-const ForgotLink = styled.a`
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.7px;
-  color: ${props => props.theme.title.color};
-`;
-
-const Forgot = styled.div`
-  text-align: center;
-  margin-top: 22px;
-`;
-
 const OrRegister = styled.span`
   display: flex;
   flex-direction: row;
@@ -141,7 +127,6 @@ const OrRegister = styled.span`
 
 const LoginOrRegisterSlide = ({ login, status }) => {
   const [privateKey, setPrivateKey] = useState("");
-  const [storagePin, setStoragePin] = useState("");
 
   return (
     <ThemeProvider theme={theme}>
@@ -155,22 +140,12 @@ const LoginOrRegisterSlide = ({ login, status }) => {
             onChange={e => setPrivateKey(e.target.value)}
             hasError={status === AUTHENTICATION_STATUSES.LOGIN_FAILURE}
           />
-          <Label>Account PIN</Label>
-          <Input
-            type="password"
-            onChange={e => setStoragePin(e.target.value)}
-            hasError={status === AUTHENTICATION_STATUSES.LOGIN_FAILURE}
-          />
           {status === AUTHENTICATION_STATUSES.LOGIN_FAILURE && (
             <ErrorMessage>
-              The Account Handle or Account PIN do not match up. Please try
-              again.
+              The Account Handle was not found. Please try again.
             </ErrorMessage>
           )}
-          <Button onClick={() => login(privateKey, storagePin)}>Sign in</Button>
-          <Forgot>
-            <ForgotLink href="/forgot-page">Forgot Account Handle?</ForgotLink>
-          </Forgot>
+          <Button onClick={() => login(privateKey)}>Sign in</Button>
           <OrRegister>or</OrRegister>
           <RegisterButton onClick={() => window.open("/sign-up", "self")}>
             Create an account

@@ -13,13 +13,13 @@ const ACTIONS = Object.freeze({
   UPLOAD_SUCCESS,
   UPLOAD_ERROR,
 
-  uploadFiles: ({ files, accountId }) => ({
+  uploadFiles: ({ files, masterHandle }) => ({
     type: UPLOAD_FILES,
-    payload: { files, accountId }
+    payload: { files, masterHandle }
   }),
-  uploadFile: ({ file, accountId }) => ({
+  uploadFile: ({ file, masterHandle }) => ({
     type: UPLOAD_FILE,
-    payload: { file, accountId }
+    payload: { file, masterHandle }
   }),
   monitorFile: ({ handle }) => ({
     type: MONITOR_FILE,
@@ -29,9 +29,9 @@ const ACTIONS = Object.freeze({
     type: UPLOAD_PROGRESS,
     payload: { handle, progress }
   }),
-  uploadSuccess: ({ handle, filename, size, createdAt }) => ({
+  uploadSuccess: ({ masterHandle }) => ({
     type: UPLOAD_SUCCESS,
-    payload: { handle, filename, size, createdAt }
+    payload: { masterHandle }
   }),
   uploadError: ({ handle, error }) => ({
     type: UPLOAD_ERROR,

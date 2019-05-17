@@ -63,7 +63,7 @@ const Main = ({ handle, download }) => {
 
   useEffect(() => {
     const download = new Download(handle, {
-      endpoint: "http://176.9.147.13:8081",
+      endpoint: "http://3.19.75.128:3000",
       autoStart: false
     });
 
