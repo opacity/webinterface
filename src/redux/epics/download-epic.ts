@@ -16,7 +16,7 @@ const downloadEpic = (action$, state$, dependencies$) =>
 
       return new Observable(o => {
         const download = new Download(handle, {
-          endpoint: API.DEFAULT_BROKER
+          endpoint: API.STORAGE_NODE
         });
 
         download
