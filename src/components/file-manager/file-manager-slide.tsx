@@ -348,24 +348,31 @@ const FileManagerSlide = ({
                   </Tr>
                 </thead>
                 <tbody>
-                  {files.map(({ filename, handle, createdAt, size }) => (
-                    <Tr key={handle}>
+                  {files.map(({ name, versions, created }, i) => (
+                    <Tr key={versions.length ? versions[0].handle : i}>
                       <Td>
                         <TableIcon src={ICON_LOGO} />
                       </Td>
-                      <Td>{filename}</Td>
-                      <Td>{_.truncate(handle, { length: 30 })}</Td>
-                      <Td>{moment(createdAt).format("MM/DD/YYYY")}</Td>
-                      <Td>{formatBytes(size)}</Td>
+                      <Td>{name}</Td>
+                      <Td>{_.truncate(versions[0].handle, { length: 30 })}</Td>
+                      <Td>{moment(created).format("MM/DD/YYYY")}</Td>
+                      <Td>{formatBytes(versions[0].size)}</Td>
                       <Td>
                         <ActionButton
                           onClick={() =>
-                            setSharedFile({ filename, handle, createdAt, size })
+                            setSharedFile({
+                              filename: name,
+                              handle: versions[0].handle,
+                              createdAt: created,
+                              size: versions[0].size
+                            })
                           }
                         >
                           Share
                         </ActionButton>
-                        <ActionButton onClick={() => download(handle)}>
+                        <ActionButton
+                          onClick={() => download(versions[0].handle)}
+                        >
                           Download
                         </ActionButton>
                       </Td>

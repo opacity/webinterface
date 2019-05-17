@@ -1,13 +1,10 @@
-import { Observable, from, of } from "rxjs";
-import { map, mergeMap, flatMap, catchError } from "rxjs/operators";
+import { Observable } from "rxjs";
+import { map, mergeMap, flatMap } from "rxjs/operators";
 import { ofType, combineEpics } from "redux-observable";
 import { toast } from "react-toastify";
 
+import filesActions from "../actions/files-actions";
 import uploadActions from "../actions/upload-actions";
-import authenticationActions from "../actions/authentication-actions";
-
-import * as Backend from "../../services/backend";
-import * as Metadata from "../../services/metadata";
 
 const uploadFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
@@ -61,10 +58,7 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
 
           o.next(
             uploadActions.uploadSuccess({
-              handle,
-              filename: file.name,
-              size: file.size,
-              createdAt: Date.now()
+              masterHandle
             })
           );
           o.complete();
@@ -87,40 +81,13 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
     })
   );
 
-const updateMetadataEpic = (action$, state$, dependencies$) =>
+const refreshListEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(uploadActions.UPLOAD_SUCCESS),
-    mergeMap(({ payload }) => {
-      const { handle, filename, size, createdAt } = payload;
-
-      const { metadataKey, metadata } = state$.value.authentication;
-      const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
-
-      const newMetadata = {
-        ...decryptedMetadata,
-        files: [
-          ...decryptedMetadata.files,
-          { handle, filename, size, createdAt }
-        ]
-      };
-
-      const metadataAsString = Metadata.encrypt(metadataKey, newMetadata);
-
-      return from(
-        Backend.updateMetadata({ metadataKey, metadata: metadataAsString })
-      ).pipe(
-        map(({ metadata }) =>
-          authenticationActions.updateMetadataSuccess({ metadata })
-        ),
-        catchError(error =>
-          of(authenticationActions.updateMetadataFailure({ error }))
-        )
-      );
+    map((action: any) => {
+      const { masterHandle } = action.payload;
+      return filesActions.getFileList({ masterHandle });
     })
   );
 
-export default combineEpics(
-  uploadFilesEpic,
-  uploadFileEpic,
-  updateMetadataEpic
-);
+export default combineEpics(uploadFilesEpic, uploadFileEpic, refreshListEpic);

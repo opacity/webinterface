@@ -29,9 +29,9 @@ const ACTIONS = Object.freeze({
     type: UPLOAD_PROGRESS,
     payload: { handle, progress }
   }),
-  uploadSuccess: ({ handle, filename, size, createdAt }) => ({
+  uploadSuccess: ({ masterHandle }) => ({
     type: UPLOAD_SUCCESS,
-    payload: { handle, filename, size, createdAt }
+    payload: { masterHandle }
   }),
   uploadError: ({ handle, error }) => ({
     type: UPLOAD_ERROR,
