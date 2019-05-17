@@ -6,7 +6,7 @@ import { push } from "connected-react-router";
 import authenticationActions from "../actions/authentication-actions";
 import * as Account from "../../services/account";
 
-import { MasterHandle, HDKey } from "opaque";
+import { MasterHandle } from "opaque";
 
 const loginEpic = (action$, state$, dependencies$) =>
   action$.pipe(
@@ -28,7 +28,7 @@ const loginEpic = (action$, state$, dependencies$) =>
       const downloadOpts = {
         endpoint: "http://3.19.75.128:3000"
       };
-      const masterHandle: MasterHandle & HDKey = new MasterHandle(
+      const masterHandle: MasterHandle = new MasterHandle(
         {
           handle: privateKey
         },

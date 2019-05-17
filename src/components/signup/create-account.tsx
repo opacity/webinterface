@@ -11,7 +11,7 @@ import Header from "../shared/header";
 
 import { HEADER_TYPES, SIGNUP_PHASES, theme } from "../../config";
 
-import { Account, MasterHandle, HDKey } from "opaque";
+import { Account, MasterHandle } from "opaque";
 
 const Container = styled.div`
   width: 100%;
@@ -31,16 +31,16 @@ const downloadOpts = {
 };
 
 const CreateAccount = ({ showAddress, pollPayment, openMetamask, phase }) => {
-  const [invoice, setInvoice] = useState(null);
+  const [invoice, setInvoice] = useState("");
   const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
-  const [privateKey, setPrivateKey] = useState(null);
+  const [privateKey, setPrivateKey] = useState("");
 
   useEffect(() => {
     const account = new Account();
     setMnemonic(account.mnemonic);
 
-    const masterHandle: MasterHandle & HDKey = new MasterHandle(
+    const masterHandle: MasterHandle = new MasterHandle(
       {
         account
       },
@@ -52,10 +52,12 @@ const CreateAccount = ({ showAddress, pollPayment, openMetamask, phase }) => {
 
     setPrivateKey(masterHandle.handle);
 
-    masterHandle.register().then(({ data: { invoice }, waitForPayment }) => {
-      setInvoice(invoice);
-      setWaitForPaymentFn(waitForPayment);
-    });
+    masterHandle
+      .register()
+      .then(({ data: { invoice }, waitForPayment }: any) => {
+        setInvoice(invoice);
+        setWaitForPaymentFn(waitForPayment);
+      });
   }, []);
 
   return (
