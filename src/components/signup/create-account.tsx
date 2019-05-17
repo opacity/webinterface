@@ -21,7 +21,8 @@ const CreateAccount = ({
   getInvoice,
   openMetamask,
   privateKey,
-  phase
+  phase,
+  goBack
 }) => (
   <ThemeProvider theme={theme}>
     <Container>
@@ -37,6 +38,7 @@ const CreateAccount = ({
           <RecordAccountHandleSlide
             handle={privateKey}
             setStoragePin={storagePin => getInvoice(privateKey, storagePin)}
+            goBack={() => goBack()}
           />
         )}
         {phase === SIGNUP_PHASES.SEND_PAYMENT && (

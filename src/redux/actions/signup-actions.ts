@@ -4,6 +4,7 @@ const GET_INVOICE_SUCCESS = "opacity/signup/get-invoice-success";
 const GET_INVOICE_FAILURE = "opacity/signup/get-invoice-failure";
 const ACCOUNT_PAID_SUCCESS = "opacity/signup/account-paid-success";
 const ACCOUNT_PAID_FAILURE = "opacity/signup/account-paid-failure";
+const GO_BACK = "opacity/signup/go-back";
 
 const ACTIONS = Object.freeze({
   SET_PRIVATE_KEY,
@@ -12,6 +13,7 @@ const ACTIONS = Object.freeze({
   GET_INVOICE_FAILURE,
   ACCOUNT_PAID_SUCCESS,
   ACCOUNT_PAID_FAILURE,
+  GO_BACK,
 
   setPrivateKey: ({ privateKey }) => ({
     type: SET_PRIVATE_KEY,
@@ -35,6 +37,9 @@ const ACTIONS = Object.freeze({
   accountPaidFailure: ({ error }) => ({
     type: ACCOUNT_PAID_FAILURE,
     payload: { error }
+  }),
+  goBack: () => ({
+    type: GO_BACK
   })
 });
 

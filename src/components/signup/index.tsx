@@ -16,6 +16,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(signupActions.setPrivateKey({ privateKey })),
   getInvoice: (privateKey, storagePin) =>
     dispatch(signupActions.getInvoicePending({ privateKey, storagePin })),
+  goBack: () => dispatch(signupActions.goBack()),
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
     dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice }))
 });
@@ -26,7 +27,8 @@ const SignUp = ({
   privateKey,
   invoice,
   getInvoice,
-  openMetamask
+  openMetamask,
+  goBack
 }) => (
   <CreateAccount
     phase={phase}
@@ -35,6 +37,7 @@ const SignUp = ({
     invoice={invoice}
     openMetamask={openMetamask}
     getInvoice={getInvoice}
+    goBack={goBack}
   />
 );
 

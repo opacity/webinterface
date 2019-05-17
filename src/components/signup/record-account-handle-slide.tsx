@@ -40,8 +40,13 @@ const InputWrapper = styled.div`
     display: block;
   }
 `;
+
 const InputColumnWrapper = styled.div`
   flex: 50%;
+`;
+
+const InputError = styled.div`
+  color: red;
 `;
 
 const Label = styled.h3`
@@ -113,6 +118,7 @@ const ClipboardIcon = styled.img`
 interface RecordAccountHandleProps {
   handle;
   setStoragePin;
+  goBack;
 }
 
 interface RecordAccountHandleState {
@@ -137,7 +143,7 @@ class RecordAccountHandleSlide extends Component<
   }
 
   render () {
-    const { handle } = this.props;
+    const { handle, goBack } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
@@ -177,6 +183,9 @@ class RecordAccountHandleSlide extends Component<
                 name="storage-pin"
                 onChange={e => this.setState({ storagePin: e.target.value })}
               />
+              {this.state.storagePin && this.state.storagePin.length <= 3 && (
+                <InputError>min. 4 chars</InputError>
+              )}
             </InputColumnWrapper>
             <InputColumnWrapper>
               <Label>Re-Type Account PIN</Label>
@@ -186,6 +195,10 @@ class RecordAccountHandleSlide extends Component<
                   this.setState({ retypedStoragePin: e.target.value })
                 }
               />
+              {this.state.retypedStoragePin &&
+                this.state.retypedStoragePin.length <= 3 && (
+                  <InputError>min. 4 chars</InputError>
+                )}
             </InputColumnWrapper>
           </InputWrapper>
           <Content>
@@ -200,7 +213,7 @@ class RecordAccountHandleSlide extends Component<
               border="1px solid #2e6dde"
               color="#2e6dde"
               margin="0 10px 0 0"
-              onClick={() => window.location.reload()}
+              onClick={() => goBack()}
             >
               Back
             </Button>
@@ -209,6 +222,8 @@ class RecordAccountHandleSlide extends Component<
                 const { storagePin, retypedStoragePin, isCopied } = this.state;
 
                 storagePin.length !== 0 &&
+                storagePin.length >= 4 &&
+                retypedStoragePin.length >= 4 &&
                 storagePin === retypedStoragePin &&
                 isCopied
                   ? this.save(this.state.storagePin)

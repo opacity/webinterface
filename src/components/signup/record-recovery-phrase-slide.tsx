@@ -25,6 +25,7 @@ const DownloadButton = styled.button`
   border: none;
   color: ${props => props.theme.link.color};
   cursor: pointer;
+  font-size: 16px;
 `;
 
 const TermsOfService = styled.div`

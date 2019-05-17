@@ -86,7 +86,7 @@ const Price = styled.p`
 const Content = styled.p`
   width: 171px;
   min-height: 70px;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: ${props => props.theme.fontWeight};
   font-style: ${props => props.theme.fontStyle};
   font-stretch: ${props => props.theme.fontStretch};
@@ -147,7 +147,7 @@ const subscriptionList = [
     button: "SIGN UP",
     features: [
       {
-        title: "128 GB secure storage"
+        title: "secure storage"
       },
       {
         title: "Unlimited downloads"
@@ -208,11 +208,13 @@ const Subscription = () => (
           </Header>
           <Footer>
             <Price>{item.price}</Price>
-            <ButtonWrapper>
-              <Button onClick={() => window.open("/sign-up", "_self")}>
-                {item.button}
-              </Button>
-            </ButtonWrapper>
+            {item.button && (
+              <ButtonWrapper>
+                <Button onClick={() => window.open("/sign-up", "_self")}>
+                  {item.button}
+                </Button>
+              </ButtonWrapper>
+            )}
           </Footer>
         </Column>
       ))}

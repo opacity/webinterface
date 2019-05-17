@@ -72,7 +72,7 @@ class ForgotPageSlide extends Component<
       <ThemeProvider theme={theme}>
         <ScreenContainer title={"Forgot Account Handle?"}>
           <ContentBox>
-            <Title>Forgot Account Handle?</Title>
+            <Title>Account Handle</Title>
             <Hr />
             <InputWrapper>
               <InputColumnWrapper>
@@ -81,7 +81,7 @@ class ForgotPageSlide extends Component<
               </InputColumnWrapper>
             </InputWrapper>
             <ButtonWrapper>
-              <ContinueButton>Renew Account Handle</ContinueButton>
+              <ContinueButton>Account Handle</ContinueButton>
             </ButtonWrapper>
           </ContentBox>
         </ScreenContainer>
