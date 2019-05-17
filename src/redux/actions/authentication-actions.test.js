@@ -2,16 +2,14 @@ import actions from "./authentication-actions";
 
 test("loginPending", () => {
   const privateKey = "foo";
-  const storagePin = "bar";
 
   const expected = {
     type: actions.LOGIN_PENDING,
     payload: {
-      privateKey,
-      storagePin
+      privateKey
     }
   };
-  expect(actions.loginPending({ privateKey, storagePin })).toEqual(expected);
+  expect(actions.loginPending({ privateKey })).toEqual(expected);
 });
 
 test("loginSuccess", () => {
