@@ -6,6 +6,7 @@ import * as FileSaver from "file-saver";
 import { toast } from "react-toastify";
 
 import downloadActions from "../actions/download-actions";
+import { API } from "../../config";
 
 const downloadEpic = (action$, state$, dependencies$) =>
   action$.pipe(
@@ -15,7 +16,7 @@ const downloadEpic = (action$, state$, dependencies$) =>
 
       return new Observable(o => {
         const download = new Download(handle, {
-          endpoint: "http://3.19.75.128:3000"
+          endpoint: API.STORAGE_NODE
         });
 
         download
@@ -40,6 +41,7 @@ const downloadEpic = (action$, state$, dependencies$) =>
               .toFile()
               .then(file => {
                 const f = file as File;
+                console.log(f);
                 FileSaver.saveAs(f);
 
                 toast.update(handle, {

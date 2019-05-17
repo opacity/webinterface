@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { ToastContainer } from "react-toastify";
 import { Download } from "opaque";
 
-import { HEADER_TYPES, theme } from "../../config";
+import { API, HEADER_TYPES, theme } from "../../config";
 import { formatBytes } from "../../helpers";
 
 import Header from "../shared/header";
@@ -63,7 +63,7 @@ const Main = ({ handle, download }) => {
 
   useEffect(() => {
     const download = new Download(handle, {
-      endpoint: "http://3.19.75.128:3000",
+      endpoint: API.STORAGE_NODE,
       autoStart: false
     });
 

@@ -24,6 +24,7 @@ const IOTA_PROVIDERS = IS_DEV
   : [PROD_IOTA_1, PROD_IOTA_2];
 
 const DEFAULT_BROKER_IP = IS_DEV ? "13.58.191.143" : "3.19.75.128";
+const DEFAULT_STORAGE_NODE = "3.19.75.128:3000";
 
 const BROKERS = IS_DEV
   ? ["18.222.173.29", "13.58.191.143"] // Rebel brokers
@@ -47,6 +48,7 @@ export const API = Object.freeze({
   BROKER_NODE_A: `${PROTOCOL}://${ALPHA_IP}`,
   BROKER_NODE_B: `${PROTOCOL}://${BETA_IP}`,
   DEFAULT_BROKER: `${PROTOCOL}://${DEFAULT_BROKER_IP}`,
+  STORAGE_NODE: `${PROTOCOL}://${DEFAULT_STORAGE_NODE}`,
   V2_UPLOAD_SESSIONS_PATH: ":3000/api/v2/upload-sessions",
   V2_STATUS_PATH: ":3000/api/v2/status",
   V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",

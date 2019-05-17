@@ -116,7 +116,7 @@ class RecordAccountHandleSlide extends Component<
     isCopied: false
   };
 
-  render () {
+  render() {
     const { handle, next, goBack } = this.props;
 
     return (
@@ -164,7 +164,17 @@ class RecordAccountHandleSlide extends Component<
             >
               Back
             </Button>
-            <ContinueButton onClick={next}>Continue</ContinueButton>
+            <ContinueButton
+              onClick={() => {
+                this.state.isCopied
+                  ? next()
+                  : alert(
+                      "Please make sure to copy your account handle and input matching PINs before proceeding."
+                    );
+              }}
+            >
+              Continue
+            </ContinueButton>
           </ButtonWrapper>
         </ContentBox>
       </ThemeProvider>

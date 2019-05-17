@@ -32,24 +32,6 @@ export const checkStatus = hosts =>
       });
   });
 
-export const createAccount = ({
-  accountId,
-  storageLimit,
-  durationInMonths,
-  metadataKey
-}) =>
-  axiosInstance
-    .post(`${API.DEFAULT_BROKER}${API.V1_ACCOUNTS_PATH}`, {
-      accountId,
-      storageLimit,
-      durationInMonths,
-      metadataKey
-    })
-    .then(({ data }: any) => {
-      const { invoice } = data;
-      return invoice;
-    });
-
 export const isAccountPaid = ({ accountId }) =>
   axiosInstance
     .get(`${API.DEFAULT_BROKER}${API.V1_ACCOUNTS_PATH}/${accountId}`)
@@ -83,7 +65,6 @@ export const updateMetadata = ({ metadataKey, metadata }) =>
 
 export default {
   checkStatus,
-  createAccount,
   isAccountPaid,
   login,
   filesIndex,
