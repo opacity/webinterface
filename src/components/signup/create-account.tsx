@@ -44,7 +44,7 @@ const CreateAccount = ({ setPrivateKey, pollPayment, openMetamask, phase }) => {
       downloadOpts
     }
   );
-  const privateKey = masterHandle.privateKey.toString("hex");
+  const privateKey = masterHandle.handle;
 
   useEffect(() => {
     masterHandle.register().then(({ data: { invoice }, waitForPayment }) => {

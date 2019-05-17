@@ -286,6 +286,7 @@ const FileManagerSlide = ({
   useEffect(
     () => {
       masterHandle.getFolderMetadata("/").then(({ files }) => {
+        console.log("FILESSSSSSSSSSS: ", files);
         setFiles(_.orderBy(files, "createdAt", "desc"));
       });
     },
