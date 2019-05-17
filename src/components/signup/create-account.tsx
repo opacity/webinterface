@@ -57,7 +57,8 @@ const CreateAccount = ({ showAddress, pollPayment, openMetamask, phase }) => {
       .then(({ data: { invoice }, waitForPayment }: any) => {
         setInvoice(invoice);
         setWaitForPaymentFn(waitForPayment);
-      });
+      })
+      .catch(console.log);
   }, []);
 
   return (
