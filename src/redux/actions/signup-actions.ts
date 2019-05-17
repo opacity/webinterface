@@ -1,17 +1,16 @@
-const SET_PRIVATE_KEY = "opacity/signup/set-private-key";
+const SHOW_ADDRESS = "opacity/signup/show-address";
 const POLL_PAYMENT = "opacity/signup/poll-payment";
 const ACCOUNT_PAID_SUCCESS = "opacity/signup/account-paid-success";
 const ACCOUNT_PAID_FAILURE = "opacity/signup/account-paid-failure";
 
 const ACTIONS = Object.freeze({
-  SET_PRIVATE_KEY,
+  SHOW_ADDRESS,
   POLL_PAYMENT,
   ACCOUNT_PAID_SUCCESS,
   ACCOUNT_PAID_FAILURE,
 
-  setPrivateKey: ({ privateKey }) => ({
-    type: SET_PRIVATE_KEY,
-    payload: { privateKey }
+  showAddress: () => ({
+    type: SHOW_ADDRESS
   }),
   pollPayment: ({ waitForPaymentFn }) => ({
     type: POLL_PAYMENT,

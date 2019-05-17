@@ -30,23 +30,28 @@ const downloadOpts = {
   endpoint: "http://3.19.75.128:3000"
 };
 
-const CreateAccount = ({ setPrivateKey, pollPayment, openMetamask, phase }) => {
+const CreateAccount = ({ showAddress, pollPayment, openMetamask, phase }) => {
   const [invoice, setInvoice] = useState(null);
+  const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
-
-  const account = new Account();
-  const masterHandle: MasterHandle & HDKey = new MasterHandle(
-    {
-      account
-    },
-    {
-      uploadOpts,
-      downloadOpts
-    }
-  );
-  const privateKey = masterHandle.handle;
+  const [privateKey, setPrivateKey] = useState(null);
 
   useEffect(() => {
+    const account = new Account();
+    setMnemonic(account.mnemonic);
+
+    const masterHandle: MasterHandle & HDKey = new MasterHandle(
+      {
+        account
+      },
+      {
+        uploadOpts,
+        downloadOpts
+      }
+    );
+
+    setPrivateKey(masterHandle.handle);
+
     masterHandle.register().then(({ data: { invoice }, waitForPayment }) => {
       setInvoice(invoice);
       setWaitForPaymentFn(waitForPayment);
@@ -60,10 +65,7 @@ const CreateAccount = ({ setPrivateKey, pollPayment, openMetamask, phase }) => {
         <ScreenContainer title={"Register on Opacity"}>
           <Breadcrumbs phase={phase} />
           {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
-            <RecordRecoveryPhraseSlide
-              mnemonic={account.mnemonic}
-              next={() => setPrivateKey(privateKey)}
-            />
+            <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
           )}
           {phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
             <RecordAccountHandleSlide
