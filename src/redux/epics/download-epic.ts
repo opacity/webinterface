@@ -18,7 +18,8 @@ const downloadEpic = (action$, state$, dependencies$) =>
           endpoint: "http://3.19.75.128:3000"
         });
 
-        download.metadata
+        download
+          .metadata()
           .then(({ name: filename }) => {
             toast(`${filename} is downloading. Please wait...`, {
               autoClose: false,

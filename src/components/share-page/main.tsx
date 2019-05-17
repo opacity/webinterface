@@ -67,7 +67,8 @@ const Main = ({ handle, download }) => {
       autoStart: false
     });
 
-    download.metadata
+    download
+      .metadata()
       .then(({ name, size }) => {
         setMetadata({ name, size } as FileMetadata);
       })
