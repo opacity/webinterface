@@ -23,9 +23,7 @@ const IOTA_PROVIDERS = IS_DEV
     ["18.222.173.29", "13.58.191.143"]
   : [PROD_IOTA_1, PROD_IOTA_2];
 
-const DEFAULT_BROKER_IP = IS_DEV
-  ? "13.58.191.143"
-  : "broker-1.opacitynodes.com";
+const DEFAULT_BROKER_IP = IS_DEV ? "13.58.191.143" : "3.19.75.128";
 
 const BROKERS = IS_DEV
   ? ["18.222.173.29", "13.58.191.143"] // Rebel brokers
