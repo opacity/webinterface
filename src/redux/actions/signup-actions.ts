@@ -13,9 +13,9 @@ const ACTIONS = Object.freeze({
     type: SET_PRIVATE_KEY,
     payload: { privateKey }
   }),
-  pollPayment: ({ masterHandle }) => ({
+  pollPayment: ({ waitForPaymentFn }) => ({
     type: POLL_PAYMENT,
-    payload: { masterHandle }
+    payload: { waitForPaymentFn }
   }),
   accountPaidSuccess: () => ({
     type: ACCOUNT_PAID_SUCCESS

@@ -131,7 +131,7 @@ class RecordAccountHandleSlide extends Component<
     isCopied: false
   };
 
-  render() {
+  render () {
     const { handle, next } = this.props;
 
     return (
@@ -208,7 +208,7 @@ class RecordAccountHandleSlide extends Component<
                 isCopied
                   ? next()
                   : alert(
-                      "Please make sure to copy your account handle and input matching PINs before proceeding."
+                    "Please make sure to copy your account handle and input matching PINs before proceeding."
                     );
               }}
             >

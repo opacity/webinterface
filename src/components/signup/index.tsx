@@ -12,8 +12,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setPrivateKey: privateKey =>
     dispatch(signupActions.setPrivateKey({ privateKey })),
-  pollPayment: masterHandle =>
-    dispatch(signupActions.pollPayment({ masterHandle })),
+  pollPayment: waitForPaymentFn =>
+    dispatch(signupActions.pollPayment({ waitForPaymentFn })),
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
     dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice }))
 });

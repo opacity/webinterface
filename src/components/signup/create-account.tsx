@@ -32,6 +32,7 @@ const downloadOpts = {
 
 const CreateAccount = ({ setPrivateKey, pollPayment, openMetamask, phase }) => {
   const [invoice, setInvoice] = useState(null);
+  const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
 
   const account = new Account();
   const masterHandle: MasterHandle & HDKey = new MasterHandle(
@@ -46,8 +47,9 @@ const CreateAccount = ({ setPrivateKey, pollPayment, openMetamask, phase }) => {
   const privateKey = masterHandle.privateKey.toString("hex");
 
   useEffect(() => {
-    masterHandle.register().then(({ data: { invoice } }) => {
+    masterHandle.register().then(({ data: { invoice }, waitForPayment }) => {
       setInvoice(invoice);
+      setWaitForPaymentFn(waitForPayment);
     });
   }, []);
 
@@ -66,7 +68,7 @@ const CreateAccount = ({ setPrivateKey, pollPayment, openMetamask, phase }) => {
           {phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
             <RecordAccountHandleSlide
               handle={privateKey}
-              next={storagePin => pollPayment(masterHandle)}
+              next={() => pollPayment(waitForPaymentFn)}
             />
           )}
           {phase === SIGNUP_PHASES.SEND_PAYMENT && (
