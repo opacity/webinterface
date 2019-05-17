@@ -371,7 +371,9 @@ const FileManagerSlide = ({
                           Share
                         </ActionButton>
                         <ActionButton
-                          onClick={() => download(versions[0].handle)}
+                          onClick={() =>
+                            download(versions[0].handle, masterHandle)
+                          }
                         >
                           Download
                         </ActionButton>
