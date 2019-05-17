@@ -9,8 +9,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: (privateKey, storagePin) =>
-    dispatch(authenticationActions.loginPending({ privateKey, storagePin }))
+  login: privateKey =>
+    dispatch(authenticationActions.loginPending({ privateKey }))
 });
 
 const Login = ({ login, status }) => (

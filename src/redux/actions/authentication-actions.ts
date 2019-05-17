@@ -13,9 +13,9 @@ const ACTIONS = Object.freeze({
   UPDATE_METADATA_ERROR,
   LOGOUT,
 
-  loginPending: ({ storagePin, privateKey }) => ({
+  loginPending: ({ privateKey }) => ({
     type: LOGIN_PENDING,
-    payload: { storagePin, privateKey }
+    payload: { privateKey }
   }),
   loginSuccess: ({ accountId, metadataKey, metadata, masterHandle }) => ({
     type: LOGIN_SUCCESS,

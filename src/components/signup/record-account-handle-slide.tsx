@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import styled, { ThemeProvider, keyframes } from "styled-components";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
+import { theme, DESKTOP_WIDTH } from "../../config";
 
 import ContentBox from "./content-box";
 import Content from "./content";
 import Hr from "./hr";
 import Title from "./title";
 import ContinueButton from "./continue-button";
-import Input from "../shared/generic/input";
 import Button from "../shared/generic/button";
 
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
@@ -31,17 +30,6 @@ const ButtonWrapper = styled.div`
   @media only screen and (max-width: ${DESKTOP_WIDTH}px)
     text-align: center;
   }
-`;
-
-const InputWrapper = styled.div`
-  margin-top: 25px;
-  display: flex;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    display: block;
-  }
-`;
-const InputColumnWrapper = styled.div`
-  flex: 50%;
 `;
 
 const Label = styled.h3`
@@ -116,8 +104,6 @@ interface RecordAccountHandleProps {
 }
 
 interface RecordAccountHandleState {
-  storagePin;
-  retypedStoragePin;
   isCopied;
 }
 
@@ -126,20 +112,16 @@ class RecordAccountHandleSlide extends Component<
   RecordAccountHandleState
 > {
   state = {
-    storagePin: "",
-    retypedStoragePin: "",
     isCopied: false
   };
 
-  render () {
+  render() {
     const { handle, next } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
         <ContentBox>
-          <Title>
-            IMPORTANT: Save Your Private Opacity Account Handle and PIN
-          </Title>
+          <Title>IMPORTANT: Save Your Private Opacity Account Handle</Title>
           <Hr />
           <Content>
             Your Opacity Account Handle is the key to your account. It is
@@ -165,29 +147,11 @@ class RecordAccountHandleSlide extends Component<
               <CopiedReminder>Copied to clipboard!</CopiedReminder>
             )}
           </HandleWrapper>
-          <InputWrapper>
-            <InputColumnWrapper>
-              <Label>Choose Account PIN</Label>
-              <Input
-                name="storage-pin"
-                onChange={e => this.setState({ storagePin: e.target.value })}
-              />
-            </InputColumnWrapper>
-            <InputColumnWrapper>
-              <Label>Re-Type Account PIN</Label>
-              <Input
-                name="retyped-storage-pin"
-                onChange={e =>
-                  this.setState({ retypedStoragePin: e.target.value })
-                }
-              />
-            </InputColumnWrapper>
-          </InputWrapper>
           <Content>
-            Before you continue, make sure you have copied your Account Handle
-            and safely recorded your PIN. Without this information, you will not
-            be able to access your account. Opacity does not have access to this
-            information and will not be able to recover it for you.
+            Before you continue, make sure you have copied your Account Handle.
+            Without this information, you will not be able to access your
+            account. Opacity does not have access to this information and will
+            not be able to recover it for you.
           </Content>
           <ButtonWrapper>
             <Button
@@ -199,21 +163,7 @@ class RecordAccountHandleSlide extends Component<
             >
               Back
             </Button>
-            <ContinueButton
-              onClick={() => {
-                const { storagePin, retypedStoragePin, isCopied } = this.state;
-
-                storagePin.length !== 0 &&
-                storagePin === retypedStoragePin &&
-                isCopied
-                  ? next()
-                  : alert(
-                    "Please make sure to copy your account handle and input matching PINs before proceeding."
-                    );
-              }}
-            >
-              Continue
-            </ContinueButton>
+            <ContinueButton onClick={next}>Continue</ContinueButton>
           </ButtonWrapper>
         </ContentBox>
       </ThemeProvider>
