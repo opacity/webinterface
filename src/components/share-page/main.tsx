@@ -63,7 +63,7 @@ const Main = ({ handle, download }) => {
 
   useEffect(() => {
     const download = new Download(handle, {
-      endpoint: API.STORAGE_NODE,
+      endpoint: API.DEFAULT_BROKER,
       autoStart: false
     });
 

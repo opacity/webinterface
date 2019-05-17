@@ -19,7 +19,7 @@ const Container = styled.div`
 
 const uploadOpts = {
   autostart: true,
-  endpoint: API.STORAGE_NODE,
+  endpoint: API.DEFAULT_BROKER,
   params: {
     blockSize: 64 * 1024, // 256 KiB encryption blocks
     partSize: 10 * 1024 * 1024
@@ -27,7 +27,7 @@ const uploadOpts = {
 };
 
 const downloadOpts = {
-  endpoint: API.STORAGE_NODE
+  endpoint: API.DEFAULT_BROKER
 };
 
 const CreateAccount = ({
