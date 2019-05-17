@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default styled.p`
   margin-top: 25px;
   width: auto;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: ${props => props.theme.fontWeight};
   font-style: ${props => props.theme.fontStyle};
   font-stretch: ${props => props.theme.fontStretch};

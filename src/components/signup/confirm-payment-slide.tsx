@@ -13,7 +13,7 @@ const Content = styled.a`
   text-align: center;
   margin-top: 25px;
   width: auto;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
