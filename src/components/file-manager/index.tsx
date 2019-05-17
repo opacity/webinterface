@@ -18,8 +18,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   upload: (files, masterHandle) =>
     dispatch(uploadActions.uploadFiles({ files, masterHandle })),
-  download: (handle, masterHandle) =>
-    dispatch(downloadActions.downloadFile({ handle, masterHandle })),
+  download: (handle, filename) =>
+    dispatch(downloadActions.downloadFile({ handle, filename })),
   getFileList: masterHandle =>
     dispatch(filesActions.getFileList({ masterHandle }))
 });

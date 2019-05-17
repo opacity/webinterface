@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
 import { ofType, combineEpics } from "redux-observable";
 import { mergeMap } from "rxjs/operators";
+import { Download } from "opaque";
 import * as FileSaver from "file-saver";
 import { toast } from "react-toastify";
 
@@ -10,10 +11,12 @@ const downloadEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(downloadActions.DOWNLOAD_FILE),
     mergeMap(({ payload }) => {
-      const { handle, masterHandle } = payload;
+      const { handle } = payload;
 
       return new Observable(o => {
-        const download = masterHandle.downloadFile(handle);
+        const download = new Download(handle, {
+          endpoint: "http://176.9.147.13:8081"
+        });
 
         download.metadata
           .then(({ name: filename }) => {

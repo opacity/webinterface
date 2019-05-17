@@ -9,9 +9,9 @@ const ACTIONS = Object.freeze({
   DOWNLOAD_SUCCESS,
   DOWNLOAD_ERROR,
 
-  downloadFile: ({ handle, masterHandle }) => ({
+  downloadFile: ({ handle }) => ({
     type: DOWNLOAD_FILE,
-    payload: { handle, masterHandle }
+    payload: { handle }
   }),
   downloadProgress: ({ progress }) => ({
     type: DOWNLOAD_PROGRESS,
