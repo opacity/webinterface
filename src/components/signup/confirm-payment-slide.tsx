@@ -32,6 +32,7 @@ const Label = styled.h3`
   font-stretch: normal;
   font-style: normal;
   font-weight: 500;
+  text-align-last: center;
   letter-spacing: 0.7px;
   line-height: normal;
 `;

@@ -144,6 +144,9 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
           <CommunityLink href={"/file-manager"}>
             <CommunityButton>Dashboard</CommunityButton>
           </CommunityLink>
+          <CommunityLink href={"/logout"}>
+            <CommunityButton>Logout</CommunityButton>
+          </CommunityLink>
         </CommunityWrapper>
       );
     } else {
@@ -210,6 +213,8 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
             <LinkNavigation href="/logout">Logout</LinkNavigation>
           </LinkContainer>
         );
+      case HEADER_TYPES.EMPTY:
+        return <LinkContainer />;
       default:
         return null;
     }

@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
+import { HEADER_TYPES, theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
 import ContentBox from "../signup/content-box";
 import Hr from "../signup/hr";
 import Title from "../signup/title";
 import ScreenContainer from "../shared/screen-container";
 import Input from "../shared/generic/input";
+import Header from "../shared/header";
+
+const ContainerWrapper = styled.div`
+  width: 100%;
+`;
 
 const ContinueButton = styled.button`
   cursor: pointer;
@@ -23,7 +28,7 @@ const ContinueButton = styled.button`
   line-height: ${props => props.theme.lineHeight};
   margin: auto;
   text-align: center;
-  width: 225px;
+  width: 245px;
 
   @media (max-width: ${DESKTOP_WIDTH}px) {
     width: 100%;
@@ -70,21 +75,24 @@ class ForgotPageSlide extends Component<
   render () {
     return (
       <ThemeProvider theme={theme}>
-        <ScreenContainer title={"Forgot Account Handle?"}>
-          <ContentBox>
-            <Title>Account Handle</Title>
-            <Hr />
-            <InputWrapper>
-              <InputColumnWrapper>
-                <Label>Account PIN</Label>
-                <Input name="storage-pin" />
-              </InputColumnWrapper>
-            </InputWrapper>
-            <ButtonWrapper>
-              <ContinueButton>Account Handle</ContinueButton>
-            </ButtonWrapper>
-          </ContentBox>
-        </ScreenContainer>
+        <ContainerWrapper>
+          <Header type={HEADER_TYPES.TEAM_PAGE} />
+          <ScreenContainer title={"Forgot Account Handle?"}>
+            <ContentBox>
+              <Title>Recovery Account Handle</Title>
+              <Hr />
+              <InputWrapper>
+                <InputColumnWrapper>
+                  <Label>Account PIN</Label>
+                  <Input name="storage-pin" />
+                </InputColumnWrapper>
+              </InputWrapper>
+              <ButtonWrapper>
+                <ContinueButton>Recover Account Handle</ContinueButton>
+              </ButtonWrapper>
+            </ContentBox>
+          </ScreenContainer>
+        </ContainerWrapper>
       </ThemeProvider>
     );
   }

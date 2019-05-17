@@ -310,7 +310,7 @@ const ContentPurchase = styled.a`
   text-align: center;
   padding-top: 20px;
   text-decoration: none;
-  display: block;
+  display: inline-block;
 `;
 
 const LandingPageSlide = ({ history, isLoggedIn }) => (

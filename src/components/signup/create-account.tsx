@@ -30,7 +30,13 @@ const downloadOpts = {
   endpoint: "http://3.19.75.128:3000"
 };
 
-const CreateAccount = ({ showAddress, pollPayment, openMetamask, phase }) => {
+const CreateAccount = ({
+  showAddress,
+  pollPayment,
+  goBack,
+  openMetamask,
+  phase
+}) => {
   const [invoice, setInvoice] = useState("");
   const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
@@ -74,6 +80,7 @@ const CreateAccount = ({ showAddress, pollPayment, openMetamask, phase }) => {
             <RecordAccountHandleSlide
               handle={privateKey}
               next={() => pollPayment(waitForPaymentFn)}
+              goBack={() => goBack()}
             />
           )}
           {phase === SIGNUP_PHASES.SEND_PAYMENT && (

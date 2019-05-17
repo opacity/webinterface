@@ -148,7 +148,7 @@ class SendPaymentSlide extends Component<
 
   render () {
     const {
-      invoice: { ethAddress, cost },
+      invoice: { ethAddress },
       openMetamask
     } = this.props;
 
@@ -215,7 +215,6 @@ class SendPaymentSlide extends Component<
               includeMargin={true}
             />
           </QRCodeWrapper>
-          <Or>or</Or>
           <ContentCentered>
             Need OPQ?{" "}
             <OutboundLink href={EXCHANGE_LINK}>Purchase here</OutboundLink>
