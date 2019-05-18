@@ -135,6 +135,10 @@ const Button = styled.button`
   text-align: center;
   margin: auto;
   border: none;
+
+  &:disabled {
+    background-color: #DFDFDF;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -157,6 +161,7 @@ const Footer = styled.div`
 const subscriptionList = [
   {
     title: "Basic",
+    isAvailable: true,
     content:
       "Secure, encrypted storage solution perfect for the needs of the individual",
     price: "2 OPQ / year",
@@ -176,6 +181,7 @@ const subscriptionList = [
   },
   {
     title: "Professional",
+    isAvailable: false,
     content:
       "For professionals looking for a secure, easily accessible storage solution while on the move.",
     price: "16 OPQ / year",
@@ -195,6 +201,7 @@ const subscriptionList = [
   },
   {
     title: "Business",
+    isAvailable: false,
     content:
       "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
     price: "32 OPQ / year",
@@ -230,7 +237,10 @@ const Subscription = () => (
             <Plan>{item.plan}</Plan>
             {item.button && (
               <ButtonWrapper>
-                <Button onClick={() => window.open("/sign-up", "_self")}>
+                <Button
+                  disabled={!item.isAvailable}
+                  onClick={() => window.open("/sign-up", "_self")}
+                >
                   {item.button}
                 </Button>
               </ButtonWrapper>
