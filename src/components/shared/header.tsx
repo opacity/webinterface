@@ -55,8 +55,9 @@ const StyledLinkNavigation = styled(StyledLink)`
 
 const Navbar = styled.div`
   display: flex;
+  height: 40px;
   margin: 0 auto;
-  height: 100%;
+  align-items: center;
   justify-content: space-between;
 `;
 
