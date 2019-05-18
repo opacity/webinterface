@@ -305,12 +305,12 @@ const ContentPurchase = styled.a`
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
-  font-size: 16px;
+  font-size: 24px;
   color: white;
   text-align: center;
   padding-top: 20px;
   text-decoration: none;
-  display: block;
+  display: inline-block;
 `;
 
 const LandingPageSlide = ({ history, isLoggedIn }) => (
@@ -329,12 +329,20 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
         <Wrapper>
           <VideoPlayer src={LANDING_PAGE_VIDEO} />
         </Wrapper>
-        <Wrapper>
-          <Button onClick={() => history.push("/login")}>Login</Button>
-          <ButtonSecondary onClick={() => history.push("/sign-up")}>
-            Sign up
-          </ButtonSecondary>
-        </Wrapper>
+        {isLoggedIn ? (
+          <Wrapper>
+            <Button onClick={() => history.push("/file-manager")}>
+              Dashboard
+            </Button>
+          </Wrapper>
+        ) : (
+          <Wrapper>
+            <Button onClick={() => history.push("/login")}>Login</Button>
+            <ButtonSecondary onClick={() => history.push("/sign-up")}>
+              Sign up
+            </ButtonSecondary>
+          </Wrapper>
+        )}
         <Wrapper>
           <ContentPurchase href="#buyOPQ">
             Click here to purchase the OPQ token

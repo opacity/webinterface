@@ -101,6 +101,7 @@ const ClipboardIcon = styled.img`
 interface RecordAccountHandleProps {
   handle;
   next;
+  goBack;
 }
 
 interface RecordAccountHandleState {
@@ -116,7 +117,7 @@ class RecordAccountHandleSlide extends Component<
   };
 
   render () {
-    const { handle, next } = this.props;
+    const { handle, next, goBack } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
@@ -159,7 +160,7 @@ class RecordAccountHandleSlide extends Component<
               border="1px solid #2e6dde"
               color="#2e6dde"
               margin="0 10px 0 0"
-              onClick={() => window.location.reload()}
+              onClick={() => goBack()}
             >
               Back
             </Button>

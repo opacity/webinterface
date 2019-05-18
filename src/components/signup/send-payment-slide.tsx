@@ -22,8 +22,17 @@ const ContentBold = styled(Content)`
   min-height: 28px;
 `;
 
+const ContentCentered = styled(Content)`
+  text-align: center;
+`;
+
 const PaymentWrapper = styled.div`
   margin-top: 20px;
+  text-align: center;
+`;
+
+const QRCodeWrapper = styled.div`
+  text-align: center;
 `;
 
 const Label = styled.h3`
@@ -104,6 +113,22 @@ const ClipboardIcon = styled.img`
   object-fit: contain;
 `;
 
+const Or = styled.span`
+  display: flex;
+  flex-direction: row;
+  color: #778291;
+  margin: 22px;
+  :before,
+  :after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid #778291;
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+`;
+
 interface SendPaymentHandleProps {
   invoice;
   openMetamask;
@@ -123,9 +148,11 @@ class SendPaymentSlide extends Component<
 
   render () {
     const {
-      invoice: { ethAddress, cost },
+      invoice: { ethAddress },
       openMetamask
     } = this.props;
+
+    const initCost = 2;
 
     return (
       <ThemeProvider theme={theme}>
@@ -134,9 +161,9 @@ class SendPaymentSlide extends Component<
           <Hr />
           <Content>
             Use the Opacity Storage Token, OPQ, to pay for your storage account.
-            Send your total amount of <Bold>{cost} OPQ </Bold> to the address
-            below or you may use Metamask to easily make your payment right in
-            your browser.
+            Send your total amount of <Bold>{initCost} OPQ </Bold> to the
+            address below or you may use Metamask to easily make your payment
+            right in your browser.
           </Content>
           <ContentBold>
             IMPORTANT: Do not send any other coin or token to this account
@@ -148,7 +175,7 @@ class SendPaymentSlide extends Component<
             complete setup of your account once the network transaction is
             confirmed. Please be patient.
           </Content>
-          <LabelColored>Send {cost} OPQ to Payment Address:</LabelColored>
+          <LabelColored>Send {initCost} OPQ to Payment Address:</LabelColored>
           <EthAddressWrapper>
             <EthAddress>{ethAddress}</EthAddress>
             <CopyToClipboard
@@ -166,12 +193,16 @@ class SendPaymentSlide extends Component<
 
           {Metamask.isInstalled && (
             <PaymentWrapper>
+              <Or>or</Or>
               <MetamaskButton
-                onClick={() => openMetamask({ ethAddress, cost, gasPrice: 20 })}
+                onClick={() =>
+                  openMetamask({ ethAddress, initCost, gasPrice: 20 })
+                }
               />
             </PaymentWrapper>
           )}
-          <div>
+          <Or>or</Or>
+          <QRCodeWrapper>
             <Label>Scan QR code to pay</Label>
             <QRCode
               value={ethAddress}
@@ -183,11 +214,11 @@ class SendPaymentSlide extends Component<
               color="#ffffff"
               includeMargin={true}
             />
-          </div>
-          <Content>
+          </QRCodeWrapper>
+          <ContentCentered>
             Need OPQ?{" "}
             <OutboundLink href={EXCHANGE_LINK}>Purchase here</OutboundLink>
-          </Content>
+          </ContentCentered>
         </ContentBox>
       </ThemeProvider>
     );

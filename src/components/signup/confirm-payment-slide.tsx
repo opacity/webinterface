@@ -13,7 +13,7 @@ const Content = styled.a`
   text-align: center;
   margin-top: 25px;
   width: auto;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
@@ -32,6 +32,7 @@ const Label = styled.h3`
   font-stretch: normal;
   font-style: normal;
   font-weight: 500;
+  text-align-last: center;
   letter-spacing: 0.7px;
   line-height: normal;
 `;

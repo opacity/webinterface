@@ -15,6 +15,8 @@ const signupReducer = (state = initState, action) => {
       return { ...state, phase: SIGNUP_PHASES.SEND_PAYMENT, invoice };
     case signupActions.ACCOUNT_PAID_SUCCESS:
       return { ...state, phase: SIGNUP_PHASES.CONFIRM_PAYMENT };
+    case signupActions.GO_BACK:
+      return { ...state, phase: SIGNUP_PHASES.RECORD_RECOVERY_PHRASE };
 
     default:
       return state;
