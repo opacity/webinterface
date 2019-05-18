@@ -26,6 +26,31 @@ const Container = styled.div`
   right: 0;
 `;
 
+const ExternalLink = styled.a`
+  align-items: center;
+  color: ${props => props.theme.header.color};
+  cursor: pointer;
+  display: flex;
+  padding: 0 30px;
+  font-size: 14px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: bold;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  text-decoration: none;
+  text-transform: uppercase;
+  &:hover {
+    text-decoration: none;
+    opacity: 0.8;
+  }
+
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    font-size: 20px;
+    margin: 25px;
+  }
+`;
+
 const StyledLink = styled(Link)`
   align-items: center;
   color: ${props => props.theme.header.color};
@@ -184,12 +209,9 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
             </StyledLinkNavigation>
             <StyledLinkNavigation to="/team-page">TEAM</StyledLinkNavigation>
 
-            <StyledLinkNavigation
-              to="https://medium.com/opacity-storage/"
-              target="_blank"
-            >
+            <ExternalLink href="//medium.com/opacity-storage/" target="_blank">
               BLOG
-            </StyledLinkNavigation>
+            </ExternalLink>
             {renderButtons()}
           </StyledLinkContainer>
         );
@@ -202,12 +224,9 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
             <StyledLinkNavigation to="/team-page">
               RESOURCES
             </StyledLinkNavigation>
-            <StyledLinkNavigation
-              to="https://medium.com/opacity-storage/"
-              target="_blank"
-            >
+            <ExternalLink href="//medium.com/opacity-storage/" target="_blank">
               BLOG
-            </StyledLinkNavigation>
+            </ExternalLink>
           </StyledLinkContainer>
         );
       case HEADER_TYPES.TEAM_PAGE:
@@ -217,12 +236,9 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
               THE PLATFORM
             </StyledLinkNavigation>
             <StyledLinkNavigation to="/team-page">TEAM</StyledLinkNavigation>
-            <StyledLinkNavigation
-              to="https://medium.com/opacity-storage/"
-              target="_blank"
-            >
+            <ExternalLink href="//medium.com/opacity-storage/" target="_blank">
               BLOG
-            </StyledLinkNavigation>
+            </ExternalLink>
             {renderButtons()}
           </StyledLinkContainer>
         );
