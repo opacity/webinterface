@@ -161,10 +161,6 @@ const CommunityButtonSecondary = styled(CommunityButton)`
   }
 `;
 
-// const StyledLink = styled(StyledLink)`
-// display: inline-block;
-// `;
-
 interface HeaderProps {
   type: string;
   isLoggedIn?: boolean;
