@@ -249,7 +249,7 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
           </StyledLinkContainer>
         );
       case HEADER_TYPES.EMPTY:
-        return <LinkContainer />;
+        return <StyledLinkContainer />;
       default:
         return null;
     }
