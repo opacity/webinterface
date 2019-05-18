@@ -180,7 +180,7 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
           <StyledLink to={"/file-manager"}>
             <CommunityButton>Dashboard</CommunityButton>
           </StyledLink>
-          <StyledLink href={"/logout"}>
+          <StyledLink to={"/logout"}>
             <CommunityButton>Logout</CommunityButton>
           </StyledLink>
         </CommunityWrapper>
