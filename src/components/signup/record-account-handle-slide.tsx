@@ -116,7 +116,7 @@ class RecordAccountHandleSlide extends Component<
     isCopied: false
   };
 
-  render() {
+  render () {
     const { handle, next, goBack } = this.props;
 
     return (
