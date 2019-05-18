@@ -152,7 +152,7 @@ class SendPaymentSlide extends Component<
       openMetamask
     } = this.props;
 
-    const initCost = 2;
+    const cost = 2;
 
     return (
       <ThemeProvider theme={theme}>
@@ -161,9 +161,9 @@ class SendPaymentSlide extends Component<
           <Hr />
           <Content>
             Use the Opacity Storage Token, OPQ, to pay for your storage account.
-            Send your total amount of <Bold>{initCost} OPQ </Bold> to the
-            address below or you may use Metamask to easily make your payment
-            right in your browser.
+            Send your total amount of <Bold>{cost} OPQ </Bold> to the address
+            below or you may use Metamask to easily make your payment right in
+            your browser.
           </Content>
           <ContentBold>
             IMPORTANT: Do not send any other coin or token to this account
@@ -175,7 +175,7 @@ class SendPaymentSlide extends Component<
             complete setup of your account once the network transaction is
             confirmed. Please be patient.
           </Content>
-          <LabelColored>Send {initCost} OPQ to Payment Address:</LabelColored>
+          <LabelColored>Send {cost} OPQ to Payment Address:</LabelColored>
           <EthAddressWrapper>
             <EthAddress>{ethAddress}</EthAddress>
             <CopyToClipboard
@@ -195,9 +195,7 @@ class SendPaymentSlide extends Component<
             <PaymentWrapper>
               <Or>or</Or>
               <MetamaskButton
-                onClick={() =>
-                  openMetamask({ ethAddress, initCost, gasPrice: 20 })
-                }
+                onClick={() => openMetamask({ ethAddress, cost, gasPrice: 20 })}
               />
             </PaymentWrapper>
           )}
