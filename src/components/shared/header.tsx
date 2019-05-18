@@ -197,39 +197,12 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
 
   const renderNavigation = () => {
     switch (type) {
+      case HEADER_TYPES.TEAM_PAGE:
       case HEADER_TYPES.LANDING_PAGE:
         return (
           <StyledLinkContainer>
             <StyledLinkNavigation to="/stands-out">
-              STANDS OUT
-            </StyledLinkNavigation>
-            <StyledLinkNavigation to="/team-page">TEAM</StyledLinkNavigation>
-
-            <ExternalLink href="//medium.com/opacity-storage/" target="_blank">
-              BLOG
-            </ExternalLink>
-            {renderButtons()}
-          </StyledLinkContainer>
-        );
-      case HEADER_TYPES.SCREEN_CONTAINER:
-        return (
-          <StyledLinkContainer>
-            <StyledLinkNavigation to="/team-page">
-              ABOUT US
-            </StyledLinkNavigation>
-            <StyledLinkNavigation to="/team-page">
-              RESOURCES
-            </StyledLinkNavigation>
-            <ExternalLink href="//medium.com/opacity-storage/" target="_blank">
-              BLOG
-            </ExternalLink>
-          </StyledLinkContainer>
-        );
-      case HEADER_TYPES.TEAM_PAGE:
-        return (
-          <StyledLinkContainer>
-            <StyledLinkNavigation to="/stands-out">
-              THE PLATFORM
+              The Platform
             </StyledLinkNavigation>
             <StyledLinkNavigation to="/team-page">TEAM</StyledLinkNavigation>
             <ExternalLink href="//medium.com/opacity-storage/" target="_blank">
