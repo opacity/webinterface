@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { Link } from "react-router-dom";
 
 import "../root.css";
 
@@ -25,38 +26,8 @@ const Container = styled.div`
   right: 0;
 `;
 
-const Navbar = styled.div`
-  display: flex;
-  margin: 0 auto;
-  height: 100%;
-  justify-content: space-between;
-`;
-
-const LogoContainer = styled.div`
+const StyledLink = styled(Link)`
   align-items: center;
-  display: flex;
-`;
-
-const LinkContainer = styled.div`
-  align-items: center;
-  display: flex;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    flex-direction: column;
-    align-items: baseline;
-    padding-left: 15px;
-  }
-`;
-
-const DesktopNavigation = styled.div`
-  margin-top: 5px;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    display: none;
-  }
-`;
-
-const Link = styled.a`
-  align-items: center;
-  padding: 0 30px;
   color: ${props => props.theme.header.color};
   cursor: pointer;
   display: flex;
@@ -74,12 +45,49 @@ const Link = styled.a`
   }
 `;
 
-const LinkNavigation = styled(Link)`
+const StyledLinkNavigation = styled(StyledLink)`
+  padding: 0 30px;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     font-size: 20px;
     margin: 25px;
   }
 `;
+
+const Navbar = styled.div`
+  display: flex;
+  margin: 0 auto;
+  height: 100%;
+  justify-content: space-between;
+`;
+
+const LogoContainer = styled.div`
+  align-items: center;
+  display: flex;
+`;
+
+const StyledLinkContainer = styled.div`
+  align-items: center;
+  display: flex;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    flex-direction: column;
+    align-items: baseline;
+    padding-left: 15px;
+  }
+`;
+
+const DesktopNavigation = styled.div`
+  margin-top: 5px;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    display: none;
+  }
+`;
+
+// const StyledLink = styled(StyledLink)`
+// @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+// font-size: 20px;
+// margin: 25px;
+// }
+// `;
 
 const Logo = styled.img`
   width: 28px;
@@ -108,7 +116,9 @@ const HamburgerIcon = styled.img`
   }
 `;
 
-const CommunityWrapper = styled.div``;
+const CommunityWrapper = styled.div`
+  display: flex;
+`;
 
 const CommunityButton = styled(Button)`
   margin-right: 10px;
@@ -125,9 +135,9 @@ const CommunityButtonSecondary = styled(CommunityButton)`
   }
 `;
 
-const CommunityLink = styled.a`
-  display: inline-block;
-`;
+// const StyledLink = styled(StyledLink)`
+// display: inline-block;
+// `;
 
 interface HeaderProps {
   type: string;
@@ -141,23 +151,23 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
     if (isLoggedIn) {
       return (
         <CommunityWrapper>
-          <CommunityLink href={"/file-manager"}>
+          <StyledLink to={"/file-manager"}>
             <CommunityButton>Dashboard</CommunityButton>
-          </CommunityLink>
-          <CommunityLink href={"/logout"}>
+          </StyledLink>
+          <StyledLink href={"/logout"}>
             <CommunityButton>Logout</CommunityButton>
-          </CommunityLink>
+          </StyledLink>
         </CommunityWrapper>
       );
     } else {
       return (
         <CommunityWrapper>
-          <CommunityLink href={"/sign-up"}>
+          <StyledLink to={"/sign-up"}>
             <CommunityButtonSecondary>Sign up</CommunityButtonSecondary>
-          </CommunityLink>
-          <CommunityLink href={"/login"}>
+          </StyledLink>
+          <StyledLink to={"/login"}>
             <CommunityButton>Login</CommunityButton>
-          </CommunityLink>
+          </StyledLink>
         </CommunityWrapper>
       );
     }
@@ -167,51 +177,59 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
     switch (type) {
       case HEADER_TYPES.LANDING_PAGE:
         return (
-          <LinkContainer>
-            <LinkNavigation href="/stands-out">STANDS OUT</LinkNavigation>
-            <LinkNavigation href="/team-page">TEAM</LinkNavigation>
+          <StyledLinkContainer>
+            <StyledLinkNavigation to="/stands-out">
+              STANDS OUT
+            </StyledLinkNavigation>
+            <StyledLinkNavigation to="/team-page">TEAM</StyledLinkNavigation>
 
-            <LinkNavigation
-              href="https://medium.com/opacity-storage/"
+            <StyledLinkNavigation
+              to="https://medium.com/opacity-storage/"
               target="_blank"
             >
               BLOG
-            </LinkNavigation>
+            </StyledLinkNavigation>
             {renderButtons()}
-          </LinkContainer>
+          </StyledLinkContainer>
         );
       case HEADER_TYPES.SCREEN_CONTAINER:
         return (
-          <LinkContainer>
-            <LinkNavigation href="/team-page">ABOUT US</LinkNavigation>
-            <LinkNavigation href="/team-page">RESOURCES</LinkNavigation>
-            <LinkNavigation
-              href="https://medium.com/opacity-storage/"
+          <StyledLinkContainer>
+            <StyledLinkNavigation to="/team-page">
+              ABOUT US
+            </StyledLinkNavigation>
+            <StyledLinkNavigation to="/team-page">
+              RESOURCES
+            </StyledLinkNavigation>
+            <StyledLinkNavigation
+              to="https://medium.com/opacity-storage/"
               target="_blank"
             >
               BLOG
-            </LinkNavigation>
-          </LinkContainer>
+            </StyledLinkNavigation>
+          </StyledLinkContainer>
         );
       case HEADER_TYPES.TEAM_PAGE:
         return (
-          <LinkContainer>
-            <LinkNavigation href="/stands-out">THE PLATFORM</LinkNavigation>
-            <LinkNavigation href="/team-page">TEAM</LinkNavigation>
-            <LinkNavigation
-              href="https://medium.com/opacity-storage/"
+          <StyledLinkContainer>
+            <StyledLinkNavigation to="/stands-out">
+              THE PLATFORM
+            </StyledLinkNavigation>
+            <StyledLinkNavigation to="/team-page">TEAM</StyledLinkNavigation>
+            <StyledLinkNavigation
+              to="https://medium.com/opacity-storage/"
               target="_blank"
             >
               BLOG
-            </LinkNavigation>
+            </StyledLinkNavigation>
             {renderButtons()}
-          </LinkContainer>
+          </StyledLinkContainer>
         );
       case HEADER_TYPES.FILE_MANAGER:
         return (
-          <LinkContainer>
-            <LinkNavigation href="/logout">Logout</LinkNavigation>
-          </LinkContainer>
+          <StyledLinkContainer>
+            <StyledLinkNavigation to="/logout">Logout</StyledLinkNavigation>
+          </StyledLinkContainer>
         );
       case HEADER_TYPES.EMPTY:
         return <LinkContainer />;
@@ -225,10 +243,10 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
       <Container>
         <Navbar>
           <LogoContainer>
-            <Link title="Opacity Storage's Logo" href="/">
+            <StyledLink title="Opacity Storage's Logo" to="/">
               <Logo src={ICON_LOGO} alt="logo" />
               <CompanyName>Opacity</CompanyName>
-            </Link>
+            </StyledLink>
           </LogoContainer>
           <HamburgerIcon
             src={ICON_HAMBURGER}
