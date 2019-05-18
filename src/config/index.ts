@@ -2,7 +2,7 @@ export const IS_DEV = process.env.NODE_ENV === "development";
 
 const PROTOCOL = IS_DEV ? "http" : "https";
 
-export const HOST = IS_DEV ? "localhost:3001" : "storage.opacity.io";
+export const HOST = IS_DEV ? "localhost:3001" : "beta.opacity.io";
 export const FRONT_END_URL = `${PROTOCOL}://${HOST}`;
 
 const POLLING_NODE = IS_DEV
@@ -23,7 +23,7 @@ const IOTA_PROVIDERS = IS_DEV
     ["18.222.173.29", "13.58.191.143"]
   : [PROD_IOTA_1, PROD_IOTA_2];
 
-const DEFAULT_BROKER_IP = IS_DEV ? "13.58.191.143" : "3.19.75.128";
+const DEFAULT_BROKER_IP = IS_DEV ? "3.19.75.128" : "broker-1.opacitynodes.com";
 
 const BROKERS = IS_DEV
   ? ["18.222.173.29", "13.58.191.143"] // Rebel brokers
@@ -47,6 +47,7 @@ export const API = Object.freeze({
   BROKER_NODE_A: `${PROTOCOL}://${ALPHA_IP}`,
   BROKER_NODE_B: `${PROTOCOL}://${BETA_IP}`,
   DEFAULT_BROKER: `${PROTOCOL}://${DEFAULT_BROKER_IP}`,
+  STORAGE_NODE: `${PROTOCOL}://${DEFAULT_BROKER_IP}:3000`,
   V2_UPLOAD_SESSIONS_PATH: ":3000/api/v2/upload-sessions",
   V2_STATUS_PATH: ":3000/api/v2/status",
   V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",

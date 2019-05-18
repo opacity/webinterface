@@ -5,6 +5,7 @@ import { push } from "connected-react-router";
 
 import authenticationActions from "../actions/authentication-actions";
 import * as Account from "../../services/account";
+import { API } from "../../config";
 
 import { MasterHandle } from "opaque";
 
@@ -18,7 +19,7 @@ const loginEpic = (action$, state$, dependencies$) =>
 
       const uploadOpts = {
         autostart: true,
-        endpoint: "http://3.19.75.128:3000",
+        endpoint: API.STORAGE_NODE,
         params: {
           blockSize: 64 * 1024, // 256 KiB encryption blocks
           partSize: 10 * 1024 * 1024
@@ -26,7 +27,7 @@ const loginEpic = (action$, state$, dependencies$) =>
       };
 
       const downloadOpts = {
-        endpoint: "http://3.19.75.128:3000"
+        endpoint: API.STORAGE_NODE
       };
       const masterHandle: MasterHandle = new MasterHandle(
         {

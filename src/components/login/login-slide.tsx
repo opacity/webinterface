@@ -39,7 +39,6 @@ interface InputProps {
 }
 
 const Input = styled.input<InputProps>`
-  padding: 0 10px;
   color: black;
   width: 100%;
   height: 40px;

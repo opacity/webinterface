@@ -9,7 +9,7 @@ import ConfirmPaymentSlide from "./confirm-payment-slide";
 import ScreenContainer from "../shared/screen-container";
 import Header from "../shared/header";
 
-import { HEADER_TYPES, SIGNUP_PHASES, theme } from "../../config";
+import { API, HEADER_TYPES, SIGNUP_PHASES, theme } from "../../config";
 
 import { Account, MasterHandle } from "opaque";
 
@@ -19,7 +19,7 @@ const Container = styled.div`
 
 const uploadOpts = {
   autostart: true,
-  endpoint: "http://3.19.75.128:3000",
+  endpoint: API.STORAGE_NODE,
   params: {
     blockSize: 64 * 1024, // 256 KiB encryption blocks
     partSize: 10 * 1024 * 1024
@@ -27,7 +27,7 @@ const uploadOpts = {
 };
 
 const downloadOpts = {
-  endpoint: "http://3.19.75.128:3000"
+  endpoint: API.STORAGE_NODE
 };
 
 const CreateAccount = ({

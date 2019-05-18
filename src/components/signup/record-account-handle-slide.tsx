@@ -164,7 +164,17 @@ class RecordAccountHandleSlide extends Component<
             >
               Back
             </Button>
-            <ContinueButton onClick={next}>Continue</ContinueButton>
+            <ContinueButton
+              onClick={() => {
+                this.state.isCopied
+                  ? next()
+                  : alert(
+                    "Please make sure to copy your account handle before proceeding."
+                    );
+              }}
+            >
+              Continue
+            </ContinueButton>
           </ButtonWrapper>
         </ContentBox>
       </ThemeProvider>
