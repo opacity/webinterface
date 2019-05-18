@@ -294,7 +294,7 @@ const FileManagerSlide = ({
 
   useEffect(() => {
     getFileList(masterHandle);
-    // masterHandle.getFolderMetadata("/").then(({ files }) => {
+    // masterHandle.getFolderMeta("/").then(({ files }) => {
     // });
   }, []);
 

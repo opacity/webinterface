@@ -10,7 +10,7 @@ const getFileListEpic = (action$, state$, dependencies$) =>
     switchMap(({ payload }) => {
       const { masterHandle } = payload;
 
-      return from(masterHandle.getFolderMetadata("/")).pipe(
+      return from(masterHandle.getFolderMeta("/")).pipe(
         map((data: any) => filesActions.setList({ list: data.files })),
         catchError(error => {
           console.log("ERROR: ", error);
