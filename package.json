@@ -29,6 +29,7 @@
     "connected-react-router": "^6.4.0",
     "crypto-js": "^3.1.9-1",
     "css-loader": "0.28.7",
+    "debounce": "^1.2.0",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
     "eslint": "^5.12.1",
