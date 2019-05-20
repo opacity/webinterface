@@ -13,6 +13,7 @@ import Header from "../shared/header";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
+import UploadMobileButton from "./upload-mobile-button";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
@@ -67,24 +68,6 @@ const ButtonWrapper = styled.div`
   text-align: right;
   @media (max-width: ${MOBILE_WIDTH}px) {
     display: none;
-  }
-`;
-
-const ButtonMobileWrapper = styled.div`
-  display: none;
-  position: absolute;
-  bottom: 0;
-  right 0;
-  margin-bottom: 15px;
-  margin-right: 10px;
-  background-color: ${props => props.theme.button.background};
-  width: 40px;
-  height: 40px;
-  border-radius: 100px;
-  box-shadow: 0 0.5px 4px 0 rgba(0, 0, 0, 0.2), 0 1.5px 2px 0 rgba(0, 0, 0, 0.12), 0 1.5px 1.5px 0 rgba(0, 0, 0, 0.14);
-  cursor: pointer;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    display: block;
   }
 `;
 
@@ -285,12 +268,9 @@ const FileManagerSlide = ({
     setOrderedFiles(_.orderBy(orderedFiles, param, order));
   };
 
-  useEffect(
-    () => {
-      setOrderedFiles(_.orderBy(files, "createdAt", "desc"));
-    },
-    [files]
-  );
+  useEffect(() => {
+    setOrderedFiles(_.orderBy(files, "createdAt", "desc"));
+  }, [files]);
 
   useEffect(() => {
     getFileList(masterHandle);
@@ -380,7 +360,9 @@ const FileManagerSlide = ({
                   ))}
                 </tbody>
               </Table>
-              <ButtonMobileWrapper />
+              <UploadMobileButton
+                onSelected={files => upload(files, masterHandle)}
+              />
             </TableContainer>
           </Contents>
           <ToastContainer

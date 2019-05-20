@@ -18,6 +18,7 @@ const Button = styled.button`
   margin: 0 10px;
   border: none;
   cursor: pointer;
+  }
 `;
 
 const UploadButton = ({ onSelected }) => {
