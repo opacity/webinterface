@@ -96,7 +96,8 @@ export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
-export const LANDING_PAGE_VIDEO = "https://www.sms-zdarma.info/opacity480.mov";
+export const LANDING_PAGE_VIDEO =
+  "https://s3.us-east-2.amazonaws.com/opacity-public/whatIsOpacity.mov";
 
 export enum HEADER_TYPES {
   LANDING_PAGE = "LANDING_PAGE",
@@ -110,7 +111,7 @@ export const DESKTOP_WIDTH = "997";
 export const MOBILE_WIDTH = "567";
 export const SUBSCRIPTION_DESKTOP_WIDTH = "1200";
 export const LANDING_PAGE_MOBILE_WIDTH = "800";
-export const HEADER_MOBILE_WIDTH = "980";
+export const HEADER_MOBILE_WIDTH = "745";
 export const STANDS_OUT_TABLET_WIDTH = "872";
 export const STANDS_OUT_DESKTOP_WIDTH = "1000";
 

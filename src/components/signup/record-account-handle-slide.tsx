@@ -98,6 +98,13 @@ const ClipboardIcon = styled.img`
   object-fit: contain;
 `;
 
+const BackButton = styled(Button)`
+  @media (max-width: ${DESKTOP_WIDTH}px) {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+`;
+
 interface RecordAccountHandleProps {
   handle;
   next;
@@ -155,7 +162,7 @@ class RecordAccountHandleSlide extends Component<
             not be able to recover it for you.
           </Content>
           <ButtonWrapper>
-            <Button
+            <BackButton
               backgroundColor="transparent"
               border="1px solid #2e6dde"
               color="#2e6dde"
@@ -163,7 +170,7 @@ class RecordAccountHandleSlide extends Component<
               onClick={() => goBack()}
             >
               Back
-            </Button>
+            </BackButton>
             <ContinueButton
               onClick={() => {
                 this.state.isCopied

@@ -13,6 +13,7 @@ import Header from "../shared/header";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
+import UploadMobileButton from "./upload-mobile-button";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
@@ -67,24 +68,6 @@ const ButtonWrapper = styled.div`
   text-align: right;
   @media (max-width: ${MOBILE_WIDTH}px) {
     display: none;
-  }
-`;
-
-const ButtonMobileWrapper = styled.div`
-  display: none;
-  position: absolute;
-  bottom: 0;
-  right 0;
-  margin-bottom: 15px;
-  margin-right: 10px;
-  background-color: ${props => props.theme.button.background};
-  width: 40px;
-  height: 40px;
-  border-radius: 100px;
-  box-shadow: 0 0.5px 4px 0 rgba(0, 0, 0, 0.2), 0 1.5px 2px 0 rgba(0, 0, 0, 0.12), 0 1.5px 1.5px 0 rgba(0, 0, 0, 0.14);
-  cursor: pointer;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    display: block;
   }
 `;
 
@@ -259,9 +242,9 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
 };
 
 interface File {
-  filename: string;
+  name: string;
   handle: string;
-  createdAt: string;
+  created: string;
   size: number;
 }
 
@@ -285,12 +268,9 @@ const FileManagerSlide = ({
     setOrderedFiles(_.orderBy(orderedFiles, param, order));
   };
 
-  useEffect(
-    () => {
-      setOrderedFiles(_.orderBy(files, "createdAt", "desc"));
-    },
-    [files]
-  );
+  useEffect(() => {
+    setOrderedFiles(_.orderBy(files, "created", "desc"));
+  }, [files]);
 
   useEffect(() => {
     getFileList(masterHandle);
@@ -333,7 +313,7 @@ const FileManagerSlide = ({
                     />
                     <Th>File Handle</Th>
                     <TableHeader
-                      param="createdAt"
+                      param="created"
                       title="Date"
                       paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
@@ -348,31 +328,29 @@ const FileManagerSlide = ({
                   </Tr>
                 </thead>
                 <tbody>
-                  {files.map(({ name, versions, created }, i) => (
-                    <Tr key={versions.length ? versions[0].handle : i}>
+                  {orderedFiles.map(({ name, handle, size, created }, i) => (
+                    <Tr key={handle ? handle : i}>
                       <Td>
                         <TableIcon src={ICON_LOGO} />
                       </Td>
                       <Td>{name}</Td>
-                      <Td>{_.truncate(versions[0].handle, { length: 30 })}</Td>
+                      <Td>{_.truncate(handle, { length: 30 })}</Td>
                       <Td>{moment(created).format("MM/DD/YYYY")}</Td>
-                      <Td>{formatBytes(versions[0].size)}</Td>
+                      <Td>{formatBytes(size)}</Td>
                       <Td>
                         <ActionButton
                           onClick={() =>
                             setSharedFile({
-                              filename: name,
-                              handle: versions[0].handle,
-                              createdAt: created,
-                              size: versions[0].size
+                              name,
+                              handle,
+                              created,
+                              size: size
                             })
                           }
                         >
                           Share
                         </ActionButton>
-                        <ActionButton
-                          onClick={() => download(versions[0].handle)}
-                        >
+                        <ActionButton onClick={() => download(handle)}>
                           Download
                         </ActionButton>
                       </Td>
@@ -380,7 +358,9 @@ const FileManagerSlide = ({
                   ))}
                 </tbody>
               </Table>
-              <ButtonMobileWrapper />
+              <UploadMobileButton
+                onSelected={files => upload(files, masterHandle)}
+              />
             </TableContainer>
           </Contents>
           <ToastContainer
