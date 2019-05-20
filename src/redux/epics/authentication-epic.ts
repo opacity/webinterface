@@ -40,17 +40,27 @@ const loginEpic = (action$, state$, dependencies$) =>
       );
 
       return from(masterHandle.isPaid()).pipe(
-        flatMap(() => {
+        flatMap(isPaid => {
           const accountId = Account.getAccountId({ privateKey, storagePin });
-          return [
-            authenticationActions.loginSuccess({
-              accountId,
-              metadata: {},
-              metadataKey,
-              masterHandle
-            }),
-            push("/file-manager")
-          ];
+          if (isPaid) {
+            return [
+              authenticationActions.loginSuccess({
+                accountId,
+                metadata: {},
+                metadataKey,
+                masterHandle
+              }),
+              push("/file-manager")
+            ];
+          } else {
+            return [
+              authenticationActions.loginFailure({
+                error: new Error(
+                  "Please complete your payment before accessing your account"
+                )
+              })
+            ];
+          }
         }),
         catchError(error => of(authenticationActions.loginFailure({ error })))
       );
