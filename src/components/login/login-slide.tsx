@@ -126,6 +126,20 @@ const OrRegister = styled.span`
 
 const LoginOrRegisterSlide = ({ login, status }) => {
   const [privateKey, setPrivateKey] = useState("");
+  const [validatePrivateKey, setValidatePrivateKey] = useState(true);
+
+  const handleValidatePrivateKey = value =>
+    value.length === 128 ? true : false;
+
+  const handlePrivateKey = value =>
+    handleValidatePrivateKey(value)
+      ? [setPrivateKey(value), setValidatePrivateKey(true)]
+      : setValidatePrivateKey(false);
+
+  const handleLogin = () =>
+    handleValidatePrivateKey(privateKey)
+      ? login(privateKey)
+      : setValidatePrivateKey(false);
 
   return (
     <ThemeProvider theme={theme}>
@@ -136,15 +150,24 @@ const LoginOrRegisterSlide = ({ login, status }) => {
           <Underline />
           <Label>Account Handle</Label>
           <Input
-            onChange={e => setPrivateKey(e.target.value)}
-            hasError={status === AUTHENTICATION_STATUSES.LOGIN_FAILURE}
+            onChange={e => handlePrivateKey(e.target.value)}
+            hasError={
+              status === AUTHENTICATION_STATUSES.LOGIN_FAILURE &&
+              !validatePrivateKey
+            }
           />
           {status === AUTHENTICATION_STATUSES.LOGIN_FAILURE && (
             <ErrorMessage>
               The Account Handle was not found. Please try again.
             </ErrorMessage>
           )}
-          <Button onClick={() => login(privateKey)}>Sign in</Button>
+          {!validatePrivateKey && (
+            <ErrorMessage>
+              The account handle does not have the correct length. Please try
+              again.
+            </ErrorMessage>
+          )}
+          <Button onClick={() => handleLogin()}>Sign in</Button>
           <OrRegister>or</OrRegister>
           <RegisterButton onClick={() => window.open("/sign-up", "self")}>
             Create an account
