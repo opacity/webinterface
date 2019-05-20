@@ -37,10 +37,11 @@ const CreateAccount = ({
   openMetamask,
   phase
 }) => {
-  const [invoice, setInvoice] = useState("");
   const [mnemonic, setMnemonic] = useState<string[]>([]);
-  const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
+  const [masterHandle, setMasterHandle] = useState<MasterHandle | null>(null);
   const [privateKey, setPrivateKey] = useState("");
+  const [invoice, setInvoice] = useState("");
+  const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
 
   useEffect(() => {
     const account = new Account();
@@ -56,16 +57,24 @@ const CreateAccount = ({
       }
     );
 
+    setMasterHandle(masterHandle);
     setPrivateKey(masterHandle.handle);
-
-    masterHandle
-      .register()
-      .then(({ data: { invoice }, waitForPayment }: any) => {
-        setInvoice(invoice);
-        setWaitForPaymentFn(waitForPayment);
-      })
-      .catch(console.log);
   }, []);
+
+  useEffect(
+    () => {
+      if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && !!masterHandle) {
+        masterHandle
+          .register()
+          .then(({ data: { invoice }, waitForPayment }: any) => {
+            setInvoice(invoice);
+            setWaitForPaymentFn(() => waitForPayment);
+          })
+          .catch(console.log);
+      }
+    },
+    [phase]
+  );
 
   return (
     <ThemeProvider theme={theme}>
