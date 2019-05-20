@@ -4,12 +4,7 @@ import { Link } from "react-router-dom";
 
 import "../root.css";
 
-import {
-  theme,
-  MOBILE_WIDTH,
-  HEADER_MOBILE_WIDTH,
-  HEADER_TYPES
-} from "../../config";
+import { theme, HEADER_MOBILE_WIDTH, HEADER_TYPES } from "../../config";
 
 import Button from "./generic/button";
 import HamburgerMenu from "./hamburger-menu";
@@ -45,7 +40,7 @@ const ExternalLink = styled.a`
     opacity: 0.8;
   }
 
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
     font-size: 20px;
     margin: 25px;
   }
@@ -72,7 +67,7 @@ const StyledLink = styled(Link)`
 
 const StyledLinkNavigation = styled(StyledLink)`
   padding: 0 30px;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
     font-size: 20px;
     margin: 25px;
   }
@@ -94,7 +89,7 @@ const LogoContainer = styled.div`
 const StyledLinkContainer = styled.div`
   align-items: center;
   display: flex;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
     flex-direction: column;
     align-items: baseline;
     padding-left: 15px;
@@ -103,7 +98,7 @@ const StyledLinkContainer = styled.div`
 
 const DesktopNavigation = styled.div`
   margin-top: 5px;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
   }
 `;
@@ -137,28 +132,25 @@ const HamburgerIcon = styled.img`
   width: 28px;
   height: 28px;
   display: none;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: inline-block;
   }
 `;
 
 const CommunityWrapper = styled.div`
   display: flex;
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    margin-left: 54px;
+  }
 `;
 
 const CommunityButton = styled(Button)`
   margin-right: 10px;
-  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
-    width: 180px;
-  }
 `;
 
 const CommunityButtonSecondary = styled(CommunityButton)`
   background-color: white;
   color: #2e6dde;
-  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
-    margin-top: 30px;
-  }
 `;
 
 interface HeaderProps {
