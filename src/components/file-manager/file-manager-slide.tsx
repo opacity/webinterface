@@ -18,7 +18,7 @@ import UploadMobileButton from "./upload-mobile-button";
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
+  drop(props, monitor) {
     const { upload, masterHandle } = props;
     const { files } = monitor.getItem();
     upload(files, masterHandle);
@@ -242,9 +242,9 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
 };
 
 interface File {
-  filename: string;
+  name: string;
   handle: string;
-  createdAt: string;
+  created: string;
   size: number;
 }
 
@@ -269,7 +269,7 @@ const FileManagerSlide = ({
   };
 
   useEffect(() => {
-    setOrderedFiles(_.orderBy(files, "createdAt", "desc"));
+    setOrderedFiles(_.orderBy(files, "created", "desc"));
   }, [files]);
 
   useEffect(() => {
@@ -313,7 +313,7 @@ const FileManagerSlide = ({
                     />
                     <Th>File Handle</Th>
                     <TableHeader
-                      param="createdAt"
+                      param="created"
                       title="Date"
                       paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
@@ -328,31 +328,29 @@ const FileManagerSlide = ({
                   </Tr>
                 </thead>
                 <tbody>
-                  {files.map(({ name, versions, created }, i) => (
-                    <Tr key={versions.length ? versions[0].handle : i}>
+                  {orderedFiles.map(({ name, handle, size, created }, i) => (
+                    <Tr key={handle ? handle : i}>
                       <Td>
                         <TableIcon src={ICON_LOGO} />
                       </Td>
                       <Td>{name}</Td>
-                      <Td>{_.truncate(versions[0].handle, { length: 30 })}</Td>
+                      <Td>{_.truncate(handle, { length: 30 })}</Td>
                       <Td>{moment(created).format("MM/DD/YYYY")}</Td>
-                      <Td>{formatBytes(versions[0].size)}</Td>
+                      <Td>{formatBytes(size)}</Td>
                       <Td>
                         <ActionButton
                           onClick={() =>
                             setSharedFile({
-                              filename: name,
-                              handle: versions[0].handle,
-                              createdAt: created,
-                              size: versions[0].size
+                              name,
+                              handle,
+                              created,
+                              size: size
                             })
                           }
                         >
                           Share
                         </ActionButton>
-                        <ActionButton
-                          onClick={() => download(versions[0].handle)}
-                        >
+                        <ActionButton onClick={() => download(handle)}>
                           Download
                         </ActionButton>
                       </Td>
