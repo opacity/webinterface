@@ -40,7 +40,7 @@ const CreateAccount = ({
   const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [masterHandle, setMasterHandle] = useState<MasterHandle | null>(null);
   const [privateKey, setPrivateKey] = useState("");
-  const [invoice, setInvoice] = useState("");
+  const [invoice, setInvoice] = useState(null);
   const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
 
   useEffect(() => {
