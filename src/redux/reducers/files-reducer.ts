@@ -1,18 +1,23 @@
-import _ from "lodash";
+import { chain } from "lodash";
 import filesActions from "../actions/files-actions";
 
 const initState = {
   list: []
 };
 
-const fileGenerator = ({ name, created, versions }) =>
-  versions.map(({ handle, size }) => ({ name, created, handle, size }));
+const fileGenerator = ({ name, versions }) =>
+  versions.map(({ handle, size, modified }) => ({
+    name,
+    created: modified,
+    handle,
+    size
+  }));
 
 const filesReducer = (state = initState, action) => {
   switch (action.type) {
     case filesActions.SET_LIST:
       const { list } = action.payload;
-      const flatList = _.chain(list)
+      const flatList = chain(list)
         .map(fileGenerator)
         .flatten()
         .value();
