@@ -18,7 +18,7 @@ import UploadMobileButton from "./upload-mobile-button";
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
+  drop(props, monitor) {
     const { upload, masterHandle } = props;
     const { files } = monitor.getItem();
     upload(files, masterHandle);
@@ -268,14 +268,15 @@ const FileManagerSlide = ({
     setOrderedFiles(_.orderBy(orderedFiles, param, order));
   };
 
-  useEffect(() => {
-    setOrderedFiles(_.orderBy(files, "created", "desc"));
-  }, [files]);
+  useEffect(
+    () => {
+      setOrderedFiles(_.orderBy(files, "created", "desc"));
+    },
+    [files]
+  );
 
   useEffect(() => {
     getFileList(masterHandle);
-    // masterHandle.getFolderMeta("/").then(({ files }) => {
-    // });
   }, []);
 
   return (
