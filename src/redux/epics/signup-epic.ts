@@ -10,7 +10,7 @@ const pollPaymentEpic = (action$, state$, dependencies$) =>
     switchMap(({ payload }) => {
       const { waitForPaymentFn } = payload;
 
-      return from(waitForPaymentFn).pipe(
+      return from(waitForPaymentFn()).pipe(
         map(invoice => signupActions.accountPaidSuccess()),
         catchError(error => of(signupActions.accountPaidFailure({ error })))
       );
