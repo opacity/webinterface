@@ -12,7 +12,7 @@ test("signup-reducer SHOW_ADDRESS", () => {
     type: signupActions.SHOW_ADDRESS
   };
   const expected = {
-    invoice: null,
+    ...initState,
     phase: SIGNUP_PHASES.RECORD_STORAGE_PIN
   };
   expect(signup(initState, action)).toEqual(expected);
@@ -25,6 +25,7 @@ test("signup-reducer POLL_PAYMENT", () => {
     payload: { invoice }
   };
   const expected = {
+    ...initState,
     invoice,
     phase: SIGNUP_PHASES.SEND_PAYMENT
   };
@@ -36,7 +37,7 @@ test("signup-reducer ACCOUNT_PAID_SUCCESS", () => {
     type: signupActions.ACCOUNT_PAID_SUCCESS
   };
   const expected = {
-    invoice: null,
+    ...initState,
     phase: SIGNUP_PHASES.CONFIRM_PAYMENT
   };
   expect(signup(initState, action)).toEqual(expected);
@@ -47,7 +48,7 @@ test("signup-reducer GO_BACK", () => {
     type: signupActions.GO_BACK
   };
   const expected = {
-    invoice: null,
+    ...initState,
     phase: SIGNUP_PHASES.RECORD_RECOVERY_PHRASE
   };
   expect(signup(initState, action)).toEqual(expected);

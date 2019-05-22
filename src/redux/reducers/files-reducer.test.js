@@ -27,6 +27,7 @@ test("files-reducer SET_LIST", () => {
     }
   };
   const expected = {
+    ...initState,
     list: [
       {
         name: "file1",
