@@ -253,7 +253,7 @@ const FileManagerSlide = ({
   getFileList,
   upload,
   download,
-  removeFileByName,
+  removeFileByHandle,
   masterHandle,
   metadataKey,
   metadata,
@@ -357,7 +357,7 @@ const FileManagerSlide = ({
                         </ActionButton>
                         <ActionButton
                           onClick={() =>
-                            removeFileByName(name, handle, masterHandle)
+                            removeFileByHandle(name, handle, masterHandle)
                           }
                         >
                           Delete

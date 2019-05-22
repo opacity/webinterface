@@ -5,13 +5,13 @@ import { toast } from "react-toastify";
 
 import removeActions from "../actions/remove-actions";
 
-const removeByNameEpic = (action$, state$, dependencies$) =>
+const removeFileByHandleEpic = (action$, state$, dependencies$) =>
   action$.pipe(
-    ofType(removeActions.REMOVE_FILE_BY_NAME),
+    ofType(removeActions.REMOVE_FILE_BY_HANDLE),
     mergeMap(({ payload }) => {
       const { name, handle, masterHandle } = payload;
 
-      return from(masterHandle.deleteFile("/", name)).pipe(
+      return from(masterHandle.deleteVersion("/", handle)).pipe(
         map(() => {
           toast(`${name} was successfully deleted.`, {
             autoClose: 3000,
@@ -27,4 +27,4 @@ const removeByNameEpic = (action$, state$, dependencies$) =>
     })
   );
 
-export default combineEpics(removeByNameEpic);
+export default combineEpics(removeFileByHandleEpic);
