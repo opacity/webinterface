@@ -268,14 +268,15 @@ const FileManagerSlide = ({
     setOrderedFiles(_.orderBy(orderedFiles, param, order));
   };
 
-  useEffect(() => {
-    setOrderedFiles(_.orderBy(files, "created", "desc"));
-  }, [files]);
+  useEffect(
+    () => {
+      setOrderedFiles(_.orderBy(files, "created", "desc"));
+    },
+    [files]
+  );
 
   useEffect(() => {
     getFileList(masterHandle);
-    // masterHandle.getFolderMeta("/").then(({ files }) => {
-    // });
   }, []);
 
   return (
