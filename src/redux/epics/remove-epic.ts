@@ -10,7 +10,7 @@ const removeByNameEpic = (action$, state$, dependencies$) =>
     mergeMap(({ payload }) => {
       const { name, masterHandle } = payload;
 
-      return from(masterHandle.delete("/", name)).pipe(
+      return from(masterHandle.deleteFile("/", name)).pipe(
         map(() => removeActions.removeSuccess({ masterHandle })),
         catchError(err => of(removeActions.removeError({ err })))
       );
