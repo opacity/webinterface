@@ -1,27 +1,20 @@
-import { Observable } from "rxjs";
+import { from, of } from "rxjs";
 import { ofType, combineEpics } from "redux-observable";
-import { mergeMap } from "rxjs/operators";
+import { mergeMap, catchError, map } from "rxjs/operators";
 
 import removeActions from "../actions/remove-actions";
 
-const removeEpic = (action$, state$, dependencies$) =>
+const removeByNameEpic = (action$, state$, dependencies$) =>
   action$.pipe(
-    ofType(removeActions.REMOVE_FILE),
+    ofType(removeActions.REMOVE_FILE_BY_NAME),
     mergeMap(({ payload }) => {
-      const { handle } = payload;
+      const { name, masterHandle } = payload;
 
-      // const remove = new Remove(handle, {
-      //   endpoint: "<brokerIP>"
-      // });
-
-      // remove.on("remove-progress", (event) => {
-      //   console.log("PROGRESS", event.progress); // 0 - 1, not %
-      // });
-
-      return new Observable(o => {
-        o.next(removeActions.removeSuccess({ handle: handle }));
-      });
+      return from(masterHandle.delete("/", name)).pipe(
+        map(() => removeActions.removeSuccess({ masterHandle })),
+        catchError(err => of(removeActions.removeError({ err })))
+      );
     })
   );
 
-export default combineEpics(removeEpic);
+export default combineEpics(removeByNameEpic);

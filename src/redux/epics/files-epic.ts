@@ -3,10 +3,16 @@ import { map, switchMap, catchError } from "rxjs/operators";
 import { ofType, combineEpics } from "redux-observable";
 
 import filesActions from "../actions/files-actions";
+import uploadActions from "../actions/upload-actions";
+import removeActions from "../actions/remove-actions";
 
 const getFileListEpic = (action$, state$, dependencies$) =>
   action$.pipe(
-    ofType(filesActions.GET_FILE_LIST),
+    ofType(
+      filesActions.GET_FILE_LIST,
+      uploadActions.UPLOAD_SUCCESS,
+      removeActions.REMOVE_SUCCESS
+    ),
     switchMap(({ payload }) => {
       const { masterHandle } = payload;
 
