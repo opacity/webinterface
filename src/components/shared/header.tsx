@@ -21,7 +21,7 @@ const Container = styled.div`
   right: 0;
 `;
 
-const ExternalLink = styled.a`
+const HyperLink = styled.a`
   align-items: center;
   color: ${props => props.theme.header.color};
   cursor: pointer;
@@ -197,16 +197,16 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
               The Platform
             </StyledLinkNavigation>
             <StyledLinkNavigation to="/team-page">TEAM</StyledLinkNavigation>
-            <ExternalLink href="//medium.com/opacity-storage/" target="_blank">
+            <HyperLink href="//medium.com/opacity-storage/" target="_blank">
               BLOG
-            </ExternalLink>
+            </HyperLink>
             {renderButtons()}
           </StyledLinkContainer>
         );
       case HEADER_TYPES.FILE_MANAGER:
         return (
           <StyledLinkContainer>
-            <StyledLinkNavigation to="/logout">Logout</StyledLinkNavigation>
+            <HyperLink href="/logout">Logout</HyperLink>
           </StyledLinkContainer>
         );
       case HEADER_TYPES.EMPTY:
