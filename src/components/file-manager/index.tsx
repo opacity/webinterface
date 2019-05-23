@@ -6,6 +6,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 import uploadActions from "../../redux/actions/upload-actions";
 import filesActions from "../../redux/actions/files-actions";
 import downloadActions from "../../redux/actions/download-actions";
+import removeActions from "../../redux/actions/remove-actions";
 import FileManagerSlide from "./file-manager-slide";
 
 const mapStateToProps = state => ({
@@ -19,6 +20,10 @@ const mapDispatchToProps = dispatch => ({
   upload: (files, masterHandle) =>
     dispatch(uploadActions.uploadFiles({ files, masterHandle })),
   download: handle => dispatch(downloadActions.downloadFile({ handle })),
+  removeFileByName: (name, handle, masterHandle) =>
+    dispatch(removeActions.removeFileByName({ name, handle, masterHandle })),
+  removeFileByHandle: (name, handle, masterHandle) =>
+    dispatch(removeActions.removeFileByHandle({ name, handle, masterHandle })),
   getFileList: masterHandle =>
     dispatch(filesActions.getFileList({ masterHandle }))
 });
@@ -28,6 +33,8 @@ const FileManager = ({
   files,
   getFileList,
   download,
+  removeFileByName,
+  removeFileByHandle,
   masterHandle,
   metadataKey,
   metadata
@@ -38,6 +45,8 @@ const FileManager = ({
       getFileList={getFileList}
       upload={upload}
       download={download}
+      removeFileByName={removeFileByName}
+      removeFileByHandle={removeFileByHandle}
       masterHandle={masterHandle}
       metadataKey={metadataKey}
       metadata={metadata}

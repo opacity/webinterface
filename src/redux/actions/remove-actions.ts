@@ -1,25 +1,25 @@
-const REMOVE_FILE = "opacity/remove/remove-file";
-const REMOVE_PROGRESS = "opacity/remove/remove-progress";
+const REMOVE_FILE_BY_HANDLE = "opacity/remove/remove-file-by-handle";
+const REMOVE_FILE_BY_NAME = "opacity/remove/remove-file-by-name";
 const REMOVE_SUCCESS = "opacity/remove/remove-success";
 const REMOVE_ERROR = "opacity/remove/remove-error";
 
 const ACTIONS = Object.freeze({
-  REMOVE_FILE,
-  REMOVE_PROGRESS,
+  REMOVE_FILE_BY_HANDLE,
+  REMOVE_FILE_BY_NAME,
   REMOVE_SUCCESS,
   REMOVE_ERROR,
 
-  removeFile: ({ handle }) => ({
-    type: REMOVE_FILE,
-    payload: { handle }
+  removeFileByHandle: ({ name, handle, masterHandle }) => ({
+    type: REMOVE_FILE_BY_HANDLE,
+    payload: { name, handle, masterHandle }
   }),
-  removeProgress: ({ progress }) => ({
-    type: REMOVE_PROGRESS,
-    payload: { progress }
+  removeFileByName: ({ name, handle, masterHandle }) => ({
+    type: REMOVE_FILE_BY_NAME,
+    payload: { name, handle, masterHandle }
   }),
-  removeSuccess: ({ handle }) => ({
+  removeSuccess: ({ masterHandle }) => ({
     type: REMOVE_SUCCESS,
-    payload: { handle }
+    payload: { masterHandle }
   }),
   removeError: ({ err }) => ({
     type: REMOVE_ERROR,

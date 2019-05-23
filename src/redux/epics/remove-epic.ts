@@ -1,27 +1,30 @@
-import { Observable } from "rxjs";
+import { from, of } from "rxjs";
 import { ofType, combineEpics } from "redux-observable";
-import { mergeMap } from "rxjs/operators";
+import { mergeMap, catchError, map } from "rxjs/operators";
+import { toast } from "react-toastify";
 
 import removeActions from "../actions/remove-actions";
 
-const removeEpic = (action$, state$, dependencies$) =>
+const removeFileByHandleEpic = (action$, state$, dependencies$) =>
   action$.pipe(
-    ofType(removeActions.REMOVE_FILE),
+    ofType(removeActions.REMOVE_FILE_BY_HANDLE),
     mergeMap(({ payload }) => {
-      const { handle } = payload;
+      const { name, handle, masterHandle } = payload;
 
-      // const remove = new Remove(handle, {
-      //   endpoint: "<brokerIP>"
-      // });
+      return from(masterHandle.deleteVersion("/", handle)).pipe(
+        map(() => {
+          toast(`${name} was successfully deleted.`, {
+            autoClose: 3000,
+            hideProgressBar: true,
+            position: toast.POSITION.BOTTOM_RIGHT,
+            toastId: handle
+          });
 
-      // remove.on("remove-progress", (event) => {
-      //   console.log("PROGRESS", event.progress); // 0 - 1, not %
-      // });
-
-      return new Observable(o => {
-        o.next(removeActions.removeSuccess({ handle: handle }));
-      });
+          return removeActions.removeSuccess({ masterHandle });
+        }),
+        catchError(err => of(removeActions.removeError({ err })))
+      );
     })
   );
 
-export default combineEpics(removeEpic);
+export default combineEpics(removeFileByHandleEpic);
