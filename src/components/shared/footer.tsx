@@ -214,7 +214,7 @@ const Footer = ({ history }) => (
               <Icon src={ICON_TWITTER} />
             </LinkIcon>
             <LinkIcon
-              href="https://www.youtube.com/channel/UC7wzTVHu2bRBcaIsdnLTwaA"
+              href="http://www.youtube.com/c/OpacityStorage"
               target="_blank"
             >
               <Icon src={ICON_YOUTUBE} />
