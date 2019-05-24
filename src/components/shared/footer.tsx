@@ -8,6 +8,7 @@ const ICON_GITHUB = require("../../assets/images/github.svg");
 const ICON_TELEGRAM = require("../../assets/images/telegram.svg");
 const ICON_REDDIT = require("../../assets/images/reddit.svg");
 const ICON_TWITTER = require("../../assets/images/twitter.svg");
+const ICON_YOUTUBE = require("../../assets/images/youtube.svg");
 
 const ICON_ARROW_RIGHT = require("../../assets/images/arrow_right.svg");
 
@@ -53,7 +54,7 @@ const FooterCopyright = styled(FooterLinks)`
 `;
 
 const FooterIcons = styled(FooterLinks)`
-  grid-template-columns: 33% 12% 12% 12% 12%;
+  grid-template-columns: 33% 9.6% 9.6% 9.6% 9.6% 9.6%;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     padding: 0px;
     display: block;
@@ -211,6 +212,12 @@ const Footer = ({ history }) => (
               target="_blank"
             >
               <Icon src={ICON_TWITTER} />
+            </LinkIcon>
+            <LinkIcon
+              href="https://www.youtube.com/channel/UC7wzTVHu2bRBcaIsdnLTwaA"
+              target="_blank"
+            >
+              <Icon src={ICON_YOUTUBE} />
             </LinkIcon>
           </IconContainer>
         </FooterIcons>

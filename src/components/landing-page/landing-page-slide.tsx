@@ -187,8 +187,24 @@ const Title = styled.h1`
   line-height: normal;
   letter-spacing: normal;
   color: white;
+  margin-bottom: 0px;
   @media (max-width: ${MOBILE_WIDTH}px) {
     font-size: 24px;
+  }
+`;
+
+const TitleSecondary = styled.h2`
+  font-size: 26px;
+  text-align: center;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: white;
+  margin-top: 5px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    font-size: 18px;
   }
 `;
 
@@ -318,7 +334,10 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
     <ContainerWrapper>
       <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
       <HeaderContainer>
-        <Title>Secure. Anonymous. Opaque.</Title>
+        <Title>Secure Your Online Data</Title>
+        <TitleSecondary>
+          Handling your privacy is easier than you think.
+        </TitleSecondary>
         <ContentWrapper>
           <Content>
             Zero-knowledge cloud storage at its finest. Opacity offers an
