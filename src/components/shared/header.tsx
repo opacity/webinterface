@@ -226,11 +226,6 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
               <CompanyName>Opacity</CompanyName>
             </StyledLink>
           </LogoContainer>
-          <HamburgerIcon
-            src={ICON_HAMBURGER}
-            alt="navigation"
-            onClick={() => setIsHamburgerOpen(true)}
-          />
           <DesktopNavigation>{renderNavigation()}</DesktopNavigation>
           <HamburgerMenu
             isOpen={isHamburgerOpen}
@@ -238,6 +233,13 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
           >
             {renderNavigation()}
           </HamburgerMenu>
+          {type !== HEADER_TYPES.EMPTY && (
+            <HamburgerIcon
+              src={ICON_HAMBURGER}
+              alt="navigation"
+              onClick={() => setIsHamburgerOpen(true)}
+            />
+          )}
         </Navbar>
       </Container>
     </ThemeProvider>
