@@ -43,7 +43,7 @@ const ShareModal = ({ close, isOpen, file }) => (
           <Title>Share your file with others</Title>
           <Filename>{file && file.filename}</Filename>
           <ClipboardWidget
-            text={`${FRONT_END_URL}/share#handle=${file && file.handle}`}
+            text={`${FRONT_END_URL}/share?handle=${file && file.handle}`}
             property="URL"
             title="Anyone with this link can view the file"
           />

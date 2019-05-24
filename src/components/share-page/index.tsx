@@ -6,7 +6,7 @@ import downloadActions from "../../redux/actions/download-actions";
 import Main from "./main";
 
 const mapStateToProps = state => ({
-  handle: queryString.parse(state.router.location.hash).handle
+  handle: queryString.parse(state.router.location.search).handle
 });
 
 const mapDispatchToProps = dispatch => ({
