@@ -146,7 +146,7 @@ class SendPaymentSlide extends Component<
     isCopied: false
   };
 
-  render() {
+  render () {
     const {
       invoice: { ethAddress },
       openMetamask

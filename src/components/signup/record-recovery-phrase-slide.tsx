@@ -86,7 +86,7 @@ class RecordRecoveryPhraseSlide extends Component<
     isTermsChecked: false
   };
 
-  downloadCsv(array) {
+  downloadCsv (array) {
     const csvContent = array.join(",");
     const blob = new Blob([csvContent], {
       type: "text/csv;charset=utf-8;"
@@ -99,7 +99,7 @@ class RecordRecoveryPhraseSlide extends Component<
     window.document.body.removeChild(elem);
   }
 
-  render() {
+  render () {
     const { next, mnemonic } = this.props;
     return (
       <ThemeProvider theme={theme}>
@@ -136,7 +136,7 @@ class RecordRecoveryPhraseSlide extends Component<
                 isTermsChecked
                   ? next()
                   : alert(
-                      "Please accept the Terms of Service and Privacy Policy"
+                    "Please accept the Terms of Service and Privacy Policy"
                     );
               }}
             >

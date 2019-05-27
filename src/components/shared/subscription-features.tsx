@@ -87,11 +87,11 @@ class SubscriptionFeatures extends Component<
 > {
   state = { open: false };
 
-  openClick() {
+  openClick () {
     this.setState({ open: true });
   }
 
-  render() {
+  render () {
     const { features } = this.props;
     const { open } = this.state;
     const featuresList = _.map(features, item => (
