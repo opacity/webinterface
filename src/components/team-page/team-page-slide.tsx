@@ -21,63 +21,63 @@ const ICON_LADISLAV = require("../../assets/images/ladislav.png");
 
 const people = [
   {
-    title: "Jason",
+    title: "Jason Coppola",
     icon: ICON_JASON,
     role: "CEO",
     github: "https://github.com/funkydrummer",
     linkedin: "https://www.linkedin.com/in/jasoncoppola"
   },
   {
-    title: "Aron",
+    title: "Aron Hiltzik",
     icon: ICON_ARON,
     role: "Marketing",
     github: "",
     linkedin: "https://www.linkedin.com/in/aronhiltzik/"
   },
   {
-    title: "Tim",
+    title: "Tim DeHaas",
     icon: ICON_TIM,
     role: "Community Manager",
     github: "",
     linkedin: ""
   },
   {
-    title: "William",
+    title: "William Halunen",
     icon: ICON_WILLIAM,
     role: "Community Manager",
     github: "https://github.com/WHalunen",
     linkedin: "https://www.linkedin.com/in/william-halunen-080987156/"
   },
   {
-    title: "Connor",
+    title: "Connor Hen",
     icon: ICON_CONNOR,
     role: "Developer",
     github: "https://github.com/CKH4",
     linkedin: ""
   },
   {
-    title: "Marcel",
+    title: "Marcel Lindig",
     icon: ICON_MARCEL,
     role: "Developer",
     github: "https://github.com/nullpilot",
     linkedin: ""
   },
   {
-    title: "Edmund",
+    title: "Edmund Mai",
     icon: ICON_EDMUND,
     role: "Software Engineer",
     github: "https://github.com/EdmundMai",
     linkedin: "https://www.linkedin.com/in/edmundmai/"
   },
   {
-    title: "Rebel",
+    title: "Rebel Fornea",
     icon: ICON_REBEL,
     role: "Technical Lead",
     github: "https://github.com/rfornea",
     linkedin: "https://www.linkedin.com/in/rebel-fornea-7640b8122/"
   },
   {
-    title: "Ladislav",
+    title: "Ladislav Balon",
     icon: ICON_LADISLAV,
     role: "Fullstack Developer",
     github: "https://github.com/tenisakb",

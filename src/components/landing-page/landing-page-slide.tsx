@@ -356,10 +356,10 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
           </Wrapper>
         ) : (
           <Wrapper>
-            <Button onClick={() => history.push("/login")}>Login</Button>
             <ButtonSecondary onClick={() => history.push("/sign-up")}>
               Sign up
             </ButtonSecondary>
+            <Button onClick={() => history.push("/login")}>Login</Button>
           </Wrapper>
         )}
         <Wrapper>
@@ -420,11 +420,11 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
             <BenefitTitle>Your Handle, Your Rules.</BenefitTitle>
             <BenefitContent>
               Your unique Opacity Account Handle is the single point of access
-              to your storage account. Only you know this handle, and only you
-              have access to your files unless you decide to share the handle.
+              to your storage account. Only you know this Handle, and only you
+              have access to your files unless you decide to share the Handle.
               Opacity applies zero-knowledge principles, meaning we do not track
               anything you upload or download. You may also choose individual
-              files to share with a unique file handle that others may use to
+              files to share with a unique File Handle that others may use to
               view shared files on the Opacity platform.
             </BenefitContent>
           </Column>
@@ -443,8 +443,8 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
         <InfoHeaderTitle>More Info? No Problem.</InfoHeaderTitle>
         <InfoHeaderContent>
           Choosing the right storage solution for your needs is important, and
-          we get that. Check some of the links below for more information about
-          Opacity, and why it is the right choice for you or your company.
+          we understand that. Check some of the links below for more information
+          about Opacity, and why it is the right choice for you or your company.
         </InfoHeaderContent>
         <ItemSubContainer>
           <Item>
