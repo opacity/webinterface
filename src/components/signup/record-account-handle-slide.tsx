@@ -176,7 +176,7 @@ class RecordAccountHandleSlide extends Component<
                 this.state.isCopied
                   ? next()
                   : alert(
-                    "Please make sure to copy your account handle before proceeding."
+                    "Please make sure to copy and save your account handle before proceeding."
                     );
               }}
             >

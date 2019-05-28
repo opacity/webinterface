@@ -206,7 +206,7 @@ class SendPaymentSlide extends Component<
               value={ethAddress}
               size={200}
               renderAs="svg"
-              bgColor="transparent"
+              bgColor="#ffffff"
               fgColor="#2e3854"
               level="H"
               color="#ffffff"
