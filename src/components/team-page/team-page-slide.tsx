@@ -38,7 +38,7 @@ const people = [
     title: "Tim DeHaas",
     icon: ICON_TIM,
     role: "Community Manager",
-    github: "",
+    github: "https://github.com/MrRedPandabaer/",
     linkedin: ""
   },
   {
