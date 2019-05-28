@@ -5,7 +5,7 @@ import { MOBILE_WIDTH, theme } from "../../config";
 
 const Button = styled.div`
     display: none;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right 0;
     margin-bottom: 15px;
