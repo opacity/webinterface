@@ -44,7 +44,7 @@ const DataTypes = [
 ];
 
 const fileTarget = {
-  drop(props, monitor) {
+  drop (props, monitor) {
     const { upload, masterHandle } = props;
     const { files } = monitor.getItem();
     upload(files, masterHandle);
