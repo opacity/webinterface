@@ -156,7 +156,7 @@ class RecordAccountHandleSlide extends Component<
             )}
           </HandleWrapper>
           <Content>
-            Before you continue, make sure you have copied your Account Handle.
+            Before you continue, make sure you have saved your Account Handle.
             Without this information, you will not be able to access your
             account. Opacity does not have access to this information and will
             not be able to recover it for you.
@@ -176,7 +176,7 @@ class RecordAccountHandleSlide extends Component<
                 this.state.isCopied
                   ? next()
                   : alert(
-                    "Please make sure to copy your account handle before proceeding."
+                    "Please make sure to copy and save your account handle before proceeding."
                     );
               }}
             >

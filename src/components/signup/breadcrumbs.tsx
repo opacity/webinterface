@@ -87,7 +87,7 @@ const Breadcrumbs = ({ phase }) => (
     >
       <PhaseInformation>
         <PhaseIcon src={ICON_PIN} />
-        <PhaseNumber>2. Record Account Handle and PIN</PhaseNumber>
+        <PhaseNumber>2. Record Account Handle</PhaseNumber>
       </PhaseInformation>
       <Line />
     </Phase>

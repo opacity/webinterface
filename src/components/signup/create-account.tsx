@@ -61,25 +61,22 @@ const CreateAccount = ({
     setPrivateKey(masterHandle.handle);
   }, []);
 
-  useEffect(
-    () => {
-      if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
-        masterHandle
-          .register()
-          .then(({ data: { invoice }, waitForPayment }: any) => {
-            setInvoice(invoice);
-            setWaitForPaymentFn(() => waitForPayment);
-          })
-          .catch(console.log);
-      }
-    },
-    [phase]
-  );
+  useEffect(() => {
+    if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
+      masterHandle
+        .register()
+        .then(({ data: { invoice }, waitForPayment }: any) => {
+          setInvoice(invoice);
+          setWaitForPaymentFn(() => waitForPayment);
+        })
+        .catch(console.log);
+    }
+  }, [phase]);
 
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+        <Header type={HEADER_TYPES.EMPTY} />
         <ScreenContainer title={"Register on Opacity"}>
           <Breadcrumbs phase={phase} />
           {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (

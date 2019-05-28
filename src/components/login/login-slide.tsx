@@ -144,7 +144,7 @@ const LoginOrRegisterSlide = ({ login, status }) => {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+        <Header type={HEADER_TYPES.EMPTY} />
         <LoginContainer>
           <Title>Sign in Opacity</Title>
           <Underline />

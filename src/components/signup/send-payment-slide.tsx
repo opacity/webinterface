@@ -162,7 +162,7 @@ class SendPaymentSlide extends Component<
           <Content>
             Use the Opacity Storage Token, OPQ, to pay for your storage account.
             Send your total amount of <Bold>{cost} OPQ </Bold> to the address
-            below or you may use Metamask to easily make your payment right in
+            below or you may use MetaMask to easily make your payment right in
             your browser.
           </Content>
           <ContentBold>
@@ -206,7 +206,7 @@ class SendPaymentSlide extends Component<
               value={ethAddress}
               size={200}
               renderAs="svg"
-              bgColor="transparent"
+              bgColor="#ffffff"
               fgColor="#2e3854"
               level="H"
               color="#ffffff"
