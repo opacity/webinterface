@@ -263,6 +263,7 @@ const FileManagerSlide = ({
   getFileList,
   upload,
   download,
+  removeFileByHandle,
   masterHandle,
   metadataKey,
   metadata,
@@ -278,14 +279,15 @@ const FileManagerSlide = ({
     setOrderedFiles(_.orderBy(orderedFiles, param, order));
   };
 
-  useEffect(() => {
-    setOrderedFiles(_.orderBy(files, "created", "desc"));
-  }, [files]);
+  useEffect(
+    () => {
+      setOrderedFiles(_.orderBy(files, "created", "desc"));
+    },
+    [files]
+  );
 
   useEffect(() => {
     getFileList(masterHandle);
-    // masterHandle.getFolderMeta("/").then(({ files }) => {
-    // });
   }, []);
 
   return (
@@ -362,6 +364,13 @@ const FileManagerSlide = ({
                         </ActionButton>
                         <ActionButton onClick={() => download(handle)}>
                           Download
+                        </ActionButton>
+                        <ActionButton
+                          onClick={() =>
+                            removeFileByHandle(name, handle, masterHandle)
+                          }
+                        >
+                          Delete
                         </ActionButton>
                       </Td>
                     </Tr>

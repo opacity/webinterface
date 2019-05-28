@@ -1,9 +1,8 @@
 import { Observable } from "rxjs";
-import { map, mergeMap, flatMap } from "rxjs/operators";
+import { mergeMap, flatMap } from "rxjs/operators";
 import { ofType, combineEpics } from "redux-observable";
 import { toast } from "react-toastify";
 
-import filesActions from "../actions/files-actions";
 import uploadActions from "../actions/upload-actions";
 
 const uploadFilesEpic = (action$, state$, dependencies$) =>
@@ -28,7 +27,6 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
         const upload = masterHandle.uploadFile("/", file);
         const handle = upload.handle;
 
-        o.next(uploadActions.monitorFile({ handle }));
         toast(`${file.name} is uploading. Please wait...`, {
           autoClose: false,
           position: toast.POSITION.BOTTOM_RIGHT,
@@ -42,9 +40,6 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
             )}%`,
             progress: event.progress
           });
-          o.next(
-            uploadActions.uploadProgress({ handle, progress: event.progress })
-          );
         });
 
         upload.on("finish", () => {
@@ -81,13 +76,4 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
     })
   );
 
-const refreshListEpic = (action$, state$, dependencies$) =>
-  action$.pipe(
-    ofType(uploadActions.UPLOAD_SUCCESS),
-    map((action: any) => {
-      const { masterHandle } = action.payload;
-      return filesActions.getFileList({ masterHandle });
-    })
-  );
-
-export default combineEpics(uploadFilesEpic, uploadFileEpic, refreshListEpic);
+export default combineEpics(uploadFilesEpic, uploadFileEpic);

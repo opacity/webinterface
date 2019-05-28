@@ -25,8 +25,6 @@ const authenticationReducer = (state = initState, action) => {
         metadata,
         masterHandle
       };
-    case authenticationActions.UPDATE_METADATA_SUCCESS:
-      return { ...state, metadata: action.payload.metadata };
     case authenticationActions.LOGOUT:
       return initState;
 
