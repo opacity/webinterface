@@ -13,15 +13,23 @@ test("loginPending", () => {
 });
 
 test("loginSuccess", () => {
-  const accountId = "foo";
+  const accountId = "a1";
+  const metadataKey = "mk1";
+  const metadata = "m1";
+  const masterHandle = "mh1";
 
   const expected = {
     type: actions.LOGIN_SUCCESS,
     payload: {
-      accountId
+      accountId,
+      metadataKey,
+      metadata,
+      masterHandle
     }
   };
-  expect(actions.loginSuccess({ accountId })).toEqual(expected);
+  expect(
+    actions.loginSuccess({ accountId, metadataKey, metadata, masterHandle })
+  ).toEqual(expected);
 });
 
 test("loginFailure", () => {
@@ -34,4 +42,11 @@ test("loginFailure", () => {
     }
   };
   expect(actions.loginFailure({ error })).toEqual(expected);
+});
+
+test("logout", () => {
+  const expected = {
+    type: actions.LOGOUT
+  };
+  expect(actions.logout()).toEqual(expected);
 });
