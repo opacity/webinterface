@@ -140,14 +140,14 @@ const ContentWrapper = styled.div`
 `;
 
 const PersonIcon = styled.img`
-  width: 70px;
-  height: 70px;
-  border-radius: 40px;
+  width: 150px;
+  height: 150px;
+  border-radius: 80px;
 `;
 
 const Icon = styled.img`
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
 `;
 
 const Title = styled.h1`
