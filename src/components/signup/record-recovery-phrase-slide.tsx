@@ -11,6 +11,7 @@ import OutboundLink from "../shared/outbound-link";
 import Title from "./title";
 import ContinueButton from "./continue-button";
 import Checkbox from "../shared/generic/checkbox";
+import Recaptcha from "../shared/recaptcha";
 
 const ContentBold = styled(Content)`
   margin-top: 25px;
@@ -128,6 +129,7 @@ class RecordRecoveryPhraseSlide extends Component<
           <DownloadButton onClick={() => this.downloadCsv(mnemonic)}>
             Download phrase as CSV
           </DownloadButton>
+          <Recaptcha />
           <ButtonWrapper>
             <ContinueButton
               onClick={() => {

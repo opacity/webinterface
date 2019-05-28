@@ -2,7 +2,12 @@ import _ from "lodash";
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { SUBSCRIPTION_DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
+import {
+  SUBSCRIPTION_DESKTOP_WIDTH,
+  subscriptionList,
+  MOBILE_WIDTH,
+  theme
+} from "../../config";
 
 import SubscriptionFeatures from "./subscription-features";
 
@@ -137,7 +142,7 @@ const Button = styled.button`
   border: none;
 
   &:disabled {
-    background-color: #DFDFDF;
+    background-color: #dfdfdf;
   }
 `;
 
@@ -157,69 +162,6 @@ const Footer = styled.div`
     margin-left: 100px;
   }
 `;
-
-const subscriptionList = [
-  {
-    title: "Basic",
-    isAvailable: true,
-    content:
-      "Secure, encrypted storage solution perfect for the needs of the individual",
-    price: "2 OPQ / year",
-    plan: "128 GB",
-    button: "SIGN UP",
-    features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
-    ]
-  },
-  {
-    title: "Professional",
-    isAvailable: false,
-    content:
-      "For professionals looking for a secure, easily accessible storage solution while on the move.",
-    price: "16 OPQ / year",
-    plan: "1 TB",
-    button: "COMING SOON",
-    features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
-    ]
-  },
-  {
-    title: "Business",
-    isAvailable: false,
-    content:
-      "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
-    price: "32 OPQ / year",
-    plan: "2 TB",
-    button: "COMING SOON",
-    features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
-    ]
-  }
-];
 
 const Subscription = () => (
   <ThemeProvider theme={theme}>

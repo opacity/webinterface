@@ -132,6 +132,7 @@ const Or = styled.span`
 interface SendPaymentHandleProps {
   invoice;
   openMetamask;
+  cost;
 }
 
 interface SendPaymentHandleState {
@@ -149,10 +150,9 @@ class SendPaymentSlide extends Component<
   render () {
     const {
       invoice: { ethAddress },
-      openMetamask
+      openMetamask,
+      cost
     } = this.props;
-
-    const cost = 2;
 
     return (
       <ThemeProvider theme={theme}>
