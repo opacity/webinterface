@@ -15,8 +15,6 @@ const loginEpic = (action$, state$, dependencies$) =>
     switchMap(({ payload }) => {
       const { privateKey, storagePin } = payload;
 
-      const metadataKey = Account.getMetadataKey({ privateKey, storagePin });
-
       const masterHandle: MasterHandle = new MasterHandle(
         {
           handle: privateKey
@@ -34,8 +32,6 @@ const loginEpic = (action$, state$, dependencies$) =>
             return [
               authenticationActions.loginSuccess({
                 accountId,
-                metadata: {},
-                metadataKey,
                 masterHandle
               }),
               push("/file-manager")

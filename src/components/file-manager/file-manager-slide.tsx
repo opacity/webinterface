@@ -265,7 +265,6 @@ const FileManagerSlide = ({
   download,
   removeFileByHandle,
   masterHandle,
-  metadataKey,
   metadata,
   connectDropTarget,
   isOver

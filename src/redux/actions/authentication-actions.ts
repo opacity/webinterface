@@ -13,9 +13,9 @@ const ACTIONS = Object.freeze({
     type: LOGIN_PENDING,
     payload: { privateKey }
   }),
-  loginSuccess: ({ accountId, metadataKey, metadata, masterHandle }) => ({
+  loginSuccess: ({ accountId, metadata, masterHandle }) => ({
     type: LOGIN_SUCCESS,
-    payload: { accountId, metadata, metadataKey, masterHandle }
+    payload: { accountId, metadata, masterHandle }
   }),
   loginFailure: ({ error }) => ({
     type: LOGIN_FAILURE,
