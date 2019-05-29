@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
+import Recaptcha from "react-google-invisible-recaptcha";
 // import Mnemonic from "bitcore-mnemonic";
 
-import { theme, DESKTOP_WIDTH } from "../../config";
+import { RECAPTCHA_SITEKEY, DESKTOP_WIDTH, theme } from "../../config";
 
 import ContentBox from "./content-box";
 import Content from "./content";
@@ -11,7 +12,6 @@ import OutboundLink from "../shared/outbound-link";
 import Title from "./title";
 import ContinueButton from "./continue-button";
 import Checkbox from "../shared/generic/checkbox";
-import Recaptcha from "../shared/recaptcha";
 
 const ContentBold = styled(Content)`
   margin-top: 25px;
@@ -79,6 +79,8 @@ interface RecordRecoveryPhraseState {
   isTermsChecked;
 }
 
+let recaptcha;
+
 class RecordRecoveryPhraseSlide extends Component<
   RecordRecoveryPhraseProps,
   RecordRecoveryPhraseState
@@ -86,6 +88,20 @@ class RecordRecoveryPhraseSlide extends Component<
   state = {
     isTermsChecked: false
   };
+
+  onSubmit () {
+    const { isTermsChecked } = this.state;
+    if (!isTermsChecked) {
+      alert("Please accept the Terms of Service");
+      recaptcha.reset();
+    } else {
+      recaptcha.execute();
+    }
+  }
+
+  onResolved () {
+    this.props.next();
+  }
 
   downloadCsv (array) {
     const csvContent = array.join(",");
@@ -101,7 +117,7 @@ class RecordRecoveryPhraseSlide extends Component<
   }
 
   render () {
-    const { next, mnemonic } = this.props;
+    const { mnemonic } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <ContentBox>
@@ -129,17 +145,13 @@ class RecordRecoveryPhraseSlide extends Component<
           <DownloadButton onClick={() => this.downloadCsv(mnemonic)}>
             Download phrase as CSV
           </DownloadButton>
-          <Recaptcha />
+          <Recaptcha
+            ref={ref => (recaptcha = ref)}
+            sitekey={RECAPTCHA_SITEKEY}
+            onResolved={() => this.onResolved()}
+          />
           <ButtonWrapper>
-            <ContinueButton
-              onClick={() => {
-                const { isTermsChecked } = this.state;
-
-                isTermsChecked
-                  ? next()
-                  : alert("Please accept the Terms of Service");
-              }}
-            >
+            <ContinueButton onClick={() => this.onSubmit()}>
               Continue
             </ContinueButton>
           </ButtonWrapper>

@@ -98,7 +98,7 @@ export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
-export const RECAPTCHA_SITEKEY = "xxx";
+export const RECAPTCHA_SITEKEY = "6Lfz6qUUAAAAAEcIN400w5RCwGEqavbVvomaYZ2d";
 
 export const LANDING_PAGE_VIDEO =
   "https://s3.us-east-2.amazonaws.com/opacity-public/whatIsOpacity.mov";

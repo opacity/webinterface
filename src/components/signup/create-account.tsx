@@ -62,20 +62,17 @@ const CreateAccount = ({
     setPrivateKey(masterHandle.handle);
   }, []);
 
-  useEffect(
-    () => {
-      if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
-        masterHandle
-          .register()
-          .then(({ data: { invoice }, waitForPayment }: any) => {
-            setInvoice(invoice);
-            setWaitForPaymentFn(() => waitForPayment);
-          })
-          .catch(console.log);
-      }
-    },
-    [phase]
-  );
+  useEffect(() => {
+    if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
+      masterHandle
+        .register()
+        .then(({ data: { invoice }, waitForPayment }: any) => {
+          setInvoice(invoice);
+          setWaitForPaymentFn(() => waitForPayment);
+        })
+        .catch(console.log);
+    }
+  }, [phase]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -85,7 +82,7 @@ const CreateAccount = ({
           title={
             "Register on Opacity: " +
             subscription.title +
-            " PLAN " +
+            " Plan " +
             subscription.plan
           }
         >
