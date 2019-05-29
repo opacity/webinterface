@@ -9,26 +9,13 @@ import ConfirmPaymentSlide from "./confirm-payment-slide";
 import ScreenContainer from "../shared/screen-container";
 import Header from "../shared/header";
 
-import { API, HEADER_TYPES, SIGNUP_PHASES, theme } from "../../config";
+import { OPAQUE, HEADER_TYPES, SIGNUP_PHASES, theme } from "../../config";
 
 import { Account, MasterHandle } from "opaque";
 
 const Container = styled.div`
   width: 100%;
 `;
-
-const uploadOpts = {
-  autostart: true,
-  endpoint: API.STORAGE_NODE,
-  params: {
-    blockSize: 64 * 1024, // 256 KiB encryption blocks
-    partSize: 10 * 1024 * 1024
-  }
-};
-
-const downloadOpts = {
-  endpoint: API.STORAGE_NODE
-};
 
 const CreateAccount = ({
   showAddress,
@@ -52,8 +39,8 @@ const CreateAccount = ({
         account
       },
       {
-        uploadOpts,
-        downloadOpts
+        uploadOpts: OPAQUE.UPLOAD_OPTIONS,
+        downloadOpts: OPAQUE.DOWNLOAD_OPTIONS
       }
     );
 
@@ -61,17 +48,20 @@ const CreateAccount = ({
     setPrivateKey(masterHandle.handle);
   }, []);
 
-  useEffect(() => {
-    if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
-      masterHandle
-        .register()
-        .then(({ data: { invoice }, waitForPayment }: any) => {
-          setInvoice(invoice);
-          setWaitForPaymentFn(() => waitForPayment);
-        })
-        .catch(console.log);
-    }
-  }, [phase]);
+  useEffect(
+    () => {
+      if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
+        masterHandle
+          .register()
+          .then(({ data: { invoice }, waitForPayment }: any) => {
+            setInvoice(invoice);
+            setWaitForPaymentFn(() => waitForPayment);
+          })
+          .catch(console.log);
+      }
+    },
+    [phase]
+  );
 
   return (
     <ThemeProvider theme={theme}>
