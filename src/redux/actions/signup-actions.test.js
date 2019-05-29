@@ -1,6 +1,13 @@
 import actions from "./signup-actions";
 
-test("setPrivateKey", () => {
+test("showMnemonic", () => {
+  const expected = {
+    type: actions.SHOW_MNEMONIC
+  };
+  expect(actions.showMnemonic()).toEqual(expected);
+});
+
+test("showAddress", () => {
   const expected = {
     type: actions.SHOW_ADDRESS
   };

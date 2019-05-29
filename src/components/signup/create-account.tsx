@@ -20,7 +20,7 @@ const Container = styled.div`
 const CreateAccount = ({
   showAddress,
   pollPayment,
-  goBack,
+  showMnemonic,
   openMetamask,
   phase
 }) => {
@@ -76,7 +76,7 @@ const CreateAccount = ({
             <RecordAccountHandleSlide
               handle={privateKey}
               next={() => pollPayment(waitForPaymentFn)}
-              goBack={() => goBack()}
+              back={() => showMnemonic()}
             />
           )}
           {phase === SIGNUP_PHASES.SEND_PAYMENT && (
