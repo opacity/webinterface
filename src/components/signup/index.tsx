@@ -10,10 +10,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  showMnemonic: () => dispatch(signupActions.showMnemonic()),
   showAddress: () => dispatch(signupActions.showAddress()),
   pollPayment: waitForPaymentFn =>
     dispatch(signupActions.pollPayment({ waitForPaymentFn })),
-  showMnemonic: () => dispatch(signupActions.showMnemonic()),
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
     dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice }))
 });
