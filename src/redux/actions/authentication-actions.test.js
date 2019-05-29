@@ -13,21 +13,15 @@ test("loginPending", () => {
 });
 
 test("loginSuccess", () => {
-  const accountId = "a1";
-  const metadata = "m1";
   const masterHandle = "mh1";
 
   const expected = {
     type: actions.LOGIN_SUCCESS,
     payload: {
-      accountId,
-      metadata,
       masterHandle
     }
   };
-  expect(actions.loginSuccess({ accountId, metadata, masterHandle })).toEqual(
-    expected
-  );
+  expect(actions.loginSuccess({ masterHandle })).toEqual(expected);
 });
 
 test("loginFailure", () => {

@@ -4,7 +4,6 @@ import { ofType, combineEpics } from "redux-observable";
 import { push } from "connected-react-router";
 
 import authenticationActions from "../actions/authentication-actions";
-import * as Account from "../../services/account";
 import { OPAQUE } from "../../config";
 
 import { MasterHandle } from "opaque";
@@ -13,7 +12,7 @@ const loginEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(authenticationActions.LOGIN_PENDING),
     switchMap(({ payload }) => {
-      const { privateKey, storagePin } = payload;
+      const { privateKey } = payload;
 
       const masterHandle: MasterHandle = new MasterHandle(
         {
@@ -27,11 +26,9 @@ const loginEpic = (action$, state$, dependencies$) =>
 
       return from(masterHandle.isPaid()).pipe(
         flatMap(isPaid => {
-          const accountId = Account.getAccountId({ privateKey, storagePin });
           if (isPaid) {
             return [
               authenticationActions.loginSuccess({
-                accountId,
                 masterHandle
               }),
               push("/file-manager")
