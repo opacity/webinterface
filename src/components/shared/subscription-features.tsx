@@ -62,7 +62,7 @@ const Item = styled.p`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
-  margin: 15px 15px 0 35px;
+  margin: 15px 15px 0 64px;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     width: auto;
     margin: 0 30px 0 30px;

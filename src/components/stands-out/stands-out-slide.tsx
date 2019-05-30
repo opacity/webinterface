@@ -669,11 +669,11 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
           </CommunityWrapper>
         </CommunityContainer>
         <CommunityButtonWrapper>
-          <CommunityButton onClick={() => history.push("/login")}>
-            Login
-          </CommunityButton>
-          <CommunityButtonSecondary onClick={() => history.push("/sign-up")}>
+          <CommunityButton onClick={() => history.push("/sign-up")}>
             Sign up
+          </CommunityButton>
+          <CommunityButtonSecondary onClick={() => history.push("/login")}>
+            Login
           </CommunityButtonSecondary>
         </CommunityButtonWrapper>
       </Community>
