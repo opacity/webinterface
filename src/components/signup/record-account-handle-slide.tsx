@@ -108,7 +108,7 @@ const BackButton = styled(Button)`
 interface RecordAccountHandleProps {
   handle;
   next;
-  goBack;
+  back;
 }
 
 interface RecordAccountHandleState {
@@ -124,7 +124,7 @@ class RecordAccountHandleSlide extends Component<
   };
 
   render () {
-    const { handle, next, goBack } = this.props;
+    const { handle, next, back } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
@@ -167,7 +167,7 @@ class RecordAccountHandleSlide extends Component<
               border="1px solid #2e6dde"
               color="#2e6dde"
               margin="0 10px 0 0"
-              onClick={() => goBack()}
+              onClick={() => back()}
             >
               Back
             </BackButton>
