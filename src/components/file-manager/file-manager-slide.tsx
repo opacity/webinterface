@@ -279,12 +279,9 @@ const FileManagerSlide = ({
     setOrderedFiles(_.orderBy(orderedFiles, param, order));
   };
 
-  useEffect(
-    () => {
-      setOrderedFiles(_.orderBy(files, "created", "desc"));
-    },
-    [files]
-  );
+  useEffect(() => {
+    setOrderedFiles(_.orderBy(files, "created", "desc"));
+  }, [files]);
 
   useEffect(() => {
     getFileList(masterHandle);
@@ -367,6 +364,7 @@ const FileManagerSlide = ({
                         </ActionButton>
                         <ActionButton
                           onClick={() =>
+                            confirm("Do you really want to delete this file?") &&
                             removeFileByHandle(name, handle, masterHandle)
                           }
                         >
