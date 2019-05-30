@@ -13,6 +13,7 @@ import Hr from "./hr";
 import Title from "./title";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
+import LoadingSpinner from "../shared/loading-spinner";
 
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
@@ -23,6 +24,10 @@ const ContentBold = styled(Content)`
 `;
 
 const ContentCentered = styled(Content)`
+  text-align: center;
+`;
+
+const Wrapper = styled.div`
   text-align: center;
 `;
 
@@ -175,6 +180,9 @@ class SendPaymentSlide extends Component<
             complete setup of your account once the network transaction is
             confirmed. Please be patient.
           </Content>
+          <Wrapper>
+            <LoadingSpinner />
+          </Wrapper>
           <LabelColored>Send {cost} OPQ to Payment Address:</LabelColored>
           <EthAddressWrapper>
             <EthAddress>{ethAddress}</EthAddress>
