@@ -77,7 +77,7 @@ const ShareModal = ({ close, isOpen, file }) => (
           <CloseButton onClick={() => close()} />
           <Filename>{file && file.filename}</Filename>
           <ClipboardWidget
-            text={`${FRONT_END_URL}/share?handle=${file && file.handle}`}
+            text={`${FRONT_END_URL}/share#handle=${file && file.handle}`}
             property="URL"
             title="Anyone with this link can view the file"
             textAlign="center"

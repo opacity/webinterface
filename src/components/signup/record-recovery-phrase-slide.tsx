@@ -135,7 +135,9 @@ class RecordRecoveryPhraseSlide extends Component<
 
                 isTermsChecked
                   ? next()
-                  : alert("Please accept the Terms of Service");
+                  : alert(
+                    "Please accept the Terms of Service and Privacy Policy"
+                    );
               }}
             >
               Continue
@@ -154,7 +156,9 @@ class RecordRecoveryPhraseSlide extends Component<
               I agree to the{" "}
               <OutboundLink href="/terms-of-service">
                 Terms of Service
-              </OutboundLink>
+              </OutboundLink>{" "}
+              and{" "}
+              <OutboundLink href="/privacy-policy">Privacy Policy</OutboundLink>
             </CheckboxLabel>
           </TermsOfService>
         </ContentBox>

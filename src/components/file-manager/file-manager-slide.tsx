@@ -6,7 +6,12 @@ import { DropTarget } from "react-dnd";
 import { ToastContainer } from "react-toastify";
 import moment from "moment";
 
-import { HEADER_TYPES, DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
+import {
+  HEADER_TYPES,
+  DESKTOP_WIDTH,
+  HEADER_MOBILE_WIDTH,
+  theme
+} from "../../config";
 import { formatBytes } from "../../helpers";
 
 import Header from "../shared/header";
@@ -77,6 +82,9 @@ const TableContainer = styled.div`
   width: 100%;
   padding: 20px;
   background-color: ${props => props.theme.background};
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    padding: 10px;
+  }
 `;
 
 const Title = styled.h1`
@@ -92,7 +100,7 @@ const Title = styled.h1`
 const ButtonWrapper = styled.div`
   margin: 20px 0 20px 0;
   text-align: right;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
   }
 `;
@@ -116,7 +124,7 @@ const LeftSideNav = styled.div`
   overflow-x: hidden;
   transition: 0.5s;
   margin-top: 62px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     width: 100%;
     right: 100%;
   }
@@ -126,6 +134,7 @@ const Table = styled.table`
   width: 100%;
   text-align: left;
   border-spacing: 0px;
+  border-collapse: collapse;
 `;
 
 const Tr = styled.tr`
@@ -141,7 +150,7 @@ const Tr = styled.tr`
   td:nth-child(2) {
     width: 55%;
   }
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     th:nth-child(3),
     th:nth-child(4),
     td:nth-child(3),
@@ -151,6 +160,7 @@ const Tr = styled.tr`
     th:nth-child(2),
     td:nth-child(2) {
       width: 95%;
+      white-space: initial;
     }
   }
 `;
@@ -193,7 +203,7 @@ const StorageInfo = styled.div`
 const StorageTitleWrapper = styled.div`
   width: 138px;
   margin: auto;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${HEADER_MOBILE_WIDTH}px) {
     width: 100px;
   }
 `;
@@ -225,7 +235,7 @@ const StorageProgressWrapper = styled.div`
   height: 10px;
   background-color: #acc5e3;
   margin: auto;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${HEADER_MOBILE_WIDTH}px) {
     width: 100px;
   }
 `;
@@ -291,6 +301,7 @@ const FileManagerSlide = ({
   getFileList,
   upload,
   download,
+  removeFileByHandle,
   masterHandle,
   metadataKey,
   metadata,
@@ -324,8 +335,6 @@ const FileManagerSlide = ({
 
   useEffect(() => {
     getFileList(masterHandle);
-    // masterHandle.getFolderMeta("/").then(({ files }) => {
-    // });
   }, []);
 
   return (
@@ -400,6 +409,13 @@ const FileManagerSlide = ({
                         </ActionButton>
                         <ActionButton onClick={() => download(handle)}>
                           <TableIcon src={ICON_DOWNLOAD} />
+                        </ActionButton>
+                        <ActionButton
+                          onClick={() =>
+                            removeFileByHandle(name, handle, masterHandle)
+                          }
+                        >
+                          Delete
                         </ActionButton>
                       </Td>
                     </Tr>

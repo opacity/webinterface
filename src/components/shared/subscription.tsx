@@ -137,7 +137,9 @@ const Button = styled.button`
   border: none;
 
   &:disabled {
-    background-color: #DFDFDF;
+    background-color: #dfdfdf;
+    color: #4f5e78;
+    border: 1px solid #4f5e78;
   }
 `;
 
@@ -169,13 +171,13 @@ const subscriptionList = [
     button: "SIGN UP",
     features: [
       {
-        title: "Secure storage"
+        title: "Encrypted storage"
       },
       {
         title: "Unlimited downloads"
       },
       {
-        title: "Anonymous account"
+        title: "No personal information required"
       }
     ]
   },
@@ -189,13 +191,13 @@ const subscriptionList = [
     button: "COMING SOON",
     features: [
       {
-        title: "Secure storage"
+        title: "Encrypted storage"
       },
       {
         title: "Unlimited downloads"
       },
       {
-        title: "Anonymous account"
+        title: "No personal information required"
       }
     ]
   },
@@ -209,13 +211,13 @@ const subscriptionList = [
     button: "COMING SOON",
     features: [
       {
-        title: "Secure storage"
+        title: "Encrypted storage"
       },
       {
         title: "Unlimited downloads"
       },
       {
-        title: "Anonymous account"
+        title: "No personal information required"
       }
     ]
   }

@@ -92,7 +92,7 @@ const Main = ({ handle, download }) => {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+        <Header type={HEADER_TYPES.EMPTY} />
         <Body>
           <DownloadIcon src={ICON_DOWNLOAD} />
           <Title>You have been invited to view a file!</Title>

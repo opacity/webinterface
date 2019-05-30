@@ -55,7 +55,7 @@ const Contents = ({ type, title, isLoggedIn }) => {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+        <Header type={HEADER_TYPES.EMPTY} />
         <ScreenContainer title={title}>
           <AgreementMarkdown source={text} />
         </ScreenContainer>
