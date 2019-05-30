@@ -17,7 +17,7 @@ const Container = styled.div`
 
 const Column = styled.div`
   width: 100%;
-  height: 451px;
+  height: 491px;
   background-color: ${props => props.theme.container.background};
   padding-top: 15px;
   margin-inline-end: 10px;
@@ -67,7 +67,7 @@ const Line = styled.div`
 
 const Price = styled.p`
   width: 200px;
-  min-height: 50px;
+  min-height: 0px;
   font-size: ${props => props.theme.container.title.size}px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
@@ -77,16 +77,31 @@ const Price = styled.p`
   color: ${props => props.theme.container.content};
   text-align: center;
   margin: auto;
-  margin-top: 20px;
+  margin-top: 18px;
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
     margin-top: 60px;
   }
 `;
 
+const Plan = styled.p`
+  width: 200px;
+  min-height: 0px;
+  font-size: ${props => props.theme.container.title.size}px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.container.content};
+  text-align: center;
+  margin: auto;
+  margin-top: 10px;
+`;
+
 const Content = styled.p`
   width: 171px;
   min-height: 70px;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: ${props => props.theme.fontWeight};
   font-style: ${props => props.theme.fontStyle};
   font-stretch: ${props => props.theme.fontStretch};
@@ -94,6 +109,7 @@ const Content = styled.p`
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
   margin: 15px 15px 0 35px;
+  height: 100px;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     width: auto;
     margin: 0 30px 0 30px;
@@ -119,6 +135,12 @@ const Button = styled.button`
   text-align: center;
   margin: auto;
   border: none;
+
+  &:disabled {
+    background-color: #dfdfdf;
+    color: #4f5e78;
+    border: 1px solid #4f5e78;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -141,55 +163,61 @@ const Footer = styled.div`
 const subscriptionList = [
   {
     title: "Basic",
+    isAvailable: true,
     content:
       "Secure, encrypted storage solution perfect for the needs of the individual",
     price: "2 OPQ / year",
+    plan: "128 GB",
     button: "SIGN UP",
     features: [
       {
-        title: "128 GB secure storage"
+        title: "Encrypted storage"
       },
       {
         title: "Unlimited downloads"
       },
       {
-        title: "Anonymous account"
+        title: "No personal information required"
       }
     ]
   },
   {
     title: "Professional",
+    isAvailable: false,
     content:
       "For professionals looking for a secure, easily accessible storage solution while on the move.",
     price: "16 OPQ / year",
+    plan: "1 TB",
     button: "COMING SOON",
     features: [
       {
-        title: "1 TB secure storage"
+        title: "Encrypted storage"
       },
       {
         title: "Unlimited downloads"
       },
       {
-        title: "Anonymous account"
+        title: "No personal information required"
       }
     ]
   },
   {
     title: "Business",
+    isAvailable: false,
     content:
       "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
     price: "32 OPQ / year",
+    plan: "2 TB",
     button: "COMING SOON",
     features: [
       {
-        title: "2 TB secure storage"
+        title: "Encrypted storage"
       },
       {
         title: "Unlimited downloads"
       },
       {
-        title: "Anonymous account"
+        title: "No personal information required"
       }
     ]
   }
@@ -208,11 +236,17 @@ const Subscription = () => (
           </Header>
           <Footer>
             <Price>{item.price}</Price>
-            <ButtonWrapper>
-              <Button onClick={() => window.open("/sign-up", "_self")}>
-                {item.button}
-              </Button>
-            </ButtonWrapper>
+            <Plan>{item.plan}</Plan>
+            {item.button && (
+              <ButtonWrapper>
+                <Button
+                  disabled={!item.isAvailable}
+                  onClick={() => window.open("/sign-up", "_self")}
+                >
+                  {item.button}
+                </Button>
+              </ButtonWrapper>
+            )}
           </Footer>
         </Column>
       ))}

@@ -1,29 +1,31 @@
 import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import backend from "../../services/backend";
 import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 
-import { HEADER_TYPES, MOBILE_WIDTH, theme } from "../../config";
+import { HEADER_TYPES, HEADER_MOBILE_WIDTH, theme } from "../../config";
+import { formatBytes } from "../../helpers";
+
+import backend from "../../services/backend";
 
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 import UserPanel from "./user-panel";
 
-import * as Metadata from "../../services/metadata";
+import ShareModal from "./share-modal";
+import UploadMobileButton from "./upload-mobile-button";
 
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
-    const { upload, accountId } = props;
+  drop(props, monitor) {
+    const { upload, masterHandle } = props;
     const { files } = monitor.getItem();
-    upload(files, accountId);
+    upload(files, masterHandle);
   }
 };
 
@@ -40,19 +42,22 @@ const Container = styled.div`
 `;
 
 const ActionButton = styled.button`
-  padding: 5px 10px;
+  padding: 5px 0;
   border: none;
   background: none;
   cursor: pointer;
   color: #687892;
   font-size: 14px;
-  margin-right: 2px;
+  margin-right: 10px;
 `;
 
 const TableContainer = styled.div`
   width: 100%;
   padding: 20px;
   background-color: ${props => props.theme.background};
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    padding: 10px;
+  }
 `;
 
 const Title = styled.h1`
@@ -68,26 +73,8 @@ const Title = styled.h1`
 const ButtonWrapper = styled.div`
   margin: 20px 0 20px 0;
   text-align: right;
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
-  }
-`;
-
-const ButtonMobileWrapper = styled.div`
-  display: none;
-  position: absolute;
-  bottom: 0;
-  right 0;
-  margin-bottom: 15px;
-  margin-right: 10px;
-  background-color: ${props => props.theme.button.background};
-  width: 40px;
-  height: 40px;
-  border-radius: 100px;
-  box-shadow: 0 0.5px 4px 0 rgba(0, 0, 0, 0.2), 0 1.5px 2px 0 rgba(0, 0, 0, 0.12), 0 1.5px 1.5px 0 rgba(0, 0, 0, 0.14);
-  cursor: pointer;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    display: block;
   }
 `;
 
@@ -100,6 +87,7 @@ const Table = styled.table`
   width: 100%;
   text-align: left;
   border-spacing: 0px;
+  border-collapse: collapse;
 `;
 
 const Tr = styled.tr`
@@ -115,7 +103,7 @@ const Tr = styled.tr`
   td:nth-child(2) {
     width: 55%;
   }
-  @media (max-width: ${MOBILE_WIDTH}px) {
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     th:nth-child(3),
     th:nth-child(4),
     td:nth-child(3),
@@ -125,6 +113,7 @@ const Tr = styled.tr`
     th:nth-child(2),
     td:nth-child(2) {
       width: 95%;
+      white-space: initial;
     }
   }
 `;
@@ -204,51 +193,40 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
 };
 
 interface File {
-  filename: string;
+  name: string;
   handle: string;
-  createdAt: string;
+  created: string;
   size: number;
 }
 
 const FileManagerSlide = ({
+  files,
+  getFileList,
   upload,
   download,
-  accountId,
+  removeFileByHandle,
+  masterHandle,
   metadataKey,
   metadata,
   connectDropTarget,
   isOver
 }) => {
-  const [files, setFiles] = useState<File[]>([]);
   const [accountData, setAccountData] = useState("");
-  const [paramArrow, setParamArrow] = useState("");
   const account = {
     storageUsed: 25,
     storageLimit: 100
   };
+  const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
+  const [param, setParam] = useState("");
+  const [sharedFile, setSharedFile] = useState<File | null>(null);
 
   const sortBy = (param, order) => {
-    setParamArrow(param);
-    setFiles(_.orderBy(files, param, order));
-  };
-
-  const formatBytes = bytes => {
-    if (bytes < 1024) return bytes + " Bytes";
-    else if (bytes < 1048576) return (bytes / 1024).toFixed(2) + " KB";
-    else if (bytes < 1073741824) return (bytes / 1048576).toFixed(2) + " MB";
-    else return (bytes / 1073741824).toFixed(3) + " GB";
+    setParam(param);
+    setOrderedFiles(_.orderBy(orderedFiles, param, order));
   };
 
   useEffect(() => {
-    backend
-      .getMetadata({ metadataKey })
-      .then(({ metadata }) => {
-        const decryptedMetadata = Metadata.decrypt(metadataKey, metadata);
-        const unorderedFiles = decryptedMetadata ? decryptedMetadata.files : [];
-        setFiles(_.orderBy(unorderedFiles, "createdAt", "desc"));
-      })
-      .catch(console.log);
-
+    setOrderedFiles(_.orderBy(files, "created", "desc"));
     const publicKey = "";
     const signature = "";
 
@@ -258,10 +236,14 @@ const FileManagerSlide = ({
         setAccountData(account);
       })
       .catch(console.log);
-  }, [metadata]);
+  }, [files]);
+
+  useEffect(() => {
+    getFileList(masterHandle);
+  }, []);
 
   return (
-    <DroppableZone innerRef={instance => connectDropTarget(instance)}>
+    <DroppableZone ref={connectDropTarget}>
       <ThemeProvider theme={theme}>
         <Container>
           <Header type={HEADER_TYPES.FILE_MANAGER} />
@@ -270,7 +252,9 @@ const FileManagerSlide = ({
             <TableContainer>
               <Title>All Files</Title>
               <ButtonWrapper>
-                <UploadButton onSelected={files => upload(files, accountId)} />
+                <UploadButton
+                  onSelected={files => upload(files, masterHandle)}
+                />
               </ButtonWrapper>
               <Table>
                 <thead>
@@ -279,48 +263,66 @@ const FileManagerSlide = ({
                     <TableHeader
                       param="name"
                       title="Name"
-                      paramArrow={paramArrow}
+                      paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
                     />
                     <Th>File Handle</Th>
                     <TableHeader
-                      param="createdAt"
+                      param="created"
                       title="Date"
-                      paramArrow={paramArrow}
+                      paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
                     />
                     <TableHeader
                       param="size"
                       title="Size"
-                      paramArrow={paramArrow}
+                      paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
                     />
                     <Th>Actions</Th>
                   </Tr>
                 </thead>
                 <tbody>
-                  {files.map(({ filename, handle, createdAt, size }) => (
-                    <Tr key={handle}>
+                  {orderedFiles.map(({ name, handle, size, created }, i) => (
+                    <Tr key={handle ? handle : i}>
                       <Td>
                         <TableIcon src={ICON_LOGO} />
                       </Td>
-                      <Td>{filename}</Td>
+                      <Td>{name}</Td>
                       <Td>{_.truncate(handle, { length: 30 })}</Td>
-                      <Td>{moment(createdAt).format("MM/DD/YYYY")}</Td>
+                      <Td>{moment(created).format("MM/DD/YYYY")}</Td>
                       <Td>{formatBytes(size)}</Td>
                       <Td>
                         <ActionButton
-                          onClick={() => download(handle, filename)}
+                          onClick={() =>
+                            setSharedFile({
+                              name,
+                              handle,
+                              created,
+                              size: size
+                            })
+                          }
                         >
+                          Share
+                        </ActionButton>
+                        <ActionButton onClick={() => download(handle)}>
                           Download
                         </ActionButton>
-                        <ActionButton>Delete</ActionButton>
+                        <ActionButton
+                          onClick={() =>
+                            removeFileByHandle(name, handle, masterHandle)
+                          }
+                        >
+                          Delete
+                        </ActionButton>
                       </Td>
                     </Tr>
                   ))}
                 </tbody>
               </Table>
-              <ButtonMobileWrapper />
+              <UploadMobileButton
+                onSelected={files => upload(files, masterHandle)}
+              />
             </TableContainer>
           </Contents>
           <ToastContainer
@@ -330,6 +332,11 @@ const FileManagerSlide = ({
             bodyClassName="toast-body"
           />
           {isOver && <DragAndDropOverlay />}
+          <ShareModal
+            file={sharedFile}
+            isOpen={!!sharedFile}
+            close={() => setSharedFile(null)}
+          />
         </Container>
       </ThemeProvider>
     </DroppableZone>

@@ -10,6 +10,7 @@ const Container = styled.div`
   padding: 10px;
   max-width: 800px;
   margin: 0 auto;
+  width: 50%;
 
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     max-width: 100%;

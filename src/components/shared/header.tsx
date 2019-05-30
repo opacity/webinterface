@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { Link } from "react-router-dom";
 
 import "../root.css";
 
-import {
-  theme,
-  MOBILE_WIDTH,
-  HEADER_MOBILE_WIDTH,
-  HEADER_TYPES
-} from "../../config";
+import { theme, HEADER_MOBILE_WIDTH, HEADER_TYPES } from "../../config";
 
 import Button from "./generic/button";
 import HamburgerMenu from "./hamburger-menu";
@@ -25,38 +21,33 @@ const Container = styled.div`
   right: 0;
 `;
 
-const Navbar = styled.div`
-  display: flex;
-  margin: 0 auto;
-  height: 100%;
-  justify-content: space-between;
-`;
-
-const LogoContainer = styled.div`
+const HyperLink = styled.a`
   align-items: center;
+  color: ${props => props.theme.header.color};
+  cursor: pointer;
   display: flex;
-`;
-
-const LinkContainer = styled.div`
-  align-items: center;
-  display: flex;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    flex-direction: column;
-    align-items: baseline;
-    padding-left: 15px;
-  }
-`;
-
-const DesktopNavigation = styled.div`
-  margin-top: 5px;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    display: none;
-  }
-`;
-
-const Link = styled.a`
-  align-items: center;
   padding: 0 30px;
+  font-size: 14px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: bold;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  text-decoration: none;
+  text-transform: uppercase;
+  &:hover {
+    text-decoration: none;
+    opacity: 0.8;
+  }
+
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    font-size: 20px;
+    margin: 25px;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  align-items: center;
   color: ${props => props.theme.header.color};
   cursor: pointer;
   display: flex;
@@ -74,12 +65,50 @@ const Link = styled.a`
   }
 `;
 
-const LinkNavigation = styled(Link)`
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+const StyledLinkNavigation = styled(StyledLink)`
+  padding: 0 30px;
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
     font-size: 20px;
     margin: 25px;
   }
 `;
+
+const Navbar = styled.div`
+  display: flex;
+  height: 40px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const LogoContainer = styled.div`
+  align-items: center;
+  display: flex;
+`;
+
+const StyledLinkContainer = styled.div`
+  align-items: center;
+  display: flex;
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    flex-direction: column;
+    align-items: baseline;
+    padding-left: 15px;
+  }
+`;
+
+const DesktopNavigation = styled.div`
+  margin-top: 5px;
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    display: none;
+  }
+`;
+
+// const StyledLink = styled(StyledLink)`
+// @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+// font-size: 20px;
+// margin: 25px;
+// }
+// `;
 
 const Logo = styled.img`
   width: 28px;
@@ -103,30 +132,25 @@ const HamburgerIcon = styled.img`
   width: 28px;
   height: 28px;
   display: none;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: inline-block;
   }
 `;
 
-const CommunityWrapper = styled.div``;
+const CommunityWrapper = styled.div`
+  display: flex;
+  @media only screen and (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    margin-left: 54px;
+  }
+`;
 
 const CommunityButton = styled(Button)`
   margin-right: 10px;
-  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
-    width: 180px;
-  }
 `;
 
 const CommunityButtonSecondary = styled(CommunityButton)`
   background-color: white;
   color: #2e6dde;
-  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
-    margin-top: 30px;
-  }
-`;
-
-const CommunityLink = styled.a`
-  display: inline-block;
 `;
 
 interface HeaderProps {
@@ -141,20 +165,23 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
     if (isLoggedIn) {
       return (
         <CommunityWrapper>
-          <CommunityLink href={"/file-manager"}>
+          <StyledLink to={"/file-manager"}>
             <CommunityButton>Dashboard</CommunityButton>
-          </CommunityLink>
+          </StyledLink>
+          <StyledLink to={"/logout"}>
+            <CommunityButton>Logout</CommunityButton>
+          </StyledLink>
         </CommunityWrapper>
       );
     } else {
       return (
         <CommunityWrapper>
-          <CommunityLink href={"/sign-up"}>
+          <StyledLink to={"/sign-up"}>
             <CommunityButtonSecondary>Sign up</CommunityButtonSecondary>
-          </CommunityLink>
-          <CommunityLink href={"/login"}>
+          </StyledLink>
+          <StyledLink to={"/login"}>
             <CommunityButton>Login</CommunityButton>
-          </CommunityLink>
+          </StyledLink>
         </CommunityWrapper>
       );
     }
@@ -162,54 +189,28 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
 
   const renderNavigation = () => {
     switch (type) {
+      case HEADER_TYPES.TEAM_PAGE:
       case HEADER_TYPES.LANDING_PAGE:
         return (
-          <LinkContainer>
-            <LinkNavigation href="/stands-out">STANDS OUT</LinkNavigation>
-            <LinkNavigation href="/team-page">TEAM</LinkNavigation>
-
-            <LinkNavigation
-              href="https://medium.com/opacity-storage/"
-              target="_blank"
-            >
+          <StyledLinkContainer>
+            <StyledLinkNavigation to="/stands-out">
+              The Platform
+            </StyledLinkNavigation>
+            <StyledLinkNavigation to="/team-page">TEAM</StyledLinkNavigation>
+            <HyperLink href="//medium.com/opacity-storage/" target="_blank">
               BLOG
-            </LinkNavigation>
+            </HyperLink>
             {renderButtons()}
-          </LinkContainer>
-        );
-      case HEADER_TYPES.SCREEN_CONTAINER:
-        return (
-          <LinkContainer>
-            <LinkNavigation href="/team-page">ABOUT US</LinkNavigation>
-            <LinkNavigation href="/team-page">RESOURCES</LinkNavigation>
-            <LinkNavigation
-              href="https://medium.com/opacity-storage/"
-              target="_blank"
-            >
-              BLOG
-            </LinkNavigation>
-          </LinkContainer>
-        );
-      case HEADER_TYPES.TEAM_PAGE:
-        return (
-          <LinkContainer>
-            <LinkNavigation href="/stands-out">THE PLATFORM</LinkNavigation>
-            <LinkNavigation href="/team-page">TEAM</LinkNavigation>
-            <LinkNavigation
-              href="https://medium.com/opacity-storage/"
-              target="_blank"
-            >
-              BLOG
-            </LinkNavigation>
-            {renderButtons()}
-          </LinkContainer>
+          </StyledLinkContainer>
         );
       case HEADER_TYPES.FILE_MANAGER:
         return (
-          <LinkContainer>
-            <LinkNavigation href="/logout">Logout</LinkNavigation>
-          </LinkContainer>
+          <StyledLinkContainer>
+            <HyperLink href="/logout">Logout</HyperLink>
+          </StyledLinkContainer>
         );
+      case HEADER_TYPES.EMPTY:
+        return <StyledLinkContainer />;
       default:
         return null;
     }
@@ -220,16 +221,11 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
       <Container>
         <Navbar>
           <LogoContainer>
-            <Link title="Opacity Storage's Logo" href="/">
+            <StyledLink title="Opacity Storage's Logo" to="/">
               <Logo src={ICON_LOGO} alt="logo" />
               <CompanyName>Opacity</CompanyName>
-            </Link>
+            </StyledLink>
           </LogoContainer>
-          <HamburgerIcon
-            src={ICON_HAMBURGER}
-            alt="navigation"
-            onClick={() => setIsHamburgerOpen(true)}
-          />
           <DesktopNavigation>{renderNavigation()}</DesktopNavigation>
           <HamburgerMenu
             isOpen={isHamburgerOpen}
@@ -237,6 +233,13 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
           >
             {renderNavigation()}
           </HamburgerMenu>
+          {type !== HEADER_TYPES.EMPTY && (
+            <HamburgerIcon
+              src={ICON_HAMBURGER}
+              alt="navigation"
+              onClick={() => setIsHamburgerOpen(true)}
+            />
+          )}
         </Navbar>
       </Container>
     </ThemeProvider>

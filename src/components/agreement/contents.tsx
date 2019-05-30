@@ -8,8 +8,11 @@ import Header from "../shared/header";
 import { HEADER_TYPES, AGREEMENT_TYPES, theme } from "../../config";
 import TOS_MARKDOWN from "./terms-of-service.md";
 import PRIVACY_POLICY from "./privacy-policy.md";
+import CODE_REVIEW_LICENSE from "./code-review-license.md";
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const AgreementMarkdownComponent = props => (
   <div>
@@ -34,6 +37,8 @@ const Contents = ({ type, title, isLoggedIn }) => {
       switch (type) {
         case AGREEMENT_TYPES.PRIVACY_POLICY:
           return PRIVACY_POLICY;
+        case AGREEMENT_TYPES.CODE_REVIEW_LICENSE:
+          return CODE_REVIEW_LICENSE;
         default:
           return TOS_MARKDOWN;
       }
@@ -50,7 +55,7 @@ const Contents = ({ type, title, isLoggedIn }) => {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+        <Header type={HEADER_TYPES.EMPTY} />
         <ScreenContainer title={title}>
           <AgreementMarkdown source={text} />
         </ScreenContainer>

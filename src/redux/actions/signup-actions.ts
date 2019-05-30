@@ -1,33 +1,22 @@
-const SET_PRIVATE_KEY = "opacity/signup/set-private-key";
-const GET_INVOICE_PENDING = "opacity/signup/get-invoice-pending";
-const GET_INVOICE_SUCCESS = "opacity/signup/get-invoice-success";
-const GET_INVOICE_FAILURE = "opacity/signup/get-invoice-failure";
+const SHOW_ADDRESS = "opacity/signup/show-address";
+const POLL_PAYMENT = "opacity/signup/poll-payment";
 const ACCOUNT_PAID_SUCCESS = "opacity/signup/account-paid-success";
 const ACCOUNT_PAID_FAILURE = "opacity/signup/account-paid-failure";
+const GO_BACK = "opacity/signup/go-back";
 
 const ACTIONS = Object.freeze({
-  SET_PRIVATE_KEY,
-  GET_INVOICE_PENDING,
-  GET_INVOICE_SUCCESS,
-  GET_INVOICE_FAILURE,
+  SHOW_ADDRESS,
+  POLL_PAYMENT,
   ACCOUNT_PAID_SUCCESS,
   ACCOUNT_PAID_FAILURE,
+  GO_BACK,
 
-  setPrivateKey: ({ privateKey }) => ({
-    type: SET_PRIVATE_KEY,
-    payload: { privateKey }
+  showAddress: () => ({
+    type: SHOW_ADDRESS
   }),
-  getInvoicePending: ({ privateKey, storagePin }) => ({
-    type: GET_INVOICE_PENDING,
-    payload: { privateKey, storagePin }
-  }),
-  getInvoiceSuccess: ({ accountId, invoice }) => ({
-    type: GET_INVOICE_SUCCESS,
-    payload: { accountId, invoice }
-  }),
-  getInvoiceFailure: ({ error }) => ({
-    type: GET_INVOICE_FAILURE,
-    payload: { error }
+  pollPayment: ({ waitForPaymentFn }) => ({
+    type: POLL_PAYMENT,
+    payload: { waitForPaymentFn }
   }),
   accountPaidSuccess: () => ({
     type: ACCOUNT_PAID_SUCCESS
@@ -35,6 +24,9 @@ const ACTIONS = Object.freeze({
   accountPaidFailure: ({ error }) => ({
     type: ACCOUNT_PAID_FAILURE,
     payload: { error }
+  }),
+  goBack: () => ({
+    type: GO_BACK
   })
 });
 

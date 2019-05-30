@@ -21,7 +21,7 @@ const fetchDefaultMetamaskAccount = () => {
     const account = window.web3.eth.getAccounts(accounts => accounts[0]);
     return Promise.resolve(account);
   } else {
-    return Promise.reject(new Error("Metamask error fetching address"));
+    return Promise.reject(new Error("MetaMask error fetching address"));
   }
 };
 
@@ -44,6 +44,7 @@ const sendTransaction = ({ cost, from, to, gasPrice, nonce }) =>
       web3.toWei(cost, "ether"),
       {
         from,
+        gas: 60000,
         gasPrice: web3.toWei(gasPrice, "gwei")
       },
       (err, res) => {

@@ -14,7 +14,7 @@ const Container = styled.div`
 const SubscriptionSlide = () => (
   <ThemeProvider theme={theme}>
     <Container>
-      <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+      <Header type={HEADER_TYPES.EMPTY} />
       <ScreenContainer title={"Choose Subscription Plan"}>
         <Subscription />
       </ScreenContainer>

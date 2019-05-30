@@ -6,35 +6,32 @@ import metamaskActions from "../../redux/actions/metamask-actions";
 import CreateAccount from "./create-account";
 
 const mapStateToProps = state => ({
-  invoice: state.signup.invoice,
-  phase: state.signup.phase,
-  privateKey: state.signup.privateKey
+  phase: state.signup.phase
 });
 
 const mapDispatchToProps = dispatch => ({
-  setPrivateKey: privateKey =>
-    dispatch(signupActions.setPrivateKey({ privateKey })),
-  getInvoice: (privateKey, storagePin) =>
-    dispatch(signupActions.getInvoicePending({ privateKey, storagePin })),
+  showAddress: () => dispatch(signupActions.showAddress()),
+  pollPayment: waitForPaymentFn =>
+    dispatch(signupActions.pollPayment({ waitForPaymentFn })),
+  goBack: () => dispatch(signupActions.goBack()),
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
     dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice }))
 });
 
 const SignUp = ({
   phase,
-  setPrivateKey,
-  privateKey,
+  goBack,
+  showAddress,
   invoice,
-  getInvoice,
+  pollPayment,
   openMetamask
 }) => (
   <CreateAccount
     phase={phase}
-    setPrivateKey={setPrivateKey}
-    privateKey={privateKey}
-    invoice={invoice}
+    showAddress={showAddress}
     openMetamask={openMetamask}
-    getInvoice={getInvoice}
+    pollPayment={pollPayment}
+    goBack={goBack}
   />
 );
 

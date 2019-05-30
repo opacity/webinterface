@@ -2,6 +2,9 @@ export const IS_DEV = process.env.NODE_ENV === "development";
 
 const PROTOCOL = IS_DEV ? "http" : "https";
 
+export const HOST = IS_DEV ? "localhost:3001" : "beta.opacity.io";
+export const FRONT_END_URL = `${PROTOCOL}://${HOST}`;
+
 const POLLING_NODE = IS_DEV
   ? // ? ["18.191.77.193"] // Travis broker
     ["13.58.191.143"]
@@ -13,7 +16,7 @@ export const OLD_TANGLE_NODE_2 = "https://poll.opacitynodes.com:14265";
 export const PROD_IOTA_1 = "prodiota1.opacitynodes.com";
 export const PROD_IOTA_2 = "prodiota2.opacitynodes.com";
 
-export const EXCHANGE_LINK = "https://www.kucoin.com/";
+export const EXCHANGE_LINK = "https://www.kucoin.com/trade/OPQ-BTC";
 
 const IOTA_PROVIDERS = IS_DEV
   ? // ? ["18.222.56.121", "18.191.77.193"]
@@ -46,6 +49,7 @@ export const API = Object.freeze({
   BROKER_NODE_A: `${PROTOCOL}://${ALPHA_IP}`,
   BROKER_NODE_B: `${PROTOCOL}://${BETA_IP}`,
   DEFAULT_BROKER: `${PROTOCOL}://${DEFAULT_BROKER_IP}`,
+  STORAGE_NODE: `${PROTOCOL}://${DEFAULT_BROKER_IP}:3000`,
   V2_UPLOAD_SESSIONS_PATH: ":3000/api/v2/upload-sessions",
   V2_STATUS_PATH: ":3000/api/v2/status",
   V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",
@@ -87,27 +91,29 @@ export const IOTA_POLL_INTERVAL = 2000;
 
 export const AGREEMENT_TYPES = Object.freeze({
   TERMS_OF_SERVICE: "TERMS_OF_SERVICE",
-  PRIVACY_POLICY: "PRIVACY_POLICY"
+  PRIVACY_POLICY: "PRIVACY_POLICY",
+  CODE_REVIEW_LICENSE: "CODE_REVIEW_LICENSE"
 });
 
 export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
-export const LANDING_PAGE_VIDEO = "https://www.sms-zdarma.info/opacity480.mov";
+export const LANDING_PAGE_VIDEO =
+  "https://s3.us-east-2.amazonaws.com/opacity-public/whatIsOpacity.mov";
 
 export enum HEADER_TYPES {
   LANDING_PAGE = "LANDING_PAGE",
   FILE_MANAGER = "FILE_MANAGER",
-  SCREEN_CONTAINER = "SCREEN_CONTAINER",
-  TEAM_PAGE = "TEAM_PAGE"
+  TEAM_PAGE = "TEAM_PAGE",
+  EMPTY = "EMPTY"
 }
 
 export const DESKTOP_WIDTH = "997";
 export const MOBILE_WIDTH = "567";
 export const SUBSCRIPTION_DESKTOP_WIDTH = "1200";
 export const LANDING_PAGE_MOBILE_WIDTH = "800";
-export const HEADER_MOBILE_WIDTH = "980";
+export const HEADER_MOBILE_WIDTH = "745";
 export const STANDS_OUT_TABLET_WIDTH = "872";
 export const STANDS_OUT_DESKTOP_WIDTH = "1000";
 
