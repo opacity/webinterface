@@ -168,7 +168,9 @@ class RecordRecoveryPhraseSlide extends Component<
               I agree to the{" "}
               <OutboundLink href="/terms-of-service">
                 Terms of Service
-              </OutboundLink>
+              </OutboundLink>{" "}
+              and{" "}
+              <OutboundLink href="/privacy-policy">Privacy Policy</OutboundLink>
             </CheckboxLabel>
           </TermsOfService>
         </ContentBox>

@@ -21,7 +21,7 @@ const fetchDefaultMetamaskAccount = () => {
     const account = window.web3.eth.getAccounts(accounts => accounts[0]);
     return Promise.resolve(account);
   } else {
-    return Promise.reject(new Error("Metamask error fetching address"));
+    return Promise.reject(new Error("MetaMask error fetching address"));
   }
 };
 

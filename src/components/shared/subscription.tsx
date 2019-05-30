@@ -143,6 +143,8 @@ const Button = styled.button`
 
   &:disabled {
     background-color: #dfdfdf;
+    color: #4f5e78;
+    border: 1px solid #4f5e78;
   }
 `;
 

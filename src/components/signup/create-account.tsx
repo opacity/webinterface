@@ -77,7 +77,7 @@ const CreateAccount = ({
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+        <Header type={HEADER_TYPES.EMPTY} />
         <ScreenContainer
           title={
             "Register on Opacity: " +
