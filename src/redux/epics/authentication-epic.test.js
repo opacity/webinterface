@@ -16,7 +16,7 @@ const masterHandle = {
 
 MasterHandle.mockImplementation(() => masterHandle);
 
-test("authenticationEpic loginEpic", done => {
+test("loginEpic", done => {
   const action$ = ActionsObservable.of({
     type: authenticationActions.LOGIN_PENDING,
     payload: {
