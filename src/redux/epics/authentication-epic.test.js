@@ -23,10 +23,8 @@ test("loginEpic", done => {
       privateKey: "foo"
     }
   });
-  const state$ = null;
-  const dependencies$ = {};
 
-  authenticationEpic(action$, state$, dependencies$)
+  authenticationEpic(action$)
     .toArray()
     .subscribe(actions => {
       expect(actions).toEqual([

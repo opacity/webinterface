@@ -1,5 +1,4 @@
 import { of } from "rxjs";
-import { asyncScheduler } from "rxjs";
 import "rxjs/add/operator/toArray";
 import { push } from "connected-react-router";
 
