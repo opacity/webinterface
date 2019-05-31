@@ -13,7 +13,7 @@ import Hr from "./hr";
 import Title from "./title";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
-import LoadingSpinner from "../shared/loading-spinner";
+import Spinner from "../shared/spinner";
 
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
@@ -181,7 +181,7 @@ class SendPaymentSlide extends Component<
             confirmed. Please be patient.
           </Content>
           <Wrapper>
-            <LoadingSpinner />
+            <Spinner isActive={true} className={""} />
           </Wrapper>
           <LabelColored>Send {cost} OPQ to Payment Address:</LabelColored>
           <EthAddressWrapper>
