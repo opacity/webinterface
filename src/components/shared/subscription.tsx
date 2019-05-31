@@ -165,7 +165,7 @@ const Footer = styled.div`
   }
 `;
 
-const Subscription = () => (
+const Subscription = ({ setSubscription }) => (
   <ThemeProvider theme={theme}>
     <Container>
       {_.map(SUBSCRIPTION_LIST, item => (
@@ -183,7 +183,9 @@ const Subscription = () => (
               <ButtonWrapper>
                 <Button
                   disabled={!item.isAvailable}
-                  onClick={() => window.open("/sign-up", "_self")}
+                  onClick={() => {
+                    setSubscription(item);
+                  }}
                 >
                   {item.button}
                 </Button>

@@ -128,7 +128,7 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
           Download phrase as CSV
         </DownloadButton>
         <Recaptcha
-          ref={ref => (recaptcha = ref)}
+          ref={recaptcha}
           sitekey={RECAPTCHA_SITEKEY}
           onResolved={() => onResolved()}
         />

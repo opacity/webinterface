@@ -5,6 +5,7 @@ import coinMarketCap from "./coinmarketcap-reducer";
 import signup from "./signup-reducer";
 import files from "./files-reducer";
 import authentication from "./authentication-reducer";
+import subscription from "./subscription-reducer";
 
 export default history =>
   combineReducers({
@@ -12,5 +13,6 @@ export default history =>
     coinMarketCap,
     signup,
     files,
-    authentication
+    authentication,
+    subscription
   });

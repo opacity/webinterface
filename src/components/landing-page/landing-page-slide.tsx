@@ -329,7 +329,7 @@ const ContentPurchase = styled.a`
   display: inline-block;
 `;
 
-const LandingPageSlide = ({ history, isLoggedIn }) => (
+const LandingPageSlide = ({ history, isLoggedIn, setSubscription }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
       <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
@@ -436,7 +436,7 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
       <SubscriptionContainerImage>
         <SubscriptionContainer>
           <SubscriptionTitle>Our Plans</SubscriptionTitle>
-          <Subscription />
+          <Subscription setSubscription={item => setSubscription(item)} />
         </SubscriptionContainer>
       </SubscriptionContainerImage>
       <Container>
