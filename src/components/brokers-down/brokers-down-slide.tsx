@@ -19,7 +19,7 @@ const Link = styled.a`
 const BrokersDownSlide = () => (
   <ThemeProvider theme={theme}>
     <Container>
-      <Header type={HEADER_TYPES.SCREEN_CONTAINER} />
+      <Header type={HEADER_TYPES.EMPTY} />
       <ScreenContainer title={"Broker Nodes Offline"}>
         <ScreenDescription>
           Opacity Storage’s broker nodes are currently offline. Uploads are

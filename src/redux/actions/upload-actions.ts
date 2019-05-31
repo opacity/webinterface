@@ -1,29 +1,29 @@
-const UPLOAD = "opacity/upload/stream";
-const UPLOAD_PROGRESS = "opacity/upload/stream-upload-progress";
-const UPLOAD_SUCCESS = "opacity/upload/stream-upload-success";
-const UPLOAD_ERROR = "opacity/upload/stream-upload-error";
+const UPLOAD_FILES = "opacity/upload/upload-files";
+const UPLOAD_FILE = "opacity/upload/upload-file";
+const UPLOAD_SUCCESS = "opacity/upload/upload-success";
+const UPLOAD_ERROR = "opacity/upload/upload-error";
 
 const ACTIONS = Object.freeze({
-  UPLOAD,
-  UPLOAD_PROGRESS,
+  UPLOAD_FILES,
+  UPLOAD_FILE,
   UPLOAD_SUCCESS,
   UPLOAD_ERROR,
 
-  streamUpload: ({ files, accountId }) => ({
-    type: UPLOAD,
-    payload: { files, accountId }
+  uploadFiles: ({ files, masterHandle }) => ({
+    type: UPLOAD_FILES,
+    payload: { files, masterHandle }
   }),
-  streamUploadProgress: ({ progress }) => ({
-    type: UPLOAD_PROGRESS,
-    payload: { progress }
+  uploadFile: ({ file, masterHandle }) => ({
+    type: UPLOAD_FILE,
+    payload: { file, masterHandle }
   }),
-  streamUploadSuccess: ({ handle }) => ({
+  uploadSuccess: ({ masterHandle }) => ({
     type: UPLOAD_SUCCESS,
-    payload: { handle }
+    payload: { masterHandle }
   }),
-  streamUploadError: ({ handle, err }) => ({
+  uploadError: ({ handle, error }) => ({
     type: UPLOAD_ERROR,
-    payload: { err }
+    payload: { error }
   })
 });
 

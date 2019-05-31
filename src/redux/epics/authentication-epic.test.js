@@ -1,36 +1,35 @@
 import { ActionsObservable } from "redux-observable";
 import "rxjs/add/operator/toArray";
-import { push } from "react-router-redux";
+import { push } from "connected-react-router";
+import { MasterHandle } from "opaque";
 
 import authenticationActions from "../actions/authentication-actions";
 import authenticationEpic from "./authentication-epic";
 
-jest.mock("../../services/backend", () => ({
-  login: ({ accountId }) => new Promise((resolve, reject) => resolve())
+jest.mock("opaque", () => ({
+  MasterHandle: jest.fn()
 }));
 
-jest.mock("../../services/account", () => ({
-  getMetadataKey: () => "FAKE_METADATA_KEY",
-  getAccountId: () => "FAKE_ACCOUNT_ID"
-}));
+const masterHandle = {
+  isPaid: jest.fn().mockResolvedValue(true)
+};
 
-test("authenticationEpic loginEpic", async done => {
+MasterHandle.mockImplementation(() => masterHandle);
+
+test("loginEpic", done => {
   const action$ = ActionsObservable.of({
     type: authenticationActions.LOGIN_PENDING,
     payload: {
-      privateKey: "foo",
-      storagePin: "bar"
+      privateKey: "foo"
     }
   });
-  const state$ = null;
-  const dependencies$ = {};
 
-  authenticationEpic(action$, state$, dependencies$)
+  authenticationEpic(action$)
     .toArray()
     .subscribe(actions => {
       expect(actions).toEqual([
         authenticationActions.loginSuccess({
-          accountId: "FAKE_ACCOUNT_ID"
+          masterHandle
         }),
         push("/file-manager")
       ]);

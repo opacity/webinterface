@@ -456,11 +456,10 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
             <FunctionIconMobile src={ICON_ACCESS_ACCOUNT} />
             <FunctionContent>
               When you sign up with Opacity, a unique Account Handle is created
-              just for you. This Handle and a user-chosen pin is all that is
-              required to access your storage account. By default, you are the
-              only person with this information, so it is important that you
-              record your Account Handle and pin to avoid trouble accessing your
-              account. Keep it safe!
+              just for you. This Handle is all that is required to access your
+              storage account. By default, you are the only person with this
+              information, so it is important that you record your Account
+              Handle to avoid trouble accessing your account. Keep it safe!
             </FunctionContent>
           </Column>
         </FunctionSubContainer>

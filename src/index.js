@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
-import { ConnectedRouter } from "react-router-redux";
+import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch } from "react-router";
 import Modal from "react-modal";
 
@@ -22,6 +22,7 @@ import Signup from "./components/signup";
 import TeamPage from "./components/team-page";
 import StandsOut from "./components/stands-out";
 import FileManager from "./components/file-manager";
+import SharePage from "./components/share-page";
 
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
@@ -54,6 +55,7 @@ const App = () => (
             <Route path="/logout" component={Logout} />
             <Route path="/forgot-page" component={ForgotPage} />
             <Route path="/team-page" component={TeamPage} />
+            <Route path="/share" component={SharePage} />
             <AuthenticatedRoute path="/file-manager" component={FileManager} />
 
             <Route
@@ -71,6 +73,15 @@ const App = () => (
                 <Agreement
                   title="Privacy Policy"
                   type={AGREEMENT_TYPES.PRIVACY_POLICY}
+                />
+              )}
+            />
+            <Route
+              path="/code-review-license"
+              render={() => (
+                <Agreement
+                  title="Opacity Code Review License"
+                  type={AGREEMENT_TYPES.CODE_REVIEW_LICENSE}
                 />
               )}
             />

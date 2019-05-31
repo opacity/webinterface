@@ -1,53 +1,28 @@
 import actions from "./signup-actions";
 
-test("setPrivateKey", () => {
-  const privateKey = "privateKey";
+test("showMnemonic", () => {
   const expected = {
-    type: actions.SET_PRIVATE_KEY,
-    payload: {
-      privateKey
-    }
+    type: actions.SHOW_MNEMONIC
   };
-  expect(actions.setPrivateKey({ privateKey })).toEqual(expected);
+  expect(actions.showMnemonic()).toEqual(expected);
 });
 
-test("getInvoicePending", () => {
-  const privateKey = "privateKey";
-  const storagePin = "123";
+test("showAddress", () => {
   const expected = {
-    type: actions.GET_INVOICE_PENDING,
-    payload: {
-      privateKey,
-      storagePin
-    }
+    type: actions.SHOW_ADDRESS
   };
-  expect(actions.getInvoicePending({ privateKey, storagePin })).toEqual(
-    expected
-  );
+  expect(actions.showAddress()).toEqual(expected);
 });
 
-test("getInvoiceSuccess", () => {
-  const accountId = "abc";
-  const invoice = { cost: 123, ethAddress: "0x0x" };
+test("pollPayment", () => {
+  const waitForPaymentFn = jest.fn();
   const expected = {
-    type: actions.GET_INVOICE_SUCCESS,
+    type: actions.POLL_PAYMENT,
     payload: {
-      accountId,
-      invoice
+      waitForPaymentFn
     }
   };
-  expect(actions.getInvoiceSuccess({ accountId, invoice })).toEqual(expected);
-});
-
-test("getInvoiceFailure", () => {
-  const error = new Error("Foobar");
-  const expected = {
-    type: actions.GET_INVOICE_FAILURE,
-    payload: {
-      error
-    }
-  };
-  expect(actions.getInvoiceFailure({ error })).toEqual(expected);
+  expect(actions.pollPayment({ waitForPaymentFn })).toEqual(expected);
 });
 
 test("accountPaidSuccess", () => {
@@ -58,7 +33,7 @@ test("accountPaidSuccess", () => {
 });
 
 test("accountPaidFailure", () => {
-  const error = new Error("Foobar");
+  const error = new Error("foobar");
   const expected = {
     type: actions.ACCOUNT_PAID_FAILURE,
     payload: {

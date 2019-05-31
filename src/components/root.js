@@ -4,6 +4,7 @@ import styled, { ThemeProvider } from "styled-components";
 import "./shared/slicknav.css";
 import "./root.css";
 import "./responsive.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import { theme } from "../config";
 

@@ -9,13 +9,13 @@ const ACTIONS = Object.freeze({
   LOGIN_FAILURE,
   LOGOUT,
 
-  loginPending: ({ storagePin, privateKey }) => ({
+  loginPending: ({ privateKey }) => ({
     type: LOGIN_PENDING,
-    payload: { storagePin, privateKey }
+    payload: { privateKey }
   }),
-  loginSuccess: ({ accountId }) => ({
+  loginSuccess: ({ masterHandle }) => ({
     type: LOGIN_SUCCESS,
-    payload: { accountId }
+    payload: { masterHandle }
   }),
   loginFailure: ({ error }) => ({
     type: LOGIN_FAILURE,

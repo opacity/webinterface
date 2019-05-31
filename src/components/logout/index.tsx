@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
 const Logout = ({ history, logout }) => {
   useEffect(() => {
     logout();
-    history.push("/");
+    history.push("/login");
   }, []);
 
   return null;

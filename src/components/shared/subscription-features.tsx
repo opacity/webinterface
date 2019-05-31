@@ -52,7 +52,7 @@ const Item = styled.p`
   display: list-item;
   list-style-type: disc;
   list-style-position: inside;
-  width: 171px;
+  width: 260px;
   font-weight: bold;
   font-size: 12.5px;
   min-height: 28px;

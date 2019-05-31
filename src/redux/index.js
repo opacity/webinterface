@@ -3,7 +3,7 @@ import { createLogger } from "redux-logger";
 import { createEpicMiddleware } from "redux-observable";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { routerMiddleware } from "react-router-redux";
+import { routerMiddleware } from "connected-react-router";
 import createRavenMiddleware from "raven-for-redux";
 
 import epics from "./epics";
@@ -25,11 +25,11 @@ const middleware = [
 const persistConfig = {
   key: "opacity",
   storage: storage,
-  whitelist: ["authentication"]
+  whitelist: []
 };
 
 export const store = createStore(
-  persistReducer(persistConfig, reducer),
+  persistReducer(persistConfig, reducer(history)),
   composeFn(applyMiddleware(...middleware))
 );
 

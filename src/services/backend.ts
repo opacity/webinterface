@@ -2,10 +2,6 @@ import axios from "axios";
 
 import { API, IS_DEV } from "../config";
 
-enum PAYMENT_STATUSES {
-  PAID = "paid"
-}
-
 const axiosInstance = axios.create({ timeout: 200000 });
 
 export const checkStatus = hosts =>
@@ -32,46 +28,6 @@ export const checkStatus = hosts =>
       });
   });
 
-export const createAccount = ({
-  accountId,
-  storageLimit,
-  durationInMonths,
-  metadataKey
-}) =>
-  axiosInstance
-    .post(`${API.DEFAULT_BROKER}${API.V1_ACCOUNTS_PATH}`, {
-      accountId,
-      storageLimit,
-      durationInMonths,
-      metadataKey
-    })
-    .then(({ data }: any) => {
-      const { invoice } = data;
-      return invoice;
-    });
-
-export const isAccountPaid = ({ accountId }) =>
-  axiosInstance
-    .get(`${API.DEFAULT_BROKER}${API.V1_ACCOUNTS_PATH}/${accountId}`)
-    .then(({ data }: any) => {
-      const { paymentStatus } = data;
-      return paymentStatus === PAYMENT_STATUSES.PAID;
-    });
-
-export const login = ({ metadataKey }) =>
-  axiosInstance
-    .get(`${API.DEFAULT_BROKER}${API.V1_LOGIN_PATH}/${metadataKey}`)
-    .then(({ data }: any) => data);
-
-export const filesIndex = ({ metadataKey }) =>
-  axiosInstance
-    .get(`${API.DEFAULT_BROKER}${API.V1_FILES_PATH}/${metadataKey}`)
-    .then(({ data }: any) => data);
-
 export default {
-  checkStatus,
-  createAccount,
-  isAccountPaid,
-  login,
-  filesIndex
+  checkStatus
 };

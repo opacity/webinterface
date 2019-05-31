@@ -4,25 +4,49 @@ import { DragDropContextProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 
 import uploadActions from "../../redux/actions/upload-actions";
+import filesActions from "../../redux/actions/files-actions";
 import downloadActions from "../../redux/actions/download-actions";
+import removeActions from "../../redux/actions/remove-actions";
 import FileManagerSlide from "./file-manager-slide";
 
 const mapStateToProps = state => ({
-  accountId: state.authentication.accountId
+  files: state.files.list,
+  masterHandle: state.authentication.masterHandle,
+  metadata: state.authentication.metadata
 });
 
 const mapDispatchToProps = dispatch => ({
-  upload: (files, accountId) =>
-    dispatch(uploadActions.streamUpload({ files, accountId })),
-  download: handle => dispatch(downloadActions.streamDownload({ handle }))
+  upload: (files, masterHandle) =>
+    dispatch(uploadActions.uploadFiles({ files, masterHandle })),
+  download: handle => dispatch(downloadActions.downloadFile({ handle })),
+  removeFileByName: (name, handle, masterHandle) =>
+    dispatch(removeActions.removeFileByName({ name, handle, masterHandle })),
+  removeFileByHandle: (name, handle, masterHandle) =>
+    dispatch(removeActions.removeFileByHandle({ name, handle, masterHandle })),
+  getFileList: masterHandle =>
+    dispatch(filesActions.getFileList({ masterHandle }))
 });
 
-const FileManager = ({ upload, download, accountId }) => (
+const FileManager = ({
+  upload,
+  files,
+  getFileList,
+  download,
+  removeFileByName,
+  removeFileByHandle,
+  masterHandle,
+  metadata
+}) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
+      files={files}
+      getFileList={getFileList}
       upload={upload}
       download={download}
-      accountId={accountId}
+      removeFileByName={removeFileByName}
+      removeFileByHandle={removeFileByHandle}
+      masterHandle={masterHandle}
+      metadata={metadata}
     />
   </DragDropContextProvider>
 );

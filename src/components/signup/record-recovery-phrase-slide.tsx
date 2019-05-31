@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import Mnemonic from "bitcore-mnemonic";
+// import Mnemonic from "bitcore-mnemonic";
 
 import { theme, DESKTOP_WIDTH } from "../../config";
 
@@ -25,6 +25,7 @@ const DownloadButton = styled.button`
   border: none;
   color: ${props => props.theme.link.color};
   cursor: pointer;
+  font-size: 16px;
 `;
 
 const TermsOfService = styled.div`
@@ -69,12 +70,11 @@ const Box = styled.div`
 `;
 
 interface RecordRecoveryPhraseProps {
-  setPrivateKey;
+  next;
+  mnemonic;
 }
 
 interface RecordRecoveryPhraseState {
-  mnemonic;
-  privateKey;
   isTermsChecked;
 }
 
@@ -83,8 +83,6 @@ class RecordRecoveryPhraseSlide extends Component<
   RecordRecoveryPhraseState
 > {
   state = {
-    mnemonic: [],
-    privateKey: "",
     isTermsChecked: false
   };
 
@@ -101,20 +99,8 @@ class RecordRecoveryPhraseSlide extends Component<
     window.document.body.removeChild(elem);
   }
 
-  save (privateKey) {
-    const { setPrivateKey } = this.props;
-    setPrivateKey(privateKey);
-  }
-
-  componentDidMount () {
-    const code = new Mnemonic();
-    this.setState({
-      mnemonic: code.toString().split(" "),
-      privateKey: code.toHDPrivateKey().xprivkey // TODO: find out what the backend needs
-    });
-  }
-
   render () {
+    const { next, mnemonic } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <ContentBox>
@@ -133,13 +119,13 @@ class RecordRecoveryPhraseSlide extends Component<
             words safe.
           </ContentBold>
           <Grid>
-            {this.state.mnemonic.map((word, i) => (
+            {mnemonic.map((word, i) => (
               <Box key={i}>
                 {i + 1}. {word}
               </Box>
             ))}
           </Grid>
-          <DownloadButton onClick={() => this.downloadCsv(this.state.mnemonic)}>
+          <DownloadButton onClick={() => this.downloadCsv(mnemonic)}>
             Download phrase as CSV
           </DownloadButton>
           <ButtonWrapper>
@@ -148,8 +134,10 @@ class RecordRecoveryPhraseSlide extends Component<
                 const { isTermsChecked } = this.state;
 
                 isTermsChecked
-                  ? this.save(this.state.privateKey)
-                  : alert("Please accept the Terms of Service");
+                  ? next()
+                  : alert(
+                    "Please accept the Terms of Service and Privacy Policy"
+                    );
               }}
             >
               Continue
@@ -168,7 +156,9 @@ class RecordRecoveryPhraseSlide extends Component<
               I agree to the{" "}
               <OutboundLink href="/terms-of-service">
                 Terms of Service
-              </OutboundLink>
+              </OutboundLink>{" "}
+              and{" "}
+              <OutboundLink href="/privacy-policy">Privacy Policy</OutboundLink>
             </CheckboxLabel>
           </TermsOfService>
         </ContentBox>

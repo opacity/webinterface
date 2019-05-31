@@ -18,6 +18,7 @@ const Button = styled.button`
   margin: 0 10px;
   border: none;
   cursor: pointer;
+  }
 `;
 
 const UploadButton = ({ onSelected }) => {
@@ -38,6 +39,7 @@ const UploadButton = ({ onSelected }) => {
           <input
             type="file"
             id="file"
+            multiple={true}
             ref={uploadFileInput}
             onChange={e => selectFiles()}
           />

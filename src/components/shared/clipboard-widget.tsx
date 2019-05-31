@@ -51,6 +51,7 @@ const TextBox = styled.p`
   font-weight: bold;
   letter-spacing: normal;
   margin: 10px 15px;
+  white-space: nowrap;
 
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: auto;

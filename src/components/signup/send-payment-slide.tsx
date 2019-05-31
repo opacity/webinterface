@@ -22,8 +22,17 @@ const ContentBold = styled(Content)`
   min-height: 28px;
 `;
 
+const ContentCentered = styled(Content)`
+  text-align: center;
+`;
+
 const PaymentWrapper = styled.div`
   margin-top: 20px;
+  text-align: center;
+`;
+
+const QRCodeWrapper = styled.div`
+  text-align: center;
 `;
 
 const Label = styled.h3`
@@ -104,6 +113,22 @@ const ClipboardIcon = styled.img`
   object-fit: contain;
 `;
 
+const Or = styled.span`
+  display: flex;
+  flex-direction: row;
+  color: #778291;
+  margin: 22px;
+  :before,
+  :after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid #778291;
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+`;
+
 interface SendPaymentHandleProps {
   invoice;
   openMetamask;
@@ -123,9 +148,11 @@ class SendPaymentSlide extends Component<
 
   render () {
     const {
-      invoice: { ethAddress, cost },
+      invoice: { ethAddress },
       openMetamask
     } = this.props;
+
+    const cost = 2;
 
     return (
       <ThemeProvider theme={theme}>
@@ -135,7 +162,7 @@ class SendPaymentSlide extends Component<
           <Content>
             Use the Opacity Storage Token, OPQ, to pay for your storage account.
             Send your total amount of <Bold>{cost} OPQ </Bold> to the address
-            below or you may use Metamask to easily make your payment right in
+            below or you may use MetaMask to easily make your payment right in
             your browser.
           </Content>
           <ContentBold>
@@ -166,28 +193,30 @@ class SendPaymentSlide extends Component<
 
           {Metamask.isInstalled && (
             <PaymentWrapper>
+              <Or>or</Or>
               <MetamaskButton
                 onClick={() => openMetamask({ ethAddress, cost, gasPrice: 20 })}
               />
             </PaymentWrapper>
           )}
-          <div>
+          <Or>or</Or>
+          <QRCodeWrapper>
             <Label>Scan QR code to pay</Label>
             <QRCode
               value={ethAddress}
               size={200}
               renderAs="svg"
-              bgColor="transparent"
+              bgColor="#ffffff"
               fgColor="#2e3854"
               level="H"
               color="#ffffff"
               includeMargin={true}
             />
-          </div>
-          <Content>
+          </QRCodeWrapper>
+          <ContentCentered>
             Need OPQ?{" "}
             <OutboundLink href={EXCHANGE_LINK}>Purchase here</OutboundLink>
-          </Content>
+          </ContentCentered>
         </ContentBox>
       </ThemeProvider>
     );
