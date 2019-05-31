@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useRef, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Recaptcha from "react-google-invisible-recaptcha";
 // import Mnemonic from "bitcore-mnemonic";
@@ -70,40 +70,24 @@ const Box = styled.div`
   text-align: center;
 `;
 
-interface RecordRecoveryPhraseProps {
-  next;
-  mnemonic;
-}
+const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
+  const [isTermsChecked, setIsTermsChecked] = useState();
+  let recaptcha = useRef<any>(null);
 
-interface RecordRecoveryPhraseState {
-  isTermsChecked;
-}
-
-let recaptcha;
-
-class RecordRecoveryPhraseSlide extends Component<
-  RecordRecoveryPhraseProps,
-  RecordRecoveryPhraseState
-> {
-  state = {
-    isTermsChecked: false
-  };
-
-  onSubmit () {
-    const { isTermsChecked } = this.state;
+  const onSubmit = () => {
     if (!isTermsChecked) {
       alert("Please accept the Terms of Service");
-      recaptcha.reset();
+      recaptcha.current.reset();
     } else {
-      recaptcha.execute();
+      recaptcha.current.execute();
     }
-  }
+  };
 
-  onResolved () {
-    this.props.next();
-  }
+  const onResolved = () => {
+    next();
+  };
 
-  downloadCsv (array) {
+  const downloadCsv = array => {
     const csvContent = array.join(",");
     const blob = new Blob([csvContent], {
       type: "text/csv;charset=utf-8;"
@@ -114,69 +98,62 @@ class RecordRecoveryPhraseSlide extends Component<
     window.document.body.appendChild(elem);
     elem.click();
     window.document.body.removeChild(elem);
-  }
+  };
 
-  render () {
-    const { mnemonic } = this.props;
-    return (
-      <ThemeProvider theme={theme}>
-        <ContentBox>
-          <Title>IMPORTANT: Save Your Account Handle Recovery Phrase</Title>
-          <Hr />
-          <Content>
-            Your Opacity Account Handle is the key to your account. If you lose
-            the key, the 12 recovery words below will help you recover the key.
-            Record these words now and keep them in a safe place. These words
-            will allow anyone to recover your Account Handle and possibly enable
-            access to your storage account. They should not be shared with
-            anyone that you do not wish to have access to your data.
-          </Content>
-          <ContentBold>
-            Your privacy and security is in your hands. Keep these recovery
-            words safe.
-          </ContentBold>
-          <Grid>
-            {mnemonic.map((word, i) => (
-              <Box key={i}>
-                {i + 1}. {word}
-              </Box>
-            ))}
-          </Grid>
-          <DownloadButton onClick={() => this.downloadCsv(mnemonic)}>
-            Download phrase as CSV
-          </DownloadButton>
-          <Recaptcha
-            ref={ref => (recaptcha = ref)}
-            sitekey={RECAPTCHA_SITEKEY}
-            onResolved={() => this.onResolved()}
-          />
-          <ButtonWrapper>
-            <ContinueButton onClick={() => this.onSubmit()}>
-              Continue
-            </ContinueButton>
-          </ButtonWrapper>
-          <TermsOfService>
-            <CheckboxLabel htmlFor="terms-checkbox">
-              <Checkbox
-                id="terms-checkbox"
-                value="checked"
-                onChange={e =>
-                  this.setState({ isTermsChecked: e.target.checked })
-                }
-                checked={this.state.isTermsChecked}
-              />
-              I agree to the{" "}
-              <OutboundLink href="/terms-of-service">
-                Terms of Service
-              </OutboundLink>{" "}
-              and{" "}
-              <OutboundLink href="/privacy-policy">Privacy Policy</OutboundLink>
-            </CheckboxLabel>
-          </TermsOfService>
-        </ContentBox>
-      </ThemeProvider>
-    );
-  }
-}
+  return (
+    <ThemeProvider theme={theme}>
+      <ContentBox>
+        <Title>IMPORTANT: Save Your Account Handle Recovery Phrase</Title>
+        <Hr />
+        <Content>
+          Your Opacity Account Handle is the key to your account. If you lose
+          the key, the 12 recovery words below will help you recover the key.
+          Record these words now and keep them in a safe place. These words will
+          allow anyone to recover your Account Handle and possibly enable access
+          to your storage account. They should not be shared with anyone that
+          you do not wish to have access to your data.
+        </Content>
+        <ContentBold>
+          Your privacy and security is in your hands. Keep these recovery words
+          safe.
+        </ContentBold>
+        <Grid>
+          {mnemonic.map((word, i) => (
+            <Box key={i}>
+              {i + 1}. {word}
+            </Box>
+          ))}
+        </Grid>
+        <DownloadButton onClick={() => downloadCsv(mnemonic)}>
+          Download phrase as CSV
+        </DownloadButton>
+        <Recaptcha
+          ref={ref => (recaptcha = ref)}
+          sitekey={RECAPTCHA_SITEKEY}
+          onResolved={() => onResolved()}
+        />
+        <ButtonWrapper>
+          <ContinueButton onClick={() => onSubmit()}>Continue</ContinueButton>
+        </ButtonWrapper>
+        <TermsOfService>
+          <CheckboxLabel htmlFor="terms-checkbox">
+            <Checkbox
+              id="terms-checkbox"
+              value="checked"
+              onChange={e => setIsTermsChecked(e.target.checked)}
+              checked={isTermsChecked}
+            />
+            I agree to the{" "}
+            <OutboundLink href="/terms-of-service">
+              Terms of Service
+            </OutboundLink>{" "}
+            and{" "}
+            <OutboundLink href="/privacy-policy">Privacy Policy</OutboundLink>
+          </CheckboxLabel>
+        </TermsOfService>
+      </ContentBox>
+    </ThemeProvider>
+  );
+};
 
 export default RecordRecoveryPhraseSlide;

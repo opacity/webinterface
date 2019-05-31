@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from "styled-components";
 
 import {
   SUBSCRIPTION_DESKTOP_WIDTH,
-  subscriptionList,
+  SUBSCRIPTION_LIST,
   MOBILE_WIDTH,
   theme
 } from "../../config";
@@ -168,7 +168,7 @@ const Footer = styled.div`
 const Subscription = () => (
   <ThemeProvider theme={theme}>
     <Container>
-      {_.map(subscriptionList, item => (
+      {_.map(SUBSCRIPTION_LIST, item => (
         <Column key={_.random(true)}>
           <Header>
             <Title>{item.title}</Title>

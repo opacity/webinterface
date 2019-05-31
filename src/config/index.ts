@@ -199,7 +199,7 @@ export const theme = {
   letterSpacing: "normal"
 };
 
-export const subscriptionList = [
+export const SUBSCRIPTION_LIST = [
   {
     title: "Basic",
     cost: 2,
