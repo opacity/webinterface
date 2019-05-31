@@ -17,6 +17,7 @@ export const PROD_IOTA_1 = "prodiota1.opacitynodes.com";
 export const PROD_IOTA_2 = "prodiota2.opacitynodes.com";
 
 export const EXCHANGE_LINK = "https://www.kucoin.com/trade/OPQ-BTC";
+export const GTM_ID = IS_DEV ? "GTM-MTCZFC8" : "GTM-WBG5C67";
 
 const IOTA_PROVIDERS = IS_DEV
   ? // ? ["18.222.56.121", "18.191.77.193"]
