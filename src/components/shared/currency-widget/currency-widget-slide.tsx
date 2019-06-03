@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import numeral from "numeral";
 
@@ -130,92 +130,82 @@ const FooterLink = styled.a`
   color: rgb(16, 112, 224);
 `;
 
-interface CurrencyWidgetSlideProps {
-  download;
-  data;
-}
-
-class CurrencyWidgetSlide extends React.Component<CurrencyWidgetSlideProps> {
-  componentDidMount () {
-    const { download } = this.props;
+const CurrencyWidgetSlide = ({ download, data }) => {
+  useEffect(() => {
     download();
-  }
+  }, []);
 
-  render () {
-    const { data } = this.props;
-    if (data) {
-      return (
-        <Container>
-          <Widget>
-            <Header>
-              <HeaderLogo>
-                <Logo src={ICON_LOGO} />
-              </HeaderLogo>
-              <HeaderData>
-                <HeaderTitle>
-                  <HeaderLink
-                    target="_blank"
-                    href="https://coinmarketcap.com/currencies/opacity/?utm_medium=widget&utm_campaign=cmcwidget&utm_source=localhost&utm_content=opacity"
-                  >
-                    {data.name}&nbsp;({data.symbol})
-                  </HeaderLink>
-                  <HeaderPrice>
-                    {numeral(data.quotes.USD.price).format("(0.00 USD)")}
-                    &nbsp;USD&nbsp;
-                    {data.quotes.USD.percent_change_24h >= 0 && (
-                      <HeaderPercentPositive>
-                        (
-                        {numeral(data.quotes.USD.percent_change_24h).format(
-                          "0.00"
-                        )}
-                        %)
-                      </HeaderPercentPositive>
-                    )}
-                    {data.quotes.USD.percent_change_24h < 0 && (
-                      <HeaderPercentNegative>
-                        (
-                        {numeral(data.quotes.USD.percent_change_24h).format(
-                          "0.00"
-                        )}
-                        %)
-                      </HeaderPercentNegative>
-                    )}
-                  </HeaderPrice>
-                  <HeaderBTC>
-                    {numeral(data.quotes.BTC.price).format("($0.00000000)")} BTC
-                  </HeaderBTC>
-                </HeaderTitle>
-              </HeaderData>
-            </Header>
-            <Content>
-              <ContentRank>
-                RANK
-                <ContentRankData>{data.rank}</ContentRankData>
-              </ContentRank>
-              <ContentMarketCap>
-                MARKET CAP
-                <ContentData>
-                  {numeral(data.quotes.USD.market_cap).format("($0.00 a)")}
-                </ContentData>
-              </ContentMarketCap>
-              <ContentVolume>
-                VOLUME
-                <ContentData>
-                  {numeral(data.quotes.USD.volume_24h).format("($0.00 a)")}
-                </ContentData>
-              </ContentVolume>
-            </Content>
-            <Footer>
-              <FooterLink target="_blank" href="https://opacity.io">
-                Powered by Opacity
-              </FooterLink>
-            </Footer>
-          </Widget>
-        </Container>
-      );
-    }
-    return null;
-  }
-}
+  return (
+    <Container>
+      {data && (
+        <Widget>
+          <Header>
+            <HeaderLogo>
+              <Logo src={ICON_LOGO} />
+            </HeaderLogo>
+            <HeaderData>
+              <HeaderTitle>
+                <HeaderLink
+                  target="_blank"
+                  href="https://coinmarketcap.com/currencies/opacity/?utm_medium=widget&utm_campaign=cmcwidget&utm_source=localhost&utm_content=opacity"
+                >
+                  {data.name}&nbsp;({data.symbol})
+                </HeaderLink>
+                <HeaderPrice>
+                  {numeral(data.quotes.USD.price).format("(0.00 USD)")}
+                  &nbsp;USD&nbsp;
+                  {data.quotes.USD.percent_change_24h >= 0 && (
+                    <HeaderPercentPositive>
+                      (
+                      {numeral(data.quotes.USD.percent_change_24h).format(
+                        "0.00"
+                      )}
+                      %)
+                    </HeaderPercentPositive>
+                  )}
+                  {data.quotes.USD.percent_change_24h < 0 && (
+                    <HeaderPercentNegative>
+                      (
+                      {numeral(data.quotes.USD.percent_change_24h).format(
+                        "0.00"
+                      )}
+                      %)
+                    </HeaderPercentNegative>
+                  )}
+                </HeaderPrice>
+                <HeaderBTC>
+                  {numeral(data.quotes.BTC.price).format("($0.00000000)")} BTC
+                </HeaderBTC>
+              </HeaderTitle>
+            </HeaderData>
+          </Header>
+          <Content>
+            <ContentRank>
+              RANK
+              <ContentRankData>{data.rank}</ContentRankData>
+            </ContentRank>
+            <ContentMarketCap>
+              MARKET CAP
+              <ContentData>
+                {numeral(data.quotes.USD.market_cap).format("($0.00 a)")}
+              </ContentData>
+            </ContentMarketCap>
+            <ContentVolume>
+              VOLUME
+              <ContentData>
+                {numeral(data.quotes.USD.volume_24h).format("($0.00 a)")}
+              </ContentData>
+            </ContentVolume>
+          </Content>
+          <Footer>
+            <FooterLink target="_blank" href="https://opacity.io">
+              Powered by Opacity
+            </FooterLink>
+          </Footer>
+        </Widget>
+      )}
+    </Container>
+  );
+};
 
 export default CurrencyWidgetSlide;

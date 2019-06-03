@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 
 import {
@@ -267,7 +268,7 @@ const Input = styled.div`
   width: 40px;
 `;
 
-const CommunityButtonWrapper = styled.div`
+const CommunityLinkWrapper = styled.div`
   text-align: center;
   padding-bottom: 40px;
 `;
@@ -312,12 +313,25 @@ const StandsOutButton = styled(Button)`
 
 const CommunityWrapper = styled.div``;
 
-const CommunityButton = styled(Button)`
-  width: 180px;
+const CommunityLink = styled(Link)`
+  background-color: #2e6dde;
+  color: ${props => props.theme.button.color};
+  border: 1px solid white;
+  border-radius: 0px;
+  cursor: pointer;
+  outline: none;
+  padding: 0px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
   margin-right: 10px;
+  padding: 15px 50px;
 `;
 
-const CommunityButtonSecondary = styled(CommunityButton)`
+const CommunityLinkSecondary = styled(CommunityLink)`
   @media (max-width: ${MOBILE_WIDTH}px) {
     margin-top: 30px;
   }
@@ -668,14 +682,10 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
             </CommunityColumn>
           </CommunityWrapper>
         </CommunityContainer>
-        <CommunityButtonWrapper>
-          <CommunityButton onClick={() => history.push("/login")}>
-            Login
-          </CommunityButton>
-          <CommunityButtonSecondary onClick={() => history.push("/sign-up")}>
-            Sign up
-          </CommunityButtonSecondary>
-        </CommunityButtonWrapper>
+        <CommunityLinkWrapper>
+          <CommunityLink href="/sign-up">Sign up</CommunityLink>
+          <CommunityLinkSecondary href="/login">Login</CommunityLinkSecondary>
+        </CommunityLinkWrapper>
       </Community>
       <Footer />
     </ContainerWrapper>

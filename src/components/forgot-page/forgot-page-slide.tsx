@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import { HEADER_TYPES, theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
@@ -64,38 +64,29 @@ const Label = styled.h3`
   line-height: normal;
 `;
 
-interface ForgotPageSlideProps {}
-
-interface ForgotPageSlideState {}
-
-class ForgotPageSlide extends Component<
-  ForgotPageSlideProps,
-  ForgotPageSlideState
-> {
-  render () {
-    return (
-      <ThemeProvider theme={theme}>
-        <ContainerWrapper>
-          <Header type={HEADER_TYPES.TEAM_PAGE} />
-          <ScreenContainer title={"Forgot Account Handle?"}>
-            <ContentBox>
-              <Title>Recovery Account Handle</Title>
-              <Hr />
-              <InputWrapper>
-                <InputColumnWrapper>
-                  <Label>Account PIN</Label>
-                  <Input name="storage-pin" />
-                </InputColumnWrapper>
-              </InputWrapper>
-              <ButtonWrapper>
-                <ContinueButton>Recover Account Handle</ContinueButton>
-              </ButtonWrapper>
-            </ContentBox>
-          </ScreenContainer>
-        </ContainerWrapper>
-      </ThemeProvider>
-    );
-  }
-}
+const ForgotPageSlide = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <ContainerWrapper>
+        <Header type={HEADER_TYPES.TEAM_PAGE} />
+        <ScreenContainer title={"Forgot Account Handle?"}>
+          <ContentBox>
+            <Title>Recovery Account Handle</Title>
+            <Hr />
+            <InputWrapper>
+              <InputColumnWrapper>
+                <Label>Account PIN</Label>
+                <Input name="storage-pin" />
+              </InputColumnWrapper>
+            </InputWrapper>
+            <ButtonWrapper>
+              <ContinueButton>Recover Account Handle</ContinueButton>
+            </ButtonWrapper>
+          </ContentBox>
+        </ScreenContainer>
+      </ContainerWrapper>
+    </ThemeProvider>
+  );
+};
 
 export default ForgotPageSlide;

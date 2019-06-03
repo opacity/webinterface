@@ -27,7 +27,7 @@ const CreateAccount = ({
   const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [masterHandle, setMasterHandle] = useState<MasterHandle | null>(null);
   const [privateKey, setPrivateKey] = useState("");
-  const [invoice, setInvoice] = useState(null);
+  const [invoice, setInvoice] = useState<any>(null);
   const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
 
   useEffect(() => {
@@ -48,20 +48,17 @@ const CreateAccount = ({
     setPrivateKey(masterHandle.handle);
   }, []);
 
-  useEffect(
-    () => {
-      if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
-        masterHandle
-          .register()
-          .then(({ data: { invoice }, waitForPayment }: any) => {
-            setInvoice(invoice);
-            setWaitForPaymentFn(() => waitForPayment);
-          })
-          .catch(console.log);
-      }
-    },
-    [phase]
-  );
+  useEffect(() => {
+    if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
+      masterHandle
+        .register()
+        .then(({ data: { invoice }, waitForPayment }: any) => {
+          setInvoice(invoice);
+          setWaitForPaymentFn(() => waitForPayment);
+        })
+        .catch(console.log);
+    }
+  }, [phase]);
 
   return (
     <ThemeProvider theme={theme}>

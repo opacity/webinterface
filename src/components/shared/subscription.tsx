@@ -99,7 +99,7 @@ const Plan = styled.p`
 `;
 
 const Content = styled.p`
-  width: 171px;
+  width: 232px;
   min-height: 70px;
   font-size: 16px;
   font-weight: ${props => props.theme.fontWeight};
@@ -108,11 +108,13 @@ const Content = styled.p`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
-  margin: 15px 15px 0 35px;
-  height: 100px;
+  margin: 15px 15px 0 37px;
+  height: 50px;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
+    width: 171px;
     width: auto;
     margin: 0 30px 0 30px;
+    height: 100px;
   }
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
     margin: 15px 30px 15px 20px;
