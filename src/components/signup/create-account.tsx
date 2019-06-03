@@ -22,8 +22,7 @@ const CreateAccount = ({
   pollPayment,
   showMnemonic,
   openMetamask,
-  phase,
-  subscription
+  phase
 }) => {
   const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [masterHandle, setMasterHandle] = useState<MasterHandle | null>(null);
@@ -65,14 +64,7 @@ const CreateAccount = ({
     <ThemeProvider theme={theme}>
       <Container>
         <Header type={HEADER_TYPES.EMPTY} />
-        <ScreenContainer
-          title={
-            "Register on Opacity: " +
-            subscription.title +
-            " Plan " +
-            subscription.plan
-          }
-        >
+        <ScreenContainer title={"Register on Opacity"}>
           <Breadcrumbs phase={phase} />
           {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
             <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
@@ -85,11 +77,7 @@ const CreateAccount = ({
             />
           )}
           {phase === SIGNUP_PHASES.SEND_PAYMENT && (
-            <SendPaymentSlide
-              cost={subscription.cost}
-              invoice={invoice}
-              openMetamask={openMetamask}
-            />
+            <SendPaymentSlide invoice={invoice} openMetamask={openMetamask} />
           )}
           {phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
             <ConfirmPaymentSlide handle={privateKey} />
