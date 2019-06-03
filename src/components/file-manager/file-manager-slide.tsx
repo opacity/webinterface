@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { NativeTypes } from "react-dnd-html5-backend";
@@ -22,7 +21,7 @@ import UploadMobileButton from "./upload-mobile-button";
 const ICON_LOGO = require("../../assets/images/logo-login.svg");
 
 const fileTarget = {
-  drop(props, monitor) {
+  drop (props, monitor) {
     const { upload, masterHandle } = props;
     const { files } = monitor.getItem();
     upload(files, masterHandle);
@@ -212,22 +211,40 @@ const FileManagerSlide = ({
   isOver
 }) => {
   const [accountData, setAccountData] = useState("");
+  const [param, setParam] = useState("created");
+  const [order, setOrder] = useState("desc");
+  const [sharedFile, setSharedFile] = useState<File | null>(null);
+
   const account = {
     storageUsed: 25,
     storageLimit: 100
   };
-  const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
-  const [param, setParam] = useState("");
-  const [sharedFile, setSharedFile] = useState<File | null>(null);
+
+  const compare = (a, b) => {
+    if (param === "size" && order === "desc") {
+      return b.size - a.size;
+    } else if (param === "size" && order === "asc") {
+      return a.size - b.size;
+    } else if (param === "name" && order === "desc") {
+      return b.name.localeCompare(a.name);
+    } else if (param === "name" && order === "asc") {
+      return a.name.localeCompare(b.name);
+    } else if (param === "created" && order === "desc") {
+      return b.created - a.created;
+    } else if (param === "created" && order === "asc") {
+      return a.created - b.created;
+    } else {
+      return null;
+    }
+  };
 
   const sortBy = (param, order) => {
     setParam(param);
-    setOrderedFiles(_.orderBy(orderedFiles, param, order));
+    setOrder(order);
   };
 
   useEffect(() => {
-    setOrderedFiles(_.orderBy(files, "created", "desc"));
-    const publicKey = "";
+    const publicKey = ""; 
     const signature = "";
 
     backend
@@ -283,41 +300,43 @@ const FileManagerSlide = ({
                   </Tr>
                 </thead>
                 <tbody>
-                  {orderedFiles.map(({ name, handle, size, created }, i) => (
-                    <Tr key={handle ? handle : i}>
-                      <Td>
-                        <TableIcon src={ICON_LOGO} />
-                      </Td>
-                      <Td>{name}</Td>
-                      <Td>{_.truncate(handle, { length: 30 })}</Td>
-                      <Td>{moment(created).format("MM/DD/YYYY")}</Td>
-                      <Td>{formatBytes(size)}</Td>
-                      <Td>
-                        <ActionButton
-                          onClick={() =>
-                            setSharedFile({
-                              name,
-                              handle,
-                              created,
-                              size: size
-                            })
-                          }
-                        >
-                          Share
-                        </ActionButton>
-                        <ActionButton onClick={() => download(handle)}>
-                          Download
-                        </ActionButton>
-                        <ActionButton
-                          onClick={() =>
-                            removeFileByHandle(name, handle, masterHandle)
-                          }
-                        >
-                          Delete
-                        </ActionButton>
-                      </Td>
-                    </Tr>
-                  ))}
+                  {files
+                    .sort((a, b) => compare(a, b))
+                    .map(({ name, handle, size, created }, i) => (
+                      <Tr key={handle ? handle : i}>
+                        <Td>
+                          <TableIcon src={ICON_LOGO} />
+                        </Td>
+                        <Td>{name}</Td>
+                        <Td>{handle.substring(0, 30)}</Td>
+                        <Td>{moment(created).format("MM/DD/YYYY")}</Td>
+                        <Td>{formatBytes(size)}</Td>
+                        <Td>
+                          <ActionButton
+                            onClick={() =>
+                              setSharedFile({
+                                name,
+                                handle,
+                                created,
+                                size: size
+                              })
+                            }
+                          >
+                            Share
+                          </ActionButton>
+                          <ActionButton onClick={() => download(handle)}>
+                            Download
+                          </ActionButton>
+                          <ActionButton
+                            onClick={() =>
+                              removeFileByHandle(name, handle, masterHandle)
+                            }
+                          >
+                            Delete
+                          </ActionButton>
+                        </Td>
+                      </Tr>
+                    ))}
                 </tbody>
               </Table>
               <UploadMobileButton
