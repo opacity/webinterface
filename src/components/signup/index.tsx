@@ -11,10 +11,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  showMnemonic: () => dispatch(signupActions.showMnemonic()),
   showAddress: () => dispatch(signupActions.showAddress()),
   pollPayment: waitForPaymentFn =>
     dispatch(signupActions.pollPayment({ waitForPaymentFn })),
-  goBack: () => dispatch(signupActions.goBack()),
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
     dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice }))
 });
@@ -23,6 +23,7 @@ const SignUp = ({
   phase,
   subscription,
   goBack,
+  showMnemonic,
   showAddress,
   invoice,
   pollPayment,
@@ -35,6 +36,7 @@ const SignUp = ({
     pollPayment={pollPayment}
     goBack={goBack}
     subscription={subscription}
+    showMnemonic={showMnemonic}
   />
 );
 
