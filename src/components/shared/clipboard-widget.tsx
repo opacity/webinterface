@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 

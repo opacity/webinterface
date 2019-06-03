@@ -303,7 +303,6 @@ const FileManagerSlide = ({
   download,
   removeFileByHandle,
   masterHandle,
-  metadataKey,
   metadata,
   connectDropTarget,
   isOver
@@ -412,6 +411,7 @@ const FileManagerSlide = ({
                         </ActionButton>
                         <ActionButton
                           onClick={() =>
+                            confirm("Do you really want to delete this file?") &&
                             removeFileByHandle(name, handle, masterHandle)
                           }
                         >

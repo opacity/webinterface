@@ -1,5 +1,4 @@
-import _ from "lodash";
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import { theme, MOBILE_WIDTH, SUBSCRIPTION_DESKTOP_WIDTH } from "../../config";
@@ -62,7 +61,7 @@ const Item = styled.p`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
-  margin: 15px 15px 0 35px;
+  margin: 15px 15px 0 64px;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     width: auto;
     margin: 0 30px 0 30px;
@@ -73,47 +72,29 @@ const Item = styled.p`
   }
 `;
 
-interface SubscriptionFeaturesProps {
-  features;
-}
+const SubscriptionFeatures = ({ features }) => {
+  const [open, setOpen] = useState(false);
 
-interface SubscriptionFeaturesState {
-  open: boolean;
-}
+  const featuresList = features.map((item, key) => (
+    <Item key={key}>{item.title}</Item>
+  ));
 
-class SubscriptionFeatures extends Component<
-  SubscriptionFeaturesProps,
-  SubscriptionFeaturesState
-> {
-  state = { open: false };
-
-  openClick () {
-    this.setState({ open: true });
-  }
-
-  render () {
-    const { features } = this.props;
-    const { open } = this.state;
-    const featuresList = _.map(features, item => (
-      <Item key={_.random(true)}>{item.title}</Item>
-    ));
-    return (
-      <ThemeProvider theme={theme}>
-        <FeaturesContainer>
-          {!open && (
-            <MoreFeatures onClick={() => this.openClick()}>
-              <Features src={FEATURES} alt="logo" />
-              Show features
-            </MoreFeatures>
-          )}
-          <MoreInfoContainer>
-            {open && <MoreInfoTablet>{featuresList}</MoreInfoTablet>}
-            <MoreInfo>{featuresList}</MoreInfo>
-          </MoreInfoContainer>
-        </FeaturesContainer>
-      </ThemeProvider>
-    );
-  }
-}
+  return (
+    <ThemeProvider theme={theme}>
+      <FeaturesContainer>
+        {!open && (
+          <MoreFeatures onClick={() => setOpen(true)}>
+            <Features src={FEATURES} alt="logo" />
+            Show features
+          </MoreFeatures>
+        )}
+        <MoreInfoContainer>
+          {open && <MoreInfoTablet>{featuresList}</MoreInfoTablet>}
+          <MoreInfo>{featuresList}</MoreInfo>
+        </MoreInfoContainer>
+      </FeaturesContainer>
+    </ThemeProvider>
+  );
+};
 
 export default SubscriptionFeatures;

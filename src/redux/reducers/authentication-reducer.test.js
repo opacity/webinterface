@@ -4,9 +4,6 @@ import { AUTHENTICATION_STATUSES } from "../../config";
 
 const initState = {
   status: AUTHENTICATION_STATUSES.LOGGED_OUT,
-  accountId: null,
-  metadataKey: null,
-  metadata: null,
   masterHandle: null
 };
 
@@ -38,18 +35,12 @@ test("authentication-reducer LOGIN_SUCCESS", () => {
   const action = {
     type: authenticationActions.LOGIN_SUCCESS,
     payload: {
-      accountId: "a1",
-      metadataKey: "mk1",
-      metadata: "m1",
       masterHandle: "mh1"
     }
   };
   const expected = {
     ...initState,
     status: AUTHENTICATION_STATUSES.LOGGED_IN,
-    accountId: "a1",
-    metadataKey: "mk1",
-    metadata: "m1",
     masterHandle: "mh1"
   };
 

@@ -1,35 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Button from "./button";
 
 const POPUP_TIME = 300;
 
-interface ClipboardBtnProps {
-  text;
-}
-
-class ClipboardBtn extends React.Component<ClipboardBtnProps> {
-  state = { popTimeout: undefined };
-
-  render () {
-    return (
-      <CopyToClipboard
-        text={this.props.text}
-        onCopy={() => {
-          window.clearTimeout(this.state.popTimeout);
-          const popTimeout = window.setTimeout(
-            () => this.setState({ popTimeout: undefined }),
-            POPUP_TIME
-          );
-          this.setState({ popTimeout });
-        }}
-      >
-        <Button className="clipboard-button">
-          {this.state.popTimeout ? "Copied!" : this.props.children}
-        </Button>
-      </CopyToClipboard>
-    );
-  }
-}
+const ClipboardBtn = ({ text, children }) => {
+  const [popTimeout, setPopTimeout] = useState<any>(undefined);
+  return (
+    <CopyToClipboard
+      text={text}
+      onCopy={() => {
+        window.clearTimeout(popTimeout);
+        setPopTimeout(
+          window.setTimeout(() => setPopTimeout(undefined), POPUP_TIME)
+        );
+      }}
+    >
+      <Button className="clipboard-button">
+        {popTimeout ? "Copied!" : children}
+      </Button>
+    </CopyToClipboard>
+  );
+};
 
 export default ClipboardBtn;

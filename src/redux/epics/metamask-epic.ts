@@ -3,7 +3,7 @@ import { mergeMap, map, catchError, ignoreElements, tap } from "rxjs/operators";
 import { ofType, combineEpics } from "redux-observable";
 
 import metamaskActions from "../actions/metamask-actions";
-import Metamask from "../../services/metamask";
+import MetamaskService from "../../services/metamask";
 
 const METAMASK_URL = "https://metamask.io/";
 
@@ -12,7 +12,7 @@ const metamaskAccountEpic = action$ =>
     ofType(metamaskActions.CREATE_TRANSACTION),
     mergeMap(({ payload }) => {
       const { cost, ethAddress, gasPrice } = payload;
-      return fromPromise(Metamask.fetchDefaultMetamaskAccount()).pipe(
+      return fromPromise(MetamaskService.fetchDefaultMetamaskAccount()).pipe(
         map(account =>
           metamaskActions.paymentPending({
             to: ethAddress,
@@ -31,7 +31,7 @@ const metamaskTransactionEpic = action$ =>
     ofType(metamaskActions.PAYMENT_PENDING),
     mergeMap(({ payload }) => {
       const { from, to, cost, gasPrice } = payload;
-      return fromPromise(Metamask.getTransactionNonce(from)).pipe(
+      return fromPromise(MetamaskService.getTransactionNonce(from)).pipe(
         map(nonce => {
           return {
             to,
@@ -46,7 +46,7 @@ const metamaskTransactionEpic = action$ =>
     }),
     mergeMap(({ cost, to, from, gasPrice, nonce }) => {
       return fromPromise(
-        Metamask.sendTransaction({
+        MetamaskService.sendTransaction({
           cost,
           to,
           from,
