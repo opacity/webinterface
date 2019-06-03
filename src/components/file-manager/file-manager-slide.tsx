@@ -20,7 +20,33 @@ import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
 import UploadMobileButton from "./upload-mobile-button";
 
-const ICON_LOGO = require("../../assets/images/logo-login.svg");
+const ICON_DOWNLOAD = require("../../assets/images/download.svg");
+const ICON_REMOVE = require("../../assets/images/remove.svg");
+const ICON_SHARE = require("../../assets/images/share.svg");
+
+const ICON_JPG = require("../../assets/images/jpg.svg");
+const ICON_PNG = require("../../assets/images/png.svg");
+const ICON_PDF = require("../../assets/images/pdf.svg");
+const ICON_DOC = require("../../assets/images/doc.svg");
+
+const DataTypes = [
+  {
+    name: ".jpg",
+    icon: ICON_JPG
+  },
+  {
+    name: ".pdf",
+    icon: ICON_PDF
+  },
+  {
+    name: ".doc",
+    icon: ICON_DOC
+  },
+  {
+    name: ".png",
+    icon: ICON_PNG
+  }
+];
 
 const fileTarget = {
   drop (props, monitor) {
@@ -192,6 +218,18 @@ const StorageTitle = styled.p`
   color: #687892;
 `;
 
+const NoFiles = styled.p`
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  margin-top: 30px;
+  opacity: 0.8;
+`;
+
 const StorageProgressWrapper = styled.div`
   width: 138px;
   height: 10px;
@@ -274,12 +312,24 @@ const FileManagerSlide = ({
   const [sharedFile, setSharedFile] = useState<File | null>(null);
 
   const sortBy = (param, order) => {
-    setParam(param);
     setOrderedFiles(_.orderBy(orderedFiles, param, order));
   };
 
+  const iconType = name => {
+    const typeIcon = DataTypes.find(type => {
+      return name.includes(type.name);
+    });
+    return typeIcon ? (
+      <TableIcon src={typeIcon.icon} />
+    ) : (
+      <TableIcon src={ICON_DOC} />
+    );
+  };
+
   useEffect(() => {
-    setOrderedFiles(_.orderBy(files, "created", "desc"));
+    const defaultOrder = "created";
+    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+    setParam(defaultOrder);
   }, [files]);
 
   useEffect(() => {
@@ -322,7 +372,7 @@ const FileManagerSlide = ({
                     <Th>File Handle</Th>
                     <TableHeader
                       param="created"
-                      title="Date"
+                      title="Created Date"
                       paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
                     />
@@ -338,9 +388,7 @@ const FileManagerSlide = ({
                 <tbody>
                   {orderedFiles.map(({ name, handle, size, created }, i) => (
                     <Tr key={handle ? handle : i}>
-                      <Td>
-                        <TableIcon src={ICON_LOGO} />
-                      </Td>
+                      <Td>{iconType(name)}</Td>
                       <Td>{name}</Td>
                       <Td>{_.truncate(handle, { length: 30 })}</Td>
                       <Td>{moment(created).format("MM/DD/YYYY")}</Td>
@@ -356,10 +404,10 @@ const FileManagerSlide = ({
                             })
                           }
                         >
-                          Share
+                          <TableIcon src={ICON_SHARE} />
                         </ActionButton>
                         <ActionButton onClick={() => download(handle)}>
-                          Download
+                          <TableIcon src={ICON_DOWNLOAD} />
                         </ActionButton>
                         <ActionButton
                           onClick={() =>
@@ -374,6 +422,12 @@ const FileManagerSlide = ({
                   ))}
                 </tbody>
               </Table>
+              {!orderedFiles && (
+                <NoFiles>
+                  Your File Dashboard is empty. You can upload files by clicking
+                  the Upload button on the top right.
+                </NoFiles>
+              )}
               <UploadMobileButton
                 onSelected={files => upload(files, masterHandle)}
               />

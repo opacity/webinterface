@@ -19,6 +19,7 @@ const TextContainer = styled.div`
   overflow: auto;
   text-align: center;
   width: 380px;
+  margin-bottom: 40px;
 
   &::-webkit-scrollbar {
     width: 15px;
@@ -63,7 +64,7 @@ const TextBox = styled.p`
   }
 `;
 
-const Label = styled.h3`
+const Label = styled.h3<any>`
   margin: 0 0 11px 0;
   font-size: 16px;
   font-weight: 500;
@@ -73,9 +74,10 @@ const Label = styled.h3`
   letter-spacing: 0.7px;
   color: ${props => props.theme.container.content};
   text-transform: uppercase;
+  text-align: ${props => (props.textAlign ? props.textAlign : "left")};
 `;
 
-const CopyButton = styled(Button)`
+const CopyButton = styled(Button)<any>`
   border: none;
   cursor: pointer;
   align-items: center;
@@ -88,34 +90,49 @@ const CopyButton = styled(Button)`
   font-weight: bold;
   justify-content: center;
   line-height: normal;
-  margin: 40px 0 0 0px;
   text-transform: uppercase;
   width: 289px;
   height: 40px;
+  margin: ${props => (props.textAlign ? "auto" : "initial")};
 
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
   }
 `;
 
-const ClipboardWidget = ({ text, title, property }) => {
-  const [isCopied, setIsCopied] = useState(false);
-  return (
-    <ThemeProvider theme={theme}>
-      <div>
-        <Label>{title}</Label>
-        <TextContainer>
-          <TextBox>{text}</TextBox>
-        </TextContainer>
-        <CopyToClipboard text={text} onCopy={() => setIsCopied(true)}>
-          <CopyButton>
-            <Icon src={ICON_COPY} />
-            {isCopied ? "Copied!" : "Copy " + property}
-          </CopyButton>
-        </CopyToClipboard>
-      </div>
-    </ThemeProvider>
-  );
-};
+interface ClipboardWidgetProps {
+  text;
+  title;
+  property;
+  textAlign;
+}
+
+class ClipboardWidget extends Component<ClipboardWidgetProps> {
+  state = { isCopied: false };
+
+  render () {
+    const { text, title, property, textAlign } = this.props;
+
+    return (
+      <ThemeProvider theme={theme}>
+        <div>
+          <Label textAlign={textAlign}>{title}</Label>
+          <TextContainer>
+            <TextBox>{text}</TextBox>
+          </TextContainer>
+          <CopyToClipboard
+            text={text}
+            onCopy={() => this.setState({ isCopied: true })}
+          >
+            <CopyButton textAlign={textAlign}>
+              <Icon src={ICON_COPY} />
+              {this.state.isCopied ? "Copied!" : "Copy " + property}
+            </CopyButton>
+          </CopyToClipboard>
+        </div>
+      </ThemeProvider>
+    );
+  }
+}
 
 export default ClipboardWidget;
