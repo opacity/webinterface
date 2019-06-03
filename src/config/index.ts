@@ -112,8 +112,6 @@ export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
-export const RECAPTCHA_SITEKEY = "6Lfz6qUUAAAAAEcIN400w5RCwGEqavbVvomaYZ2d";
-
 export const LANDING_PAGE_VIDEO =
   "https://s3.us-east-2.amazonaws.com/opacity-public/whatIsOpacity.mov";
 
@@ -212,69 +210,3 @@ export const theme = {
   lineHeight: "normal",
   letterSpacing: "normal"
 };
-
-export const SUBSCRIPTION_LIST = [
-  {
-    title: "Basic",
-    cost: 2,
-    isAvailable: true,
-    content:
-      "Secure, encrypted storage solution perfect for the needs of the individual",
-    price: "2 OPQ / year",
-    plan: "128 GB",
-    button: "SIGN UP",
-    features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
-    ]
-  },
-  {
-    title: "Professional",
-    cost: 16,
-    isAvailable: false,
-    content:
-      "For professionals looking for a secure, easily accessible storage solution while on the move.",
-    price: "16 OPQ / year",
-    plan: "1 TB",
-    button: "COMING SOON",
-    features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
-    ]
-  },
-  {
-    title: "Business",
-    cost: 32,
-    isAvailable: false,
-    content:
-      "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
-    price: "32 OPQ / year",
-    plan: "2 TB",
-    button: "COMING SOON",
-    features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
-    ]
-  }
-];

@@ -2,12 +2,7 @@ import _ from "lodash";
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import {
-  SUBSCRIPTION_DESKTOP_WIDTH,
-  SUBSCRIPTION_LIST,
-  MOBILE_WIDTH,
-  theme
-} from "../../config";
+import { SUBSCRIPTION_DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
 
 import SubscriptionFeatures from "./subscription-features";
 
@@ -167,10 +162,73 @@ const Footer = styled.div`
   }
 `;
 
-const Subscription = ({ setSubscription }) => (
+const subscriptionList = [
+  {
+    title: "Basic",
+    isAvailable: true,
+    content:
+      "Secure, encrypted storage solution perfect for the needs of the individual",
+    price: "2 OPQ / year",
+    plan: "128 GB",
+    button: "SIGN UP",
+    features: [
+      {
+        title: "Encrypted storage"
+      },
+      {
+        title: "Unlimited downloads"
+      },
+      {
+        title: "No personal information required"
+      }
+    ]
+  },
+  {
+    title: "Professional",
+    isAvailable: false,
+    content:
+      "For professionals looking for a secure, easily accessible storage solution while on the move.",
+    price: "16 OPQ / year",
+    plan: "1 TB",
+    button: "COMING SOON",
+    features: [
+      {
+        title: "Encrypted storage"
+      },
+      {
+        title: "Unlimited downloads"
+      },
+      {
+        title: "No personal information required"
+      }
+    ]
+  },
+  {
+    title: "Business",
+    isAvailable: false,
+    content:
+      "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
+    price: "32 OPQ / year",
+    plan: "2 TB",
+    button: "COMING SOON",
+    features: [
+      {
+        title: "Encrypted storage"
+      },
+      {
+        title: "Unlimited downloads"
+      },
+      {
+        title: "No personal information required"
+      }
+    ]
+  }
+];
+
+const Subscription = () => (
   <ThemeProvider theme={theme}>
     <Container>
-      {_.map(SUBSCRIPTION_LIST, item => (
+      {_.map(subscriptionList, item => (
         <Column key={_.random(true)}>
           <Header>
             <Title>{item.title}</Title>
@@ -185,9 +243,7 @@ const Subscription = ({ setSubscription }) => (
               <ButtonWrapper>
                 <Button
                   disabled={!item.isAvailable}
-                  onClick={() => {
-                    setSubscription(item);
-                  }}
+                  onClick={() => window.open("/sign-up", "_self")}
                 >
                   {item.button}
                 </Button>
