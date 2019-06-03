@@ -217,7 +217,8 @@ const FileManagerSlide = ({
 
   const account = {
     storageUsed: 25,
-    storageLimit: 100
+    storageLimit: 100,
+    expirationDate: 1559558219
   };
 
   const compare = (a, b) => {

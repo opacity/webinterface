@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
+import moment from "moment";
 
 import { theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
 
@@ -24,7 +25,7 @@ const StorageInfo = styled.div`
   }
 `;
 
-const StorageTitleWrapper = styled.div`
+const StorageWrapper = styled.div`
   width: 138px;
   margin: auto;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
@@ -40,6 +41,10 @@ const StorageTitle = styled.p`
   line-height: normal;
   letter-spacing: normal;
   color: #687892;
+`;
+
+const StorageDate = styled(StorageTitle)`
+  margin-bottom: 40px;
 `;
 
 const ProgressBorder = styled.div`
@@ -73,11 +78,15 @@ const UserPanel = ({ account }) => (
   <ThemeProvider theme={theme}>
     <LeftSideNav>
       <StorageInfo>
-        <StorageTitleWrapper>
+        <StorageWrapper>
+          <StorageTitle>Expiration date</StorageTitle>
+          <StorageDate>
+            {moment(account.expirationDate).format("MM/DD/YYYY")}
+          </StorageDate>
           <StorageTitle>
             {account.storageUsed}GB / {account.storageLimit}GB USED
           </StorageTitle>
-        </StorageTitleWrapper>
+        </StorageWrapper>
         <ProgressBar
           progress={account.storageUsed}
           max={account.storageLimit}
