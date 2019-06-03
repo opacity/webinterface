@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled, { ThemeProvider, keyframes } from "styled-components";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
@@ -105,88 +105,64 @@ const BackButton = styled(Button)`
   }
 `;
 
-interface RecordAccountHandleProps {
-  handle;
-  next;
-  back;
-}
+const RecordAccountHandleSlide = ({ handle, next, back }) => {
+  const [isCopied, setIsCopied] = useState(false);
 
-interface RecordAccountHandleState {
-  isCopied;
-}
-
-class RecordAccountHandleSlide extends Component<
-  RecordAccountHandleProps,
-  RecordAccountHandleState
-> {
-  state = {
-    isCopied: false
-  };
-
-  render () {
-    const { handle, next, back } = this.props;
-
-    return (
-      <ThemeProvider theme={theme}>
-        <ContentBox>
-          <Title>IMPORTANT: Save Your Private Opacity Account Handle</Title>
-          <Hr />
-          <Content>
-            Your Opacity Account Handle is the key to your account. It is
-            important that you keep it safe and private. This key will allow
-            anyone that has it to access your storage account. It should not be
-            shared with anyone that you do not wish to have access to your data.
-          </Content>
-          <ContentBold>
-            Your privacy and security is in your hands. Keep these numbers safe.
-          </ContentBold>
-          <Label>Here is your Opacity Account Handle</Label>
-          <HandleWrapper>
-            <Handle>{handle}</Handle>
-            <CopyToClipboard
-              text={handle}
-              onCopy={() => this.setState({ isCopied: true })}
-            >
-              <ClipboardIconWrrapper>
-                <ClipboardIcon src={ICON_CLIPBOARD} />
-              </ClipboardIconWrrapper>
-            </CopyToClipboard>
-            {this.state.isCopied && (
-              <CopiedReminder>Copied to clipboard!</CopiedReminder>
-            )}
-          </HandleWrapper>
-          <Content>
-            Before you continue, make sure you have saved your Account Handle.
-            Without this information, you will not be able to access your
-            account. Opacity does not have access to this information and will
-            not be able to recover it for you.
-          </Content>
-          <ButtonWrapper>
-            <BackButton
-              backgroundColor="transparent"
-              border="1px solid #2e6dde"
-              color="#2e6dde"
-              margin="0 10px 0 0"
-              onClick={() => back()}
-            >
-              Back
-            </BackButton>
-            <ContinueButton
-              onClick={() => {
-                this.state.isCopied
-                  ? next()
-                  : alert(
-                    "Please make sure to copy and save your account handle before proceeding."
-                    );
-              }}
-            >
-              Continue
-            </ContinueButton>
-          </ButtonWrapper>
-        </ContentBox>
-      </ThemeProvider>
-    );
-  }
-}
+  return (
+    <ThemeProvider theme={theme}>
+      <ContentBox>
+        <Title>IMPORTANT: Save Your Private Opacity Account Handle</Title>
+        <Hr />
+        <Content>
+          Your Opacity Account Handle is the key to your account. It is
+          important that you keep it safe and private. This key will allow
+          anyone that has it to access your storage account. It should not be
+          shared with anyone that you do not wish to have access to your data.
+        </Content>
+        <ContentBold>
+          Your privacy and security is in your hands. Keep these numbers safe.
+        </ContentBold>
+        <Label>Here is your Opacity Account Handle</Label>
+        <HandleWrapper>
+          <Handle>{handle}</Handle>
+          <CopyToClipboard text={handle} onCopy={() => setIsCopied(true)}>
+            <ClipboardIconWrrapper>
+              <ClipboardIcon src={ICON_CLIPBOARD} />
+            </ClipboardIconWrrapper>
+          </CopyToClipboard>
+          {isCopied && <CopiedReminder>Copied to clipboard!</CopiedReminder>}
+        </HandleWrapper>
+        <Content>
+          Before you continue, make sure you have saved your Account Handle.
+          Without this information, you will not be able to access your account.
+          Opacity does not have access to this information and will not be able
+          to recover it for you.
+        </Content>
+        <ButtonWrapper>
+          <BackButton
+            backgroundColor="transparent"
+            border="1px solid #2e6dde"
+            color="#2e6dde"
+            margin="0 10px 0 0"
+            onClick={() => back()}
+          >
+            Back
+          </BackButton>
+          <ContinueButton
+            onClick={() => {
+              isCopied
+                ? next()
+                : alert(
+                  "Please make sure to copy and save your account handle before proceeding."
+                  );
+            }}
+          >
+            Continue
+          </ContinueButton>
+        </ButtonWrapper>
+      </ContentBox>
+    </ThemeProvider>
+  );
+};
 
 export default RecordAccountHandleSlide;

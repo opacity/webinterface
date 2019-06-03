@@ -12,6 +12,7 @@ const eslintFormatter = require("react-dev-utils/eslintFormatter");
 const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 const path = require("path");
 const merge = require("webpack-merge");
@@ -201,7 +202,14 @@ if (env.stringified["process.env"].NODE_ENV === '"production"') {
         // Don't precache sourcemaps (they're large) and build asset manifest:
         staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
       }),
-      new InterpolateHtmlPlugin(env.raw)
+      new InterpolateHtmlPlugin(env.raw),
+      new CompressionPlugin({
+        filename: "[path].gz[query]",
+        algorithm: "gzip",
+        test: /\.js$|\.css$|\.html$/,
+        threshold: 10240,
+        minRatio: 0.8
+      })
     ]
   });
 }
