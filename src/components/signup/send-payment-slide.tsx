@@ -181,7 +181,7 @@ class SendPaymentSlide extends Component<
             confirmed. Please be patient.
           </Content>
           <Wrapper>
-            <Spinner isActive={true} className={""} />
+            <Spinner isActive={true} />
           </Wrapper>
           <LabelColored>Send {cost} OPQ to Payment Address:</LabelColored>
           <EthAddressWrapper>

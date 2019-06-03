@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 
 import {
@@ -312,7 +313,7 @@ const StandsOutButton = styled(Button)`
 
 const CommunityWrapper = styled.div``;
 
-const CommunityLink = styled.a`
+const CommunityLink = styled(Link)`
   background-color: #2e6dde;
   color: ${props => props.theme.button.color};
   border: 1px solid white;
@@ -682,12 +683,8 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
           </CommunityWrapper>
         </CommunityContainer>
         <CommunityLinkWrapper>
-          <CommunityLink onClick={() => history.push("/sign-up")}>
-            Sign up
-          </CommunityLink>
-          <CommunityLinkSecondary onClick={() => history.push("/login")}>
-            Login
-          </CommunityLinkSecondary>
+          <CommunityLink href="/sign-up">Sign up</CommunityLink>
+          <CommunityLinkSecondary href="/login">Login</CommunityLinkSecondary>
         </CommunityLinkWrapper>
       </Community>
       <Footer />
