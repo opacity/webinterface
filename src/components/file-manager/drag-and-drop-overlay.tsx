@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { theme } from "../../config";
 
-const ICON_UPLOAD = require("../../assets/images/icon_upload.png");
+const ICON_UPLOAD = require("../../assets/images/icon_upload.webp");
 
 const Container = styled.div`
   position: absolute;
