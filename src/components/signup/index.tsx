@@ -6,7 +6,8 @@ import metamaskActions from "../../redux/actions/metamask-actions";
 import CreateAccount from "./create-account";
 
 const mapStateToProps = state => ({
-  phase: state.signup.phase
+  phase: state.signup.phase,
+  subscription: state.subscription.item
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -20,6 +21,8 @@ const mapDispatchToProps = dispatch => ({
 
 const SignUp = ({
   phase,
+  subscription,
+  goBack,
   showMnemonic,
   showAddress,
   invoice,
@@ -31,6 +34,8 @@ const SignUp = ({
     showAddress={showAddress}
     openMetamask={openMetamask}
     pollPayment={pollPayment}
+    goBack={goBack}
+    subscription={subscription}
     showMnemonic={showMnemonic}
   />
 );
