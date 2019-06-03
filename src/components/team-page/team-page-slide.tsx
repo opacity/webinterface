@@ -9,15 +9,15 @@ import Header from "../shared/header";
 const ICON_GITHUB = require("../../assets/images/tp-github.svg");
 const ICON_LINKEDIN = require("../../assets/images/tp-linkedin.svg");
 
-const ICON_JASON = require("../../assets/images/jason.jpg");
-const ICON_ARON = require("../../assets/images/aron.jfif");
-const ICON_TIM = require("../../assets/images/tim.png");
-const ICON_WILLIAM = require("../../assets/images/william.jfif");
-const ICON_CONNOR = require("../../assets/images/default_profile_picture.png");
-const ICON_MARCEL = require("../../assets/images/marcel.png");
-const ICON_EDMUND = require("../../assets/images/edmund.png");
-const ICON_REBEL = require("../../assets/images/rebel.jfif");
-const ICON_LADISLAV = require("../../assets/images/ladislav.png");
+const ICON_JASON = require("../../assets/images/jason.webp");
+const ICON_ARON = require("../../assets/images/aron.webp");
+const ICON_TIM = require("../../assets/images/tim.webp");
+const ICON_WILLIAM = require("../../assets/images/william.webp");
+const ICON_CONNOR = require("../../assets/images/default_profile_picture.webp");
+const ICON_MARCEL = require("../../assets/images/marcel.webp");
+const ICON_EDMUND = require("../../assets/images/edmund.webp");
+const ICON_REBEL = require("../../assets/images/rebel.webp");
+const ICON_LADISLAV = require("../../assets/images/ladislav.webp");
 
 const people = [
   {
