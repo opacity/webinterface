@@ -239,7 +239,7 @@ class SendPaymentSlide extends Component<
         </ContentCentered>
       </ContentBox>
     </ThemeProvider>
-  );
-};
+    );
+  }
 
-export default SendPaymentSlide;
+export; default; SendPaymentSlide;
