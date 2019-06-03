@@ -61,6 +61,20 @@ export const API = Object.freeze({
   CHUNKS_PER_REQUEST: 10
 });
 
+export const OPAQUE = Object.freeze({
+  UPLOAD_OPTIONS: {
+    autostart: true,
+    endpoint: API.STORAGE_NODE,
+    params: {
+      blockSize: 64 * 1024, // 256 KiB encryption blocks
+      partSize: 10 * 1024 * 1024
+    }
+  },
+  DOWNLOAD_OPTIONS: {
+    endpoint: API.STORAGE_NODE
+  }
+});
+
 export const IOTA_API = Object.freeze({
   PROVIDER_A: `${PROTOCOL}://${POLLING_NODE}:14265`,
   PROVIDER_B: `${PROTOCOL}://${PROVIDER_1}:14265`,
