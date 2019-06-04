@@ -100,39 +100,25 @@ const CopyButton = styled(Button)<any>`
   }
 `;
 
-interface ClipboardWidgetProps {
-  text;
-  title;
-  property;
-  textAlign;
-}
+const ClipboardWidget = ({ text, title, property, textAlign }) => {
+  const [isCopied, setIsCopied] = useState(false);
 
-class ClipboardWidget extends Component<ClipboardWidgetProps> {
-  state = { isCopied: false };
-
-  render () {
-    const { text, title, property, textAlign } = this.props;
-
-    return (
-      <ThemeProvider theme={theme}>
-        <div>
-          <Label textAlign={textAlign}>{title}</Label>
-          <TextContainer>
-            <TextBox>{text}</TextBox>
-          </TextContainer>
-          <CopyToClipboard
-            text={text}
-            onCopy={() => this.setState({ isCopied: true })}
-          >
-            <CopyButton textAlign={textAlign}>
-              <Icon src={ICON_COPY} />
-              {this.state.isCopied ? "Copied!" : "Copy " + property}
-            </CopyButton>
-          </CopyToClipboard>
-        </div>
-      </ThemeProvider>
-    );
-  }
-}
+  return (
+    <ThemeProvider theme={theme}>
+      <div>
+        <Label textAlign={textAlign}>{title}</Label>
+        <TextContainer>
+          <TextBox>{text}</TextBox>
+        </TextContainer>
+        <CopyToClipboard text={text} onCopy={() => setIsCopied(true)}>
+          <CopyButton textAlign={textAlign}>
+            <Icon src={ICON_COPY} />
+            {isCopied ? "Copied!" : "Copy " + property}
+          </CopyButton>
+        </CopyToClipboard>
+      </div>
+    </ThemeProvider>
+  );
+};
 
 export default ClipboardWidget;

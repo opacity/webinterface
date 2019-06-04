@@ -278,3 +278,27 @@ export const SUBSCRIPTION_LIST = [
     ]
   }
 ];
+
+const ICON_JPG = require("../assets/images/jpg.svg");
+const ICON_PNG = require("../assets/images/png.svg");
+const ICON_PDF = require("../assets/images/pdf.svg");
+const ICON_DOC = require("../assets/images/doc.svg");
+
+export const DATA_TYPES_ICONS = [
+  {
+    name: ".jpg",
+    icon: ICON_JPG
+  },
+  {
+    name: ".pdf",
+    icon: ICON_PDF
+  },
+  {
+    name: ".doc",
+    icon: ICON_DOC
+  },
+  {
+    name: ".png",
+    icon: ICON_PNG
+  }
+];

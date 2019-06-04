@@ -22,7 +22,6 @@ const mapDispatchToProps = dispatch => ({
 const SignUp = ({
   phase,
   subscription,
-  goBack,
   showMnemonic,
   showAddress,
   invoice,
@@ -34,7 +33,6 @@ const SignUp = ({
     showAddress={showAddress}
     openMetamask={openMetamask}
     pollPayment={pollPayment}
-    goBack={goBack}
     subscription={subscription}
     showMnemonic={showMnemonic}
   />

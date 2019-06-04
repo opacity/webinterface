@@ -10,6 +10,7 @@ import {
   HEADER_TYPES,
   DESKTOP_WIDTH,
   HEADER_MOBILE_WIDTH,
+  DATA_TYPES_ICONS,
   theme
 } from "../../config";
 import { formatBytes } from "../../helpers";
@@ -23,30 +24,6 @@ import UploadMobileButton from "./upload-mobile-button";
 const ICON_DOWNLOAD = require("../../assets/images/download.svg");
 const ICON_REMOVE = require("../../assets/images/remove.svg");
 const ICON_SHARE = require("../../assets/images/share.svg");
-
-const ICON_JPG = require("../../assets/images/jpg.svg");
-const ICON_PNG = require("../../assets/images/png.svg");
-const ICON_PDF = require("../../assets/images/pdf.svg");
-const ICON_DOC = require("../../assets/images/doc.svg");
-
-const DataTypes = [
-  {
-    name: ".jpg",
-    icon: ICON_JPG
-  },
-  {
-    name: ".pdf",
-    icon: ICON_PDF
-  },
-  {
-    name: ".doc",
-    icon: ICON_DOC
-  },
-  {
-    name: ".png",
-    icon: ICON_PNG
-  }
-];
 
 const fileTarget = {
   drop (props, monitor) {
@@ -316,13 +293,13 @@ const FileManagerSlide = ({
   };
 
   const iconType = name => {
-    const typeIcon = DataTypes.find(type => {
+    const typeIcon = DATA_TYPES_ICONS.find(type => {
       return name.includes(type.name);
     });
     return typeIcon ? (
       <TableIcon src={typeIcon.icon} />
     ) : (
-      <TableIcon src={ICON_DOC} />
+      <TableIcon src={DATA_TYPES_ICONS[0].icon} />
     );
   };
 
@@ -411,11 +388,12 @@ const FileManagerSlide = ({
                         </ActionButton>
                         <ActionButton
                           onClick={() =>
-                            confirm("Do you really want to delete this file?") &&
-                            removeFileByHandle(name, handle, masterHandle)
+                            confirm(
+                              "Do you really want to delete this file?"
+                            ) && removeFileByHandle(name, handle, masterHandle)
                           }
                         >
-                          Delete
+                          <TableIcon src={ICON_REMOVE} />
                         </ActionButton>
                       </Td>
                     </Tr>
