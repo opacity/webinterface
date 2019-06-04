@@ -156,7 +156,6 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
             ref={recaptcha}
             render="explicit"
             sitekey={RECAPTCHA_SITEKEY}
-            onloadCallback={e => console.log("loadeddddddddd: ", e)}
             verifyCallback={() => setIsCaptchaVerified(true)}
           />
         </CaptchaWrapper>
