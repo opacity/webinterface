@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 import styled, { ThemeProvider } from "styled-components";
-import Recaptcha from "react-recaptcha";
+import Reaptcha from "reaptcha";
 
 import { RECAPTCHA_SITEKEY, DESKTOP_WIDTH, theme } from "../../config";
 
@@ -77,7 +77,6 @@ const Box = styled.div`
 const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
-  const recaptcha = useRef<any>(null);
 
   const onSubmit = () => {
     if (!isTermsChecked) {
@@ -152,11 +151,9 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
           </CheckboxLabel>
         </TermsOfService>
         <CaptchaWrapper>
-          <Recaptcha
-            ref={recaptcha}
-            render="explicit"
+          <Reaptcha
             sitekey={RECAPTCHA_SITEKEY}
-            verifyCallback={() => setIsCaptchaVerified(true)}
+            onVerify={() => setIsCaptchaVerified(true)}
           />
         </CaptchaWrapper>
       </ContentBox>
