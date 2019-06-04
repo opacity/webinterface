@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 
 import styled, { ThemeProvider } from "styled-components";
-import Recaptcha from "react-google-invisible-recaptcha";
-// import Mnemonic from "bitcore-mnemonic";
+import Recaptcha from "react-recaptcha";
 
 import { RECAPTCHA_SITEKEY, DESKTOP_WIDTH, theme } from "../../config";
 
@@ -21,6 +20,10 @@ const ContentBold = styled(Content)`
   text-transform: uppercase;
 `;
 
+const CaptchaWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 const DownloadButton = styled.button`
   cursor: pointer;
   background: none;
@@ -72,20 +75,16 @@ const Box = styled.div`
 `;
 
 const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
-  const [isTermsChecked, setIsTermsChecked] = useState();
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
   const recaptcha = useRef<any>(null);
 
   const onSubmit = () => {
     if (!isTermsChecked) {
       alert("Please accept the Terms of Service");
-      recaptcha.current.reset();
     } else {
-      recaptcha.current.execute();
+      next();
     }
-  };
-
-  const onResolved = () => {
-    next();
   };
 
   const downloadCsv = array => {
@@ -128,13 +127,13 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
         <DownloadButton onClick={() => downloadCsv(mnemonic)}>
           Download phrase as CSV
         </DownloadButton>
-        <Recaptcha
-          ref={recaptcha}
-          sitekey={RECAPTCHA_SITEKEY}
-          onResolved={() => onResolved()}
-        />
         <ButtonWrapper>
-          <ContinueButton onClick={() => onSubmit()}>Continue</ContinueButton>
+          <ContinueButton
+            disabled={!isCaptchaVerified}
+            onClick={() => onSubmit()}
+          >
+            Continue
+          </ContinueButton>
         </ButtonWrapper>
         <TermsOfService>
           <CheckboxLabel htmlFor="terms-checkbox">
@@ -152,6 +151,15 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
             <OutboundLink href="/privacy-policy">Privacy Policy</OutboundLink>
           </CheckboxLabel>
         </TermsOfService>
+        <CaptchaWrapper>
+          <Recaptcha
+            ref={recaptcha}
+            render="explicit"
+            sitekey={RECAPTCHA_SITEKEY}
+            onloadCallback={e => console.log("loadeddddddddd: ", e)}
+            verifyCallback={() => setIsCaptchaVerified(true)}
+          />
+        </CaptchaWrapper>
       </ContentBox>
     </ThemeProvider>
   );

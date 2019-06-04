@@ -9,6 +9,12 @@ export default styled(Button)`
   margin: auto;
   text-align: center;
   width: 171px;
+  &:disabled {
+    background-color: ${props => theme.button.disabled.background};
+    color: ${props => theme.button.disabled.color};
+    border: ${props => theme.button.disabled.border};
+  }
+
   @media (max-width: ${DESKTOP_WIDTH}px) {
     width: 100%;
   }

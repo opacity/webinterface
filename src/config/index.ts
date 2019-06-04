@@ -112,7 +112,9 @@ export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
-export const RECAPTCHA_SITEKEY = "6Lfz6qUUAAAAAEcIN400w5RCwGEqavbVvomaYZ2d";
+export const RECAPTCHA_SITEKEY = IS_DEV
+  ? "6LciI6cUAAAAAL03VKUCArV9MFS8zgQn49NHItA8"
+  : "6Le3I6cUAAAAAILR-MfvTFAi258rXVSd10HVXBoI";
 
 export const LANDING_PAGE_VIDEO =
   "https://s3.us-east-2.amazonaws.com/opacity-public/whatIsOpacity.mov";
@@ -204,7 +206,12 @@ export const theme = {
   },
   button: {
     background: "#2e6dde",
-    color: "#ffffff"
+    color: "#ffffff",
+    disabled: {
+      background: "#dfdfdf",
+      color: "#4f5e78",
+      border: "1px solid #4f5e78"
+    }
   },
   fontWeight: 500,
   fontStyle: "normal",
