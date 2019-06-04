@@ -24,11 +24,12 @@ import StandsOut from "./components/stands-out";
 import FileManager from "./components/file-manager";
 import SharePage from "./components/share-page";
 
+import GoogleTagManager from "./components/shared/google-tag-manager";
 import ErrorPage from "./components/error-page";
 import ErrorTracker from "./services/error-tracker";
 import { unregister } from "./register-service-worker";
 
-import { AGREEMENT_TYPES } from "./config";
+import { GTM_ID, AGREEMENT_TYPES } from "./config";
 
 const ScrollToTop = () => {
   window.scrollTo(0, 0);
@@ -42,6 +43,7 @@ const App = () => (
     <PersistGate loading={null} persistor={persistor}>
       <ConnectedRouter history={history}>
         <Root>
+          <GoogleTagManager gtmId={GTM_ID} />
           <Route component={ScrollToTop} />
           <Switch>
             <Route exact path="/" component={LandingPage} />
