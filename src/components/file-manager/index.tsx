@@ -12,7 +12,10 @@ import FileManagerSlide from "./file-manager-slide";
 const mapStateToProps = state => ({
   files: state.files.list,
   masterHandle: state.authentication.masterHandle,
-  metadata: state.authentication.metadata
+  metadata: state.authentication.metadata,
+  storageUsed: state.authentication.storageUsed,
+  storageLimit: state.authentication.storageLimit,
+  expirationDate: state.authentication.expirationDate
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -35,7 +38,10 @@ const FileManager = ({
   removeFileByName,
   removeFileByHandle,
   masterHandle,
-  metadata
+  metadata,
+  storageUsed,
+  storageLimit,
+  expirationDate
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
@@ -47,6 +53,9 @@ const FileManager = ({
       removeFileByHandle={removeFileByHandle}
       masterHandle={masterHandle}
       metadata={metadata}
+      storageUsed={storageUsed}
+      storageLimit={storageLimit}
+      expirationDate={expirationDate}
     />
   </DragDropContextProvider>
 );

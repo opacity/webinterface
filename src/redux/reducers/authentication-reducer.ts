@@ -3,7 +3,10 @@ import { AUTHENTICATION_STATUSES } from "../../config";
 
 const initState = {
   status: AUTHENTICATION_STATUSES.LOGGED_OUT,
-  masterHandle: null
+  masterHandle: null,
+  storageUsed: 0,
+  storageLimit: 0,
+  expirationDate: new Date()
 };
 
 const authenticationReducer = (state = initState, action) => {
@@ -21,6 +24,15 @@ const authenticationReducer = (state = initState, action) => {
       };
     case authenticationActions.LOGOUT:
       return initState;
+
+    case authenticationActions.FETCH_ACCOUNT_DATA_SUCCESS:
+      const { storageUsed, storageLimit, expirationDate } = action.payload;
+      return {
+        ...state,
+        storageUsed,
+        storageLimit,
+        expirationDate
+      };
 
     default:
       return state;

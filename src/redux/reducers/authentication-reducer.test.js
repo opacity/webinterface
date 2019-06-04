@@ -4,7 +4,10 @@ import { AUTHENTICATION_STATUSES } from "../../config";
 
 const initState = {
   status: AUTHENTICATION_STATUSES.LOGGED_OUT,
-  masterHandle: null
+  masterHandle: null,
+  storageUsed: 0,
+  storageLimit: 0,
+  expirationDate: new Date()
 };
 
 test("authentication-reducer LOGIN_PENDING", () => {

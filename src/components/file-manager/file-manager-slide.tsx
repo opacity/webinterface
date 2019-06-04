@@ -64,6 +64,23 @@ const TableContainer = styled.div`
   }
 `;
 
+const UsageInfo = styled.h4`
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #687892;
+  margin: 0;
+`;
+
+const UsageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
 const Title = styled.h1`
   font-size: 32px;
   font-weight: bold;
@@ -72,6 +89,14 @@ const Title = styled.h1`
   line-height: normal;
   letter-spacing: normal;
   color: #687892;
+  margin: 0;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+  align-items: flex-end;
 `;
 
 const ButtonWrapper = styled.div`
@@ -281,6 +306,9 @@ const FileManagerSlide = ({
   removeFileByHandle,
   masterHandle,
   metadata,
+  storageUsed,
+  storageLimit,
+  expirationDate,
   connectDropTarget,
   isOver
 }) => {
@@ -303,11 +331,14 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(() => {
-    const defaultOrder = "created";
-    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-    setParam(defaultOrder);
-  }, [files]);
+  useEffect(
+    () => {
+      const defaultOrder = "created";
+      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+      setParam(defaultOrder);
+    },
+    [files]
+  );
 
   useEffect(() => {
     getFileList(masterHandle);
@@ -330,7 +361,18 @@ const FileManagerSlide = ({
               </StorageInfo>
             </LeftSideNav>
             <TableContainer>
-              <Title>All Files</Title>
+              <TitleWrapper>
+                <Title>All Files</Title>
+                <UsageWrapper>
+                  <UsageInfo>
+                    {formatBytes(storageUsed * 1000000000)} out of{" "}
+                    {storageLimit} GB used
+                  </UsageInfo>
+                  <UsageInfo>
+                    Active until: {moment(expirationDate).format("MM/DD/YYYY")}
+                  </UsageInfo>
+                </UsageWrapper>
+              </TitleWrapper>
               <ButtonWrapper>
                 <UploadButton
                   onSelected={files => upload(files, masterHandle)}
