@@ -9,7 +9,14 @@ import filesEpic from "./files-epic";
 test("getFileListEpic filesActions.GET_FILE_LIST", done => {
   const files = ["foo", "bar"];
   const masterHandle = {
-    getFolderMeta: jest.fn(() => Promise.resolve({ files }))
+    getFolderMeta: jest.fn(() => Promise.resolve({ files })),
+    getAccountInfo: jest.fn(() =>
+      Promise.resolve({
+        storageUsed: 123,
+        storageLimit: 456,
+        expirationDate: new Date()
+      })
+    )
   };
   const action$ = of(filesActions.getFileList({ masterHandle }));
   const state$ = null;
@@ -24,7 +31,14 @@ test("getFileListEpic filesActions.GET_FILE_LIST", done => {
 test("getFileListEpic uploadActions.UPLOAD_SUCCESS", done => {
   const files = ["foo", "bar"];
   const masterHandle = {
-    getFolderMeta: jest.fn(() => Promise.resolve({ files }))
+    getFolderMeta: jest.fn(() => Promise.resolve({ files })),
+    getAccountInfo: jest.fn(() =>
+      Promise.resolve({
+        storageUsed: 123,
+        storageLimit: 456,
+        expirationDate: new Date()
+      })
+    )
   };
   const action$ = of(uploadActions.uploadSuccess({ masterHandle }));
   const state$ = null;
@@ -39,7 +53,14 @@ test("getFileListEpic uploadActions.UPLOAD_SUCCESS", done => {
 test("getFileListEpic removeActions.REMOVE_SUCCESS", done => {
   const files = ["foo", "bar"];
   const masterHandle = {
-    getFolderMeta: jest.fn(() => Promise.resolve({ files }))
+    getFolderMeta: jest.fn(() => Promise.resolve({ files })),
+    getAccountInfo: jest.fn(() =>
+      Promise.resolve({
+        storageUsed: 123,
+        storageLimit: 456,
+        expirationDate: new Date()
+      })
+    )
   };
   const action$ = of(removeActions.removeSuccess({ masterHandle }));
   const state$ = null;
@@ -54,7 +75,14 @@ test("getFileListEpic removeActions.REMOVE_SUCCESS", done => {
 test("getFileListEpic - on failure", done => {
   const files = ["foo", "bar"];
   const masterHandle = {
-    getFolderMeta: jest.fn(() => Promise.reject("foobar"))
+    getFolderMeta: jest.fn(() => Promise.reject("foobar")),
+    getAccountInfo: jest.fn(() =>
+      Promise.resolve({
+        storageUsed: 123,
+        storageLimit: 456,
+        expirationDate: new Date()
+      })
+    )
   };
   const action$ = of(filesActions.getFileList({ masterHandle }));
   const state$ = null;
