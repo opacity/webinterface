@@ -71,7 +71,7 @@ const Box = styled.div`
 `;
 
 const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
-  const [isTermsChecked, setIsTermsChecked] = useState();
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
   const recaptcha = useRef<any>(null);
 
   const onSubmit = () => {
