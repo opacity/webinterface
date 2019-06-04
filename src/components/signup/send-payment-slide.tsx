@@ -134,10 +134,8 @@ const Or = styled.span`
   }
 `;
 
-const SendPaymentSlide = ({ invoice: { ethAddress }, openMetamask }) => {
+const SendPaymentSlide = ({ invoice: { ethAddress }, openMetamask, cost }) => {
   const [isCopied, setIsCopied] = useState(false);
-
-  const cost = 2;
 
   return (
     <ThemeProvider theme={theme}>

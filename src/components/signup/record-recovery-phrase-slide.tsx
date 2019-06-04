@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
+import Recaptcha from "react-google-invisible-recaptcha";
 // import Mnemonic from "bitcore-mnemonic";
 
-import { theme, DESKTOP_WIDTH } from "../../config";
+import { RECAPTCHA_SITEKEY, DESKTOP_WIDTH, theme } from "../../config";
 
 import ContentBox from "./content-box";
 import Content from "./content";
@@ -71,6 +72,20 @@ const Box = styled.div`
 
 const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const recaptcha = useRef<any>(null);
+
+  const onSubmit = () => {
+    if (!isTermsChecked) {
+      alert("Please accept the Terms of Service");
+      recaptcha.current.reset();
+    } else {
+      recaptcha.current.execute();
+    }
+  };
+
+  const onResolved = () => {
+    next();
+  };
 
   const downloadCsv = array => {
     const csvContent = array.join(",");
@@ -112,18 +127,13 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
         <DownloadButton onClick={() => downloadCsv(mnemonic)}>
           Download phrase as CSV
         </DownloadButton>
+        <Recaptcha
+          ref={recaptcha}
+          sitekey={RECAPTCHA_SITEKEY}
+          onResolved={() => onResolved()}
+        />
         <ButtonWrapper>
-          <ContinueButton
-            onClick={() => {
-              isTermsChecked
-                ? next()
-                : alert(
-                  "Please accept the Terms of Service and Privacy Policy"
-                  );
-            }}
-          >
-            Continue
-          </ContinueButton>
+          <ContinueButton onClick={() => onSubmit()}>Continue</ContinueButton>
         </ButtonWrapper>
         <TermsOfService>
           <CheckboxLabel htmlFor="terms-checkbox">
