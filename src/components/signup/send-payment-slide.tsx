@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled, { ThemeProvider, keyframes } from "styled-components";
 import QRCode from "qrcode.react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -13,6 +13,7 @@ import Hr from "./hr";
 import Title from "./title";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
+import Spinner from "../shared/spinner";
 
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
@@ -23,6 +24,10 @@ const ContentBold = styled(Content)`
 `;
 
 const ContentCentered = styled(Content)`
+  text-align: center;
+`;
+
+const Wrapper = styled.div`
   text-align: center;
 `;
 
@@ -132,6 +137,7 @@ const Or = styled.span`
 interface SendPaymentHandleProps {
   invoice;
   openMetamask;
+  cost;
 }
 
 interface SendPaymentHandleState {
@@ -149,10 +155,9 @@ class SendPaymentSlide extends Component<
   render () {
     const {
       invoice: { ethAddress },
-      openMetamask
+      openMetamask,
+      cost
     } = this.props;
-
-    const cost = 2;
 
     return (
       <ThemeProvider theme={theme}>
@@ -212,15 +217,29 @@ class SendPaymentSlide extends Component<
               color="#ffffff"
               includeMargin={true}
             />
-          </QRCodeWrapper>
-          <ContentCentered>
-            Need OPQ?{" "}
-            <OutboundLink href={EXCHANGE_LINK}>Purchase here</OutboundLink>
-          </ContentCentered>
-        </ContentBox>
-      </ThemeProvider>
+          </PaymentWrapper>
+        )}
+        <Or>or</Or>
+        <QRCodeWrapper>
+          <Label>Scan QR code to pay</Label>
+          <QRCode
+            value={ethAddress}
+            size={200}
+            renderAs="svg"
+            bgColor="#ffffff"
+            fgColor="#2e3854"
+            level="H"
+            color="#ffffff"
+            includeMargin={true}
+          />
+        </QRCodeWrapper>
+        <ContentCentered>
+          Need OPQ?{" "}
+          <OutboundLink href={EXCHANGE_LINK}>Purchase here</OutboundLink>
+        </ContentCentered>
+      </ContentBox>
+    </ThemeProvider>
     );
   }
-}
 
-export default SendPaymentSlide;
+export; default; SendPaymentSlide;

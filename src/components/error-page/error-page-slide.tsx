@@ -5,7 +5,7 @@ import SlideError from "../shared/slide-error";
 
 import { theme } from "../../config";
 
-const ICON_ERROR = require("../../assets/images/icon_error.png");
+const ICON_ERROR = require("../../assets/images/icon_error.webp");
 
 const ErrorImg = styled.img`
   display: block;

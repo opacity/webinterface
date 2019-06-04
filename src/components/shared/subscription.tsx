@@ -2,7 +2,12 @@ import _ from "lodash";
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { SUBSCRIPTION_DESKTOP_WIDTH, MOBILE_WIDTH, theme } from "../../config";
+import {
+  SUBSCRIPTION_DESKTOP_WIDTH,
+  SUBSCRIPTION_LIST,
+  MOBILE_WIDTH,
+  theme
+} from "../../config";
 
 import SubscriptionFeatures from "./subscription-features";
 
@@ -99,7 +104,7 @@ const Plan = styled.p`
 `;
 
 const Content = styled.p`
-  width: 171px;
+  width: 232px;
   min-height: 70px;
   font-size: 16px;
   font-weight: ${props => props.theme.fontWeight};
@@ -108,11 +113,13 @@ const Content = styled.p`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
-  margin: 15px 15px 0 35px;
-  height: 100px;
+  margin: 15px 15px 0 37px;
+  height: 50px;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
+    width: 171px;
     width: auto;
     margin: 0 30px 0 30px;
+    height: 100px;
   }
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
     margin: 15px 30px 15px 20px;
@@ -160,73 +167,10 @@ const Footer = styled.div`
   }
 `;
 
-const subscriptionList = [
-  {
-    title: "Basic",
-    isAvailable: true,
-    content:
-      "Secure, encrypted storage solution perfect for the needs of the individual",
-    price: "2 OPQ / year",
-    plan: "128 GB",
-    button: "SIGN UP",
-    features: [
-      {
-        title: "Encrypted storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "No personal information required"
-      }
-    ]
-  },
-  {
-    title: "Professional",
-    isAvailable: false,
-    content:
-      "For professionals looking for a secure, easily accessible storage solution while on the move.",
-    price: "16 OPQ / year",
-    plan: "1 TB",
-    button: "COMING SOON",
-    features: [
-      {
-        title: "Encrypted storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "No personal information required"
-      }
-    ]
-  },
-  {
-    title: "Business",
-    isAvailable: false,
-    content:
-      "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
-    price: "32 OPQ / year",
-    plan: "2 TB",
-    button: "COMING SOON",
-    features: [
-      {
-        title: "Encrypted storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "No personal information required"
-      }
-    ]
-  }
-];
-
-const Subscription = () => (
+const Subscription = ({ setSubscription }) => (
   <ThemeProvider theme={theme}>
     <Container>
-      {_.map(subscriptionList, item => (
+      {_.map(SUBSCRIPTION_LIST, item => (
         <Column key={_.random(true)}>
           <Header>
             <Title>{item.title}</Title>
@@ -241,7 +185,9 @@ const Subscription = () => (
               <ButtonWrapper>
                 <Button
                   disabled={!item.isAvailable}
-                  onClick={() => window.open("/sign-up", "_self")}
+                  onClick={() => {
+                    setSubscription(item);
+                  }}
                 >
                   {item.button}
                 </Button>

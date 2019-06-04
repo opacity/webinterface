@@ -24,8 +24,8 @@ const ICON_INFO_OPACITY = require("../../assets/images/info_opacity.svg");
 const ICON_INFO_BENEFIT = require("../../assets/images/info_benefit.svg");
 const ICON_INFO_PERSONAL = require("../../assets/images/info_personal.svg");
 const ICON_INFO_CRYPTOCURRENCY = require("../../assets/images/info_cryptocurrency.svg");
-const ICON_KUCOIN = require("../../assets/images/kucoin.png");
-const ICON_COSSIO = require("../../assets/images/cossio.png");
+const ICON_KUCOIN = require("../../assets/images/kucoin.webp");
+const ICON_COSSIO = require("../../assets/images/cossio.webp");
 const BACKGROUND_BUBBLES = require("../../assets/images/bubbles.svg");
 
 const ContainerWrapper = styled.div`
@@ -329,7 +329,7 @@ const ContentPurchase = styled.a`
   display: inline-block;
 `;
 
-const LandingPageSlide = ({ history, isLoggedIn }) => (
+const LandingPageSlide = ({ history, isLoggedIn, setSubscription }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
       <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
@@ -436,7 +436,7 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
       <SubscriptionContainerImage>
         <SubscriptionContainer>
           <SubscriptionTitle>Our Plans</SubscriptionTitle>
-          <Subscription />
+          <Subscription setSubscription={item => setSubscription(item)} />
         </SubscriptionContainer>
       </SubscriptionContainerImage>
       <Container>

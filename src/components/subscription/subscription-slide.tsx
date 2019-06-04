@@ -11,12 +11,12 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const SubscriptionSlide = () => (
+const SubscriptionSlide = ({ setSubscription }) => (
   <ThemeProvider theme={theme}>
     <Container>
       <Header type={HEADER_TYPES.EMPTY} />
       <ScreenContainer title={"Choose Subscription Plan"}>
-        <Subscription />
+        <Subscription setSubscription={item => setSubscription(item)} />
       </ScreenContainer>
     </Container>
   </ThemeProvider>

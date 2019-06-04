@@ -8,6 +8,7 @@ import authenticationEpic from "./authentication-epic";
 import uploadEpic from "./upload-epic";
 import downloadEpic from "./download-epic";
 import removeEpic from "./remove-epic";
+import subscriptionEpic from "./subscription-epic";
 
 export default combineEpics(
   coinMarketCapEpic,
@@ -17,5 +18,6 @@ export default combineEpics(
   authenticationEpic,
   uploadEpic,
   downloadEpic,
-  removeEpic
+  removeEpic,
+  subscriptionEpic
 );

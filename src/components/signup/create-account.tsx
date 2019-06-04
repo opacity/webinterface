@@ -22,12 +22,13 @@ const CreateAccount = ({
   pollPayment,
   showMnemonic,
   openMetamask,
-  phase
+  phase,
+  subscription
 }) => {
   const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [masterHandle, setMasterHandle] = useState<MasterHandle | null>(null);
   const [privateKey, setPrivateKey] = useState("");
-  const [invoice, setInvoice] = useState(null);
+  const [invoice, setInvoice] = useState<any>(null);
   const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
 
   useEffect(() => {
@@ -48,26 +49,30 @@ const CreateAccount = ({
     setPrivateKey(masterHandle.handle);
   }, []);
 
-  useEffect(
-    () => {
-      if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
-        masterHandle
-          .register()
-          .then(({ data: { invoice }, waitForPayment }: any) => {
-            setInvoice(invoice);
-            setWaitForPaymentFn(() => waitForPayment);
-          })
-          .catch(console.log);
-      }
-    },
-    [phase]
-  );
+  useEffect(() => {
+    if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
+      masterHandle
+        .register()
+        .then(({ data: { invoice }, waitForPayment }: any) => {
+          setInvoice(invoice);
+          setWaitForPaymentFn(() => waitForPayment);
+        })
+        .catch(console.log);
+    }
+  }, [phase]);
 
   return (
     <ThemeProvider theme={theme}>
       <Container>
         <Header type={HEADER_TYPES.EMPTY} />
-        <ScreenContainer title={"Register on Opacity"}>
+        <ScreenContainer
+          title={
+            "Register on Opacity: " +
+            subscription.title +
+            " Plan " +
+            subscription.plan
+          }
+        >
           <Breadcrumbs phase={phase} />
           {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
             <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
@@ -80,7 +85,11 @@ const CreateAccount = ({
             />
           )}
           {phase === SIGNUP_PHASES.SEND_PAYMENT && (
-            <SendPaymentSlide invoice={invoice} openMetamask={openMetamask} />
+            <SendPaymentSlide
+              cost={subscription.cost}
+              invoice={invoice}
+              openMetamask={openMetamask}
+            />
           )}
           {phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
             <ConfirmPaymentSlide handle={privateKey} />
