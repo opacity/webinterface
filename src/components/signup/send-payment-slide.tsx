@@ -134,11 +134,8 @@ const Or = styled.span`
   }
 `;
 
-const SendPaymentSlide = ({ invoice: { ethAddress }, openMetamask }) => {
+const SendPaymentSlide = ({ invoice: { ethAddress }, openMetamask, cost }) => {
   const [isCopied, setIsCopied] = useState(false);
-
-  const cost = 2;
-
   return (
     <ThemeProvider theme={theme}>
       <ContentBox>
@@ -182,20 +179,22 @@ const SendPaymentSlide = ({ invoice: { ethAddress }, openMetamask }) => {
             />
           </PaymentWrapper>
         )}
-        <Or>or</Or>
-        <QRCodeWrapper>
-          <Label>Scan QR code to pay</Label>
-          <QRCode
-            value={ethAddress}
-            size={200}
-            renderAs="svg"
-            bgColor="#ffffff"
-            fgColor="#2e3854"
-            level="H"
-            color="#ffffff"
-            includeMargin={true}
-          />
-        </QRCodeWrapper>
+        <PaymentWrapper>
+          <Or>or</Or>
+          <QRCodeWrapper>
+            <Label>Scan QR code to pay</Label>
+            <QRCode
+              value={ethAddress}
+              size={200}
+              renderAs="svg"
+              bgColor="#ffffff"
+              fgColor="#2e3854"
+              level="H"
+              color="#ffffff"
+              includeMargin={true}
+            />
+          </QRCodeWrapper>
+        </PaymentWrapper>
         <ContentCentered>
           Need OPQ?{" "}
           <OutboundLink href={EXCHANGE_LINK}>Purchase here</OutboundLink>

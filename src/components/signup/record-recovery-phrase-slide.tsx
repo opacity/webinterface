@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
-// import Mnemonic from "bitcore-mnemonic";
+import React, { useRef, useState } from "react";
 
-import { theme, DESKTOP_WIDTH } from "../../config";
+import styled, { ThemeProvider } from "styled-components";
+import Recaptcha from "react-recaptcha";
+
+import { RECAPTCHA_SITEKEY, DESKTOP_WIDTH, theme } from "../../config";
 
 import ContentBox from "./content-box";
 import Content from "./content";
@@ -19,6 +20,10 @@ const ContentBold = styled(Content)`
   text-transform: uppercase;
 `;
 
+const CaptchaWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 const DownloadButton = styled.button`
   cursor: pointer;
   background: none;
@@ -71,6 +76,16 @@ const Box = styled.div`
 
 const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+  const recaptcha = useRef<any>(null);
+
+  const onSubmit = () => {
+    if (!isTermsChecked) {
+      alert("Please accept the Terms of Service");
+    } else {
+      next();
+    }
+  };
 
   const downloadCsv = array => {
     const csvContent = array.join(",");
@@ -114,13 +129,8 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
         </DownloadButton>
         <ButtonWrapper>
           <ContinueButton
-            onClick={() => {
-              isTermsChecked
-                ? next()
-                : alert(
-                  "Please accept the Terms of Service and Privacy Policy"
-                  );
-            }}
+            disabled={!isCaptchaVerified}
+            onClick={() => onSubmit()}
           >
             Continue
           </ContinueButton>
@@ -141,6 +151,14 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
             <OutboundLink href="/privacy-policy">Privacy Policy</OutboundLink>
           </CheckboxLabel>
         </TermsOfService>
+        <CaptchaWrapper>
+          <Recaptcha
+            ref={recaptcha}
+            render="explicit"
+            sitekey={RECAPTCHA_SITEKEY}
+            verifyCallback={() => setIsCaptchaVerified(true)}
+          />
+        </CaptchaWrapper>
       </ContentBox>
     </ThemeProvider>
   );

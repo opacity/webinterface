@@ -53,6 +53,18 @@ const DownloadButton = styled.button`
   background: ${props => props.theme.button.background};
 `;
 
+const Description = styled.p`
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  margin-top: 40px;
+  width: 400px;
+`;
+
 interface FileMetadata {
   name?: string;
   size?: number;
@@ -84,6 +96,7 @@ const Main = ({ handle, download }) => {
         <Body>
           <DownloadIcon src={ICON_DOWNLOAD} />
           <Title>You have been invited to view a file!</Title>
+
           {Object.keys(metadata).length ? (
             <FileInfo>
               <FileName>{metadata.name}</FileName>
@@ -92,7 +105,12 @@ const Main = ({ handle, download }) => {
                 Download file
               </DownloadButton>
             </FileInfo>
-          ) : null}
+          ) : (
+            <Description>
+              It seems the file you are looking for either does not exist or has
+              been removed. Please check your FIle Handle.
+            </Description>
+          )}
         </Body>
         <ToastContainer
           pauseOnHover={false}

@@ -112,6 +112,10 @@ export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
+export const RECAPTCHA_SITEKEY = IS_DEV
+  ? "6LciI6cUAAAAAL03VKUCArV9MFS8zgQn49NHItA8"
+  : "6Le3I6cUAAAAAILR-MfvTFAi258rXVSd10HVXBoI";
+
 export const LANDING_PAGE_VIDEO =
   "https://s3.us-east-2.amazonaws.com/opacity-public/whatIsOpacity.mov";
 
@@ -202,7 +206,12 @@ export const theme = {
   },
   button: {
     background: "#2e6dde",
-    color: "#ffffff"
+    color: "#ffffff",
+    disabled: {
+      background: "#dfdfdf",
+      color: "#4f5e78",
+      border: "1px solid #4f5e78"
+    }
   },
   fontWeight: 500,
   fontStyle: "normal",
@@ -210,3 +219,93 @@ export const theme = {
   lineHeight: "normal",
   letterSpacing: "normal"
 };
+
+export const SUBSCRIPTION_LIST = [
+  {
+    title: "Basic",
+    cost: 2,
+    isAvailable: true,
+    content:
+      "Secure, encrypted storage solution perfect for the needs of the individual",
+    price: "2 OPQ / year",
+    plan: "128 GB",
+    button: "SIGN UP",
+    features: [
+      {
+        title: "Secure storage"
+      },
+      {
+        title: "Unlimited downloads"
+      },
+      {
+        title: "Anonymous account"
+      }
+    ]
+  },
+  {
+    title: "Professional",
+    cost: 16,
+    isAvailable: false,
+    content:
+      "For professionals looking for a secure, easily accessible storage solution while on the move.",
+    price: "16 OPQ / year",
+    plan: "1 TB",
+    button: "COMING SOON",
+    features: [
+      {
+        title: "Secure storage"
+      },
+      {
+        title: "Unlimited downloads"
+      },
+      {
+        title: "Anonymous account"
+      }
+    ]
+  },
+  {
+    title: "Business",
+    cost: 32,
+    isAvailable: false,
+    content:
+      "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
+    price: "32 OPQ / year",
+    plan: "2 TB",
+    button: "COMING SOON",
+    features: [
+      {
+        title: "Secure storage"
+      },
+      {
+        title: "Unlimited downloads"
+      },
+      {
+        title: "Anonymous account"
+      }
+    ]
+  }
+];
+
+const ICON_JPG = require("../assets/images/jpg.svg");
+const ICON_PNG = require("../assets/images/png.svg");
+const ICON_PDF = require("../assets/images/pdf.svg");
+const ICON_DOC = require("../assets/images/doc.svg");
+
+export const DATA_TYPES_ICONS = [
+  {
+    name: ".jpg",
+    icon: ICON_JPG
+  },
+  {
+    name: ".pdf",
+    icon: ICON_PDF
+  },
+  {
+    name: ".doc",
+    icon: ICON_DOC
+  },
+  {
+    name: ".png",
+    icon: ICON_PNG
+  }
+];
