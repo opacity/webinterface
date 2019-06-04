@@ -21,15 +21,15 @@ const ICON_ACCESS_ACCOUNT = require("../../assets/images/so_access_account.svg")
 const ICON_ENCRYPTED = require("../../assets/images/so_encrypted.svg");
 const ICON_TRANSPARENT_BASE = require("../../assets/images/so_transparent_base.svg");
 const ICON_EXPLORE_CODE = require("../../assets/images/so_explore_code.svg");
-const ICON_LASTPASS = require("../../assets/images/last_pass.webp");
-const ICON_1PASSWORD = require("../../assets/images/1password.webp");
-const ICON_KEEPASS = require("../../assets/images/kee_pass.webp");
+const ICON_LASTPASS = require("../../assets/images/last_pass.png");
+const ICON_1PASSWORD = require("../../assets/images/1password.png");
+const ICON_KEEPASS = require("../../assets/images/kee_pass.png");
 const ICON_OPACITY_LOGO = require("../../assets/images/logo-login.svg");
-const ICON_GOOGLE_ONE = require("../../assets/images/google_one.webp");
-const ICON_BOX_PERSONAL_PRO = require("../../assets/images/box_personal_pro.webp");
-const ICON_MEGA_PRO_LITE = require("../../assets/images/mega_pro_lite.webp");
-const ICON_SYNC_PERSONAL_PRO = require("../../assets/images/sync_personal_pro.webp");
-const ICON_DROPBOX = require("../../assets/images/dropbox_plus.webp");
+const ICON_GOOGLE_ONE = require("../../assets/images/google_one.png");
+const ICON_BOX_PERSONAL_PRO = require("../../assets/images/box_personal_pro.png");
+const ICON_MEGA_PRO_LITE = require("../../assets/images/mega_pro_lite.png");
+const ICON_SYNC_PERSONAL_PRO = require("../../assets/images/sync_personal_pro.png");
+const ICON_DROPBOX = require("../../assets/images/dropbox_plus.jpg");
 
 const ContainerWrapper = styled.div`
   width: 100%;
