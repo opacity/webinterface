@@ -9,7 +9,7 @@ import ConfirmPaymentSlide from "./confirm-payment-slide";
 import ScreenContainer from "../shared/screen-container";
 import Header from "../shared/header";
 
-import { API, HEADER_TYPES, SIGNUP_PHASES, theme } from "../../config";
+import { OPAQUE, HEADER_TYPES, SIGNUP_PHASES, theme } from "../../config";
 
 import { Account, MasterHandle } from "opaque";
 
@@ -17,23 +17,10 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const uploadOpts = {
-  autostart: true,
-  endpoint: API.STORAGE_NODE,
-  params: {
-    blockSize: 64 * 1024, // 256 KiB encryption blocks
-    partSize: 10 * 1024 * 1024
-  }
-};
-
-const downloadOpts = {
-  endpoint: API.STORAGE_NODE
-};
-
 const CreateAccount = ({
   showAddress,
   pollPayment,
-  goBack,
+  showMnemonic,
   openMetamask,
   phase,
   subscription
@@ -41,7 +28,7 @@ const CreateAccount = ({
   const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [masterHandle, setMasterHandle] = useState<MasterHandle | null>(null);
   const [privateKey, setPrivateKey] = useState("");
-  const [invoice, setInvoice] = useState(null);
+  const [invoice, setInvoice] = useState<any>(null);
   const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
 
   useEffect(() => {
@@ -53,8 +40,8 @@ const CreateAccount = ({
         account
       },
       {
-        uploadOpts,
-        downloadOpts
+        uploadOpts: OPAQUE.UPLOAD_OPTIONS,
+        downloadOpts: OPAQUE.DOWNLOAD_OPTIONS
       }
     );
 
@@ -94,7 +81,7 @@ const CreateAccount = ({
             <RecordAccountHandleSlide
               handle={privateKey}
               next={() => pollPayment(waitForPaymentFn)}
-              goBack={() => goBack()}
+              back={() => showMnemonic()}
             />
           )}
           {phase === SIGNUP_PHASES.SEND_PAYMENT && (

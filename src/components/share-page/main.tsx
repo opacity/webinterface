@@ -8,7 +8,7 @@ import { formatBytes } from "../../helpers";
 
 import Header from "../shared/header";
 
-const ICON_DOWNLOAD = require("../../assets/images/icon_download.png");
+const ICON_DOWNLOAD = require("../../assets/images/icon_download.webp");
 
 const Container = styled.div`
   width: 100%;

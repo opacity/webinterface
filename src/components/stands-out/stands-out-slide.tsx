@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 
 import {
@@ -21,15 +22,15 @@ const ICON_ACCESS_ACCOUNT = require("../../assets/images/so_access_account.svg")
 const ICON_ENCRYPTED = require("../../assets/images/so_encrypted.svg");
 const ICON_TRANSPARENT_BASE = require("../../assets/images/so_transparent_base.svg");
 const ICON_EXPLORE_CODE = require("../../assets/images/so_explore_code.svg");
-const ICON_LASTPASS = require("../../assets/images/last_pass.png");
-const ICON_1PASSWORD = require("../../assets/images/1password.png");
-const ICON_KEEPASS = require("../../assets/images/kee_pass.png");
+const ICON_LASTPASS = require("../../assets/images/last_pass.webp");
+const ICON_1PASSWORD = require("../../assets/images/1password.webp");
+const ICON_KEEPASS = require("../../assets/images/kee_pass.webp");
 const ICON_OPACITY_LOGO = require("../../assets/images/logo-login.svg");
-const ICON_GOOGLE_ONE = require("../../assets/images/google_one.png");
-const ICON_BOX_PERSONAL_PRO = require("../../assets/images/box_personal_pro.png");
-const ICON_MEGA_PRO_LITE = require("../../assets/images/mega_pro_lite.png");
-const ICON_SYNC_PERSONAL_PRO = require("../../assets/images/sync_personal_pro.png");
-const ICON_DROPBOX = require("../../assets/images/dropbox_plus.jpg");
+const ICON_GOOGLE_ONE = require("../../assets/images/google_one.webp");
+const ICON_BOX_PERSONAL_PRO = require("../../assets/images/box_personal_pro.webp");
+const ICON_MEGA_PRO_LITE = require("../../assets/images/mega_pro_lite.webp");
+const ICON_SYNC_PERSONAL_PRO = require("../../assets/images/sync_personal_pro.webp");
+const ICON_DROPBOX = require("../../assets/images/dropbox_plus.webp");
 
 const ContainerWrapper = styled.div`
   width: 100%;
@@ -267,7 +268,7 @@ const Input = styled.div`
   width: 40px;
 `;
 
-const CommunityButtonWrapper = styled.div`
+const CommunityLinkWrapper = styled.div`
   text-align: center;
   padding-bottom: 40px;
 `;
@@ -312,12 +313,25 @@ const StandsOutButton = styled(Button)`
 
 const CommunityWrapper = styled.div``;
 
-const CommunityButton = styled(Button)`
-  width: 180px;
+const CommunityLink = styled(Link)`
+  background-color: #2e6dde;
+  color: ${props => props.theme.button.color};
+  border: 1px solid white;
+  border-radius: 0px;
+  cursor: pointer;
+  outline: none;
+  padding: 0px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
   margin-right: 10px;
+  padding: 15px 50px;
 `;
 
-const CommunityButtonSecondary = styled(CommunityButton)`
+const CommunityLinkSecondary = styled(CommunityLink)`
   @media (max-width: ${MOBILE_WIDTH}px) {
     margin-top: 30px;
   }
@@ -668,14 +682,10 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
             </CommunityColumn>
           </CommunityWrapper>
         </CommunityContainer>
-        <CommunityButtonWrapper>
-          <CommunityButton onClick={() => history.push("/login")}>
-            Login
-          </CommunityButton>
-          <CommunityButtonSecondary onClick={() => history.push("/sign-up")}>
-            Sign up
-          </CommunityButtonSecondary>
-        </CommunityButtonWrapper>
+        <CommunityLinkWrapper>
+          <CommunityLink href="/sign-up">Sign up</CommunityLink>
+          <CommunityLinkSecondary href="/login">Login</CommunityLinkSecondary>
+        </CommunityLinkWrapper>
       </Community>
       <Footer />
     </ContainerWrapper>
