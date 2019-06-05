@@ -332,11 +332,14 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(() => {
-    const defaultOrder = "created";
-    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-    setParam(defaultOrder);
-  }, [files]);
+  useEffect(
+    () => {
+      const defaultOrder = "created";
+      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+      setParam(defaultOrder);
+    },
+    [files]
+  );
 
   useEffect(() => {
     getFileList(masterHandle);
@@ -367,7 +370,7 @@ const FileManagerSlide = ({
                     {storageLimit} GB used
                   </UsageInfo>
                   <UsageInfo>
-                    Active until: {moment(expirationDate).format("MM/DD/YYYY")}
+                    Active until: {moment(expirationDate).format("MMM D, YYYY")}
                   </UsageInfo>
                 </UsageWrapper>
               </TitleWrapper>

@@ -69,6 +69,8 @@ const TelegramLinkContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 50px;
+  margin: 20px 0;
 `;
 
 const TitleFunction = styled(HeaderTitle)`
@@ -148,14 +150,6 @@ const InfoContent = styled(Paragraph)`
   }
 `;
 
-const CommunityContent = styled(InfoContent)`
-  color: #5c6a82;
-  font-size: 18px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    font-size: 16px;
-  }
-`;
-
 const FunctionContent = styled(InfoContent)`
   font-size: 14px;
   margin: 0 50px;
@@ -204,30 +198,10 @@ const InfoSubContainer = styled(SubContainer)`
   }
 `;
 
-const CommunityContainer = styled(SubContainer)`
-  justify-content: space-evenly;
-  width: 60%;
-  margin: auto;
-  margin-bottom: 30px;
-  @media (max-width: ${STANDS_OUT_TABLET_WIDTH}px) {
-    margin: 60px 0;
-    width: 100%;
-    display: block;
-  }
-`;
-
 const PasswordManager = styled(SubContainer)`
   margin: 50px 0 150px 0;
   @media (max-width: ${MOBILE_WIDTH}px) {
     margin: 50px 0 50px 0;
-  }
-`;
-
-const CommunityColumn = styled.div`
-  display: flex;
-  @media (max-width: ${STANDS_OUT_TABLET_WIDTH}px) {
-    padding: 0 25px;
-    justify-content: center;
   }
 `;
 
@@ -256,21 +230,15 @@ const Community = styled.div`
   }
 `;
 
-const Input = styled.div`
-  background: #ffffff;
-  color: #4f5e78;
-  align-items: center;
-  border: 1px solid #2e6dde;
-  display: flex;
-  height: 40px;
-  justify-content: center;
-  margin-right: 2px;
-  width: 40px;
-`;
-
 const CommunityLinkWrapper = styled.div`
-  text-align: center;
   padding-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    flex-direction: column;
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -311,12 +279,9 @@ const StandsOutButton = styled(Button)`
   }
 `;
 
-const CommunityWrapper = styled.div``;
-
 const CommunityLink = styled(Link)`
   background-color: #2e6dde;
   color: ${props => props.theme.button.color};
-  border: 1px solid white;
   border-radius: 0px;
   cursor: pointer;
   outline: none;
@@ -327,8 +292,11 @@ const CommunityLink = styled(Link)`
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
-  margin-right: 10px;
+  margin: 0 10px;
   padding: 15px 50px;
+  text-decoration: none;
+  width: 75px;
+  text-align: center;
 `;
 
 const CommunityLinkSecondary = styled(CommunityLink)`
@@ -650,41 +618,9 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
             Join us on Telegram
           </OutboundLink>
         </TelegramLinkContainer>
-        <CommunityContainer>
-          <CommunityWrapper>
-            <CommunityContent>
-              Number of Unique Opacity Accounts
-            </CommunityContent>
-            <CommunityColumn>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-            </CommunityColumn>
-          </CommunityWrapper>
-          <CommunityWrapper>
-            <CommunityContent>Files Uploaded to Opacity</CommunityContent>
-            <CommunityColumn>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-              <Input>0</Input>
-            </CommunityColumn>
-          </CommunityWrapper>
-        </CommunityContainer>
         <CommunityLinkWrapper>
-          <CommunityLink href="/sign-up">Sign up</CommunityLink>
-          <CommunityLinkSecondary href="/login">Login</CommunityLinkSecondary>
+          <CommunityLink to="/sign-up">Sign up</CommunityLink>
+          <CommunityLinkSecondary to="/login">Login</CommunityLinkSecondary>
         </CommunityLinkWrapper>
       </Community>
       <Footer />
