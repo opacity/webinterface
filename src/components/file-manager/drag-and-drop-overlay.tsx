@@ -6,7 +6,7 @@ import { theme } from "../../config";
 const ICON_UPLOAD = require("../../assets/images/icon_upload.webp");
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   background-color: rgba(255, 255, 255, 0.8);
   top: 0;
   left: 0;
