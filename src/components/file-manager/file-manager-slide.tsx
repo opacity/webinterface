@@ -317,6 +317,7 @@ const FileManagerSlide = ({
   const [sharedFile, setSharedFile] = useState<File | null>(null);
 
   const sortBy = (param, order) => {
+    setParam(param);
     setOrderedFiles(_.orderBy(orderedFiles, param, order));
   };
 
@@ -442,7 +443,7 @@ const FileManagerSlide = ({
                   ))}
                 </tbody>
               </Table>
-              {!orderedFiles && (
+              {!orderedFiles.length && (
                 <NoFiles>
                   Your File Dashboard is empty. You can upload files by clicking
                   the Upload button on the top right.

@@ -74,7 +74,7 @@ const Label = styled.h3<any>`
   letter-spacing: 0.7px;
   color: ${props => props.theme.container.content};
   text-transform: uppercase;
-  text-align: ${props => (props.textAlign ? props.textAlign : "left")};
+  text-align: ${props => (props.align ? props.align : "left")};
 `;
 
 const CopyButton = styled(Button)<any>`
@@ -93,25 +93,25 @@ const CopyButton = styled(Button)<any>`
   text-transform: uppercase;
   width: 289px;
   height: 40px;
-  margin: ${props => (props.textAlign ? "auto" : "initial")};
+  margin: ${props => (props.align ? "auto" : "initial")};
 
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     width: 100%;
   }
 `;
 
-const ClipboardWidget = ({ text, title, property, textAlign }) => {
+const ClipboardWidget = ({ text, title, property, align }) => {
   const [isCopied, setIsCopied] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Label textAlign={textAlign}>{title}</Label>
+        <Label align={align}>{title}</Label>
         <TextContainer>
           <TextBox>{text}</TextBox>
         </TextContainer>
         <CopyToClipboard text={text} onCopy={() => setIsCopied(true)}>
-          <CopyButton textAlign={textAlign}>
+          <CopyButton align={align}>
             <Icon src={ICON_COPY} />
             {isCopied ? "Copied!" : "Copy " + property}
           </CopyButton>
