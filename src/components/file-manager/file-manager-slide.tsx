@@ -11,6 +11,7 @@ import {
   DESKTOP_WIDTH,
   HEADER_MOBILE_WIDTH,
   DATA_TYPES_ICONS,
+  FILE_MAX_SIZE,
   theme
 } from "../../config";
 import { formatBytes } from "../../helpers";
@@ -28,8 +29,13 @@ const ICON_SHARE = require("../../assets/images/share.svg");
 const fileTarget = {
   drop (props, monitor) {
     const { upload, masterHandle } = props;
-    const { files } = monitor.getItem();
-    upload(files, masterHandle);
+    let { files } = monitor.getItem();
+    const filesLength = files.length;
+    if (files.length > 0) {
+      files = files.filter(file => file.size <= FILE_MAX_SIZE);
+      files.length !== filesLength && alert("Some files are greater then 2GB.");
+      upload(files, masterHandle);
+    }
   }
 };
 
@@ -332,14 +338,11 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(
-    () => {
-      const defaultOrder = "created";
-      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-      setParam(defaultOrder);
-    },
-    [files]
-  );
+  useEffect(() => {
+    const defaultOrder = "created";
+    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+    setParam(defaultOrder);
+  }, [files]);
 
   useEffect(() => {
     getFileList(masterHandle);

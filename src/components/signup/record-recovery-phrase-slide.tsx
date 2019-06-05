@@ -52,16 +52,8 @@ const ButtonWrapper = styled.div`
 `;
 
 const Grid = styled.div`
-  margin-top: 25px;
-  display: grid;
-  grid-auto-columns: auto;
-  grid-auto-flow: column;
-  grid-gap: 20px;
-  grid-template-rows: repeat(4, 28px);
-  margin-bottom: 30px;
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
-    grid-template-rows: repeat(6, 28px);
-  }
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const Box = styled.div`
@@ -72,6 +64,9 @@ const Box = styled.div`
   font-size: 12px;
   justify-content: center;
   text-align: center;
+  margin: 10px;
+  height: 25px;
+  width: 125px;
 `;
 
 const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {

@@ -6,18 +6,18 @@ import { HEADER_TYPES, MOBILE_WIDTH, theme } from "../../config";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
 
-const ICON_GITHUB = require("../../assets/images/tp-github.svg");
+const ICON_GITHUB = require("../../assets/images/github.png");
 const ICON_LINKEDIN = require("../../assets/images/tp-linkedin.svg");
 
-const ICON_JASON = require("../../assets/images/jason.webp");
-const ICON_ARON = require("../../assets/images/aron.webp");
-const ICON_TIM = require("../../assets/images/tim.webp");
-const ICON_WILLIAM = require("../../assets/images/william.webp");
-const ICON_CONNOR = require("../../assets/images/default_profile_picture.webp");
-const ICON_MARCEL = require("../../assets/images/marcel.webp");
-const ICON_EDMUND = require("../../assets/images/edmund.webp");
-const ICON_REBEL = require("../../assets/images/rebel.webp");
-const ICON_LADISLAV = require("../../assets/images/ladislav.webp");
+const ICON_JASON = require("../../assets/images/jason.png");
+const ICON_ARON = require("../../assets/images/aron.png");
+const ICON_TIM = require("../../assets/images/tim.png");
+const ICON_WILLIAM = require("../../assets/images/william.png");
+const ICON_CONNOR = require("../../assets/images/default_profile_picture.png");
+const ICON_MARCEL = require("../../assets/images/marcel.png");
+const ICON_EDMUND = require("../../assets/images/edmund.png");
+const ICON_REBEL = require("../../assets/images/rebel.png");
+const ICON_LADISLAV = require("../../assets/images/ladislav.png");
 
 const people = [
   {
@@ -148,6 +148,7 @@ const PersonIcon = styled.img`
 const Icon = styled.img`
   width: 28px;
   height: 28px;
+  margin: 5px;
 `;
 
 const Title = styled.h1`
@@ -162,7 +163,7 @@ const Title = styled.h1`
 `;
 
 const PersonTitle = styled.h2`
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
@@ -198,7 +199,7 @@ const PersonRole = styled(Parapraph)`
 `;
 
 const Content = styled(Parapraph)`
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: ${props => props.theme.letterSpacing};
   padding-bottom: 40px;
 `;
