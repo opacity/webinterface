@@ -93,7 +93,7 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
     });
     const elem = window.document.createElement("a");
     elem.href = window.URL.createObjectURL(blob);
-    elem.download = "opacity-mnenomic.csv";
+    elem.download = "mnemonic.csv";
     window.document.body.appendChild(elem);
     elem.click();
     window.document.body.removeChild(elem);

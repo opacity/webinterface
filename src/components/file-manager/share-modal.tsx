@@ -38,8 +38,10 @@ const CloseButton = styled.div`
   right: -356px;
   top: -70px;
   width: 32px;
+  height: 32px;
   opacity: 0.8;
   display: inline;
+  cursor: pointer;
 
   &:hover {
     opacity: 1;
@@ -80,7 +82,7 @@ const ShareModal = ({ close, isOpen, file }) => (
             text={`${FRONT_END_URL}/share#handle=${file && file.handle}`}
             property="URL"
             title="Anyone with this link can view the file"
-            textAlign="center"
+            align="center"
           />
         </Body>
       </StyledModal>

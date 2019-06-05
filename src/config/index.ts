@@ -98,6 +98,8 @@ export const FILE = Object.freeze({
   }
 });
 
+export const FILE_MAX_SIZE = 2000 * 1000 * 1000;
+
 export const INCLUDE_TREASURE_OFFSETS = true;
 export const MAX_ADDRESSES = 1000;
 export const NUM_POLLING_ADDRESSES = 301;
@@ -287,12 +289,17 @@ export const SUBSCRIPTION_LIST = [
   }
 ];
 
+const ICON_FILE = require("../assets/images/file.svg");
 const ICON_JPG = require("../assets/images/jpg.svg");
 const ICON_PNG = require("../assets/images/png.svg");
 const ICON_PDF = require("../assets/images/pdf.svg");
 const ICON_DOC = require("../assets/images/doc.svg");
 
 export const DATA_TYPES_ICONS = [
+  {
+    name: ".none",
+    icon: ICON_FILE
+  },
   {
     name: ".jpg",
     icon: ICON_JPG

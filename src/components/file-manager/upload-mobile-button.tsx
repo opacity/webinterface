@@ -1,7 +1,7 @@
 import React, { Fragment, useRef } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { MOBILE_WIDTH, theme } from "../../config";
+import { MOBILE_WIDTH, FILE_MAX_SIZE, theme } from "../../config";
 
 const Button = styled.div`
     display: none;
@@ -52,9 +52,14 @@ const UploadMobileButton = ({ onSelected }) => {
   const uploadForm = useRef<HTMLFormElement>(null);
 
   const selectFiles = () => {
-    const files = Array.from(uploadFileInput.current!.files || []);
+    let files = Array.from(uploadFileInput.current!.files || []);
+    const filesLength = files.length;
     uploadForm.current!.reset();
-    if (files.length > 0) onSelected(files);
+    if (files.length > 0) {
+      files = files.filter(file => file.size <= FILE_MAX_SIZE);
+      files.length !== filesLength && alert("Some files are greater then 2GB.");
+      onSelected(files);
+    }
   };
 
   return (

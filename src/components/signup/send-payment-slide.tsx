@@ -149,7 +149,8 @@ const SendPaymentSlide = ({ invoice: { ethAddress }, openMetamask, cost }) => {
         </Content>
         <ContentBold>
           IMPORTANT: Do not send any other coin or token to this account address
-          as it may result in a loss of funds.
+          as it may result in a loss of funds. Only send {cost} OPQ. Sending
+          more may also result in loss of funds.
         </ContentBold>
         <Content>
           Once your payment is sent, it may take some time to confirm your
