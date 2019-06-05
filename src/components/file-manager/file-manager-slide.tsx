@@ -332,14 +332,11 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(
-    () => {
-      const defaultOrder = "created";
-      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-      setParam(defaultOrder);
-    },
-    [files]
-  );
+  useEffect(() => {
+    const defaultOrder = "created";
+    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+    setParam(defaultOrder);
+  }, [files]);
 
   useEffect(() => {
     getFileList(masterHandle);
