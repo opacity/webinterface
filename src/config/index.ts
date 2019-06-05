@@ -2,7 +2,7 @@ export const IS_DEV = process.env.NODE_ENV === "development";
 
 const PROTOCOL = IS_DEV ? "http" : "https";
 
-export const HOST = IS_DEV ? "localhost:3001" : "beta.opacity.io";
+export const HOST = IS_DEV ? "localhost:3001" : "opacity.io";
 export const FRONT_END_URL = `${PROTOCOL}://${HOST}`;
 
 const POLLING_NODE = IS_DEV
