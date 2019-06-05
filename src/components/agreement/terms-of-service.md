@@ -35,12 +35,10 @@
 > > **1.2.3.** The term "Site" collectively refers to all online areas owned and operated by us, including the following listed below:
 >
 > > - [Opacity Website](https://opacity.io)
-> > - [Opacity Storage Portal](https://storage.opacity.io)
 > > - [Opacity Blog](https://medium.com/opacity-storage)
 > > - [Opacity Twitter Page](https://twitter.com/opacity_storage)
 > > - [Opacity Reddit](https://www.reddit.com/r/opacity)
 > > - [Opacity Telegram Channel](https://t.me/opacitystorage)
-> > - [Opacity Trading Telegram Channel](https://t.me/opacitytrading)
 >
 > > **1.2.4.** The term "Services" encompasses your use of our technology platform ("Platform"). Our Platform provides access to file storage and file sharing services.
 
