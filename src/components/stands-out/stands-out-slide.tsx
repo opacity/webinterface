@@ -234,6 +234,11 @@ const CommunityLinkWrapper = styled.div`
   padding-bottom: 40px;
   display: flex;
   justify-content: center;
+  align-items: center;
+
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    flex-direction: column;
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -290,6 +295,8 @@ const CommunityLink = styled(Link)`
   margin: 0 10px;
   padding: 15px 50px;
   text-decoration: none;
+  width: 75px;
+  text-align: center;
 `;
 
 const CommunityLinkSecondary = styled(CommunityLink)`
