@@ -328,7 +328,8 @@ const CommunityLink = styled(Link)`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   margin-right: 10px;
-  padding: 15px 50px;
+  padding: 10px 60px;
+  text-decoration: none;
 `;
 
 const CommunityLinkSecondary = styled(CommunityLink)`

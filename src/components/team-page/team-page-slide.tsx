@@ -6,7 +6,7 @@ import { HEADER_TYPES, MOBILE_WIDTH, theme } from "../../config";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
 
-const ICON_GITHUB = require("../../assets/images/tp-github.svg");
+const ICON_GITHUB = require("../../assets/images/github.png");
 const ICON_LINKEDIN = require("../../assets/images/tp-linkedin.svg");
 
 const ICON_JASON = require("../../assets/images/jason.webp");
@@ -148,6 +148,7 @@ const PersonIcon = styled.img`
 const Icon = styled.img`
   width: 28px;
   height: 28px;
+  margin: 5px;
 `;
 
 const Title = styled.h1`
@@ -162,7 +163,7 @@ const Title = styled.h1`
 `;
 
 const PersonTitle = styled.h2`
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
@@ -198,7 +199,7 @@ const PersonRole = styled(Parapraph)`
 `;
 
 const Content = styled(Parapraph)`
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: ${props => props.theme.letterSpacing};
   padding-bottom: 40px;
 `;
