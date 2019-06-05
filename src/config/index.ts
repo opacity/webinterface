@@ -98,6 +98,8 @@ export const FILE = Object.freeze({
   }
 });
 
+export const FILE_MAX_SIZE = 2000 * 1000 * 1000;
+
 export const INCLUDE_TREASURE_OFFSETS = true;
 export const MAX_ADDRESSES = 1000;
 export const NUM_POLLING_ADDRESSES = 301;
