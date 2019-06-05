@@ -177,7 +177,7 @@ const Footer = ({ history }) => (
     <Wrapper>
       <Container>
         <FooterLinks>
-          <Link href="https://storage.opacity.io" target="_blank">
+          <Link href="https://opacity.io" target="_blank">
             Opacity Storage <IconArrow src={ICON_ARROW_RIGHT} />
           </Link>
           <Link onClick={() => history.push("/stands-out")}>
