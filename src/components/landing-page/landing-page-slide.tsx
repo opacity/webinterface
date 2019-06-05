@@ -27,6 +27,7 @@ const ICON_INFO_CRYPTOCURRENCY = require("../../assets/images/info_cryptocurrenc
 const ICON_KUCOIN = require("../../assets/images/kucoin.webp");
 const ICON_COSSIO = require("../../assets/images/cossio.webp");
 const BACKGROUND_BUBBLES = require("../../assets/images/bubbles.svg");
+const VIDEO_POSTER = require("../../assets/images/video-poster.png");
 
 const ContainerWrapper = styled.div`
   width: 100%;
@@ -346,7 +347,7 @@ const LandingPageSlide = ({ history, isLoggedIn, setSubscription }) => (
           </Content>
         </ContentWrapper>
         <Wrapper>
-          <VideoPlayer src={LANDING_PAGE_VIDEO} />
+          <VideoPlayer src={LANDING_PAGE_VIDEO} poster={VIDEO_POSTER} />
         </Wrapper>
         {isLoggedIn ? (
           <Wrapper>

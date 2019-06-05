@@ -19,11 +19,18 @@ const Container = styled.div`
 
 interface VideoPlayerProps {
   src: string;
+  poster: string;
 }
 
-const VideoPlayer = ({ src }: VideoPlayerProps) => (
+const VideoPlayer = ({ src, poster }: VideoPlayerProps) => (
   <Container>
-    <Player playsInline={true} autoPlay={true} src={src} preload="auto" />
+    <Player
+      playsInline={true}
+      autoPlay={true}
+      src={src}
+      poster={poster}
+      preload="auto"
+    />
   </Container>
 );
 

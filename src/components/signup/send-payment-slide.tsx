@@ -161,7 +161,7 @@ const SendPaymentSlide = ({ invoice: { ethAddress }, openMetamask, cost }) => {
         <Wrapper>
           <Spinner isActive={true} />
         </Wrapper>
-        <LabelColored>Send {cost} OPQ to Payment Address:</LabelColored>
+        <LabelColored>Send {cost} OPQ to Ethereum Address:</LabelColored>
         <EthAddressWrapper>
           <EthAddress>{ethAddress}</EthAddress>
           <CopyToClipboard text={ethAddress} onCopy={() => setIsCopied(true)}>
