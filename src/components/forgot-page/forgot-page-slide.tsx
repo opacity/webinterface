@@ -7,7 +7,7 @@ import ContentBox from "../signup/content-box";
 import Hr from "../signup/hr";
 import Title from "../signup/title";
 import ScreenContainer from "../shared/screen-container";
-import Input from "../shared/generic/input";
+import Textarea from "../shared/generic/textarea";
 import Header from "../shared/header";
 
 const ContainerWrapper = styled.div`
@@ -36,7 +36,7 @@ const ContinueButton = styled.button`
 `;
 
 const ButtonWrapper = styled.div`
-  text-align: right;
+  text-align: center;
   margin: 25px 0;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px)
     text-align: center;
@@ -75,8 +75,8 @@ const ForgotPageSlide = () => {
             <Hr />
             <InputWrapper>
               <InputColumnWrapper>
-                <Label>Account PIN</Label>
-                <Input name="storage-pin" />
+                <Label>Recovery Phrase</Label>
+                <Textarea name="storage-pin" />
               </InputColumnWrapper>
             </InputWrapper>
             <ButtonWrapper>
