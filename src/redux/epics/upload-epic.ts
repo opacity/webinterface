@@ -69,7 +69,9 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
             toast.dismiss(handle);
           }, 3000);
 
-          o.next(uploadActions.uploadError({ error }));
+          o.next(
+            uploadActions.uploadError({ handle, filename: file.name, error })
+          );
           o.complete();
         });
       });

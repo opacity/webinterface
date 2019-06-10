@@ -43,13 +43,17 @@ test("signup-reducer ACCOUNT_PAID_SUCCESS", () => {
   expect(signup(initState, action)).toEqual(expected);
 });
 
-test("signup-reducer GO_BACK", () => {
+test("signup-reducer SHOW_MNEMONIC", () => {
+  const modifiedState = {
+    ...initState,
+    phase: SIGNUP_PHASES.RECORD_STORAGE_PIN
+  };
   const action = {
-    type: signupActions.GO_BACK
+    type: signupActions.SHOW_MNEMONIC
   };
   const expected = {
     ...initState,
     phase: SIGNUP_PHASES.RECORD_RECOVERY_PHRASE
   };
-  expect(signup(initState, action)).toEqual(expected);
+  expect(signup(modifiedState, action)).toEqual(expected);
 });

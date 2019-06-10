@@ -6,7 +6,7 @@ const initState = {
   masterHandle: null,
   storageUsed: 0,
   storageLimit: 0,
-  expirationDate: new Date()
+  expirationDate: null
 };
 
 const authenticationReducer = (state = initState, action) => {

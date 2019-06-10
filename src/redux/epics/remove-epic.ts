@@ -22,7 +22,7 @@ const removeFileByHandleEpic = (action$, state$, dependencies$) =>
 
           return removeActions.removeSuccess({ masterHandle });
         }),
-        catchError(err => of(removeActions.removeError({ err })))
+        catchError(error => of(removeActions.removeError({ error })))
       );
     })
   );
