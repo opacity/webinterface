@@ -41,7 +41,6 @@ const downloadEpic = (action$, state$, dependencies$) =>
               .toFile()
               .then(file => {
                 const f = file as File;
-                console.log(f);
                 FileSaver.saveAs(f);
 
                 toast.update(handle, {

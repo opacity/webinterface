@@ -4,10 +4,10 @@ import { push } from "connected-react-router";
 
 import subscriptionActions from "../actions/subscription-actions";
 
-const setSubscription = (action$, state$, dependencies$) =>
+const setSubscriptionEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(subscriptionActions.SET_SUBSCRIPTION),
     map(() => push("/sign-up"))
   );
 
-export default combineEpics(setSubscription);
+export default combineEpics(setSubscriptionEpic);

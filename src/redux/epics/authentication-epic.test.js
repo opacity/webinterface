@@ -1,4 +1,4 @@
-import { ActionsObservable } from "redux-observable";
+import { of } from "rxjs";
 import "rxjs/add/operator/toArray";
 import { push } from "connected-react-router";
 import { MasterHandle } from "opaque";
@@ -18,12 +18,8 @@ const masterHandle = {
 MasterHandle.mockImplementation(() => masterHandle);
 
 test("loginEpic", done => {
-  const action$ = ActionsObservable.of({
-    type: authenticationActions.LOGIN_PENDING,
-    payload: {
-      privateKey: "foo"
-    }
-  });
+  const privateKey = "p1";
+  const action$ = of(authenticationActions.loginPending({ privateKey }));
 
   authenticationEpic(action$)
     .toArray()

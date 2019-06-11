@@ -43,6 +43,7 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
         });
 
         upload.on("finish", () => {
+          console.log("fffffffffffffffffffffF");
           toast.update(handle, {
             render: `${file.name} has finished uploading.`,
             progress: 1
@@ -58,6 +59,7 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
           );
           o.complete();
         });
+        console.log("xxxxxxxxxxxxxx: ", upload);
 
         upload.on("error", error => {
           toast.update(handle, {
