@@ -21,3 +21,44 @@ test("uploadFilesEpic filesActions.UPLOAD_FILES", done => {
       done();
     });
 });
+
+test("uploadFilesEpic filesActions.UPLOAD_FILE on success", done => {
+  const file = { name: "f1" };
+  const upload = new EventEmitter();
+  upload.handle = "h1";
+
+  const masterHandle = {
+    uploadFile: jest.fn(() => upload)
+  };
+
+  const action$ = of(uploadActions.uploadFile({ file, masterHandle }));
+
+  uploadEpic(action$).subscribe(actions => {
+    expect(actions).toEqual(uploadActions.uploadSuccess({ masterHandle }));
+    done();
+  });
+
+  upload.emit("finish");
+});
+
+test("uploadFilesEpic filesActions.UPLOAD_FILE on failure", done => {
+  const file = { name: "f1" };
+  const upload = new EventEmitter();
+  upload.handle = "h1";
+  const error = new Error("foobar");
+
+  const masterHandle = {
+    uploadFile: jest.fn(() => upload)
+  };
+
+  const action$ = of(uploadActions.uploadFile({ file, masterHandle }));
+
+  uploadEpic(action$).subscribe(actions => {
+    expect(actions).toEqual(
+      uploadActions.uploadError({ handle: "h1", filename: "f1", error })
+    );
+    done();
+  });
+
+  upload.emit("error", error);
+});
