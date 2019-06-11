@@ -150,9 +150,11 @@
     "tslint-react": "^3.6.0"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development PORT=3001 webpack-dev-server --config='config/webpack.config.js' --mode development",
+    "start": "cross-env NODE_ENV=development BETA=false PORT=3001 webpack-dev-server --config='config/webpack.config.js' --mode development",
     "start:prod": "NODE_ENV=production npm start --port=3001",
-    "build": "cross-env NODE_ENV=production webpack --config='config/webpack.config.js' --mode production",
+    "start:beta": "cross-env NODE_ENV=development BETA=true PORT=3001 webpack-dev-server --config='config/webpack.config.js' --mode development",
+    "build": "cross-env NODE_ENV=production BETA=false webpack --config='config/webpack.config.js' --mode production",
+    "build:beta": "cross-env NODE_ENV=production BETA=true webpack --config='config/webpack.config.js' --mode production",
     "test": "jest",
     "lint": "tslint --project . --config tslint.config.js",
     "lint-staged": "lint-staged",
