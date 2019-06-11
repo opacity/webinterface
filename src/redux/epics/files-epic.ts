@@ -19,7 +19,7 @@ const getFileListEpic = (action$, state$, dependencies$) =>
 
       return from(masterHandle.getFolderMeta("/")).pipe(
         map((data: any) => filesActions.setList({ list: data.files })),
-        catchError(error => of(filesActions.setList({ list: [] })))
+        catchError(() => of(filesActions.setList({ list: [] })))
       );
     })
   );
