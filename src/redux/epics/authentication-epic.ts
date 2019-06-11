@@ -27,12 +27,14 @@ const loginEpic = (action$, state$, dependencies$) =>
       return from(masterHandle.isPaid()).pipe(
         flatMap(isPaid => {
           if (isPaid) {
-            return [
-              authenticationActions.loginSuccess({
-                masterHandle
-              }),
-              push("/file-manager")
-            ];
+            return from(masterHandle.login()).pipe(
+              flatMap(() => [
+                authenticationActions.loginSuccess({
+                  masterHandle
+                }),
+                push("/file-manager")
+              ])
+            );
           } else {
             return [
               authenticationActions.loginFailure({
