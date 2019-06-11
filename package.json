@@ -152,7 +152,9 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development PORT=3001 webpack-dev-server --config='config/webpack.config.js' --mode development",
     "start:prod": "NODE_ENV=production npm start --port=3001",
+    "start:beta": "cross-env NODE_ENV=development-beta PORT=3001 webpack-dev-server --config='config/webpack.config.js' --mode development",
     "build": "cross-env NODE_ENV=production webpack --config='config/webpack.config.js' --mode production",
+    "build:beta": "cross-env NODE_ENV=production-beta webpack --config='config/webpack.config.js' --mode production",
     "test": "jest",
     "lint": "tslint --project . --config tslint.config.js",
     "lint-staged": "lint-staged",
