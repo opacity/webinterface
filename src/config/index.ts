@@ -1,17 +1,20 @@
 export const IS_DEV = process.env.NODE_ENV === "development";
-export const IS_BETA = process.env.BETA === "true";
+export const IS_BETA_DEV = process.env.NODE_ENV === "development-beta";
+export const IS_BETA_PROD = process.env.NODE_ENV === "production-beta";
 
-const PROTOCOL = IS_BETA ? "https" : IS_DEV ? "http" : "https";
+const PROTOCOL = IS_DEV ? "http" : "https";
 
-export const HOST = IS_DEV ? "localhost:3001"
-  : IS_BETA ? "beta.opacity.io" : "opacity.io";
+export const HOST = IS_DEV || IS_BETA_DEV ? "localhost:3001"
+  : IS_BETA_PROD ? "beta.opacity.io" : "opacity.io";
 export const FRONT_END_URL = `${PROTOCOL}://${HOST}`;
 
 export const EXCHANGE_LINK = "https://www.kucoin.com/trade/OPQ-BTC";
 export const GTM_ID = IS_DEV ? "GTM-MTCZFC8" : "GTM-WBG5C67";
 
-const DEFAULT_BROKER_IP = IS_BETA ? "beta-broker.opacitynodes.com" :
-  IS_DEV ? "13.58.191.143" : "broker-1.opacitynodes.com";
+const DEFAULT_BROKER_IP =
+  IS_BETA_PROD || IS_BETA_DEV ? "beta-broker.opacitynodes.com" :
+  IS_DEV ? "13.58.191.143"
+    : "broker-1.opacitynodes.com";
 
 export const API = Object.freeze({
   STORAGE_NODE: `${PROTOCOL}://${DEFAULT_BROKER_IP}:3000`,

@@ -213,6 +213,115 @@ if (env.stringified["process.env"].NODE_ENV === '"production"') {
     ]
   });
 }
+if (env.stringified["process.env"].NODE_ENV === '"production-beta"') {
+  module.exports = merge(common, {
+    bail: true,
+    optimization: {
+      nodeEnv: "production-beta"
+    },
+    devtool: "cheap-module-source-map",
+    entry: paths.appSrc + "/index.js",
+    output: {
+      path: paths.appBuild,
+      filename: `static/js/opacity-webinterface-${APP_VERSION}.min.js`,
+      chunkFilename: "static/js/[name].chunk.js",
+      publicPath,
+      devtoolModuleFilenameTemplate: info =>
+        path
+          .relative(paths.appSrc, info.absoluteResourcePath)
+          .replace(/\\/g, "/")
+    },
+    resolve: {
+      modules: ["node_modules", paths.appNodeModules].concat(
+        process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
+      ),
+      extensions: [
+        ".web.js",
+        ".mjs",
+        ".js",
+        ".json",
+        ".web.jsx",
+        ".jsx",
+        ".ts",
+        ".tsx"
+      ],
+      plugins: [new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])]
+    },
+    plugins: [
+      new BundleAnalyzerPlugin({
+        generateStatsFile: generateStatsFile,
+        analyzerMode: "static"
+      }),
+      new MiniCssExtractPlugin({
+        filename: "[name].[hash].css",
+        chunkFilename: "[id].[hash].css"
+      }),
+      new HtmlWebpackPlugin({
+        inject: true,
+        template: paths.appHtml,
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeRedundantAttributes: true,
+          useShortDoctype: true,
+          removeEmptyAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyCSS: true,
+          minifyURLs: true
+        }
+      }),
+      new ManifestPlugin({
+        fileName: "asset-manifest.json"
+      }),
+      new ScriptExtHtmlWebpackPlugin({
+        custom: [
+          {
+            test: /.js$/,
+            attribute: "data-eth-address",
+            value: "0xD1833A50f411432aD38E8374df8Cfff79e743788"
+          }
+        ]
+      }),
+      new SWPrecacheWebpackPlugin({
+        // By default, a cache-busting query parameter is appended to requests
+        // used to populate the caches, to ensure the responses are fresh.
+        // If a URL is already hashed by Webpack, then there is no concern
+        // about it being stale, and the cache-busting can be skipped.
+        dontCacheBustUrlsMatching: /\.\w{8}\./,
+        filename: "service-worker.js",
+        logger (message) {
+          if (message.indexOf("Total precache size is") === 0) {
+            // This message occurs for every build and is a bit too noisy.
+            return;
+          }
+          if (message.indexOf("Skipping static resource") === 0) {
+            // This message obscures real errors so we ignore it.
+            // https://github.com/facebookincubator/create-react-app/issues/2612
+            return;
+          }
+          console.log(message);
+        },
+        minify: true,
+        navigateFallback: publicUrl + "/index.html",
+        // Ignores URLs starting from /__ (useful for Firebase):
+        // https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
+        navigateFallbackWhitelist: [/^(?!\/__).*/],
+        // Don't precache sourcemaps (they're large) and build asset manifest:
+        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
+      }),
+      new InterpolateHtmlPlugin(env.raw),
+      new CompressionPlugin({
+        filename: "[path].gz[query]",
+        algorithm: "gzip",
+        test: /\.js$|\.css$|\.html$/,
+        threshold: 10240,
+        minRatio: 0.8
+      })
+    ]
+  });
+}
 // end production configuration
 
 if (env.stringified["process.env"].NODE_ENV === '"development"') {
@@ -221,6 +330,53 @@ if (env.stringified["process.env"].NODE_ENV === '"development"') {
       port: 3001,
       open: true,
       historyApiFallback: true
+    },
+    devtool: "source-map",
+    entry: paths.appIndexJs,
+    output: {
+      publicPath: publicPath,
+      filename: "static/js/[name].bundle.[hash:8].js",
+      chunkFilename: "static/js/[name].chunk.[chunkhash:8].js"
+    },
+    resolve: {
+      extensions: [
+        ".web.js",
+        ".mjs",
+        ".js",
+        ".json",
+        ".web.jsx",
+        ".jsx",
+        ".tsx",
+        ".ts"
+      ]
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        inject: true,
+        template: paths.appHtml
+      }),
+      new MiniCssExtractPlugin({
+        filename: "[name].[hash].css",
+        chunkFilename: "[id].[hash].css"
+      }),
+      new InterpolateHtmlPlugin(env.raw),
+      new CopyWebpackPlugin([
+        // relative path is from src
+        { from: "./public/favicon.ico" } // <- your path to favicon
+      ])
+    ]
+  });
+}
+
+if (env.stringified["process.env"].NODE_ENV === '"development-beta"') {
+  module.exports = merge(common, {
+    devServer: {
+      port: 3001,
+      open: true,
+      historyApiFallback: true
+    },
+    optimization: {
+      nodeEnv: "development-beta"
     },
     devtool: "source-map",
     entry: paths.appIndexJs,
