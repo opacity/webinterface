@@ -165,6 +165,8 @@ const Tr = styled.tr`
     td:nth-child(4) {
       display: none;
     }
+  }
+  @media (max-width: 915px) {
     th:nth-child(2),
     td:nth-child(2) {
       width: 95%;
