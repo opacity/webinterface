@@ -29,9 +29,6 @@ const LoginContainer = styled.div`
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     padding: 25px 35px;
   }
-  @media only screen and (max-width: ${DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    margin: 90px 30px 0 20px;
-  }
 `;
 
 interface InputProps {
