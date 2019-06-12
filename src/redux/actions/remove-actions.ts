@@ -21,9 +21,9 @@ const ACTIONS = Object.freeze({
     type: REMOVE_SUCCESS,
     payload: { masterHandle }
   }),
-  removeError: ({ err }) => ({
+  removeError: ({ error }) => ({
     type: REMOVE_ERROR,
-    payload: { err }
+    payload: { error }
   })
 });
 

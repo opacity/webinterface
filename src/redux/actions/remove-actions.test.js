@@ -33,3 +33,25 @@ test("removeFileByName", () => {
     expected
   );
 });
+
+test("removeSuccess", () => {
+  const masterHandle = "mh1";
+  const expected = {
+    type: actions.REMOVE_SUCCESS,
+    payload: {
+      masterHandle
+    }
+  };
+  expect(actions.removeSuccess({ masterHandle })).toEqual(expected);
+});
+
+test("removeError", () => {
+  const error = "e1";
+  const expected = {
+    type: actions.REMOVE_ERROR,
+    payload: {
+      error
+    }
+  };
+  expect(actions.removeError({ error })).toEqual(expected);
+});

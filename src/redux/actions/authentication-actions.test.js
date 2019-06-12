@@ -42,3 +42,41 @@ test("logout", () => {
   };
   expect(actions.logout()).toEqual(expected);
 });
+
+test("fetchAccountDataSuccess", () => {
+  const storageUsed = 1;
+  const storageLimit = 2;
+  const expirationDate = 3;
+
+  const expected = {
+    type: actions.FETCH_ACCOUNT_DATA_SUCCESS,
+    payload: {
+      storageUsed,
+      storageLimit,
+      expirationDate
+    }
+  };
+  expect(
+    actions.fetchAccountDataSuccess({
+      storageUsed,
+      storageLimit,
+      expirationDate
+    })
+  ).toEqual(expected);
+});
+
+test("fetchAccountDataFailure", () => {
+  const error = "e1";
+
+  const expected = {
+    type: actions.FETCH_ACCOUNT_DATA_FAILURE,
+    payload: {
+      error
+    }
+  };
+  expect(
+    actions.fetchAccountDataFailure({
+      error
+    })
+  ).toEqual(expected);
+});

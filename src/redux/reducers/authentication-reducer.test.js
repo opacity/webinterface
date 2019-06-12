@@ -7,7 +7,7 @@ const initState = {
   masterHandle: null,
   storageUsed: 0,
   storageLimit: 0,
-  expirationDate: new Date()
+  expirationDate: null
 };
 
 test("authentication-reducer LOGIN_PENDING", () => {
@@ -51,9 +51,40 @@ test("authentication-reducer LOGIN_SUCCESS", () => {
 });
 
 test("authentication-reducer LOGOUT", () => {
+  const modifiedState = {
+    ...initState,
+    status: AUTHENTICATION_STATUSES.LOGGED_IN,
+    masterHandle: "m1",
+    storageUsed: 1,
+    storageLimit: 2,
+    expirationDate: new Date()
+  };
   const action = {
     type: authenticationActions.LOGOUT
   };
 
-  expect(authentication(initState, action)).toEqual(initState);
+  expect(authentication(modifiedState, action)).toEqual(initState);
+});
+
+test("authentication-reducer FETCH_ACCOUNT_DATA_SUCCESS", () => {
+  const storageUsed = 1;
+  const storageLimit = 2;
+  const expirationDate = 3;
+
+  const action = {
+    type: authenticationActions.FETCH_ACCOUNT_DATA_SUCCESS,
+    payload: {
+      storageUsed,
+      storageLimit,
+      expirationDate
+    }
+  };
+  const expected = {
+    ...initState,
+    storageUsed,
+    storageLimit,
+    expirationDate
+  };
+
+  expect(authentication(initState, action)).toEqual(expected);
 });

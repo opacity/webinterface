@@ -19,10 +19,7 @@ const getFileListEpic = (action$, state$, dependencies$) =>
 
       return from(masterHandle.getFolderMeta("/")).pipe(
         map((data: any) => filesActions.setList({ list: data.files })),
-        catchError(error => {
-          console.log("ERROR: ", error);
-          return of(filesActions.setList({ list: [] }));
-        })
+        catchError(() => of(filesActions.setList({ list: [] })))
       );
     })
   );
@@ -45,10 +42,9 @@ const getAccountDataEpic = (action$, state$, dependencies$) =>
             expirationDate: data.expirationDate
           })
         ),
-        catchError(error => {
-          console.log("ERROR: ", error);
-          return of(authenticationActions.fetchAccountDataFailure({ error }));
-        })
+        catchError(error =>
+          of(authenticationActions.fetchAccountDataFailure({ error }))
+        )
       );
     })
   );
