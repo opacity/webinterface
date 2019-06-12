@@ -72,7 +72,6 @@
     "react-dom": "^16.8.6",
     "react-google-tag-manager": "^2.2.1",
     "react-markdown": "^4.0.6",
-    "react-md-spinner": "^0.2.5",
     "react-modal": "^3.8.1",
     "react-redux": "^6.0.0",
     "react-router": "^5.0.0",
