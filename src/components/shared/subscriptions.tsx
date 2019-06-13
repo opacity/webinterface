@@ -128,6 +128,10 @@ const Content = styled.p`
   }
 `;
 
+interface SignupLinkProps {
+  disabled: boolean;
+}
+
 const SignupLink = styled(Link)`
   align-items: center;
   background-color: ${props => props.theme.button.background};
@@ -146,13 +150,17 @@ const SignupLink = styled(Link)`
   margin: auto;
   text-align: center;
   text-decoration: none;
+  text-transform: uppercase;
   width: 171px;
-
-  &:disabled {
+  ${(props: SignupLinkProps) =>
+    props.disabled &&
+    `
+    pointer-events: none;
+    cursor: default;
     background-color: #dfdfdf;
     color: #4f5e78;
     border: 1px solid #4f5e78;
-  }
+  `};
 `;
 
 const ButtonWrapper = styled.div`
@@ -186,16 +194,14 @@ const Subscriptions = () => (
           <Footer>
             <Price>{plan.price}</Price>
             <Plan>{plan.storageLimit}</Plan>
-            {plan.button && (
-              <ButtonWrapper>
-                <SignupLink
-                  disabled={!plan.isAvailable}
-                  to={`sign-up/${plan.permalink}`}
-                >
-                  {plan.button}
-                </SignupLink>
-              </ButtonWrapper>
-            )}
+            <ButtonWrapper>
+              <SignupLink
+                disabled={!plan.isAvailable}
+                to={`sign-up/${plan.permalink}`}
+              >
+                {plan.isAvailable ? "Sign up" : "Coming soon"}
+              </SignupLink>
+            </ButtonWrapper>
           </Footer>
         </Column>
       ))}
