@@ -3,15 +3,12 @@ import { ThemeProvider } from "styled-components";
 
 import { theme } from "../../config";
 
-import ContentBox from "./content-box";
-import Title from "./title";
+import Subscriptions from "../shared/subscriptions";
 
 const SelectPlanSlide = () => {
   return (
     <ThemeProvider theme={theme}>
-      <ContentBox>
-        <Title>Select a Plan</Title>
-      </ContentBox>
+      <Subscriptions />
     </ThemeProvider>
   );
 };

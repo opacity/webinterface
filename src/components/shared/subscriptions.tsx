@@ -129,20 +129,24 @@ const Content = styled.p`
 `;
 
 const SignupLink = styled(Link)`
-  width: 171px;
-  height: 40px;
+  align-items: center;
   background-color: ${props => props.theme.button.background};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
+  border: none;
   color: ${props => props.theme.button.color};
   cursor: pointer;
-  text-align: center;
+  display: flex;
+  font-size: 16px;
+  font-stretch: ${props => props.theme.fontStretch};
+  font-style: ${props => props.theme.fontStyle};
+  font-weight: bold;
+  height: 40px;
+  justify-content: center;
+  letter-spacing: ${props => props.theme.letterSpacing};
+  line-height: ${props => props.theme.lineHeight};
   margin: auto;
-  border: none;
+  text-align: center;
+  text-decoration: none;
+  width: 171px;
 
   &:disabled {
     background-color: #dfdfdf;

@@ -32,6 +32,17 @@ const CreateAccount = ({
   const [invoice, setInvoice] = useState<any>(null);
   const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
 
+  useEffect(
+    () => {
+      // send them back to the first menomic screen
+      // everytime they choose a new plan
+      if (plan) {
+        showMnemonic();
+      }
+    },
+    [plan]
+  );
+
   useEffect(() => {
     const account = new Account();
     setMnemonic(account.mnemonic);
