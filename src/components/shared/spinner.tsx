@@ -4,6 +4,8 @@ import styled, { keyframes } from "styled-components";
 const WrapperSpinner = styled.div`
   height: 30px;
   border-radius: 5px;
+  min-width: 250px;
+  min-height: 25px;
 }`;
 
 const animateStripes = keyframes`
