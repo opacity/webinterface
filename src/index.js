@@ -51,6 +51,7 @@ const App = () => (
             <Route path="/error-page" component={ErrorPage} />
             <Route path="/brokers-down" component={BrokersDown} />
             <Route path="/subscription" component={Subscription} />
+            <Route path="/sign-up/:plan" component={Signup} />
             <Route path="/sign-up" component={Signup} />
             <Route path="/stands-out" component={StandsOut} />
             <Route path="/login" component={Login} />

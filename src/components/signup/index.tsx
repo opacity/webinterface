@@ -5,10 +5,15 @@ import signupActions from "../../redux/actions/signup-actions";
 import metamaskActions from "../../redux/actions/metamask-actions";
 import CreateAccount from "./create-account";
 
-const mapStateToProps = state => ({
-  phase: state.signup.phase,
-  subscription: state.subscription.item
-});
+import { PLANS, SIGNUP_PHASES } from "../../config";
+
+const mapStateToProps = (state, props) => {
+  const plan = PLANS.find(p => p.permalink === props.match.params.plan);
+  return {
+    plan,
+    phase: plan ? state.signup.phase : SIGNUP_PHASES.SELECT_PLAN
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   showMnemonic: () => dispatch(signupActions.showMnemonic()),
@@ -21,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
 
 const SignUp = ({
   phase,
-  subscription,
+  plan,
   showMnemonic,
   showAddress,
   invoice,
@@ -33,7 +38,7 @@ const SignUp = ({
     showAddress={showAddress}
     openMetamask={openMetamask}
     pollPayment={pollPayment}
-    subscription={subscription}
+    plan={plan}
     showMnemonic={showMnemonic}
   />
 );

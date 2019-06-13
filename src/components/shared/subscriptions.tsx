@@ -1,10 +1,11 @@
 import _ from "lodash";
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { Link } from "react-router-dom";
 
 import {
   SUBSCRIPTION_DESKTOP_WIDTH,
-  SUBSCRIPTION_LIST,
+  PLANS,
   MOBILE_WIDTH,
   theme
 } from "../../config";
@@ -127,7 +128,7 @@ const Content = styled.p`
   }
 `;
 
-const Button = styled.button`
+const SignupLink = styled(Link)`
   width: 171px;
   height: 40px;
   background-color: ${props => props.theme.button.background};
@@ -167,30 +168,28 @@ const Footer = styled.div`
   }
 `;
 
-const Subscription = ({ setSubscription }) => (
+const Subscriptions = () => (
   <ThemeProvider theme={theme}>
     <Container>
-      {_.map(SUBSCRIPTION_LIST, item => (
-        <Column key={_.random(true)}>
+      {_.map(PLANS, plan => (
+        <Column key={plan.permalink}>
           <Header>
-            <Title>{item.title}</Title>
+            <Title>{plan.title}</Title>
             <Line />
-            <Content>{item.content}</Content>
-            <SubscriptionFeatures features={item.features} />
+            <Content>{plan.content}</Content>
+            <SubscriptionFeatures features={plan.features} />
           </Header>
           <Footer>
-            <Price>{item.price}</Price>
-            <Plan>{item.plan}</Plan>
-            {item.button && (
+            <Price>{plan.price}</Price>
+            <Plan>{plan.storageLimit}</Plan>
+            {plan.button && (
               <ButtonWrapper>
-                <Button
-                  disabled={!item.isAvailable}
-                  onClick={() => {
-                    setSubscription(item);
-                  }}
+                <SignupLink
+                  disabled={!plan.isAvailable}
+                  to={`sign-up/${plan.permalink}`}
                 >
-                  {item.button}
-                </Button>
+                  {plan.button}
+                </SignupLink>
               </ButtonWrapper>
             )}
           </Footer>
@@ -200,4 +199,4 @@ const Subscription = ({ setSubscription }) => (
   </ThemeProvider>
 );
 
-export default Subscription;
+export default Subscriptions;

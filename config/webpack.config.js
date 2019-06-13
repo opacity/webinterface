@@ -20,7 +20,7 @@ const paths = require("./paths");
 const getClientEnvironment = require("./env");
 
 const APP_VERSION = "0.0.1";
-const publicPath = ""; //paths.servedPath;
+const publicPath = "/"; //paths.servedPath;
 const generateStatsFile = process.env.GENERATE_STATS_FILE !== "false";
 const publicUrl = publicPath.slice(0, -1);
 const env = getClientEnvironment(publicUrl);
@@ -135,7 +135,7 @@ if (env.stringified["process.env"].NODE_ENV === '"development-beta"') {
 }
 // end development configuration
 
-function returnDevelopmentConfiguration () {
+function returnDevelopmentConfiguration() {
   return merge(common, {
     devServer: {
       port: 3001,
@@ -180,7 +180,7 @@ function returnDevelopmentConfiguration () {
   });
 }
 
-function returnProductionConfiguration () {
+function returnProductionConfiguration() {
   return merge(common, {
     bail: true,
     devtool: "cheap-module-source-map",
@@ -255,7 +255,7 @@ function returnProductionConfiguration () {
         // about it being stale, and the cache-busting can be skipped.
         dontCacheBustUrlsMatching: /\.\w{8}\./,
         filename: "service-worker.js",
-        logger (message) {
+        logger(message) {
           if (message.indexOf("Total precache size is") === 0) {
             // This message occurs for every build and is a bit too noisy.
             return;
