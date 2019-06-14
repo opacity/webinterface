@@ -282,7 +282,12 @@ function returnProductionConfiguration () {
         test: /\.js$|\.css$|\.html$/,
         threshold: 10240,
         minRatio: 0.8
-      })
+      }),
+      new CopyWebpackPlugin([
+        // relative path is from src
+        { from: "./public/favicon.ico" }, // <- your path to favicon
+        { from: "./public/logo.png" } // <- your path to logo
+      ])
     ]
   });
 }
