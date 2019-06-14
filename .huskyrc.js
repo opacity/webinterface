@@ -5,7 +5,7 @@ const beforePush = tasks(["npm run lint", "npm run test"]);
 
 module.exports = {
   hooks: {
-    "pre-commit": beforeCommit,
-    "pre-push": beforePush
+    //"pre-commit": beforeCommit,
+    //"pre-push": beforePush
   }
 };
