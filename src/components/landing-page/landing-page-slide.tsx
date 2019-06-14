@@ -464,11 +464,7 @@ const LandingPageSlide = ({ history, isLoggedIn, setSubscription }) => (
             <PartnerSubContainer>
               <Column>
                 <Wrapper>
-                  <PartnerIcon src={ICON_FLO}
-                  onClick={() =>
-                    window.open("https://qlcchain.org/", "_blank")
-                  }
-                  />
+                  <PartnerIcon src={ICON_FLO}/>
                 </Wrapper>
                 <ButtonWrapper>
                   <ButtonVisit
@@ -482,11 +478,7 @@ const LandingPageSlide = ({ history, isLoggedIn, setSubscription }) => (
               </Column>
               <Column>
               <Wrapper>
-                <PartnerIcon src={ICON_QLC}
-                onClick={() =>
-                  window.open("https://qlcchain.org/", "_blank")
-                }
-                />
+                <PartnerIcon src={ICON_QLC}/>
               </Wrapper>
               <ButtonWrapper>
                 <ButtonVisit
