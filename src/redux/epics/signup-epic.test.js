@@ -28,12 +28,3 @@ test("pollPaymentEpic on failure", done => {
     done();
   });
 });
-
-test("checkoutPlanEpic", () => {
-  const plan = "foobar";
-  const action$ = of(signupActions.checkoutPlan({ plan }));
-
-  signupEpic(action$).subscribe(actions => {
-    expect(actions).toEqual(push("/sign-up"));
-  });
-});
