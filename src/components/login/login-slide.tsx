@@ -25,7 +25,6 @@ const LoginContainer = styled.div`
   max-width: 600px;
   margin: auto;
   background-color: ${props => props.theme.background};
-  text-align: center;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px) {
     padding: 25px 35px;
   }
