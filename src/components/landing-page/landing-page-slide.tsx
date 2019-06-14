@@ -24,8 +24,11 @@ const ICON_INFO_OPACITY = require("../../assets/images/info_opacity.svg");
 const ICON_INFO_BENEFIT = require("../../assets/images/info_benefit.svg");
 const ICON_INFO_PERSONAL = require("../../assets/images/info_personal.svg");
 const ICON_INFO_CRYPTOCURRENCY = require("../../assets/images/info_cryptocurrency.svg");
+const ICON_FLO = require("../../assets/images/FLO.png");
+const ICON_QLC = require("../../assets/images/QLC.png");
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
-const ICON_COSSIO = require("../../assets/images/cossio.webp");
+const ICON_COSS = require("../../assets/images/cossio.png");
+const ICON_MERCATOX = require("../../assets/images/Mercatox.png");
 const BACKGROUND_BUBBLES = require("../../assets/images/bubbles.svg");
 const VIDEO_POSTER = require("../../assets/images/video-poster.png");
 
@@ -86,6 +89,10 @@ const BuySubContainer = styled(SubContainer)`
   justify-content: space-around;
 `;
 
+const PartnerSubContainer = styled(SubContainer)`
+  justify-content: space-around;
+`;
+
 const Column = styled.div`
   padding-top: 15px;
 `;
@@ -135,6 +142,14 @@ const ButtonBuy = styled(Button)`
   }
 `;
 
+const ButtonVisit = styled(Button)`
+  margin-top: 40px;
+  width: 200px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    width: 250px;
+  }
+`;
+
 const Wrapper = styled.div`
   text-align: center;
 `;
@@ -176,6 +191,10 @@ const ItemIcon = styled.img`
 `;
 
 const BuyIcon = styled.img`
+  width: 150px;
+`;
+
+const PartnerIcon = styled.img`
   width: 150px;
 `;
 
@@ -440,6 +459,47 @@ const LandingPageSlide = ({ history, isLoggedIn, setSubscription }) => (
           <Subscription setSubscription={item => setSubscription(item)} />
         </SubscriptionContainer>
       </SubscriptionContainerImage>
+      <Container id="Partners">
+            <InfoHeaderTitle>Our Partners</InfoHeaderTitle>
+            <PartnerSubContainer>
+              <Column>
+                <Wrapper>
+                  <PartnerIcon src={ICON_FLO}
+                  onClick={() =>
+                    window.open("https://qlcchain.org/", "_blank")
+                  }
+                  />
+                </Wrapper>
+                <ButtonWrapper>
+                  <ButtonVisit
+                    onClick={() =>
+                      window.open("https://flo.cash/", "_blank")
+                    }
+                  >
+                    Visit FLO
+                  </ButtonVisit>
+                </ButtonWrapper>
+              </Column>
+              <Column>
+              <Wrapper>
+                <PartnerIcon src={ICON_QLC}
+                onClick={() =>
+                  window.open("https://qlcchain.org/", "_blank")
+                }
+                />
+              </Wrapper>
+              <ButtonWrapper>
+                <ButtonVisit
+                  onClick={() =>
+                    window.open("https://qlcchain.org/", "_blank")
+                  }
+                >
+                  Visit QLC
+                </ButtonVisit>
+              </ButtonWrapper>
+              </Column>
+              </PartnerSubContainer>
+        </Container>
       <Container>
         <InfoHeaderTitle>More Info? No Problem.</InfoHeaderTitle>
         <InfoHeaderContent>
@@ -540,15 +600,29 @@ const LandingPageSlide = ({ history, isLoggedIn, setSubscription }) => (
           </Column>
           <Column>
             <Wrapper>
-              <BuyIcon src={ICON_COSSIO} />
+              <BuyIcon src={ICON_MERCATOX} />
             </Wrapper>
             <ButtonWrapper>
               <ButtonBuy
                 onClick={() =>
-                  window.open("https://coss.io/c/trade?s=OPQ_ETH", "_blank")
+                  window.open("https://mercatox.com/exchange/OPQ/BTC", "_blank")
                 }
               >
-                Buy OPQ on COSS
+                Buy OPQ on Mercatox
+              </ButtonBuy>
+            </ButtonWrapper>
+          </Column>
+          <Column>
+            <Wrapper>
+              <BuyIcon src={ICON_COSS} />
+            </Wrapper>
+            <ButtonWrapper>
+              <ButtonBuy
+                onClick={() =>
+                  window.open("https://coss.io/c/trade?s=OPQ_BTC", "_blank")
+                }
+              >
+                Buy OPQ on Coss
               </ButtonBuy>
             </ButtonWrapper>
           </Column>
