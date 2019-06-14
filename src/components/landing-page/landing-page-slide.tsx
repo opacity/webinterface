@@ -28,7 +28,7 @@ const ICON_FLO = require("../../assets/images/FLO.png");
 const ICON_QLC = require("../../assets/images/QLC.png");
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
 const ICON_COSS = require("../../assets/images/cossio.png");
-const ICON_MERCATOX = require("../../assets/images/Mercatox.png");
+const ICON_MERCATOX = require("../../assets/images/mercatox.png");
 const BACKGROUND_BUBBLES = require("../../assets/images/bubbles.svg");
 const VIDEO_POSTER = require("../../assets/images/video-poster.png");
 
