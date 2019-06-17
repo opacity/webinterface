@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { MOBILE_WIDTH, SIGNUP_PHASES } from "../../config";
 
+const ICON_SELECT_PLAN = require("../../assets/images/icon_select_plan.svg");
 const ICON_RECOVERY = require("../../assets/images/icon_signup_recovery.svg");
 const ICON_PIN = require("../../assets/images/icon_signup_pin.svg");
 const ICON_PAYMENT = require("../../assets/images/icon_signup_payment.svg");
@@ -9,7 +10,8 @@ const ICON_CONFIRM = require("../../assets/images/icon_signup_confirm.svg");
 
 const Container = styled.div`
   display: flex;
-  padding: 20px 100px;
+  justify-content: center;
+  padding: 20px 70px;
   margin-bottom: 70px;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     display: block;
@@ -56,13 +58,13 @@ const PhaseNumber = styled.span`
 const Line = styled.hr`
   display: inline-block;
   height: 1px;
-  width: 150px;
+  width: 100px;
   border: 0;
   border-top: 1px solid ${props => props.theme.title.color};
   margin: 1em 29px;
   padding: 0;
   @media only screen and (max-width: 1400px) {
-    width: 80px;
+    width: 50px;
   }
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     display: none;
@@ -72,12 +74,22 @@ const Line = styled.hr`
 const Breadcrumbs = ({ phase }) => (
   <Container>
     <Phase
+      isActive={phase === SIGNUP_PHASES.SELECT_PLAN}
+      isHighlighted={phase >= SIGNUP_PHASES.SELECT_PLAN}
+    >
+      <PhaseInformation>
+        <PhaseIcon src={ICON_SELECT_PLAN} />
+        <PhaseNumber>1. Select a plan</PhaseNumber>
+      </PhaseInformation>
+      <Line />
+    </Phase>
+    <Phase
       isActive={phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE}
       isHighlighted={phase >= SIGNUP_PHASES.RECORD_RECOVERY_PHRASE}
     >
       <PhaseInformation>
         <PhaseIcon src={ICON_RECOVERY} />
-        <PhaseNumber>1. Record Recovery Phrase</PhaseNumber>
+        <PhaseNumber>2. Record Recovery Phrase</PhaseNumber>
       </PhaseInformation>
       <Line />
     </Phase>
@@ -87,7 +99,7 @@ const Breadcrumbs = ({ phase }) => (
     >
       <PhaseInformation>
         <PhaseIcon src={ICON_PIN} />
-        <PhaseNumber>2. Record Account Handle</PhaseNumber>
+        <PhaseNumber>3. Record Account Handle</PhaseNumber>
       </PhaseInformation>
       <Line />
     </Phase>
@@ -97,7 +109,7 @@ const Breadcrumbs = ({ phase }) => (
     >
       <PhaseInformation>
         <PhaseIcon src={ICON_PAYMENT} />
-        <PhaseNumber>3. Send Payment</PhaseNumber>
+        <PhaseNumber>4. Send Payment</PhaseNumber>
       </PhaseInformation>
       <Line />
     </Phase>
@@ -107,7 +119,7 @@ const Breadcrumbs = ({ phase }) => (
     >
       <PhaseInformation>
         <PhaseIcon src={ICON_CONFIRM} />
-        <PhaseNumber>4. Confirm Payment</PhaseNumber>
+        <PhaseNumber>5. Confirm Payment</PhaseNumber>
       </PhaseInformation>
     </Phase>
   </Container>

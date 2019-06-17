@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import Breadcrumbs from "./breadcrumbs";
+import SelectPlanSlide from "./select-plan-slide";
 import RecordRecoveryPhraseSlide from "./record-recovery-phrase-slide";
 import RecordAccountHandleSlide from "./record-account-handle-slide";
 import SendPaymentSlide from "./send-payment-slide";
@@ -22,14 +23,25 @@ const CreateAccount = ({
   pollPayment,
   showMnemonic,
   openMetamask,
-  phase,
-  subscription
+  plan,
+  phase
 }) => {
   const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [masterHandle, setMasterHandle] = useState<MasterHandle | null>(null);
   const [privateKey, setPrivateKey] = useState("");
   const [invoice, setInvoice] = useState<any>(null);
   const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
+
+  useEffect(
+    () => {
+      // send them back to the first menomic screen
+      // everytime they choose a new plan
+      if (plan) {
+        showMnemonic();
+      }
+    },
+    [plan]
+  );
 
   useEffect(() => {
     const account = new Account();
@@ -49,17 +61,20 @@ const CreateAccount = ({
     setPrivateKey(masterHandle.handle);
   }, []);
 
-  useEffect(() => {
-    if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
-      masterHandle
-        .register()
-        .then(({ data: { invoice }, waitForPayment }: any) => {
-          setInvoice(invoice);
-          setWaitForPaymentFn(() => waitForPayment);
-        })
-        .catch(console.log);
-    }
-  }, [phase]);
+  useEffect(
+    () => {
+      if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
+        masterHandle
+          .register()
+          .then(({ data: { invoice }, waitForPayment }: any) => {
+            setInvoice(invoice);
+            setWaitForPaymentFn(() => waitForPayment);
+          })
+          .catch(console.log);
+      }
+    },
+    [phase]
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -67,13 +82,13 @@ const CreateAccount = ({
         <Header type={HEADER_TYPES.EMPTY} />
         <ScreenContainer
           title={
-            "Register on Opacity: " +
-            subscription.title +
-            " Plan " +
-            subscription.plan
+            plan
+              ? `Register on Opacity: ${plan.title} Plan ${plan.storageLimit}`
+              : "Register on Opacity"
           }
         >
           <Breadcrumbs phase={phase} />
+          {phase === SIGNUP_PHASES.SELECT_PLAN && <SelectPlanSlide />}
           {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
             <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
           )}
@@ -86,7 +101,7 @@ const CreateAccount = ({
           )}
           {phase === SIGNUP_PHASES.SEND_PAYMENT && (
             <SendPaymentSlide
-              cost={subscription.cost}
+              cost={plan.cost}
               invoice={invoice}
               openMetamask={openMetamask}
             />

@@ -1,10 +1,11 @@
 import _ from "lodash";
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { Link } from "react-router-dom";
 
 import {
   SUBSCRIPTION_DESKTOP_WIDTH,
-  SUBSCRIPTION_LIST,
+  PLANS,
   MOBILE_WIDTH,
   theme
 } from "../../config";
@@ -127,27 +128,39 @@ const Content = styled.p`
   }
 `;
 
-const Button = styled.button`
-  width: 171px;
-  height: 40px;
+interface SignupLinkProps {
+  disabled: boolean;
+}
+
+const SignupLink = styled(Link)`
+  align-items: center;
   background-color: ${props => props.theme.button.background};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
+  border: none;
   color: ${props => props.theme.button.color};
   cursor: pointer;
-  text-align: center;
+  display: flex;
+  font-size: 16px;
+  font-stretch: ${props => props.theme.fontStretch};
+  font-style: ${props => props.theme.fontStyle};
+  font-weight: bold;
+  height: 40px;
+  justify-content: center;
+  letter-spacing: ${props => props.theme.letterSpacing};
+  line-height: ${props => props.theme.lineHeight};
   margin: auto;
-  border: none;
-
-  &:disabled {
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 171px;
+  ${(props: SignupLinkProps) =>
+    props.disabled &&
+    `
+    pointer-events: none;
+    cursor: default;
     background-color: #dfdfdf;
     color: #4f5e78;
     border: 1px solid #4f5e78;
-  }
+  `};
 `;
 
 const ButtonWrapper = styled.div`
@@ -167,32 +180,28 @@ const Footer = styled.div`
   }
 `;
 
-const Subscription = ({ setSubscription }) => (
+const Subscriptions = () => (
   <ThemeProvider theme={theme}>
     <Container>
-      {_.map(SUBSCRIPTION_LIST, item => (
-        <Column key={_.random(true)}>
+      {_.map(PLANS, plan => (
+        <Column key={plan.permalink}>
           <Header>
-            <Title>{item.title}</Title>
+            <Title>{plan.title}</Title>
             <Line />
-            <Content>{item.content}</Content>
-            <SubscriptionFeatures features={item.features} />
+            <Content>{plan.content}</Content>
+            <SubscriptionFeatures features={plan.features} />
           </Header>
           <Footer>
-            <Price>{item.price}</Price>
-            <Plan>{item.plan}</Plan>
-            {item.button && (
-              <ButtonWrapper>
-                <Button
-                  disabled={!item.isAvailable}
-                  onClick={() => {
-                    setSubscription(item);
-                  }}
-                >
-                  {item.button}
-                </Button>
-              </ButtonWrapper>
-            )}
+            <Price>{plan.price}</Price>
+            <Plan>{plan.storageLimit}</Plan>
+            <ButtonWrapper>
+              <SignupLink
+                disabled={!plan.isAvailable}
+                to={`sign-up/${plan.permalink}`}
+              >
+                {plan.isAvailable ? "Sign up" : "Coming soon"}
+              </SignupLink>
+            </ButtonWrapper>
           </Footer>
         </Column>
       ))}
@@ -200,4 +209,4 @@ const Subscription = ({ setSubscription }) => (
   </ThemeProvider>
 );
 
-export default Subscription;
+export default Subscriptions;

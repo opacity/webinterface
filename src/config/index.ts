@@ -4,17 +4,23 @@ export const IS_BETA_PROD = process.env.NODE_ENV === "production-beta";
 
 const PROTOCOL = IS_DEV ? "http" : "https";
 
-export const HOST = IS_DEV || IS_BETA_DEV ? "localhost:3001"
-  : IS_BETA_PROD ? "beta.opacity.io" : "opacity.io";
+export const HOST =
+  IS_DEV || IS_BETA_DEV
+    ? "localhost:3001"
+    : IS_BETA_PROD
+      ? "beta.opacity.io"
+      : "opacity.io";
 export const FRONT_END_URL = `${PROTOCOL}://${HOST}`;
 
 export const EXCHANGE_LINK = "https://www.kucoin.com/trade/OPQ-BTC";
 export const GTM_ID = IS_DEV ? "GTM-MTCZFC8" : "GTM-WBG5C67";
 
 const DEFAULT_BROKER_IP =
-  IS_BETA_PROD || IS_BETA_DEV ? "beta-broker.opacitynodes.com" :
-  IS_DEV ? "13.58.191.143"
-    : "broker-1.opacitynodes.com";
+  IS_BETA_PROD || IS_BETA_DEV
+    ? "beta-broker.opacitynodes.com"
+    : IS_DEV
+      ? "13.58.191.143"
+      : "broker-1.opacitynodes.com";
 
 export const API = Object.freeze({
   STORAGE_NODE: `${PROTOCOL}://${DEFAULT_BROKER_IP}:3000`,
@@ -82,12 +88,13 @@ export enum AUTHENTICATION_STATUSES {
   LOGGED_IN
 }
 
-export const SIGNUP_PHASES = {
-  RECORD_RECOVERY_PHRASE: 1,
-  RECORD_STORAGE_PIN: 2,
-  SEND_PAYMENT: 3,
-  CONFIRM_PAYMENT: 4
-};
+export enum SIGNUP_PHASES {
+  SELECT_PLAN = 0,
+  RECORD_RECOVERY_PHRASE,
+  RECORD_STORAGE_PIN,
+  SEND_PAYMENT,
+  CONFIRM_PAYMENT
+}
 
 export const theme = {
   background: "#ffffff",
@@ -154,16 +161,16 @@ export const theme = {
   letterSpacing: "normal"
 };
 
-export const SUBSCRIPTION_LIST = [
+export const PLANS = [
   {
     title: "Basic",
+    permalink: "basic",
     cost: 2,
     isAvailable: true,
     content:
       "Secure, encrypted storage solution perfect for the needs of the individual",
     price: "2 OPQ / year",
-    plan: "128 GB",
-    button: "SIGN UP",
+    storageLimit: "128 GB",
     features: [
       {
         title: "Secure storage"
@@ -178,13 +185,13 @@ export const SUBSCRIPTION_LIST = [
   },
   {
     title: "Professional",
+    permalink: "professional",
     cost: 16,
     isAvailable: false,
     content:
       "For professionals looking for a secure, easily accessible storage solution while on the move.",
     price: "16 OPQ / year",
-    plan: "1 TB",
-    button: "COMING SOON",
+    storageLimit: "1 TB",
     features: [
       {
         title: "Secure storage"
@@ -199,13 +206,13 @@ export const SUBSCRIPTION_LIST = [
   },
   {
     title: "Business",
+    permalink: "business",
     cost: 32,
     isAvailable: false,
     content:
       "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
     price: "32 OPQ / year",
-    plan: "2 TB",
-    button: "COMING SOON",
+    storageLimit: "2 TB",
     features: [
       {
         title: "Secure storage"

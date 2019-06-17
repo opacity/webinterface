@@ -9,7 +9,7 @@ import {
   LANDING_PAGE_VIDEO,
   theme
 } from "../../config";
-import Subscription from "../shared/subscription";
+import Subscriptions from "../shared/subscriptions";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
 import CurrencyWidget from "../shared/currency-widget";
@@ -353,7 +353,7 @@ const ContentPurchase = styled.a`
 const scrollToRef = ref =>
   ref.current && window.scrollTo(0, ref.current.offsetTop - 40);
 
-const LandingPageSlide = ({ history, isLoggedIn, setSubscription }) => {
+const LandingPageSlide = ({ history, isLoggedIn }) => {
   const scrollRef = useRef(null);
 
   return (
@@ -464,7 +464,7 @@ const LandingPageSlide = ({ history, isLoggedIn, setSubscription }) => {
         <SubscriptionContainerImage>
           <SubscriptionContainer>
             <SubscriptionTitle>Our Plans</SubscriptionTitle>
-            <Subscription setSubscription={item => setSubscription(item)} />
+            <Subscriptions />
           </SubscriptionContainer>
         </SubscriptionContainerImage>
         <Container id="Partners">

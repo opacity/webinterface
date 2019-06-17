@@ -20,7 +20,7 @@ const paths = require("./paths");
 const getClientEnvironment = require("./env");
 
 const APP_VERSION = "0.0.1";
-const publicPath = ""; //paths.servedPath;
+const publicPath = "/"; //paths.servedPath;
 const generateStatsFile = process.env.GENERATE_STATS_FILE !== "false";
 const publicUrl = publicPath.slice(0, -1);
 const env = getClientEnvironment(publicUrl);
