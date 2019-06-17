@@ -71,10 +71,17 @@ const ForgotPageSlide = () => {
         <Header type={HEADER_TYPES.TEAM_PAGE} />
         <ScreenContainer title={"Forgot Account Handle?"}>
           <ContentBox>
-            <Title>Recovery Account Handle</Title>
+            <Title>Recover Account Handle</Title>
             <Hr />
             <InputWrapper>
               <InputColumnWrapper>
+                <Label>
+                  If you have lost your Opacity Account Handle, you can recover
+                  it using the 12 word mnemonic phrase provided when you signed
+                  up for your account. Please enter the 12 words below in the
+                  exact order originally provided with a space between each
+                  word. Then click 'Recover Account Handle'.
+                </Label>
                 <Label>Recovery Phrase</Label>
                 <Textarea name="storage-pin" />
               </InputColumnWrapper>
