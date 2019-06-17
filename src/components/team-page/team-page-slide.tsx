@@ -98,7 +98,8 @@ const people = [
     role: "Fullstack Developer",
     github: "https://github.com/tenisakb",
     linkedin: "https://www.linkedin.com/in/ladislav-balon-00134b54/",
-    bio: "Ladislav is experienced full-stack developer with an overlap, he started programming when he was 13 years old. He has worked on many commercial projects for interesting clients as well as on his own projects."
+    bio:
+      "Ladislav is experienced full-stack developer with an overlap, he started programming when he was 13 years old. He has worked on many commercial projects for interesting clients as well as on his own projects."
   }
 ];
 
@@ -123,16 +124,13 @@ const HeaderContainer = styled.div`
 
 const PeopleContainer = styled.div`
   display: grid;
-  grid-gap: 100px;
+  grid-gap: 60px;
   grid-template-rows: repeat(3, 0.5fr);
   grid-template-columns: repeat(3, 1fr);
   @media only screen and (max-width: 1020px) {
-    grid-gap: 50px;
+    grid-gap: 40px;
   }
   @media only screen and (max-width: 750px) {
-    grid-gap: 20px;
-  }
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
     grid-template-rows: repeat(9, 0.5fr);
     grid-template-columns: repeat(1, 1fr);
   }
@@ -142,6 +140,8 @@ const PeopleWrapper = styled.div`
   border: solid 0.5px #acb3bf;
   padding: 50px 20px;
   margin: auto;
+  height: 380px;
+  position: relative;
 `;
 
 const Wrapper = styled.div`
@@ -216,15 +216,7 @@ const PersonRole = styled(Parapraph)`
 `;
 
 const PersonBio = styled(Parapraph)`
-  font-size: 12px;
-  width: 170px;
   margin-top: 10px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.3px;
-  color: #4f5e78;
 `;
 
 const Content = styled(Parapraph)`
@@ -235,7 +227,8 @@ const Content = styled(Parapraph)`
 
 const PersonLinkContainer = styled.div`
   position: absolute;
-  margin: 10px 0px 0px -10px;
+  left: 10px;
+  bottom: 0;
 `;
 
 const PersonLink = styled.a`
