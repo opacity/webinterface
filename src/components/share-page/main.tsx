@@ -7,6 +7,7 @@ import { API, HEADER_TYPES, theme } from "../../config";
 import { formatBytes } from "../../helpers";
 
 import Header from "../shared/header";
+import Spinner from "../shared/spinner";
 
 const ICON_DOWNLOAD = require("../../assets/images/icon_download.png");
 
@@ -72,6 +73,7 @@ interface FileMetadata {
 
 const Main = ({ handle, download }) => {
   const [metadata, setMetadata] = useState<FileMetadata>({});
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const download = new Download(handle, {
@@ -86,6 +88,7 @@ const Main = ({ handle, download }) => {
       })
       .catch(error => {
         console.log("METADATA ERROR: ", error);
+        setError(true);
       });
   }, []);
 
@@ -106,6 +109,9 @@ const Main = ({ handle, download }) => {
               </DownloadButton>
             </FileInfo>
           ) : (
+            <Spinner isActive={!error} />
+          )}
+          {error && (
             <Description>
               It seems the file you are looking for either does not exist or has
               been removed. Please check your FIle Handle.

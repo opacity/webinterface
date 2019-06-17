@@ -16,7 +16,7 @@ const SubscriptionSlide = ({ setSubscription }) => (
     <Container>
       <Header type={HEADER_TYPES.EMPTY} />
       <ScreenContainer title={"Choose Subscription Plan"}>
-        <Subscription setSubscription={item => setSubscription(item)} />
+        <Subscription setSubscription={setSubscription} />
       </ScreenContainer>
     </Container>
   </ThemeProvider>

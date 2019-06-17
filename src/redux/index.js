@@ -5,6 +5,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { routerMiddleware } from "connected-react-router";
 import createRavenMiddleware from "raven-for-redux";
+import startsWith from "lodash/startsWith";
 
 import epics from "./epics";
 import reducer from "./reducers";
@@ -16,7 +17,7 @@ const composeFn = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const epicMiddleware = createEpicMiddleware();
 
 const middleware = [
-  process.env.NODE_ENV === "development" && createLogger(),
+  startsWith(process.env.NODE_ENV, "development") && createLogger(),
   epicMiddleware,
   routerMiddleware(history),
   createRavenMiddleware(Raven, {})

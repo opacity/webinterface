@@ -108,7 +108,80 @@ const common = {
 // end common configuration
 
 if (env.stringified["process.env"].NODE_ENV === '"production"') {
-  module.exports = merge(common, {
+  module.exports = returnProductionConfiguration();
+}
+
+if (env.stringified["process.env"].NODE_ENV === '"production-beta"') {
+  let exports = returnProductionConfiguration();
+  module.exports = merge(exports, {
+    optimization: {
+      nodeEnv: "production-beta"
+    }
+  });
+}
+// end production configuration
+
+if (env.stringified["process.env"].NODE_ENV === '"development"') {
+  module.exports = returnDevelopmentConfiguration();
+}
+
+if (env.stringified["process.env"].NODE_ENV === '"development-beta"') {
+  let exports = returnDevelopmentConfiguration();
+  module.exports = merge(exports, {
+    optimization: {
+      nodeEnv: "development-beta"
+    }
+  });
+}
+// end development configuration
+
+function returnDevelopmentConfiguration () {
+  return merge(common, {
+    devServer: {
+      port: 3001,
+      open: true,
+      historyApiFallback: true
+    },
+    devtool: "source-map",
+    entry: paths.appIndexJs,
+    output: {
+      publicPath: publicPath,
+      filename: "static/js/[name].bundle.[hash:8].js",
+      chunkFilename: "static/js/[name].chunk.[chunkhash:8].js"
+    },
+    resolve: {
+      extensions: [
+        ".web.js",
+        ".mjs",
+        ".js",
+        ".json",
+        ".web.jsx",
+        ".jsx",
+        ".tsx",
+        ".ts"
+      ]
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        inject: true,
+        template: paths.appHtml
+      }),
+      new MiniCssExtractPlugin({
+        filename: "[name].[hash].css",
+        chunkFilename: "[id].[hash].css"
+      }),
+      new InterpolateHtmlPlugin(env.raw),
+      new CopyWebpackPlugin([
+        // relative path is from src
+        { from: "./public/favicon.ico" }, // <- your path to favicon
+        { from: "./public/logo.png" } // <- your path to logo
+      ])
+    ]
+  });
+}
+
+function returnProductionConfiguration () {
+  return merge(common, {
     bail: true,
     devtool: "cheap-module-source-map",
     entry: paths.appSrc + "/index.js",
@@ -209,53 +282,12 @@ if (env.stringified["process.env"].NODE_ENV === '"production"') {
         test: /\.js$|\.css$|\.html$/,
         threshold: 10240,
         minRatio: 0.8
-      })
-    ]
-  });
-}
-// end production configuration
-
-if (env.stringified["process.env"].NODE_ENV === '"development"') {
-  module.exports = merge(common, {
-    devServer: {
-      port: 3001,
-      open: true,
-      historyApiFallback: true
-    },
-    devtool: "source-map",
-    entry: paths.appIndexJs,
-    output: {
-      publicPath: publicPath,
-      filename: "static/js/[name].bundle.[hash:8].js",
-      chunkFilename: "static/js/[name].chunk.[chunkhash:8].js"
-    },
-    resolve: {
-      extensions: [
-        ".web.js",
-        ".mjs",
-        ".js",
-        ".json",
-        ".web.jsx",
-        ".jsx",
-        ".tsx",
-        ".ts"
-      ]
-    },
-    plugins: [
-      new HtmlWebpackPlugin({
-        inject: true,
-        template: paths.appHtml
       }),
-      new MiniCssExtractPlugin({
-        filename: "[name].[hash].css",
-        chunkFilename: "[id].[hash].css"
-      }),
-      new InterpolateHtmlPlugin(env.raw),
       new CopyWebpackPlugin([
         // relative path is from src
-        { from: "./public/favicon.ico" } // <- your path to favicon
+        { from: "./public/favicon.ico" }, // <- your path to favicon
+        { from: "./public/logo.png" } // <- your path to logo
       ])
     ]
   });
 }
-// end development configuration

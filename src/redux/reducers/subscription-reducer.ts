@@ -9,7 +9,7 @@ const subscriptionReducer = (state = initState, action) => {
   switch (action.type) {
     case subscriptionActions.SET_SUBSCRIPTION:
       const { item } = action.payload;
-      return { ...state, item: item.item };
+      return { ...state, item };
     default:
       return state;
   }

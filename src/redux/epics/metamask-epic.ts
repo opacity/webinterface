@@ -21,7 +21,7 @@ const metamaskAccountEpic = action$ =>
             gasPrice
           })
         ),
-        catchError(e => of(metamaskActions.accountError(e)))
+        catchError(error => of(metamaskActions.accountError({ error })))
       );
     })
   );
@@ -41,7 +41,7 @@ const metamaskTransactionEpic = action$ =>
             nonce
           };
         }),
-        catchError(e => of(metamaskActions.paymentError(e)))
+        catchError(error => of(metamaskActions.paymentError({ error })))
       );
     }),
     mergeMap(({ cost, to, from, gasPrice, nonce }) => {
@@ -55,7 +55,7 @@ const metamaskTransactionEpic = action$ =>
         })
       ).pipe(
         map(() => metamaskActions.paymentSuccess()),
-        catchError(e => of(metamaskActions.paymentError(e)))
+        catchError(error => of(metamaskActions.paymentError({ error })))
       );
     })
   );
