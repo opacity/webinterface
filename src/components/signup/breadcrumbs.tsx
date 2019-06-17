@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { MOBILE_WIDTH, SIGNUP_PHASES } from "../../config";
 
+const ICON_SELECT_PLAN = require("../../assets/images/icon_select_plan.svg");
 const ICON_RECOVERY = require("../../assets/images/icon_signup_recovery.svg");
 const ICON_PIN = require("../../assets/images/icon_signup_pin.svg");
 const ICON_PAYMENT = require("../../assets/images/icon_signup_payment.svg");
@@ -77,7 +78,7 @@ const Breadcrumbs = ({ phase }) => (
       isHighlighted={phase >= SIGNUP_PHASES.SELECT_PLAN}
     >
       <PhaseInformation>
-        <PhaseIcon src={ICON_RECOVERY} />
+        <PhaseIcon src={ICON_SELECT_PLAN} />
         <PhaseNumber>1. Select a plan</PhaseNumber>
       </PhaseInformation>
       <Line />
