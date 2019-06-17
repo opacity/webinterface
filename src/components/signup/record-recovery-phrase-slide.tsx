@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import { withRouter } from "react-router";
 import styled, { ThemeProvider } from "styled-components";
 import Reaptcha from "reaptcha";
 
@@ -44,7 +45,8 @@ const CheckboxLabel = styled.label`
 `;
 
 const ButtonWrapper = styled.div`
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
   margin: 25px 0;
   @media only screen and (max-width: ${DESKTOP_WIDTH}px)
     text-align: center;
@@ -69,7 +71,7 @@ const Box = styled.div`
   width: 125px;
 `;
 
-const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
+const RecordRecoveryPhraseSlide = ({ next, mnemonic, history }) => {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
@@ -122,6 +124,9 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
           Download phrase as CSV
         </DownloadButton>
         <ButtonWrapper>
+          <ContinueButton onClick={() => history.push("/sign-up")}>
+            Back
+          </ContinueButton>
           <ContinueButton
             disabled={!isCaptchaVerified}
             onClick={() => onSubmit()}
@@ -156,4 +161,4 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic }) => {
   );
 };
 
-export default RecordRecoveryPhraseSlide;
+export default withRouter(RecordRecoveryPhraseSlide);
