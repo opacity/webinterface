@@ -172,7 +172,7 @@
       "<rootDir>/config/polyfills.js"
     ],
     "testMatch": [
-      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs,ts}"
+      "<rootDir>/src/**/**.(test|spec).{js,jsx,mjs,ts}"
     ],
     "globals": {
       "window": true
