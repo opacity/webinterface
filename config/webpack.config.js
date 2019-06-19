@@ -174,7 +174,8 @@ function returnDevelopmentConfiguration () {
       new CopyWebpackPlugin([
         // relative path is from src
         { from: "./public/favicon.ico" }, // <- your path to favicon
-        { from: "./public/logo.png" } // <- your path to logo
+        { from: "./public/logo.png" }, // <- your path to logo
+        { from: "./public/manifest.json" } // <- your path to manifest
       ])
     ]
   });
@@ -286,7 +287,8 @@ function returnProductionConfiguration () {
       new CopyWebpackPlugin([
         // relative path is from src
         { from: "./public/favicon.ico" }, // <- your path to favicon
-        { from: "./public/logo.png" } // <- your path to logo
+        { from: "./public/logo.png" }, // <- your path to logo
+        { from: "./public/manifest.json" } // <- your path to manifest
       ])
     ]
   });
