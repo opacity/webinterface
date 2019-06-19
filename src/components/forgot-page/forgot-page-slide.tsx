@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import { HEADER_TYPES, theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
@@ -64,7 +64,8 @@ const Label = styled.h3`
   line-height: normal;
 `;
 
-const ForgotPageSlide = () => {
+const ForgotPageSlide = ({ recoverAccountHandle }) => {
+  const recoverTextearea = useRef<any>(null);
   return (
     <ThemeProvider theme={theme}>
       <ContainerWrapper>
@@ -83,11 +84,17 @@ const ForgotPageSlide = () => {
                   word. Then click 'Recover Account Handle'.
                 </Label>
                 <Label>Recovery Phrase</Label>
-                <Textarea name="storage-pin" />
+                <Textarea ref={recoverTextearea} name="storage-pin" />
               </InputColumnWrapper>
             </InputWrapper>
             <ButtonWrapper>
-              <ContinueButton>Recover Account Handle</ContinueButton>
+              <ContinueButton
+                onClick={() =>
+                  recoverAccountHandle(recoverTextearea.current.value)
+                }
+              >
+                Recover Account Handle
+              </ContinueButton>
             </ButtonWrapper>
           </ContentBox>
         </ScreenContainer>

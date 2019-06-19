@@ -1,9 +1,10 @@
 import _ from "lodash";
 import React, { useState, useEffect } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import ReactTooltip from "react-tooltip";
 import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
 import { ToastContainer } from "react-toastify";
+import styled, { ThemeProvider } from "styled-components";
 import moment from "moment";
 
 import {
@@ -51,7 +52,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const ActionButton = styled.button`
+const ActionButton = styled.a`
   padding: 5px 0;
   border: none;
   background: none;
@@ -420,6 +421,7 @@ const FileManagerSlide = ({
                       <Td>{formatBytes(size)}</Td>
                       <Td>
                         <ActionButton
+                          data-tip="Share file"
                           onClick={() =>
                             setSharedFile({
                               name,
@@ -431,7 +433,10 @@ const FileManagerSlide = ({
                         >
                           <TableIcon src={ICON_SHARE} />
                         </ActionButton>
-                        <ActionButton onClick={() => download(handle)}>
+                        <ActionButton
+                          data-tip="Download file"
+                          onClick={() => download(handle)}
+                        >
                           <TableIcon src={ICON_DOWNLOAD} />
                         </ActionButton>
                         <ActionButton
@@ -441,8 +446,9 @@ const FileManagerSlide = ({
                             ) && removeFileByHandle(name, handle, masterHandle)
                           }
                         >
-                          <TableIcon src={ICON_REMOVE} />
+                          <TableIcon data-tip="Delete file" src={ICON_REMOVE} />
                         </ActionButton>
+                        <ReactTooltip effect="solid" />
                       </Td>
                     </Tr>
                   ))}

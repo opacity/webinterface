@@ -8,6 +8,7 @@ const Textarea = styled.textarea`
     props.border || "1px solid ".concat(theme.input.border.color)};
   border-radius: ${(props: any) => props.borderRadius || "0px"};
   cursor: ${(props: any) => props.cursor || "pointer"};
+  font-size: ${(props: any) => props.fontSize || "16px"};
   font: ${(props: any) => props.font || ""};
   height: ${(props: any) => props.height || "150px;"};
   margin: ${(props: any) => props.margin || "0px"};

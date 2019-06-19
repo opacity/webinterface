@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { Link } from "react-router-dom";
 
 import {
   AUTHENTICATION_STATUSES,
@@ -18,6 +19,7 @@ const Container = styled.div`
 const ErrorMessage = styled.p`
   color: ${props => props.theme.error.color};
   font-size: 14px;
+  margin-top: 0px;
 `;
 
 const LoginContainer = styled.div`
@@ -35,6 +37,7 @@ interface InputProps {
 }
 
 const Input = styled.input<InputProps>`
+  margin-bottom: 10px;
   color: black;
   width: 100%;
   height: 40px;
@@ -57,6 +60,7 @@ const Title = styled.h1`
     margin-top: 35px;
   }
 `;
+
 const Underline = styled.div`
   width: ${props => props.theme.container.title.underline.width}px;
   background-color: ${props => props.theme.container.title.underline.color};
@@ -78,8 +82,8 @@ const Label = styled.label`
   color: #778291;
 `;
 
-const Button = styled.button`
-  margin-top: 22px;
+const LoginButton = styled.button`
+  margin-top: 15px;
   display: block;
   width: 100%;
   height: 40px;
@@ -97,10 +101,23 @@ const Button = styled.button`
   text-transform: uppercase;
 `;
 
-const RegisterButton = styled(Button)`
+const RegisterLink = styled(Link)`
+  margin-top: 22px;
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  text-align: center;
+  border: 1px solid ${props => props.theme.button.background};
+  cursor: pointer;
+  text-transform: uppercase;
   background-color: white;
   color: ${props => props.theme.button.background};
-  border: 1px solid ${props => props.theme.button.background};
+  text-decoration: none;
+  padding: 10px;
 `;
 
 const OrRegister = styled.span`
@@ -118,6 +135,11 @@ const OrRegister = styled.span`
     margin-left: 10px;
     margin-right: 10px;
   }
+`;
+
+const ForgotPasswordLink = styled(Link)`
+  flex-direction: row;
+  color: #778291;
 `;
 
 const LoginOrRegisterSlide = ({ login, status }) => {
@@ -163,11 +185,12 @@ const LoginOrRegisterSlide = ({ login, status }) => {
               again.
             </ErrorMessage>
           )}
-          <Button onClick={() => handleLogin()}>Sign in</Button>
+          <ForgotPasswordLink to="/forgot-page">
+            Forgot password?
+          </ForgotPasswordLink>
+          <LoginButton onClick={() => handleLogin()}>Sign in</LoginButton>
           <OrRegister>or</OrRegister>
-          <RegisterButton onClick={() => window.open("/sign-up", "self")}>
-            Create an account
-          </RegisterButton>
+          <RegisterLink to="/sign-up">Create an account</RegisterLink>
         </LoginContainer>
       </Container>
     </ThemeProvider>
