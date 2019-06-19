@@ -171,6 +171,7 @@ export const PLANS = [
       "Secure, encrypted storage solution perfect for the needs of the individual",
     price: "2 OPQ / year",
     storageLimit: "128 GB",
+    storageInGB: 128,
     features: [
       {
         title: "Secure storage"
@@ -187,11 +188,12 @@ export const PLANS = [
     title: "Professional",
     permalink: "professional",
     cost: 16,
-    isAvailable: false,
+    isAvailable: true,
     content:
       "For professionals looking for a secure, easily accessible storage solution while on the move.",
     price: "16 OPQ / year",
     storageLimit: "1 TB",
+    storageInGB: 1024,
     features: [
       {
         title: "Secure storage"
@@ -213,6 +215,7 @@ export const PLANS = [
       "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
     price: "32 OPQ / year",
     storageLimit: "2 TB",
+    storageInGB: 2048,
     features: [
       {
         title: "Secure storage"
