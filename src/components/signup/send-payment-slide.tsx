@@ -4,6 +4,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { theme } from "../../config";
 
 import CryptoPayment from "./crypto-payment";
+import FiatPayment from "./fiat-payment";
 
 const Container = styled.div`
   text-align: center;
@@ -66,6 +67,7 @@ const SendPaymentSlide = ({ invoice, openMetamask, cost }) => {
               cost={cost}
             />
           )}
+          {activeTab === TABS.FIAT && <FiatPayment cost={123} />}
         </PaymentInfo>
       </Container>
     </ThemeProvider>
