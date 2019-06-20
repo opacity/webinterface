@@ -172,6 +172,7 @@ export const PLANS = [
     price: "2 OPQ / year",
     storageLimit: "128 GB",
     storageInGB: 128,
+    durationInMonths: 12,
     features: [
       {
         title: "Secure storage"
@@ -194,6 +195,7 @@ export const PLANS = [
     price: "16 OPQ / year",
     storageLimit: "1 TB",
     storageInGB: 1024,
+    durationInMonths: 12,
     features: [
       {
         title: "Secure storage"
@@ -216,6 +218,7 @@ export const PLANS = [
     price: "32 OPQ / year",
     storageLimit: "2 TB",
     storageInGB: 2048,
+    durationInMonths: 12,
     features: [
       {
         title: "Secure storage"

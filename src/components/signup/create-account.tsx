@@ -65,7 +65,7 @@ const CreateAccount = ({
     () => {
       if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && plan && masterHandle) {
         masterHandle
-          .register(plan.storageInGB)
+          .register(plan.durationInMonths, plan.storageInGB)
           .then(({ data: { invoice }, waitForPayment }: any) => {
             setInvoice(invoice);
             setWaitForPaymentFn(() => waitForPayment);

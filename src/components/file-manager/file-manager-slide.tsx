@@ -14,7 +14,7 @@ import {
   FILE_MAX_SIZE,
   theme
 } from "../../config";
-import { formatBytes } from "../../helpers";
+import { formatBytes, formatGbs } from "../../helpers";
 
 import Header from "../shared/header";
 import UploadButton from "./upload-button";
@@ -340,11 +340,14 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(() => {
-    const defaultOrder = "created";
-    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-    setParam(defaultOrder);
-  }, [files]);
+  useEffect(
+    () => {
+      const defaultOrder = "created";
+      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+      setParam(defaultOrder);
+    },
+    [files]
+  );
 
   useEffect(() => {
     getFileList(masterHandle);
@@ -371,8 +374,8 @@ const FileManagerSlide = ({
                 <Title>All Files</Title>
                 <UsageWrapper>
                   <UsageInfo>
-                    {formatBytes(storageUsed * 1000000000)} out of{" "}
-                    {storageLimit} GB used
+                    {formatGbs(storageUsed)} out of {formatGbs(storageLimit)}{" "}
+                    used
                   </UsageInfo>
                   <UsageInfo>
                     Active until: {moment(expirationDate).format("MMM D, YYYY")}
