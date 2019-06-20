@@ -7,7 +7,8 @@ const initState = {
   masterHandle: null,
   storageUsed: 0,
   storageLimit: 0,
-  expirationDate: null
+  expirationDate: null,
+  recoverHandle: null
 };
 
 test("authentication-reducer LOGIN_PENDING", () => {
