@@ -7,8 +7,7 @@ const initState = {
   masterHandle: null,
   storageUsed: 0,
   storageLimit: 0,
-  expirationDate: null,
-  recoveryHandle: null
+  expirationDate: null
 };
 
 test("authentication-reducer LOGIN_PENDING", () => {
@@ -88,37 +87,4 @@ test("authentication-reducer FETCH_ACCOUNT_DATA_SUCCESS", () => {
   };
 
   expect(authentication(initState, action)).toEqual(expected);
-});
-
-test("authentication-reducer RECOVER_ACCOUNT_HANDLE_SUCCESS && RESET_ACCOUNT_HANDLE", () => {
-  const handle = "handle";
-
-  const action = {
-    type: authenticationActions.RECOVER_ACCOUNT_HANDLE_SUCCESS,
-    payload: {
-      handle
-    }
-  };
-  const expected = {
-    ...initState,
-    recoveryHandle: handle
-  };
-
-  expect(authentication(initState, action)).toEqual(expected);
-});
-
-test("authentication-reducer RESET_ACCOUNT_HANDLE", () => {
-  const state = {
-    status: AUTHENTICATION_STATUSES.LOGGED_OUT,
-    masterHandle: null,
-    storageUsed: 0,
-    storageLimit: 0,
-    expirationDate: null,
-    recoveryHandle: "handle"
-  };
-  const action = {
-    type: authenticationActions.RESET_ACCOUNT_HANDLE
-  };
-
-  expect(authentication(state, action)).toEqual(initState);
 });

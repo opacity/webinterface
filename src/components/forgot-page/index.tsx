@@ -8,8 +8,8 @@ import ForgotPageSlide from "./forgot-page-slide";
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-  recoverAccountHandle: mnemonic =>
-    dispatch(authenticationActions.recoverAccountHandle({ mnemonic }))
+  recoverAccountHandle: recoverWords =>
+    dispatch(authenticationActions.recoverAccountHandle({ recoverWords }))
 });
 
 const ForgotPage = ({ recoverAccountHandle }) => (
