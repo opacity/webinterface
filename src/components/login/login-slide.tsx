@@ -137,11 +137,6 @@ const OrRegister = styled.span`
   }
 `;
 
-const ForgotPasswordLink = styled(Link)`
-  flex-direction: row;
-  color: #778291;
-`;
-
 const LoginOrRegisterSlide = ({ login, status }) => {
   const [privateKey, setPrivateKey] = useState("");
   const [validatePrivateKey, setValidatePrivateKey] = useState(true);
@@ -185,9 +180,6 @@ const LoginOrRegisterSlide = ({ login, status }) => {
               again.
             </ErrorMessage>
           )}
-          <ForgotPasswordLink to="/forgot-page">
-            Forgot password?
-          </ForgotPasswordLink>
           <LoginButton onClick={() => handleLogin()}>Sign in</LoginButton>
           <OrRegister>or</OrRegister>
           <RegisterLink to="/sign-up">Create an account</RegisterLink>
