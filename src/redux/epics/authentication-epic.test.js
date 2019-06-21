@@ -7,17 +7,18 @@ import authenticationActions from "../actions/authentication-actions";
 import authenticationEpic from "./authentication-epic";
 
 jest.mock("opaque", () => ({
-  MasterHandle: jest.fn()
+  MasterHandle: jest.fn(),
+  Account: jest.fn()
 }));
 
-const masterHandle = {
-  isPaid: jest.fn().mockResolvedValue(true),
-  login: jest.fn().mockResolvedValue()
-};
-
-MasterHandle.mockImplementation(() => masterHandle);
-
 test("loginEpic", done => {
+  const masterHandle = {
+    isPaid: jest.fn().mockResolvedValue(true),
+    login: jest.fn().mockResolvedValue()
+  };
+
+  MasterHandle.mockImplementation(() => masterHandle);
+
   const privateKey = "p1";
   const action$ = of(authenticationActions.loginPending({ privateKey }));
 
@@ -35,26 +36,80 @@ test("loginEpic", done => {
     });
 });
 
-//TODO - recoverAccountHandleEpic
-//test("recoverAccountHandleEpic", done => {
-//  const mnemonic =
-//    "melody gift such planet distance best panic kit release predict six view";
-//  const action$ = of(
-//   authenticationActions.recoverAccountHandle({
-//     mnemonic
-//   })
-// );
+test("recoverAccountHandleEpic on success", done => {
+  const masterHandle = {
+    handle: "h1"
+  };
 
-// authenticationEpic(action$)
-//   .toArray()
-//   .subscribe(actions => {
-//     expect(actions).toEqual([
-//       authenticationActions.recoverAccountHandleSuccess({
-//         handle:
-//           "4ce17cf018597e77708e25b03ec176bb59bd01e4cc63380f6c9dffc9b8bac0a0609dd6f101df271def959d1ba9609b0647040713efe5fd5e91042701118ce2f9"
-//       }),
-//       push("/login")
-//     ]);
-//     done();
-//    });
-//});
+  MasterHandle.mockImplementation(() => masterHandle);
+
+  const mnemonic =
+    "melody gift such planet distance best panic kit release predict six view";
+  const action$ = of(
+    authenticationActions.recoverAccountHandle({
+      mnemonic
+    })
+  );
+
+  authenticationEpic(action$)
+    .toArray()
+    .subscribe(actions => {
+      expect(actions).toEqual([
+        authenticationActions.recoverAccountHandleSuccess({
+          handle: "h1"
+        }),
+        push("/login")
+      ]);
+      done();
+    });
+});
+
+test("recoverAccountHandleEpic on error (missing account handle)", done => {
+  const masterHandle = {
+    handle: ""
+  };
+
+  MasterHandle.mockImplementation(() => masterHandle);
+
+  const mnemonic =
+    "melody gift such planet distance best panic kit release predict six view";
+  const action$ = of(
+    authenticationActions.recoverAccountHandle({
+      mnemonic
+    })
+  );
+
+  authenticationEpic(action$).subscribe(actions => {
+    expect(actions).toEqual(
+      authenticationActions.recoverAccountHandleFailure({
+        error: new Error("Missing Account Handle")
+      })
+    );
+    done();
+  });
+});
+
+test("recoverAccountHandleEpic on error (invalid mnemonic)", done => {
+  const masterHandle = {
+    handle: null
+  };
+
+  MasterHandle.mockImplementation(() => masterHandle);
+
+  const mnemonic =
+    "melody gift such planet distance best panic kit release predict six view";
+  const action$ = of(
+    authenticationActions.recoverAccountHandle({
+      mnemonic
+    })
+  );
+
+  authenticationEpic(action$).subscribe(actions => {
+    expect(actions).toEqual(
+      authenticationActions.recoverAccountHandleFailure({
+        error: new Error("Mnemonic words provided was not valid")
+      })
+    );
+    done();
+  });
+});
