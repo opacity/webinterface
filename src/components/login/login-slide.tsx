@@ -169,7 +169,7 @@ const ForgotPasswordLink = styled(Link)`
   color: #778291;
 `;
 
-const LoginOrRegisterSlide = ({ login, status, recoverHandle }) => {
+const LoginOrRegisterSlide = ({ login, status, recoveryHandle }) => {
   const [privateKey, setPrivateKey] = useState("");
   const [validatePrivateKey, setValidatePrivateKey] = useState(true);
 
@@ -190,10 +190,10 @@ const LoginOrRegisterSlide = ({ login, status, recoverHandle }) => {
     <ThemeProvider theme={theme}>
       <Container>
         <Header type={HEADER_TYPES.EMPTY} />
-        {recoverHandle && (
+        {recoveryHandle && (
           <RecoverHandleContainer>
             <RecoverHandleTitle>Your Account Handle</RecoverHandleTitle>
-            <RecoverHandle>{recoverHandle}</RecoverHandle>
+            <RecoverHandle>{recoveryHandle}</RecoverHandle>
           </RecoverHandleContainer>
         )}
         <LoginContainer>
@@ -201,7 +201,7 @@ const LoginOrRegisterSlide = ({ login, status, recoverHandle }) => {
           <Underline />
           <Label>Account Handle</Label>
           <Input
-            value={recoverHandle ? recoverHandle : ""}
+            value={recoveryHandle ? recoveryHandle : ""}
             onChange={e => handlePrivateKey(e.target.value)}
             hasError={
               status === AUTHENTICATION_STATUSES.LOGIN_FAILURE &&

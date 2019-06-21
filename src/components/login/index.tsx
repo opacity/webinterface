@@ -6,7 +6,7 @@ import LoginSlide from "./login-slide";
 
 const mapStateToProps = state => ({
   status: state.authentication.status,
-  recoverHandle: state.authentication.recoverHandle
+  recoveryHandle: state.authentication.recoveryHandle
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -14,8 +14,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(authenticationActions.loginPending({ privateKey }))
 });
 
-const Login = ({ login, status, recoverHandle }) => (
-  <LoginSlide login={login} status={status} recoverHandle={recoverHandle} />
+const Login = ({ login, status, recoveryHandle }) => (
+  <LoginSlide login={login} status={status} recoveryHandle={recoveryHandle} />
 );
 
 export default connect(

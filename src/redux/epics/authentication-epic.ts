@@ -32,7 +32,7 @@ const loginEpic = (action$, state$, dependencies$) =>
                 authenticationActions.loginSuccess({
                   masterHandle
                 }),
-                authenticationActions.recoverAccountHandleReset(),
+                authenticationActions.resetAccountHandle(),
                 push("/file-manager")
               ])
             );
@@ -55,9 +55,9 @@ const recoverAccountHandleEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(authenticationActions.RECOVER_ACCOUNT_HANDLE),
     switchMap(({ payload }) => {
-      const { recoverWords } = payload;
+      const { mnemonic } = payload;
       try {
-        const account = new Account(recoverWords);
+        const account = new Account(mnemonic);
         const masterHandle: MasterHandle = new MasterHandle(
           { account },
           {

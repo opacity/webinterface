@@ -11,8 +11,7 @@ const RECOVER_ACCOUNT_HANDLE_SUCCESS =
   "opacity/authentication/recover-account-handle-success";
 const RECOVER_ACCOUNT_HANDLE_FAILURE =
   "opacity/authentication/recover-account-handle-failure";
-const RECOVER_ACCOUNT_HANDLE_RESET =
-  "opacity/authentication/recover-account-handle-reset";
+const RESET_ACCOUNT_HANDLE = "opacity/authentication/reset-account-handle";
 
 const ACTIONS = Object.freeze({
   LOGIN_PENDING,
@@ -24,7 +23,7 @@ const ACTIONS = Object.freeze({
   RECOVER_ACCOUNT_HANDLE,
   RECOVER_ACCOUNT_HANDLE_SUCCESS,
   RECOVER_ACCOUNT_HANDLE_FAILURE,
-  RECOVER_ACCOUNT_HANDLE_RESET,
+  RESET_ACCOUNT_HANDLE,
 
   loginPending: ({ privateKey }) => ({
     type: LOGIN_PENDING,
@@ -49,9 +48,9 @@ const ACTIONS = Object.freeze({
     type: FETCH_ACCOUNT_DATA_FAILURE,
     payload: { error }
   }),
-  recoverAccountHandle: ({ recoverWords }) => ({
+  recoverAccountHandle: ({ mnemonic }) => ({
     type: RECOVER_ACCOUNT_HANDLE,
-    payload: { recoverWords }
+    payload: { mnemonic }
   }),
   recoverAccountHandleSuccess: ({ handle }) => ({
     type: RECOVER_ACCOUNT_HANDLE_SUCCESS,
@@ -61,8 +60,8 @@ const ACTIONS = Object.freeze({
     type: RECOVER_ACCOUNT_HANDLE_FAILURE,
     payload: { error }
   }),
-  recoverAccountHandleReset: () => ({
-    type: RECOVER_ACCOUNT_HANDLE_RESET
+  resetAccountHandle: () => ({
+    type: RESET_ACCOUNT_HANDLE
   })
 });
 

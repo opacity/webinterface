@@ -28,7 +28,7 @@ test("loginEpic", done => {
         authenticationActions.loginSuccess({
           masterHandle
         }),
-        authenticationActions.recoverAccountHandleReset(),
+        authenticationActions.resetAccountHandle(),
         push("/file-manager")
       ]);
       done();

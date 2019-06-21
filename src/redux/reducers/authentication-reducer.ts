@@ -7,7 +7,7 @@ const initState = {
   storageUsed: 0,
   storageLimit: 0,
   expirationDate: null,
-  recoverHandle: null
+  recoveryHandle: null
 };
 
 const authenticationReducer = (state = initState, action) => {
@@ -39,13 +39,13 @@ const authenticationReducer = (state = initState, action) => {
       const { handle } = action.payload;
       return {
         ...state,
-        recoverHandle: handle
+        recoveryHandle: handle
       };
 
-    case authenticationActions.RECOVER_ACCOUNT_HANDLE_RESET:
+    case authenticationActions.RESET_ACCOUNT_HANDLE:
       return {
         ...state,
-        recoverHandle: null
+        recoveryHandle: null
       };
 
     default:
