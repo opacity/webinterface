@@ -16,33 +16,6 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const RecoverHandleContainer = styled.div`
-  background-color: ${props => props.theme.error.color};
-`;
-
-const RecoverHandleTitle = styled.h2`
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: white;
-  margin: auto;
-  text-align: center;
-`;
-
-const RecoverHandle = styled.p`
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: white;
-  margin: auto;
-  text-align: center;
-`;
-
 const ErrorMessage = styled.p`
   color: ${props => props.theme.error.color};
   font-size: 14px;
@@ -164,12 +137,7 @@ const OrRegister = styled.span`
   }
 `;
 
-const ForgotPasswordLink = styled(Link)`
-  flex-direction: row;
-  color: #778291;
-`;
-
-const LoginOrRegisterSlide = ({ login, status, recoveryHandle }) => {
+const LoginOrRegisterSlide = ({ login, status }) => {
   const [privateKey, setPrivateKey] = useState("");
   const [validatePrivateKey, setValidatePrivateKey] = useState(true);
 
@@ -190,18 +158,11 @@ const LoginOrRegisterSlide = ({ login, status, recoveryHandle }) => {
     <ThemeProvider theme={theme}>
       <Container>
         <Header type={HEADER_TYPES.EMPTY} />
-        {recoveryHandle && (
-          <RecoverHandleContainer>
-            <RecoverHandleTitle>Your Account Handle</RecoverHandleTitle>
-            <RecoverHandle>{recoveryHandle}</RecoverHandle>
-          </RecoverHandleContainer>
-        )}
         <LoginContainer>
           <Title>Sign in Opacity</Title>
           <Underline />
           <Label>Account Handle</Label>
           <Input
-            value={recoveryHandle ? recoveryHandle : ""}
             onChange={e => handlePrivateKey(e.target.value)}
             hasError={
               status === AUTHENTICATION_STATUSES.LOGIN_FAILURE &&
@@ -219,9 +180,6 @@ const LoginOrRegisterSlide = ({ login, status, recoveryHandle }) => {
               again.
             </ErrorMessage>
           )}
-          <ForgotPasswordLink to="/forgot-page">
-            Forgot password?
-          </ForgotPasswordLink>
           <LoginButton onClick={() => handleLogin()}>Sign in</LoginButton>
           <OrRegister>or</OrRegister>
           <RegisterLink to="/sign-up">Create an account</RegisterLink>
