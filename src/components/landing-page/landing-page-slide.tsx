@@ -27,7 +27,6 @@ const ICON_INFO_CRYPTOCURRENCY = require("../../assets/images/info_cryptocurrenc
 const ICON_FLO = require("../../assets/images/FLO.png");
 const ICON_QLC = require("../../assets/images/QLC.png");
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
-const ICON_COSS = require("../../assets/images/cossio.png");
 const ICON_MERCATOX = require("../../assets/images/mercatox.png");
 const BACKGROUND_BUBBLES = require("../../assets/images/bubbles.svg");
 const VIDEO_POSTER = require("../../assets/images/video-poster.png");
@@ -615,20 +614,7 @@ const LandingPageSlide = ({ history, isLoggedIn }) => {
                 </ButtonBuy>
               </ButtonWrapper>
             </Column>
-            <Column>
-              <Wrapper>
-                <BuyIcon src={ICON_COSS} />
-              </Wrapper>
-              <ButtonWrapper>
-                <ButtonBuy
-                  onClick={() =>
-                    window.open("https://coss.io/c/trade?s=OPQ_BTC", "_blank")
-                  }
-                >
-                  Buy OPQ on Coss
-                </ButtonBuy>
-              </ButtonWrapper>
-            </Column>
+          
           </BuySubContainer>
         </Container>
         <Container>
