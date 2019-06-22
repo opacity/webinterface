@@ -614,7 +614,6 @@ const LandingPageSlide = ({ history, isLoggedIn }) => {
                 </ButtonBuy>
               </ButtonWrapper>
             </Column>
-          
           </BuySubContainer>
         </Container>
         <Container>
