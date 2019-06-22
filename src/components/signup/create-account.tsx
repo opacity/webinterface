@@ -63,9 +63,9 @@ const CreateAccount = ({
 
   useEffect(
     () => {
-      if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && masterHandle) {
+      if (phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && plan && masterHandle) {
         masterHandle
-          .register()
+          .register(plan.durationInMonths, plan.storageInGB)
           .then(({ data: { invoice }, waitForPayment }: any) => {
             setInvoice(invoice);
             setWaitForPaymentFn(() => waitForPayment);
