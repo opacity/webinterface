@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -179,12 +179,16 @@ const LoginOrRegisterSlide = ({ login, status, recoveryHandle }) => {
   const handlePrivateKey = value =>
     handleValidatePrivateKey(value)
       ? [setPrivateKey(value), setValidatePrivateKey(true)]
-      : setValidatePrivateKey(false);
+      : [setPrivateKey(value), setValidatePrivateKey(false)];
 
   const handleLogin = () =>
     handleValidatePrivateKey(privateKey)
       ? login(privateKey)
       : setValidatePrivateKey(false);
+
+  useEffect(() => {
+    recoveryHandle && setPrivateKey(recoveryHandle);
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -201,7 +205,7 @@ const LoginOrRegisterSlide = ({ login, status, recoveryHandle }) => {
           <Underline />
           <Label>Account Handle</Label>
           <Input
-            value={recoveryHandle ? recoveryHandle : ""}
+            value={privateKey}
             onChange={e => handlePrivateKey(e.target.value)}
             hasError={
               status === AUTHENTICATION_STATUSES.LOGIN_FAILURE &&
