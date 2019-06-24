@@ -1,0 +1,3 @@
+Sitemap: https://opacity.io/sitemap.xml
+User-agent: *
+Disallow: /file-manager
