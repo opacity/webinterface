@@ -6,6 +6,7 @@ import {
   CardExpiryElement,
   injectStripe
 } from "react-stripe-elements";
+import { CountryDropdown } from "react-country-region-selector";
 
 const CardNumberInput = styled(CardNumberElement)`
   background: white;
@@ -22,17 +23,51 @@ const CardExpiryInput = styled(CardExpiryElement)`
   border: 1px solid black;
 `;
 
-const TextInput = styled.input`
+const TextInput = styled.input.attrs({
+  type: "text"
+})`
   background: white;
   border: 1px solid black;
 `;
 
-const InputName = styled.h4``;
+const Checkbox = styled.input.attrs({
+  type: "checkbox"
+})`
+  padding: 2px;
+`;
+
+const SelectDropdown = styled(CountryDropdown)`
+  border: 1px solid black;
+  background: white;
+  height: 36px;
+  font-size: 11px;
+`;
+
+const InputName = styled.h4`
+  display: inline-block;
+`;
+
+const SubmitOrderButton = styled.button`
+  cursor: pointer;
+  flex: 1;
+  border: 1px solid black;
+  height: 50px;
+
+  &:focus {
+    outline: 0;
+  }
+`;
 
 const Label = styled.label`
   text-align: left;
   display: flex;
   flex-direction: column;
+`;
+
+const AgreementLabel = styled.label`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const Row = styled.div`
@@ -43,10 +78,16 @@ const Group = styled.div`
   flex: 1;
 `;
 
-const CreditCardForm = ({ cost }) => {
+const CreditCardForm = ({ cost, stripe }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [billingZipCode, setBillingZipCode] = useState("");
+  const [billingCountry, setBillingCountry] = useState("");
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
+
+  const onSubmit = () => {
+    console.log(stripe);
+  };
 
   return (
     <div>
@@ -105,6 +146,28 @@ const CreditCardForm = ({ cost }) => {
             />
           </Label>
         </Group>
+        <Group>
+          <Label>
+            <InputName>Billing Country</InputName>
+            <SelectDropdown
+              value={billingCountry}
+              priorityOptions={["US"]}
+              onChange={val => setBillingCountry(val)}
+            />
+          </Label>
+        </Group>
+      </Row>
+      <Row>
+        <SubmitOrderButton onClick={onSubmit}>Purchase</SubmitOrderButton>
+      </Row>
+      <Row>
+        <AgreementLabel>
+          <Checkbox
+            checked={isTermsChecked}
+            onChange={e => setIsTermsChecked(e.target.checked)}
+          />
+          <InputName>I agree to the Terms and Conditions</InputName>
+        </AgreementLabel>
       </Row>
     </div>
   );
