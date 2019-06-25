@@ -85,8 +85,30 @@ const CreditCardForm = ({ cost, stripe }) => {
   const [billingCountry, setBillingCountry] = useState("");
   const [isTermsChecked, setIsTermsChecked] = useState(false);
 
+  const onError = () => {
+    alert(
+      "Something was wrong with your payment information, please try again."
+    );
+  };
+
   const onSubmit = () => {
-    console.log(stripe);
+    stripe
+      .createToken({
+        name: `${firstName} ${lastName}`,
+        address_zip: billingZipCode,
+        address_country: billingCountry
+      })
+      .then(result => {
+        if (result.error) {
+          onError();
+        } else {
+          const { token } = result;
+          console.log(token);
+        }
+      })
+      .catch(e => {
+        onError();
+      });
   };
 
   return (
