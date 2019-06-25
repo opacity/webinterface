@@ -40,7 +40,7 @@ enum TABS {
 }
 
 const SendPaymentSlide = ({ invoice, openMetamask, cost }) => {
-  const [activeTab, setActiveTab] = useState(TABS.CRYPTO);
+  const [activeTab, setActiveTab] = useState(TABS.FIAT);
 
   return (
     <ThemeProvider theme={theme}>
