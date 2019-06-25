@@ -78,7 +78,7 @@ const Group = styled.div`
   flex: 1;
 `;
 
-const CreditCardForm = ({ cost, stripe }) => {
+const CreditCardForm = ({ cost, stripe, payFiat }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [billingZipCode, setBillingZipCode] = useState("");
@@ -102,8 +102,10 @@ const CreditCardForm = ({ cost, stripe }) => {
         if (result.error) {
           onError();
         } else {
-          const { token } = result;
-          console.log(token);
+          const {
+            token: { id: token }
+          } = result;
+          payFiat({ token, cost });
         }
       })
       .catch(e => {

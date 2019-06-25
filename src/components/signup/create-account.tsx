@@ -23,6 +23,7 @@ const CreateAccount = ({
   pollPayment,
   showMnemonic,
   openMetamask,
+  payFiat,
   plan,
   phase
 }) => {
@@ -109,6 +110,7 @@ const CreateAccount = ({
               cost={12}
               invoice={invoice}
               openMetamask={openMetamask}
+              payFiat={payFiat}
             />
           )}
           {false &&

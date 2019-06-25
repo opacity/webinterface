@@ -21,7 +21,8 @@ const mapDispatchToProps = dispatch => ({
   pollPayment: waitForPaymentFn =>
     dispatch(signupActions.pollPayment({ waitForPaymentFn })),
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
-    dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice }))
+    dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice })),
+  payFiat: ({ token, cost }) => dispatch(signupActions.payFiat({ token, cost }))
 });
 
 const SignUp = ({
@@ -31,7 +32,8 @@ const SignUp = ({
   showAddress,
   invoice,
   pollPayment,
-  openMetamask
+  openMetamask,
+  payFiat
 }) => (
   <CreateAccount
     phase={phase}
@@ -40,6 +42,7 @@ const SignUp = ({
     pollPayment={pollPayment}
     plan={plan}
     showMnemonic={showMnemonic}
+    payFiat={payFiat}
   />
 );
 
