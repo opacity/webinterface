@@ -5,7 +5,7 @@ export const IS_BETA_PROD = process.env.NODE_ENV === "production-beta";
 const PROTOCOL = IS_DEV ? "http" : "https";
 
 export const STRIPE_API_KEY = IS_DEV
-  ? "pk_test_53vSH6kk6XHD4jpXGT8gEb9r"
+  ? "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f"
   : "pk_live_N5smvDblpI4GGBioJCk9yB90";
 
 export const HOST =
@@ -33,6 +33,7 @@ export const API = Object.freeze({
   V1_LOGIN_PATH: ":3000/api/v1/metadata",
   V1_FILES_PATH: ":3000/api/v1/files",
   V1_METADATA_PATH: ":3000/api/v1/metadata",
+  V1_SUBSCRIPTIONS_PATH: ":3000/api/v1/subscriptions",
   GAS_PRICE: "https://api.blockcypher.com/v1/eth/main",
   CHUNKS_PER_REQUEST: 10
 });
