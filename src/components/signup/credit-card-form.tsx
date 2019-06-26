@@ -91,33 +91,33 @@ const required = value => (value ? undefined : "Required");
 const CreditCardForm = ({ cost, stripe, payFiat }) => {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
 
-  // const onError = () => {
-  // alert(
-  // "Something was wrong with your payment information, please try again."
-  // );
-  // };
+  const onError = () => {
+    alert(
+      "Something was wrong with your payment information, please try again."
+    );
+  };
 
   const onSubmit = values => {
-    console.log(values);
-    // stripe
-    // .createToken({
-    // name: `${lastName}`,
-    // address_zip: billingZipCode,
-    // address_country: billingCountry
-    // })
-    // .then(result => {
-    // if (result.error) {
-    // onError();
-    // } else {
-    // const {
-    // token: { id: token }
-    // } = result;
-    // payFiat({ token, cost });
-    // }
-    // })
-    // .catch(e => {
-    // onError();
-    // });
+    const { firstName, lastName, billingZipCode, billingCountry } = values;
+    stripe
+      .createToken({
+        name: `${firstName} ${lastName}`,
+        address_zip: billingZipCode,
+        address_country: billingCountry
+      })
+      .then(result => {
+        if (result.error) {
+          onError();
+        } else {
+          const {
+            token: { id: token }
+          } = result;
+          payFiat({ token, cost });
+        }
+      })
+      .catch(e => {
+        onError();
+      });
   };
 
   return (
