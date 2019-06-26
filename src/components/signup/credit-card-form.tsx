@@ -7,6 +7,7 @@ import {
   injectStripe
 } from "react-stripe-elements";
 import { CountryDropdown } from "react-country-region-selector";
+import { Form, Field } from "react-final-form";
 
 const CardNumberInput = styled(CardNumberElement)`
   background: white;
@@ -47,7 +48,9 @@ const InputName = styled.h4`
   display: inline-block;
 `;
 
-const SubmitOrderButton = styled.button`
+const SubmitOrderButton = styled.button.attrs({
+  type: "submit"
+})`
   cursor: pointer;
   flex: 1;
   border: 1px solid black;
@@ -78,122 +81,135 @@ const Group = styled.div`
   flex: 1;
 `;
 
+const required = value => (value ? undefined : "Required");
+// const mustBeNumber = value => (isNaN(value) ? 'Must be a number' : undefined)
+// const minValue = min => value =>
+// isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`
+// const composeValidators = (...validators) => value =>
+// validators.reduce((error, validator) => error || validator(value), undefined)
+
 const CreditCardForm = ({ cost, stripe, payFiat }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [billingZipCode, setBillingZipCode] = useState("");
-  const [billingCountry, setBillingCountry] = useState("");
   const [isTermsChecked, setIsTermsChecked] = useState(false);
 
-  const onError = () => {
-    alert(
-      "Something was wrong with your payment information, please try again."
-    );
-  };
+  // const onError = () => {
+  // alert(
+  // "Something was wrong with your payment information, please try again."
+  // );
+  // };
 
-  const onSubmit = () => {
-    stripe
-      .createToken({
-        name: `${firstName} ${lastName}`,
-        address_zip: billingZipCode,
-        address_country: billingCountry
-      })
-      .then(result => {
-        if (result.error) {
-          onError();
-        } else {
-          const {
-            token: { id: token }
-          } = result;
-          payFiat({ token, cost });
-        }
-      })
-      .catch(e => {
-        onError();
-      });
+  const onSubmit = values => {
+    console.log(values);
+    // stripe
+    // .createToken({
+    // name: `${lastName}`,
+    // address_zip: billingZipCode,
+    // address_country: billingCountry
+    // })
+    // .then(result => {
+    // if (result.error) {
+    // onError();
+    // } else {
+    // const {
+    // token: { id: token }
+    // } = result;
+    // payFiat({ token, cost });
+    // }
+    // })
+    // .catch(e => {
+    // onError();
+    // });
   };
 
   return (
-    <div>
-      <Row>
-        <Group>
-          <Label>
-            <InputName>First Name</InputName>
-            <TextInput
-              value={firstName}
-              placeholder="First Name"
-              onChange={e => setFirstName(e.target.value)}
-            />
-          </Label>
-        </Group>
-        <Group>
-          <Label>
-            <InputName>Last Name</InputName>
-            <TextInput
-              value={lastName}
-              placeholder="Last Name"
-              onChange={e => setLastName(e.target.value)}
-            />
-          </Label>
-        </Group>
-      </Row>
-      <Row>
-        <Group>
-          <Label>
-            <InputName>Card Number</InputName>
-            <CardNumberInput />
-          </Label>
-        </Group>
-      </Row>
-      <Row>
-        <Group>
-          <Label>
-            <InputName>CVC</InputName>
-            <CardCVCInput />
-          </Label>
-        </Group>
-        <Group>
-          <Label>
-            <InputName>Expiration Date</InputName>
-            <CardExpiryInput />
-          </Label>
-        </Group>
-      </Row>
-      <Row>
-        <Group>
-          <Label>
-            <InputName>Billing Zip Code</InputName>
-            <TextInput
-              value={billingZipCode}
-              placeholder="Billing Zip Code"
-              onChange={e => setBillingZipCode(e.target.value)}
-            />
-          </Label>
-        </Group>
-        <Group>
-          <Label>
-            <InputName>Billing Country</InputName>
-            <SelectDropdown
-              value={billingCountry}
-              priorityOptions={["US"]}
-              onChange={val => setBillingCountry(val)}
-            />
-          </Label>
-        </Group>
-      </Row>
-      <Row>
-        <SubmitOrderButton onClick={onSubmit}>Purchase</SubmitOrderButton>
-      </Row>
-      <Row>
-        <AgreementLabel>
-          <Checkbox
-            checked={isTermsChecked}
-            onChange={e => setIsTermsChecked(e.target.checked)}
-          />
-          <InputName>I agree to the Terms and Conditions</InputName>
-        </AgreementLabel>
-      </Row>
-    </div>
+    <Form
+      onSubmit={onSubmit}
+      render={({ handleSubmit, pristine, invalid }) => (
+        <form onSubmit={handleSubmit}>
+          <Row>
+            <Group>
+              <Field name="firstName" validate={required}>
+                {({ input, meta }) => (
+                  <Label>
+                    <InputName>First Name</InputName>
+                    <TextInput {...input} placeholder="First Name" />
+                    {meta.touched && meta.error && <span>{meta.error}</span>}
+                  </Label>
+                )}
+              </Field>
+            </Group>
+            <Group>
+              <Field name="lastName" validate={required}>
+                {({ input, meta }) => (
+                  <Label>
+                    <InputName>Last Name</InputName>
+                    <TextInput {...input} placeholder="Last Name" />
+                    {meta.touched && meta.error && <span>{meta.error}</span>}
+                  </Label>
+                )}
+              </Field>
+            </Group>
+          </Row>
+          <Row>
+            <Group>
+              <Label>
+                <InputName>Card Number</InputName>
+                <CardNumberInput />
+              </Label>
+            </Group>
+          </Row>
+          <Row>
+            <Group>
+              <Label>
+                <InputName>CVC</InputName>
+                <CardCVCInput />
+              </Label>
+            </Group>
+            <Group>
+              <Label>
+                <InputName>Expiration Date</InputName>
+                <CardExpiryInput />
+              </Label>
+            </Group>
+          </Row>
+          <Row>
+            <Group>
+              <Field name="billingZipCode" validate={required}>
+                {({ input, meta }) => (
+                  <Label>
+                    <InputName>Billing Zip Code</InputName>
+                    <TextInput {...input} placeholder="Billing Zip Code" />
+                    {meta.touched && meta.error && <span>{meta.error}</span>}
+                  </Label>
+                )}
+              </Field>
+            </Group>
+            <Group>
+              <Field name="billingCountry" validate={required}>
+                {({ input, meta }) => (
+                  <Label>
+                    <InputName>Billing Country</InputName>
+                    <SelectDropdown {...input} priorityOptions={["US"]} />
+                    {meta.touched && meta.error && <span>{meta.error}</span>}
+                  </Label>
+                )}
+              </Field>
+            </Group>
+          </Row>
+          <Row>
+            <SubmitOrderButton>Purchase</SubmitOrderButton>
+          </Row>
+          <Row>
+            <AgreementLabel>
+              <Checkbox
+                checked={isTermsChecked}
+                onChange={e => setIsTermsChecked(e.target.checked)}
+              />
+              <InputName>I agree to the Terms and Conditions</InputName>
+            </AgreementLabel>
+          </Row>
+        </form>
+      )}
+    />
   );
 };
 
