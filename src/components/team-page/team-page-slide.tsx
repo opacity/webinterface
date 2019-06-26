@@ -116,10 +116,7 @@ const Container = styled.div`
 
 const HeaderContainer = styled.div`
   width: auto;
-  padding: 70px 0 70px 0;
-  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
-    padding: 70px 0 0px 0;
-  }
+  padding: 70px 0 0 0;
 `;
 
 const PeopleContainer = styled.div`
@@ -140,7 +137,7 @@ const PeopleWrapper = styled.div`
   border: solid 0.5px #acb3bf;
   padding: 50px 20px;
   margin: auto;
-  height: 380px;
+  height: 450px;
   position: relative;
 `;
 
@@ -180,7 +177,7 @@ const Title = styled.h1`
 `;
 
 const PersonTitle = styled.h2`
-  font-size: 16px;
+  font-size: 20px;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
@@ -189,6 +186,7 @@ const PersonTitle = styled.h2`
   text-align: center;
   color: ${props => props.theme.title.color};
   font-weight: bold;
+  text-transform: uppercase;
 `;
 
 const Parapraph = styled.p`
@@ -204,10 +202,10 @@ const Parapraph = styled.p`
 `;
 
 const PersonRole = styled(Parapraph)`
-  font-size: 12px;
   width: 170px;
   margin: auto;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: bold;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
@@ -217,6 +215,7 @@ const PersonRole = styled(Parapraph)`
 
 const PersonBio = styled(Parapraph)`
   margin-top: 10px;
+  font-size: 14px;
 `;
 
 const Content = styled(Parapraph)`

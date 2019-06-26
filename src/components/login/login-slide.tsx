@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -14,6 +14,33 @@ import Header from "../shared/header";
 
 const Container = styled.div`
   width: 100%;
+`;
+
+const RecoverHandleContainer = styled.div`
+  background-color: ${props => props.theme.error.color};
+`;
+
+const RecoverHandleTitle = styled.h2`
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: white;
+  margin: auto;
+  text-align: center;
+`;
+
+const RecoverHandle = styled.p`
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: white;
+  margin: auto;
+  text-align: center;
 `;
 
 const ErrorMessage = styled.p`
@@ -137,7 +164,12 @@ const OrRegister = styled.span`
   }
 `;
 
-const LoginOrRegisterSlide = ({ login, status }) => {
+const ForgotPasswordLink = styled(Link)`
+  flex-direction: row;
+  color: #778291;
+`;
+
+const LoginOrRegisterSlide = ({ login, status, recoveryHandle }) => {
   const [privateKey, setPrivateKey] = useState("");
   const [validatePrivateKey, setValidatePrivateKey] = useState(true);
 
@@ -147,22 +179,33 @@ const LoginOrRegisterSlide = ({ login, status }) => {
   const handlePrivateKey = value =>
     handleValidatePrivateKey(value)
       ? [setPrivateKey(value), setValidatePrivateKey(true)]
-      : setValidatePrivateKey(false);
+      : [setPrivateKey(value), setValidatePrivateKey(false)];
 
   const handleLogin = () =>
     handleValidatePrivateKey(privateKey)
       ? login(privateKey)
       : setValidatePrivateKey(false);
 
+  useEffect(() => {
+    recoveryHandle && setPrivateKey(recoveryHandle);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Container>
         <Header type={HEADER_TYPES.EMPTY} />
+        {recoveryHandle && (
+          <RecoverHandleContainer>
+            <RecoverHandleTitle>Your Account Handle</RecoverHandleTitle>
+            <RecoverHandle>{recoveryHandle}</RecoverHandle>
+          </RecoverHandleContainer>
+        )}
         <LoginContainer>
           <Title>Sign in Opacity</Title>
           <Underline />
           <Label>Account Handle</Label>
           <Input
+            value={privateKey}
             onChange={e => handlePrivateKey(e.target.value)}
             hasError={
               status === AUTHENTICATION_STATUSES.LOGIN_FAILURE &&
@@ -180,6 +223,9 @@ const LoginOrRegisterSlide = ({ login, status }) => {
               again.
             </ErrorMessage>
           )}
+          <ForgotPasswordLink to="/forgot-page">
+            Forgot password?
+          </ForgotPasswordLink>
           <LoginButton onClick={() => handleLogin()}>Sign in</LoginButton>
           <OrRegister>or</OrRegister>
           <RegisterLink to="/sign-up">Create an account</RegisterLink>

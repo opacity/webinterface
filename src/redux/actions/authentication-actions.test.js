@@ -80,3 +80,58 @@ test("fetchAccountDataFailure", () => {
     })
   ).toEqual(expected);
 });
+
+test("recoverAccountHandle", () => {
+  const mnemonic = "mnemonic";
+
+  const expected = {
+    type: actions.RECOVER_ACCOUNT_HANDLE,
+    payload: {
+      mnemonic
+    }
+  };
+  expect(
+    actions.recoverAccountHandle({
+      mnemonic
+    })
+  ).toEqual(expected);
+});
+
+test("recoverAccountHandleSuccess", () => {
+  const handle = "handle";
+
+  const expected = {
+    type: actions.RECOVER_ACCOUNT_HANDLE_SUCCESS,
+    payload: {
+      handle
+    }
+  };
+  expect(
+    actions.recoverAccountHandleSuccess({
+      handle
+    })
+  ).toEqual(expected);
+});
+
+test("recoverAccountHandleFailure", () => {
+  const error = "error";
+
+  const expected = {
+    type: actions.RECOVER_ACCOUNT_HANDLE_FAILURE,
+    payload: {
+      error
+    }
+  };
+  expect(
+    actions.recoverAccountHandleFailure({
+      error
+    })
+  ).toEqual(expected);
+});
+
+test("resetAccountHandle", () => {
+  const expected = {
+    type: actions.RESET_ACCOUNT_HANDLE
+  };
+  expect(actions.resetAccountHandle()).toEqual(expected);
+});
