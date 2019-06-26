@@ -13,6 +13,7 @@ import {
   HEADER_MOBILE_WIDTH,
   DATA_TYPES_ICONS,
   FILE_MAX_SIZE,
+  MULTIPLE_ACTIONS,
   theme
 } from "../../config";
 import { formatBytes, formatGbs } from "../../helpers";
@@ -26,6 +27,9 @@ import UploadMobileButton from "./upload-mobile-button";
 const ICON_DOWNLOAD = require("../../assets/images/download.svg");
 const ICON_REMOVE = require("../../assets/images/remove.svg");
 const ICON_SHARE = require("../../assets/images/share.svg");
+const ICON_EXIT = require("../../assets/images/cancel.svg");
+const ICON_CHECKBOX = require("../../assets/images/check-box.svg");
+const ICON_CHECKBOX_EMPTY = require("../../assets/images/check-box-empty.svg");
 
 const fileTarget = {
   drop (props, monitor) {
@@ -70,6 +74,8 @@ const TableContainer = styled.div`
     padding: 10px;
   }
 `;
+
+const MultiActionContainer = styled.div``;
 
 const UsageInfo = styled.h4`
   font-size: 16px;
@@ -146,30 +152,37 @@ const Table = styled.table`
   border-collapse: collapse;
 `;
 
-const Tr = styled.tr`
+interface TrProps {
+  move: number;
+  key?: any;
+}
+
+const Tr = styled.tr<TrProps>`
   &:hover td {
     background-color: #cfe3fc;
   }
-  th:first-child,
-  td:first-child {
+  th:nth-child(1),
+  td:nth-child(1),
+  th:nth-child(${props => props.move + 1}),
+  td:nth-child(${props => props.move + 1}) {
     width: 5%;
     text-align: right;
   }
-  th:nth-child(2),
-  td:nth-child(2) {
+  th:nth-child(${props => props.move + 2}),
+  td:nth-child(${props => props.move + 2}) {
     width: 55%;
   }
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
-    th:nth-child(3),
-    th:nth-child(4),
-    td:nth-child(3),
-    td:nth-child(4) {
+    th:nth-child(${props => props.move + 3}),
+    th:nth-child(${props => props.move + 4}),
+    td:nth-child(${props => props.move + 3}),
+    td:nth-child(${props => props.move + 4}) {
       display: none;
     }
   }
   @media (max-width: 915px) {
-    th:nth-child(2),
-    td:nth-child(2) {
+    th:nth-child(${props => props.move + 2}),
+    td:nth-child(${props => props.move + 2}) {
       width: 95%;
       white-space: initial;
     }
@@ -201,6 +214,10 @@ const Td = styled.td`
   border-bottom: 1px solid #cfd7e6;
   padding: 15px 10px 15px 10px;
   white-space: nowrap;
+`;
+
+const TdPointer = styled(Td)`
+  cursor: pointer;
 `;
 
 const ThPointer = styled(Th)`
@@ -319,11 +336,20 @@ const FileManagerSlide = ({
   storageLimit,
   expirationDate,
   connectDropTarget,
-  isOver
+  isOver,
+  downloadFiles,
+  removeFiles,
+  filemanagerFiles,
+  setFilemanagerFile,
+  deleteFilemanagerFile,
+  setFilemanagerFiles,
+  resetFilemanagerFiles
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
   const [sharedFile, setSharedFile] = useState<File | null>(null);
+  const [multipleAction, setMultipleAction] = useState(MULTIPLE_ACTIONS.NO_SET);
+  const [checkedAllState, setCheckedAllState] = useState(false);
 
   const sortBy = (param, order) => {
     setParam(param);
@@ -341,14 +367,51 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(
-    () => {
-      const defaultOrder = "created";
-      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-      setParam(defaultOrder);
-    },
-    [files]
-  );
+  const checkedAll = () => {
+    const files = orderedFiles.map(item => item.handle);
+    return !checkedAllState ? (
+      <TableIcon
+        onClick={() => [setCheckedAllState(true), setFilemanagerFiles(files)]}
+        src={ICON_CHECKBOX_EMPTY}
+      />
+    ) : (
+      <TableIcon
+        onClick={() => [setCheckedAllState(false), resetFilemanagerFiles()]}
+        src={ICON_CHECKBOX}
+      />
+    );
+  };
+
+  const PickFile = ({ handle }) => {
+    if (orderedFiles.length === filemanagerFiles.length) {
+      setCheckedAllState(true);
+    } else {
+      setCheckedAllState(false);
+    }
+    if (filemanagerFiles) {
+      const file = filemanagerFiles.find(item => handle === item);
+      return file ? (
+        <TableIcon
+          src={ICON_CHECKBOX}
+          onClick={() => deleteFilemanagerFile(handle)}
+        />
+      ) : (
+        <TableIcon
+          src={ICON_CHECKBOX_EMPTY}
+          onClick={() => setFilemanagerFile(handle)}
+        />
+      );
+    }
+    return (
+      <TableIcon src={ICON_REMOVE} onClick={() => setFilemanagerFile(handle)} />
+    );
+  };
+
+  useEffect(() => {
+    const defaultOrder = "created";
+    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+    setParam(defaultOrder);
+  }, [files]);
 
   useEffect(() => {
     getFileList(masterHandle);
@@ -388,9 +451,64 @@ const FileManagerSlide = ({
                   onSelected={files => upload(files, masterHandle)}
                 />
               </ButtonWrapper>
+              {multipleAction === MULTIPLE_ACTIONS.NO_SET ? (
+                <MultiActionContainer>
+                  <TableIcon
+                    src={ICON_DOWNLOAD}
+                    data-tip="Download multiple files"
+                    onClick={() =>
+                      setMultipleAction(MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD)
+                    }
+                  />
+                  <TableIcon
+                    src={ICON_REMOVE}
+                    data-tip="Remove multiple files"
+                    onClick={() =>
+                      setMultipleAction(MULTIPLE_ACTIONS.MULTIPLE_REMOVE)
+                    }
+                  />
+                </MultiActionContainer>
+              ) : (
+                <MultiActionContainer>
+                  {multipleAction === MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD && (
+                    <TableIcon
+                      src={ICON_DOWNLOAD}
+                      data-tip="Download multiple files"
+                      onClick={() => [
+                        setMultipleAction(MULTIPLE_ACTIONS.NO_SET),
+                        downloadFiles(filemanagerFiles),
+                        resetFilemanagerFiles()
+                      ]}
+                    />
+                  )}
+
+                  {multipleAction === MULTIPLE_ACTIONS.MULTIPLE_REMOVE && (
+                    <TableIcon
+                      src={ICON_REMOVE}
+                      data-tip="Remove multiple files"
+                      onClick={() => [
+                        setMultipleAction(MULTIPLE_ACTIONS.NO_SET),
+                        removeFiles(filemanagerFiles, masterHandle),
+                        resetFilemanagerFiles()
+                      ]}
+                    />
+                  )}
+                  <TableIcon
+                    src={ICON_EXIT}
+                    data-tip="Cancel"
+                    onClick={() => [
+                      setMultipleAction(MULTIPLE_ACTIONS.NO_SET),
+                      resetFilemanagerFiles()
+                    ]}
+                  />
+                </MultiActionContainer>
+              )}
               <Table>
                 <thead>
-                  <Tr>
+                  <Tr move={multipleAction === MULTIPLE_ACTIONS.NO_SET ? 0 : 1}>
+                    {multipleAction !== MULTIPLE_ACTIONS.NO_SET && (
+                      <ThPointer>{checkedAll()}</ThPointer>
+                    )}
                     <Th />
                     <TableHeader
                       param="name"
@@ -411,48 +529,62 @@ const FileManagerSlide = ({
                       paramArrow={param}
                       sortBy={(param, order) => sortBy(param, order)}
                     />
-                    <Th>Actions</Th>
+                    {multipleAction === MULTIPLE_ACTIONS.NO_SET && (
+                      <Th>Actions</Th>
+                    )}
                   </Tr>
                 </thead>
                 <tbody>
                   {orderedFiles.map(({ name, handle, size, created }, i) => (
-                    <Tr key={handle ? handle : i}>
+                    <Tr
+                      move={multipleAction === MULTIPLE_ACTIONS.NO_SET ? 0 : 1}
+                      key={handle ? handle : i}
+                    >
+                      {multipleAction !== MULTIPLE_ACTIONS.NO_SET && (
+                        <TdPointer>
+                          <PickFile handle={handle} />
+                        </TdPointer>
+                      )}
                       <Td>{iconType(name)}</Td>
                       <Td>{name}</Td>
                       <Td>{_.truncate(handle, { length: 30 })}</Td>
                       <Td>{moment(created).format("MM/DD/YYYY")}</Td>
                       <Td>{formatBytes(size)}</Td>
-                      <Td>
-                        <ActionButton
-                          data-tip="Share file"
-                          onClick={() =>
-                            setSharedFile({
-                              name,
-                              handle,
-                              created,
-                              size: size
-                            })
-                          }
-                        >
-                          <TableIcon src={ICON_SHARE} />
-                        </ActionButton>
-                        <ActionButton
-                          data-tip="Download file"
-                          onClick={() => download(handle)}
-                        >
-                          <TableIcon src={ICON_DOWNLOAD} />
-                        </ActionButton>
-                        <ActionButton
-                          onClick={() =>
-                            confirm(
-                              "Do you really want to delete this file?"
-                            ) && removeFileByHandle(name, handle, masterHandle)
-                          }
-                        >
-                          <TableIcon data-tip="Delete file" src={ICON_REMOVE} />
-                        </ActionButton>
-                        <ReactTooltip effect="solid" />
-                      </Td>
+                      {multipleAction === MULTIPLE_ACTIONS.NO_SET && (
+                        <Td>
+                          <ActionButton
+                            data-tip="Share file"
+                            onClick={() =>
+                              setSharedFile({
+                                name,
+                                handle,
+                                created,
+                                size: size
+                              })
+                            }
+                          >
+                            <TableIcon src={ICON_SHARE} />
+                          </ActionButton>
+                          <ActionButton
+                            data-tip="Download file"
+                            onClick={() => download(handle)}
+                          >
+                            <TableIcon src={ICON_DOWNLOAD} />
+                          </ActionButton>
+                          <ActionButton
+                            data-tip="Delete file"
+                            onClick={() =>
+                              confirm(
+                                "Do you really want to delete this file?"
+                              ) &&
+                              removeFileByHandle(name, handle, masterHandle)
+                            }
+                          >
+                            <TableIcon src={ICON_REMOVE} />
+                          </ActionButton>
+                          <ReactTooltip effect="solid" />
+                        </Td>
+                      )}
                     </Tr>
                   ))}
                 </tbody>

@@ -1,12 +1,21 @@
 import { Observable } from "rxjs";
 import { ofType, combineEpics } from "redux-observable";
-import { mergeMap } from "rxjs/operators";
+import { mergeMap, flatMap } from "rxjs/operators";
 import { Download } from "opaque";
 import * as FileSaver from "file-saver";
 import { toast } from "react-toastify";
 
 import downloadActions from "../actions/download-actions";
 import { API } from "../../config";
+
+const downloadFilesEpic = (action$, state$, dependencies$) =>
+  action$.pipe(
+    ofType(downloadActions.DOWNLOAD_FILES),
+    flatMap(({ payload }) => {
+      const { files } = payload;
+      return files.map(handle => downloadActions.downloadFile({ handle }));
+    })
+  );
 
 const downloadEpic = (action$, state$, dependencies$) =>
   action$.pipe(
@@ -67,4 +76,4 @@ const downloadEpic = (action$, state$, dependencies$) =>
     })
   );
 
-export default combineEpics(downloadEpic);
+export default combineEpics(downloadEpic, downloadFilesEpic);
