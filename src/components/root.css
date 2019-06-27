@@ -77,3 +77,13 @@ div.Toastify__toast--error {
   font-family: "proxima-nova", sans-serif;
   color: #687892;
 }
+
+.stripe-cc-input {
+  background: white;
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.stripe-cc-input-error {
+  border: 1px solid #ff3860;
+}

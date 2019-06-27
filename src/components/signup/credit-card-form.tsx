@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { injectStripe } from "react-stripe-elements";
+import { injectStripe, CardElement } from "react-stripe-elements";
 import { CountryDropdown } from "react-country-region-selector";
 import { Form, Field } from "react-final-form";
-import CreditCardInput from "react-credit-card-input";
 
 import OutboundLink from "../shared/outbound-link";
 
@@ -38,6 +37,7 @@ const SelectDropdown = styled(CountryDropdown)`
   padding: 11px;
   height: 100%;
   max-width: 225px;
+  outline: none;
 
   &::placeholder {
     color: blue;
@@ -109,18 +109,9 @@ const ErrorMessage = styled.span`
   color: #ff3860;
 `;
 
-const required = value => (value ? undefined : "Required");
-// const mustBeNumber = value => (isNaN(value) ? 'Must be a number' : undefined)
-// const minValue = min => value =>
-// isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`
-// const composeValidators = (...validators) => value =>
-// validators.reduce((error, validator) => error || validator(value), undefined)
+const required = value => (value ? undefined : "This field cannot be blank");
 
 const CreditCardForm = ({ cost, stripe, payFiat }) => {
-  const [cardNumber, setCardNumber] = useState("");
-  const [cardExpiry, setCardExpiry] = useState("");
-  const [cardCvc, setCardCvc] = useState("");
-
   const onError = () => {
     alert(
       "Something was wrong with your payment information, please try again."
@@ -128,17 +119,12 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
   };
 
   const onSubmit = values => {
-    console.log("xxxxxxxxx: ", values);
-    const { firstName, lastName, billingZipCode, billingCountry } = values;
+    const { firstName, lastName, billingCountry } = values;
     stripe
       .createToken({
         type: "card",
         name: `${firstName} ${lastName}`,
-        address_zip: billingZipCode,
-        address_country: billingCountry,
-        cardNumber,
-        cardCvc,
-        cardExpiry
+        address_country: billingCountry
       })
       .then(result => {
         if (result.error) {
@@ -171,8 +157,6 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
                       placeholder="First Name"
                       invalid={meta.touched && meta.error}
                     />
-                    {meta.touched &&
-                      meta.error && <ErrorMessage>{meta.error}</ErrorMessage>}
                   </Label>
                 )}
               </Field>
@@ -187,8 +171,6 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
                       placeholder="Last Name"
                       invalid={meta.touched && meta.error}
                     />
-                    {meta.touched &&
-                      meta.error && <ErrorMessage>{meta.error}</ErrorMessage>}
                   </Label>
                 )}
               </Field>
@@ -198,41 +180,16 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
             <Group>
               <Label>
                 <InputName>Card Details</InputName>
-                <CreditCardInput
-                  cardNumberInputProps={{
-                    value: cardNumber,
-                    onChange: e => setCardNumber(e.target.value)
+                <CardElement
+                  classes={{
+                    base: "stripe-cc-input",
+                    invalid: "stripe-cc-input-error"
                   }}
-                  cardExpiryInputProps={{
-                    value: cardExpiry,
-                    onChange: e => setCardExpiry(e.target.value)
-                  }}
-                  cardCVCInputProps={{
-                    value: cardCvc,
-                    onChange: e => setCardCvc(e.target.value)
-                  }}
-                  fieldClassName="input"
                 />
               </Label>
             </Group>
           </Row>
           <Row>
-            <Group>
-              <Field name="billingZipCode" validate={required}>
-                {({ input, meta }) => (
-                  <Label>
-                    <InputName>Billing Zip Code</InputName>
-                    <TextInput
-                      {...input}
-                      placeholder="Billing Zip Code"
-                      invalid={meta.touched && meta.error}
-                    />
-                    {meta.touched &&
-                      meta.error && <ErrorMessage>{meta.error}</ErrorMessage>}
-                  </Label>
-                )}
-              </Field>
-            </Group>
             <Group>
               <Field name="billingCountry" validate={required}>
                 {({ input, meta }) => (
@@ -243,8 +200,6 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
                       priorityOptions={["US"]}
                       invalid={meta.touched && meta.error ? 1 : 0}
                     />
-                    {meta.touched &&
-                      meta.error && <ErrorMessage>{meta.error}</ErrorMessage>}
                   </Label>
                 )}
               </Field>
@@ -254,15 +209,11 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
             <SubmitOrderButton disabled={invalid}>Purchase</SubmitOrderButton>
           </Row>
           <Row>
-            <Field name="isTermsChecked" validate={required}>
+            <Field name="isTermsChecked" validate={required} type="checkbox">
               {({ input, meta }) => (
                 <Group>
                   <AgreementLabel>
-                    <Checkbox
-                      {...input}
-                      type="checkbox"
-                      invalid={meta.touched && meta.error}
-                    />
+                    <Checkbox {...input} invalid={meta.touched && meta.error} />
                     <AgreementText>
                       I agree to the{" "}
                       <OutboundLink href="/terms-of-service">
