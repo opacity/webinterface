@@ -224,7 +224,7 @@ const LoginOrRegisterSlide = ({ login, status, recoveryHandle }) => {
             </ErrorMessage>
           )}
           <ForgotPasswordLink to="/forgot-page">
-            Forgot password?
+            Forgot account handle?
           </ForgotPasswordLink>
           <LoginButton onClick={() => handleLogin()}>Sign in</LoginButton>
           <OrRegister>or</OrRegister>
