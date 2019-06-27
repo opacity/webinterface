@@ -17,4 +17,17 @@ const pollPaymentEpic = (action$, state$, dependencies$) =>
     })
   );
 
+// const payFiatEpic = (action$, state$, dependencies$) =>
+// action$.pipe(
+// ofType(signupActions.PAY_FIAT),
+// switchMap(({ payload }) => {
+// const { token, cost } = payload;
+
+// return from(waitForPaymentFn()).pipe(
+// map(invoice => signupActions.accountPaidSuccess()),
+// catchError(error => of(signupActions.accountPaidFailure({ error })))
+// );
+// })
+// );
+
 export default combineEpics(pollPaymentEpic);

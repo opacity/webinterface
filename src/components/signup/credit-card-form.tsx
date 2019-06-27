@@ -1,63 +1,82 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  CardNumberElement,
-  CardCVCElement,
-  CardExpiryElement,
-  injectStripe
-} from "react-stripe-elements";
+import { injectStripe } from "react-stripe-elements";
 import { CountryDropdown } from "react-country-region-selector";
 import { Form, Field } from "react-final-form";
+import CreditCardInput from "react-credit-card-input";
 
-const CardNumberInput = styled(CardNumberElement)`
-  background: white;
-  border: 1px solid black;
-`;
+import OutboundLink from "../shared/outbound-link";
 
-const CardCVCInput = styled(CardCVCElement)`
-  background: white;
-  border: 1px solid black;
-`;
+interface IInputProps {
+  invalid: boolean;
+}
 
-const CardExpiryInput = styled(CardExpiryElement)`
-  background: white;
-  border: 1px solid black;
-`;
-
-const TextInput = styled.input.attrs({
+const TextInput = styled.input.attrs<IInputProps>({
   type: "text"
 })`
   background: white;
-  border: 1px solid black;
+  border-radius: 3px;
+  border: 1px solid ${props => (props.invalid ? "#ff3860" : "transparent")};
+  font-size: 16px;
+  padding: 10px;
 `;
 
-const Checkbox = styled.input.attrs({
+const Checkbox = styled.input.attrs<IInputProps>({
   type: "checkbox"
 })`
   padding: 2px;
+  border: 1px solid ${props => (props.invalid ? "#ff3860" : "transparent")};
 `;
 
 const SelectDropdown = styled(CountryDropdown)`
-  border: 1px solid black;
+  border: 1px solid
+    ${(props: IInputProps) => (props.invalid ? "#ff3860" : "transparent")};
   background: white;
   height: 36px;
-  font-size: 11px;
+  font-size: 15px;
+  appearance: none;
+  padding: 11px;
+  height: 100%;
+  max-width: 225px;
+
+  &::placeholder {
+    color: blue;
+  }
 `;
 
 const InputName = styled.h4`
   display: inline-block;
 `;
 
-const SubmitOrderButton = styled.button.attrs({
+const AgreementText = styled.span`
+  font-size: 13px;
+  margin-left: 3px;
+`;
+
+interface ISubmitOrderButtonProps {
+  disabled: boolean;
+}
+
+const SubmitOrderButton = styled.button.attrs<ISubmitOrderButtonProps>({
   type: "submit"
 })`
   cursor: pointer;
   flex: 1;
-  border: 1px solid black;
   height: 50px;
+  background-color: ${props => props.theme.button.background};
+  color: ${props => props.theme.button.color};
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
 
   &:focus {
     outline: 0;
+  }
+
+  &:disabled {
+    background-color: ${props => props.theme.button.disabled.background};
+    color: ${props => props.theme.button.disabled.color};
+    border: ${props => props.theme.button.disabled.border};
   }
 `;
 
@@ -75,10 +94,19 @@ const AgreementLabel = styled.label`
 
 const Row = styled.div`
   display: flex;
+  margin-bottom: 20px;
 `;
 
 const Group = styled.div`
   flex: 1;
+  padding: 2px;
+  text-align: left;
+`;
+
+const ErrorMessage = styled.span`
+  font-size: 0.8rem;
+  margin: 5px 0 0 0;
+  color: #ff3860;
 `;
 
 const required = value => (value ? undefined : "Required");
@@ -89,7 +117,9 @@ const required = value => (value ? undefined : "Required");
 // validators.reduce((error, validator) => error || validator(value), undefined)
 
 const CreditCardForm = ({ cost, stripe, payFiat }) => {
-  const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExpiry, setCardExpiry] = useState("");
+  const [cardCvc, setCardCvc] = useState("");
 
   const onError = () => {
     alert(
@@ -98,16 +128,17 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
   };
 
   const onSubmit = values => {
+    console.log("xxxxxxxxx: ", values);
     const { firstName, lastName, billingZipCode, billingCountry } = values;
-    // console.log("xxxxxxxxxx: ", stripe);
     stripe
       .createToken({
+        type: "card",
         name: `${firstName} ${lastName}`,
         address_zip: billingZipCode,
         address_country: billingCountry,
-        cardNumber: "4242424242424242",
-        cardCvc: "123",
-        cardExpiry: "1220"
+        cardNumber,
+        cardCvc,
+        cardExpiry
       })
       .then(result => {
         if (result.error) {
@@ -135,8 +166,13 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
                 {({ input, meta }) => (
                   <Label>
                     <InputName>First Name</InputName>
-                    <TextInput {...input} placeholder="First Name" />
-                    {meta.touched && meta.error && <span>{meta.error}</span>}
+                    <TextInput
+                      {...input}
+                      placeholder="First Name"
+                      invalid={meta.touched && meta.error}
+                    />
+                    {meta.touched &&
+                      meta.error && <ErrorMessage>{meta.error}</ErrorMessage>}
                   </Label>
                 )}
               </Field>
@@ -146,8 +182,13 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
                 {({ input, meta }) => (
                   <Label>
                     <InputName>Last Name</InputName>
-                    <TextInput {...input} placeholder="Last Name" />
-                    {meta.touched && meta.error && <span>{meta.error}</span>}
+                    <TextInput
+                      {...input}
+                      placeholder="Last Name"
+                      invalid={meta.touched && meta.error}
+                    />
+                    {meta.touched &&
+                      meta.error && <ErrorMessage>{meta.error}</ErrorMessage>}
                   </Label>
                 )}
               </Field>
@@ -156,28 +197,22 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
           <Row>
             <Group>
               <Label>
-                <InputName>Card Number</InputName>
-                <CardNumberInput
-                  style={{
-                    invalid: {
-                      color: "blue"
-                    }
+                <InputName>Card Details</InputName>
+                <CreditCardInput
+                  cardNumberInputProps={{
+                    value: cardNumber,
+                    onChange: e => setCardNumber(e.target.value)
                   }}
+                  cardExpiryInputProps={{
+                    value: cardExpiry,
+                    onChange: e => setCardExpiry(e.target.value)
+                  }}
+                  cardCVCInputProps={{
+                    value: cardCvc,
+                    onChange: e => setCardCvc(e.target.value)
+                  }}
+                  fieldClassName="input"
                 />
-              </Label>
-            </Group>
-          </Row>
-          <Row>
-            <Group>
-              <Label>
-                <InputName>CVC</InputName>
-                <CardCVCInput />
-              </Label>
-            </Group>
-            <Group>
-              <Label>
-                <InputName>Expiration Date</InputName>
-                <CardExpiryInput />
               </Label>
             </Group>
           </Row>
@@ -187,8 +222,13 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
                 {({ input, meta }) => (
                   <Label>
                     <InputName>Billing Zip Code</InputName>
-                    <TextInput {...input} placeholder="Billing Zip Code" />
-                    {meta.touched && meta.error && <span>{meta.error}</span>}
+                    <TextInput
+                      {...input}
+                      placeholder="Billing Zip Code"
+                      invalid={meta.touched && meta.error}
+                    />
+                    {meta.touched &&
+                      meta.error && <ErrorMessage>{meta.error}</ErrorMessage>}
                   </Label>
                 )}
               </Field>
@@ -198,24 +238,47 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
                 {({ input, meta }) => (
                   <Label>
                     <InputName>Billing Country</InputName>
-                    <SelectDropdown {...input} priorityOptions={["US"]} />
-                    {meta.touched && meta.error && <span>{meta.error}</span>}
+                    <SelectDropdown
+                      {...input}
+                      priorityOptions={["US"]}
+                      invalid={meta.touched && meta.error ? 1 : 0}
+                    />
+                    {meta.touched &&
+                      meta.error && <ErrorMessage>{meta.error}</ErrorMessage>}
                   </Label>
                 )}
               </Field>
             </Group>
           </Row>
           <Row>
-            <SubmitOrderButton>Purchase</SubmitOrderButton>
+            <SubmitOrderButton disabled={invalid}>Purchase</SubmitOrderButton>
           </Row>
           <Row>
-            <AgreementLabel>
-              <Checkbox
-                checked={isTermsChecked}
-                onChange={e => setIsTermsChecked(e.target.checked)}
-              />
-              <InputName>I agree to the Terms and Conditions</InputName>
-            </AgreementLabel>
+            <Field name="isTermsChecked" validate={required}>
+              {({ input, meta }) => (
+                <Group>
+                  <AgreementLabel>
+                    <Checkbox
+                      {...input}
+                      type="checkbox"
+                      invalid={meta.touched && meta.error}
+                    />
+                    <AgreementText>
+                      I agree to the{" "}
+                      <OutboundLink href="/terms-of-service">
+                        Terms and Conditions
+                      </OutboundLink>
+                    </AgreementText>
+                  </AgreementLabel>
+                  {meta.touched &&
+                    meta.error && (
+                      <ErrorMessage>
+                        Please check this box if you want to proceed.
+                      </ErrorMessage>
+                    )}
+                </Group>
+              )}
+            </Field>
           </Row>
         </form>
       )}
