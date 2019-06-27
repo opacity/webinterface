@@ -99,11 +99,15 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
 
   const onSubmit = values => {
     const { firstName, lastName, billingZipCode, billingCountry } = values;
+    // console.log("xxxxxxxxxx: ", stripe);
     stripe
       .createToken({
         name: `${firstName} ${lastName}`,
         address_zip: billingZipCode,
-        address_country: billingCountry
+        address_country: billingCountry,
+        cardNumber: "4242424242424242",
+        cardCvc: "123",
+        cardExpiry: "1220"
       })
       .then(result => {
         if (result.error) {
@@ -153,7 +157,13 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
             <Group>
               <Label>
                 <InputName>Card Number</InputName>
-                <CardNumberInput />
+                <CardNumberInput
+                  style={{
+                    invalid: {
+                      color: "blue"
+                    }
+                  }}
+                />
               </Label>
             </Group>
           </Row>
