@@ -174,11 +174,7 @@ const ButtonWrapper = styled.div`
 
 const Header = styled.div``;
 
-const Footer = styled.div`
-  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    margin-left: 100px;
-  }
-`;
+const Footer = styled.div``;
 
 const Subscriptions = () => (
   <ThemeProvider theme={theme}>
