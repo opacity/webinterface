@@ -22,8 +22,6 @@ const mapDispatchToProps = dispatch => ({
   upload: (files, masterHandle) =>
     dispatch(uploadActions.uploadFiles({ files, masterHandle })),
   download: handle => dispatch(downloadActions.downloadFile({ handle })),
-  removeFileByName: (name, handle, masterHandle) =>
-    dispatch(removeActions.removeFileByName({ name, handle, masterHandle })),
   removeFileByHandle: (name, handle, masterHandle) =>
     dispatch(removeActions.removeFileByHandle({ name, handle, masterHandle })),
   getFileList: masterHandle =>
@@ -35,7 +33,6 @@ const FileManager = ({
   files,
   getFileList,
   download,
-  removeFileByName,
   removeFileByHandle,
   masterHandle,
   metadata,
@@ -49,7 +46,6 @@ const FileManager = ({
       getFileList={getFileList}
       upload={upload}
       download={download}
-      removeFileByName={removeFileByName}
       removeFileByHandle={removeFileByHandle}
       masterHandle={masterHandle}
       metadata={metadata}
