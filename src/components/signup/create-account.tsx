@@ -19,13 +19,15 @@ const Container = styled.div`
 `;
 
 const CreateAccount = ({
-  showAddress,
-  pollPayment,
-  showMnemonic,
+  fiatPaymentError,
+  fiatPaymentStatus,
   openMetamask,
   payFiat,
+  phase,
   plan,
-  phase
+  pollPayment,
+  showAddress,
+  showMnemonic
 }) => {
   const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [masterHandle, setMasterHandle] = useState<MasterHandle | null>(null);
@@ -110,7 +112,9 @@ const CreateAccount = ({
               cost={12}
               invoice={invoice}
               openMetamask={openMetamask}
-              payFiat={payFiat}
+              fiatPaymentError={fiatPaymentError}
+              fiatPaymentStatus={fiatPaymentStatus}
+              payFiat={token => payFiat({ token, masterHandle })}
             />
           )}
           {false &&

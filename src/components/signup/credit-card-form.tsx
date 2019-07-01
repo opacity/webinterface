@@ -6,6 +6,8 @@ import { Form, Field } from "react-final-form";
 
 import OutboundLink from "../shared/outbound-link";
 
+import { FIAT_PAYMENT_STATUSES } from "../../config";
+
 interface IInputProps {
   invalid: boolean;
 }
@@ -64,7 +66,7 @@ const SubmitOrderButton = styled.button.attrs<ISubmitOrderButtonProps>({
 })`
   cursor: pointer;
   flex: 1;
-  height: 50px;
+  padding: 12px;
   background-color: ${props => props.theme.button.background};
   color: ${props => props.theme.button.color};
   font-size: 15px;
@@ -80,6 +82,13 @@ const SubmitOrderButton = styled.button.attrs<ISubmitOrderButtonProps>({
     color: ${props => props.theme.button.disabled.color};
     border: ${props => props.theme.button.disabled.border};
   }
+`;
+
+const SubmitSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
 `;
 
 const Label = styled.label`
@@ -113,14 +122,14 @@ const ErrorMessage = styled.span`
 
 const required = value => (value ? undefined : "This field cannot be blank");
 
-const CreditCardForm = ({ cost, stripe, payFiat }) => {
+const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
   const onError = () => {
     alert(
       "Something was wrong with your payment information, please try again."
     );
   };
 
-  const onSubmit = values => {
+  const submit = values => {
     const { firstName, lastName, billingCountry } = values;
     stripe
       .createToken({
@@ -135,7 +144,7 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
           const {
             token: { id: token }
           } = result;
-          payFiat({ token, cost });
+          onSubmit(token);
         }
       })
       .catch(e => {
@@ -145,7 +154,7 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
 
   return (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={submit}
       render={({ handleSubmit, pristine, invalid }) => (
         <form onSubmit={handleSubmit}>
           <Row>
@@ -215,7 +224,21 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
             </Group>
           </Row>
           <Row>
-            <SubmitOrderButton disabled={invalid}>Purchase</SubmitOrderButton>
+            <SubmitSection>
+              <SubmitOrderButton
+                disabled={invalid || status === FIAT_PAYMENT_STATUSES.PENDING}
+              >
+                {status === FIAT_PAYMENT_STATUSES.PENDING
+                  ? "Processing..."
+                  : "Purchase"}
+              </SubmitOrderButton>
+              {error && (
+                <ErrorMessage>
+                  We were unable to process your payment. Please try again
+                  later.
+                </ErrorMessage>
+              )}
+            </SubmitSection>
           </Row>
           <Row>
             <Field name="isTermsChecked" validate={required} type="checkbox">

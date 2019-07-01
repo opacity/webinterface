@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import signupActions from "../../redux/actions/signup-actions";
+import fiatPaymentActions from "../../redux/actions/fiat-payment-actions";
 import metamaskActions from "../../redux/actions/metamask-actions";
 import CreateAccount from "./create-account";
 
@@ -11,7 +12,9 @@ const mapStateToProps = (state, props) => {
   const plan = PLANS.find(p => p.permalink === props.match.params.plan);
   return {
     plan,
-    phase: plan ? state.signup.phase : SIGNUP_PHASES.SELECT_PLAN
+    phase: plan ? state.signup.phase : SIGNUP_PHASES.SELECT_PLAN,
+    fiatPaymentError: state.fiatPayment.error,
+    fiatPaymentStatus: state.fiatPayment.status
   };
 };
 
@@ -22,12 +25,15 @@ const mapDispatchToProps = dispatch => ({
     dispatch(signupActions.pollPayment({ waitForPaymentFn })),
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
     dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice })),
-  payFiat: ({ token, cost }) => dispatch(signupActions.payFiat({ token, cost }))
+  payFiat: ({ token, masterHandle }) =>
+    dispatch(fiatPaymentActions.payFiat({ token, masterHandle }))
 });
 
 const SignUp = ({
   phase,
   plan,
+  fiatPaymentStatus,
+  fiatPaymentError,
   showMnemonic,
   showAddress,
   invoice,
@@ -36,13 +42,15 @@ const SignUp = ({
   payFiat
 }) => (
   <CreateAccount
-    phase={phase}
-    showAddress={showAddress}
+    fiatPaymentError={fiatPaymentError}
+    fiatPaymentStatus={fiatPaymentStatus}
     openMetamask={openMetamask}
-    pollPayment={pollPayment}
-    plan={plan}
-    showMnemonic={showMnemonic}
     payFiat={payFiat}
+    phase={phase}
+    plan={plan}
+    pollPayment={pollPayment}
+    showAddress={showAddress}
+    showMnemonic={showMnemonic}
   />
 );
 

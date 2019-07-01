@@ -101,6 +101,13 @@ export enum SIGNUP_PHASES {
   CONFIRM_PAYMENT
 }
 
+export enum FIAT_PAYMENT_STATUSES {
+  IDLE = 0,
+  PENDING,
+  SUCCESS,
+  ERROR
+}
+
 export const theme = {
   background: "#ffffff",
   header: {

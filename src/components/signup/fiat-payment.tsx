@@ -9,7 +9,7 @@ import Hr from "./hr";
 import Title from "./title";
 import CreditCardForm from "./credit-card-form";
 
-const FiatPayment = ({ cost, payFiat }) => {
+const FiatPayment = ({ cost, payFiat, paymentStatus, paymentError }) => {
   return (
     <StripeProvider apiKey={STRIPE_API_KEY}>
       <ThemeProvider theme={theme}>
@@ -17,7 +17,12 @@ const FiatPayment = ({ cost, payFiat }) => {
           <Title>Pay with your debit or credit card</Title>
           <Hr />
           <Elements>
-            <CreditCardForm cost={cost} payFiat={payFiat} />
+            <CreditCardForm
+              cost={cost}
+              onSubmit={payFiat}
+              status={paymentStatus}
+              error={paymentError}
+            />
           </Elements>
         </ContentBox>
       </ThemeProvider>

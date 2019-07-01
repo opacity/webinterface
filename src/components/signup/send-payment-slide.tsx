@@ -39,7 +39,14 @@ enum TABS {
   FIAT
 }
 
-const SendPaymentSlide = ({ invoice, openMetamask, cost, payFiat }) => {
+const SendPaymentSlide = ({
+  invoice,
+  openMetamask,
+  cost,
+  payFiat,
+  fiatPaymentStatus,
+  fiatPaymentError
+}) => {
   const [activeTab, setActiveTab] = useState(TABS.FIAT);
 
   return (
@@ -68,7 +75,12 @@ const SendPaymentSlide = ({ invoice, openMetamask, cost, payFiat }) => {
             />
           )}
           {activeTab === TABS.FIAT && (
-            <FiatPayment cost={123} payFiat={payFiat} />
+            <FiatPayment
+              cost={123}
+              payFiat={payFiat}
+              paymentStatus={fiatPaymentStatus}
+              paymentError={fiatPaymentError}
+            />
           )}
         </PaymentInfo>
       </Container>
