@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { injectStripe, CardElement } from "react-stripe-elements";
 import { CountryDropdown } from "react-country-region-selector";
@@ -123,6 +123,17 @@ const ErrorMessage = styled.span`
 const required = value => (value ? undefined : "This field cannot be blank");
 
 const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+
+  useEffect(
+    () => {
+      if (status !== FIAT_PAYMENT_STATUSES.PENDING) {
+        setIsSubmitDisabled(false);
+      }
+    },
+    [status]
+  );
+
   const onError = () => {
     alert(
       "Something was wrong with your payment information, please try again."
@@ -131,6 +142,8 @@ const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
 
   const submit = values => {
     const { firstName, lastName, billingCountry } = values;
+
+    setIsSubmitDisabled(true);
     stripe
       .createToken({
         type: "card",
@@ -225,12 +238,8 @@ const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
           </Row>
           <Row>
             <SubmitSection>
-              <SubmitOrderButton
-                disabled={invalid || status === FIAT_PAYMENT_STATUSES.PENDING}
-              >
-                {status === FIAT_PAYMENT_STATUSES.PENDING
-                  ? "Processing..."
-                  : "Purchase"}
+              <SubmitOrderButton disabled={invalid || isSubmitDisabled}>
+                {isSubmitDisabled ? "Processing..." : "Purchase"}
               </SubmitOrderButton>
               {error && (
                 <ErrorMessage>
