@@ -14,6 +14,7 @@ const TextInput = styled.input.attrs<IInputProps>({
   type: "text"
 })`
   background: white;
+  font-family: "Lato", sans-serif;
   border-radius: 3px;
   border: 1px solid ${props => (props.invalid ? "#ff3860" : "transparent")};
   font-size: 16px;
@@ -32,12 +33,13 @@ const SelectDropdown = styled(CountryDropdown)`
     ${(props: IInputProps) => (props.invalid ? "#ff3860" : "transparent")};
   background: white;
   height: 36px;
-  font-size: 15px;
+  font-size: 16px;
   appearance: none;
   padding: 11px;
   height: 100%;
   max-width: 225px;
   outline: none;
+  font-family: "Lato", sans-serif;
 
   &::placeholder {
     color: blue;
@@ -181,6 +183,13 @@ const CreditCardForm = ({ cost, stripe, payFiat }) => {
               <Label>
                 <InputName>Card Details</InputName>
                 <CardElement
+                  style={{
+                    base: {
+                      fontSize: "16px",
+                      fontWeight: "normal",
+                      fontFamily: '"Lato", sans-serif'
+                    }
+                  }}
                   classes={{
                     base: "stripe-cc-input",
                     invalid: "stripe-cc-input-error"
