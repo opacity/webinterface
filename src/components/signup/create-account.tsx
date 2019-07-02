@@ -91,23 +91,18 @@ const CreateAccount = ({
           }
         >
           <Breadcrumbs phase={phase} />
-          {false && phase === SIGNUP_PHASES.SELECT_PLAN && <SelectPlanSlide />}
-          {false &&
-            phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
-              <RecordRecoveryPhraseSlide
-                mnemonic={mnemonic}
-                next={showAddress}
-              />
-            )}
-          {false &&
-            phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
-              <RecordAccountHandleSlide
-                handle={privateKey}
-                next={() => pollPayment(waitForPaymentFn)}
-                back={() => showMnemonic()}
-              />
-            )}
-          {phase !== SIGNUP_PHASES.SEND_PAYMENT && (
+          {phase === SIGNUP_PHASES.SELECT_PLAN && <SelectPlanSlide />}
+          {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
+            <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
+          )}
+          {phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
+            <RecordAccountHandleSlide
+              handle={privateKey}
+              next={() => pollPayment(waitForPaymentFn)}
+              back={() => showMnemonic()}
+            />
+          )}
+          {phase === SIGNUP_PHASES.SEND_PAYMENT && (
             <SendPaymentSlide
               cost={12}
               invoice={invoice}
@@ -117,10 +112,9 @@ const CreateAccount = ({
               payFiat={token => payFiat({ token, masterHandle })}
             />
           )}
-          {false &&
-            phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
-              <ConfirmPaymentSlide handle={privateKey} />
-            )}
+          {phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
+            <ConfirmPaymentSlide handle={privateKey} />
+          )}
         </ScreenContainer>
       </Container>
     </ThemeProvider>

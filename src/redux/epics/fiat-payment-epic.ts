@@ -12,7 +12,8 @@ const payFiatEpic = (action$, state$, dependencies$) =>
     switchMap(({ payload }) => {
       // const { token, masterHandle } = payload;
 
-      return of(fiatPaymentActions.payFiatFailure({ error: "Blah" }));
+      // return of(fiatPaymentActions.payFiatFailure({ error: "Blah" }));
+      return of(fiatPaymentActions.payFiatSuccess());
 
       // return from(waitForPaymentFn()).pipe(
       // map(invoice => signupActions.accountPaidSuccess()),

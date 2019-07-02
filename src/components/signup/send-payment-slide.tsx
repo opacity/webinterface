@@ -47,7 +47,7 @@ const SendPaymentSlide = ({
   fiatPaymentStatus,
   fiatPaymentError
 }) => {
-  const [activeTab, setActiveTab] = useState(TABS.FIAT);
+  const [activeTab, setActiveTab] = useState(TABS.CRYPTO);
 
   return (
     <ThemeProvider theme={theme}>
