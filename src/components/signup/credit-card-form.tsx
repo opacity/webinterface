@@ -47,10 +47,6 @@ const SelectDropdown = styled(CountryDropdown)`
   outline: none;
   font-family: "Lato", sans-serif;
 
-  &::placeholder {
-    color: blue;
-  }
-
   &:disabled {
     color: #cfd7df;
   }
@@ -241,6 +237,7 @@ const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
                       {...input}
                       disabled={isSubmitDisabled}
                       priorityOptions={["US"]}
+                      valueType="short"
                       invalid={meta.touched && meta.error ? 1 : 0}
                     />
                   </Label>
