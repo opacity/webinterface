@@ -1,24 +1,23 @@
-// import { from, of } from "rxjs";
-// import { map, switchMap, catchError } from "rxjs/operators";
-import { of } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { from, of } from "rxjs";
+import { map, switchMap, catchError } from "rxjs/operators";
 import { ofType, combineEpics } from "redux-observable";
 
 import fiatPaymentActions from "../actions/fiat-payment-actions";
+
+import Backend from "../../services/backend";
 
 const payFiatEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(fiatPaymentActions.PAY_FIAT),
     switchMap(({ payload }) => {
-      // const { token, masterHandle } = payload;
+      const { stripeToken, masterHandle, timestamp } = payload;
 
-      // return of(fiatPaymentActions.payFiatFailure({ error: "Blah" }));
-      return of(fiatPaymentActions.payFiatSuccess());
-
-      // return from(waitForPaymentFn()).pipe(
-      // map(invoice => signupActions.accountPaidSuccess()),
-      // catchError(error => of(signupActions.accountPaidFailure({ error })))
-      // );
+      return from(
+        Backend.createSubscription({ stripeToken, masterHandle, timestamp })
+      ).pipe(
+        map(() => fiatPaymentActions.payFiatSuccess()),
+        catchError(error => of(fiatPaymentActions.payFiatFailure({ error })))
+      );
     })
   );
 

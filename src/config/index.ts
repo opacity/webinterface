@@ -4,9 +4,10 @@ export const IS_BETA_PROD = process.env.NODE_ENV === "production-beta";
 
 const PROTOCOL = IS_DEV ? "http" : "https";
 
-export const STRIPE_API_KEY = IS_DEV
-  ? "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f"
-  : "pk_live_N5smvDblpI4GGBioJCk9yB90";
+export const STRIPE_API_KEY =
+  IS_DEV || IS_BETA_DEV
+    ? "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f"
+    : "pk_live_N5smvDblpI4GGBioJCk9yB90";
 
 export const HOST =
   IS_DEV || IS_BETA_DEV
@@ -28,14 +29,7 @@ const DEFAULT_BROKER_IP =
 
 export const API = Object.freeze({
   STORAGE_NODE: `${PROTOCOL}://${DEFAULT_BROKER_IP}:3000`,
-  V2_STATUS_PATH: ":3000/api/v2/status",
-  V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",
-  V1_LOGIN_PATH: ":3000/api/v1/metadata",
-  V1_FILES_PATH: ":3000/api/v1/files",
-  V1_METADATA_PATH: ":3000/api/v1/metadata",
-  V1_SUBSCRIPTIONS_PATH: ":3000/api/v1/subscriptions",
-  GAS_PRICE: "https://api.blockcypher.com/v1/eth/main",
-  CHUNKS_PER_REQUEST: 10
+  V1_SUBSCRIPTIONS_PATH: "/api/v1/stripe/create"
 });
 
 export const OPAQUE = Object.freeze({

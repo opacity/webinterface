@@ -7,9 +7,9 @@ const ACTIONS = Object.freeze({
   PAY_FIAT_SUCCESS,
   PAY_FIAT_FAILURE,
 
-  payFiat: ({ token, masterHandle }) => ({
+  payFiat: ({ stripeToken, masterHandle, timestamp }) => ({
     type: PAY_FIAT,
-    payload: { token, masterHandle }
+    payload: { stripeToken, masterHandle, timestamp }
   }),
   payFiatSuccess: () => ({
     type: PAY_FIAT_SUCCESS

@@ -1,16 +1,20 @@
 import actions from "./fiat-payment-actions";
 
 test("payFiat", () => {
-  const token = "t1";
+  const stripeToken = "t1";
   const masterHandle = "m1";
+  const timestamp = 100000000;
   const expected = {
     type: actions.PAY_FIAT,
     payload: {
-      token,
-      masterHandle
+      stripeToken,
+      masterHandle,
+      timestamp
     }
   };
-  expect(actions.payFiat({ token, masterHandle })).toEqual(expected);
+  expect(actions.payFiat({ stripeToken, masterHandle, timestamp })).toEqual(
+    expected
+  );
 });
 
 test("payFiatSuccess", () => {

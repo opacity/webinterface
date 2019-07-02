@@ -25,8 +25,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(signupActions.pollPayment({ waitForPaymentFn })),
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
     dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice })),
-  payFiat: ({ token, masterHandle }) =>
-    dispatch(fiatPaymentActions.payFiat({ token, masterHandle }))
+  payFiat: ({ stripeToken, masterHandle, timestamp }) =>
+    dispatch(
+      fiatPaymentActions.payFiat({ stripeToken, masterHandle, timestamp })
+    )
 });
 
 const SignUp = ({

@@ -193,7 +193,7 @@ const Subscriptions = () => (
             <ButtonWrapper>
               <SignupLink
                 disabled={!plan.isAvailable}
-                to={`sign-up/${plan.permalink}`}
+                to={`/sign-up/${plan.permalink}`}
               >
                 {plan.isAvailable ? "Choose plan" : "Coming soon"}
               </SignupLink>

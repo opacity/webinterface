@@ -109,7 +109,13 @@ const CreateAccount = ({
               openMetamask={openMetamask}
               fiatPaymentError={fiatPaymentError}
               fiatPaymentStatus={fiatPaymentStatus}
-              payFiat={token => payFiat({ token, masterHandle })}
+              payFiat={stripeToken =>
+                payFiat({
+                  stripeToken,
+                  masterHandle,
+                  timestamp: new Date().valueOf()
+                })
+              }
             />
           )}
           {phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
