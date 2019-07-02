@@ -93,14 +93,18 @@ const ForgotPageSlide = ({ recoverAccountHandle, error, resetError }) => {
     if (error) resetError();
     let result = "";
     value.split("").map(letter => {
-      if (letter !== ",") {
+      if (
+        letter !== "," &&
+        letter !== ";" &&
+        letter !== "\t" &&
+        letter !== "&nbsp;"
+      ) {
         result += letter;
       } else {
         result += " ";
       }
     });
-    result = result.replace(/ {1,}/g, " ");
-    setMnemonic(result);
+    setMnemonic(result.replace(/ {1,}/g, " "));
   };
 
   return (
