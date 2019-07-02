@@ -27,7 +27,6 @@ import UploadMobileButton from "./upload-mobile-button";
 const ICON_DOWNLOAD = require("../../assets/images/download.svg");
 const ICON_REMOVE = require("../../assets/images/remove.svg");
 const ICON_SHARE = require("../../assets/images/share.svg");
-const ICON_EXIT = require("../../assets/images/cancel.svg");
 const ICON_CHECKBOX = require("../../assets/images/check-box.svg");
 const ICON_CHECKBOX_EMPTY = require("../../assets/images/check-box-empty.svg");
 
@@ -152,37 +151,32 @@ const Table = styled.table`
   border-collapse: collapse;
 `;
 
-interface TrProps {
-  move: number;
-  key?: any;
-}
-
-const Tr = styled.tr<TrProps>`
+const Tr = styled.tr`
   &:hover td {
     background-color: #cfe3fc;
   }
   th:nth-child(1),
   td:nth-child(1),
-  th:nth-child(${props => props.move + 1}),
-  td:nth-child(${props => props.move + 1}) {
+  th:nth-child(2),
+  td:nth-child(2) {
     width: 5%;
     text-align: right;
   }
-  th:nth-child(${props => props.move + 2}),
-  td:nth-child(${props => props.move + 2}) {
+  th:nth-child(3),
+  td:nth-child(3) {
     width: 55%;
   }
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
-    th:nth-child(${props => props.move + 3}),
-    th:nth-child(${props => props.move + 4}),
-    td:nth-child(${props => props.move + 3}),
-    td:nth-child(${props => props.move + 4}) {
+    th:nth-child(4),
+    th:nth-child(5),
+    td:nth-child(4),
+    td:nth-child(5) {
       display: none;
     }
   }
   @media (max-width: 915px) {
-    th:nth-child(${props => props.move + 2}),
-    td:nth-child(${props => props.move + 2}) {
+    th:nth-child(3),
+    td:nth-child(3) {
       width: 95%;
       white-space: initial;
     }
@@ -323,6 +317,9 @@ interface File {
   created: string;
   size: number;
 }
+interface Handle {
+  handle: string;
+}
 
 const FileManagerSlide = ({
   files,
@@ -338,18 +335,16 @@ const FileManagerSlide = ({
   connectDropTarget,
   isOver,
   downloadFiles,
-  removeFiles,
-  filemanagerFiles,
-  setFilemanagerFile,
-  deleteFilemanagerFile,
-  setFilemanagerFiles,
-  resetFilemanagerFiles
+  removeFiles
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
   const [sharedFile, setSharedFile] = useState<File | null>(null);
-  const [multipleAction, setMultipleAction] = useState(MULTIPLE_ACTIONS.NO_SET);
+  const [multipleAction, setMultipleAction] = useState(
+    MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD
+  );
   const [checkedAllState, setCheckedAllState] = useState(false);
+  const [filemanagerFiles, setFilemanagerFiles] = useState<Handle[]>([]);
 
   const sortBy = (param, order) => {
     setParam(param);
@@ -367,8 +362,22 @@ const FileManagerSlide = ({
     );
   };
 
+  const setFilemanagerFile = (handle: string) => {
+    const files: Handle[] = [...filemanagerFiles, { handle }];
+    setFilemanagerFiles(files);
+  };
+
+  const deleteFilemanagerFile = (handle: string) => {
+    setFilemanagerFiles(
+      filemanagerFiles.filter(file => file.handle !== handle)
+    );
+  };
+
   const checkedAll = () => {
-    const files = orderedFiles.map(item => item.handle);
+    const files: Handle[] = orderedFiles.map(item => {
+      const file: Handle = { handle: item.handle };
+      return file;
+    });
     return !checkedAllState ? (
       <TableIcon
         onClick={() => [setCheckedAllState(true), setFilemanagerFiles(files)]}
@@ -376,7 +385,7 @@ const FileManagerSlide = ({
       />
     ) : (
       <TableIcon
-        onClick={() => [setCheckedAllState(false), resetFilemanagerFiles()]}
+        onClick={() => [setCheckedAllState(false), setFilemanagerFiles([])]}
         src={ICON_CHECKBOX}
       />
     );
@@ -389,7 +398,7 @@ const FileManagerSlide = ({
       setCheckedAllState(false);
     }
     if (filemanagerFiles) {
-      const file = filemanagerFiles.find(item => handle === item);
+      const file = filemanagerFiles.find(item => item.handle === handle);
       return file ? (
         <TableIcon
           src={ICON_CHECKBOX}
@@ -451,64 +460,32 @@ const FileManagerSlide = ({
                   onSelected={files => upload(files, masterHandle)}
                 />
               </ButtonWrapper>
-              {multipleAction === MULTIPLE_ACTIONS.NO_SET ? (
-                <MultiActionContainer>
-                  <TableIcon
-                    src={ICON_DOWNLOAD}
-                    data-tip="Download multiple files"
-                    onClick={() =>
-                      setMultipleAction(MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD)
-                    }
-                  />
-                  <TableIcon
-                    src={ICON_REMOVE}
-                    data-tip="Remove multiple files"
-                    onClick={() =>
-                      setMultipleAction(MULTIPLE_ACTIONS.MULTIPLE_REMOVE)
-                    }
-                  />
-                </MultiActionContainer>
-              ) : (
-                <MultiActionContainer>
-                  {multipleAction === MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD && (
-                    <TableIcon
-                      src={ICON_DOWNLOAD}
-                      data-tip="Download multiple files"
-                      onClick={() => [
-                        setMultipleAction(MULTIPLE_ACTIONS.NO_SET),
-                        downloadFiles(filemanagerFiles),
-                        resetFilemanagerFiles()
-                      ]}
-                    />
-                  )}
 
-                  {multipleAction === MULTIPLE_ACTIONS.MULTIPLE_REMOVE && (
-                    <TableIcon
-                      src={ICON_REMOVE}
-                      data-tip="Remove multiple files"
-                      onClick={() => [
-                        setMultipleAction(MULTIPLE_ACTIONS.NO_SET),
-                        removeFiles(filemanagerFiles, masterHandle),
-                        resetFilemanagerFiles()
-                      ]}
-                    />
-                  )}
-                  <TableIcon
-                    src={ICON_EXIT}
-                    data-tip="Cancel"
-                    onClick={() => [
-                      setMultipleAction(MULTIPLE_ACTIONS.NO_SET),
-                      resetFilemanagerFiles()
-                    ]}
-                  />
-                </MultiActionContainer>
-              )}
+              <MultiActionContainer>
+                <TableIcon
+                  src={ICON_DOWNLOAD}
+                  data-tip="Download multiple files"
+                  onClick={() => [
+                    setMultipleAction(MULTIPLE_ACTIONS.NO_SET),
+                    downloadFiles(filemanagerFiles),
+                    setFilemanagerFiles([])
+                  ]}
+                />
+
+                <TableIcon
+                  src={ICON_REMOVE}
+                  data-tip="Remove multiple files"
+                  onClick={() => [
+                    setMultipleAction(MULTIPLE_ACTIONS.NO_SET),
+                    removeFiles(filemanagerFiles, masterHandle),
+                    setFilemanagerFiles([])
+                  ]}
+                />
+              </MultiActionContainer>
               <Table>
                 <thead>
-                  <Tr move={multipleAction === MULTIPLE_ACTIONS.NO_SET ? 0 : 1}>
-                    {multipleAction !== MULTIPLE_ACTIONS.NO_SET && (
-                      <ThPointer>{checkedAll()}</ThPointer>
-                    )}
+                  <Tr>
+                    <ThPointer>{checkedAll()}</ThPointer>
                     <Th />
                     <TableHeader
                       param="name"
@@ -536,15 +513,10 @@ const FileManagerSlide = ({
                 </thead>
                 <tbody>
                   {orderedFiles.map(({ name, handle, size, created }, i) => (
-                    <Tr
-                      move={multipleAction === MULTIPLE_ACTIONS.NO_SET ? 0 : 1}
-                      key={handle ? handle : i}
-                    >
-                      {multipleAction !== MULTIPLE_ACTIONS.NO_SET && (
-                        <TdPointer>
-                          <PickFile handle={handle} />
-                        </TdPointer>
-                      )}
+                    <Tr key={handle ? handle : i}>
+                      <TdPointer>
+                        <PickFile handle={handle} />
+                      </TdPointer>
                       <Td>{iconType(name)}</Td>
                       <Td>{name}</Td>
                       <Td>{_.truncate(handle, { length: 30 })}</Td>

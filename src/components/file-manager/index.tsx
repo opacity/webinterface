@@ -7,7 +7,6 @@ import uploadActions from "../../redux/actions/upload-actions";
 import filesActions from "../../redux/actions/files-actions";
 import downloadActions from "../../redux/actions/download-actions";
 import removeActions from "../../redux/actions/remove-actions";
-import fileManagerActions from "../../redux/actions/filemanager-actions";
 
 import FileManagerSlide from "./file-manager-slide";
 
@@ -17,8 +16,7 @@ const mapStateToProps = state => ({
   metadata: state.authentication.metadata,
   storageUsed: state.authentication.storageUsed,
   storageLimit: state.authentication.storageLimit,
-  expirationDate: state.authentication.expirationDate,
-  filemanagerFiles: state.filemanager.files
+  expirationDate: state.authentication.expirationDate
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -29,13 +27,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(removeActions.removeFileByHandle({ name, handle, masterHandle })),
   getFileList: masterHandle =>
     dispatch(filesActions.getFileList({ masterHandle })),
-  resetFilemanagerFiles: () => dispatch(fileManagerActions.resetFiles()),
-  setFilemanagerFiles: files =>
-    dispatch(fileManagerActions.setFiles({ files })),
-  deleteFilemanagerFile: handle =>
-    dispatch(fileManagerActions.deleteItem({ handle })),
-  setFilemanagerFile: handle =>
-    dispatch(fileManagerActions.addItem({ handle })),
   downloadFiles: files => dispatch(downloadActions.downloadFiles({ files })),
   removeFiles: (files, masterHandle) =>
     dispatch(removeActions.removeFiles({ files, masterHandle }))
@@ -52,13 +43,8 @@ const FileManager = ({
   storageUsed,
   storageLimit,
   expirationDate,
-  filemanagerFiles,
   downloadFiles,
-  removeFiles,
-  setFilemanagerFile,
-  deleteFilemanagerFile,
-  resetFilemanagerFiles,
-  setFilemanagerFiles
+  removeFiles
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
@@ -74,11 +60,6 @@ const FileManager = ({
       expirationDate={expirationDate}
       downloadFiles={downloadFiles}
       removeFiles={removeFiles}
-      filemanagerFiles={filemanagerFiles}
-      setFilemanagerFile={setFilemanagerFile}
-      deleteFilemanagerFile={deleteFilemanagerFile}
-      setFilemanagerFiles={setFilemanagerFiles}
-      resetFilemanagerFiles={resetFilemanagerFiles}
     />
   </DragDropContextProvider>
 );
