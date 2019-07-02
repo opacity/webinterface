@@ -294,6 +294,24 @@ const ArrowDown = styled(Arrow)`
   border-top: 5px solid #687892;
 `;
 
+const BulkButton = styled.a`
+  padding: 5px 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  margin-left: 10px;
+  background-color: #2e6dde;
+  font-weight: bold;
+`;
+
+const BulkSelect = styled.select`
+  font-size: 14px;
+`;
+
+const BulkOption = styled.option``;
+
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
 
@@ -416,6 +434,18 @@ const FileManagerSlide = ({
     );
   };
 
+  const bulkActions = () => {
+    if (filemanagerFiles.length) {
+      if (multipleAction === MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD) {
+        downloadFiles(filemanagerFiles);
+      } else {
+        removeFiles(filemanagerFiles, masterHandle);
+      }
+      setMultipleAction(MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD);
+      setFilemanagerFiles([]);
+    }
+  };
+
   useEffect(() => {
     const defaultOrder = "created";
     setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
@@ -460,27 +490,21 @@ const FileManagerSlide = ({
                   onSelected={files => upload(files, masterHandle)}
                 />
               </ButtonWrapper>
-
               <MultiActionContainer>
-                <TableIcon
-                  src={ICON_DOWNLOAD}
-                  data-tip="Download multiple files"
-                  onClick={() => [
-                    setMultipleAction(MULTIPLE_ACTIONS.NO_SET),
-                    downloadFiles(filemanagerFiles),
-                    setFilemanagerFiles([])
-                  ]}
-                />
-
-                <TableIcon
-                  src={ICON_REMOVE}
-                  data-tip="Remove multiple files"
-                  onClick={() => [
-                    setMultipleAction(MULTIPLE_ACTIONS.NO_SET),
-                    removeFiles(filemanagerFiles, masterHandle),
-                    setFilemanagerFiles([])
-                  ]}
-                />
+                <BulkSelect
+                  value={multipleAction}
+                  onChange={event => setMultipleAction(event.target.value)}
+                >
+                  <BulkOption value={MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD}>
+                    Download
+                  </BulkOption>
+                  <BulkOption value={MULTIPLE_ACTIONS.MULTIPLE_REMOVE}>
+                    Remove
+                  </BulkOption>
+                </BulkSelect>
+                <BulkButton onClick={() => bulkActions()}>
+                  Bulk action
+                </BulkButton>
               </MultiActionContainer>
               <Table>
                 <thead>
