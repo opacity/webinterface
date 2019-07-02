@@ -21,6 +21,10 @@ const TextInput = styled.input.attrs<IInputProps>({
   border: 1px solid ${props => (props.invalid ? "#ff3860" : "transparent")};
   font-size: 16px;
   padding: 10px;
+
+  &:disabled {
+    color: #cfd7df;
+  }
 `;
 
 const Checkbox = styled.input.attrs<IInputProps>({
@@ -45,6 +49,10 @@ const SelectDropdown = styled(CountryDropdown)`
 
   &::placeholder {
     color: blue;
+  }
+
+  &:disabled {
+    color: #cfd7df;
   }
 `;
 
@@ -178,6 +186,7 @@ const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
                     <InputName>First Name</InputName>
                     <TextInput
                       {...input}
+                      disabled={isSubmitDisabled}
                       placeholder="First Name"
                       invalid={meta.touched && meta.error}
                     />
@@ -192,6 +201,7 @@ const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
                     <InputName>Last Name</InputName>
                     <TextInput
                       {...input}
+                      disabled={isSubmitDisabled}
                       placeholder="Last Name"
                       invalid={meta.touched && meta.error}
                     />
@@ -205,6 +215,7 @@ const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
               <Label>
                 <InputName>Card Details</InputName>
                 <CardElement
+                  disabled={isSubmitDisabled}
                   style={{
                     base: {
                       fontSize: "16px",
@@ -228,6 +239,7 @@ const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
                     <InputName>Billing Country</InputName>
                     <SelectDropdown
                       {...input}
+                      disabled={isSubmitDisabled}
                       priorityOptions={["US"]}
                       invalid={meta.touched && meta.error ? 1 : 0}
                     />
