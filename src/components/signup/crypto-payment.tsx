@@ -137,7 +137,8 @@ const Or = styled.span`
 const CryptoPayment = ({ invoice, openMetamask, cost }) => {
   const [isCopied, setIsCopied] = useState(false);
 
-  const ethAddress = "0x0x0x0x";
+  const { ethAddress } = invoice;
+
   return (
     <ThemeProvider theme={theme}>
       <ContentBox>
