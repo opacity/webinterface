@@ -4,7 +4,7 @@ import { ofType, combineEpics } from "redux-observable";
 
 import fiatPaymentActions from "../actions/fiat-payment-actions";
 
-import Backend from "../../services/backend";
+import BackendService from "../../services/backend";
 
 const payFiatEpic = (action$, state$, dependencies$) =>
   action$.pipe(
@@ -13,7 +13,11 @@ const payFiatEpic = (action$, state$, dependencies$) =>
       const { stripeToken, masterHandle, timestamp } = payload;
 
       return from(
-        Backend.createSubscription({ stripeToken, masterHandle, timestamp })
+        BackendService.createSubscription({
+          stripeToken,
+          masterHandle,
+          timestamp
+        })
       ).pipe(
         map(() => fiatPaymentActions.payFiatSuccess()),
         catchError(error => of(fiatPaymentActions.payFiatFailure({ error })))
