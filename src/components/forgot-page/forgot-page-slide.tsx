@@ -91,19 +91,15 @@ const ForgotPageSlide = ({ recoverAccountHandle, error, resetError }) => {
 
   const validateMnemonic = value => {
     if (error) resetError();
-    let result = "";
-    value.split("").map(letter => {
-      if (
-        letter !== "," &&
-        letter !== ";" &&
-        letter !== "\t" &&
-        letter !== "&nbsp;"
-      ) {
-        result += letter;
-      } else {
-        result += " ";
-      }
-    });
+    const result = value
+      .split("")
+      .reduce(
+        (words, ch) =>
+          ch !== "," && ch !== ";" && ch !== "\t" && ch !== "&nbsp;"
+            ? words + ch
+            : words + " ",
+        ""
+      );
     setMnemonic(result.replace(/ {1,}/g, " "));
   };
 
