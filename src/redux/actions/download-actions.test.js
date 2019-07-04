@@ -32,3 +32,14 @@ test("downloadError", () => {
   };
   expect(actions.downloadError({ err })).toEqual(expected);
 });
+
+test("downloadFiles", () => {
+  const files = "files";
+  const expected = {
+    type: actions.DOWNLOAD_FILES,
+    payload: {
+      files
+    }
+  };
+  expect(actions.downloadFiles({ files })).toEqual(expected);
+});

@@ -38,4 +38,4 @@ const removeFileByHandleEpic = (action$, state$, dependencies$) =>
     })
   );
 
-export default combineEpics(removeFileByHandleEpic, removeFilesEpic);
+export default combineEpics(removeFilesEpic, removeFileByHandleEpic);

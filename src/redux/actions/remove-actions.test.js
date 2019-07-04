@@ -55,3 +55,14 @@ test("removeError", () => {
   };
   expect(actions.removeError({ error })).toEqual(expected);
 });
+
+test("removeFiles", () => {
+  const files = "files";
+  const expected = {
+    type: actions.REMOVE_FILES,
+    payload: {
+      files
+    }
+  };
+  expect(actions.removeFiles({ files })).toEqual(expected);
+});

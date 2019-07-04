@@ -17,7 +17,7 @@ const downloadFilesEpic = (action$, state$, dependencies$) =>
     })
   );
 
-const downloadEpic = (action$, state$, dependencies$) =>
+const downloadFileEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(downloadActions.DOWNLOAD_FILE),
     mergeMap(({ payload }) => {
@@ -76,4 +76,4 @@ const downloadEpic = (action$, state$, dependencies$) =>
     })
   );
 
-export default combineEpics(downloadEpic, downloadFilesEpic);
+export default combineEpics(downloadFilesEpic, downloadFileEpic);

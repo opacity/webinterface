@@ -5,7 +5,7 @@ import { EventEmitter } from "events";
 import uploadActions from "../actions/upload-actions";
 import uploadEpic from "./upload-epic";
 
-test("uploadFilesEpic filesActions.UPLOAD_FILES", done => {
+test("uploadFilesEpic", done => {
   const files = ["foo", "bar"];
   const masterHandle = "m1";
 
@@ -22,7 +22,7 @@ test("uploadFilesEpic filesActions.UPLOAD_FILES", done => {
     });
 });
 
-test("uploadFilesEpic filesActions.UPLOAD_FILE on success", done => {
+test("uploadFileEpic on success", done => {
   const file = { name: "f1" };
   const upload = new EventEmitter();
   upload.handle = "h1";
@@ -41,7 +41,7 @@ test("uploadFilesEpic filesActions.UPLOAD_FILE on success", done => {
   upload.emit("finish");
 });
 
-test("uploadFilesEpic filesActions.UPLOAD_FILE on failure", done => {
+test("uploadFileEpic on failure", done => {
   const file = { name: "f1" };
   const upload = new EventEmitter();
   upload.handle = "h1";

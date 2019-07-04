@@ -1,4 +1,5 @@
 import { of } from "rxjs";
+import "rxjs/add/operator/toArray";
 import { Download } from "opaque";
 import { EventEmitter } from "events";
 
@@ -19,7 +20,23 @@ download.toFile = jest.fn().mockResolvedValue(new File([""], "foobar"));
 
 Download.mockImplementation(() => download);
 
-test("downloadEpic on success", done => {
+test("downloadFilesEpic", done => {
+  const files = ["foo", "bar"];
+
+  const action$ = of(downloadActions.downloadFiles({ files }));
+  const expected = files.map(handle =>
+    downloadActions.downloadFile({ handle })
+  );
+
+  downloadEpic(action$)
+    .toArray()
+    .subscribe(actions => {
+      expect(actions).toEqual(expected);
+      done();
+    });
+});
+
+test("downloadFileEpic on success", done => {
   const handle = "h1";
 
   const action$ = of(downloadActions.downloadFile({ handle }));
