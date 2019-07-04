@@ -195,7 +195,7 @@ const Subscriptions = () => (
                 disabled={!plan.isAvailable}
                 to={`sign-up/${plan.permalink}`}
               >
-                {plan.isAvailable ? "Sign up" : "Coming soon"}
+                {plan.isAvailable ? "Choose plan" : "Coming soon"}
               </SignupLink>
             </ButtonWrapper>
           </Footer>

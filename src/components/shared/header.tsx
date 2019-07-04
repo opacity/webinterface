@@ -145,6 +145,7 @@ const CommunityWrapper = styled.div`
 `;
 
 const CommunityButton = styled(Button)`
+  width: 120px;
   margin-right: 10px;
 `;
 
@@ -177,10 +178,15 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
       return (
         <CommunityWrapper>
           <StyledLink to={"/sign-up"}>
-            <CommunityButtonSecondary>Sign up</CommunityButtonSecondary>
+            <CommunityButtonSecondary>Explore Plans</CommunityButtonSecondary>
           </StyledLink>
-          <StyledLink to={"/login"}>
-            <CommunityButton>Login</CommunityButton>
+          <StyledLink
+            to={""}
+            onClick={() =>
+              window.open("https://www.kucoin.com/trade/OPQ-BTC", "_blank")
+            }
+          >
+            <CommunityButton>Purchase OPQ</CommunityButton>
           </StyledLink>
         </CommunityWrapper>
       );

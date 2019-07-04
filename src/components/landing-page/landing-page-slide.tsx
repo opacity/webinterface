@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
 
@@ -101,8 +101,8 @@ const Item = styled.div`
 `;
 
 const Button = styled.button`
-  width: 120px;
-  height: 40px;
+  width: 200px;
+  height: 50px;
   font-size: 16px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
@@ -113,10 +113,7 @@ const Button = styled.button`
   background-color: #2e6dde;
   border: 1px solid white;
   cursor: pointer;
-  margin-right: 10px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    width: 180px;
-  }
+  margin-bottom: 10px;
 `;
 
 const ButtonSecondary = styled(Button)`
@@ -198,7 +195,7 @@ const PartnerIcon = styled.img`
 `;
 
 const Title = styled.h1`
-  font-size: 32px;
+  font-size: 40px;
   text-align: center;
   font-weight: bold;
   font-style: normal;
@@ -208,12 +205,12 @@ const Title = styled.h1`
   color: white;
   margin-bottom: 0px;
   @media (max-width: ${MOBILE_WIDTH}px) {
-    font-size: 24px;
+    font-size: 20px;
   }
 `;
 
 const TitleSecondary = styled.h2`
-  font-size: 26px;
+  font-size: 32px;
   text-align: center;
   font-weight: bold;
   font-style: normal;
@@ -307,6 +304,14 @@ const Content = styled(Paragraph)`
   padding-bottom: 40px;
 `;
 
+const HeaderContent = styled(Content)`
+  font-size: 21px;
+  padding: 0px;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    font-size: 16px;
+  }
+`;
+
 const InfoContent = styled(Paragraph)`
   width: 330px;
   padding-bottom: 10px;
@@ -334,295 +339,259 @@ const InfoHeaderContent = styled(Paragraph)`
   }
 `;
 
-const ContentPurchase = styled.a`
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  font-size: 24px;
-  color: white;
-  text-align: center;
-  padding-top: 20px;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-`;
-
-const scrollToRef = ref =>
-  ref.current && window.scrollTo(0, ref.current.offsetTop - 40);
-
-const LandingPageSlide = ({ history, isLoggedIn }) => {
-  const scrollRef = useRef(null);
-
-  return (
-    <ThemeProvider theme={theme}>
-      <ContainerWrapper>
-        <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
-        <HeaderContainer>
-          <Title>Secure Your Online Data</Title>
-          <TitleSecondary>
-            Handling your privacy is easier than you think.
-          </TitleSecondary>
-          <ContentWrapper>
-            <Content>
-              Zero-knowledge cloud storage at its finest. Opacity offers an
-              authentic privacy-centric storage solution where you are in full
-              control of your files and who can view them.
-            </Content>
-          </ContentWrapper>
+const LandingPageSlide = ({ history, isLoggedIn }) => (
+  <ThemeProvider theme={theme}>
+    <ContainerWrapper>
+      <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
+      <HeaderContainer>
+        <Title>Private Cloud Storage, Powered by Crypto</Title>
+        <TitleSecondary>
+          Only your crypto key has access to your files
+        </TitleSecondary>
+        <ContentWrapper>
+          <HeaderContent>
+            Easy and intuitive crypto cloud storage puts you in full control of
+            your files and who can view them.
+          </HeaderContent>
+        </ContentWrapper>
+        {isLoggedIn ? (
           <Wrapper>
-            <VideoPlayer src={LANDING_PAGE_VIDEO} poster={VIDEO_POSTER} />
+            <Button onClick={() => history.push("/file-manager")}>
+              Dashboard
+            </Button>
           </Wrapper>
-          {isLoggedIn ? (
-            <Wrapper>
-              <Button onClick={() => history.push("/file-manager")}>
-                Dashboard
-              </Button>
-            </Wrapper>
-          ) : (
-            <Wrapper>
-              <ButtonSecondary onClick={() => history.push("/sign-up")}>
-                Sign up
-              </ButtonSecondary>
-              <Button onClick={() => history.push("/login")}>Login</Button>
-            </Wrapper>
-          )}
+        ) : (
           <Wrapper>
-            <ContentPurchase onClick={() => scrollToRef(scrollRef)}>
-              Click here to purchase the OPQ token
-            </ContentPurchase>
+            <ButtonSecondary onClick={() => history.push("/sign-up")}>
+              Choose Plan
+            </ButtonSecondary>
           </Wrapper>
-        </HeaderContainer>
-        <Container>
-          <BenefitSubContainer>
-            <Column>
-              <Wrapper>
-                <Icon src={ICON_CREDIT} />
-              </Wrapper>
-              <ItemTitle>No Personal Info Required</ItemTitle>
-              <ItemContent>
-                We will never ask for any personal information. No email, no
-                contact, nothing.
-              </ItemContent>
-            </Column>
-            <Column>
-              <Wrapper>
-                <Icon src={ICON_SHARE_FILE} />
-              </Wrapper>
-              <ItemTitle>Share Files Your Way</ItemTitle>
-              <ItemContent>
-                You control who can view your files. By default, you and only
-                you even know these files exist.
-              </ItemContent>
-            </Column>
-            <Column>
-              <Wrapper>
-                <Icon src={ICON_PAY_CURRENCY} />
-              </Wrapper>
-              <ItemTitle>Pay Using Cryptocurrency</ItemTitle>
-              <ItemContent>
-                Using the <b>OPQ token</b>, you can pay for your storage needs
-                without ever having to use a credit card.
-              </ItemContent>
-            </Column>
-          </BenefitSubContainer>
-          <BenefitSubContainer>
-            <Column>
-              <BenefitIcon src={ICON_BENEFIT_FILES} />
-            </Column>
-            <Column>
-              <BenefitTitle>Your Files. Safe and Secure.</BenefitTitle>
-              <BenefitContent>
-                Opacity uses state-of-the-art encryption algorithms to ensure
-                that your files are secure. The Opacity platform encrypts your
-                files at rest to provide comprehensive protection for your
-                files. As long as you protect your Opacity Handle, your data is
-                safe.
-              </BenefitContent>
-            </Column>
-          </BenefitSubContainer>
-          <BenefitSubContainer>
-            <Column>
-              <BenefitTitle>Your Handle, Your Rules.</BenefitTitle>
-              <BenefitContent>
-                Your unique Opacity Account Handle is the single point of access
-                to your storage account. Only you know this Handle, and only you
-                have access to your files unless you decide to share the Handle.
-                Opacity applies zero-knowledge principles, meaning we do not
-                track anything you upload or download. You may also choose
-                individual files to share with a unique File Handle that others
-                may use to view shared files on the Opacity platform.
-              </BenefitContent>
-            </Column>
-            <Column>
-              <BenefitIcon src={ICON_BENEFIT_HANDLE} />
-            </Column>
-          </BenefitSubContainer>
-        </Container>
-        <SubscriptionContainerImage>
-          <SubscriptionContainer>
-            <SubscriptionTitle>Our Plans</SubscriptionTitle>
-            <Subscriptions />
-          </SubscriptionContainer>
-        </SubscriptionContainerImage>
-        <Container id="Partners">
-          <InfoHeaderTitle>Our Partners</InfoHeaderTitle>
-          <PartnerSubContainer>
-            <Column>
-              <Wrapper>
-                <PartnerIcon src={ICON_FLO} />
-              </Wrapper>
-              <ButtonWrapper>
-                <ButtonVisit
-                  onClick={() => window.open("https://flo.cash/", "_blank")}
-                >
-                  Visit FLO
-                </ButtonVisit>
-              </ButtonWrapper>
-            </Column>
-            <Column>
-              <Wrapper>
-                <PartnerIcon src={ICON_QLC} />
-              </Wrapper>
-              <ButtonWrapper>
-                <ButtonVisit
-                  onClick={() => window.open("https://qlcchain.org/", "_blank")}
-                >
-                  Visit QLC
-                </ButtonVisit>
-              </ButtonWrapper>
-            </Column>
-          </PartnerSubContainer>
-        </Container>
-        <Container>
-          <InfoHeaderTitle>More Info? No Problem.</InfoHeaderTitle>
-          <InfoHeaderContent>
-            Choosing the right storage solution for your needs is important, and
-            we understand that. Check some of the links below for more
-            information about Opacity, and why it is the right choice for you or
-            your company.
-          </InfoHeaderContent>
-          <ItemSubContainer>
-            <Item>
-              <ItemIcon src={ICON_INFO_PERSONAL} />
-              <InfoTitle>The Brains Behind Opacity</InfoTitle>
-              <ItemInfoContent>
-                We are a group of privacy enthusiasts looking to build a true
-                zero-knowledge storage solution. Take a peek at the team behind
-                the Opacity platform.
-              </ItemInfoContent>
-              <ItemButtonWrapper>
-                <ButtonItem onClick={() => history.push("/team-page")}>
-                  Learn more
-                </ButtonItem>
-              </ItemButtonWrapper>
-            </Item>
-            <Item>
-              <ItemIcon src={ICON_INFO_BENEFIT} />
-              <InfoTitle>Benefits of Zero-knowledge Cloud Storage</InfoTitle>
-              <ItemInfoContent>
-                Not many storage providers offer a true, zero-knowledge
-                solution. Learn exactly what zero-knowledge means and how it can
-                be of benefit to you.
-              </ItemInfoContent>
-              <ItemButtonWrapper>
-                <ButtonItem
-                  onClick={() =>
-                    window.open(
-                      "https://www.cloudwards.net/what-exactly-is-zero-knowledge-in-the-cloud-and-how-does-it-work",
-                      "_blank"
-                    )
-                  }
-                >
-                  Learn more
-                </ButtonItem>
-              </ItemButtonWrapper>
-            </Item>
-          </ItemSubContainer>
-          <ItemSubContainer>
-            <Item>
-              <ItemIcon src={ICON_INFO_OPACITY} />
-              <InfoTitle>Why Opacity Stands Out</InfoTitle>
-              <ItemInfoContent>
-                We do things differently than most storage providers. Learn
-                exactly what makes us stand out from the competition.
-              </ItemInfoContent>
-              <ItemButtonWrapper>
-                <ButtonItem onClick={() => history.push("/stands-out")}>
-                  Learn more
-                </ButtonItem>
-              </ItemButtonWrapper>
-            </Item>
-            <Item>
-              <ItemIcon src={ICON_INFO_CRYPTOCURRENCY} />
-              <InfoTitle>New to Cryptocurrency?</InfoTitle>
-              <ItemInfoContent>
-                Cryptocurrency can be a little confusing, but it doesn’t have to
-                be. Take a look at this video to learn how you can get started
-                with cryptocurrency.
-              </ItemInfoContent>
-              <ItemButtonWrapper>
-                <ButtonItem
-                  onClick={() =>
-                    window.open(
-                      "https://www.youtube.com/watch?v=6Gu2QMTAkEU",
-                      "_blank"
-                    )
-                  }
-                >
-                  Learn more
-                </ButtonItem>
-              </ItemButtonWrapper>
-            </Item>
-          </ItemSubContainer>
-        </Container>
-        <Container ref={scrollRef}>
-          <InfoHeaderTitle>Where to Buy OPQ</InfoHeaderTitle>
-          <BuySubContainer>
-            <Column>
-              <Wrapper>
-                <BuyIcon src={ICON_KUCOIN} />
-              </Wrapper>
-              <ButtonWrapper>
-                <ButtonBuy
-                  onClick={() =>
-                    window.open(
-                      "https://www.kucoin.com/trade/OPQ-BTC",
-                      "_blank"
-                    )
-                  }
-                >
-                  Buy OPQ on KuCoin
-                </ButtonBuy>
-              </ButtonWrapper>
-            </Column>
-            <Column>
-              <Wrapper>
-                <BuyIcon src={ICON_MERCATOX} />
-              </Wrapper>
-              <ButtonWrapper>
-                <ButtonBuy
-                  onClick={() =>
-                    window.open(
-                      "https://mercatox.com/exchange/OPQ/BTC",
-                      "_blank"
-                    )
-                  }
-                >
-                  Buy OPQ on Mercatox
-                </ButtonBuy>
-              </ButtonWrapper>
-            </Column>
-          </BuySubContainer>
-        </Container>
-        <Container>
-          <CurrencyWidget />
-        </Container>
-        <Footer />
-      </ContainerWrapper>
-    </ThemeProvider>
-  );
-};
+        )}
+        <Wrapper>
+          <VideoPlayer src={LANDING_PAGE_VIDEO} poster={VIDEO_POSTER} />
+        </Wrapper>
+        <Wrapper />
+      </HeaderContainer>
+      <Container>
+        <BenefitSubContainer>
+          <Column>
+            <Wrapper>
+              <Icon src={ICON_CREDIT} />
+            </Wrapper>
+            <ItemTitle>No Personal Info Required</ItemTitle>
+            <ItemContent>
+              We will never ask for any personal information. No email, no
+              contact, nothing.
+            </ItemContent>
+          </Column>
+          <Column>
+            <Wrapper>
+              <Icon src={ICON_SHARE_FILE} />
+            </Wrapper>
+            <ItemTitle>Share Files Your Way</ItemTitle>
+            <ItemContent>
+              You control who can view your files. By default, you and only you
+              even know these files exist.
+            </ItemContent>
+          </Column>
+          <Column>
+            <Wrapper>
+              <Icon src={ICON_PAY_CURRENCY} />
+            </Wrapper>
+            <ItemTitle>Pay Using Cryptocurrency</ItemTitle>
+            <ItemContent>
+              Using the <b>OPQ token</b>, you can pay for your storage needs
+              without ever having to use a credit card.
+            </ItemContent>
+          </Column>
+        </BenefitSubContainer>
+        <BenefitSubContainer>
+          <Column>
+            <BenefitIcon src={ICON_BENEFIT_FILES} />
+          </Column>
+          <Column>
+            <BenefitTitle>Your Files. Safe and Secure.</BenefitTitle>
+            <BenefitContent>
+              Opacity uses state-of-the-art encryption algorithms to ensure that
+              your files are secure. The Opacity platform encrypts your files at
+              rest to provide comprehensive protection for your files. As long
+              as you protect your Opacity Handle, your data is safe.
+            </BenefitContent>
+          </Column>
+        </BenefitSubContainer>
+        <BenefitSubContainer>
+          <Column>
+            <BenefitTitle>Your Handle, Your Rules.</BenefitTitle>
+            <BenefitContent>
+              Your unique Opacity Account Handle is the single point of access
+              to your storage account. Only you know this Handle, and only you
+              have access to your files unless you decide to share the Handle.
+              Opacity applies zero-knowledge principles, meaning we do not track
+              anything you upload or download. You may also choose individual
+              files to share with a unique File Handle that others may use to
+              view shared files on the Opacity platform.
+            </BenefitContent>
+          </Column>
+          <Column>
+            <BenefitIcon src={ICON_BENEFIT_HANDLE} />
+          </Column>
+        </BenefitSubContainer>
+      </Container>
+      <SubscriptionContainerImage>
+        <SubscriptionContainer>
+          <SubscriptionTitle>Our Plans</SubscriptionTitle>
+          <Subscriptions />
+        </SubscriptionContainer>
+      </SubscriptionContainerImage>
+      <Container id="Partners">
+        <InfoHeaderTitle>Our Partners</InfoHeaderTitle>
+        <PartnerSubContainer>
+          <Column>
+            <Wrapper>
+              <PartnerIcon src={ICON_FLO} />
+            </Wrapper>
+            <ButtonWrapper>
+              <ButtonVisit
+                onClick={() => window.open("https://flo.cash/", "_blank")}
+              >
+                Visit FLO
+              </ButtonVisit>
+            </ButtonWrapper>
+          </Column>
+          <Column>
+            <Wrapper>
+              <PartnerIcon src={ICON_QLC} />
+            </Wrapper>
+            <ButtonWrapper>
+              <ButtonVisit
+                onClick={() => window.open("https://qlcchain.org/", "_blank")}
+              >
+                Visit QLC
+              </ButtonVisit>
+            </ButtonWrapper>
+          </Column>
+        </PartnerSubContainer>
+      </Container>
+      <Container>
+        <InfoHeaderTitle>More Info? No Problem.</InfoHeaderTitle>
+        <InfoHeaderContent>
+          Choosing the right storage solution for your needs is important, and
+          we understand that. Check some of the links below for more information
+          about Opacity, and why it is the right choice for you or your company.
+        </InfoHeaderContent>
+        <ItemSubContainer>
+          <Item>
+            <ItemIcon src={ICON_INFO_PERSONAL} />
+            <InfoTitle>The Brains Behind Opacity</InfoTitle>
+            <ItemInfoContent>
+              We are a group of privacy enthusiasts looking to build a true
+              zero-knowledge storage solution. Take a peek at the team behind
+              the Opacity platform.
+            </ItemInfoContent>
+            <ItemButtonWrapper>
+              <ButtonItem onClick={() => history.push("/team-page")}>
+                Learn more
+              </ButtonItem>
+            </ItemButtonWrapper>
+          </Item>
+          <Item>
+            <ItemIcon src={ICON_INFO_BENEFIT} />
+            <InfoTitle>Benefits of Zero-knowledge Cloud Storage</InfoTitle>
+            <ItemInfoContent>
+              Not many storage providers offer a true, zero-knowledge solution.
+              Learn exactly what zero-knowledge means and how it can be of
+              benefit to you.
+            </ItemInfoContent>
+            <ItemButtonWrapper>
+              <ButtonItem
+                onClick={() =>
+                  window.open(
+                    "https://www.cloudwards.net/what-exactly-is-zero-knowledge-in-the-cloud-and-how-does-it-work",
+                    "_blank"
+                  )
+                }
+              >
+                Learn more
+              </ButtonItem>
+            </ItemButtonWrapper>
+          </Item>
+        </ItemSubContainer>
+        <ItemSubContainer>
+          <Item>
+            <ItemIcon src={ICON_INFO_OPACITY} />
+            <InfoTitle>Why Opacity Stands Out</InfoTitle>
+            <ItemInfoContent>
+              We do things differently than most storage providers. Learn
+              exactly what makes us stand out from the competition.
+            </ItemInfoContent>
+            <ItemButtonWrapper>
+              <ButtonItem onClick={() => history.push("/stands-out")}>
+                Learn more
+              </ButtonItem>
+            </ItemButtonWrapper>
+          </Item>
+          <Item>
+            <ItemIcon src={ICON_INFO_CRYPTOCURRENCY} />
+            <InfoTitle>New to Cryptocurrency?</InfoTitle>
+            <ItemInfoContent>
+              Cryptocurrency can be a little confusing, but it doesn’t have to
+              be. Take a look at this video to learn how you can get started
+              with cryptocurrency.
+            </ItemInfoContent>
+            <ItemButtonWrapper>
+              <ButtonItem
+                onClick={() =>
+                  window.open(
+                    "https://www.youtube.com/watch?v=6Gu2QMTAkEU",
+                    "_blank"
+                  )
+                }
+              >
+                Learn more
+              </ButtonItem>
+            </ItemButtonWrapper>
+          </Item>
+        </ItemSubContainer>
+      </Container>
+      <Container>
+        <InfoHeaderTitle>Where to Buy OPQ</InfoHeaderTitle>
+        <BuySubContainer>
+          <Column>
+            <Wrapper>
+              <BuyIcon src={ICON_KUCOIN} />
+            </Wrapper>
+            <ButtonWrapper>
+              <ButtonBuy
+                onClick={() =>
+                  window.open("https://www.kucoin.com/trade/OPQ-BTC", "_blank")
+                }
+              >
+                Buy OPQ on KuCoin
+              </ButtonBuy>
+            </ButtonWrapper>
+          </Column>
+          <Column>
+            <Wrapper>
+              <BuyIcon src={ICON_MERCATOX} />
+            </Wrapper>
+            <ButtonWrapper>
+              <ButtonBuy
+                onClick={() =>
+                  window.open("https://mercatox.com/exchange/OPQ/BTC", "_blank")
+                }
+              >
+                Buy OPQ on Mercatox
+              </ButtonBuy>
+            </ButtonWrapper>
+          </Column>
+        </BuySubContainer>
+      </Container>
+      <Container>
+        <CurrencyWidget />
+      </Container>
+      <Footer />
+    </ContainerWrapper>
+  </ThemeProvider>
+);
 
 export default withRouter(LandingPageSlide);
