@@ -58,9 +58,10 @@ export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
-export const RECAPTCHA_SITEKEY = IS_DEV
-  ? "6LciI6cUAAAAAL03VKUCArV9MFS8zgQn49NHItA8"
-  : "6Le3I6cUAAAAAILR-MfvTFAi258rXVSd10HVXBoI";
+export const RECAPTCHA_SITEKEY =
+  IS_DEV || IS_BETA_DEV
+    ? "6LciI6cUAAAAAL03VKUCArV9MFS8zgQn49NHItA8"
+    : "6Le3I6cUAAAAAILR-MfvTFAi258rXVSd10HVXBoI";
 
 export const LANDING_PAGE_VIDEO =
   "https://s3.us-east-2.amazonaws.com/opacity-public/whatIsOpacity.mov";

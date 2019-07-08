@@ -76,7 +76,7 @@ const SendPaymentSlide = ({
           )}
           {activeTab === TABS.FIAT && (
             <FiatPayment
-              cost={123}
+              cost={cost}
               payFiat={payFiat}
               paymentStatus={fiatPaymentStatus}
               paymentError={fiatPaymentError}

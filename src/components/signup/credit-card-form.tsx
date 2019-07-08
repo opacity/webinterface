@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider, keyframes } from "styled-components";
 import { injectStripe, CardElement } from "react-stripe-elements";
 import { CountryDropdown } from "react-country-region-selector";
 import { Form, Field } from "react-final-form";
@@ -36,18 +36,19 @@ const Checkbox = styled.input.attrs<IInputProps>({
     ${props => (props.invalid ? props.theme.error.color : "transparent")};
 `;
 
-const SelectDropdown = styled(CountryDropdown)<IInputProps>`
+const countryDropdown = styled(CountryDropdown);
+const SelectDropdown = countryDropdown<IInputProps>`
   appearance: none;
   background: white;
   border: 1px solid
     ${props => (props.invalid ? props.theme.error.color : "transparent")};
+  border-radius: 1px;
   font-family: "Lato", sans-serif;
   font-size: 16px;
   height: 100%;
-  height: 36px;
   max-width: 225px;
   outline: none;
-  padding: 11px;
+  padding: 10px;
 
   &:disabled {
     color: #cfd7df;
@@ -63,6 +64,25 @@ const AgreementText = styled.span`
   margin-left: 3px;
 `;
 
+const ellipsis = keyframes`
+  to {
+    width: 15px;
+  }
+`;
+
+const Ellipsis = styled.span`
+  display: inline-block;
+  width: 20px;
+
+  &:after {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    animation: ${ellipsis} steps(4, end) 2000ms infinite;
+    content: "…";
+    width: 0px;
+  }
+`;
 interface ISubmitOrderButtonProps {
   disabled: boolean;
 }
@@ -93,6 +113,7 @@ const SubmitOrderButton = styled.button.attrs<ISubmitOrderButtonProps>({
 const SubmitSection = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
   text-align: left;
   width: 100%;
 `;
@@ -133,7 +154,7 @@ const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
 
   useEffect(
     () => {
-      if (status !== FIAT_PAYMENT_STATUSES.PENDING) {
+      if (status === FIAT_PAYMENT_STATUSES.ERROR) {
         setIsSubmitDisabled(false);
       }
     },
@@ -251,7 +272,8 @@ const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
             <Row>
               <SubmitSection>
                 <SubmitOrderButton disabled={invalid || isSubmitDisabled}>
-                  {isSubmitDisabled ? "Processing..." : "Purchase"}
+                  {isSubmitDisabled ? "Processing" : "Purchase"}
+                  {isSubmitDisabled && <Ellipsis />}
                 </SubmitOrderButton>
                 {error && (
                   <ErrorMessage>
