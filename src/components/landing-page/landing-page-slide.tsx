@@ -12,7 +12,6 @@ import {
 import Subscriptions from "../shared/subscriptions";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
-import CurrencyWidget from "../shared/currency-widget";
 import VideoPlayer from "../shared/video-player";
 
 const ICON_CREDIT = require("../../assets/images/credit.svg");
@@ -599,9 +598,6 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
             </ButtonWrapper>
           </Column>
         </BuySubContainer>
-      </Container>
-      <Container>
-        <CurrencyWidget />
       </Container>
       <Footer />
     </ContainerWrapper>

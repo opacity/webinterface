@@ -14,7 +14,7 @@ import {
 import Header from "../shared/header";
 import Footer from "../shared/footer";
 import OutboundLink from "../shared/outbound-link";
-import InsideLink from "../shared/inside-link";
+// import InsideLink from "../shared/inside-link";
 import Button from "../shared/generic/button";
 
 const ICON_INTRO = require("../../assets/images/so_intro.svg");
@@ -25,12 +25,6 @@ const ICON_EXPLORE_CODE = require("../../assets/images/so_explore_code.svg");
 const ICON_LASTPASS = require("../../assets/images/last_pass.png");
 const ICON_1PASSWORD = require("../../assets/images/1password.png");
 const ICON_KEEPASS = require("../../assets/images/kee_pass.png");
-const ICON_OPACITY_LOGO = require("../../assets/images/logo-login.svg");
-const ICON_GOOGLE_ONE = require("../../assets/images/google_one.png");
-const ICON_BOX_PERSONAL_PRO = require("../../assets/images/box_personal_pro.png");
-const ICON_MEGA_PRO_LITE = require("../../assets/images/mega_pro_lite.png");
-const ICON_SYNC_PERSONAL_PRO = require("../../assets/images/sync_personal_pro.png");
-const ICON_DROPBOX = require("../../assets/images/dropbox_plus.png");
 
 const ContainerWrapper = styled.div`
   width: 100%;
@@ -111,31 +105,6 @@ const Paragraph = styled.p`
   text-align: center;
 `;
 
-const StorageSmallContent = styled(Paragraph)`
-  font-size: 10px;
-  color: #4f5e78;
-  text-align: right;
-  opacity: 0.7;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    padding: 0 20px;
-  }
-`;
-
-const StorageSignUpContent = styled(Paragraph)`
-  font-size: 14px;
-  text-align: left;
-  color: #4f5e78;
-  margin-bottom: 150px;
-  b {
-    font-weight: bold;
-    color: #2e6dde;
-  }
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    margin-bottom: 50px;
-    padding: 0 20px;
-  }
-`;
-
 const InfoContent = styled(Paragraph)`
   text-align: left;
   color: #5c6a82;
@@ -161,13 +130,6 @@ const FunctionContent = styled(InfoContent)`
 
 const Content = styled(Paragraph)`
   font-size: 14px;
-`;
-
-const StorageContent = styled(Paragraph)`
-  font-size: 16px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    padding: 0 20px;
-  }
 `;
 
 const Container = styled.div`
@@ -199,7 +161,7 @@ const InfoSubContainer = styled(SubContainer)`
 `;
 
 const PasswordManager = styled(SubContainer)`
-  margin: 50px 0 150px 0;
+  margin: 50px 0 50px 0;
   @media (max-width: ${MOBILE_WIDTH}px) {
     margin: 50px 0 50px 0;
   }
@@ -348,68 +310,6 @@ const InfoIcon = styled.img`
   }
 `;
 
-const TableIcon = styled.img`
-  height: 20px;
-  width: 20px;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  text-align: left;
-  border-spacing: 0px;
-  margin-top: 100px;
-  tbody tr {
-    opacity: 0.6;
-  }
-  tbody tr:nth-child(1) {
-    opacity: 1;
-    td {
-      font-weight: bold;
-    }
-  }
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    margin-top: 0px;
-    padding: 0 20px;
-  }
-`;
-
-const Tr = styled.tr`
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    th:nth-child(2),
-    th:nth-child(5),
-    td:nth-child(2),
-    td:nth-child(5) {
-      display: none;
-    }
-  }
-`;
-
-const Th = styled.th`
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #4f5e78;
-  width: 20%;
-  border-bottom: 1px solid #2e6dde;
-  padding: 15px 10px 15px 10px;
-`;
-
-const Td = styled.td`
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #2e6dde;
-  width: 20%;
-  border-bottom: 1px solid #2e6dde;
-  padding: 15px 10px 15px 10px;
-`;
-
 const SubscriptionSlide = ({ history, isLoggedIn }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
@@ -502,84 +402,7 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
           </ColumnPasswordManager>
         </PasswordManager>
       </Container>
-      <Container>
-        <HeaderTitle>Best Bang For Your Buck.</HeaderTitle>
-        <StorageContent>
-          See how Opacity compares to other storage providers.
-        </StorageContent>
-        <Table>
-          <thead>
-            <Tr>
-              <Th />
-              <Th />
-              <Th>Storage</Th>
-              <Th>Yearly Cost</Th>
-              <Th>Normalized Cost of 64Gb (1&nbsp;OPQ Peg Value)*</Th>
-            </Tr>
-          </thead>
-          <tbody>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_OPACITY_LOGO} />
-              </Td>
-              <Td>OPACITY</Td>
-              <Td>100 GB</Td>
-              <Td>$0.07</Td>
-              <Td>$0.05</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_GOOGLE_ONE} />
-              </Td>
-              <Td>Google One</Td>
-              <Td>100 GB</Td>
-              <Td>$23.86</Td>
-              <Td>$15.28</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_BOX_PERSONAL_PRO} />
-              </Td>
-              <Td>Box Personal Pro</Td>
-              <Td>100 GB</Td>
-              <Td>$120.00</Td>
-              <Td>$76.80</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_MEGA_PRO_LITE} />
-              </Td>
-              <Td>Mega Pro Lite</Td>
-              <Td>200 GB</Td>
-              <Td>$68.16</Td>
-              <Td>$21.81</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_SYNC_PERSONAL_PRO} />
-              </Td>
-              <Td>Sync Personal Pro</Td>
-              <Td>500 GB</Td>
-              <Td>$49.00</Td>
-              <Td>$6.27</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <TableIcon src={ICON_DROPBOX} />
-              </Td>
-              <Td>Dropbox Plus</Td>
-              <Td>1000 GB</Td>
-              <Td>$99.00</Td>
-              <Td>$6.34</Td>
-            </Tr>
-          </tbody>
-        </Table>
-        <StorageSmallContent>Prices as of May 2019</StorageSmallContent>
-        <StorageSignUpContent>
-          Ready to experience true zero-knowledge storage?&nbsp;
-          <InsideLink href="/sign-up">Sign up here.</InsideLink>
-        </StorageSignUpContent>
-      </Container>
+
       <Container>
         <HeaderTitle>Transparent Code Base</HeaderTitle>
         <InfoSubContainer>
