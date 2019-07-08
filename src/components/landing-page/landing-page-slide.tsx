@@ -101,8 +101,8 @@ const Item = styled.div`
 `;
 
 const Button = styled.button`
-  width: 200px;
-  height: 50px;
+  width: 120px;
+  height: 40px;
   font-size: 16px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
@@ -116,9 +116,17 @@ const Button = styled.button`
   margin-bottom: 10px;
 `;
 
-const ButtonSecondary = styled(Button)`
+const ButtonHeader = styled(Button)`
+  width: 200px;
+  height: 50px;
   background-color: white;
   color: #2e6dde;
+`;
+
+const ButtonHeaderSecondary = styled(ButtonHeader)`
+  color: ${props => props.theme.button.color};
+  background-color: #2e6dde;
+  border: 1px solid white;
   @media (max-width: ${MOBILE_WIDTH}px) {
     margin-top: 30px;
   }
@@ -151,7 +159,6 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  width: 470px;
   margin: auto;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: 300px;
@@ -195,7 +202,7 @@ const PartnerIcon = styled.img`
 `;
 
 const Title = styled.h1`
-  font-size: 40px;
+  font-size: 50px;
   text-align: center;
   font-weight: bold;
   font-style: normal;
@@ -346,25 +353,32 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
       <HeaderContainer>
         <Title>Private Cloud Storage, Powered by Crypto</Title>
         <TitleSecondary>
-          Only your crypto key has access to your files
+          Only your crypto private key has access to you files
         </TitleSecondary>
         <ContentWrapper>
           <HeaderContent>
-            Easy and intuitive crypto cloud storage puts you in full control of
-            your files and who can view them.
+            Familiar cloud storage interface built with blockchain technology
+            keeps you in full control of your files and who can view them.
           </HeaderContent>
         </ContentWrapper>
         {isLoggedIn ? (
           <Wrapper>
-            <Button onClick={() => history.push("/file-manager")}>
+            <ButtonHeader onClick={() => history.push("/file-manager")}>
               Dashboard
-            </Button>
+            </ButtonHeader>
           </Wrapper>
         ) : (
           <Wrapper>
-            <ButtonSecondary onClick={() => history.push("/sign-up")}>
-              Choose Plan
-            </ButtonSecondary>
+            <ButtonHeader onClick={() => history.push("/sign-up")}>
+              Explore Plans
+            </ButtonHeader>
+            <ButtonHeaderSecondary
+              onClick={() =>
+                window.open("https://www.kucoin.com/trade/OPQ-BTC", "_blank")
+              }
+            >
+              Purchase OPQ
+            </ButtonHeaderSecondary>
           </Wrapper>
         )}
         <Wrapper>

@@ -180,13 +180,8 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
           <StyledLink to={"/sign-up"}>
             <CommunityButtonSecondary>Explore Plans</CommunityButtonSecondary>
           </StyledLink>
-          <StyledLink
-            to={""}
-            onClick={() =>
-              window.open("https://www.kucoin.com/trade/OPQ-BTC", "_blank")
-            }
-          >
-            <CommunityButton>Purchase OPQ</CommunityButton>
+          <StyledLink to={"/login"}>
+            <CommunityButton>Login</CommunityButton>
           </StyledLink>
         </CommunityWrapper>
       );
