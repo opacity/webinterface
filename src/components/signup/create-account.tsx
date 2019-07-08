@@ -103,7 +103,8 @@ const CreateAccount = ({
         )}
         {phase === SIGNUP_PHASES.SEND_PAYMENT && (
           <SendPaymentSlide
-            cost={plan.cost}
+            ethCost={plan.ethCost}
+            usdCost={plan.usdCost}
             invoice={invoice}
             openMetamask={openMetamask}
             fiatPaymentError={fiatPaymentError}

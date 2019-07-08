@@ -172,7 +172,8 @@ export const PLANS = [
   {
     title: "Basic",
     permalink: "basic",
-    cost: 2,
+    ethCost: 2,
+    usdCost: 39.99,
     isAvailable: true,
     content:
       "Secure, encrypted storage solution perfect for the needs of the individual",
@@ -195,7 +196,8 @@ export const PLANS = [
   {
     title: "Professional",
     permalink: "professional",
-    cost: 16,
+    ethCost: 16,
+    usdCost: 99.99,
     isAvailable: true,
     content:
       "For professionals looking for a secure, easily accessible storage solution while on the move.",
@@ -218,7 +220,8 @@ export const PLANS = [
   {
     title: "Business",
     permalink: "business",
-    cost: 32,
+    ethCost: 32,
+    usdCost: 199.99,
     isAvailable: false,
     content:
       "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
