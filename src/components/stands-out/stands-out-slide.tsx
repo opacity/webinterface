@@ -402,7 +402,6 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
           </ColumnPasswordManager>
         </PasswordManager>
       </Container>
-
       <Container>
         <HeaderTitle>Transparent Code Base</HeaderTitle>
         <InfoSubContainer>
