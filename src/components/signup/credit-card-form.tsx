@@ -37,17 +37,17 @@ const Checkbox = styled.input.attrs<IInputProps>({
 `;
 
 const SelectDropdown = styled(CountryDropdown)<IInputProps>`
+  appearance: none;
+  background: white;
   border: 1px solid
     ${props => (props.invalid ? props.theme.error.color : "transparent")};
-  background: white;
-  height: 36px;
+  font-family: "Lato", sans-serif;
   font-size: 16px;
-  appearance: none;
-  padding: 11px;
   height: 100%;
+  height: 36px;
   max-width: 225px;
   outline: none;
-  font-family: "Lato", sans-serif;
+  padding: 11px;
 
   &:disabled {
     color: #cfd7df;
@@ -70,14 +70,14 @@ interface ISubmitOrderButtonProps {
 const SubmitOrderButton = styled.button.attrs<ISubmitOrderButtonProps>({
   type: "submit"
 })`
+  background-color: ${props => props.theme.button.background};
+  border: none;
+  color: ${props => props.theme.button.color};
   cursor: pointer;
   flex: 1;
-  padding: 12px;
-  background-color: ${props => props.theme.button.background};
-  color: ${props => props.theme.button.color};
   font-size: 15px;
   font-weight: 600;
-  border: none;
+  padding: 12px;
 
   &:focus {
     outline: 0;
@@ -85,28 +85,28 @@ const SubmitOrderButton = styled.button.attrs<ISubmitOrderButtonProps>({
 
   &:disabled {
     background-color: ${props => props.theme.button.disabled.background};
-    color: ${props => props.theme.button.disabled.color};
     border: ${props => props.theme.button.disabled.border};
+    color: ${props => props.theme.button.disabled.color};
   }
 `;
 
 const SubmitSection = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   text-align: left;
+  width: 100%;
 `;
 
 const Label = styled.label`
-  text-align: left;
   display: flex;
   flex-direction: column;
+  text-align: left;
 `;
 
 const AgreementLabel = styled.label`
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
 `;
 
 const Row = styled.div`
@@ -121,9 +121,9 @@ const Group = styled.div`
 `;
 
 const ErrorMessage = styled.span`
+  color: #ff3860;
   font-size: 0.8rem;
   margin: 5px 0 0 0;
-  color: #ff3860;
 `;
 
 const required = value => (value ? undefined : "This field cannot be blank");

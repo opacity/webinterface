@@ -7,7 +7,7 @@ const PROTOCOL = IS_DEV ? "http" : "https";
 export const STRIPE_API_KEY =
   IS_DEV || IS_BETA_DEV
     ? "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f"
-    : "pk_live_N5smvDblpI4GGBioJCk9yB90";
+    : "TODO: REPLACE ME";
 
 export const HOST =
   IS_DEV || IS_BETA_DEV
