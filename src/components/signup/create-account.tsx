@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 
 import Breadcrumbs from "./breadcrumbs";
 import SelectPlanSlide from "./select-plan-slide";
@@ -10,7 +10,7 @@ import ConfirmPaymentSlide from "./confirm-payment-slide";
 import ScreenContainer from "../shared/screen-container";
 import Header from "../shared/header";
 
-import { OPAQUE, HEADER_TYPES, SIGNUP_PHASES, theme } from "../../config";
+import { OPAQUE, HEADER_TYPES, SIGNUP_PHASES } from "../../config";
 
 import { Account, MasterHandle } from "opaque";
 
@@ -80,50 +80,48 @@ const CreateAccount = ({
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <Header type={HEADER_TYPES.EMPTY} />
-        <ScreenContainer
-          title={
-            plan
-              ? `Register on Opacity: ${plan.title} Plan ${plan.storageLimit}`
-              : "Register on Opacity"
-          }
-        >
-          <Breadcrumbs phase={phase} />
-          {phase === SIGNUP_PHASES.SELECT_PLAN && <SelectPlanSlide />}
-          {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
-            <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
-          )}
-          {phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
-            <RecordAccountHandleSlide
-              handle={privateKey}
-              next={() => pollPayment(waitForPaymentFn)}
-              back={() => showMnemonic()}
-            />
-          )}
-          {phase === SIGNUP_PHASES.SEND_PAYMENT && (
-            <SendPaymentSlide
-              cost={12}
-              invoice={invoice}
-              openMetamask={openMetamask}
-              fiatPaymentError={fiatPaymentError}
-              fiatPaymentStatus={fiatPaymentStatus}
-              payFiat={stripeToken =>
-                payFiat({
-                  stripeToken,
-                  masterHandle,
-                  timestamp: new Date().valueOf()
-                })
-              }
-            />
-          )}
-          {phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
-            <ConfirmPaymentSlide handle={privateKey} />
-          )}
-        </ScreenContainer>
-      </Container>
-    </ThemeProvider>
+    <Container>
+      <Header type={HEADER_TYPES.EMPTY} />
+      <ScreenContainer
+        title={
+          plan
+            ? `Register on Opacity: ${plan.title} Plan ${plan.storageLimit}`
+            : "Register on Opacity"
+        }
+      >
+        <Breadcrumbs phase={phase} />
+        {phase === SIGNUP_PHASES.SELECT_PLAN && <SelectPlanSlide />}
+        {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
+          <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
+        )}
+        {phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
+          <RecordAccountHandleSlide
+            handle={privateKey}
+            next={() => pollPayment(waitForPaymentFn)}
+            back={() => showMnemonic()}
+          />
+        )}
+        {phase === SIGNUP_PHASES.SEND_PAYMENT && (
+          <SendPaymentSlide
+            cost={plan.cost}
+            invoice={invoice}
+            openMetamask={openMetamask}
+            fiatPaymentError={fiatPaymentError}
+            fiatPaymentStatus={fiatPaymentStatus}
+            payFiat={stripeToken =>
+              payFiat({
+                stripeToken,
+                masterHandle,
+                timestamp: new Date().valueOf()
+              })
+            }
+          />
+        )}
+        {phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
+          <ConfirmPaymentSlide handle={privateKey} />
+        )}
+      </ScreenContainer>
+    </Container>
   );
 };
 
