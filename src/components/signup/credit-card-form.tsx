@@ -24,7 +24,6 @@ const TextInput = styled.input.attrs<IInputProps>({
   font-family: "Lato", sans-serif;
   font-size: 16px;
   padding: 10px;
-  text-transform: capitalize;
 
   &:disabled {
     color: #cfd7df;
