@@ -17,12 +17,13 @@ const TextInput = styled.input.attrs<IInputProps>({
   type: "text"
 })`
   background: white;
-  font-family: "Lato", sans-serif;
   border-radius: 3px;
   border: 1px solid
     ${props => (props.invalid ? props.theme.error.color : "transparent")};
+  font-family: "Lato", sans-serif;
   font-size: 16px;
   padding: 10px;
+  text-transform: capitalize;
 
   &:disabled {
     color: #cfd7df;
@@ -32,9 +33,8 @@ const TextInput = styled.input.attrs<IInputProps>({
 const Checkbox = styled.input.attrs<IInputProps>({
   type: "checkbox"
 })`
+  border: 1px solid ${props => (props.invalid ? props.theme.error.color : "transparent")};
   padding: 2px;
-  border: 1px solid
-    ${props => (props.invalid ? props.theme.error.color : "transparent")};
 `;
 
 const countryDropdown = styled(CountryDropdown);

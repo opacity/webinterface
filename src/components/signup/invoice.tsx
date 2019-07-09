@@ -4,11 +4,11 @@ import styled, { ThemeProvider } from "styled-components";
 import { theme } from "../../config";
 
 const Container = styled.div`
-  padding: 25px;
   background: white;
-  margin-bottom: 20px;
   border: 1px solid black;
   color: ${props => props.theme.title.color};
+  margin-bottom: 20px;
+  padding: 25px;
 `;
 
 const Title = styled.span`
