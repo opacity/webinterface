@@ -5,6 +5,7 @@ import { CountryDropdown } from "react-country-region-selector";
 import { Form, Field } from "react-final-form";
 
 import OutboundLink from "../shared/outbound-link";
+import Invoice from "./invoice";
 
 import { FIAT_PAYMENT_STATUSES, theme } from "../../config";
 
@@ -149,7 +150,14 @@ const ErrorMessage = styled.span`
 
 const required = value => (value ? undefined : "This field cannot be blank");
 
-const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
+const CreditCardForm = ({
+  cost,
+  storageLimit,
+  stripe,
+  onSubmit,
+  error,
+  status
+}) => {
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
 
   useEffect(
@@ -271,6 +279,7 @@ const CreditCardForm = ({ cost, stripe, onSubmit, error, status }) => {
             </Row>
             <Row>
               <SubmitSection>
+                <Invoice cost={cost} storageLimit={storageLimit} />
                 <SubmitOrderButton disabled={invalid || isSubmitDisabled}>
                   {isSubmitDisabled ? "Processing" : "Purchase"}
                   {isSubmitDisabled && <Ellipsis />}

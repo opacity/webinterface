@@ -44,6 +44,7 @@ const SendPaymentSlide = ({
   openMetamask,
   ethCost,
   usdCost,
+  storageLimit,
   payFiat,
   fiatPaymentStatus,
   fiatPaymentError
@@ -78,6 +79,7 @@ const SendPaymentSlide = ({
           {activeTab === TABS.FIAT && (
             <FiatPayment
               cost={usdCost}
+              storageLimit={storageLimit}
               payFiat={payFiat}
               paymentStatus={fiatPaymentStatus}
               paymentError={fiatPaymentError}

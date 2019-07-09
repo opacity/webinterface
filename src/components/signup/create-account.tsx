@@ -105,6 +105,7 @@ const CreateAccount = ({
           <SendPaymentSlide
             ethCost={plan.ethCost}
             usdCost={plan.usdCost}
+            storageLimit={plan.storageLimit}
             invoice={invoice}
             openMetamask={openMetamask}
             fiatPaymentError={fiatPaymentError}
