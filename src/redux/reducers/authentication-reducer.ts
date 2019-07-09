@@ -8,8 +8,7 @@ const initState = {
   storageLimit: 0,
   expirationDate: null,
   recoveryHandle: null,
-  error: false,
-  errorCode: ""
+  hasError: null
 };
 
 const authenticationReducer = (state = initState, action) => {
@@ -47,8 +46,7 @@ const authenticationReducer = (state = initState, action) => {
       const { error } = action.payload;
       return {
         ...state,
-        errorCode: error,
-        error: true
+        hasError: error
       };
 
     case authenticationActions.RESET_ACCOUNT_HANDLE:
@@ -60,8 +58,7 @@ const authenticationReducer = (state = initState, action) => {
     case authenticationActions.RESET_RECOVER_ERROR:
       return {
         ...state,
-        errorCode: "",
-        error: false
+        hasError: null
       };
 
     default:

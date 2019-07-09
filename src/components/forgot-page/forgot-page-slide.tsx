@@ -75,7 +75,7 @@ const Error = styled.p`
   color: ${props => props.theme.error.color};
 `;
 
-const ForgotPageSlide = ({ recoverAccountHandle, error, resetError }) => {
+const ForgotPageSlide = ({ recoverAccountHandle, hasError, resetError }) => {
   const recoverTextearea = useRef<any>(null);
   const [mnemonic, setMnemonic] = useState("");
   const [isValidMnemonic, setIsValidMnemonic] = useState(true);
@@ -90,7 +90,7 @@ const ForgotPageSlide = ({ recoverAccountHandle, error, resetError }) => {
   };
 
   const validateMnemonic = value => {
-    if (error) resetError();
+    if (hasError) resetError();
     const result = value
       .split("")
       .reduce(
@@ -130,7 +130,7 @@ const ForgotPageSlide = ({ recoverAccountHandle, error, resetError }) => {
               </InputColumnWrapper>
             </InputWrapper>
             <ButtonWrapper>
-              {(!isValidMnemonic || error) && (
+              {(!isValidMnemonic || hasError) && (
                 <Error>Mnemonic are not valid.</Error>
               )}
               <ContinueButton

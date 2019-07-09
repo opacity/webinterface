@@ -6,7 +6,7 @@ import authenticationActions from "../../redux/actions/authentication-actions";
 import ForgotPageSlide from "./forgot-page-slide";
 
 const mapStateToProps = state => ({
-  error: state.authentication.error
+  hasError: state.authentication.hasError
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -15,10 +15,10 @@ const mapDispatchToProps = dispatch => ({
   resetError: () => dispatch(authenticationActions.resetRecoverError())
 });
 
-const ForgotPage = ({ recoverAccountHandle, error, resetError }) => (
+const ForgotPage = ({ recoverAccountHandle, hasError, resetError }) => (
   <ForgotPageSlide
     recoverAccountHandle={recoverAccountHandle}
-    error={error}
+    hasError={hasError}
     resetError={resetError}
   />
 );

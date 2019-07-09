@@ -136,7 +136,7 @@ test("resetAccountHandle", () => {
   expect(actions.resetAccountHandle()).toEqual(expected);
 });
 
-test("resetAccountHandle", () => {
+test("resetRecoverError", () => {
   const expected = {
     type: actions.RESET_RECOVER_ERROR
   };

@@ -358,8 +358,8 @@ const FileManagerSlide = ({
   const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
   const [sharedFile, setSharedFile] = useState<File | null>(null);
-  const [multipleAction, setMultipleAction] = useState<MULTIPLE_ACTIONS>(
-    MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD
+  const [bulkAction, setBulkAction] = useState<MULTIPLE_ACTIONS>(
+    MULTIPLE_ACTIONS.DOWNLOAD
   );
   const [filemanagerFiles, setFilemanagerFiles] = useState<Handle[]>([]);
 
@@ -408,28 +408,25 @@ const FileManagerSlide = ({
   };
 
   const CheckFileIcon = ({ handle }) => {
-    if (filemanagerFiles) {
-      const file = filemanagerFiles.find(item => item.handle === handle);
-      return file ? (
-        <TableIcon src={ICON_CHECKBOX} onClick={() => deselectFile(handle)} />
-      ) : (
-        <TableIcon
-          src={ICON_CHECKBOX_EMPTY}
-          onClick={() => selectFile(handle)}
-        />
-      );
-    }
-    return <TableIcon src={ICON_REMOVE} onClick={() => selectFile(handle)} />;
+    const file = filemanagerFiles.find(item => item.handle === handle);
+    return file ? (
+      <TableIcon src={ICON_CHECKBOX} onClick={() => deselectFile(handle)} />
+    ) : (
+      <TableIcon src={ICON_CHECKBOX_EMPTY} onClick={() => selectFile(handle)} />
+    );
   };
 
   const bulkActions = () => {
     if (filemanagerFiles.length) {
-      if (multipleAction === MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD) {
-        downloadFiles(filemanagerFiles);
-      } else {
-        removeFiles(filemanagerFiles, masterHandle);
+      switch (bulkAction) {
+        case MULTIPLE_ACTIONS.DOWNLOAD:
+          downloadFiles(filemanagerFiles);
+          break;
+        case MULTIPLE_ACTIONS.REMOVE:
+          removeFiles(filemanagerFiles, masterHandle);
+          break;
       }
-      setMultipleAction(MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD);
+      setBulkAction(MULTIPLE_ACTIONS.DOWNLOAD);
       setFilemanagerFiles([]);
     }
   };
@@ -480,19 +477,19 @@ const FileManagerSlide = ({
               </ButtonWrapper>
               <MultiActionContainer>
                 <BulkSelect
-                  value={multipleAction}
+                  value={bulkAction}
                   onChange={event =>
-                    setMultipleAction(
+                    setBulkAction(
                       event.target.value === "1"
-                        ? MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD
-                        : MULTIPLE_ACTIONS.MULTIPLE_REMOVE
+                        ? MULTIPLE_ACTIONS.DOWNLOAD
+                        : MULTIPLE_ACTIONS.REMOVE
                     )
                   }
                 >
-                  <BulkOption value={MULTIPLE_ACTIONS.MULTIPLE_DOWNLOAD}>
+                  <BulkOption value={MULTIPLE_ACTIONS.DOWNLOAD}>
                     Download
                   </BulkOption>
-                  <BulkOption value={MULTIPLE_ACTIONS.MULTIPLE_REMOVE}>
+                  <BulkOption value={MULTIPLE_ACTIONS.REMOVE}>
                     Remove
                   </BulkOption>
                 </BulkSelect>
