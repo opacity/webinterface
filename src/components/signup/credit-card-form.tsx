@@ -14,7 +14,8 @@ interface IInputProps {
 }
 
 const TextInput = styled.input.attrs<IInputProps>({
-  type: "text"
+  type: "text",
+  autoCapitalize: "words"
 })`
   background: white;
   border-radius: 3px;
@@ -33,7 +34,8 @@ const TextInput = styled.input.attrs<IInputProps>({
 const Checkbox = styled.input.attrs<IInputProps>({
   type: "checkbox"
 })`
-  border: 1px solid ${props => (props.invalid ? props.theme.error.color : "transparent")};
+  border: 1px solid
+    ${props => (props.invalid ? props.theme.error.color : "transparent")};
   padding: 2px;
 `;
 
