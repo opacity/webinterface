@@ -460,6 +460,9 @@ const FileManagerSlide = ({
                   <Tr>
                     <Th>
                       <Checkbox
+                        checked={
+                          filemanagerFiles.length === orderedFiles.length
+                        }
                         onChange={e =>
                           e.target.checked
                             ? selectAll(orderedFiles)
@@ -495,6 +498,9 @@ const FileManagerSlide = ({
                     <Tr key={handle ? handle : i}>
                       <Td>
                         <Checkbox
+                          checked={filemanagerFiles
+                            .map(f => f.handle)
+                            .includes(handle)}
                           onChange={e =>
                             e.target.checked
                               ? selectFile(handle)
