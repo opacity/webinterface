@@ -434,7 +434,9 @@ const FileManagerSlide = ({
                   >
                     {filemanagerFiles.length === 0
                       ? "Download"
-                      : `Download ${filemanagerFiles.length} files`}
+                      : `Download ${filemanagerFiles.length} file${
+                          filemanagerFiles.length > 1 ? "s" : ""
+                        }`}
                   </Button>
                   <Button
                     width="auto"
@@ -447,8 +449,10 @@ const FileManagerSlide = ({
                     }}
                   >
                     {filemanagerFiles.length === 0
-                      ? "Remove"
-                      : `Remove ${filemanagerFiles.length} files`}
+                      ? "Delete"
+                      : `Delete ${filemanagerFiles.length} file${
+                          filemanagerFiles.length > 1 ? "s" : ""
+                        }`}
                   </Button>
                 </MultiActionContainer>
                 <UploadButton
