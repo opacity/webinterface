@@ -27,8 +27,6 @@ import UploadMobileButton from "./upload-mobile-button";
 const ICON_DOWNLOAD = require("../../assets/images/download.svg");
 const ICON_REMOVE = require("../../assets/images/remove.svg");
 const ICON_SHARE = require("../../assets/images/share.svg");
-const ICON_CHECKBOX = require("../../assets/images/check-box.svg");
-const ICON_CHECKBOX_EMPTY = require("../../assets/images/check-box-empty.svg");
 
 const fileTarget = {
   drop(props, monitor) {
@@ -54,6 +52,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+const Checkbox = styled.input.attrs({
+  type: "checkbox"
+})``;
 
 const ActionButton = styled.a`
   padding: 5px 0;
@@ -212,10 +214,6 @@ const Td = styled.td`
   white-space: nowrap;
 `;
 
-const TdPointer = styled(Td)`
-  cursor: pointer;
-`;
-
 const ThPointer = styled(Th)`
   cursor: pointer;
 `;
@@ -370,31 +368,15 @@ const FileManagerSlide = ({
     );
   };
 
-  const CheckedAllIcon = () => {
-    const files: Handle[] = orderedFiles.map(item => {
-      const file: Handle = { handle: item.handle };
-      return file;
-    });
-    return orderedFiles.length !== filemanagerFiles.length ? (
-      <TableIcon
-        onClick={() => [setFilemanagerFiles(files)]}
-        src={ICON_CHECKBOX_EMPTY}
-      />
-    ) : (
-      <TableIcon
-        onClick={() => [setFilemanagerFiles([])]}
-        src={ICON_CHECKBOX}
-      />
-    );
+  const selectAll = files => {
+    const handlesOnly: Handle[] = orderedFiles.map(({ handle }) => ({
+      handle
+    }));
+    setFilemanagerFiles(handlesOnly);
   };
 
-  const CheckFileIcon = ({ handle }) => {
-    const file = filemanagerFiles.find(item => item.handle === handle);
-    return file ? (
-      <TableIcon src={ICON_CHECKBOX} onClick={() => deselectFile(handle)} />
-    ) : (
-      <TableIcon src={ICON_CHECKBOX_EMPTY} onClick={() => selectFile(handle)} />
-    );
+  const deselectAll = () => {
+    setFilemanagerFiles([]);
   };
 
   useEffect(
@@ -476,9 +458,15 @@ const FileManagerSlide = ({
               <Table>
                 <thead>
                   <Tr>
-                    <ThPointer>
-                      <CheckedAllIcon />
-                    </ThPointer>
+                    <Th>
+                      <Checkbox
+                        onChange={e =>
+                          e.target.checked
+                            ? selectAll(orderedFiles)
+                            : deselectAll()
+                        }
+                      />
+                    </Th>
                     <Th />
                     <TableHeader
                       param="name"
@@ -505,9 +493,15 @@ const FileManagerSlide = ({
                 <tbody>
                   {orderedFiles.map(({ name, handle, size, created }, i) => (
                     <Tr key={handle ? handle : i}>
-                      <TdPointer>
-                        <CheckFileIcon handle={handle} />
-                      </TdPointer>
+                      <Td>
+                        <Checkbox
+                          onChange={e =>
+                            e.target.checked
+                              ? selectFile(handle)
+                              : deselectFile(handle)
+                          }
+                        />
+                      </Td>
                       <Td>{iconType(name)}</Td>
                       <Td>{name}</Td>
                       <Td>{_.truncate(handle, { length: 30 })}</Td>
