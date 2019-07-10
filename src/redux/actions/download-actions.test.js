@@ -34,7 +34,7 @@ test("downloadError", () => {
 });
 
 test("downloadFiles", () => {
-  const files = "files";
+  const files = [{ handle: "h1" }];
   const expected = {
     type: actions.DOWNLOAD_FILES,
     payload: {

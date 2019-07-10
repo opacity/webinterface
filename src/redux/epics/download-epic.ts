@@ -13,7 +13,9 @@ const downloadFilesEpic = (action$, state$, dependencies$) =>
     ofType(downloadActions.DOWNLOAD_FILES),
     flatMap(({ payload }) => {
       const { files } = payload;
-      return files.map(handle => downloadActions.downloadFile({ handle }));
+      return files.map(({ handle }) =>
+        downloadActions.downloadFile({ handle })
+      );
     })
   );
 

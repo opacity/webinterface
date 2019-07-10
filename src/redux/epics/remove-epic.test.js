@@ -9,15 +9,15 @@ jest.mock("opaque", () => ({
   MasterHandle: jest.fn()
 }));
 
-test("removeFilespic", done => {
-  const files = ["foo", "bar"];
+test("removeFilesEpic", done => {
+  const files = [{ handle: "h1", name: "n1" }, { handle: "h2", name: "n2" }];
   const masterHandle = {
     deleteVersion: jest.fn().mockResolvedValue(true)
   };
 
   const action$ = of(removeActions.removeFiles({ files, masterHandle }));
-  const expected = files.map(handle =>
-    removeActions.removeFileByHandle({ name: handle, handle, masterHandle })
+  const expected = files.map(({ name, handle }) =>
+    removeActions.removeFileByHandle({ name, handle, masterHandle })
   );
 
   removeEpic(action$)

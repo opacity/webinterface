@@ -21,10 +21,10 @@ download.toFile = jest.fn().mockResolvedValue(new File([""], "foobar"));
 Download.mockImplementation(() => download);
 
 test("downloadFilesEpic", done => {
-  const files = ["foo", "bar"];
+  const files = [{ handle: "foo" }, { handle: "bar" }];
 
   const action$ = of(downloadActions.downloadFiles({ files }));
-  const expected = files.map(handle =>
+  const expected = files.map(({ handle }) =>
     downloadActions.downloadFile({ handle })
   );
 

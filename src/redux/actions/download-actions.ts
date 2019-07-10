@@ -23,7 +23,7 @@ const ACTIONS = Object.freeze({
   }),
   downloadFiles: ({ files }) => ({
     type: DOWNLOAD_FILES,
-    payload: { files }
+    payload: { files } // [{ handle }]
   })
 });
 

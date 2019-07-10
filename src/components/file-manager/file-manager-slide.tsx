@@ -358,8 +358,8 @@ const FileManagerSlide = ({
     );
   };
 
-  const selectFile = (handle: string) => {
-    setFilemanagerFiles([...filemanagerFiles, { handle }]);
+  const selectFile = (file: File) => {
+    setFilemanagerFiles([...filemanagerFiles, file]);
   };
 
   const deselectFile = (handle: string) => {
@@ -368,14 +368,11 @@ const FileManagerSlide = ({
     );
   };
 
-  const selectAll = files => {
-    const handlesOnly: Handle[] = orderedFiles.map(({ handle }) => ({
-      handle
-    }));
-    setFilemanagerFiles(handlesOnly);
+  const selectAllFiles = files => {
+    setFilemanagerFiles([...orderedFiles]);
   };
 
-  const deselectAll = () => {
+  const deselectAllFiles = () => {
     setFilemanagerFiles([]);
   };
 
@@ -469,8 +466,8 @@ const FileManagerSlide = ({
                         }
                         onChange={e =>
                           e.target.checked
-                            ? selectAll(orderedFiles)
-                            : deselectAll()
+                            ? selectAllFiles(orderedFiles)
+                            : deselectAllFiles()
                         }
                       />
                     </Th>
@@ -507,7 +504,7 @@ const FileManagerSlide = ({
                             .includes(handle)}
                           onChange={e =>
                             e.target.checked
-                              ? selectFile(handle)
+                              ? selectFile({ name, handle, size, created })
                               : deselectFile(handle)
                           }
                         />
