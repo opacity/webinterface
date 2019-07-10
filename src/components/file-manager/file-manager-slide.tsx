@@ -13,7 +13,7 @@ import {
   HEADER_MOBILE_WIDTH,
   DATA_TYPES_ICONS,
   FILE_MAX_SIZE,
-  MULTIPLE_ACTIONS,
+  BULK_ACTIONS,
   theme
 } from "../../config";
 import { formatBytes, formatGbs } from "../../helpers";
@@ -358,8 +358,8 @@ const FileManagerSlide = ({
   const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
   const [sharedFile, setSharedFile] = useState<File | null>(null);
-  const [bulkAction, setBulkAction] = useState<MULTIPLE_ACTIONS>(
-    MULTIPLE_ACTIONS.DOWNLOAD
+  const [bulkAction, setBulkAction] = useState<BULK_ACTIONS>(
+    BULK_ACTIONS.DOWNLOAD
   );
   const [filemanagerFiles, setFilemanagerFiles] = useState<Handle[]>([]);
 
@@ -419,14 +419,14 @@ const FileManagerSlide = ({
   const bulkActions = () => {
     if (filemanagerFiles.length) {
       switch (bulkAction) {
-        case MULTIPLE_ACTIONS.DOWNLOAD:
+        case BULK_ACTIONS.DOWNLOAD:
           downloadFiles(filemanagerFiles);
           break;
-        case MULTIPLE_ACTIONS.REMOVE:
+        case BULK_ACTIONS.REMOVE:
           removeFiles(filemanagerFiles, masterHandle);
           break;
       }
-      setBulkAction(MULTIPLE_ACTIONS.DOWNLOAD);
+      setBulkAction(BULK_ACTIONS.DOWNLOAD);
       setFilemanagerFiles([]);
     }
   };
@@ -481,17 +481,15 @@ const FileManagerSlide = ({
                   onChange={event =>
                     setBulkAction(
                       event.target.value === "1"
-                        ? MULTIPLE_ACTIONS.DOWNLOAD
-                        : MULTIPLE_ACTIONS.REMOVE
+                        ? BULK_ACTIONS.DOWNLOAD
+                        : BULK_ACTIONS.REMOVE
                     )
                   }
                 >
-                  <BulkOption value={MULTIPLE_ACTIONS.DOWNLOAD}>
+                  <BulkOption value={BULK_ACTIONS.DOWNLOAD}>
                     Download
                   </BulkOption>
-                  <BulkOption value={MULTIPLE_ACTIONS.REMOVE}>
-                    Remove
-                  </BulkOption>
+                  <BulkOption value={BULK_ACTIONS.REMOVE}>Remove</BulkOption>
                 </BulkSelect>
                 <BulkButton onClick={() => bulkActions()}>
                   Bulk action

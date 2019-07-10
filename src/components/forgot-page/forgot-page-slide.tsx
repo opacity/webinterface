@@ -131,7 +131,7 @@ const ForgotPageSlide = ({ recoverAccountHandle, hasError, resetError }) => {
             </InputWrapper>
             <ButtonWrapper>
               {(!isValidMnemonic || hasError) && (
-                <Error>Mnemonic are not valid.</Error>
+                <Error>Your mnemonic is invalid.</Error>
               )}
               <ContinueButton
                 onClick={() =>

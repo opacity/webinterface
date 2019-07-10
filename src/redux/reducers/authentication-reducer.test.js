@@ -141,15 +141,7 @@ test("authentication-reducer RECOVER_ACCOUNT_HANDLE_FAILURE", () => {
 
 test("authentication-reducer RESET_RECOVER_ERROR", () => {
   const error = new Error("e1");
-  const state = {
-    status: AUTHENTICATION_STATUSES.LOGGED_OUT,
-    masterHandle: null,
-    storageUsed: 0,
-    storageLimit: 0,
-    expirationDate: null,
-    recoveryHandle: null,
-    hasError: error
-  };
+  const state = { ...initState, hasError: error };
   const action = {
     type: authenticationActions.RESET_RECOVER_ERROR
   };

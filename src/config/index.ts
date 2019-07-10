@@ -262,7 +262,7 @@ export const DATA_TYPES_ICONS = [
   }
 ];
 
-export enum MULTIPLE_ACTIONS {
+export enum BULK_ACTIONS {
   DOWNLOAD,
   REMOVE
 }
