@@ -13,12 +13,12 @@ import {
   HEADER_MOBILE_WIDTH,
   DATA_TYPES_ICONS,
   FILE_MAX_SIZE,
-  BULK_ACTIONS,
   theme
 } from "../../config";
 import { formatBytes, formatGbs } from "../../helpers";
 
 import Header from "../shared/header";
+import Button from "../shared/generic/button";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
@@ -31,7 +31,7 @@ const ICON_CHECKBOX = require("../../assets/images/check-box.svg");
 const ICON_CHECKBOX_EMPTY = require("../../assets/images/check-box-empty.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
+  drop(props, monitor) {
     const { upload, masterHandle } = props;
     let { files } = monitor.getItem();
     const filesLength = files.length;
@@ -113,7 +113,9 @@ const TitleWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   margin: 20px 0 20px 0;
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
+
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
   }
@@ -294,24 +296,6 @@ const ArrowDown = styled(Arrow)`
   border-top: 5px solid #687892;
 `;
 
-const BulkButton = styled.a`
-  padding: 5px 10px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: white;
-  font-size: 14px;
-  margin-left: 10px;
-  background-color: #2e6dde;
-  font-weight: bold;
-`;
-
-const BulkSelect = styled.select`
-  font-size: 14px;
-`;
-
-const BulkOption = styled.option``;
-
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
 
@@ -358,9 +342,6 @@ const FileManagerSlide = ({
   const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
   const [sharedFile, setSharedFile] = useState<File | null>(null);
-  const [bulkAction, setBulkAction] = useState<BULK_ACTIONS>(
-    BULK_ACTIONS.DOWNLOAD
-  );
   const [filemanagerFiles, setFilemanagerFiles] = useState<Handle[]>([]);
 
   const sortBy = (param, order) => {
@@ -416,26 +397,14 @@ const FileManagerSlide = ({
     );
   };
 
-  const bulkActions = () => {
-    if (filemanagerFiles.length) {
-      switch (bulkAction) {
-        case BULK_ACTIONS.DOWNLOAD:
-          downloadFiles(filemanagerFiles);
-          break;
-        case BULK_ACTIONS.REMOVE:
-          removeFiles(filemanagerFiles, masterHandle);
-          break;
-      }
-      setBulkAction(BULK_ACTIONS.DOWNLOAD);
-      setFilemanagerFiles([]);
-    }
-  };
-
-  useEffect(() => {
-    const defaultOrder = "created";
-    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-    setParam(defaultOrder);
-  }, [files]);
+  useEffect(
+    () => {
+      const defaultOrder = "created";
+      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+      setParam(defaultOrder);
+    },
+    [files]
+  );
 
   useEffect(() => {
     getFileList(masterHandle);
@@ -471,30 +440,39 @@ const FileManagerSlide = ({
                 </UsageWrapper>
               </TitleWrapper>
               <ButtonWrapper>
+                <MultiActionContainer>
+                  <Button
+                    width="auto"
+                    padding="0 10px"
+                    disabled={filemanagerFiles.length === 0}
+                    onClick={() => {
+                      downloadFiles(filemanagerFiles);
+                      setFilemanagerFiles([]);
+                    }}
+                  >
+                    {filemanagerFiles.length === 0
+                      ? "Download"
+                      : `Download ${filemanagerFiles.length} files`}
+                  </Button>
+                  <Button
+                    width="auto"
+                    padding="0 10px"
+                    margin="0 5px 0"
+                    disabled={filemanagerFiles.length === 0}
+                    onClick={() => {
+                      removeFiles(filemanagerFiles, masterHandle);
+                      setFilemanagerFiles([]);
+                    }}
+                  >
+                    {filemanagerFiles.length === 0
+                      ? "Remove"
+                      : `Remove ${filemanagerFiles.length} files`}
+                  </Button>
+                </MultiActionContainer>
                 <UploadButton
                   onSelected={files => upload(files, masterHandle)}
                 />
               </ButtonWrapper>
-              <MultiActionContainer>
-                <BulkSelect
-                  value={bulkAction}
-                  onChange={event =>
-                    setBulkAction(
-                      event.target.value === "1"
-                        ? BULK_ACTIONS.DOWNLOAD
-                        : BULK_ACTIONS.REMOVE
-                    )
-                  }
-                >
-                  <BulkOption value={BULK_ACTIONS.DOWNLOAD}>
-                    Download
-                  </BulkOption>
-                  <BulkOption value={BULK_ACTIONS.REMOVE}>Remove</BulkOption>
-                </BulkSelect>
-                <BulkButton onClick={() => bulkActions()}>
-                  Bulk action
-                </BulkButton>
-              </MultiActionContainer>
               <Table>
                 <thead>
                   <Tr>
