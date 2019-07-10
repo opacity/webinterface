@@ -21,6 +21,7 @@ import Header from "../shared/header";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
+import FolderModal from "./folder-modal";
 import UploadMobileButton from "./upload-mobile-button";
 
 const ICON_DOWNLOAD = require("../../assets/images/download.svg");
@@ -283,6 +284,24 @@ const ArrowDown = styled(Arrow)`
   border-top: 5px solid #687892;
 `;
 
+const FolderButton = styled.button`
+  width: 120px;
+  height: 40px;
+  background-color: ${props => props.theme.button.background};
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.button.color};
+  text-align: center;
+  margin: 0 10px;
+  border: none;
+  cursor: pointer;
+  }
+`;
+
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
 
@@ -319,11 +338,13 @@ const FileManagerSlide = ({
   storageLimit,
   expirationDate,
   connectDropTarget,
-  isOver
+  isOver,
+  createFolder
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
   const [sharedFile, setSharedFile] = useState<File | null>(null);
+  const [showCreateFolder, setShowCreateFolder] = useState(false);
 
   const sortBy = (param, order) => {
     setParam(param);
@@ -341,14 +362,11 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(
-    () => {
-      const defaultOrder = "created";
-      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-      setParam(defaultOrder);
-    },
-    [files]
-  );
+  useEffect(() => {
+    const defaultOrder = "created";
+    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+    setParam(defaultOrder);
+  }, [files]);
 
   useEffect(() => {
     getFileList(masterHandle);
@@ -386,6 +404,16 @@ const FileManagerSlide = ({
               <ButtonWrapper>
                 <UploadButton
                   onSelected={files => upload(files, masterHandle)}
+                />
+                <FolderButton
+                  onClick={() => setShowCreateFolder(!showCreateFolder)}
+                >
+                  Create folder
+                </FolderButton>
+                <FolderModal
+                  isOpen={!!showCreateFolder}
+                  close={() => setShowCreateFolder(false)}
+                  createFolder={name => createFolder(name)}
                 />
               </ButtonWrapper>
               <Table>

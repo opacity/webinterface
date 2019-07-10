@@ -7,6 +7,8 @@ import uploadActions from "../../redux/actions/upload-actions";
 import filesActions from "../../redux/actions/files-actions";
 import downloadActions from "../../redux/actions/download-actions";
 import removeActions from "../../redux/actions/remove-actions";
+import folderActions from "../../redux/actions/folder-actions";
+
 import FileManagerSlide from "./file-manager-slide";
 
 const mapStateToProps = state => ({
@@ -25,7 +27,8 @@ const mapDispatchToProps = dispatch => ({
   removeFileByHandle: (name, handle, masterHandle) =>
     dispatch(removeActions.removeFileByHandle({ name, handle, masterHandle })),
   getFileList: masterHandle =>
-    dispatch(filesActions.getFileList({ masterHandle }))
+    dispatch(filesActions.getFileList({ masterHandle })),
+  createFolder: name => dispatch(folderActions.createFolder({ name }))
 });
 
 const FileManager = ({
@@ -38,7 +41,8 @@ const FileManager = ({
   metadata,
   storageUsed,
   storageLimit,
-  expirationDate
+  expirationDate,
+  createFolder
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
@@ -52,6 +56,7 @@ const FileManager = ({
       storageUsed={storageUsed}
       storageLimit={storageLimit}
       expirationDate={expirationDate}
+      createFolder={createFolder}
     />
   </DragDropContextProvider>
 );
