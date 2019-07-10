@@ -352,7 +352,7 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
       <HeaderContainer>
         <Title>Private Cloud Storage, Powered by Crypto</Title>
         <TitleSecondary>
-          Only your crypto private key has access to you files
+          Only your crypto private key has access to your files
         </TitleSecondary>
         <ContentWrapper>
           <HeaderContent>
