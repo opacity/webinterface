@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { theme } from "../../config";
+import { FIAT_PAYMENT_STATUSES, theme } from "../../config";
 
 import CryptoPayment from "./crypto-payment";
 import FiatPayment from "./fiat-payment";
@@ -51,19 +51,30 @@ const SendPaymentSlide = ({
 }) => {
   const [activeTab, setActiveTab] = useState(TABS.CRYPTO);
 
+  const selectTab = (tab, status) => {
+    const submittingFiatPayment =
+      activeTab === TABS.FIAT &&
+      ![FIAT_PAYMENT_STATUSES.IDLE, FIAT_PAYMENT_STATUSES.ERROR].includes(
+        status
+      );
+    if (!submittingFiatPayment) {
+      setActiveTab(tab);
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container>
         <Tabs>
           <Tab
             isActive={activeTab === TABS.CRYPTO}
-            onClick={() => setActiveTab(TABS.CRYPTO)}
+            onClick={() => selectTab(TABS.CRYPTO, fiatPaymentStatus)}
           >
             Pay with cryptocurrency
           </Tab>
           <Tab
             isActive={activeTab === TABS.FIAT}
-            onClick={() => setActiveTab(TABS.FIAT)}
+            onClick={() => selectTab(TABS.FIAT, fiatPaymentStatus)}
           >
             Pay with USD
           </Tab>
