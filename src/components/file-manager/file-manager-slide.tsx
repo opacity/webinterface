@@ -431,8 +431,10 @@ const FileManagerSlide = ({
                   >
                     {filemanagerFiles.length === 0
                       ? "Download"
-                      : `Download ${filemanagerFiles.length} file${
-                          filemanagerFiles.length > 1 ? "s" : ""
+                      : `Download ${
+                          filemanagerFiles.length > 1
+                            ? `${filemanagerFiles.length} files`
+                            : "file"
                         }`}
                   </Button>
                   <Button
@@ -447,8 +449,10 @@ const FileManagerSlide = ({
                   >
                     {filemanagerFiles.length === 0
                       ? "Delete"
-                      : `Delete ${filemanagerFiles.length} file${
-                          filemanagerFiles.length > 1 ? "s" : ""
+                      : `Delete ${
+                          filemanagerFiles.length > 1
+                            ? `${filemanagerFiles.length} files`
+                            : "file"
                         }`}
                   </Button>
                 </MultiActionContainer>
