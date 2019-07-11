@@ -168,77 +168,128 @@ export const theme = {
   letterSpacing: "normal"
 };
 
+export enum SHADOW {
+  LEFT,
+  RIGHT,
+  CENTER
+}
+
 export const PLANS = [
+  {
+    title: "Free",
+    permalink: "free",
+    borderColor: "#ECCD32",
+    zIndex: 0,
+    shadow: SHADOW.LEFT,
+    cost: 2,
+    usdCost: 0,
+    isAvailable: true,
+    isHighlighted: false,
+    content: "Discover secure file sharing using blockchain technology",
+    price: "Free",
+    storageLimit: "10 GB",
+    storageInGB: 10,
+    durationInMonths: 12,
+    features: [
+      "End to End Encryption",
+      "Unlimited Downloads",
+      "Private File Sharing",
+      "No third-party tracking",
+      "Access from anywhere",
+      "2GB File Size"
+    ]
+  },
   {
     title: "Basic",
     permalink: "basic",
-    ethCost: 2,
+    borderColor: "#9AD9FE",
+    shadow: SHADOW.LEFT,
+    cost: 2,
     usdCost: 39.99,
+    zIndex: 1,
     isAvailable: true,
-    content:
-      "Secure, encrypted storage solution perfect for the needs of the individual",
+    isHighlighted: false,
+    content: "Perfect for personal and family use",
     price: "2 OPQ / year",
     storageLimit: "128 GB",
     storageInGB: 128,
     durationInMonths: 12,
     features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
+      "End to End Encryption",
+      "Unlimited Downloads",
+      "Private File Sharing",
+      "No third-party tracking",
+      "Access from anywhere",
+      "2GB File Size"
     ]
   },
   {
     title: "Professional",
     permalink: "professional",
-    ethCost: 16,
+    shadow: SHADOW.CENTER,
+    borderColor: "#918DEA",
+    zIndex: 2,
+    cost: 16,
     usdCost: 99.99,
     isAvailable: true,
-    content:
-      "For professionals looking for a secure, easily accessible storage solution while on the move.",
+    isHighlighted: true,
+    content: "Secure and access your files from anywhere",
     price: "16 OPQ / year",
     storageLimit: "1 TB",
     storageInGB: 1024,
     durationInMonths: 12,
     features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
+      "End to End Encryption",
+      "Unlimited Downloads",
+      "Private File Sharing",
+      "No third-party tracking",
+      "Access from anywhere",
+      "Unlimited File Size*",
+      "Desktop Sync"
     ]
   },
   {
     title: "Business",
     permalink: "business",
-    ethCost: 32,
-    usdCost: 199.99,
-    isAvailable: false,
-    content:
-      "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
+    shadow: SHADOW.RIGHT,
+    borderColor: "#DE9E93",
+    zIndex: 1,
+    cost: 32,
+    usdCost: 149.99,
+    isAvailable: true,
+    isHighlighted: false,
+    content: "Secure file management for your organization",
     price: "32 OPQ / year",
     storageLimit: "2 TB",
     storageInGB: 2048,
     durationInMonths: 12,
     features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
+      "End to End Encryption",
+      "Unlimited Downloads",
+      "Private File Sharing",
+      "No third-party tracking",
+      "Access from anywhere",
+      "Unlimited File Size*",
+      "Desktop Sync"
+    ]
+  },
+  {
+    title: "Enterprise",
+    // NO PERMALINK
+    shadow: SHADOW.RIGHT,
+    borderColor: "#8ADB75",
+    zIndex: 0,
+    cost: 32,
+    usdCost: 0,
+    isAvailable: false,
+    isHighlighted: false,
+    content: "All the secure file storage you need ",
+    price: "Contact for Price",
+    storageLimit: "Unlimited",
+    storageInGB: 9999,
+    durationInMonths: 12,
+    features: [
+      "Opacity can provide the storage and services your business needs. S3 compliant API integrates easily with most existing implementations."
     ]
   }
 ];

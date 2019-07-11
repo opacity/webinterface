@@ -5,7 +5,9 @@ import { theme, MOBILE_WIDTH, SUBSCRIPTION_DESKTOP_WIDTH } from "../../config";
 
 const FEATURES = require("../../assets/images/features.svg");
 
-const FeaturesContainer = styled.div``;
+const Container = styled.div`
+  min-height: 215px;
+`;
 
 const MoreInfoTablet = styled.div``;
 
@@ -47,21 +49,15 @@ const Features = styled.img`
   margin-right: 10px;
 `;
 
-const Item = styled.p`
-  display: list-item;
-  list-style-type: disc;
-  list-style-position: inside;
-  width: 260px;
-  font-weight: bold;
-  font-size: 12.5px;
-  min-height: 28px;
-  text-transform: uppercase;
+const Feature = styled.p`
+  text-align: center;
+  font-size: 15px;
+  margin: 10px 20px;
   font-style: ${props => props.theme.fontStyle};
   font-stretch: ${props => props.theme.fontStretch};
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
-  margin: 15px 15px 0 64px;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     width: auto;
     margin: 0 30px 0 30px;
@@ -75,13 +71,13 @@ const Item = styled.p`
 const SubscriptionFeatures = ({ features }) => {
   const [open, setOpen] = useState(false);
 
-  const featuresList = features.map((item, key) => (
-    <Item key={key}>{item.title}</Item>
+  const featuresList = features.map((feature, key) => (
+    <Feature key={key}>{feature}</Feature>
   ));
 
   return (
     <ThemeProvider theme={theme}>
-      <FeaturesContainer>
+      <Container>
         {!open && (
           <MoreFeatures onClick={() => setOpen(true)}>
             <Features src={FEATURES} alt="logo" />
@@ -92,7 +88,7 @@ const SubscriptionFeatures = ({ features }) => {
           {open && <MoreInfoTablet>{featuresList}</MoreInfoTablet>}
           <MoreInfo>{featuresList}</MoreInfo>
         </MoreInfoContainer>
-      </FeaturesContainer>
+      </Container>
     </ThemeProvider>
   );
 };

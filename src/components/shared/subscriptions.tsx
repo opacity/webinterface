@@ -5,28 +5,58 @@ import { Link } from "react-router-dom";
 
 import {
   SUBSCRIPTION_DESKTOP_WIDTH,
+  SHADOW,
   PLANS,
   MOBILE_WIDTH,
   theme
 } from "../../config";
 
 import SubscriptionFeatures from "./subscription-features";
+import InsideLink from "../shared/inside-link";
+
+const FEATURED_BANNER = require("../../assets/images/featured.svg");
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 15px 0 20px 0;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     flex-direction: column;
   }
 `;
 
-const Column = styled.div`
-  width: 100%;
-  height: 491px;
-  background-color: ${props => props.theme.container.background};
+const Reminder = styled.p`
+  text-align: center;
+  font-size: 11px;
+  color: grey;
+`;
+
+interface IColumnProps {
+  shadow: SHADOW;
+  isHighlighted?: boolean;
+  zIndex: number;
+  borderColor: string;
+}
+
+const Column = styled.div<IColumnProps>`
+  min-width: ${props => (props.isHighlighted ? 275 : 225)}px;
+  min-height: ${props => (props.isHighlighted ? 725 : 680)}px;
+  z-index: ${props => props.zIndex};
+  border-top: 3px solid ${props => props.borderColor};
+  position: relative;
+  box-shadow: ${props => {
+    switch (props.shadow) {
+      case SHADOW.LEFT:
+        return "-6px 8px 16px -3px rgba(172, 176, 181, 1)";
+      case SHADOW.RIGHT:
+        return "6px 8px 16px -3px rgba(172, 176, 181, 1)";
+      default:
+        return "0px 8px 16px 4px rgba(172,176,181,1);";
+    }
+  }};
+  background-color: #ffffff;
   padding-top: 15px;
-  margin-inline-end: 10px;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     width: 100%;
     border-bottom: 1px solid #8faacc;
@@ -59,6 +89,18 @@ const Title = styled.h1`
   }
 `;
 
+const PaymentOption = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify: center;
+  align-items: center;
+`;
+
+const Duration = styled.h5`
+  margin: 0;
+  font-weight: normal;
+`;
+
 const Line = styled.div`
   width: ${props => props.theme.container.title.underline.width}px;
   border-top: ${props => props.theme.container.title.underline.height}px solid
@@ -73,8 +115,7 @@ const Line = styled.div`
 
 const Price = styled.p`
   width: 200px;
-  min-height: 0px;
-  font-size: ${props => props.theme.container.title.size}px;
+  font-size: 27px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
   font-stretch: ${props => props.theme.fontStretch};
@@ -82,17 +123,14 @@ const Price = styled.p`
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
   text-align: center;
-  margin: auto;
-  margin-top: 18px;
+  margin: 0;
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
     margin-top: 60px;
   }
 `;
 
-const Plan = styled.p`
-  width: 200px;
-  min-height: 0px;
-  font-size: ${props => props.theme.container.title.size}px;
+const StorageLimit = styled.p`
+  font-size: 27px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
   font-stretch: ${props => props.theme.fontStretch};
@@ -100,13 +138,12 @@ const Plan = styled.p`
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
   text-align: center;
-  margin: auto;
-  margin-top: 10px;
 `;
 
 const Content = styled.p`
-  width: 232px;
-  min-height: 70px;
+  text-align: center;
+  margin: 20px;
+  min-height: 60px;
   font-size: 16px;
   font-weight: ${props => props.theme.fontWeight};
   font-style: ${props => props.theme.fontStyle};
@@ -114,8 +151,6 @@ const Content = styled.p`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
-  margin: 15px 15px 0 37px;
-  height: 50px;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     width: 171px;
     width: auto;
@@ -126,6 +161,16 @@ const Content = styled.p`
     margin: 15px 30px 15px 20px;
     width: 250px;
   }
+`;
+
+const FeaturedIcon = styled.img.attrs({
+  src: FEATURED_BANNER
+})`
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: -8px;
+  right: -6px;
 `;
 
 interface SignupLinkProps {
@@ -172,6 +217,10 @@ const ButtonWrapper = styled.div`
   }
 `;
 
+const PriceSection = styled.div`
+  min-height: 135px;
+`;
+
 const Header = styled.div``;
 
 const Footer = styled.div``;
@@ -180,23 +229,47 @@ const Subscriptions = () => (
   <ThemeProvider theme={theme}>
     <Container>
       {_.map(PLANS, plan => (
-        <Column key={plan.permalink}>
+        <Column
+          key={plan.permalink}
+          shadow={plan.shadow}
+          zIndex={plan.zIndex}
+          isHighlighted={plan.isHighlighted}
+          borderColor={plan.borderColor}
+        >
+          {plan.isHighlighted && <FeaturedIcon />}
           <Header>
             <Title>{plan.title}</Title>
             <Line />
             <Content>{plan.content}</Content>
+            <StorageLimit>{plan.storageLimit}</StorageLimit>
             <SubscriptionFeatures features={plan.features} />
           </Header>
           <Footer>
-            <Price>{plan.price}</Price>
-            <Plan>{plan.storageLimit}</Plan>
+            <PriceSection>
+              <PaymentOption>
+                <Price>{plan.cost} OPQ</Price>
+                <Duration>per year</Duration>
+              </PaymentOption>
+              {plan.usdCost > 0 && (
+                <React.Fragment>
+                  <Reminder>&ndash; or &ndash;</Reminder>
+                  <PaymentOption>
+                    <Price>${plan.usdCost}</Price>
+                    <Duration>per year</Duration>
+                  </PaymentOption>
+                </React.Fragment>
+              )}
+            </PriceSection>
             <ButtonWrapper>
-              <SignupLink
-                disabled={!plan.isAvailable}
-                to={`/sign-up/${plan.permalink}`}
-              >
-                {plan.isAvailable ? "Choose plan" : "Coming soon"}
-              </SignupLink>
+              {plan.isAvailable ? (
+                <SignupLink to={`/sign-up/${plan.permalink}`}>
+                  {plan.isAvailable ? "Choose plan" : "Contact Us"}
+                </SignupLink>
+              ) : (
+                <InsideLink href="mailto:jason@opacity.io">
+                  Contact Us
+                </InsideLink>
+              )}
             </ButtonWrapper>
           </Footer>
         </Column>
