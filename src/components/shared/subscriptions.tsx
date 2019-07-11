@@ -56,7 +56,6 @@ const Column = styled.div<IColumnProps>`
     }
   }};
   background-color: #ffffff;
-  padding-top: 15px;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     width: 100%;
     border-bottom: 1px solid #8faacc;
@@ -211,6 +210,7 @@ const SignupLink = styled(Link)`
 const ButtonWrapper = styled.div`
   text-align: center;
   margin: 20px 0 40px 0;
+  min-height: 50px;
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
     text-align: left;
     margin: 20px 20px 40px 20px;
