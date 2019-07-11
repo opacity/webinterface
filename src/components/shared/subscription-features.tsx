@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { theme, MOBILE_WIDTH, SUBSCRIPTION_DESKTOP_WIDTH } from "../../config";
+import { theme, SUBSCRIPTION_DESKTOP_WIDTH } from "../../config";
 
 const FEATURES = require("../../assets/images/features.svg");
 
 const Container = styled.div`
   height: 215px;
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
+    height: 100%;
+  }
 `;
 
 const MoreInfoTablet = styled.div``;
@@ -18,25 +21,27 @@ const MoreInfoContainer = styled.div`
 `;
 
 const MoreInfo = styled.div`
-  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     display: none;
   }
 `;
 
 const MoreFeatures = styled.div`
   display: none;
-  width: 150px;
-  height: 8.5px;
   font-size: 12px;
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
+  text-align: center;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
   color: ${props => props.theme.button.background};
-  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    display: block;
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
+    display: flex;
   }
 `;
 
@@ -44,8 +49,6 @@ const Features = styled.img`
   width: 14px;
   height: 14px;
   display: inline-block;
-  float: left;
-  margin-left: 20px;
   margin-right: 10px;
 `;
 

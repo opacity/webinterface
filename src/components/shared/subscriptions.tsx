@@ -41,7 +41,7 @@ interface IColumnProps {
 
 const Column = styled.div<IColumnProps>`
   min-width: ${props => (props.isHighlighted ? 275 : 225)}px;
-  min-height: ${props => (props.isHighlighted ? 725 : 680)}px;
+  height: ${props => (props.isHighlighted ? 725 : 680)}px;
   z-index: ${props => props.zIndex};
   border-top: 3px solid ${props => props.borderColor};
   position: relative;
@@ -57,16 +57,13 @@ const Column = styled.div<IColumnProps>`
   }};
   background-color: #ffffff;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
+    height: 100%;
     width: 325px;
     margin: 20px 0;
     border-bottom: 1px solid #8faacc;
     &:last-child {
       border-bottom: none;
     }
-  }
-  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    height: auto;
-    display: flex;
   }
 `;
 
@@ -78,15 +75,8 @@ const Title = styled.h1`
   line-height: ${props => props.theme.lineHeight};
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.title.color};
-  margin: auto;
   text-align: center;
   margin-top: 35px;
-  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    text-align: left;
-    margin: 20px 20px 0 20px;
-    width: 250px;
-    flex: 0.5;
-  }
 `;
 
 const PaymentOption = styled.div`
@@ -108,9 +98,6 @@ const Line = styled.div`
   margin: auto;
   margin-top: 5px;
   margin-bottom: 15px;
-  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    margin: 5px 20px 15px 20px;
-  }
 `;
 
 const Price = styled.p`
@@ -124,8 +111,8 @@ const Price = styled.p`
   color: ${props => props.theme.container.content};
   text-align: center;
   margin: 0;
-  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    margin-top: 60px;
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
+    margin-top: 10px;
   }
 `;
 
@@ -220,7 +207,7 @@ const ButtonWrapper = styled.div`
 const PriceSection = styled.div`
   height: 135px;
   @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
-    height: 125px;
+    height: 155px;
   }
 `;
 
