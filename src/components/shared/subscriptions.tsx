@@ -57,7 +57,8 @@ const Column = styled.div<IColumnProps>`
   }};
   background-color: #ffffff;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
-    width: 100%;
+    width: 325px;
+    margin: 20px 0;
     border-bottom: 1px solid #8faacc;
     &:last-child {
       border-bottom: none;
@@ -137,12 +138,15 @@ const StorageLimit = styled.p`
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
   text-align: center;
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
+    margin-top: 0;
+  }
 `;
 
 const Content = styled.p`
   text-align: center;
   margin: 20px;
-  min-height: 60px;
+  height: 60px;
   font-size: 16px;
   font-weight: ${props => props.theme.fontWeight};
   font-style: ${props => props.theme.fontStyle};
@@ -153,12 +157,8 @@ const Content = styled.p`
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
     width: 171px;
     width: auto;
-    margin: 0 30px 0 30px;
-    height: 100px;
-  }
-  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    margin: 15px 30px 15px 20px;
-    width: 250px;
+    margin: 10px;
+    height: 50px;
   }
 `;
 
@@ -218,7 +218,10 @@ const ButtonWrapper = styled.div`
 `;
 
 const PriceSection = styled.div`
-  min-height: 135px;
+  height: 135px;
+  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
+    height: 125px;
+  }
 `;
 
 const Header = styled.div``;

@@ -6,7 +6,7 @@ import { theme, MOBILE_WIDTH, SUBSCRIPTION_DESKTOP_WIDTH } from "../../config";
 const FEATURES = require("../../assets/images/features.svg");
 
 const Container = styled.div`
-  min-height: 215px;
+  height: 215px;
 `;
 
 const MoreInfoTablet = styled.div``;
@@ -59,12 +59,7 @@ const Feature = styled.p`
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.container.content};
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
-    width: auto;
-    margin: 0 30px 0 30px;
-  }
-  @media only screen and (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) and (min-width: ${MOBILE_WIDTH}px) {
-    margin: 15px 30px 15px 20px;
-    width: 250px;
+    margin: 10 50px;
   }
 `;
 
