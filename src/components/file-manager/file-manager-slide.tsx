@@ -29,7 +29,7 @@ const ICON_REMOVE = require("../../assets/images/remove.svg");
 const ICON_SHARE = require("../../assets/images/share.svg");
 
 const fileTarget = {
-  drop(props, monitor) {
+  drop (props, monitor) {
     const { upload, masterHandle } = props;
     let { files } = monitor.getItem();
     const filesLength = files.length;
