@@ -255,7 +255,7 @@ export const PLANS = [
     borderColor: "#DE9E93",
     zIndex: 1,
     cost: 32,
-    usdCost: 149.99,
+    usdCost: 119.99,
     isAvailable: true,
     isHighlighted: false,
     content: "Secure file management for your organization",
