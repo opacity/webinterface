@@ -340,7 +340,8 @@ const FileManagerSlide = ({
   expirationDate,
   connectDropTarget,
   isOver,
-  createFolder
+  createFolder,
+  removeFolder
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
@@ -415,7 +416,9 @@ const FileManagerSlide = ({
                 <FolderModal
                   isOpen={!!showCreateFolder}
                   close={() => setShowCreateFolder(false)}
-                  createFolder={name => createFolder(masterHandle, name)}
+                  createFolder={name =>
+                    createFolder(masterHandle, folder, name)
+                  }
                 />
               </ButtonWrapper>
               <Table>

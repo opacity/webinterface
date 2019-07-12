@@ -7,7 +7,7 @@ import uploadActions from "../../redux/actions/upload-actions";
 import filesActions from "../../redux/actions/files-actions";
 import downloadActions from "../../redux/actions/download-actions";
 import removeActions from "../../redux/actions/remove-actions";
-import folderActions from "../../redux/actions/folder-actions";
+import foldersActions from "../../redux/actions/folders-actions";
 
 import FileManagerSlide from "./file-manager-slide";
 
@@ -29,8 +29,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(removeActions.removeFileByHandle({ name, handle, masterHandle })),
   getFileList: (folder, masterHandle) =>
     dispatch(filesActions.getFileList({ folder, masterHandle })),
-  createFolder: (masterHandle, name) =>
-    dispatch(folderActions.createFolder({ masterHandle, name }))
+  createFolder: (masterHandle, folder, name) =>
+    dispatch(foldersActions.createFolder({ masterHandle, folder, name })),
+  removeFolder: (masterHandle, folder, name) =>
+    dispatch(foldersActions.removeFolder({ masterHandle, folder, name }))
 });
 
 const FileManager = ({
@@ -45,6 +47,7 @@ const FileManager = ({
   storageLimit,
   expirationDate,
   createFolder,
+  removeFolder,
   folders
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
@@ -61,6 +64,7 @@ const FileManager = ({
       storageLimit={storageLimit}
       expirationDate={expirationDate}
       createFolder={createFolder}
+      removeFolder={removeFolder}
     />
   </DragDropContextProvider>
 );
