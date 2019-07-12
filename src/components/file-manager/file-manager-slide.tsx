@@ -204,6 +204,10 @@ const Td = styled.td`
   white-space: nowrap;
 `;
 
+const TdPointer = styled(Td)`
+  cursor: pointer;
+`;
+
 const ThPointer = styled(Th)`
   cursor: pointer;
 `;
@@ -326,6 +330,14 @@ interface File {
   size: number;
 }
 
+const MockFolders = [
+  { name: "aa" },
+  { name: "vv" },
+  { name: "zz" },
+  { name: "ff" },
+  { name: "cc" }
+];
+
 const FileManagerSlide = ({
   files,
   folders,
@@ -365,6 +377,22 @@ const FileManagerSlide = ({
     );
   };
 
+  const folderUp = name => {
+    let folderName = folder;
+    if (folderName === "/") {
+      folderName += name;
+    } else {
+      folderName += "/";
+      folderName += name;
+    }
+    setFolder(folderName);
+  };
+
+  const folderDown = () => {
+    let folderName = folder.substr(0, folder.lastIndexOf("/"));
+    setFolder(folderName.length ? folderName : "/");
+  };
+
   useEffect(() => {
     const defaultOrder = "created";
     setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
@@ -373,7 +401,7 @@ const FileManagerSlide = ({
 
   useEffect(() => {
     getFileList(folder, masterHandle);
-  }, []);
+  }, [folder]);
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -405,14 +433,19 @@ const FileManagerSlide = ({
                 </UsageWrapper>
               </TitleWrapper>
               <ButtonWrapper>
-                <UploadButton
-                  onSelected={files => upload(files, folder, masterHandle)}
-                />
+                {folder !== "/" && (
+                  <FolderButton onClick={() => folderDown()}>
+                    Down folder
+                  </FolderButton>
+                )}
                 <FolderButton
                   onClick={() => setShowCreateFolder(!showCreateFolder)}
                 >
                   Create folder
                 </FolderButton>
+                <UploadButton
+                  onSelected={files => upload(files, folder, masterHandle)}
+                />
                 <FolderModal
                   isOpen={!!showCreateFolder}
                   close={() => setShowCreateFolder(false)}
@@ -448,14 +481,28 @@ const FileManagerSlide = ({
                   </Tr>
                 </thead>
                 <tbody>
-                  {folders.map(({ name }, i) => (
+                  {MockFolders.map(({ name }, i) => (
                     <Tr key={name ? name : i}>
-                      <Td>{iconType(".directory")}</Td>
-                      <Td>{name}</Td>
-                      <Td />
-                      <Td />
-                      <Td />
-                      <Td />
+                      <TdPointer onClick={() => folderUp(name)}>
+                        {iconType("a.directory")}
+                      </TdPointer>
+                      <TdPointer onClick={() => folderUp(name)}>
+                        {name}
+                      </TdPointer>
+                      <TdPointer onClick={() => folderUp(name)} />
+                      <TdPointer onClick={() => folderUp(name)} />
+                      <TdPointer onClick={() => folderUp(name)} />
+                      <TdPointer>
+                        <ActionButton
+                          onClick={() =>
+                            confirm(
+                              "Do you really want to delete this folder?"
+                            ) && removeFolder(masterHandle, folder, name)
+                          }
+                        >
+                          <TableIcon data-tip="Delete file" src={ICON_REMOVE} />
+                        </ActionButton>
+                      </TdPointer>
                     </Tr>
                   ))}
                   {orderedFiles.map(({ name, handle, size, created }, i) => (
