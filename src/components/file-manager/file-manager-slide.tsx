@@ -328,6 +328,7 @@ interface File {
 
 const FileManagerSlide = ({
   files,
+  folders,
   getFileList,
   upload,
   download,
@@ -345,6 +346,7 @@ const FileManagerSlide = ({
   const [param, setParam] = useState("");
   const [sharedFile, setSharedFile] = useState<File | null>(null);
   const [showCreateFolder, setShowCreateFolder] = useState(false);
+  const [folder, setFolder] = useState("/");
 
   const sortBy = (param, order) => {
     setParam(param);
@@ -369,7 +371,7 @@ const FileManagerSlide = ({
   }, [files]);
 
   useEffect(() => {
-    getFileList(masterHandle);
+    getFileList(folder, masterHandle);
   }, []);
 
   return (
@@ -403,7 +405,7 @@ const FileManagerSlide = ({
               </TitleWrapper>
               <ButtonWrapper>
                 <UploadButton
-                  onSelected={files => upload(files, masterHandle)}
+                  onSelected={files => upload(files, folder, masterHandle)}
                 />
                 <FolderButton
                   onClick={() => setShowCreateFolder(!showCreateFolder)}
@@ -413,7 +415,7 @@ const FileManagerSlide = ({
                 <FolderModal
                   isOpen={!!showCreateFolder}
                   close={() => setShowCreateFolder(false)}
-                  createFolder={name => createFolder(name)}
+                  createFolder={name => createFolder(masterHandle, name)}
                 />
               </ButtonWrapper>
               <Table>
@@ -443,6 +445,16 @@ const FileManagerSlide = ({
                   </Tr>
                 </thead>
                 <tbody>
+                  {folders.map(({ name }, i) => (
+                    <Tr key={name ? name : i}>
+                      <Td>{iconType(".directory")}</Td>
+                      <Td>{name}</Td>
+                      <Td />
+                      <Td />
+                      <Td />
+                      <Td />
+                    </Tr>
+                  ))}
                   {orderedFiles.map(({ name, handle, size, created }, i) => (
                     <Tr key={handle ? handle : i}>
                       <Td>{iconType(name)}</Td>
@@ -492,7 +504,7 @@ const FileManagerSlide = ({
                 </NoFiles>
               )}
               <UploadMobileButton
-                onSelected={files => upload(files, masterHandle)}
+                onSelected={files => upload(files, folder, masterHandle)}
               />
             </TableContainer>
           </Contents>
