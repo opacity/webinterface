@@ -1,17 +1,17 @@
-const CREATE_FOLDER = "opacity/folder/create-folder";
-const CREATE_FOLDER_SUCCESS = "opacity/folder/create-folder-success";
-const CREATE_FOLDER_ERROR = "opacity/folder/create-folder-errror";
-const REMOVE_FOLDER = "opacity/folder/remove-folder";
-const REMOVE_FOLDER_SUCCESS = "opacity/folder/remove-folder-success";
-const REMOVE_FOLDER_ERROR = "opacity/folder/remove-folder-error";
+const CREATE_FOLDER = "opacity/folders/create-folder";
+const CREATE_FOLDER_SUCCESS = "opacity/folders/create-folder-success";
+const CREATE_FOLDER_FAILURE = "opacity/folders/create-folder-failure";
+const REMOVE_FOLDER = "opacity/folders/remove-folder";
+const REMOVE_FOLDER_SUCCESS = "opacity/folders/remove-folder-success";
+const REMOVE_FOLDER_FAILURE = "opacity/folders/remove-folder-failure";
 
 const ACTIONS = Object.freeze({
   CREATE_FOLDER,
   CREATE_FOLDER_SUCCESS,
-  CREATE_FOLDER_ERROR,
+  CREATE_FOLDER_FAILURE,
   REMOVE_FOLDER,
   REMOVE_FOLDER_SUCCESS,
-  REMOVE_FOLDER_ERROR,
+  REMOVE_FOLDER_FAILURE,
 
   createFolder: ({ masterHandle, folder, name }) => ({
     type: CREATE_FOLDER,
@@ -21,8 +21,8 @@ const ACTIONS = Object.freeze({
     type: CREATE_FOLDER_SUCCESS,
     payload: { masterHandle }
   }),
-  createFolderError: ({ error }) => ({
-    type: CREATE_FOLDER_ERROR,
+  createFolderFailure: ({ error }) => ({
+    type: CREATE_FOLDER_FAILURE,
     payload: { error }
   }),
   removeFolder: ({ masterHandle, folder, name }) => ({
@@ -33,8 +33,8 @@ const ACTIONS = Object.freeze({
     type: REMOVE_FOLDER_SUCCESS,
     payload: { masterHandle }
   }),
-  removeFolderError: ({ error }) => ({
-    type: REMOVE_FOLDER_ERROR,
+  removeFolderFailure: ({ error }) => ({
+    type: REMOVE_FOLDER_FAILURE,
     payload: { error }
   })
 });

@@ -29,14 +29,14 @@ const ICON_REMOVE = require("../../assets/images/remove.svg");
 const ICON_SHARE = require("../../assets/images/share.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
+  drop(props, monitor) {
     const { upload, masterHandle } = props;
     let { files } = monitor.getItem();
     const filesLength = files.length;
     if (files.length > 0) {
       files = files.filter(file => file.size <= FILE_MAX_SIZE);
       files.length !== filesLength && alert("Some files are greater then 2GB.");
-      upload(files, masterHandle);
+      upload({ files, masterHandle, folder: "/" });
     }
   }
 };
@@ -393,15 +393,21 @@ const FileManagerSlide = ({
     setFolder(folderName.length ? folderName : "/");
   };
 
-  useEffect(() => {
-    const defaultOrder = "created";
-    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-    setParam(defaultOrder);
-  }, [files]);
+  useEffect(
+    () => {
+      const defaultOrder = "created";
+      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+      setParam(defaultOrder);
+    },
+    [files]
+  );
 
-  useEffect(() => {
-    getFileList(folder, masterHandle);
-  }, [folder]);
+  useEffect(
+    () => {
+      getFileList(folder, masterHandle);
+    },
+    [folder]
+  );
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -444,7 +450,7 @@ const FileManagerSlide = ({
                   Create folder
                 </FolderButton>
                 <UploadButton
-                  onSelected={files => upload(files, folder, masterHandle)}
+                  onSelected={files => upload({ files, folder, masterHandle })}
                 />
                 <FolderModal
                   isOpen={!!showCreateFolder}

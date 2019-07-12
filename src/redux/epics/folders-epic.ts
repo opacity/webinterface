@@ -11,7 +11,7 @@ const createFolderEpic = (action$, state$, dependencies$) =>
     mergeMap(({ payload }) => {
       const { name, folder, masterHandle } = payload;
 
-      return from(masterHandle.removeFolder(folder, name)).pipe(
+      return from(masterHandle.createFolder(folder, name)).pipe(
         map(() => {
           toast(`Folder ${name} was successfully created.`, {
             autoClose: 3000,
@@ -20,9 +20,9 @@ const createFolderEpic = (action$, state$, dependencies$) =>
             toastId: name
           });
 
-          return foldersActions.removeFolderSuccess({ masterHandle });
+          return foldersActions.createFolderSuccess({ masterHandle });
         }),
-        catchError(error => of(foldersActions.removeFolderError({ error })))
+        catchError(error => of(foldersActions.createFolderFailure({ error })))
       );
     })
   );
@@ -44,7 +44,7 @@ const removeFolderEpic = (action$, state$, dependencies$) =>
 
           return foldersActions.removeFolderSuccess({ masterHandle });
         }),
-        catchError(error => of(foldersActions.removeFolderError({ error })))
+        catchError(error => of(foldersActions.removeFolderFailure({ error })))
       );
     })
   );
