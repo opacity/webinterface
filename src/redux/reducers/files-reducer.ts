@@ -14,19 +14,22 @@ const fileGenerator = ({ name, versions }) =>
     size
   }));
 
+const folderGenerator = ({ name }) => ({ name });
+
 const filesReducer = (state = initState, action) => {
   switch (action.type) {
     case filesActions.SET_LIST:
       const { list, folders } = action.payload;
-      const flatList = chain(list)
+      const flatFiles = chain(list)
         .map(fileGenerator)
         .flatten()
         .value();
-      const flastFolders = chain(folders)
-        .map(fileGenerator)
-        .flatten()
-        .value();
-      return { ...state, list: flatList, folders: flastFolders };
+
+      return {
+        ...state,
+        list: flatFiles,
+        folders: folders.map(folderGenerator)
+      };
 
     default:
       return state;
