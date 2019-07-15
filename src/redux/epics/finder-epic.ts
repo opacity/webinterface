@@ -18,8 +18,10 @@ const getFileListEpic = (action$, state$, dependencies$) =>
       const { masterHandle, folder } = payload;
 
       return from(masterHandle.getFolderMeta(folder)).pipe(
-        map((data: any) => finderActions.setList({ list: data.files })),
-        catchError(() => of(finderActions.setList({ list: [] })))
+        map((data: any) =>
+          finderActions.setList({ files: data.files, folders: data.folders })
+        ),
+        catchError(() => of(finderActions.setList({ files: [], folders: [] })))
       );
     })
   );

@@ -328,6 +328,7 @@ interface File {
 
 const FileManagerSlide = ({
   files,
+  folders,
   getFileList,
   upload,
   download,

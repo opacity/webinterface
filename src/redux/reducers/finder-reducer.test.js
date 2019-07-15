@@ -1,13 +1,21 @@
 import finderReducer from "./finder-reducer";
 import finderActions from "../actions/finder-actions";
 
-const initState = { list: [] };
+const initState = { files: [], folders: [] };
 
 test("finder-reducer SET_LIST", () => {
   const action = {
     type: finderActions.SET_LIST,
     payload: {
-      list: [
+      folders: [
+        {
+          name: "folder1"
+        },
+        {
+          name: "folder2"
+        }
+      ],
+      files: [
         {
           name: "file1",
           versions: [
@@ -28,7 +36,15 @@ test("finder-reducer SET_LIST", () => {
   };
   const expected = {
     ...initState,
-    list: [
+    folders: [
+      {
+        name: "folder1"
+      },
+      {
+        name: "folder2"
+      }
+    ],
+    files: [
       {
         name: "file1",
         handle: "handle1",

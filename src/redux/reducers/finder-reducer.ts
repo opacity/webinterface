@@ -2,7 +2,8 @@ import { chain } from "lodash";
 import finderActions from "../actions/finder-actions";
 
 const initState = {
-  list: []
+  files: [],
+  folders: []
 };
 
 const fileGenerator = ({ name, versions }) =>
@@ -13,18 +14,21 @@ const fileGenerator = ({ name, versions }) =>
     size
   }));
 
+const folderGenerator = ({ name }) => ({ name });
+
 const finderReducer = (state = initState, action) => {
   switch (action.type) {
     case finderActions.SET_LIST:
-      const { list } = action.payload;
-      const flatFiles = chain(list)
+      const { files, folders } = action.payload;
+      const flatFiles = chain(files)
         .map(fileGenerator)
         .flatten()
         .value();
 
       return {
         ...state,
-        list: flatFiles
+        files: flatFiles,
+        folders: folders.map(folderGenerator)
       };
 
     default:

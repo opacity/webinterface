@@ -12,7 +12,8 @@ import foldersActions from "../../redux/actions/folders-actions";
 import FileManagerSlide from "./file-manager-slide";
 
 const mapStateToProps = state => ({
-  files: state.finder.list,
+  files: state.finder.files,
+  folders: state.finder.folders,
   masterHandle: state.authentication.masterHandle,
   metadata: state.authentication.metadata,
   storageUsed: state.authentication.storageUsed,
@@ -37,6 +38,7 @@ const mapDispatchToProps = dispatch => ({
 const FileManager = ({
   upload,
   files,
+  folders,
   getFileList,
   download,
   removeFileByHandle,
@@ -50,6 +52,7 @@ const FileManager = ({
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
       files={files}
+      folders={folders}
       getFileList={getFileList}
       upload={upload}
       download={download}
