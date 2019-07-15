@@ -90,7 +90,7 @@ test("getFileListEpic - on failure", done => {
   const dependencies$ = {};
 
   finderEpic(action$, state$, dependencies$).subscribe(actions => {
-    expect(actions).toEqual(finderActions.setList({ files: [] }));
+    expect(actions).toEqual(finderActions.setList({ files: [], folders: [] }));
     done();
   });
 });

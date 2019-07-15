@@ -5,9 +5,9 @@ const ACTIONS = Object.freeze({
   GET_FILE_LIST,
   SET_LIST,
 
-  setList: ({ files, folders }) => ({
+  setList: ({ files, folders, masterHandle }) => ({
     type: SET_LIST,
-    payload: { files, folders }
+    payload: { files, folders, masterHandle }
   }),
   getFileList: ({ masterHandle, folder }) => ({
     type: GET_FILE_LIST,

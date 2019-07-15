@@ -19,20 +19,22 @@ const getFileListEpic = (action$, state$, dependencies$) =>
 
       return from(masterHandle.getFolderMeta(folder)).pipe(
         map((data: any) =>
-          finderActions.setList({ files: data.files, folders: data.folders })
+          finderActions.setList({
+            files: data.files,
+            folders: data.folders,
+            masterHandle
+          })
         ),
-        catchError(() => of(finderActions.setList({ files: [], folders: [] })))
+        catchError(() =>
+          of(finderActions.setList({ files: [], folders: [], masterHandle }))
+        )
       );
     })
   );
 
 const getAccountDataEpic = (action$, state$, dependencies$) =>
   action$.pipe(
-    ofType(
-      finderActions.GET_FILE_LIST,
-      uploadActions.UPLOAD_SUCCESS,
-      removeActions.REMOVE_SUCCESS
-    ),
+    ofType(finderActions.SET_LIST),
     switchMap(({ payload }) => {
       const { masterHandle } = payload;
 
