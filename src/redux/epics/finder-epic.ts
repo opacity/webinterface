@@ -2,7 +2,7 @@ import { from, of } from "rxjs";
 import { map, switchMap, catchError } from "rxjs/operators";
 import { ofType, combineEpics } from "redux-observable";
 
-import filesActions from "../actions/files-actions";
+import finderActions from "../actions/finder-actions";
 import authenticationActions from "../actions/authentication-actions";
 import uploadActions from "../actions/upload-actions";
 import removeActions from "../actions/remove-actions";
@@ -10,7 +10,7 @@ import removeActions from "../actions/remove-actions";
 const getFileListEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(
-      filesActions.GET_FILE_LIST,
+      finderActions.GET_FILE_LIST,
       uploadActions.UPLOAD_SUCCESS,
       removeActions.REMOVE_SUCCESS
     ),
@@ -18,19 +18,23 @@ const getFileListEpic = (action$, state$, dependencies$) =>
       const { masterHandle, folder } = payload;
 
       return from(masterHandle.getFolderMeta(folder)).pipe(
-        map((data: any) => filesActions.setList({ list: data.files })),
-        catchError(() => of(filesActions.setList({ list: [] })))
+        map((data: any) =>
+          finderActions.setList({
+            files: data.files,
+            folders: data.folders,
+            masterHandle
+          })
+        ),
+        catchError(() =>
+          of(finderActions.setList({ files: [], folders: [], masterHandle }))
+        )
       );
     })
   );
 
 const getAccountDataEpic = (action$, state$, dependencies$) =>
   action$.pipe(
-    ofType(
-      filesActions.GET_FILE_LIST,
-      uploadActions.UPLOAD_SUCCESS,
-      removeActions.REMOVE_SUCCESS
-    ),
+    ofType(finderActions.SET_LIST),
     switchMap(({ payload }) => {
       const { masterHandle } = payload;
 

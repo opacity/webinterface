@@ -1,13 +1,13 @@
-const GET_FILE_LIST = "opacity/files/get-file-list";
-const SET_LIST = "opacity/files/set-list";
+const GET_FILE_LIST = "opacity/finder/get-file-list";
+const SET_LIST = "opacity/finder/set-list";
 
 const ACTIONS = Object.freeze({
   GET_FILE_LIST,
   SET_LIST,
 
-  setList: ({ list, folders }) => ({
+  setList: ({ files, folders, masterHandle }) => ({
     type: SET_LIST,
-    payload: { list, folders }
+    payload: { files, folders, masterHandle }
   }),
   getFileList: ({ masterHandle, folder }) => ({
     type: GET_FILE_LIST,
