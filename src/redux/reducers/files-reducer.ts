@@ -17,11 +17,15 @@ const filesReducer = (state = initState, action) => {
   switch (action.type) {
     case filesActions.SET_LIST:
       const { list } = action.payload;
-      const flatList = chain(list)
+      const flatFiles = chain(list)
         .map(fileGenerator)
         .flatten()
         .value();
-      return { ...state, list: flatList };
+
+      return {
+        ...state,
+        list: flatFiles
+      };
 
     default:
       return state;

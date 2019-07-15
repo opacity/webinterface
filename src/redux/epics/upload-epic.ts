@@ -9,10 +9,10 @@ const uploadFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(uploadActions.UPLOAD_FILES),
     flatMap(({ payload }) => {
-      const { files, masterHandle } = payload;
+      const { files, folder, masterHandle } = payload;
 
       return files.map(file =>
-        uploadActions.uploadFile({ file, masterHandle })
+        uploadActions.uploadFile({ file, folder, masterHandle })
       );
     })
   );
@@ -21,10 +21,10 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(uploadActions.UPLOAD_FILE),
     mergeMap(({ payload }) => {
-      const { file, masterHandle } = payload;
+      const { file, folder, masterHandle } = payload;
 
       return new Observable(o => {
-        const upload = masterHandle.uploadFile("/", file);
+        const upload = masterHandle.uploadFile(folder, file);
         const handle = upload.handle;
 
         toast(`${file.name} is uploading. Please wait...`, {
@@ -53,7 +53,8 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
 
           o.next(
             uploadActions.uploadSuccess({
-              masterHandle
+              masterHandle,
+              folder
             })
           );
           o.complete();
