@@ -2,8 +2,7 @@ import { chain } from "lodash";
 import filesActions from "../actions/files-actions";
 
 const initState = {
-  list: [],
-  folders: []
+  list: []
 };
 
 const fileGenerator = ({ name, versions }) =>
@@ -14,12 +13,10 @@ const fileGenerator = ({ name, versions }) =>
     size
   }));
 
-const folderGenerator = ({ name }) => ({ name });
-
 const filesReducer = (state = initState, action) => {
   switch (action.type) {
     case filesActions.SET_LIST:
-      const { list, folders } = action.payload;
+      const { list } = action.payload;
       const flatFiles = chain(list)
         .map(fileGenerator)
         .flatten()
@@ -27,8 +24,7 @@ const filesReducer = (state = initState, action) => {
 
       return {
         ...state,
-        list: flatFiles,
-        folders: folders.map(folderGenerator)
+        list: flatFiles
       };
 
     default:

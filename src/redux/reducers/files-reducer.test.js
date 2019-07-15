@@ -1,7 +1,7 @@
 import filesReducer from "./files-reducer";
 import filesActions from "../actions/files-actions";
 
-const initState = { list: [], folders: [] };
+const initState = { list: [] };
 
 test("files-reducer SET_LIST", () => {
   const action = {

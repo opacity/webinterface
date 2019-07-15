@@ -26,13 +26,13 @@ test("createFolderSuccess", () => {
   expect(actions.createFolderSuccess({ masterHandle })).toEqual(expected);
 });
 
-test("createFolderError", () => {
+test("createFolderFailure", () => {
   const error = "foobar";
   const expected = {
-    type: actions.CREATE_FOLDER_ERROR,
+    type: actions.CREATE_FOLDER_FAILURE,
     payload: { error }
   };
-  expect(actions.createFolderError({ error })).toEqual(expected);
+  expect(actions.createFolderFailure({ error })).toEqual(expected);
 });
 
 test("removeFolder", () => {
@@ -61,11 +61,11 @@ test("removeFolderSuccess", () => {
   expect(actions.removeFolderSuccess({ masterHandle })).toEqual(expected);
 });
 
-test("removeFolderError", () => {
+test("removeFolderFailure", () => {
   const error = "foobar";
   const expected = {
-    type: actions.REMOVE_FOLDER_ERROR,
+    type: actions.REMOVE_FOLDER_FAILURE,
     payload: { error }
   };
-  expect(actions.removeFolderError({ error })).toEqual(expected);
+  expect(actions.removeFolderFailure({ error })).toEqual(expected);
 });
