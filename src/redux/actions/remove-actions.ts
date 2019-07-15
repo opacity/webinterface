@@ -15,7 +15,7 @@ const ACTIONS = Object.freeze({
   }),
   removeFileByName: ({ name, handle, folder, masterHandle }) => ({
     type: REMOVE_FILE_BY_NAME,
-    payload: { name, handle, masterHandle }
+    payload: { name, handle, folder, masterHandle }
   }),
   removeSuccess: ({ masterHandle, folder }) => ({
     type: REMOVE_SUCCESS,

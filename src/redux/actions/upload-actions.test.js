@@ -3,41 +3,49 @@ import actions from "./upload-actions";
 test("uplaodFiles", () => {
   const files = ["f1"];
   const masterHandle = "mh1";
+  const folder = "/";
 
   const expected = {
     type: actions.UPLOAD_FILES,
     payload: {
       files,
+      folder,
       masterHandle
     }
   };
-  expect(actions.uploadFiles({ files, masterHandle })).toEqual(expected);
+  expect(actions.uploadFiles({ files, folder, masterHandle })).toEqual(
+    expected
+  );
 });
 
-test("uplaodFiles", () => {
+test("uplaodFile", () => {
   const file = "f1";
   const masterHandle = "mh1";
+  const folder = "/";
 
   const expected = {
     type: actions.UPLOAD_FILE,
     payload: {
       file,
+      folder,
       masterHandle
     }
   };
-  expect(actions.uploadFile({ file, masterHandle })).toEqual(expected);
+  expect(actions.uploadFile({ file, folder, masterHandle })).toEqual(expected);
 });
 
 test("uploadSuccess", () => {
   const masterHandle = "mh1";
+  const folder = "/";
 
   const expected = {
     type: actions.UPLOAD_SUCCESS,
     payload: {
+      folder,
       masterHandle
     }
   };
-  expect(actions.uploadSuccess({ masterHandle })).toEqual(expected);
+  expect(actions.uploadSuccess({ folder, masterHandle })).toEqual(expected);
 });
 
 test("uploadError", () => {

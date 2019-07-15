@@ -38,7 +38,9 @@ test("uploadFilesEpic filesActions.UPLOAD_FILE on success", done => {
   const action$ = of(uploadActions.uploadFile({ file, folder, masterHandle }));
 
   uploadEpic(action$).subscribe(actions => {
-    expect(actions).toEqual(uploadActions.uploadSuccess({ masterHandle }));
+    expect(actions).toEqual(
+      uploadActions.uploadSuccess({ masterHandle, folder })
+    );
     done();
   });
 
