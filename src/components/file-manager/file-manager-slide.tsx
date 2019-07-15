@@ -4,6 +4,7 @@ import ReactTooltip from "react-tooltip";
 import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
 import { ToastContainer } from "react-toastify";
+import { withRouter } from "react-router";
 import styled, { ThemeProvider } from "styled-components";
 import moment from "moment";
 
@@ -30,13 +31,13 @@ const ICON_SHARE = require("../../assets/images/share.svg");
 
 const fileTarget = {
   drop: (props, monitor) => {
-    const { upload, masterHandle } = props;
+    const { upload, masterHandle, currentFolder } = props;
     let { files } = monitor.getItem();
     const filesLength = files.length;
     if (files.length > 0) {
       files = files.filter(file => file.size <= FILE_MAX_SIZE);
       files.length !== filesLength && alert("Some files are greater then 2GB.");
-      upload({ files, masterHandle, folder: "/" });
+      upload({ files, masterHandle, folder: currentFolder });
     }
   }
 };
@@ -208,6 +209,10 @@ const ThPointer = styled(Th)`
   cursor: pointer;
 `;
 
+const TrPointer = styled(Tr)`
+  cursor: pointer;
+`;
+
 const StorageInfo = styled.div`
   width: 100%;
 `;
@@ -327,6 +332,8 @@ interface File {
 }
 
 const FileManagerSlide = ({
+  currentFolder,
+  history,
   files,
   folders,
   getFileList,
@@ -372,9 +379,12 @@ const FileManagerSlide = ({
     [files]
   );
 
-  useEffect(() => {
-    getFileList("/", masterHandle);
-  }, []);
+  useEffect(
+    () => {
+      getFileList(currentFolder, masterHandle);
+    },
+    [currentFolder]
+  );
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -412,12 +422,16 @@ const FileManagerSlide = ({
                   Create folder
                 </FolderButton>
                 <UploadButton
-                  onSelected={files => upload(files, "/", masterHandle)}
+                  onSelected={files =>
+                    upload(files, currentFolder, masterHandle)
+                  }
                 />
                 <FolderModal
                   isOpen={!!showCreateFolder}
                   close={() => setShowCreateFolder(false)}
-                  createFolder={name => createFolder(masterHandle, "/", name)}
+                  createFolder={name =>
+                    createFolder(masterHandle, currentFolder, name)
+                  }
                 />
               </ButtonWrapper>
               <Table>
@@ -447,6 +461,21 @@ const FileManagerSlide = ({
                   </Tr>
                 </thead>
                 <tbody>
+                  {folders.map(({ name, location }) => (
+                    <TrPointer
+                      key={location}
+                      onClick={() =>
+                        history.push(`/file-manager${currentFolder}${name}`)
+                      }
+                    >
+                      <Td>TODO</Td>
+                      <Td>{name}</Td>
+                      <Td />
+                      <Td />
+                      <Td />
+                      <Td />
+                    </TrPointer>
+                  ))}
                   {orderedFiles.map(({ name, handle, size, created }, i) => (
                     <Tr key={handle ? handle : i}>
                       <Td>{iconType(name)}</Td>
@@ -482,7 +511,7 @@ const FileManagerSlide = ({
                             removeFileByHandle({
                               name,
                               handle,
-                              folder: "/",
+                              folder: currentFolder,
                               masterHandle
                             })
                           }
@@ -502,7 +531,7 @@ const FileManagerSlide = ({
                 </NoFiles>
               )}
               <UploadMobileButton
-                onSelected={files => upload(files, "/", masterHandle)}
+                onSelected={files => upload(files, currentFolder, masterHandle)}
               />
             </TableContainer>
           </Contents>
@@ -527,4 +556,4 @@ const FileManagerSlide = ({
 export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver()
-}))(FileManagerSlide);
+}))(withRouter(FileManagerSlide));

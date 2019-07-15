@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { AUTHENTICATION_STATUSES } from "../../config";
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
   authenticationStatus: state.authentication.status
 });
 
@@ -20,9 +20,9 @@ const AuthenticatedRoute = ({
   return (
     <Route
       path={path}
-      render={() =>
+      render={props =>
         isLoggedIn ? (
-          <ProtectedComponent />
+          <ProtectedComponent {...props} />
         ) : (
           <Redirect to={{ pathname: "/login" }} />
         )

@@ -14,7 +14,7 @@ const fileGenerator = ({ name, versions }) =>
     size
   }));
 
-const folderGenerator = ({ name }) => ({ name });
+const folderGenerator = ({ name, location }) => ({ name, location });
 
 const finderReducer = (state = initState, action) => {
   switch (action.type) {

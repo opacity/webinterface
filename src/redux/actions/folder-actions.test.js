@@ -19,11 +19,14 @@ test("createFolder", () => {
 
 test("createFolderSuccess", () => {
   const masterHandle = "foobar";
+  const folder = "/";
   const expected = {
     type: actions.CREATE_FOLDER_SUCCESS,
-    payload: { masterHandle }
+    payload: { masterHandle, folder }
   };
-  expect(actions.createFolderSuccess({ masterHandle })).toEqual(expected);
+  expect(actions.createFolderSuccess({ masterHandle, folder })).toEqual(
+    expected
+  );
 });
 
 test("createFolderFailure", () => {

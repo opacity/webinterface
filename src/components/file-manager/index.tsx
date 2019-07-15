@@ -7,11 +7,13 @@ import uploadActions from "../../redux/actions/upload-actions";
 import finderActions from "../../redux/actions/finder-actions";
 import downloadActions from "../../redux/actions/download-actions";
 import removeActions from "../../redux/actions/remove-actions";
-import foldersActions from "../../redux/actions/folders-actions";
+import folderActions from "../../redux/actions/folder-actions";
 
 import FileManagerSlide from "./file-manager-slide";
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
+  currentFolder: props.match.params[0] ? `/${props.match.params[0]}` : "/",
+  blah: props.match,
   files: state.finder.files,
   folders: state.finder.folders,
   masterHandle: state.authentication.masterHandle,
@@ -32,10 +34,11 @@ const mapDispatchToProps = dispatch => ({
   getFileList: (folder, masterHandle) =>
     dispatch(finderActions.getFileList({ folder, masterHandle })),
   createFolder: (masterHandle, folder, name) =>
-    dispatch(foldersActions.createFolder({ masterHandle, folder, name }))
+    dispatch(folderActions.createFolder({ masterHandle, folder, name }))
 });
 
 const FileManager = ({
+  currentFolder,
   upload,
   files,
   folders,
@@ -47,10 +50,13 @@ const FileManager = ({
   storageUsed,
   storageLimit,
   expirationDate,
+  blah,
   createFolder
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
+      blah={blah}
+      currentFolder={currentFolder}
       files={files}
       folders={folders}
       getFileList={getFileList}

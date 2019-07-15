@@ -11,9 +11,9 @@ const ACTIONS = Object.freeze({
     type: CREATE_FOLDER,
     payload: { masterHandle, folder, name }
   }),
-  createFolderSuccess: ({ masterHandle }) => ({
+  createFolderSuccess: ({ masterHandle, folder }) => ({
     type: CREATE_FOLDER_SUCCESS,
-    payload: { masterHandle }
+    payload: { masterHandle, folder }
   }),
   createFolderFailure: ({ error }) => ({
     type: CREATE_FOLDER_FAILURE,

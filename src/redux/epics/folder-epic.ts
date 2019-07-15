@@ -3,11 +3,11 @@ import { ofType, combineEpics } from "redux-observable";
 import { mergeMap, catchError, map } from "rxjs/operators";
 import { toast } from "react-toastify";
 
-import foldersActions from "../actions/folders-actions";
+import folderActions from "../actions/folder-actions";
 
 const createFolderEpic = (action$, state$, dependencies$) =>
   action$.pipe(
-    ofType(foldersActions.CREATE_FOLDER),
+    ofType(folderActions.CREATE_FOLDER),
     mergeMap(({ payload }) => {
       const { name, folder, masterHandle } = payload;
 
@@ -20,9 +20,9 @@ const createFolderEpic = (action$, state$, dependencies$) =>
             toastId: name
           });
 
-          return foldersActions.createFolderSuccess({ masterHandle });
+          return folderActions.createFolderSuccess({ masterHandle });
         }),
-        catchError(error => of(foldersActions.createFolderFailure({ error })))
+        catchError(error => of(folderActions.createFolderFailure({ error })))
       );
     })
   );
