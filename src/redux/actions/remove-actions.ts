@@ -9,17 +9,17 @@ const ACTIONS = Object.freeze({
   REMOVE_SUCCESS,
   REMOVE_ERROR,
 
-  removeFileByHandle: ({ name, handle, masterHandle }) => ({
+  removeFileByHandle: ({ name, handle, folder, masterHandle }) => ({
     type: REMOVE_FILE_BY_HANDLE,
-    payload: { name, handle, masterHandle }
+    payload: { name, handle, folder, masterHandle }
   }),
-  removeFileByName: ({ name, handle, masterHandle }) => ({
+  removeFileByName: ({ name, handle, folder, masterHandle }) => ({
     type: REMOVE_FILE_BY_NAME,
     payload: { name, handle, masterHandle }
   }),
-  removeSuccess: ({ masterHandle }) => ({
+  removeSuccess: ({ masterHandle, folder }) => ({
     type: REMOVE_SUCCESS,
-    payload: { masterHandle }
+    payload: { masterHandle, folder }
   }),
   removeError: ({ error }) => ({
     type: REMOVE_ERROR,

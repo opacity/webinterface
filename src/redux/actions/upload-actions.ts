@@ -17,9 +17,9 @@ const ACTIONS = Object.freeze({
     type: UPLOAD_FILE,
     payload: { file, folder, masterHandle }
   }),
-  uploadSuccess: ({ masterHandle }) => ({
+  uploadSuccess: ({ masterHandle, folder }) => ({
     type: UPLOAD_SUCCESS,
-    payload: { masterHandle }
+    payload: { masterHandle, folder }
   }),
   uploadError: ({ handle, filename, error }) => ({
     type: UPLOAD_ERROR,

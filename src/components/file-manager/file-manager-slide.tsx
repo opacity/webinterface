@@ -29,7 +29,7 @@ const ICON_REMOVE = require("../../assets/images/remove.svg");
 const ICON_SHARE = require("../../assets/images/share.svg");
 
 const fileTarget = {
-  drop (props, monitor) {
+  drop: (props, monitor) => {
     const { upload, masterHandle } = props;
     let { files } = monitor.getItem();
     const filesLength = files.length;
@@ -362,11 +362,14 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(() => {
-    const defaultOrder = "created";
-    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-    setParam(defaultOrder);
-  }, [files]);
+  useEffect(
+    () => {
+      const defaultOrder = "created";
+      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+      setParam(defaultOrder);
+    },
+    [files]
+  );
 
   useEffect(() => {
     getFileList("/", masterHandle);
@@ -474,7 +477,13 @@ const FileManagerSlide = ({
                           onClick={() =>
                             confirm(
                               "Do you really want to delete this file?"
-                            ) && removeFileByHandle(name, handle, masterHandle)
+                            ) &&
+                            removeFileByHandle({
+                              name,
+                              handle,
+                              folder: "/",
+                              masterHandle
+                            })
                           }
                         >
                           <TableIcon data-tip="Delete file" src={ICON_REMOVE} />

@@ -24,8 +24,10 @@ const mapDispatchToProps = dispatch => ({
   upload: ({ files, folder, masterHandle }) =>
     dispatch(uploadActions.uploadFiles({ files, folder, masterHandle })),
   download: handle => dispatch(downloadActions.downloadFile({ handle })),
-  removeFileByHandle: (name, handle, masterHandle) =>
-    dispatch(removeActions.removeFileByHandle({ name, handle, masterHandle })),
+  removeFileByHandle: ({ name, handle, folder, masterHandle }) =>
+    dispatch(
+      removeActions.removeFileByHandle({ name, handle, folder, masterHandle })
+    ),
   getFileList: (folder, masterHandle) =>
     dispatch(filesActions.getFileList({ folder, masterHandle })),
   createFolder: (masterHandle, folder, name) =>

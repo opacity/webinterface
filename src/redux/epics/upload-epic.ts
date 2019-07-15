@@ -53,7 +53,8 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
 
           o.next(
             uploadActions.uploadSuccess({
-              masterHandle
+              masterHandle,
+              folder
             })
           );
           o.complete();
