@@ -11,17 +11,20 @@ import folderActions from "../../redux/actions/folder-actions";
 
 import FileManagerSlide from "./file-manager-slide";
 
-const mapStateToProps = (state, props) => ({
-  currentFolder: props.match.params[0] ? `/${props.match.params[0]}` : "/",
-  blah: props.match,
-  files: state.finder.files,
-  folders: state.finder.folders,
-  masterHandle: state.authentication.masterHandle,
-  metadata: state.authentication.metadata,
-  storageUsed: state.authentication.storageUsed,
-  storageLimit: state.authentication.storageLimit,
-  expirationDate: state.authentication.expirationDate
-});
+const mapStateToProps = (state, props) => {
+  const folderName = props.match.params.folderName;
+  return {
+    currentFolder: folderName ? `/${folderName}` : "/",
+    blah: props.match,
+    files: state.finder.files,
+    folders: state.finder.folders,
+    masterHandle: state.authentication.masterHandle,
+    metadata: state.authentication.metadata,
+    storageUsed: state.authentication.storageUsed,
+    storageLimit: state.authentication.storageLimit,
+    expirationDate: state.authentication.expirationDate
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   upload: ({ files, folder, masterHandle }) =>
