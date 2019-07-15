@@ -15,7 +15,6 @@ const mapStateToProps = (state, props) => {
   const folderName = props.match.params.folderName;
   return {
     currentFolder: folderName ? `/${folderName}` : "/",
-    blah: props.match,
     files: state.finder.files,
     folders: state.finder.folders,
     masterHandle: state.authentication.masterHandle,
@@ -53,12 +52,10 @@ const FileManager = ({
   storageUsed,
   storageLimit,
   expirationDate,
-  blah,
   createFolder
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
-      blah={blah}
       currentFolder={currentFolder}
       files={files}
       folders={folders}
