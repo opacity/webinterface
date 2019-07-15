@@ -1,4 +1,4 @@
-import actions from "./folders-actions";
+import actions from "./folder-actions";
 
 test("createFolder", () => {
   const name = "foobar";
