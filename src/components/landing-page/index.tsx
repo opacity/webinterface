@@ -5,7 +5,7 @@ import LandingPageSlide from "./landing-page-slide";
 
 import { AUTHENTICATION_STATUSES } from "../../config";
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   authenticationStatus: state.authentication.status
 });
 
