@@ -13,7 +13,6 @@ import FileManagerSlide from "./file-manager-slide";
 
 const mapStateToProps = state => ({
   files: state.files.list,
-  folders: state.files.folders,
   masterHandle: state.authentication.masterHandle,
   metadata: state.authentication.metadata,
   storageUsed: state.authentication.storageUsed,
@@ -30,9 +29,7 @@ const mapDispatchToProps = dispatch => ({
   getFileList: (folder, masterHandle) =>
     dispatch(filesActions.getFileList({ folder, masterHandle })),
   createFolder: (masterHandle, folder, name) =>
-    dispatch(foldersActions.createFolder({ masterHandle, folder, name })),
-  removeFolder: (masterHandle, folder, name) =>
-    dispatch(foldersActions.removeFolder({ masterHandle, folder, name }))
+    dispatch(foldersActions.createFolder({ masterHandle, folder, name }))
 });
 
 const FileManager = ({
@@ -46,14 +43,11 @@ const FileManager = ({
   storageUsed,
   storageLimit,
   expirationDate,
-  createFolder,
-  removeFolder,
-  folders
+  createFolder
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
       files={files}
-      folders={folders}
       getFileList={getFileList}
       upload={upload}
       download={download}
@@ -64,7 +58,6 @@ const FileManager = ({
       storageLimit={storageLimit}
       expirationDate={expirationDate}
       createFolder={createFolder}
-      removeFolder={removeFolder}
     />
   </DragDropContextProvider>
 );

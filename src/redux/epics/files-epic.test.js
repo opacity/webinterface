@@ -8,9 +8,8 @@ import filesEpic from "./files-epic";
 
 test("getFileListEpic filesActions.GET_FILE_LIST", done => {
   const files = ["foo", "bar"];
-  const folders = ["foo", "bar"];
   const masterHandle = {
-    getFolderMeta: jest.fn(() => Promise.resolve({ files, folders })),
+    getFolderMeta: jest.fn(() => Promise.resolve({ files })),
     getAccountInfo: jest.fn(() =>
       Promise.resolve({
         storageUsed: 123,
@@ -24,16 +23,15 @@ test("getFileListEpic filesActions.GET_FILE_LIST", done => {
   const dependencies$ = {};
 
   filesEpic(action$, state$, dependencies$).subscribe(actions => {
-    expect(actions).toEqual(filesActions.setList({ list: files, folders }));
+    expect(actions).toEqual(filesActions.setList({ list: files }));
     done();
   });
 });
 
 test("getFileListEpic uploadActions.UPLOAD_SUCCESS", done => {
   const files = ["foo", "bar"];
-  const folders = ["foo", "bar"];
   const masterHandle = {
-    getFolderMeta: jest.fn(() => Promise.resolve({ files, folders })),
+    getFolderMeta: jest.fn(() => Promise.resolve({ files })),
     getAccountInfo: jest.fn(() =>
       Promise.resolve({
         storageUsed: 123,
@@ -47,16 +45,15 @@ test("getFileListEpic uploadActions.UPLOAD_SUCCESS", done => {
   const dependencies$ = {};
 
   filesEpic(action$, state$, dependencies$).subscribe(actions => {
-    expect(actions).toEqual(filesActions.setList({ list: files, folders }));
+    expect(actions).toEqual(filesActions.setList({ list: files }));
     done();
   });
 });
 
 test("getFileListEpic removeActions.REMOVE_SUCCESS", done => {
   const files = ["foo", "bar"];
-  const folders = ["foo", "bar"];
   const masterHandle = {
-    getFolderMeta: jest.fn(() => Promise.resolve({ files, folders })),
+    getFolderMeta: jest.fn(() => Promise.resolve({ files })),
     getAccountInfo: jest.fn(() =>
       Promise.resolve({
         storageUsed: 123,
@@ -70,7 +67,7 @@ test("getFileListEpic removeActions.REMOVE_SUCCESS", done => {
   const dependencies$ = {};
 
   filesEpic(action$, state$, dependencies$).subscribe(actions => {
-    expect(actions).toEqual(filesActions.setList({ list: files, folders }));
+    expect(actions).toEqual(filesActions.setList({ list: files }));
     done();
   });
 });
@@ -92,7 +89,7 @@ test("getFileListEpic - on failure", done => {
   const dependencies$ = {};
 
   filesEpic(action$, state$, dependencies$).subscribe(actions => {
-    expect(actions).toEqual(filesActions.setList({ list: [], folders: [] }));
+    expect(actions).toEqual(filesActions.setList({ list: [] }));
     done();
   });
 });

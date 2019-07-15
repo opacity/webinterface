@@ -15,13 +15,11 @@ const getFileListEpic = (action$, state$, dependencies$) =>
       removeActions.REMOVE_SUCCESS
     ),
     switchMap(({ payload }) => {
-      const { masterHandle } = payload;
+      const { masterHandle, folder } = payload;
 
-      return from(masterHandle.getFolderMeta("/")).pipe(
-        map((data: any) =>
-          filesActions.setList({ list: data.files, folders: data.folders })
-        ),
-        catchError(() => of(filesActions.setList({ list: [], folders: [] })))
+      return from(masterHandle.getFolderMeta(folder)).pipe(
+        map((data: any) => filesActions.setList({ list: data.files })),
+        catchError(() => of(filesActions.setList({ list: [] })))
       );
     })
   );
