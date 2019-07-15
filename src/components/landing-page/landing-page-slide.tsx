@@ -9,7 +9,6 @@ import {
   LANDING_PAGE_VIDEO,
   theme
 } from "../../config";
-import Subscriptions from "../shared/subscriptions";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
 import VideoPlayer from "../shared/video-player";
@@ -27,7 +26,6 @@ const ICON_FLO = require("../../assets/images/FLO.png");
 const ICON_QLC = require("../../assets/images/QLC.png");
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
 const ICON_MERCATOX = require("../../assets/images/mercatox.png");
-const BACKGROUND_BUBBLES = require("../../assets/images/bubbles.svg");
 const VIDEO_POSTER = require("../../assets/images/video-poster.png");
 
 const ContainerWrapper = styled.div`
@@ -38,18 +36,6 @@ const Container = styled.div`
   max-width: 950px;
   margin: auto;
   background-color: ${props => props.theme.background};
-`;
-
-const SubscriptionContainerImage = styled.div`
-  background-image: url(${BACKGROUND_BUBBLES});
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: top center;
-`;
-
-const SubscriptionContainer = styled(Container)`
-  padding: 60px 0 60px 0;
-  background-color: transparent;
 `;
 
 const HeaderContainer = styled.div`
@@ -239,12 +225,6 @@ const HeaderTitle = styled.h2`
   letter-spacing: 0.7px;
   color: #4f5e78;
   text-align: center;
-`;
-
-const SubscriptionTitle = styled(HeaderTitle)`
-  color: ${props => props.theme.title.color};
-  text-align: center;
-  font-weight: bold;
 `;
 
 const InfoTitle = styled(HeaderTitle)`
@@ -450,12 +430,6 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
           </Column>
         </BenefitSubContainer>
       </Container>
-      <SubscriptionContainerImage>
-        <SubscriptionContainer>
-          <SubscriptionTitle>Our Plans</SubscriptionTitle>
-          <Subscriptions />
-        </SubscriptionContainer>
-      </SubscriptionContainerImage>
       <Container id="Partners">
         <InfoHeaderTitle>Our Partners</InfoHeaderTitle>
         <PartnerSubContainer>
