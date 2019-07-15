@@ -1,11 +1,11 @@
-import filesReducer from "./files-reducer";
-import filesActions from "../actions/files-actions";
+import finderReducer from "./finder-reducer";
+import finderActions from "../actions/finder-actions";
 
 const initState = { list: [] };
 
-test("files-reducer SET_LIST", () => {
+test("finder-reducer SET_LIST", () => {
   const action = {
-    type: filesActions.SET_LIST,
+    type: finderActions.SET_LIST,
     payload: {
       list: [
         {
@@ -43,5 +43,5 @@ test("files-reducer SET_LIST", () => {
       }
     ]
   };
-  expect(filesReducer(initState, action)).toEqual(expected);
+  expect(finderReducer(initState, action)).toEqual(expected);
 });

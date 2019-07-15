@@ -1,5 +1,5 @@
 import { chain } from "lodash";
-import filesActions from "../actions/files-actions";
+import finderActions from "../actions/finder-actions";
 
 const initState = {
   list: []
@@ -13,9 +13,9 @@ const fileGenerator = ({ name, versions }) =>
     size
   }));
 
-const filesReducer = (state = initState, action) => {
+const finderReducer = (state = initState, action) => {
   switch (action.type) {
-    case filesActions.SET_LIST:
+    case finderActions.SET_LIST:
       const { list } = action.payload;
       const flatFiles = chain(list)
         .map(fileGenerator)
@@ -32,4 +32,4 @@ const filesReducer = (state = initState, action) => {
   }
 };
 
-export default filesReducer;
+export default finderReducer;

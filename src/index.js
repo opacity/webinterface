@@ -60,6 +60,10 @@ const App = () => (
             <Route path="/team-page" component={TeamPage} />
             <Route path="/share" component={SharePage} />
             <AuthenticatedRoute path="/file-manager" component={FileManager} />
+            <AuthenticatedRoute
+              path="/file-manager/:folderName"
+              component={FileManager}
+            />
 
             <Route
               path="/terms-of-service"

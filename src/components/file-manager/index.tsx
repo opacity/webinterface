@@ -4,7 +4,7 @@ import { DragDropContextProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 
 import uploadActions from "../../redux/actions/upload-actions";
-import filesActions from "../../redux/actions/files-actions";
+import finderActions from "../../redux/actions/finder-actions";
 import downloadActions from "../../redux/actions/download-actions";
 import removeActions from "../../redux/actions/remove-actions";
 import foldersActions from "../../redux/actions/folders-actions";
@@ -12,7 +12,7 @@ import foldersActions from "../../redux/actions/folders-actions";
 import FileManagerSlide from "./file-manager-slide";
 
 const mapStateToProps = state => ({
-  files: state.files.list,
+  files: state.finder.list,
   masterHandle: state.authentication.masterHandle,
   metadata: state.authentication.metadata,
   storageUsed: state.authentication.storageUsed,
@@ -29,7 +29,7 @@ const mapDispatchToProps = dispatch => ({
       removeActions.removeFileByHandle({ name, handle, folder, masterHandle })
     ),
   getFileList: (folder, masterHandle) =>
-    dispatch(filesActions.getFileList({ folder, masterHandle })),
+    dispatch(finderActions.getFileList({ folder, masterHandle })),
   createFolder: (masterHandle, folder, name) =>
     dispatch(foldersActions.createFolder({ masterHandle, folder, name }))
 });
