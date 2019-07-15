@@ -284,6 +284,24 @@ const ArrowDown = styled(Arrow)`
   border-top: 5px solid #687892;
 `;
 
+const FolderButton = styled.button`
+  width: 120px;
+  height: 40px;
+  background-color: ${props => props.theme.button.background};
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.button.color};
+  text-align: center;
+  margin: 0 10px;
+  border: none;
+  cursor: pointer;
+  }
+`;
+
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
 
@@ -388,6 +406,11 @@ const FileManagerSlide = ({
                 </UsageWrapper>
               </TitleWrapper>
               <ButtonWrapper>
+                <FolderButton
+                  onClick={() => setShowCreateFolder(!showCreateFolder)}
+                >
+                  Create folder
+                </FolderButton>
                 <UploadButton
                   onSelected={files => upload(files, "/", masterHandle)}
                 />
