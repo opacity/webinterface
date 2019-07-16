@@ -5,7 +5,6 @@ import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
 import { ToastContainer } from "react-toastify";
 import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import moment from "moment";
 
@@ -20,6 +19,7 @@ import {
 import { formatBytes, formatGbs } from "../../helpers";
 
 import Header from "../shared/header";
+import Breadcrumbs from "./breadcrumbs";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
@@ -110,13 +110,17 @@ const TitleWrapper = styled.div`
   align-items: flex-end;
 `;
 
-const ButtonWrapper = styled.div`
+const TopActionsWrapper = styled.div`
   margin: 20px 0 20px 0;
   text-align: right;
+  display: flex;
+  justify-content: space-between;
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
   }
 `;
+
+const ButtonWrapper = styled.div``;
 
 const TableIcon = styled.img`
   height: 20px;
@@ -309,16 +313,6 @@ const FolderButton = styled.button`
   }
 `;
 
-const Breadcrumbs = styled.div`
-  display: inline;
-  float: left;
-  margin: 15px 0px 0px 66px;
-`;
-
-const Bread = styled(Link)`
-  text-decoration: none;
-`;
-
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
 
@@ -382,15 +376,21 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(() => {
-    const defaultOrder = "created";
-    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-    setParam(defaultOrder);
-  }, [files]);
+  useEffect(
+    () => {
+      const defaultOrder = "created";
+      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+      setParam(defaultOrder);
+    },
+    [files]
+  );
 
-  useEffect(() => {
-    getFileList(currentFolder, masterHandle);
-  }, [currentFolder]);
+  useEffect(
+    () => {
+      getFileList(currentFolder, masterHandle);
+    },
+    [currentFolder]
+  );
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -421,38 +421,28 @@ const FileManagerSlide = ({
                   </UsageInfo>
                 </UsageWrapper>
               </TitleWrapper>
-              <ButtonWrapper>
-                {currentFolder !== "/" && (
-                  <Breadcrumbs>
-                    {currentFolder
-                      .split("/")
-                      .map(i =>
-                        i === "" ? (
-                          <Bread to="/file-manager">Home</Bread>
-                        ) : (
-                          <Bread to={`/file-manager/${i}`}>{` > ${i}`}</Bread>
-                        )
-                      )}
-                  </Breadcrumbs>
-                )}
-                <FolderButton
-                  onClick={() => setShowCreateFolder(!showCreateFolder)}
-                >
-                  Create folder
-                </FolderButton>
-                <UploadButton
-                  onSelected={files =>
-                    upload(files, currentFolder, masterHandle)
-                  }
-                />
-                <FolderModal
-                  isOpen={!!showCreateFolder}
-                  close={() => setShowCreateFolder(false)}
-                  createFolder={name =>
-                    createFolder(masterHandle, currentFolder, name)
-                  }
-                />
-              </ButtonWrapper>
+              <TopActionsWrapper>
+                <Breadcrumbs folder={currentFolder} />
+                <ButtonWrapper>
+                  <FolderButton
+                    onClick={() => setShowCreateFolder(!showCreateFolder)}
+                  >
+                    Create folder
+                  </FolderButton>
+                  <UploadButton
+                    onSelected={files =>
+                      upload(files, currentFolder, masterHandle)
+                    }
+                  />
+                  <FolderModal
+                    isOpen={!!showCreateFolder}
+                    close={() => setShowCreateFolder(false)}
+                    createFolder={name =>
+                      createFolder(masterHandle, currentFolder, name)
+                    }
+                  />
+                </ButtonWrapper>
+              </TopActionsWrapper>
               <Table>
                 <thead>
                   <Tr>
@@ -484,7 +474,11 @@ const FileManagerSlide = ({
                     <TrPointer
                       key={location}
                       onClick={() =>
-                        history.push(`/file-manager${currentFolder}${name}`)
+                        history.push(
+                          `/file-manager${
+                            currentFolder === "/" ? "" : currentFolder
+                          }/${name}`
+                        )
                       }
                     >
                       <Td>
