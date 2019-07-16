@@ -20,6 +20,14 @@ const FolderLink = styled(Link)`
 const FolderTitle = styled.span`
   font-size: 22px;
   margin: 0 3px;
+  color: #1B2733;
+`;
+
+const Separator = styled(FaAngleRight).attrs({
+  size: "15px"
+})`
+  margin: 0 3px;
+  color: #687892;
 `;
 
 const Breadcrumbs = ({ folder }) => {
@@ -42,7 +50,7 @@ const Breadcrumbs = ({ folder }) => {
         ) : (
           <React.Fragment>
             <FolderLink to="/file-manager">Opacity</FolderLink>
-            <FaAngleRight size="15px" />
+            <Separator />
           </React.Fragment>
         )}
         {subpaths.map(
@@ -52,7 +60,7 @@ const Breadcrumbs = ({ folder }) => {
             ) : (
               <React.Fragment>
                 <FolderLink to={path}>{text}</FolderLink>
-                <FaAngleRight size="15px" />
+                <Separator />
               </React.Fragment>
             )
         )}
