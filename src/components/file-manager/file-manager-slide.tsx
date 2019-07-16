@@ -5,6 +5,7 @@ import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
 import { ToastContainer } from "react-toastify";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import moment from "moment";
 
@@ -28,6 +29,7 @@ import UploadMobileButton from "./upload-mobile-button";
 const ICON_DOWNLOAD = require("../../assets/images/download.svg");
 const ICON_REMOVE = require("../../assets/images/remove.svg");
 const ICON_SHARE = require("../../assets/images/share.svg");
+const ICON_FOLDER = require("../../assets/images/folder.svg");
 
 const fileTarget = {
   drop: (props, monitor) => {
@@ -307,6 +309,16 @@ const FolderButton = styled.button`
   }
 `;
 
+const Breadcrumbs = styled.div`
+  display: inline;
+  float: left;
+  margin: 15px 0px 0px 66px;
+`;
+
+const Bread = styled(Link)`
+  text-decoration: none;
+`;
+
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
 
@@ -370,21 +382,15 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(
-    () => {
-      const defaultOrder = "created";
-      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-      setParam(defaultOrder);
-    },
-    [files]
-  );
+  useEffect(() => {
+    const defaultOrder = "created";
+    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+    setParam(defaultOrder);
+  }, [files]);
 
-  useEffect(
-    () => {
-      getFileList(currentFolder, masterHandle);
-    },
-    [currentFolder]
-  );
+  useEffect(() => {
+    getFileList(currentFolder, masterHandle);
+  }, [currentFolder]);
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -416,6 +422,19 @@ const FileManagerSlide = ({
                 </UsageWrapper>
               </TitleWrapper>
               <ButtonWrapper>
+                {currentFolder !== "/" && (
+                  <Breadcrumbs>
+                    {currentFolder
+                      .split("/")
+                      .map(i =>
+                        i === "" ? (
+                          <Bread to="/file-manager">Home</Bread>
+                        ) : (
+                          <Bread to={`/file-manager/${i}`}>{` > ${i}`}</Bread>
+                        )
+                      )}
+                  </Breadcrumbs>
+                )}
                 <FolderButton
                   onClick={() => setShowCreateFolder(!showCreateFolder)}
                 >
@@ -468,7 +487,9 @@ const FileManagerSlide = ({
                         history.push(`/file-manager${currentFolder}${name}`)
                       }
                     >
-                      <Td>TODO</Td>
+                      <Td>
+                        <TableIcon src={ICON_FOLDER} />
+                      </Td>
                       <Td>{name}</Td>
                       <Td />
                       <Td />

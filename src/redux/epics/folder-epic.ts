@@ -20,7 +20,7 @@ const createFolderEpic = (action$, state$, dependencies$) =>
             toastId: name
           });
 
-          return folderActions.createFolderSuccess({ masterHandle });
+          return folderActions.createFolderSuccess({ masterHandle, folder });
         }),
         catchError(error => of(folderActions.createFolderFailure({ error })))
       );
