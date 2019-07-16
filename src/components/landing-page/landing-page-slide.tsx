@@ -22,6 +22,7 @@ const ICON_INFO_OPACITY = require("../../assets/images/info_opacity.svg");
 const ICON_INFO_BENEFIT = require("../../assets/images/info_benefit.svg");
 const ICON_INFO_PERSONAL = require("../../assets/images/info_personal.svg");
 const ICON_INFO_CRYPTOCURRENCY = require("../../assets/images/info_cryptocurrency.svg");
+const ICON_BOMB = require("../../assets/images/Atom-The-Bomb.png");
 const ICON_FLO = require("../../assets/images/FLO.png");
 const ICON_QLC = require("../../assets/images/QLC.png");
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
@@ -433,6 +434,18 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
       <Container id="Partners">
         <InfoHeaderTitle>Our Partners</InfoHeaderTitle>
         <PartnerSubContainer>
+        <Column>
+          <Wrapper>
+            <PartnerIcon src={ICON_BOMB} />
+          </Wrapper>
+          <ButtonWrapper>
+            <ButtonVisit
+              onClick={() => window.open("https://bombtoken.com/", "_blank")}
+            >
+              Visit BOMB
+            </ButtonVisit>
+          </ButtonWrapper>
+        </Column>
           <Column>
             <Wrapper>
               <PartnerIcon src={ICON_FLO} />
