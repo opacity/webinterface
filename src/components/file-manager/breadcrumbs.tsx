@@ -1,20 +1,24 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Link } from "react-router-dom";
-import { capitalize } from "lodash";
+import { FaAngleRight } from "react-icons/fa";
 
 import { theme } from "../../config";
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const FolderLink = styled(Link)`
   text-decoration: none;
-  font-size: 20px;
+  font-size: 22px;
   margin: 0 3px;
+  color: ${props => props.theme.link.color};
 `;
 
 const FolderTitle = styled.span`
-  font-size: 20px;
+  font-size: 22px;
   margin: 0 3px;
 `;
 
@@ -27,7 +31,7 @@ const Breadcrumbs = ({ folder }) => {
       "/file-manager/" +
       (parentFolders.length > 0 ? parentFolders.join("/") + "/" : "");
 
-    return { text: capitalize(l), path: parentPaths + l };
+    return { text: l, path: parentPaths + l };
   });
 
   return (
@@ -38,7 +42,7 @@ const Breadcrumbs = ({ folder }) => {
         ) : (
           <React.Fragment>
             <FolderLink to="/file-manager">Opacity</FolderLink>
-            <FolderTitle>></FolderTitle>
+            <FaAngleRight size="15px" />
           </React.Fragment>
         )}
         {subpaths.map(
@@ -48,7 +52,7 @@ const Breadcrumbs = ({ folder }) => {
             ) : (
               <React.Fragment>
                 <FolderLink to={path}>{text}</FolderLink>
-                <FolderTitle>></FolderTitle>
+                <FaAngleRight size="15px" />
               </React.Fragment>
             )
         )}
