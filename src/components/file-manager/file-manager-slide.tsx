@@ -587,7 +587,9 @@ const FileManagerSlide = ({
                   </NoFilesContainer>
                 )}
               <UploadMobileButton
-                onSelected={files => upload(files, currentFolder, masterHandle)}
+                onSelected={files =>
+                  upload({ files, folder: currentFolder, masterHandle })
+                }
               />
             </TableContainer>
           </Contents>
