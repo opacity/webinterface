@@ -503,13 +503,18 @@ const FileManagerSlide = ({
                       <Td />
                       <Td>
                         <ActionButton
-                          onClick={() =>
+                          onClick={e => {
+                            e.stopPropagation();
                             confirm(
                               "Do you really want to delete this folder?"
-                            ) && removeFolder(name, currentFolder, masterHandle)
-                          }
+                            ) &&
+                              removeFolder(name, currentFolder, masterHandle);
+                          }}
                         >
-                          <TableIcon data-tip="Delete file" src={ICON_REMOVE} />
+                          <TableIcon
+                            data-tip="Delete folder"
+                            src={ICON_REMOVE}
+                          />
                         </ActionButton>
                       </Td>
                     </TrPointer>
