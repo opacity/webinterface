@@ -13,6 +13,7 @@ const getFileListEpic = (action$, state$, dependencies$) =>
     ofType(
       finderActions.GET_FILE_LIST,
       folderActions.CREATE_FOLDER_SUCCESS,
+      folderActions.REMOVE_FOLDER_SUCCESS,
       uploadActions.UPLOAD_SUCCESS,
       removeActions.REMOVE_SUCCESS
     ),
