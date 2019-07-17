@@ -17,6 +17,7 @@ const mapStateToProps = (state, props) => {
     currentFolder: folderName ? `/${folderName}` : "/",
     files: state.finder.files,
     folders: state.finder.folders,
+    isLoading: state.finder.isLoading,
     masterHandle: state.authentication.masterHandle,
     metadata: state.authentication.metadata,
     storageUsed: state.authentication.storageUsed,
@@ -43,6 +44,7 @@ const mapDispatchToProps = dispatch => ({
 
 const FileManager = ({
   currentFolder,
+  isLoading,
   upload,
   files,
   folders,
@@ -60,6 +62,7 @@ const FileManager = ({
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
       currentFolder={currentFolder}
+      isLoading={isLoading}
       files={files}
       folders={folders}
       getFileList={getFileList}
