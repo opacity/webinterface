@@ -241,6 +241,8 @@ const StorageTitle = styled.p`
   color: #687892;
 `;
 
+const NoFilesContainer = styled.div``;
+
 const NoFiles = styled.p`
   font-size: 16px;
   font-weight: normal;
@@ -251,6 +253,16 @@ const NoFiles = styled.p`
   text-align: center;
   margin-top: 30px;
   opacity: 0.8;
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    display: none;
+  }
+`;
+
+const NoFilesMobile = styled(NoFiles)`
+  display: none;
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    display: block;
+  }
 `;
 
 const StorageProgressWrapper = styled.div`
@@ -377,21 +389,15 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(
-    () => {
-      const defaultOrder = "created";
-      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-      setParam(defaultOrder);
-    },
-    [files]
-  );
+  useEffect(() => {
+    const defaultOrder = "created";
+    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+    setParam(defaultOrder);
+  }, [files]);
 
-  useEffect(
-    () => {
-      getFileList(currentFolder, masterHandle);
-    },
-    [currentFolder]
-  );
+  useEffect(() => {
+    getFileList(currentFolder, masterHandle);
+  }, [currentFolder]);
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -551,10 +557,16 @@ const FileManagerSlide = ({
                 </tbody>
               </Table>
               {!orderedFiles.length && (
-                <NoFiles>
-                  Your File Dashboard is empty. You can upload files by clicking
-                  the Upload button on the top right.
-                </NoFiles>
+                <NoFilesContainer>
+                  <NoFiles>
+                    Your File Dashboard is empty. You can upload files by
+                    clicking the Upload button on the top right.
+                  </NoFiles>
+                  <NoFilesMobile>
+                    Your File Dashboard is empty. You can upload files by
+                    clicking the Upload button on the bottom right.
+                  </NoFilesMobile>
+                </NoFilesContainer>
               )}
               <UploadMobileButton
                 onSelected={files => upload(files, currentFolder, masterHandle)}
