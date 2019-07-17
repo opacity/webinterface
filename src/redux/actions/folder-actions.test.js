@@ -37,3 +37,41 @@ test("createFolderFailure", () => {
   };
   expect(actions.createFolderFailure({ error })).toEqual(expected);
 });
+
+test("removeFolder", () => {
+  const name = "foobar";
+  const masterHandle = "foobar";
+  const folder = "foobar";
+  const expected = {
+    type: actions.REMOVE_FOLDER,
+    payload: {
+      name,
+      masterHandle,
+      folder
+    }
+  };
+  expect(actions.removeFolder({ masterHandle, folder, name })).toEqual(
+    expected
+  );
+});
+
+test("removeFolderSuccess", () => {
+  const masterHandle = "foobar";
+  const folder = "foobar";
+  const expected = {
+    type: actions.REMOVE_FOLDER_SUCCESS,
+    payload: { masterHandle, folder }
+  };
+  expect(actions.removeFolderSuccess({ masterHandle, folder })).toEqual(
+    expected
+  );
+});
+
+test("removeFolderFailure", () => {
+  const error = "foobar";
+  const expected = {
+    type: actions.REMOVE_FOLDER_FAILURE,
+    payload: { error }
+  };
+  expect(actions.removeFolderFailure({ error })).toEqual(expected);
+});

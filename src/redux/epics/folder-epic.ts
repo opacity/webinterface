@@ -27,4 +27,26 @@ const createFolderEpic = (action$, state$, dependencies$) =>
     })
   );
 
-export default combineEpics(createFolderEpic);
+const removeFolderEpic = (action$, state$, dependencies$) =>
+  action$.pipe(
+    ofType(folderActions.REMOVE_FOLDER),
+    mergeMap(({ payload }) => {
+      const { name, folder, masterHandle } = payload;
+
+      return from(masterHandle.deleteFolder(folder, name)).pipe(
+        map(() => {
+          toast(`Folder ${name} was successfully deleted.`, {
+            autoClose: 3000,
+            hideProgressBar: true,
+            position: toast.POSITION.BOTTOM_RIGHT,
+            toastId: name
+          });
+
+          return folderActions.removeFolderSuccess({ masterHandle, folder });
+        }),
+        catchError(error => of(folderActions.removeFolderFailure({ error })))
+      );
+    })
+  );
+
+export default combineEpics(createFolderEpic, removeFolderEpic);

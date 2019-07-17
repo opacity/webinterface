@@ -22,3 +22,23 @@ test("createFolderEpic on success", done => {
     done();
   });
 });
+
+test("removeFolderEpic on success", done => {
+  const name = "name";
+  const folder = "/";
+
+  const masterHandle = {
+    deleteFolder: jest.fn(() => Promise.resolve())
+  };
+
+  const action$ = of(
+    folderActions.removeFolder({ masterHandle, folder, name })
+  );
+
+  folderEpic(action$).subscribe(actions => {
+    expect(actions).toEqual(
+      folderActions.removeFolderSuccess({ masterHandle, folder })
+    );
+    done();
+  });
+});

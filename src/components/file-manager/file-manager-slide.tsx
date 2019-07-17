@@ -353,7 +353,8 @@ const FileManagerSlide = ({
   expirationDate,
   connectDropTarget,
   isOver,
-  createFolder
+  createFolder,
+  removeFolder
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [param, setParam] = useState("");
@@ -488,7 +489,17 @@ const FileManagerSlide = ({
                       <Td />
                       <Td />
                       <Td />
-                      <Td />
+                      <Td>
+                        <ActionButton
+                          onClick={() =>
+                            confirm(
+                              "Do you really want to delete this folder?"
+                            ) && removeFolder(name, currentFolder, masterHandle)
+                          }
+                        >
+                          <TableIcon data-tip="Delete file" src={ICON_REMOVE} />
+                        </ActionButton>
+                      </Td>
                     </TrPointer>
                   ))}
                   {orderedFiles.map(({ name, handle, size, created }, i) => (
