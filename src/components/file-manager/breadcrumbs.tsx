@@ -56,9 +56,9 @@ const Breadcrumbs = ({ folder }) => {
         {subpaths.map(
           ({ text, path }, i) =>
             i === subpaths.length - 1 ? (
-              <FolderTitle>{text}</FolderTitle>
+              <FolderTitle key={i}>{text}</FolderTitle>
             ) : (
-              <React.Fragment>
+              <React.Fragment key={i}>
                 <FolderLink to={path}>{text}</FolderLink>
                 <Separator />
               </React.Fragment>
