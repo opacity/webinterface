@@ -1,7 +1,7 @@
 import finderReducer from "./finder-reducer";
 import finderActions from "../actions/finder-actions";
 
-const initState = { files: [], folders: [] };
+const initState = { files: [], folders: [], isLoading: false };
 
 test("finder-reducer SET_LIST", () => {
   const action = {
@@ -34,8 +34,15 @@ test("finder-reducer SET_LIST", () => {
       ]
     }
   };
+  const modifiedState = {
+    ...initState,
+    folders: [],
+    files: [],
+    isLoading: true
+  };
   const expected = {
     ...initState,
+    isLoading: false,
     folders: [
       {
         name: "folder1"
@@ -59,5 +66,25 @@ test("finder-reducer SET_LIST", () => {
       }
     ]
   };
-  expect(finderReducer(initState, action)).toEqual(expected);
+  expect(finderReducer(modifiedState, action)).toEqual(expected);
+});
+
+test("finder-reducer GET_FILE_LIST", () => {
+  const action = {
+    type: finderActions.GET_FILE_LIST
+  };
+
+  const modifiedState = {
+    ...initState,
+    isLoading: false,
+    folders: ["folder1"],
+    files: ["file1"]
+  };
+  const expected = {
+    ...initState,
+    isLoading: true,
+    folders: [],
+    files: []
+  };
+  expect(finderReducer(modifiedState, action)).toEqual(expected);
 });
