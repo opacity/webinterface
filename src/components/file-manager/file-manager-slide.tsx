@@ -389,15 +389,21 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(() => {
-    const defaultOrder = "created";
-    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-    setParam(defaultOrder);
-  }, [files]);
+  useEffect(
+    () => {
+      const defaultOrder = "created";
+      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+      setParam(defaultOrder);
+    },
+    [files]
+  );
 
-  useEffect(() => {
-    getFileList(currentFolder, masterHandle);
-  }, [currentFolder]);
+  useEffect(
+    () => {
+      getFileList(currentFolder, masterHandle);
+    },
+    [currentFolder]
+  );
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -438,7 +444,7 @@ const FileManagerSlide = ({
                   </FolderButton>
                   <UploadButton
                     onSelected={files =>
-                      upload(files, currentFolder, masterHandle)
+                      upload({ files, masterHandle, folder: currentFolder })
                     }
                   />
                   <FolderModal
