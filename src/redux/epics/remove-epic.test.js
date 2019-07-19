@@ -22,7 +22,7 @@ test("removeFileByHandleEpic on success", done => {
 
   removeEpic(action$).subscribe(actions => {
     expect(actions).toEqual(
-      removeActions.removeSuccess({ masterHandle, folder })
+      removeActions.removeFileSuccess({ masterHandle, folder })
     );
     done();
   });
@@ -42,7 +42,7 @@ test("removeFileByHandleEpic on failure", done => {
   );
 
   removeEpic(action$).subscribe(actions => {
-    expect(actions).toEqual(removeActions.removeError({ error }));
+    expect(actions).toEqual(removeActions.removeFileError({ error }));
     done();
   });
 });

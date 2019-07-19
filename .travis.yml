@@ -9,11 +9,11 @@ branches:
   only:
     - master
 cache: npm
-
+services:
+  - xvfb
 before_install:
   - npm i -g npm@6.4.1
 before_script:
-  - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter # Set up Code Climate
   - chmod +x ./cc-test-reporter

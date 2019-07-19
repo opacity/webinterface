@@ -42,22 +42,22 @@ test("removeSuccess", () => {
   const masterHandle = "mh1";
   const folder = "/";
   const expected = {
-    type: actions.REMOVE_SUCCESS,
+    type: actions.REMOVE_FILE_SUCCESS,
     payload: {
       masterHandle,
       folder
     }
   };
-  expect(actions.removeSuccess({ masterHandle, folder })).toEqual(expected);
+  expect(actions.removeFileSuccess({ masterHandle, folder })).toEqual(expected);
 });
 
 test("removeError", () => {
   const error = "e1";
   const expected = {
-    type: actions.REMOVE_ERROR,
+    type: actions.REMOVE_FILE_ERROR,
     payload: {
       error
     }
   };
-  expect(actions.removeError({ error })).toEqual(expected);
+  expect(actions.removeFileError({ error })).toEqual(expected);
 });
