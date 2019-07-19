@@ -124,16 +124,26 @@ const ButtonItem = styled(Button)`
   }
 `;
 
-const ButtonBuy = styled(Button)`
+const PartnerLink = styled.a.attrs({
+  target: "_blank"
+})`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: #2e6dde;
+  border: 1px solid white;
+  color: ${props => props.theme.button.color};
+  cursor: pointer;
+  font-size: 16px;
+  font-stretch: ${props => props.theme.fontStretch};
+  font-style: ${props => props.theme.fontStyle};
+  font-weight: bold;
+  height: 40px;
+  letter-spacing: ${props => props.theme.letterSpacing};
+  line-height: ${props => props.theme.lineHeight};
+  margin-bottom: 10px;
   margin-top: 40px;
-  width: 200px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    width: 250px;
-  }
-`;
-
-const ButtonVisit = styled(Button)`
-  margin-top: 40px;
+  text-decoration: none;
   width: 200px;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: 250px;
@@ -162,6 +172,8 @@ const ButtonWrapper = styled.div`
   @media (max-width: ${MOBILE_WIDTH}px) {
     text-align: center;
     margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
   }
 `;
 
@@ -434,28 +446,22 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
       <Container id="Partners">
         <InfoHeaderTitle>Our Partners</InfoHeaderTitle>
         <PartnerSubContainer>
-        <Column>
-          <Wrapper>
-            <PartnerIcon src={ICON_BOMB} />
-          </Wrapper>
-          <ButtonWrapper>
-            <ButtonVisit
-              onClick={() => window.open("https://bombtoken.com/", "_blank")}
-            >
-              Visit BOMB
-            </ButtonVisit>
-          </ButtonWrapper>
-        </Column>
+          <Column>
+            <Wrapper>
+              <PartnerIcon src={ICON_BOMB} />
+            </Wrapper>
+            <ButtonWrapper>
+              <PartnerLink href={"https://bombtoken.com/"}>
+                Visit BOMB
+              </PartnerLink>
+            </ButtonWrapper>
+          </Column>
           <Column>
             <Wrapper>
               <PartnerIcon src={ICON_FLO} />
             </Wrapper>
             <ButtonWrapper>
-              <ButtonVisit
-                onClick={() => window.open("https://flo.cash/", "_blank")}
-              >
-                Visit FLO
-              </ButtonVisit>
+              <PartnerLink href={"https://flo.cash/"}>Visit FLO</PartnerLink>
             </ButtonWrapper>
           </Column>
           <Column>
@@ -463,11 +469,9 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
               <PartnerIcon src={ICON_QLC} />
             </Wrapper>
             <ButtonWrapper>
-              <ButtonVisit
-                onClick={() => window.open("https://qlcchain.org/", "_blank")}
-              >
+              <PartnerLink href={"https://qlcchain.org/"}>
                 Visit QLC
-              </ButtonVisit>
+              </PartnerLink>
             </ButtonWrapper>
           </Column>
         </PartnerSubContainer>
@@ -561,13 +565,9 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
               <BuyIcon src={ICON_KUCOIN} />
             </Wrapper>
             <ButtonWrapper>
-              <ButtonBuy
-                onClick={() =>
-                  window.open("https://www.kucoin.com/trade/OPQ-BTC", "_blank")
-                }
-              >
+              <PartnerLink href={"https://www.kucoin.com/trade/OPQ-BTC"}>
                 Buy OPQ on KuCoin
-              </ButtonBuy>
+              </PartnerLink>
             </ButtonWrapper>
           </Column>
           <Column>
@@ -575,13 +575,9 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
               <BuyIcon src={ICON_MERCATOX} />
             </Wrapper>
             <ButtonWrapper>
-              <ButtonBuy
-                onClick={() =>
-                  window.open("https://mercatox.com/exchange/OPQ/BTC", "_blank")
-                }
-              >
+              <PartnerLink href={"https://mercatox.com/exchange/OPQ/BTC"}>
                 Buy OPQ on Mercatox
-              </ButtonBuy>
+              </PartnerLink>
             </ButtonWrapper>
           </Column>
         </BuySubContainer>
