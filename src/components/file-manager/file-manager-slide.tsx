@@ -403,10 +403,10 @@ const FileManagerSlide = ({
   useEffect(
     () => {
       const defaultOrder = "created";
-      const prepareFolders = folders.map(folder => ({
+      const prepareFolders = folders.map((folder, i) => ({
         name: folder.name,
         type: "directory",
-        location: folder.location,
+        location: `${folder.location}-${i}`,
         handle: "",
         size: "",
         created: ""
@@ -434,7 +434,6 @@ const FileManagerSlide = ({
     [currentFolder]
   );
 
-  console.log("xxxxxxxxxxxxxxx: ", ordered);
   return (
     <DroppableZone ref={connectDropTarget}>
       <ThemeProvider theme={theme}>
