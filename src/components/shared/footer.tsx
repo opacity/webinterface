@@ -119,7 +119,6 @@ const Footer = ({ history }) => (
   <ThemeProvider theme={theme}>
     <Wrapper>
       <Container>
-
       <BuySubContainer>
       <Column>
         <FooterHeader> Opacity </FooterHeader>
@@ -129,20 +128,24 @@ const Footer = ({ history }) => (
         <CopyrightMobile>Opacity © 2019</CopyrightMobile>
         <CopyrightMobile><div>support@opacity.io</div></CopyrightMobile>
       </Column>
-
       <Column>
       <FooterHeader> Company </FooterHeader>
-      <LinkTerms onClick={() => history.push("/terms-of-service")}>
-        <div> Terms of Service </div>
-      </LinkTerms>
-      <LinkTerms onClick={() => history.push("/privacy-policy")}>
-        <div> Privacy Policy </div>
-      </LinkTerms>
-      <LinkTerms onClick={() => history.push("/code-review-license")}>
-        <div> Open Source </div>
-      </LinkTerms>
+      <div>
+      <Link onClick={() => history.push("/terms-of-service")}>
+      Terms of Service
+      </Link>
+      </div>
+      <div>
+      <Link onClick={() => history.push("/privacy-policy")}>
+      Privacy Policy
+      </Link>
+      </div>
+      <div>
+      <Link onClick={() => history.push("/code-review-license")}>
+      Open Source
+      </Link>
+      </div>
       </Column>
-
           <Column>
           <FooterHeader> Social </FooterHeader>
           <div>
@@ -179,23 +182,25 @@ const Footer = ({ history }) => (
           </Link>
           </div>
           </Column>
-
           <Column>
           <FooterHeader> Learn </FooterHeader>
+          <div>
+            <Link href="https://medium.com/opacity-storage/new-to-opq-heres-how-to-get-it-8285819698e" target="_blank">
+              How to get OPQ <IconArrow src={ICON_ARROW_RIGHT} />
+            </Link>
+          </div>
           <div>
             <Link href="https://www.youtube.com/watch?v=J-o6pW8uUtg" target="_blank">
               What is OPQ? <IconArrow src={ICON_ARROW_RIGHT} />
             </Link>
           </div>
           <div>
-            <Link href="https://medium.com/opacity-storage/new-to-opq-heres-how-to-get-it-8285819698e" target="_blank">
-              How to get OPQ <IconArrow src={ICON_ARROW_RIGHT} />
-            </Link>
+          <Link href="https://opacity.io/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8" target="_blank">
+            White Paper <IconArrow src={ICON_ARROW_RIGHT} />
+          </Link>
           </div>
           </Column>
-
 </BuySubContainer>
-
       </Container>
     </Wrapper>
   </ThemeProvider>
