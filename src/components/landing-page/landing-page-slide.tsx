@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 
 import {
   HEADER_TYPES,
@@ -86,7 +87,7 @@ const Item = styled.div`
   padding-top: 15px;
 `;
 
-const Button = styled.button`
+const InternalLink = styled(Link)`
   width: 120px;
   height: 40px;
   font-size: 16px;
@@ -97,28 +98,48 @@ const Button = styled.button`
   letter-spacing: ${props => props.theme.letterSpacing};
   color: ${props => props.theme.button.color};
   background-color: #2e6dde;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   border: 1px solid white;
   cursor: pointer;
   margin-bottom: 10px;
 `;
 
-const ButtonHeader = styled(Button)`
+const ButtonHeader = styled(InternalLink)`
   width: 200px;
   height: 50px;
   background-color: white;
   color: #2e6dde;
 `;
 
-const ButtonHeaderSecondary = styled(ButtonHeader)`
-  color: ${props => props.theme.button.color};
-  background-color: #2e6dde;
-  border: 1px solid white;
+const ButtonItem = styled(InternalLink)`
   @media (max-width: ${MOBILE_WIDTH}px) {
-    margin-top: 30px;
+    width: 250px;
   }
 `;
 
-const ButtonItem = styled(Button)`
+const ButtonItemExternal = styled.a.attrs({
+  target: "_blank"
+})`
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.button.color};
+  background-color: #2e6dde;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: 1px solid white;
+  cursor: pointer;
+  margin-bottom: 10px;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: 250px;
   }
@@ -150,21 +171,32 @@ const PartnerLink = styled.a.attrs({
   }
 `;
 
+const PartnerLinkSecondary = styled(PartnerLink)`
+  color: ${props => props.theme.button.color};
+  background-color: #2e6dde;
+  border: 1px solid white;
+  width: 200px;
+  height: 50px;
+  margin-top: 0;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin-top: 30px;
+    width: 200px;
+  }
+`;
+
 const Wrapper = styled.div`
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const ContentWrapper = styled.div`
   margin: auto;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: 300px;
-  }
-`;
-
-const ItemButtonWrapper = styled.div`
-  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
-    text-align: center;
-    margin-bottom: 40px;
   }
 `;
 
@@ -355,22 +387,14 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
         </ContentWrapper>
         {isLoggedIn ? (
           <Wrapper>
-            <ButtonHeader onClick={() => history.push("/file-manager")}>
-              Dashboard
-            </ButtonHeader>
+            <ButtonHeader to={"/file-manager"}>Dashboard</ButtonHeader>
           </Wrapper>
         ) : (
           <Wrapper>
-            <ButtonHeader onClick={() => history.push("/sign-up")}>
-              Explore Plans
-            </ButtonHeader>
-            <ButtonHeaderSecondary
-              onClick={() =>
-                window.open("https://www.kucoin.com/trade/OPQ-BTC", "_blank")
-              }
-            >
+            <ButtonHeader to={"/sign-up"}>Explore Plans</ButtonHeader>
+            <PartnerLinkSecondary href={"https://www.kucoin.com/trade/OPQ-BTC"}>
               Purchase OPQ
-            </ButtonHeaderSecondary>
+            </PartnerLinkSecondary>
           </Wrapper>
         )}
         <Wrapper>
@@ -492,11 +516,9 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
               zero-knowledge storage solution. Take a peek at the team behind
               the Opacity platform.
             </ItemInfoContent>
-            <ItemButtonWrapper>
-              <ButtonItem onClick={() => history.push("/team-page")}>
-                Learn more
-              </ButtonItem>
-            </ItemButtonWrapper>
+            <Wrapper>
+              <ButtonItem to={"/team-page"}>Learn more</ButtonItem>
+            </Wrapper>
           </Item>
           <Item>
             <ItemIcon src={ICON_INFO_BENEFIT} />
@@ -506,18 +528,11 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
               Learn exactly what zero-knowledge means and how it can be of
               benefit to you.
             </ItemInfoContent>
-            <ItemButtonWrapper>
-              <ButtonItem
-                onClick={() =>
-                  window.open(
-                    "https://www.cloudwards.net/what-exactly-is-zero-knowledge-in-the-cloud-and-how-does-it-work",
-                    "_blank"
-                  )
-                }
-              >
+            <Wrapper>
+              <ButtonItemExternal href="https://www.cloudwards.net/what-exactly-is-zero-knowledge-in-the-cloud-and-how-does-it-work">
                 Learn more
-              </ButtonItem>
-            </ItemButtonWrapper>
+              </ButtonItemExternal>
+            </Wrapper>
           </Item>
         </ItemSubContainer>
         <ItemSubContainer>
@@ -528,11 +543,9 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
               We do things differently than most storage providers. Learn
               exactly what makes us stand out from the competition.
             </ItemInfoContent>
-            <ItemButtonWrapper>
-              <ButtonItem onClick={() => history.push("/stands-out")}>
-                Learn more
-              </ButtonItem>
-            </ItemButtonWrapper>
+            <Wrapper>
+              <ButtonItem to="/stands-out">Learn more</ButtonItem>
+            </Wrapper>
           </Item>
           <Item>
             <ItemIcon src={ICON_INFO_CRYPTOCURRENCY} />
@@ -542,18 +555,11 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
               be. Take a look at this video to learn how you can get started
               with cryptocurrency.
             </ItemInfoContent>
-            <ItemButtonWrapper>
-              <ButtonItem
-                onClick={() =>
-                  window.open(
-                    "https://www.youtube.com/watch?v=6Gu2QMTAkEU",
-                    "_blank"
-                  )
-                }
-              >
+            <Wrapper>
+              <ButtonItemExternal href="https://www.youtube.com/watch?v=6Gu2QMTAkEU">
                 Learn more
-              </ButtonItem>
-            </ItemButtonWrapper>
+              </ButtonItemExternal>
+            </Wrapper>
           </Item>
         </ItemSubContainer>
       </Container>
