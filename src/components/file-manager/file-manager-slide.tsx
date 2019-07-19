@@ -115,12 +115,13 @@ const TopActionsWrapper = styled.div`
   text-align: right;
   display: flex;
   justify-content: space-between;
+`;
+
+const ButtonWrapper = styled.div`
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
   }
 `;
-
-const ButtonWrapper = styled.div``;
 
 const TableIcon = styled.img`
   height: 20px;
@@ -308,7 +309,7 @@ const ArrowDown = styled(Arrow)`
 `;
 
 const FolderButton = styled.button`
-  width: 120px;
+  min-width: 120px
   height: 40px;
   background-color: ${props => props.theme.button.background};
   font-size: 16px;
@@ -462,7 +463,7 @@ const FileManagerSlide = ({
                   <FolderButton
                     onClick={() => setShowCreateFolder(!showCreateFolder)}
                   >
-                    Create folder
+                    New Folder
                   </FolderButton>
                   <UploadButton
                     onSelected={files =>
@@ -600,7 +601,7 @@ const FileManagerSlide = ({
                   </tbody>
                 </Table>
               )}
-              {!isLoading && !files.length && (
+              {!isLoading && !ordered.length && (
                 <NoFilesContainer>
                   <NoFiles>
                     Your folder is empty. You can upload files by clicking the

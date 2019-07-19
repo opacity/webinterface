@@ -15,7 +15,7 @@ const getFileListEpic = (action$, state$, dependencies$) =>
       folderActions.CREATE_FOLDER_SUCCESS,
       folderActions.REMOVE_FOLDER_SUCCESS,
       uploadActions.UPLOAD_SUCCESS,
-      removeActions.REMOVE_SUCCESS
+      removeActions.REMOVE_FILE_SUCCESS
     ),
     switchMap(({ payload }) => {
       const { masterHandle, folder } = payload;

@@ -20,7 +20,7 @@ const StyledModal = Modal.styled`
 `;
 
 const Title = styled.h2`
-  font-size: 20px;
+  font-size: 22px;
   color: ${props => props.theme.title.color};
   text-align: center;
   display: inline;
@@ -29,7 +29,7 @@ const Title = styled.h2`
 const CloseButton = styled.div`
   position: relative;
   left: 427px;
-  top: -74px;
+  top: -8px;
   width: 32px;
   height: 32px;
   opacity: 0.8;
@@ -75,14 +75,18 @@ const SubmitButton = styled.button`
   border: none;
   cursor: pointer;
   margin: auto;
+  margin-top: 20px;
 `;
 
 const Input = styled.input`
   margin-bottom: 10px;
   color: black;
-  width: 100%;
-  height: 40px;
+  height: 35px;
   border: 0.5px solid;
+  font-size: 16px;
+  width: 80%;
+  margin: auto;
+  padding: 10px;
 `;
 
 const FolderModal = ({ close, isOpen, createFolder }) => {
@@ -96,8 +100,8 @@ const FolderModal = ({ close, isOpen, createFolder }) => {
           onEscapeKeydown={() => close()}
         >
           <Body>
-            <Title>Create sub folder</Title>
             <CloseButton onClick={() => close()} />
+            <Title>Enter Folder Name</Title>
             <Input type="text" ref={folderNameInput} />
             <SubmitButton
               onClick={() =>
@@ -106,7 +110,7 @@ const FolderModal = ({ close, isOpen, createFolder }) => {
                 ]
               }
             >
-              Create
+              Add Folder
             </SubmitButton>
           </Body>
         </StyledModal>

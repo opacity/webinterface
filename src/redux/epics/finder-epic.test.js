@@ -76,7 +76,7 @@ test("getFileListEpic removeActions.REMOVE_SUCCESS", done => {
       })
     )
   };
-  const action$ = of(removeActions.removeSuccess({ masterHandle }));
+  const action$ = of(removeActions.removeFileSuccess({ masterHandle }));
   const state$ = null;
   const dependencies$ = {};
 
