@@ -29,6 +29,7 @@ const ICON_QLC = require("../../assets/images/QLC.png");
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
 const ICON_MERCATOX = require("../../assets/images/mercatox.png");
 const VIDEO_POSTER = require("../../assets/images/video-poster.png");
+const ICON_ROADMAP = require("../../assets/images/Roadmap.png");
 
 const ContainerWrapper = styled.div`
   width: 100%;
@@ -72,6 +73,10 @@ const BenefitSubContainer = styled(SubContainer)`
 `;
 
 const BuySubContainer = styled(SubContainer)`
+  justify-content: space-around;
+`;
+
+const RoadmapSubContainer = styled(SubContainer)`
   justify-content: space-around;
 `;
 
@@ -218,6 +223,12 @@ const BenefitIcon = styled.img`
 `;
 
 const ItemIcon = styled.img`
+  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
+    width: 100%;
+  }
+`;
+
+const RoadmapIcon = styled.img`
   @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
     width: 100%;
   }
@@ -500,6 +511,13 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
           </Column>
         </PartnerSubContainer>
       </Container>
+
+      <Container>
+      <RoadmapSubContainer>
+      <RoadmapIcon src={ICON_ROADMAP} />
+      </RoadmapSubContainer>
+      </Container>
+
       <Container>
         <InfoHeaderTitle>More Info? No Problem.</InfoHeaderTitle>
         <InfoHeaderContent>
