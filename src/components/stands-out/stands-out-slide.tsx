@@ -427,7 +427,13 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
               we want to go in the future? Check out the Opacity Whitepaper!
               Current version: 1.0
             </InfoContent>
-            <StandsOutButton>Coming soon</StandsOutButton>
+            <StandsOutButton
+           onClick={() =>
+             window.open("https://opacity.io/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8", "_blank")
+           }
+         >
+         Download Whitepaper
+       </StandsOutButton>
           </Column>
         </InfoSubContainer>
       </Container>
