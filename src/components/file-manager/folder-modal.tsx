@@ -102,7 +102,7 @@ const FolderModal = ({ close, isOpen, createFolder }) => {
           <Body>
             <CloseButton onClick={() => close()} />
             <Title>Enter Folder Name</Title>
-            <Input type="text" ref={folderNameInput} />
+            <Input autoFocus={true} type="text" ref={folderNameInput} />
             <SubmitButton
               onClick={() =>
                 folderNameInput.current.value.length && [
