@@ -429,7 +429,7 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
             </InfoContent>
             <StandsOutButton
            onClick={() =>
-             window.open("https://opacity.io/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8", "_blank")
+             window.open("https://beta.opacity.io/https://opacity.io/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8", "_blank")
            }
          >
          Download Whitepaper
@@ -439,16 +439,11 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
       </Container>
       <Community>
         <CommunityTitle>
-          Are you ready to join our thriving community?
+          Are you ready to experience truly private cloud storage and file sharing?
         </CommunityTitle>
-        <TelegramLinkContainer>
-          <OutboundLink href="https://t.me/opacitystorage">
-            Join us on Telegram
-          </OutboundLink>
-        </TelegramLinkContainer>
         <CommunityLinkWrapper>
-          <CommunityLink to="/sign-up">Sign up</CommunityLink>
-          <CommunityLinkSecondary to="/login">Login</CommunityLinkSecondary>
+          <CommunityLink to="/sign-up">Explore Plans</CommunityLink>
+          <CommunityLinkSecondary to="/login">Login Now</CommunityLinkSecondary>
         </CommunityLinkWrapper>
       </Community>
       <Footer />
