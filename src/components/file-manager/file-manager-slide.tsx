@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget } from "react-dnd";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { withRouter } from "react-router";
 import styled, { ThemeProvider } from "styled-components";
 import moment from "moment";
@@ -343,12 +343,8 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   );
 };
 
-interface Ordered {
+interface Folder {
   name: string;
-  handle: string;
-  created: string;
-  size: number;
-  type: string;
   location: string;
 }
 
@@ -379,14 +375,16 @@ const FileManagerSlide = ({
   createFolder,
   removeFolder
 }) => {
-  const [ordered, setOrdered] = useState<Ordered[]>([]);
+  const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
+  const [orderedFolders, setOrderedFolders] = useState<Folder[]>([]);
   const [param, setParam] = useState("");
   const [sharedFile, setSharedFile] = useState<File | null>(null);
   const [showCreateFolder, setShowCreateFolder] = useState(false);
 
   const sortBy = (param, order) => {
     setParam(param);
-    setOrdered(_.orderBy(ordered, param, order));
+    setOrderedFiles(_.orderBy(orderedFiles, param, order));
+    setOrderedFolders(_.orderBy(orderedFolders, param, order));
   };
 
   const iconType = name => {
@@ -400,39 +398,28 @@ const FileManagerSlide = ({
     );
   };
 
-  useEffect(
-    () => {
-      const defaultOrder = "created";
-      const prepareFolders = folders.map((folder, i) => ({
-        name: folder.name,
-        type: "directory",
-        location: `${folder.location}-${i}`,
-        handle: "",
-        size: "",
-        created: ""
-      }));
-      const prepareFiles = files.map(file => ({
-        name: file.name,
-        type: "file",
-        location: "",
-        handle: file.handle,
-        size: file.size,
-        created: file.created
-      }));
-      setOrdered(
-        _.orderBy([...prepareFolders, ...prepareFiles], defaultOrder, "desc")
-      );
-      setParam(defaultOrder);
-    },
-    [files, folders]
-  );
+  const prepareCreateFolder = (masterHandle, currentFolder, name) => {
+    const isExist = folders.find(i => i.name === name);
+    !isExist
+      ? createFolder(masterHandle, currentFolder, name)
+      : toast(`Folder ${name} is found. `, {
+        autoClose: 3000,
+        hideProgressBar: true,
+        position: toast.POSITION.BOTTOM_RIGHT,
+        toastId: name
+      });
+  };
 
-  useEffect(
-    () => {
-      getFileList(currentFolder, masterHandle);
-    },
-    [currentFolder]
-  );
+  useEffect(() => {
+    const defaultOrder = "created";
+    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+    setOrderedFolders(_.orderBy(folders, defaultOrder, "desc"));
+    setParam(defaultOrder);
+  }, [files, folders]);
+
+  useEffect(() => {
+    getFileList(currentFolder, masterHandle);
+  }, [currentFolder]);
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -480,7 +467,7 @@ const FileManagerSlide = ({
                     isOpen={!!showCreateFolder}
                     close={() => setShowCreateFolder(false)}
                     createFolder={name =>
-                      createFolder(masterHandle, currentFolder, name)
+                      prepareCreateFolder(masterHandle, currentFolder, name)
                     }
                   />
                 </ButtonWrapper>
@@ -513,113 +500,107 @@ const FileManagerSlide = ({
                     </Tr>
                   </thead>
                   <tbody>
-                    {ordered.map(
-                      ({ name, type, location, handle, size, created }, i) =>
-                        type === "directory" ? (
-                          <TrPointer
-                            key={location}
+                    {orderedFolders.map(({ name, location }, i) => (
+                      <TrPointer
+                        key={location}
+                        onClick={() =>
+                          history.push(
+                            `/file-manager${
+                              currentFolder === "/" ? "" : currentFolder
+                            }/${name}`
+                          )
+                        }
+                      >
+                        <Td>
+                          <TableIcon src={ICON_FOLDER} />
+                        </Td>
+                        <Td>{name}</Td>
+                        <Td />
+                        <Td />
+                        <Td />
+                        <Td>
+                          <ActionButton
+                            onClick={e => {
+                              e.stopPropagation();
+                              confirm(
+                                "Do you really want to delete this folder?"
+                              ) &&
+                                removeFolder(name, currentFolder, masterHandle);
+                            }}
+                          >
+                            <TableIcon
+                              data-tip="Delete folder"
+                              src={ICON_REMOVE}
+                            />
+                          </ActionButton>
+                          <ReactTooltip effect="solid" />
+                        </Td>
+                      </TrPointer>
+                    ))}
+                    {orderedFiles.map(({ name, handle, size, created }, i) => (
+                      <Tr key={handle ? handle : i}>
+                        <Td>{iconType(name)}</Td>
+                        <Td>{name}</Td>
+                        <Td>{_.truncate(handle, { length: 30 })}</Td>
+                        <Td>{moment(created).format("MM/DD/YYYY")}</Td>
+                        <Td>{formatBytes(size)}</Td>
+                        <Td>
+                          <ActionButton
+                            data-tip="Share file"
                             onClick={() =>
-                              history.push(
-                                `/file-manager${
-                                  currentFolder === "/" ? "" : currentFolder
-                                }/${name}`
-                              )
+                              setSharedFile({
+                                name,
+                                handle,
+                                created,
+                                size: size
+                              })
                             }
                           >
-                            <Td>
-                              <TableIcon src={ICON_FOLDER} />
-                            </Td>
-                            <Td>{name}</Td>
-                            <Td />
-                            <Td />
-                            <Td />
-                            <Td>
-                              <ActionButton
-                                onClick={e => {
-                                  e.stopPropagation();
-                                  confirm(
-                                    "Do you really want to delete this folder?"
-                                  ) &&
-                                    removeFolder(
-                                      name,
-                                      currentFolder,
-                                      masterHandle
-                                    );
-                                }}
-                              >
-                                <TableIcon
-                                  data-tip="Delete folder"
-                                  src={ICON_REMOVE}
-                                />
-                              </ActionButton>
-                            </Td>
-                          </TrPointer>
-                        ) : (
-                          <Tr key={handle ? handle : i}>
-                            <Td>{iconType(name)}</Td>
-                            <Td>{name}</Td>
-                            <Td>{_.truncate(handle, { length: 30 })}</Td>
-                            <Td>{moment(created).format("MM/DD/YYYY")}</Td>
-                            <Td>{formatBytes(size)}</Td>
-                            <Td>
-                              <ActionButton
-                                data-tip="Share file"
-                                onClick={() =>
-                                  setSharedFile({
-                                    name,
-                                    handle,
-                                    created,
-                                    size: size
-                                  })
-                                }
-                              >
-                                <TableIcon src={ICON_SHARE} />
-                              </ActionButton>
-                              <ActionButton
-                                data-tip="Download file"
-                                onClick={() => download(handle)}
-                              >
-                                <TableIcon src={ICON_DOWNLOAD} />
-                              </ActionButton>
-                              <ActionButton
-                                onClick={() =>
-                                  confirm(
-                                    "Do you really want to delete this file?"
-                                  ) &&
-                                  removeFileByHandle({
-                                    name,
-                                    handle,
-                                    folder: currentFolder,
-                                    masterHandle
-                                  })
-                                }
-                              >
-                                <TableIcon
-                                  data-tip="Delete file"
-                                  src={ICON_REMOVE}
-                                />
-                              </ActionButton>
-                              <ReactTooltip effect="solid" />
-                            </Td>
-                          </Tr>
-                        )
-                    )}
+                            <TableIcon src={ICON_SHARE} />
+                          </ActionButton>
+                          <ActionButton
+                            data-tip="Download file"
+                            onClick={() => download(handle)}
+                          >
+                            <TableIcon src={ICON_DOWNLOAD} />
+                          </ActionButton>
+                          <ActionButton
+                            onClick={() =>
+                              confirm(
+                                "Do you really want to delete this file?"
+                              ) &&
+                              removeFileByHandle({
+                                name,
+                                handle,
+                                folder: currentFolder,
+                                masterHandle
+                              })
+                            }
+                          >
+                            <TableIcon
+                              data-tip="Delete file"
+                              src={ICON_REMOVE}
+                            />
+                          </ActionButton>
+                          <ReactTooltip effect="solid" />
+                        </Td>
+                      </Tr>
+                    ))}
                   </tbody>
                 </Table>
               )}
-              {!isLoading &&
-                !ordered.length && (
-                  <NoFilesContainer>
-                    <NoFiles>
-                      Your folder is empty. You can upload files by clicking the
-                      Upload button on the top right.
-                    </NoFiles>
-                    <NoFilesMobile>
-                      Your folder is empty. You can upload files by clicking the
-                      Upload button on the bottom right.
-                    </NoFilesMobile>
-                  </NoFilesContainer>
-                )}
+              {!isLoading && !folders.length && !files.length && (
+                <NoFilesContainer>
+                  <NoFiles>
+                    Your folder is empty. You can upload files by clicking the
+                    Upload button on the top right.
+                  </NoFiles>
+                  <NoFilesMobile>
+                    Your folder is empty. You can upload files by clicking the
+                    Upload button on the bottom right.
+                  </NoFilesMobile>
+                </NoFilesContainer>
+              )}
               <UploadMobileButton
                 onSelected={files =>
                   upload({ files, folder: currentFolder, masterHandle })

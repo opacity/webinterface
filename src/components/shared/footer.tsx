@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { withRouter } from "react-router";
 
 import { theme, MOBILE_WIDTH } from "../../config";
 
@@ -172,7 +171,7 @@ const CopyrightMobile = styled(Copyright)`
   }
 `;
 
-const Footer = ({ history }) => (
+const Footer = () => (
   <ThemeProvider theme={theme}>
     <Wrapper>
       <Container>
@@ -180,10 +179,10 @@ const Footer = ({ history }) => (
           <Link href="https://opacity.io" target="_blank">
             Opacity Storage <IconArrow src={ICON_ARROW_RIGHT} />
           </Link>
-          <Link onClick={() => history.push("/stands-out")}>
+          <Link href="/stands-out">
             The Platform <IconArrow src={ICON_ARROW_RIGHT} />
           </Link>
-          <Link onClick={() => history.push("/team-page")}>
+          <Link href="/team-page">
             Team <IconArrow src={ICON_ARROW_RIGHT} />
           </Link>
           <Link href="https://medium.com/opacity-storage/" target="_blank">
@@ -223,12 +222,8 @@ const Footer = ({ history }) => (
         </FooterIcons>
         <FooterCopyright>
           <Copyright>Opacity © 2019</Copyright>
-          <LinkTerms onClick={() => history.push("/terms-of-service")}>
-            Terms of Service
-          </LinkTerms>
-          <LinkTerms onClick={() => history.push("/privacy-policy")}>
-            Privacy Policy
-          </LinkTerms>
+          <LinkTerms href="/terms-of-service">Terms of Service</LinkTerms>
+          <LinkTerms href="/privacy-policy">Privacy Policy</LinkTerms>
           <CopyrightMobile>Opacity © 2019</CopyrightMobile>
         </FooterCopyright>
       </Container>
@@ -236,4 +231,4 @@ const Footer = ({ history }) => (
   </ThemeProvider>
 );
 
-export default withRouter(Footer);
+export default Footer;
