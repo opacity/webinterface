@@ -275,7 +275,7 @@ export const PLANS = [
   },
   {
     title: "Enterprise",
-    // NO PERMALINK
+    permalink: "enterprise",
     shadow: SHADOW.RIGHT,
     borderColor: "#8ADB75",
     zIndex: 0,
