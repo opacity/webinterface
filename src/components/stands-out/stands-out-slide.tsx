@@ -13,7 +13,6 @@ import {
 
 import Header from "../shared/header";
 import Footer from "../shared/footer";
-import OutboundLink from "../shared/outbound-link";
 // import InsideLink from "../shared/inside-link";
 import Button from "../shared/generic/button";
 
@@ -57,14 +56,6 @@ const HeaderTitle = styled.h2`
   color: ${props => props.theme.title.color};
   text-align: center;
   margin-bottom: 20px;
-`;
-
-const TelegramLinkContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  margin: 20px 0;
 `;
 
 const TitleFunction = styled(HeaderTitle)`
@@ -429,7 +420,7 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
             </InfoContent>
             <StandsOutButton
            onClick={() =>
-             window.open("https://opacity.io/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8", "_blank")
+             window.open("/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8", "_blank")
            }
          >
          Download Whitepaper
