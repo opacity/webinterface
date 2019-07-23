@@ -7,19 +7,24 @@ import uploadActions from "../../redux/actions/upload-actions";
 import finderActions from "../../redux/actions/finder-actions";
 import downloadActions from "../../redux/actions/download-actions";
 import removeActions from "../../redux/actions/remove-actions";
-import foldersActions from "../../redux/actions/folders-actions";
+import folderActions from "../../redux/actions/folder-actions";
 
 import FileManagerSlide from "./file-manager-slide";
 
-const mapStateToProps = state => ({
-  files: state.finder.files,
-  folders: state.finder.folders,
-  masterHandle: state.authentication.masterHandle,
-  metadata: state.authentication.metadata,
-  storageUsed: state.authentication.storageUsed,
-  storageLimit: state.authentication.storageLimit,
-  expirationDate: state.authentication.expirationDate
-});
+const mapStateToProps = (state, props) => {
+  const folderName = props.match.params.folderName;
+  return {
+    currentFolder: folderName ? `/${folderName}` : "/",
+    files: state.finder.files,
+    folders: state.finder.folders,
+    isLoading: state.finder.isLoading,
+    masterHandle: state.authentication.masterHandle,
+    metadata: state.authentication.metadata,
+    storageUsed: state.authentication.storageUsed,
+    storageLimit: state.authentication.storageLimit,
+    expirationDate: state.authentication.expirationDate
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   upload: ({ files, folder, masterHandle }) =>
@@ -32,10 +37,14 @@ const mapDispatchToProps = dispatch => ({
   getFileList: (folder, masterHandle) =>
     dispatch(finderActions.getFileList({ folder, masterHandle })),
   createFolder: (masterHandle, folder, name) =>
-    dispatch(foldersActions.createFolder({ masterHandle, folder, name }))
+    dispatch(folderActions.createFolder({ masterHandle, folder, name })),
+  removeFolder: (name, folder, masterHandle) =>
+    dispatch(folderActions.removeFolder({ name, folder, masterHandle }))
 });
 
 const FileManager = ({
+  currentFolder,
+  isLoading,
   upload,
   files,
   folders,
@@ -47,10 +56,13 @@ const FileManager = ({
   storageUsed,
   storageLimit,
   expirationDate,
-  createFolder
+  createFolder,
+  removeFolder
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
+      currentFolder={currentFolder}
+      isLoading={isLoading}
       files={files}
       folders={folders}
       getFileList={getFileList}
@@ -63,6 +75,7 @@ const FileManager = ({
       storageLimit={storageLimit}
       expirationDate={expirationDate}
       createFolder={createFolder}
+      removeFolder={removeFolder}
     />
   </DragDropContextProvider>
 );

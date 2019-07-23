@@ -3,7 +3,8 @@ import finderActions from "../actions/finder-actions";
 
 const initState = {
   files: [],
-  folders: []
+  folders: [],
+  isLoading: false
 };
 
 const fileGenerator = ({ name, versions }) =>
@@ -14,10 +15,18 @@ const fileGenerator = ({ name, versions }) =>
     size
   }));
 
-const folderGenerator = ({ name }) => ({ name });
+const folderGenerator = ({ name, location }) => ({ name, location });
 
 const finderReducer = (state = initState, action) => {
   switch (action.type) {
+    case finderActions.GET_FILE_LIST:
+      return {
+        ...state,
+        files: [],
+        folders: [],
+        isLoading: true
+      };
+
     case finderActions.SET_LIST:
       const { files, folders } = action.payload;
       const flatFiles = chain(files)
@@ -28,7 +37,8 @@ const finderReducer = (state = initState, action) => {
       return {
         ...state,
         files: flatFiles,
-        folders: folders.map(folderGenerator)
+        folders: folders.map(folderGenerator),
+        isLoading: false
       };
 
     default:

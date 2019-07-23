@@ -20,9 +20,9 @@ const removeFileByHandleEpic = (action$, state$, dependencies$) =>
             toastId: handle
           });
 
-          return removeActions.removeSuccess({ masterHandle, folder });
+          return removeActions.removeFileSuccess({ masterHandle, folder });
         }),
-        catchError(error => of(removeActions.removeError({ error })))
+        catchError(error => of(removeActions.removeFileError({ error })))
       );
     })
   );

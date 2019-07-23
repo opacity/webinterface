@@ -6,13 +6,16 @@ import finderActions from "../actions/finder-actions";
 import authenticationActions from "../actions/authentication-actions";
 import uploadActions from "../actions/upload-actions";
 import removeActions from "../actions/remove-actions";
+import folderActions from "../actions/folder-actions";
 
 const getFileListEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(
       finderActions.GET_FILE_LIST,
+      folderActions.CREATE_FOLDER_SUCCESS,
+      folderActions.REMOVE_FOLDER_SUCCESS,
       uploadActions.UPLOAD_SUCCESS,
-      removeActions.REMOVE_SUCCESS
+      removeActions.REMOVE_FILE_SUCCESS
     ),
     switchMap(({ payload }) => {
       const { masterHandle, folder } = payload;

@@ -20,9 +20,9 @@ const AuthenticatedRoute = ({
   return (
     <Route
       path={path}
-      render={() =>
+      render={props =>
         isLoggedIn ? (
-          <ProtectedComponent />
+          <ProtectedComponent {...props} />
         ) : (
           <Redirect to={{ pathname: "/login" }} />
         )
