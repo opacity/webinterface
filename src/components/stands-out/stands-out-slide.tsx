@@ -447,16 +447,11 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
       </Container>
       <Community>
         <CommunityTitle>
-          Are you ready to join our thriving community?
+          Are you ready to experience truly private cloud storage and file sharing?
         </CommunityTitle>
-        <TelegramLinkContainer>
-          <OutboundLink href="https://t.me/opacitystorage">
-            Join us on Telegram
-          </OutboundLink>
-        </TelegramLinkContainer>
         <CommunityLinkWrapper>
-          <CommunityLink to="/sign-up">Sign up</CommunityLink>
-          <CommunityLinkSecondary to="/login">Login</CommunityLinkSecondary>
+          <CommunityLink to="/sign-up">Explore Plans</CommunityLink>
+          <CommunityLinkSecondary to="/login">Login Now</CommunityLinkSecondary>
         </CommunityLinkWrapper>
       </Community>
       <Footer />
