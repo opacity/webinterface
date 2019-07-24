@@ -21,6 +21,7 @@ import { formatBytes, formatGbs } from "../../helpers";
 import Header from "../shared/header";
 import Breadcrumbs from "./breadcrumbs";
 import UploadButton from "./upload-button";
+import UploadFolderButton from "./upload-folder-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
 import FolderModal from "./folder-modal";
@@ -484,6 +485,11 @@ const FileManagerSlide = ({
                   >
                     New Folder
                   </FolderButton>
+                  <UploadFolderButton
+                    onSelected={files =>
+                      upload({ files, masterHandle, folder: currentFolder })
+                    }
+                  />
                   <UploadButton
                     onSelected={files =>
                       upload({ files, masterHandle, folder: currentFolder })
