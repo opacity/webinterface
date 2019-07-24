@@ -77,3 +77,18 @@ div.Toastify__toast--error {
   font-family: "proxima-nova", sans-serif;
   color: #687892;
 }
+
+.Toastify__toast-container--bottom-right {
+  height: 370px !important;
+  bottom: -13em !important;
+}
+
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container--bottom-right {
+    bottom: -13em !important;
+  }
+
+  .Toastify__toast {
+    margin-bottom: 1rem !important;
+  }
+}
