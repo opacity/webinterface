@@ -114,7 +114,7 @@ const Main = ({ handle, download }) => {
           {error && (
             <Description>
               It seems the file you are looking for either does not exist or has
-              been removed. Please check your FIle Handle.
+              been removed. Please check your File Handle.
             </Description>
           )}
         </Body>
