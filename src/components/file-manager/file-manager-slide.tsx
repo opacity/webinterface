@@ -30,6 +30,7 @@ const ICON_DOWNLOAD = require("../../assets/images/download.svg");
 const ICON_REMOVE = require("../../assets/images/remove.svg");
 const ICON_SHARE = require("../../assets/images/share.svg");
 const ICON_FOLDER = require("../../assets/images/folder.svg");
+const ICON_FOLDER_ADD = require("../../assets/images/folder_add.svg");
 
 const fileTarget = {
   drop: (props, monitor) => {
@@ -326,6 +327,31 @@ const FolderButton = styled.button`
   }
 `;
 
+const FolderMobileButton = styled.div`
+    display: none;
+    position: fixed;
+    bottom: 50px;
+    right 0;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    background-color: ${props => props.theme.button.background};
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    box-shadow: 0 0.5px 4px 0 rgba(0, 0, 0, 0.2), 0 1.5px 2px 0 rgba(0, 0, 0, 0.12), 0 1.5px 1.5px 0 rgba(0, 0, 0, 0.14);
+    cursor: pointer;
+    z-index: 9990;
+    @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
+      display: block;
+    }
+`;
+
+const FolderMobileButtonIcon = styled.img`
+  height: 20px;
+  width: 20px;
+  margin: 10px 0px 0px 10px;
+`;
+
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
 
@@ -461,13 +487,6 @@ const FileManagerSlide = ({
                   <UploadButton
                     onSelected={files =>
                       upload({ files, masterHandle, folder: currentFolder })
-                    }
-                  />
-                  <FolderModal
-                    isOpen={!!showCreateFolder}
-                    close={() => setShowCreateFolder(false)}
-                    createFolder={name =>
-                      prepareCreateFolder(masterHandle, currentFolder, name)
                     }
                   />
                 </ButtonWrapper>
@@ -606,6 +625,11 @@ const FileManagerSlide = ({
                   upload({ files, folder: currentFolder, masterHandle })
                 }
               />
+              <FolderMobileButton
+                onClick={() => setShowCreateFolder(!showCreateFolder)}
+              >
+                <FolderMobileButtonIcon src={ICON_FOLDER_ADD} />
+              </FolderMobileButton>
             </TableContainer>
           </Contents>
           <ToastContainer
@@ -619,6 +643,13 @@ const FileManagerSlide = ({
             file={sharedFile}
             isOpen={!!sharedFile}
             close={() => setSharedFile(null)}
+          />
+          <FolderModal
+            isOpen={!!showCreateFolder}
+            close={() => setShowCreateFolder(false)}
+            createFolder={name =>
+              prepareCreateFolder(masterHandle, currentFolder, name)
+            }
           />
         </Container>
       </ThemeProvider>
