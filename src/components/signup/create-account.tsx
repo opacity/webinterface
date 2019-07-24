@@ -80,50 +80,41 @@ const CreateAccount = ({
   );
 
   return (
-    <Container>
-      <Header type={HEADER_TYPES.EMPTY} />
-      <ScreenContainer
-        title={
-          plan
-            ? `Register on Opacity: ${plan.title} Plan ${plan.storageLimit}`
-            : "Register on Opacity"
-        }
-      >
-        <Breadcrumbs phase={phase} />
-        {phase === SIGNUP_PHASES.SELECT_PLAN && <SelectPlanSlide />}
-        {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
-          <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
-        )}
-        {phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
-          <RecordAccountHandleSlide
-            handle={privateKey}
-            next={() => pollPayment(waitForPaymentFn)}
-            back={() => showMnemonic()}
-          />
-        )}
-        {phase === SIGNUP_PHASES.SEND_PAYMENT && (
-          <SendPaymentSlide
-            ethCost={plan.ethCost}
-            usdCost={plan.usdCost}
-            storageLimit={plan.storageLimit}
-            invoice={invoice}
-            openMetamask={openMetamask}
-            fiatPaymentError={fiatPaymentError}
-            fiatPaymentStatus={fiatPaymentStatus}
-            payFiat={stripeToken =>
-              payFiat({
-                stripeToken,
-                masterHandle,
-                timestamp: new Date().valueOf()
-              })
-            }
-          />
-        )}
-        {phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
-          <ConfirmPaymentSlide handle={privateKey} />
-        )}
-      </ScreenContainer>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Header type={HEADER_TYPES.EMPTY} />
+        <ScreenContainer
+          title={
+            plan
+              ? `Register on Opacity: ${plan.title} Plan ${plan.storageLimit}`
+              : "Register on Opacity"
+          }
+        >
+          <Breadcrumbs phase={phase} />
+          {phase === SIGNUP_PHASES.SELECT_PLAN && <SelectPlanSlide />}
+          {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
+            <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
+          )}
+          {phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
+            <RecordAccountHandleSlide
+              handle={privateKey}
+              next={() => pollPayment(waitForPaymentFn)}
+              back={() => showMnemonic()}
+            />
+          )}
+          {phase === SIGNUP_PHASES.SEND_PAYMENT && (
+            <SendPaymentSlide
+              cost={plan.ethCost}
+              invoice={invoice}
+              openMetamask={openMetamask}
+            />
+          )}
+          {phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
+            <ConfirmPaymentSlide handle={privateKey} />
+          )}
+        </ScreenContainer>
+      </Container>
+    </ThemeProvider>
   );
 };
 

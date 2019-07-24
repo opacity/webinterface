@@ -101,7 +101,7 @@ const Line = styled.div`
 `;
 
 const Price = styled.p`
-  width: 200px;
+  width: 180px;
   font-size: 27px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
@@ -211,6 +211,20 @@ const PriceSection = styled.div`
   }
 `;
 
+const Strikethrough = styled.span`
+  color: #d7deed;
+  margin-right: 5px;
+  text-decoration: line-through;
+  font-size: 23px;
+`;
+
+const DiscountDisclaimer = styled.p`
+  bottom: 5px;
+  font-size: 12px;
+  left: 15px;
+  position: absolute;
+`;
+
 const Header = styled.div``;
 
 const Footer = styled.div``;
@@ -236,9 +250,9 @@ const Subscriptions = () => (
           </Header>
           <Footer>
             <PriceSection>
-              {plan.cost > 0 && (
+              {plan.ethCost > 0 && (
                 <PaymentOption>
-                  <Price>{plan.cost} OPQ</Price>
+                  <Price>{plan.ethCost} OPQ</Price>
                   <Duration>per year</Duration>
                 </PaymentOption>
               )}
@@ -246,16 +260,23 @@ const Subscriptions = () => (
                 <React.Fragment>
                   <Reminder>&ndash; or &ndash;</Reminder>
                   <PaymentOption>
-                    <Price>${plan.usdCost}</Price>
+                    {plan.discountedUsdCost ? (
+                      <Price>
+                        <Strikethrough>${plan.usdCost}</Strikethrough>
+                        ${plan.discountedUsdCost}
+                      </Price>
+                    ) : (
+                      <Price>${plan.usdCost}</Price>
+                    )}
                     <Duration>per year</Duration>
                   </PaymentOption>
                 </React.Fragment>
               )}
               {plan.usdCost === 0 &&
-                plan.cost === 0 && (
+                plan.ethCost === 0 && (
                   <React.Fragment>
                     <PaymentOption>
-                      <Price>Free</Price>
+                      <Price>{plan.specialPricing}</Price>
                     </PaymentOption>
                   </React.Fragment>
                 )}
@@ -272,6 +293,11 @@ const Subscriptions = () => (
               )}
             </ButtonWrapper>
           </Footer>
+          {plan.discountedUsdCost && (
+            <DiscountDisclaimer>
+              * Early bird sale ends August 31st
+            </DiscountDisclaimer>
+          )}
         </Column>
       ))}
     </Container>
