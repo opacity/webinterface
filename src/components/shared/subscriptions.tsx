@@ -101,7 +101,7 @@ const Line = styled.div`
 `;
 
 const Price = styled.p`
-  width: 180px;
+  width: 186px;
   font-size: 27px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
