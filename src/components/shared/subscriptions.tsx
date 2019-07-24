@@ -236,10 +236,12 @@ const Subscriptions = () => (
           </Header>
           <Footer>
             <PriceSection>
-              <PaymentOption>
-                <Price>{plan.cost} OPQ</Price>
-                <Duration>per year</Duration>
-              </PaymentOption>
+              {plan.cost > 0 && (
+                <PaymentOption>
+                  <Price>{plan.cost} OPQ</Price>
+                  <Duration>per year</Duration>
+                </PaymentOption>
+              )}
               {plan.usdCost > 0 && (
                 <React.Fragment>
                   <Reminder>&ndash; or &ndash;</Reminder>
@@ -249,6 +251,14 @@ const Subscriptions = () => (
                   </PaymentOption>
                 </React.Fragment>
               )}
+              {plan.usdCost === 0 &&
+                plan.cost === 0 && (
+                  <React.Fragment>
+                    <PaymentOption>
+                      <Price>Free</Price>
+                    </PaymentOption>
+                  </React.Fragment>
+                )}
             </PriceSection>
             <ButtonWrapper>
               {plan.isAvailable ? (
