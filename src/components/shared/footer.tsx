@@ -217,7 +217,7 @@ const Footer = () => (
             Blog <IconArrow src={ICON_ARROW_RIGHT} />
           </LinkExternal>
           <LinkExternal
-            href=" https://www.kucoin.com/trade/OPQ-BTC"
+            href="https://www.kucoin.com/trade/OPQ-BTC"
             target="_blank"
           >
             Buy OPQ <IconArrow src={ICON_ARROW_RIGHT} />
