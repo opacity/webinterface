@@ -4,6 +4,11 @@ export const IS_BETA_PROD = process.env.NODE_ENV === "production-beta";
 
 const PROTOCOL = IS_DEV ? "http" : "https";
 
+export const STRIPE_API_KEY =
+  IS_DEV || IS_BETA_DEV
+    ? "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f"
+    : "pk_live_SLMPS7zVFurFwLOKEdiICAGC00kN41fASj";
+
 export const HOST =
   IS_DEV || IS_BETA_DEV
     ? "localhost:3001"
@@ -24,13 +29,7 @@ const DEFAULT_BROKER_IP =
 
 export const API = Object.freeze({
   STORAGE_NODE: `${PROTOCOL}://${DEFAULT_BROKER_IP}:3000`,
-  V2_STATUS_PATH: ":3000/api/v2/status",
-  V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",
-  V1_LOGIN_PATH: ":3000/api/v1/metadata",
-  V1_FILES_PATH: ":3000/api/v1/files",
-  V1_METADATA_PATH: ":3000/api/v1/metadata",
-  GAS_PRICE: "https://api.blockcypher.com/v1/eth/main",
-  CHUNKS_PER_REQUEST: 10
+  V1_SUBSCRIPTIONS_PATH: "/api/v1/stripe/create"
 });
 
 export const OPAQUE = Object.freeze({
@@ -59,9 +58,10 @@ export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
-export const RECAPTCHA_SITEKEY = IS_DEV
-  ? "6LciI6cUAAAAAL03VKUCArV9MFS8zgQn49NHItA8"
-  : "6Le3I6cUAAAAAILR-MfvTFAi258rXVSd10HVXBoI";
+export const RECAPTCHA_SITEKEY =
+  IS_DEV || IS_BETA_DEV
+    ? "6LciI6cUAAAAAL03VKUCArV9MFS8zgQn49NHItA8"
+    : "6Le3I6cUAAAAAILR-MfvTFAi258rXVSd10HVXBoI";
 
 export const LANDING_PAGE_VIDEO =
   "https://s3.us-east-2.amazonaws.com/opacity-public/whatIsOpacity.mov";
@@ -94,6 +94,13 @@ export enum SIGNUP_PHASES {
   RECORD_STORAGE_PIN,
   SEND_PAYMENT,
   CONFIRM_PAYMENT
+}
+
+export enum FIAT_PAYMENT_STATUSES {
+  IDLE = 0,
+  PENDING,
+  SUCCESS,
+  ERROR
 }
 
 export const theme = {
@@ -165,7 +172,8 @@ export const PLANS = [
   {
     title: "Basic",
     permalink: "basic",
-    cost: 2,
+    ethCost: 2,
+    usdCost: 39.99,
     isAvailable: true,
     content:
       "Secure, encrypted storage solution perfect for the needs of the individual",
@@ -188,7 +196,8 @@ export const PLANS = [
   {
     title: "Professional",
     permalink: "professional",
-    cost: 16,
+    ethCost: 16,
+    usdCost: 99.99,
     isAvailable: true,
     content:
       "For professionals looking for a secure, easily accessible storage solution while on the move.",
@@ -211,7 +220,8 @@ export const PLANS = [
   {
     title: "Business",
     permalink: "business",
-    cost: 32,
+    ethCost: 32,
+    usdCost: 199.99,
     isAvailable: false,
     content:
       "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
