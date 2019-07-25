@@ -219,6 +219,7 @@ const Strikethrough = styled.span`
 `;
 
 const DiscountDisclaimer = styled.p`
+  color: #4f5e78;
   bottom: 5px;
   font-size: 12px;
   left: 15px;
