@@ -9,7 +9,9 @@ import CreateAccount from "./create-account";
 import { PLANS, SIGNUP_PHASES } from "../../config";
 
 const mapStateToProps = (state, props) => {
-  const plan = PLANS.find(p => p.permalink === props.match.params.plan);
+  const plan = PLANS.filter(p => p.isAvailable).find(
+    p => p.permalink === props.match.params.plan
+  );
   return {
     plan,
     phase: plan ? state.signup.phase : SIGNUP_PHASES.SELECT_PLAN,

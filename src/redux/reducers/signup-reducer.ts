@@ -3,7 +3,7 @@ import { SIGNUP_PHASES } from "../../config";
 
 const initState = {
   invoice: null, // { cost, ethAddress }
-  phase: SIGNUP_PHASES.RECORD_RECOVERY_PHRASE
+  phase: SIGNUP_PHASES.SELECT_PLAN
 };
 
 const signupReducer = (state = initState, action) => {

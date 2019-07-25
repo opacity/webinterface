@@ -40,14 +40,14 @@ enum TABS {
 }
 
 const SendPaymentSlide = ({
+  ethCost,
+  fiatPaymentError,
+  fiatPaymentStatus,
   invoice,
   openMetamask,
-  ethCost,
-  usdCost,
-  storageLimit,
   payFiat,
-  fiatPaymentStatus,
-  fiatPaymentError
+  storageLimit,
+  usdCost
 }) => {
   const [activeTab, setActiveTab] = useState(TABS.CRYPTO);
 

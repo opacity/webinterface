@@ -104,18 +104,16 @@ const CreateAccount = ({
         {phase === SIGNUP_PHASES.SEND_PAYMENT && (
           <SendPaymentSlide
             ethCost={plan.ethCost}
-            usdCost={plan.usdCost}
-            storageLimit={plan.storageLimit}
-            invoice={invoice}
-            openMetamask={openMetamask}
             fiatPaymentError={fiatPaymentError}
             fiatPaymentStatus={fiatPaymentStatus}
+            invoice={invoice}
+            openMetamask={openMetamask}
             payFiat={stripeToken =>
-              payFiat({
-                stripeToken,
-                masterHandle,
-                timestamp: new Date().valueOf()
-              })
+              payFiat({ masterHandle, stripeToken, timestamp: Date.now() })
+            }
+            storageLimit={plan.storageLimit}
+            usdCost={
+              plan.discountedUsdCost ? plan.discountedUsdCost : plan.usdCost
             }
           />
         )}
