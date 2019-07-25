@@ -57,10 +57,11 @@ const Column = styled.div<IColumnProps>`
   }};
   background-color: #ffffff;
   @media (max-width: ${SUBSCRIPTION_DESKTOP_WIDTH}px) {
-    height: 100%;
-    width: 325px;
-    margin: 20px 0;
     border-bottom: 1px solid #8faacc;
+    box-shadow: 0px 10px 27px -15px rgba(0, 0, 0, 0.75);
+    height: 100%;
+    margin: 20px 0;
+    width: 325px;
     &:last-child {
       border-bottom: none;
     }
