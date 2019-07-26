@@ -29,7 +29,7 @@ const ICON_QLC = require("../../assets/images/QLC.png");
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
 const ICON_MERCATOX = require("../../assets/images/mercatox.png");
 const VIDEO_POSTER = require("../../assets/images/video-poster.png");
-const ICON_ROADMAP = require("../../assets/images/Roadmap.png");
+const ICON_ROADMAP = require("../../assets/images/roadmap.svg");
 
 const ContainerWrapper = styled.div`
   width: 100%;
@@ -77,7 +77,10 @@ const BuySubContainer = styled(SubContainer)`
 `;
 
 const RoadmapSubContainer = styled(SubContainer)`
-  justify-content: space-around;
+  padding: 100px;
+  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
+    padding: 30px;
+  }
 `;
 
 const PartnerSubContainer = styled(SubContainer)`
@@ -229,9 +232,7 @@ const ItemIcon = styled.img`
 `;
 
 const RoadmapIcon = styled.img`
-  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
-    width: 100%;
-  }
+  width: 100%;
 `;
 
 const BuyIcon = styled.img`
@@ -513,9 +514,9 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
       </Container>
 
       <Container>
-      <RoadmapSubContainer>
-      <RoadmapIcon src={ICON_ROADMAP} />
-      </RoadmapSubContainer>
+        <RoadmapSubContainer>
+          <RoadmapIcon src={ICON_ROADMAP} />
+        </RoadmapSubContainer>
       </Container>
 
       <Container>

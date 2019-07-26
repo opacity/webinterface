@@ -147,7 +147,7 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic, history }) => {
           Download phrase as CSV
         </DownloadButton>
         <ButtonWrapper>
-          <ContinueButtonLink href="/sign-up">Back</ContinueButtonLink>
+          <ContinueButtonLink to="/sign-up">Back</ContinueButtonLink>
           <ContinueButton
             disabled={!isCaptchaVerified}
             onClick={() => onSubmit()}
