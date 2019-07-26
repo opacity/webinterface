@@ -4,18 +4,20 @@ test("uplaodFiles", () => {
   const files = ["f1"];
   const masterHandle = "mh1";
   const folder = "/";
+  const isDirectory = false;
 
   const expected = {
     type: actions.UPLOAD_FILES,
     payload: {
       files,
       folder,
-      masterHandle
+      masterHandle,
+      isDirectory
     }
   };
-  expect(actions.uploadFiles({ files, folder, masterHandle })).toEqual(
-    expected
-  );
+  expect(
+    actions.uploadFiles({ files, folder, masterHandle, isDirectory })
+  ).toEqual(expected);
 });
 
 test("uplaodFile", () => {

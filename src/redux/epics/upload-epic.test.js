@@ -5,16 +5,46 @@ import { EventEmitter } from "events";
 import uploadActions from "../actions/upload-actions";
 import uploadEpic from "./upload-epic";
 
-test("uploadFilesEpic filesActions.UPLOAD_FILES", done => {
+test("uploadFilesEpic filesActions.UPLOAD_FILES not directory", done => {
   const files = ["foo", "bar"];
   const masterHandle = "m1";
   const folder = "/";
+  const isDirectory = false;
 
   const action$ = of(
-    uploadActions.uploadFiles({ files, folder, masterHandle })
+    uploadActions.uploadFiles({ files, folder, masterHandle, isDirectory })
   );
   const expected = files.map(file =>
     uploadActions.uploadFile({ file, folder, masterHandle })
+  );
+
+  uploadEpic(action$)
+    .toArray()
+    .subscribe(actions => {
+      expect(actions).toEqual(expected);
+      done();
+    });
+});
+
+test("uploadFilesEpic filesActions.UPLOAD_FILES directory", done => {
+  const files = [
+    { name: "foo", webkitRelativePath: "bar/foo/bar/image.png" },
+    { name: "bar", webkitRelativePath: "bar/foo/bar/image.png" }
+  ];
+  const masterHandle = "m1";
+  const folder = "/";
+  const isDirectory = true;
+  const directoryPath = "bar/foo/bar";
+
+  const action$ = of(
+    uploadActions.uploadFiles({ files, folder, masterHandle, isDirectory })
+  );
+  const expected = files.map(file =>
+    uploadActions.uploadFile({
+      file,
+      folder: folder + directoryPath,
+      masterHandle
+    })
   );
 
   uploadEpic(action$)

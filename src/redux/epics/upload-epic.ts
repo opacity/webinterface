@@ -5,14 +5,25 @@ import { toast } from "react-toastify";
 
 import uploadActions from "../actions/upload-actions";
 
+const relativePath = path => path.substr(0, path.lastIndexOf("/"));
+
 const uploadFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(uploadActions.UPLOAD_FILES),
     flatMap(({ payload }) => {
-      const { files, folder, masterHandle } = payload;
+      const { files, folder, masterHandle, isDirectory } = payload;
 
       return files.map(file =>
-        uploadActions.uploadFile({ file, folder, masterHandle })
+        !isDirectory
+          ? uploadActions.uploadFile({ file, folder, masterHandle })
+          : uploadActions.uploadFile({
+            file,
+            folder:
+                folder === "/"
+                  ? folder + relativePath(file.webkitRelativePath)
+                  : folder + "/" + relativePath(file.webkitRelativePath),
+            masterHandle
+          })
       );
     })
   );

@@ -488,14 +488,24 @@ const FileManagerSlide = ({
                     name="Upload folder"
                     isDirectory={true}
                     onSelected={files =>
-                      upload({ files, masterHandle, folder: currentFolder })
+                      upload({
+                        files,
+                        masterHandle,
+                        folder: currentFolder,
+                        isDirectory: true
+                      })
                     }
                   />
                   <UploadButton
                     name="Upload"
                     isDirectory={false}
                     onSelected={files =>
-                      upload({ files, masterHandle, folder: currentFolder })
+                      upload({
+                        files,
+                        masterHandle,
+                        folder: currentFolder,
+                        isDirectory: false
+                      })
                     }
                   />
                 </ButtonWrapper>

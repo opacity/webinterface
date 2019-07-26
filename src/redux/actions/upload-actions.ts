@@ -9,9 +9,9 @@ const ACTIONS = Object.freeze({
   UPLOAD_SUCCESS,
   UPLOAD_ERROR,
 
-  uploadFiles: ({ files, folder, masterHandle }) => ({
+  uploadFiles: ({ files, folder, masterHandle, isDirectory }) => ({
     type: UPLOAD_FILES,
-    payload: { files, folder, masterHandle }
+    payload: { files, folder, masterHandle, isDirectory }
   }),
   uploadFile: ({ file, folder, masterHandle }) => ({
     type: UPLOAD_FILE,
