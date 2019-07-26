@@ -4,10 +4,9 @@ export const IS_BETA_PROD = process.env.NODE_ENV === "production-beta";
 
 const PROTOCOL = IS_DEV ? "http" : "https";
 
-export const STRIPE_API_KEY =
-  IS_DEV || IS_BETA_DEV
-    ? "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f"
-    : "pk_live_SLMPS7zVFurFwLOKEdiICAGC00kN41fASj";
+export const STRIPE_API_KEY = !IS_BETA_PROD
+  ? "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f"
+  : "pk_live_SLMPS7zVFurFwLOKEdiICAGC00kN41fASj";
 
 export const HOST =
   IS_DEV || IS_BETA_DEV

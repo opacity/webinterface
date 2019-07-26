@@ -170,7 +170,8 @@ const CreditCardForm = ({
     [status]
   );
 
-  const onError = () => {
+  const onStripeError = () => {
+    setIsSubmitDisabled(false);
     alert(
       "Something was wrong with your payment information, please try again."
     );
@@ -188,7 +189,7 @@ const CreditCardForm = ({
       })
       .then(result => {
         if (result.error) {
-          onError();
+          onStripeError();
         } else {
           const {
             token: { id: token }
@@ -197,7 +198,7 @@ const CreditCardForm = ({
         }
       })
       .catch(e => {
-        onError();
+        onStripeError();
       });
   };
 
