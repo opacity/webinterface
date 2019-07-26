@@ -21,9 +21,15 @@ const Button = styled.button`
   }
 `;
 
-const UploadButton = ({ onSelected }) => {
+const UploadButton = ({ onSelected, name, isDirectory }) => {
   const uploadFileInput = useRef<HTMLInputElement>(null);
   const uploadForm = useRef<HTMLFormElement>(null);
+
+  const directory = {
+    directory: "",
+    webkitdirectory: "",
+    mozkitdirectory: ""
+  };
 
   const selectFiles = () => {
     let files = Array.from(uploadFileInput.current!.files || []);
@@ -39,14 +45,15 @@ const UploadButton = ({ onSelected }) => {
   return (
     <ThemeProvider theme={theme}>
       <Fragment>
-        <Button onClick={() => uploadFileInput.current!.click()}>Upload</Button>
+        <Button onClick={() => uploadFileInput.current!.click()}>{name}</Button>
         <form ref={uploadForm} style={{ display: "none" }}>
           <input
             type="file"
             id="file"
-            multiple={true}
             ref={uploadFileInput}
             onChange={e => selectFiles()}
+            multiple={true}
+            {...isDirectory && { ...directory }}
           />
         </form>
       </Fragment>

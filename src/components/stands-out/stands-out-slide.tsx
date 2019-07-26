@@ -386,17 +386,17 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
         </RecommendContentWrapper>
         <PasswordManager>
           <ColumnPasswordManager>
-            <IconLink to="https://www.lastpass.com/" target="_blank">
+            <IconLink href="https://www.lastpass.com/" target="_blank">
               <IconPasswordManager src={ICON_LASTPASS} />
             </IconLink>
           </ColumnPasswordManager>
           <ColumnPasswordManager>
-            <IconLink to="https://www.1password.com/" target="_blank">
+            <IconLink href="https://www.1password.com/" target="_blank">
               <IconPasswordManager src={ICON_1PASSWORD} />
             </IconLink>
           </ColumnPasswordManager>
           <ColumnPasswordManager>
-            <IconLink to="https://www.keepass.info/" target="_blank">
+            <IconLink href="https://www.keepass.info/" target="_blank">
               <IconPasswordManager src={ICON_KEEPASS} />
             </IconLink>
           </ColumnPasswordManager>
@@ -413,7 +413,7 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
               how our system works.
             </InfoContent>
             <StandsOutButtonLink
-              to="https://github.com/opacity"
+              href="https://github.com/opacity"
               target="_blank"
             >
               Explore our code
