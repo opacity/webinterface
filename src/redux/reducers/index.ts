@@ -5,6 +5,7 @@ import coinMarketCap from "./coinmarketcap-reducer";
 import signup from "./signup-reducer";
 import finder from "./finder-reducer";
 import authentication from "./authentication-reducer";
+import fiatPayment from "./fiat-payment-reducer";
 
 export default history =>
   combineReducers({
@@ -12,5 +13,6 @@ export default history =>
     coinMarketCap,
     signup,
     finder,
+    fiatPayment,
     authentication
   });

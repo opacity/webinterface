@@ -91,4 +91,13 @@ div.Toastify__toast--error {
   .Toastify__toast {
     margin-bottom: 1rem !important;
   }
+
+.stripe-cc-input {
+  background: white;
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.stripe-cc-input-error {
+  border: 1px solid #ff3860;
 }
