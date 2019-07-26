@@ -29,7 +29,7 @@ const ICON_QLC = require("../../assets/images/QLC.png");
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
 const ICON_MERCATOX = require("../../assets/images/mercatox.png");
 const VIDEO_POSTER = require("../../assets/images/video-poster.png");
-const ICON_ROADMAP = require("../../assets/images/roadmap.svg");
+const ICON_ROADMAP = require("../../assets/images/roadmap.png");
 
 const ContainerWrapper = styled.div`
   width: 100%;
