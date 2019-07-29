@@ -294,7 +294,7 @@ const Subscriptions = () => (
                   {plan.isAvailable ? "Choose plan" : "Contact Us"}
                 </SignupLink>
               ) : (
-                <InsideLink href="mailto:jason@opacity.io">
+                <InsideLink href="mailto:sales@opacity.io">
                   Contact Us
                 </InsideLink>
               )}
