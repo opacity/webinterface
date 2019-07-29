@@ -142,20 +142,17 @@ const Footer = ({ history }) => (
             </Link>
           </div>
           <div>
-            <Link
-              href="https://twitter.com/Opacity_Storage"target="_blank">
+            <Link href="https://twitter.com/Opacity_Storage"target="_blank">
               Twitter <IconArrow src={ICON_ARROW_RIGHT} />
             </Link>
           </div>
           <div>
-            <Link
-              href="http://www.youtube.com/c/OpacityStorage" target="_blank">
+            <Link href="http://www.youtube.com/c/OpacityStorage" target="_blank">
               YouTube <IconArrow src={ICON_ARROW_RIGHT} />
             </Link>
           </div>
           <div>
-          <Link
-            href="https://medium.com/opacity-storage" target="_blank">
+          <Link href="https://medium.com/opacity-storage" target="_blank">
             Medium <IconArrow src={ICON_ARROW_RIGHT} />
           </Link>
           </div>
