@@ -5,8 +5,7 @@ export const IS_PROD = process.env.NODE_ENV === "production";
 
 const PROTOCOL = IS_DEV ? "http" : "https";
 
-export const STRIPE_API_KEY =
-  IS_BETA_PROD || IS_PROD
+export const STRIPE_API_KEY = IS_PROD
     ? "pk_live_SLMPS7zVFurFwLOKEdiICAGC00kN41fASj"
     : "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f";
 
