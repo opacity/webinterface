@@ -326,6 +326,8 @@ const FolderButton = styled.button`
   }
 `;
 
+const Input = styled.input``;
+
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
 
@@ -340,6 +342,43 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
       {paramArrow === param &&
         (order === "desc" ? <ArrowTop /> : <ArrowDown />)}
     </ThPointer>
+  );
+};
+
+const TableHeaderEdit = ({
+  name,
+  type,
+  currentFolder,
+  masterHandle,
+  renameFolder,
+  renameFile
+}) => {
+  const [isChangeName, setIsChangeName] = useState(false);
+  const [newName, setNewName] = useState("");
+
+  return (
+    <Td
+      onDoubleClick={e => {
+        e.stopPropagation();
+        !isChangeName && setIsChangeName(true), setNewName(name);
+      }}
+    >
+      {!isChangeName ? (
+        name
+      ) : (
+        <Input
+          type="text"
+          onChange={e => setNewName(e.target.value)}
+          value={newName}
+          onDoubleClick={() => {
+            setIsChangeName(false);
+            type === "folder"
+              ? renameFolder(currentFolder, name, newName, masterHandle)
+              : renameFile(currentFolder, name, newName, masterHandle);
+          }}
+        />
+      )}
+    </Td>
   );
 };
 
@@ -373,7 +412,9 @@ const FileManagerSlide = ({
   connectDropTarget,
   isOver,
   createFolder,
-  removeFolder
+  removeFolder,
+  renameFile,
+  renameFolder
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [orderedFolders, setOrderedFolders] = useState<Folder[]>([]);
@@ -514,7 +555,14 @@ const FileManagerSlide = ({
                         <Td>
                           <TableIcon src={ICON_FOLDER} />
                         </Td>
-                        <Td>{name}</Td>
+                        <TableHeaderEdit
+                          name={name}
+                          type={"folder"}
+                          currentFolder={currentFolder}
+                          masterHandle={masterHandle}
+                          renameFolder={renameFolder}
+                          renameFile={renameFile}
+                        />
                         <Td />
                         <Td />
                         <Td />
@@ -540,7 +588,14 @@ const FileManagerSlide = ({
                     {orderedFiles.map(({ name, handle, size, created }, i) => (
                       <Tr key={handle ? handle : i}>
                         <Td>{iconType(name)}</Td>
-                        <Td>{name}</Td>
+                        <TableHeaderEdit
+                          name={name}
+                          type={"file"}
+                          currentFolder={currentFolder}
+                          masterHandle={masterHandle}
+                          renameFolder={renameFolder}
+                          renameFile={renameFile}
+                        />
                         <Td>{_.truncate(handle, { length: 30 })}</Td>
                         <Td>{moment(created).format("MM/DD/YYYY")}</Td>
                         <Td>{formatBytes(size)}</Td>

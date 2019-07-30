@@ -49,4 +49,33 @@ const removeFolderEpic = (action$, state$, dependencies$) =>
     })
   );
 
-export default combineEpics(createFolderEpic, removeFolderEpic);
+const renameFolderEpic = (action$, state$, dependencies$) =>
+  action$.pipe(
+    ofType(folderActions.RENAME_FOLDER),
+    mergeMap(({ payload }) => {
+      const { name, folder, newName, masterHandle } = payload;
+
+      return from(masterHandle.renameFolder(folder, { name, newName })).pipe(
+        map(() => {
+          toast(`Folder ${name} was successfully renamed.`, {
+            autoClose: 3000,
+            hideProgressBar: true,
+            position: toast.POSITION.BOTTOM_RIGHT,
+            toastId: name
+          });
+
+          return folderActions.renameFolderSuccess({
+            masterHandle,
+            folder
+          });
+        }),
+        catchError(error => of(folderActions.renameFolderFailure({ error })))
+      );
+    })
+  );
+
+export default combineEpics(
+  createFolderEpic,
+  removeFolderEpic,
+  renameFolderEpic
+);
