@@ -135,7 +135,7 @@ if (env.stringified["process.env"].NODE_ENV === '"development-beta"') {
 }
 // end development configuration
 
-function returnDevelopmentConfiguration () {
+function returnDevelopmentConfiguration() {
   return merge(common, {
     devServer: {
       port: 3001,
@@ -175,13 +175,15 @@ function returnDevelopmentConfiguration () {
         // relative path is from src
         { from: "./public/favicon.ico" }, // <- your path to favicon
         { from: "./public/logo.png" }, // <- your path to logo
-        { from: "./public/manifest.json" } // <- your path to manifest
+        { from: "./public/manifest.json" }, // <- your path to manifest
+        { from: "./public/robots.txt" }, // <- your path to robots
+        { from: "./public/sitemap.xml" } // <- your path to sitemap
       ])
     ]
   });
 }
 
-function returnProductionConfiguration () {
+function returnProductionConfiguration() {
   return merge(common, {
     bail: true,
     devtool: "cheap-module-source-map",
@@ -256,7 +258,7 @@ function returnProductionConfiguration () {
         // about it being stale, and the cache-busting can be skipped.
         dontCacheBustUrlsMatching: /\.\w{8}\./,
         filename: "service-worker.js",
-        logger (message) {
+        logger(message) {
           if (message.indexOf("Total precache size is") === 0) {
             // This message occurs for every build and is a bit too noisy.
             return;
@@ -288,7 +290,9 @@ function returnProductionConfiguration () {
         // relative path is from src
         { from: "./public/favicon.ico" }, // <- your path to favicon
         { from: "./public/logo.png" }, // <- your path to logo
-        { from: "./public/manifest.json" } // <- your path to manifest
+        { from: "./public/manifest.json" }, // <- your path to manifest
+        { from: "./public/robots.txt" }, // <- your path to robots
+        { from: "./public/sitemap.xml" } // <- your path to sitemap
       ])
     ]
   });

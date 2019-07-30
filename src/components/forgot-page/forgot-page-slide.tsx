@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import { HEADER_TYPES, theme, DESKTOP_WIDTH, MOBILE_WIDTH } from "../../config";
@@ -64,8 +64,45 @@ const Label = styled.h3`
   line-height: normal;
 `;
 
-const ForgotPageSlide = ({ recoverAccountHandle }) => {
+const Error = styled.p`
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: ${props => props.theme.error.color};
+`;
+
+const ForgotPageSlide = ({ recoverAccountHandle, hasError, resetError }) => {
   const recoverTextearea = useRef<any>(null);
+  const [mnemonic, setMnemonic] = useState("");
+  const [isValidMnemonic, setIsValidMnemonic] = useState(true);
+
+  const continueForgotButton = value => {
+    const words = value.trim().split(" ");
+    if (words.length === 12) {
+      recoverAccountHandle(value.trim());
+    } else {
+      setIsValidMnemonic(false);
+    }
+  };
+
+  const validateMnemonic = value => {
+    if (hasError) resetError();
+    const result = value
+      .split("")
+      .reduce(
+        (words, ch) =>
+          ch !== "," && ch !== ";" && ch !== "\t" && ch !== "&nbsp;"
+            ? words + ch
+            : words + " ",
+        ""
+      );
+    setMnemonic(result.replace(/ {1,}/g, " "));
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <ContainerWrapper>
@@ -84,13 +121,21 @@ const ForgotPageSlide = ({ recoverAccountHandle }) => {
                   word. Then click 'Recover Account Handle'.
                 </Label>
                 <Label>Recovery Phrase</Label>
-                <Textarea ref={recoverTextearea} name="storage-pin" />
+                <Textarea
+                  value={mnemonic}
+                  ref={recoverTextearea}
+                  onChange={e => validateMnemonic(e.target.value)}
+                  name="storage-pin"
+                />
               </InputColumnWrapper>
             </InputWrapper>
             <ButtonWrapper>
+              {(!isValidMnemonic || hasError) && (
+                <Error>Your mnemonic is invalid.</Error>
+              )}
               <ContinueButton
                 onClick={() =>
-                  recoverAccountHandle(recoverTextearea.current.value)
+                  continueForgotButton(recoverTextearea.current.value)
                 }
               >
                 Recover Account Handle

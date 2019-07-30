@@ -36,6 +36,9 @@ const mapDispatchToProps = dispatch => ({
     ),
   getFileList: (folder, masterHandle) =>
     dispatch(finderActions.getFileList({ folder, masterHandle })),
+  downloadFiles: files => dispatch(downloadActions.downloadFiles({ files })),
+  removeFiles: (files, masterHandle) =>
+    dispatch(removeActions.removeFiles({ files, masterHandle })),
   createFolder: (masterHandle, folder, name) =>
     dispatch(folderActions.createFolder({ masterHandle, folder, name })),
   removeFolder: (name, folder, masterHandle) =>
@@ -57,7 +60,9 @@ const FileManager = ({
   storageLimit,
   expirationDate,
   createFolder,
-  removeFolder
+  removeFolder,
+  downloadFiles,
+  removeFiles
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
@@ -76,6 +81,8 @@ const FileManager = ({
       expirationDate={expirationDate}
       createFolder={createFolder}
       removeFolder={removeFolder}
+      downloadFiles={downloadFiles}
+      removeFiles={removeFiles}
     />
   </DragDropContextProvider>
 );

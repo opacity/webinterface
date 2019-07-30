@@ -1,9 +1,20 @@
 import { from, of } from "rxjs";
 import { ofType, combineEpics } from "redux-observable";
-import { mergeMap, catchError, map } from "rxjs/operators";
+import { mergeMap, flatMap, catchError, map } from "rxjs/operators";
 import { toast } from "react-toastify";
 
 import removeActions from "../actions/remove-actions";
+
+const removeFilesEpic = (action$, state$, dependencies$) =>
+  action$.pipe(
+    ofType(removeActions.REMOVE_FILES),
+    flatMap(({ payload }) => {
+      const { files, masterHandle } = payload;
+      return files.map(({ handle, name }) =>
+        removeActions.removeFileByHandle({ name, handle, masterHandle })
+      );
+    })
+  );
 
 const removeFileByHandleEpic = (action$, state$, dependencies$) =>
   action$.pipe(
@@ -27,4 +38,4 @@ const removeFileByHandleEpic = (action$, state$, dependencies$) =>
     })
   );
 
-export default combineEpics(removeFileByHandleEpic);
+export default combineEpics(removeFilesEpic, removeFileByHandleEpic);
