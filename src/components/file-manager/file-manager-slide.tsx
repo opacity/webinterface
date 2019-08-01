@@ -24,12 +24,15 @@ import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
 import FolderModal from "./folder-modal";
+import RenameModal from "./rename-modal";
+
 import UploadMobileButton from "./upload-mobile-button";
 
 const ICON_DOWNLOAD = require("../../assets/images/download.svg");
 const ICON_REMOVE = require("../../assets/images/remove.svg");
 const ICON_SHARE = require("../../assets/images/share.svg");
 const ICON_FOLDER = require("../../assets/images/folder.svg");
+const ICON_RENAME = require("../../assets/images/folder.svg");
 
 const fileTarget = {
   drop: (props, monitor) => {
@@ -326,8 +329,6 @@ const FolderButton = styled.button`
   }
 `;
 
-const Input = styled.input``;
-
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
 
@@ -342,43 +343,6 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
       {paramArrow === param &&
         (order === "desc" ? <ArrowTop /> : <ArrowDown />)}
     </ThPointer>
-  );
-};
-
-const TableHeaderEdit = ({
-  name,
-  type,
-  currentFolder,
-  masterHandle,
-  renameFolder,
-  renameFile
-}) => {
-  const [isChangeName, setIsChangeName] = useState(false);
-  const [newName, setNewName] = useState("");
-
-  return (
-    <Td
-      onDoubleClick={e => {
-        e.stopPropagation();
-        !isChangeName && setIsChangeName(true), setNewName(name);
-      }}
-    >
-      {!isChangeName ? (
-        name
-      ) : (
-        <Input
-          type="text"
-          onChange={e => setNewName(e.target.value)}
-          value={newName}
-          onDoubleClick={() => {
-            setIsChangeName(false);
-            type === "folder"
-              ? renameFolder(currentFolder, name, newName, masterHandle)
-              : renameFile(currentFolder, name, newName, masterHandle);
-          }}
-        />
-      )}
-    </Td>
   );
 };
 
@@ -421,6 +385,9 @@ const FileManagerSlide = ({
   const [param, setParam] = useState("");
   const [sharedFile, setSharedFile] = useState<File | null>(null);
   const [showCreateFolder, setShowCreateFolder] = useState(false);
+  const [showRenameModal, setShowRenameModal] = useState(false);
+  const [rename, setRename] = useState("");
+  const [renameType, setRenameType] = useState("");
 
   const sortBy = (param, order) => {
     setParam(param);
@@ -555,14 +522,7 @@ const FileManagerSlide = ({
                         <Td>
                           <TableIcon src={ICON_FOLDER} />
                         </Td>
-                        <TableHeaderEdit
-                          name={name}
-                          type={"folder"}
-                          currentFolder={currentFolder}
-                          masterHandle={masterHandle}
-                          renameFolder={renameFolder}
-                          renameFile={renameFile}
-                        />
+                        <Td>{name}</Td>
                         <Td />
                         <Td />
                         <Td />
@@ -581,6 +541,19 @@ const FileManagerSlide = ({
                               src={ICON_REMOVE}
                             />
                           </ActionButton>
+                          <ActionButton
+                            onClick={e => [
+                              e.stopPropagation(),
+                              setRename(name),
+                              setRenameType("folder"),
+                              setShowRenameModal(true)
+                            ]}
+                          >
+                            <TableIcon
+                              data-tip="Rename folder"
+                              src={ICON_RENAME}
+                            />
+                          </ActionButton>
                           <ReactTooltip effect="solid" />
                         </Td>
                       </TrPointer>
@@ -588,14 +561,7 @@ const FileManagerSlide = ({
                     {orderedFiles.map(({ name, handle, size, created }, i) => (
                       <Tr key={handle ? handle : i}>
                         <Td>{iconType(name)}</Td>
-                        <TableHeaderEdit
-                          name={name}
-                          type={"file"}
-                          currentFolder={currentFolder}
-                          masterHandle={masterHandle}
-                          renameFolder={renameFolder}
-                          renameFile={renameFile}
-                        />
+                        <Td>{name}</Td>
                         <Td>{_.truncate(handle, { length: 30 })}</Td>
                         <Td>{moment(created).format("MM/DD/YYYY")}</Td>
                         <Td>{formatBytes(size)}</Td>
@@ -637,6 +603,34 @@ const FileManagerSlide = ({
                               src={ICON_REMOVE}
                             />
                           </ActionButton>
+                          <ActionButton
+                            onClick={() =>
+                              removeFileByHandle({
+                                name,
+                                handle,
+                                folder: currentFolder,
+                                masterHandle
+                              })
+                            }
+                          >
+                            <TableIcon
+                              data-tip="Delete file"
+                              src={ICON_REMOVE}
+                            />
+                          </ActionButton>
+                          <ActionButton
+                            onClick={e => [
+                              e.stopPropagation(),
+                              setRename(name),
+                              setRenameType("file"),
+                              setShowRenameModal(true)
+                            ]}
+                          >
+                            <TableIcon
+                              data-tip="Rename file"
+                              src={ICON_RENAME}
+                            />
+                          </ActionButton>
                           <ReactTooltip effect="solid" />
                         </Td>
                       </Tr>
@@ -674,6 +668,16 @@ const FileManagerSlide = ({
             file={sharedFile}
             isOpen={!!sharedFile}
             close={() => setSharedFile(null)}
+          />
+          <RenameModal
+            isOpen={!!showRenameModal}
+            close={() => setShowRenameModal(false)}
+            name={rename}
+            rename={newName =>
+              renameType === "folder"
+                ? renameFolder(currentFolder, rename, newName, masterHandle)
+                : renameFile(currentFolder, rename, newName, masterHandle)
+            }
           />
         </Container>
       </ThemeProvider>
