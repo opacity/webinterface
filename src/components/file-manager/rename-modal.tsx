@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Modal, { ModalProvider } from "styled-react-modal";
 
@@ -89,29 +89,32 @@ const Input = styled.input`
   padding: 10px;
 `;
 
-const RenameModal = ({ close, isOpen, rename, name }) => {
-  const [newName, setNewName] = useState("");
+const RenameModal = ({ close, isOpen, rename, oldName }) => {
+  const [name, setName] = useState(oldName);
+
+  useEffect(() => {
+    setName(oldName);
+  }, [oldName]);
+
   return (
     <ThemeProvider theme={theme}>
       <ModalProvider>
         <StyledModal
           isOpen={isOpen}
-          onBackgroundClick={() => [close(), setNewName("")]}
-          onEscapeKeydown={() => [close(), setNewName("")]}
+          onBackgroundClick={() => [close()]}
+          onEscapeKeydown={() => [close()]}
         >
           <Body>
-            <CloseButton onClick={() => [close(), setNewName("")]} />
+            <CloseButton onClick={() => [close()]} />
             <Title>Enter new name</Title>
             <Input
               autoFocus={true}
               type="text"
-              onChange={e => setNewName(e.target.value)}
-              value={newName === "" ? name : newName}
+              onChange={e => setName(e.target.value)}
+              value={name}
             />
             <SubmitButton
-              onClick={() =>
-                newName.length && [(rename(newName), close(), setNewName(""))]
-              }
+              onClick={() => name.length && [(rename(name), close())]}
             >
               Rename
             </SubmitButton>

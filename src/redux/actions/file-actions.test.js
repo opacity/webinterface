@@ -1,4 +1,4 @@
-import actions from "./rename-actions";
+import actions from "./file-actions";
 
 test("renameFile", () => {
   const name = "n1";

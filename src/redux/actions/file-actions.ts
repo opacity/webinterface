@@ -1,6 +1,6 @@
-const RENAME_FILE = "opacity/remove/rename-file";
-const RENAME_FILE_SUCCESS = "opacity/remove/rename-file-success";
-const RENAME_FILE_ERROR = "opacity/remove/rename-file-error";
+const RENAME_FILE = "opacity/file/rename-file";
+const RENAME_FILE_SUCCESS = "opacity/file/rename-file-success";
+const RENAME_FILE_ERROR = "opacity/file/rename-file-error";
 
 const ACTIONS = Object.freeze({
   RENAME_FILE,

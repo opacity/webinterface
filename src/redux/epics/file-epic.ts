@@ -3,11 +3,11 @@ import { ofType, combineEpics } from "redux-observable";
 import { mergeMap, catchError, map } from "rxjs/operators";
 import { toast } from "react-toastify";
 
-import renameActions from "../actions/rename-actions";
+import fileActions from "../actions/file-actions";
 
 const renameFileEpic = (action$, state$, dependencies$) =>
   action$.pipe(
-    ofType(renameActions.RENAME_FILE),
+    ofType(fileActions.RENAME_FILE),
     mergeMap(({ payload }) => {
       const { name, newName, folder, masterHandle } = payload;
 
@@ -20,9 +20,9 @@ const renameFileEpic = (action$, state$, dependencies$) =>
             toastId: name
           });
 
-          return renameActions.renameFileSuccess({ masterHandle, folder });
+          return fileActions.renameFileSuccess({ masterHandle, folder });
         }),
-        catchError(error => of(renameActions.renameFileError({ error })))
+        catchError(error => of(fileActions.renameFileError({ error })))
       );
     })
   );

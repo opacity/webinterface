@@ -1,8 +1,8 @@
 import { of } from "rxjs";
 import { MasterHandle } from "opaque";
 
-import renameActions from "../actions/rename-actions";
-import renameEpic from "./rename-epic";
+import fileActions from "../actions/file-actions";
+import fileEpic from "./file-epic";
 
 jest.mock("opaque", () => ({
   MasterHandle: jest.fn()
@@ -17,12 +17,12 @@ test("renameFile on success", done => {
   };
 
   const action$ = of(
-    renameActions.renameFile({ name, newName, folder, masterHandle })
+    fileActions.renameFile({ name, newName, folder, masterHandle })
   );
 
-  renameEpic(action$).subscribe(actions => {
+  fileEpic(action$).subscribe(actions => {
     expect(actions).toEqual(
-      renameActions.renameFileSuccess({ masterHandle, folder })
+      fileActions.renameFileSuccess({ masterHandle, folder })
     );
     done();
   });

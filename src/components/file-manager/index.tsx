@@ -7,7 +7,7 @@ import uploadActions from "../../redux/actions/upload-actions";
 import finderActions from "../../redux/actions/finder-actions";
 import downloadActions from "../../redux/actions/download-actions";
 import removeActions from "../../redux/actions/remove-actions";
-import renameActions from "../../redux/actions/rename-actions";
+import fileActions from "../../redux/actions/file-actions";
 import folderActions from "../../redux/actions/folder-actions";
 
 import FileManagerSlide from "./file-manager-slide";
@@ -52,7 +52,7 @@ const mapDispatchToProps = dispatch => ({
     ),
   renameFile: (folder, name, newName, masterHandle) =>
     dispatch(
-      renameActions.renameFile({
+      fileActions.renameFile({
         folder,
         name,
         newName,

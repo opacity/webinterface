@@ -386,7 +386,7 @@ const FileManagerSlide = ({
   const [sharedFile, setSharedFile] = useState<File | null>(null);
   const [showCreateFolder, setShowCreateFolder] = useState(false);
   const [showRenameModal, setShowRenameModal] = useState(false);
-  const [rename, setRename] = useState("");
+  const [oldName, setOldName] = useState("");
   const [renameType, setRenameType] = useState("");
 
   const sortBy = (param, order) => {
@@ -544,7 +544,7 @@ const FileManagerSlide = ({
                           <ActionButton
                             onClick={e => [
                               e.stopPropagation(),
-                              setRename(name),
+                              setOldName(name),
                               setRenameType("folder"),
                               setShowRenameModal(true)
                             ]}
@@ -621,7 +621,7 @@ const FileManagerSlide = ({
                           <ActionButton
                             onClick={e => [
                               e.stopPropagation(),
-                              setRename(name),
+                              setOldName(name),
                               setRenameType("file"),
                               setShowRenameModal(true)
                             ]}
@@ -672,11 +672,11 @@ const FileManagerSlide = ({
           <RenameModal
             isOpen={!!showRenameModal}
             close={() => setShowRenameModal(false)}
-            name={rename}
-            rename={newName =>
+            oldName={oldName}
+            rename={name =>
               renameType === "folder"
-                ? renameFolder(currentFolder, rename, newName, masterHandle)
-                : renameFile(currentFolder, rename, newName, masterHandle)
+                ? renameFolder(currentFolder, oldName, name, masterHandle)
+                : renameFile(currentFolder, oldName, name, masterHandle)
             }
           />
         </Container>
