@@ -8,12 +8,16 @@ const initState = {
 };
 
 const fileGenerator = ({ name, versions }) =>
-  versions.map(({ handle, size, modified }) => ({
-    name,
-    created: modified,
-    handle,
-    size
-  }));
+  versions.map(version => {
+    const { handle, size, created } = version;
+    return {
+      name,
+      created,
+      handle,
+      size,
+      version
+    };
+  });
 
 const folderGenerator = ({ name, location }) => ({ name, location });
 

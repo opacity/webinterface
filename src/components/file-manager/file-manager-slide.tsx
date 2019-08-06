@@ -363,6 +363,7 @@ interface File {
   handle: string;
   created: string;
   size: number;
+  version: any;
 }
 
 interface Handle {
@@ -378,7 +379,7 @@ const FileManagerSlide = ({
   getFileList,
   upload,
   download,
-  removeFileByHandle,
+  removeFileByVersion,
   masterHandle,
   metadata,
   storageUsed,
@@ -437,11 +438,11 @@ const FileManagerSlide = ({
     !isExist
       ? createFolder(masterHandle, currentFolder, name)
       : toast(`Folder ${name} is found. `, {
-        autoClose: 3000,
-        hideProgressBar: true,
-        position: toast.POSITION.BOTTOM_RIGHT,
-        toastId: name
-      });
+          autoClose: 3000,
+          hideProgressBar: true,
+          position: toast.POSITION.BOTTOM_RIGHT,
+          toastId: name
+        });
   };
 
   useEffect(
@@ -597,7 +598,7 @@ const FileManagerSlide = ({
                   <tbody>
                     {orderedFolders.map(({ name, location }, i) => (
                       <TrPointer
-                        key={location}
+                        key={i}
                         onClick={() =>
                           history.push(
                             `/file-manager${
@@ -633,65 +634,74 @@ const FileManagerSlide = ({
                         </Td>
                       </TrPointer>
                     ))}
-                    {orderedFiles.map(({ name, handle, size, created }, i) => (
-                      <Tr key={handle ? handle : i}>
-                        <Td>
-                          <Checkbox
-                            checked={filemanagerFiles
-                              .map(f => f.handle)
-                              .includes(handle)}
-                            onChange={e =>
-                              e.target.checked
-                                ? selectFile({ name, handle, size, created })
-                                : deselectFile(handle)
-                            }
-                          />
-                        </Td>
-                        <Td>{iconType(name)}</Td>
-                        <Td>{name}</Td>
-                        <Td>{_.truncate(handle, { length: 30 })}</Td>
-                        <Td>{moment(created).format("MM/DD/YYYY")}</Td>
-                        <Td>{formatBytes(size)}</Td>
-                        <Td>
-                          <ActionButton
-                            data-tip="Share file"
-                            onClick={() =>
-                              setSharedFile({
-                                name,
-                                handle,
-                                created,
-                                size: size
-                              })
-                            }
-                          >
-                            <TableIcon src={ICON_SHARE} />
-                          </ActionButton>
-                          <ActionButton
-                            data-tip="Download file"
-                            onClick={() => download(handle)}
-                          >
-                            <TableIcon src={ICON_DOWNLOAD} />
-                          </ActionButton>
-                          <ActionButton
-                            data-tip="Delete file"
-                            onClick={() =>
-                              confirm(
-                                "Do you really want to delete this file?"
-                              ) &&
-                              removeFileByHandle({
-                                name,
-                                handle,
-                                folder: currentFolder,
-                                masterHandle
-                              })
-                            }
-                          >
-                            <TableIcon src={ICON_REMOVE} />
-                          </ActionButton>
-                          <ReactTooltip effect="solid" />
-                        </Td>
-                      </Tr>
-                    ))}
+                    {orderedFiles.map(
+                      ({ name, handle, size, created, version }, i) => (
+                        <Tr key={handle ? handle : i}>
+                          <Td>
+                            <Checkbox
+                              checked={filemanagerFiles
+                                .map(f => f.handle)
+                                .includes(handle)}
+                              onChange={e =>
+                                e.target.checked
+                                  ? selectFile({
+                                      name,
+                                      handle,
+                                      size,
+                                      created,
+                                      version
+                                    })
+                                  : deselectFile(handle)
+                              }
+                            />
+                          </Td>
+                          <Td>{iconType(name)}</Td>
+                          <Td>{name}</Td>
+                          <Td>{_.truncate(handle, { length: 30 })}</Td>
+                          <Td>{moment(created).format("MM/DD/YYYY")}</Td>
+                          <Td>{formatBytes(size)}</Td>
+                          <Td>
+                            <ActionButton
+                              data-tip="Share file"
+                              onClick={() =>
+                                setSharedFile({
+                                  name,
+                                  handle,
+                                  created,
+                                  size,
+                                  version
+                                })
+                              }
+                            >
+                              <TableIcon src={ICON_SHARE} />
+                            </ActionButton>
+                            <ActionButton
+                              data-tip="Download file"
+                              onClick={() => download(handle)}
+                            >
+                              <TableIcon src={ICON_DOWNLOAD} />
+                            </ActionButton>
+                            <ActionButton
+                              data-tip="Delete file"
+                              onClick={() =>
+                                confirm(
+                                  "Do you really want to delete this file?"
+                                ) &&
+                                removeFileByVersion({
+                                  name,
+                                  version,
+                                  folder: currentFolder,
+                                  masterHandle
+                                })
+                              }
+                            >
+                              <TableIcon src={ICON_REMOVE} />
+                            </ActionButton>
+                            <ReactTooltip effect="solid" />
+                          </Td>
+                        </Tr>
+                      )
+                    )}
                   </tbody>
                 </Table>
               )}
