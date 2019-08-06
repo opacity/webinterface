@@ -1,5 +1,14 @@
 import { chain } from "lodash";
 import finderActions from "../actions/finder-actions";
+import removeActions from "../actions/remove-actions";
+
+interface File {
+  name: string;
+  created: number;
+  handle: string;
+  size: number;
+  version: any;
+}
 
 const initState = {
   files: [],
@@ -7,7 +16,7 @@ const initState = {
   isLoading: false
 };
 
-const fileGenerator = ({ name, versions }) =>
+const fileGenerator = ({ name, versions }): File =>
   versions.map(version => {
     const { handle, size, created } = version;
     return {
@@ -43,6 +52,15 @@ const finderReducer = (state = initState, action) => {
         files: flatFiles,
         folders: folders.map(folderGenerator),
         isLoading: false
+      };
+
+    case removeActions.REMOVE_FILE_SUCCESS:
+      const { version } = action.payload;
+      return {
+        ...state,
+        files: state.files.filter(
+          (file: File) => file.version.handle !== version.handle
+        )
       };
 
     default:

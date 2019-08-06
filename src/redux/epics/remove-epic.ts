@@ -23,7 +23,7 @@ const removeFilesEpic = (action$, state$, dependencies$) =>
 
 const removeFileByVersionEpic = (action$, state$, dependencies$) =>
   action$.pipe(
-    ofType(removeActions.REMOVE_FILE_BY_HANDLE),
+    ofType(removeActions.REMOVE_FILE_BY_VERSION),
     mergeMap(({ payload }) => {
       const { name, version, folder, masterHandle } = payload;
 
@@ -36,7 +36,11 @@ const removeFileByVersionEpic = (action$, state$, dependencies$) =>
             toastId: version.handle
           });
 
-          return removeActions.removeFileSuccess({ masterHandle, folder });
+          return removeActions.removeFileSuccess({
+            masterHandle,
+            folder,
+            version
+          });
         }),
         catchError(error => of(removeActions.removeFileError({ error })))
       );
