@@ -438,11 +438,11 @@ const FileManagerSlide = ({
     !isExist
       ? createFolder(masterHandle, currentFolder, name)
       : toast(`Folder ${name} is found. `, {
-          autoClose: 3000,
-          hideProgressBar: true,
-          position: toast.POSITION.BOTTOM_RIGHT,
-          toastId: name
-        });
+        autoClose: 3000,
+        hideProgressBar: true,
+        position: toast.POSITION.BOTTOM_RIGHT,
+        toastId: name
+      });
   };
 
   useEffect(
@@ -645,12 +645,12 @@ const FileManagerSlide = ({
                               onChange={e =>
                                 e.target.checked
                                   ? selectFile({
-                                      name,
-                                      handle,
-                                      size,
-                                      created,
-                                      version
-                                    })
+                                    name,
+                                    handle,
+                                    size,
+                                    created,
+                                    version
+                                  })
                                   : deselectFile(handle)
                               }
                             />
