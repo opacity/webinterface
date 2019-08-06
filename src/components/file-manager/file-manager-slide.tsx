@@ -437,11 +437,11 @@ const FileManagerSlide = ({
     !isExist
       ? createFolder(masterHandle, currentFolder, name)
       : toast(`Folder ${name} is found. `, {
-        autoClose: 3000,
-        hideProgressBar: true,
-        position: toast.POSITION.BOTTOM_RIGHT,
-        toastId: name
-      });
+          autoClose: 3000,
+          hideProgressBar: true,
+          position: toast.POSITION.BOTTOM_RIGHT,
+          toastId: name
+        });
   };
 
   useEffect(
@@ -517,7 +517,11 @@ const FileManagerSlide = ({
                       margin="0 5px 0"
                       disabled={filemanagerFiles.length === 0}
                       onClick={() => {
-                        removeFiles(filemanagerFiles, masterHandle);
+                        removeFiles({
+                          files: filemanagerFiles,
+                          masterHandle,
+                          folder: currentFolder
+                        });
                         setFilemanagerFiles([]);
                       }}
                     >

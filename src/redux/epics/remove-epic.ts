@@ -9,9 +9,9 @@ const removeFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(removeActions.REMOVE_FILES),
     flatMap(({ payload }) => {
-      const { files, masterHandle } = payload;
+      const { files, masterHandle, folder } = payload;
       return files.map(({ handle, name }) =>
-        removeActions.removeFileByHandle({ name, handle, masterHandle })
+        removeActions.removeFileByHandle({ name, handle, masterHandle, folder })
       );
     })
   );

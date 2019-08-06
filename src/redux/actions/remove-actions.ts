@@ -27,9 +27,9 @@ const ACTIONS = Object.freeze({
     type: REMOVE_FILE_ERROR,
     payload: { error }
   }),
-  removeFiles: ({ files, masterHandle }) => ({
+  removeFiles: ({ files, masterHandle, folder }) => ({
     type: REMOVE_FILES,
-    payload: { files, masterHandle } // files = [{ handle, name }]
+    payload: { files, masterHandle, folder } // files = [{ handle, name }]
   })
 });
 
