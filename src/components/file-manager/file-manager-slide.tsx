@@ -27,6 +27,9 @@ import ShareModal from "./share-modal";
 import FolderModal from "./folder-modal";
 import UploadMobileButton from "./upload-mobile-button";
 
+import { IFile } from "../../models/file";
+import { IFolder } from "../../models/folder";
+
 const ICON_DOWNLOAD = require("../../assets/images/download.svg");
 const ICON_REMOVE = require("../../assets/images/remove.svg");
 const ICON_SHARE = require("../../assets/images/share.svg");
@@ -353,19 +356,6 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   );
 };
 
-interface Folder {
-  name: string;
-  location: string;
-}
-
-interface File {
-  name: string;
-  handle: string;
-  created: string;
-  size: number;
-  version: any;
-}
-
 interface Handle {
   handle: string;
 }
@@ -392,10 +382,10 @@ const FileManagerSlide = ({
   createFolder,
   removeFolder
 }) => {
-  const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
-  const [orderedFolders, setOrderedFolders] = useState<Folder[]>([]);
+  const [orderedFiles, setOrderedFiles] = useState<IFile[]>([]);
+  const [orderedFolders, setOrderedFolders] = useState<IFolder[]>([]);
   const [param, setParam] = useState("");
-  const [sharedFile, setSharedFile] = useState<File | null>(null);
+  const [sharedFile, setSharedFile] = useState<IFile | null>(null);
   const [filemanagerFiles, setFilemanagerFiles] = useState<Handle[]>([]);
   const [showCreateFolder, setShowCreateFolder] = useState(false);
 
@@ -405,7 +395,7 @@ const FileManagerSlide = ({
     setOrderedFolders(_.orderBy(orderedFolders, param, order));
   };
 
-  const selectFile = (file: File) => {
+  const selectFile = (file: IFile) => {
     setFilemanagerFiles([...filemanagerFiles, file]);
   };
 

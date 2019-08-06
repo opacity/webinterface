@@ -2,13 +2,8 @@ import { chain } from "lodash";
 import finderActions from "../actions/finder-actions";
 import removeActions from "../actions/remove-actions";
 
-interface File {
-  name: string;
-  created: number;
-  handle: string;
-  size: number;
-  version: any;
-}
+import { IFile } from "../../models/file";
+import { IFolder } from "../../models/folder";
 
 const initState = {
   files: [],
@@ -16,7 +11,7 @@ const initState = {
   isLoading: false
 };
 
-const fileGenerator = ({ name, versions }): File =>
+const fileGenerator = ({ name, versions }): IFile[] =>
   versions.map(version => {
     const { handle, size, created } = version;
     return {
@@ -28,7 +23,7 @@ const fileGenerator = ({ name, versions }): File =>
     };
   });
 
-const folderGenerator = ({ name, location }) => ({ name, location });
+const folderGenerator = ({ name, location }): IFolder => ({ name, location });
 
 const finderReducer = (state = initState, action) => {
   switch (action.type) {
@@ -59,7 +54,7 @@ const finderReducer = (state = initState, action) => {
       return {
         ...state,
         files: state.files.filter(
-          (file: File) => file.version.handle !== version.handle
+          (file: IFile) => file.version.handle !== version.handle
         )
       };
 
