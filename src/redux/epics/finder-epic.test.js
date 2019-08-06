@@ -61,33 +61,6 @@ test("getFileListEpic uploadActions.UPLOAD_SUCCESS", done => {
   });
 });
 
-test("getFileListEpic removeActions.REMOVE_SUCCESS", done => {
-  const files = ["fi1", "fi2"];
-  const folders = ["fo1", "fo2"];
-
-  const folder = "fo1";
-  const masterHandle = {
-    getFolderMeta: jest.fn(() => Promise.resolve({ files, folders })),
-    getAccountInfo: jest.fn(() =>
-      Promise.resolve({
-        storageUsed: 123,
-        storageLimit: 456,
-        expirationDate: new Date()
-      })
-    )
-  };
-  const action$ = of(removeActions.removeFileSuccess({ masterHandle }));
-  const state$ = null;
-  const dependencies$ = {};
-
-  finderEpic(action$, state$, dependencies$).subscribe(actions => {
-    expect(actions).toEqual(
-      finderActions.setList({ files, folders, masterHandle })
-    );
-    done();
-  });
-});
-
 test("getFileListEpic - on failure", done => {
   const folder = "fo1";
   const masterHandle = {

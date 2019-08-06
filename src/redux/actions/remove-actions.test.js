@@ -1,35 +1,39 @@
 import actions from "./remove-actions";
 
-test("removeFileByHandle", () => {
+test("removeFileByVersion", () => {
   const name = "n1";
-  const handle = "h1";
+  const version = { handle: "h1" };
   const folder = "/";
   const masterHandle = "mh1";
   const expected = {
-    type: actions.REMOVE_FILE_BY_HANDLE,
+    type: actions.REMOVE_FILE_BY_VERSION,
     payload: {
       name,
-      handle,
+      version,
       folder,
       masterHandle
     }
   };
   expect(
-    actions.removeFileByHandle({ name, handle, folder, masterHandle })
+    actions.removeFileByVersion({ name, version, folder, masterHandle })
   ).toEqual(expected);
 });
 
 test("removeSuccess", () => {
   const masterHandle = "mh1";
+  const version = { handle: "h1" };
   const folder = "/";
   const expected = {
     type: actions.REMOVE_FILE_SUCCESS,
     payload: {
       masterHandle,
-      folder
+      folder,
+      version
     }
   };
-  expect(actions.removeFileSuccess({ masterHandle, folder })).toEqual(expected);
+  expect(actions.removeFileSuccess({ masterHandle, folder, version })).toEqual(
+    expected
+  );
 });
 
 test("removeError", () => {
