@@ -437,11 +437,11 @@ const FileManagerSlide = ({
     !isExist
       ? createFolder(masterHandle, currentFolder, name)
       : toast(`Folder ${name} is found. `, {
-          autoClose: 3000,
-          hideProgressBar: true,
-          position: toast.POSITION.BOTTOM_RIGHT,
-          toastId: name
-        });
+        autoClose: 3000,
+        hideProgressBar: true,
+        position: toast.POSITION.BOTTOM_RIGHT,
+        toastId: name
+      });
   };
 
   useEffect(
