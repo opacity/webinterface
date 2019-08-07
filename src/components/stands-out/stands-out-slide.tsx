@@ -221,7 +221,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const StandsOutButtonLink = styled(Link)`
+const StandsOutButtonLink = styled.a`
   width: 220px;
   margin: auto;
   text-align: center;
@@ -311,7 +311,7 @@ const InfoIcon = styled.img`
   }
 `;
 
-const IconLink = styled(Link)``;
+const IconLink = styled.a``;
 
 const SubscriptionSlide = ({ history, isLoggedIn }) => (
   <ThemeProvider theme={theme}>
@@ -427,7 +427,7 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
               Current version: 1.0
             </InfoContent>
             <StandsOutButtonLink
-              to="/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8"
+              href="/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8"
               target="_blank"
             >
               Download Whitepaper
