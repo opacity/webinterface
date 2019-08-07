@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { DragDropContextProvider } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
 
 import uploadActions from "../../redux/actions/upload-actions";
 import finderActions from "../../redux/actions/finder-actions";
@@ -11,6 +9,8 @@ import fileActions from "../../redux/actions/file-actions";
 import folderActions from "../../redux/actions/folder-actions";
 
 import FileManagerSlide from "./file-manager-slide";
+
+import dragDropContext from "./dragDropContext";
 
 const mapStateToProps = (state, props) => {
   const folderName = props.match.params.folderName;
@@ -80,30 +80,28 @@ const FileManager = ({
   renameFolder,
   renameFile
 }) => (
-  <DragDropContextProvider backend={HTML5Backend}>
-    <FileManagerSlide
-      currentFolder={currentFolder}
-      isLoading={isLoading}
-      files={files}
-      folders={folders}
-      getFileList={getFileList}
-      upload={upload}
-      download={download}
-      removeFileByHandle={removeFileByHandle}
-      masterHandle={masterHandle}
-      metadata={metadata}
-      storageUsed={storageUsed}
-      storageLimit={storageLimit}
-      expirationDate={expirationDate}
-      createFolder={createFolder}
-      removeFolder={removeFolder}
-      renameFolder={renameFolder}
-      renameFile={renameFile}
-    />
-  </DragDropContextProvider>
+  <FileManagerSlide
+    currentFolder={currentFolder}
+    isLoading={isLoading}
+    files={files}
+    folders={folders}
+    getFileList={getFileList}
+    upload={upload}
+    download={download}
+    removeFileByHandle={removeFileByHandle}
+    masterHandle={masterHandle}
+    metadata={metadata}
+    storageUsed={storageUsed}
+    storageLimit={storageLimit}
+    expirationDate={expirationDate}
+    createFolder={createFolder}
+    removeFolder={removeFolder}
+    renameFolder={renameFolder}
+    renameFile={renameFile}
+  />
 );
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FileManager);
+)(dragDropContext(FileManager));

@@ -25,8 +25,9 @@ import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
 import FolderModal from "./folder-modal";
 import RenameModal from "./rename-modal";
-
+import File from "./file";
 import UploadMobileButton from "./upload-mobile-button";
+import Folder from "./folder";
 
 const ICON_DOWNLOAD = require("../../assets/images/download.svg");
 const ICON_REMOVE = require("../../assets/images/remove.svg");
@@ -509,15 +510,11 @@ const FileManagerSlide = ({
                   </thead>
                   <tbody>
                     {orderedFolders.map(({ name, location }, i) => (
-                      <TrPointer
-                        key={location}
-                        onClick={() =>
-                          history.push(
-                            `/file-manager${
-                              currentFolder === "/" ? "" : currentFolder
-                            }/${name}`
-                          )
-                        }
+                      <Folder
+                        name={name}
+                        location={location}
+                        currentFolder={currentFolder}
+                        push={history.push}
                       >
                         <Td>
                           <TableIcon src={ICON_FOLDER} />
@@ -556,10 +553,10 @@ const FileManagerSlide = ({
                           </ActionButton>
                           <ReactTooltip effect="solid" />
                         </Td>
-                      </TrPointer>
+                      </Folder>
                     ))}
                     {orderedFiles.map(({ name, handle, size, created }, i) => (
-                      <Tr key={handle ? handle : i}>
+                      <File name={name} i={i}>
                         <Td>{iconType(name)}</Td>
                         <Td>{name}</Td>
                         <Td>{_.truncate(handle, { length: 30 })}</Td>
@@ -633,7 +630,7 @@ const FileManagerSlide = ({
                           </ActionButton>
                           <ReactTooltip effect="solid" />
                         </Td>
-                      </Tr>
+                      </File>
                     ))}
                   </tbody>
                 </Table>

@@ -13,8 +13,8 @@ export const HOST =
   IS_DEV || IS_BETA_DEV
     ? "localhost:3001"
     : IS_BETA_PROD
-      ? "beta.opacity.io"
-      : "opacity.io";
+    ? "beta.opacity.io"
+    : "opacity.io";
 export const FRONT_END_URL = `${PROTOCOL}://${HOST}`;
 
 export const EXCHANGE_LINK = "https://www.kucoin.com/trade/OPQ-BTC";
@@ -24,8 +24,8 @@ const DEFAULT_BROKER_IP =
   IS_BETA_PROD || IS_BETA_DEV
     ? "beta-broker.opacitynodes.com"
     : IS_DEV
-      ? "13.58.191.143"
-      : "broker-1.opacitynodes.com";
+    ? "13.58.191.143"
+    : "broker-1.opacitynodes.com";
 
 export const API = Object.freeze({
   STORAGE_NODE: `${PROTOCOL}://${DEFAULT_BROKER_IP}:3000`,
@@ -332,3 +332,8 @@ export const DATA_TYPES_ICONS = [
     icon: ICON_PNG
   }
 ];
+
+export const DROP_TYPES = {
+  FILE: "FILE",
+  FOLDER: "FOLDER"
+};
