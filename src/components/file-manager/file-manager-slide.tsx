@@ -419,7 +419,7 @@ const FileManagerSlide = ({
   };
 
   const Folder = ({ name, location }) => {
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<any>(null);
     const [{}, drop] = useDrop({
       accept: [DROP_TYPES.FILE, DROP_TYPES.FOLDER],
       drop: (result?) => {
@@ -483,7 +483,7 @@ const FileManagerSlide = ({
   };
 
   const File = ({ name, i, handle, size, created }) => {
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<any>(null);
     const [{ isDragging }, drag] = useDrag({
       item: { name, type: DROP_TYPES.FILE },
       collect: monitor => ({
