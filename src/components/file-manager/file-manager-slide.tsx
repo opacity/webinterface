@@ -1,8 +1,8 @@
 import _ from "lodash";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactTooltip from "react-tooltip";
 import { NativeTypes } from "react-dnd-html5-backend";
-import { DropTarget } from "react-dnd";
+import { DropTarget, useDrag, useDrop } from "react-dnd";
 import { ToastContainer, toast } from "react-toastify";
 import { withRouter } from "react-router";
 import styled, { ThemeProvider } from "styled-components";
@@ -14,6 +14,7 @@ import {
   HEADER_MOBILE_WIDTH,
   DATA_TYPES_ICONS,
   FILE_MAX_SIZE,
+  DROP_TYPES,
   theme
 } from "../../config";
 import { formatBytes, formatGbs } from "../../helpers";
@@ -25,9 +26,7 @@ import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
 import FolderModal from "./folder-modal";
 import RenameModal from "./rename-modal";
-import File from "./file";
 import UploadMobileButton from "./upload-mobile-button";
-import Folder from "./folder";
 
 const ICON_DOWNLOAD = require("../../assets/images/download.svg");
 const ICON_REMOVE = require("../../assets/images/remove.svg");
@@ -419,6 +418,150 @@ const FileManagerSlide = ({
       });
   };
 
+  const Folder = ({ name, location }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const [{}, drop] = useDrop({
+      accept: [DROP_TYPES.FILE, DROP_TYPES.FOLDER],
+      drop: (result?) => {
+        console.log(result);
+        console.log(name);
+      }
+    });
+
+    const [{ isDragging }, drag] = useDrag({
+      item: { type: DROP_TYPES.FOLDER, name },
+      collect: (monitor: any) => ({
+        isDragging: monitor.isDragging()
+      })
+    });
+
+    drag(drop(ref));
+
+    const opacity = isDragging ? 0.4 : 1;
+
+    return (
+      <TrPointer
+        style={{ opacity }}
+        ref={ref}
+        key={location}
+        onClick={() =>
+          history.push(
+            `/file-manager${currentFolder === "/" ? "" : currentFolder}/${name}`
+          )
+        }
+      >
+        <Td>
+          <TableIcon src={ICON_FOLDER} />
+        </Td>
+        <Td>{name}</Td>
+        <Td />
+        <Td />
+        <Td />
+        <Td>
+          <ActionButton
+            onClick={e => {
+              e.stopPropagation();
+              confirm("Do you really want to delete this folder?") &&
+                removeFolder(name, currentFolder, masterHandle);
+            }}
+          >
+            <TableIcon data-tip="Delete folder" src={ICON_REMOVE} />
+          </ActionButton>
+          <ActionButton
+            onClick={e => [
+              e.stopPropagation(),
+              setOldName(name),
+              setRenameType("folder"),
+              setShowRenameModal(true)
+            ]}
+          >
+            <TableIcon data-tip="Rename folder" src={ICON_RENAME} />
+          </ActionButton>
+        </Td>
+      </TrPointer>
+    );
+  };
+
+  const File = ({ name, i, handle, size, created }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const [{ isDragging }, drag] = useDrag({
+      item: { name, type: DROP_TYPES.FILE },
+      collect: monitor => ({
+        isDragging: monitor.isDragging()
+      })
+    });
+
+    drag(ref);
+
+    const opacity = isDragging ? 0.4 : 1;
+
+    return (
+      <Tr key={name ? name : i} ref={ref} style={{ opacity }}>
+        <Td>{iconType(name)}</Td>
+        <Td>{name}</Td>
+        <Td>{_.truncate(handle, { length: 30 })}</Td>
+        <Td>{moment(created).format("MM/DD/YYYY")}</Td>
+        <Td>{formatBytes(size)}</Td>
+        <Td>
+          <ActionButton
+            data-tip="Share file"
+            onClick={() =>
+              setSharedFile({
+                name,
+                handle,
+                created,
+                size: size
+              })
+            }
+          >
+            <TableIcon src={ICON_SHARE} />
+          </ActionButton>
+          <ActionButton
+            data-tip="Download file"
+            onClick={() => download(handle)}
+          >
+            <TableIcon src={ICON_DOWNLOAD} />
+          </ActionButton>
+          <ActionButton
+            onClick={() =>
+              confirm("Do you really want to delete this file?") &&
+              removeFileByHandle({
+                name,
+                handle,
+                folder: currentFolder,
+                masterHandle
+              })
+            }
+          >
+            <TableIcon data-tip="Delete file" src={ICON_REMOVE} />
+          </ActionButton>
+          <ActionButton
+            onClick={() =>
+              removeFileByHandle({
+                name,
+                handle,
+                folder: currentFolder,
+                masterHandle
+              })
+            }
+          >
+            <TableIcon data-tip="Delete file" src={ICON_REMOVE} />
+          </ActionButton>
+          <ActionButton
+            onClick={e => [
+              e.stopPropagation(),
+              setOldName(name),
+              setRenameType("file"),
+              setShowRenameModal(true)
+            ]}
+          >
+            <TableIcon data-tip="Rename file" src={ICON_RENAME} />
+          </ActionButton>
+        </Td>
+      </Tr>
+    );
+  };
+
   useEffect(() => {
     const defaultOrder = "created";
     setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
@@ -510,128 +653,18 @@ const FileManagerSlide = ({
                   </thead>
                   <tbody>
                     {orderedFolders.map(({ name, location }, i) => (
-                      <Folder
-                        name={name}
-                        location={location}
-                        currentFolder={currentFolder}
-                        push={history.push}
-                      >
-                        <Td>
-                          <TableIcon src={ICON_FOLDER} />
-                        </Td>
-                        <Td>{name}</Td>
-                        <Td />
-                        <Td />
-                        <Td />
-                        <Td>
-                          <ActionButton
-                            onClick={e => {
-                              e.stopPropagation();
-                              confirm(
-                                "Do you really want to delete this folder?"
-                              ) &&
-                                removeFolder(name, currentFolder, masterHandle);
-                            }}
-                          >
-                            <TableIcon
-                              data-tip="Delete folder"
-                              src={ICON_REMOVE}
-                            />
-                          </ActionButton>
-                          <ActionButton
-                            onClick={e => [
-                              e.stopPropagation(),
-                              setOldName(name),
-                              setRenameType("folder"),
-                              setShowRenameModal(true)
-                            ]}
-                          >
-                            <TableIcon
-                              data-tip="Rename folder"
-                              src={ICON_RENAME}
-                            />
-                          </ActionButton>
-                          <ReactTooltip effect="solid" />
-                        </Td>
-                      </Folder>
+                      <Folder name={name} location={location} />
                     ))}
                     {orderedFiles.map(({ name, handle, size, created }, i) => (
-                      <File name={name} i={i}>
-                        <Td>{iconType(name)}</Td>
-                        <Td>{name}</Td>
-                        <Td>{_.truncate(handle, { length: 30 })}</Td>
-                        <Td>{moment(created).format("MM/DD/YYYY")}</Td>
-                        <Td>{formatBytes(size)}</Td>
-                        <Td>
-                          <ActionButton
-                            data-tip="Share file"
-                            onClick={() =>
-                              setSharedFile({
-                                name,
-                                handle,
-                                created,
-                                size: size
-                              })
-                            }
-                          >
-                            <TableIcon src={ICON_SHARE} />
-                          </ActionButton>
-                          <ActionButton
-                            data-tip="Download file"
-                            onClick={() => download(handle)}
-                          >
-                            <TableIcon src={ICON_DOWNLOAD} />
-                          </ActionButton>
-                          <ActionButton
-                            onClick={() =>
-                              confirm(
-                                "Do you really want to delete this file?"
-                              ) &&
-                              removeFileByHandle({
-                                name,
-                                handle,
-                                folder: currentFolder,
-                                masterHandle
-                              })
-                            }
-                          >
-                            <TableIcon
-                              data-tip="Delete file"
-                              src={ICON_REMOVE}
-                            />
-                          </ActionButton>
-                          <ActionButton
-                            onClick={() =>
-                              removeFileByHandle({
-                                name,
-                                handle,
-                                folder: currentFolder,
-                                masterHandle
-                              })
-                            }
-                          >
-                            <TableIcon
-                              data-tip="Delete file"
-                              src={ICON_REMOVE}
-                            />
-                          </ActionButton>
-                          <ActionButton
-                            onClick={e => [
-                              e.stopPropagation(),
-                              setOldName(name),
-                              setRenameType("file"),
-                              setShowRenameModal(true)
-                            ]}
-                          >
-                            <TableIcon
-                              data-tip="Rename file"
-                              src={ICON_RENAME}
-                            />
-                          </ActionButton>
-                          <ReactTooltip effect="solid" />
-                        </Td>
-                      </File>
+                      <File
+                        name={name}
+                        i={i}
+                        handle={handle}
+                        size={size}
+                        created={created}
+                      />
                     ))}
+                    <ReactTooltip effect="solid" />
                   </tbody>
                 </Table>
               )}
