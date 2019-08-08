@@ -1,5 +1,5 @@
 import { Observable, from, of } from "rxjs";
-import { map, mergeMap, switchMap, catchError } from "rxjs/operators";
+import { map, flatMap, switchMap, catchError } from "rxjs/operators";
 import { ofType, combineEpics } from "redux-observable";
 
 import finderActions from "../actions/finder-actions";
@@ -12,32 +12,44 @@ const getFileListEpic = (action$, state$, dependencies$) =>
       const { masterHandle, folder } = payload;
 
       return from(masterHandle.getFolderMeta(folder)).pipe(
-        mergeMap(
-          (data: any) =>
-            new Observable(o => {
-              o.next(
-                finderActions.setList({
-                  files: data.files,
-                  folders: data.folders,
-                  masterHandle
-                })
-              );
-
-              masterHandle.metaQueue[folder].on("update", (data: any) => {
-                o.next(
-                  finderActions.setList({
-                    files: data.files,
-                    folders: data.folders,
-                    masterHandle
-                  })
-                );
-              });
-            })
-        ),
+        flatMap((data: any) => [
+          finderActions.setList({
+            files: data.files,
+            folders: data.folders,
+            masterHandle
+          }),
+          finderActions.listenForUpdates({ masterHandle, folder })
+        ]),
         catchError(() =>
-          of(finderActions.setList({ files: [], folders: [], masterHandle }))
+          of(
+            finderActions.setList({
+              files: [],
+              folders: [],
+              masterHandle
+            })
+          )
         )
       );
+    })
+  );
+
+const setFileListEpic = (action$, state$, dependencies$) =>
+  action$.pipe(
+    ofType(finderActions.LISTEN_FOR_UPDATES),
+    switchMap(({ payload }) => {
+      const { masterHandle, folder } = payload;
+
+      return new Observable(o => {
+        masterHandle.metaQueue[folder].on("update", (data: any) => {
+          o.next(
+            finderActions.setList({
+              files: data.files,
+              folders: data.folders,
+              masterHandle
+            })
+          );
+        });
+      });
     })
   );
 
@@ -62,4 +74,8 @@ const getAccountDataEpic = (action$, state$, dependencies$) =>
     })
   );
 
-export default combineEpics(getFileListEpic, getAccountDataEpic);
+export default combineEpics(
+  getFileListEpic,
+  setFileListEpic,
+  getAccountDataEpic
+);
