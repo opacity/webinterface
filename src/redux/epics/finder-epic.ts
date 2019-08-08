@@ -20,15 +20,14 @@ const getFileListEpic = (action$, state$, dependencies$) =>
           }),
           finderActions.listenForUpdates({ masterHandle, folder })
         ]),
-        catchError(() =>
-          of(
-            finderActions.setList({
-              files: [],
-              folders: [],
-              masterHandle
-            })
-          )
-        )
+        catchError(() => [
+          finderActions.setList({
+            files: [],
+            folders: [],
+            masterHandle
+          }),
+          finderActions.listenForUpdates({ masterHandle, folder })
+        ])
       );
     })
   );

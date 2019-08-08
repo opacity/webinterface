@@ -80,10 +80,13 @@ test("getFileListEpic - on failure", done => {
   const state$ = null;
   const dependencies$ = {};
 
-  finderEpic(action$, state$, dependencies$).subscribe(actions => {
-    expect(actions).toEqual(
-      finderActions.setList({ files: [], folders: [], masterHandle })
-    );
-    done();
-  });
+  finderEpic(action$, state$, dependencies$)
+    .toArray()
+    .subscribe(actions => {
+      expect(actions).toEqual([
+        finderActions.setList({ files: [], folders: [], masterHandle }),
+        finderActions.listenForUpdates({ masterHandle, folder })
+      ]);
+      done();
+    });
 });
