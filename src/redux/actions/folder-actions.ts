@@ -7,6 +7,9 @@ const REMOVE_FOLDER_FAILURE = "opacity/folder/remove-folder-failure";
 const RENAME_FOLDER = "opacity/folder/rename-folder";
 const RENAME_FOLDER_SUCCESS = "opacity/folder/rename-folder-success";
 const RENAME_FOLDER_FAILURE = "opacity/folder/rename-folder-failure";
+const MOVE_FOLDER = "opacity/folder/move-folder";
+const MOVE_FOLDER_SUCCESS = "opacity/folder/move-folder-success";
+const MOVE_FOLDER_FAILURE = "opacity/folder/move-folder-failure";
 
 const ACTIONS = Object.freeze({
   CREATE_FOLDER,
@@ -18,6 +21,9 @@ const ACTIONS = Object.freeze({
   RENAME_FOLDER,
   RENAME_FOLDER_SUCCESS,
   RENAME_FOLDER_FAILURE,
+  MOVE_FOLDER,
+  MOVE_FOLDER_SUCCESS,
+  MOVE_FOLDER_FAILURE,
 
   createFolder: ({ masterHandle, folder, name }) => ({
     type: CREATE_FOLDER,
@@ -53,6 +59,18 @@ const ACTIONS = Object.freeze({
   }),
   renameFolderFailure: ({ error }) => ({
     type: RENAME_FOLDER_FAILURE,
+    payload: { error }
+  }),
+  moveFolder: ({ folder, to, currentFolder, masterHandle }) => ({
+    type: MOVE_FOLDER,
+    payload: { folder, to, currentFolder, masterHandle }
+  }),
+  moveFolderSuccess: ({ masterHandle, folder }) => ({
+    type: MOVE_FOLDER_SUCCESS,
+    payload: { masterHandle, folder }
+  }),
+  moveFolderFailure: ({ error }) => ({
+    type: MOVE_FOLDER_FAILURE,
     payload: { error }
   })
 });

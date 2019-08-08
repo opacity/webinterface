@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React, { useState, useEffect, useRef } from "react";
-import ReactTooltip from "react-tooltip";
+import Tooltip from "react-simple-tooltip";
 import { NativeTypes } from "react-dnd-html5-backend";
 import { DropTarget, useDrag, useDrop } from "react-dnd";
 import { ToastContainer, toast } from "react-toastify";
@@ -378,7 +378,9 @@ const FileManagerSlide = ({
   createFolder,
   removeFolder,
   renameFile,
-  renameFolder
+  renameFolder,
+  moveFile,
+  moveFolder
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
   const [orderedFolders, setOrderedFolders] = useState<Folder[]>([]);
@@ -422,10 +424,15 @@ const FileManagerSlide = ({
     const ref = useRef<any>(null);
     const [{}, drop] = useDrop({
       accept: [DROP_TYPES.FILE, DROP_TYPES.FOLDER],
-      drop: (result?) => {
-        console.log(result);
-        console.log(name);
-      }
+      drop: ({}, monitor) =>
+        monitor.getItem().type === DROP_TYPES.FILE
+          ? moveFolder(
+            monitor.getItem().name,
+            name,
+            currentFolder,
+            masterHandle
+            )
+          : moveFile(monitor.getItem().name, name, currentFolder, masterHandle)
     });
 
     const [{ isDragging }, drag] = useDrag({
@@ -465,7 +472,9 @@ const FileManagerSlide = ({
                 removeFolder(name, currentFolder, masterHandle);
             }}
           >
-            <TableIcon data-tip="Delete folder" src={ICON_REMOVE} />
+            <Tooltip content="Delete folder">
+              <TableIcon src={ICON_REMOVE} />
+            </Tooltip>
           </ActionButton>
           <ActionButton
             onClick={e => [
@@ -475,7 +484,9 @@ const FileManagerSlide = ({
               setShowRenameModal(true)
             ]}
           >
-            <TableIcon data-tip="Rename folder" src={ICON_RENAME} />
+            <Tooltip content="Rename folder">
+              <TableIcon src={ICON_REMOVE} />
+            </Tooltip>
           </ActionButton>
         </Td>
       </TrPointer>
@@ -504,7 +515,6 @@ const FileManagerSlide = ({
         <Td>{formatBytes(size)}</Td>
         <Td>
           <ActionButton
-            data-tip="Share file"
             onClick={() =>
               setSharedFile({
                 name,
@@ -514,13 +524,14 @@ const FileManagerSlide = ({
               })
             }
           >
-            <TableIcon src={ICON_SHARE} />
+            <Tooltip content="Share file">
+              <TableIcon src={ICON_SHARE} />
+            </Tooltip>
           </ActionButton>
-          <ActionButton
-            data-tip="Download file"
-            onClick={() => download(handle)}
-          >
-            <TableIcon src={ICON_DOWNLOAD} />
+          <ActionButton onClick={() => download(handle)}>
+            <Tooltip content="Download file">
+              <TableIcon src={ICON_DOWNLOAD} />
+            </Tooltip>
           </ActionButton>
           <ActionButton
             onClick={() =>
@@ -533,7 +544,9 @@ const FileManagerSlide = ({
               })
             }
           >
-            <TableIcon data-tip="Delete file" src={ICON_REMOVE} />
+            <Tooltip content="Delete file">
+              <TableIcon src={ICON_REMOVE} />
+            </Tooltip>
           </ActionButton>
           <ActionButton
             onClick={e => [
@@ -543,7 +556,9 @@ const FileManagerSlide = ({
               setShowRenameModal(true)
             ]}
           >
-            <TableIcon data-tip="Rename file" src={ICON_RENAME} />
+            <Tooltip content="Rename file">
+              <TableIcon src={ICON_RENAME} />
+            </Tooltip>
           </ActionButton>
         </Td>
       </Tr>
@@ -652,7 +667,6 @@ const FileManagerSlide = ({
                         created={created}
                       />
                     ))}
-                    <ReactTooltip effect="solid" />
                   </tbody>
                 </Table>
               )}

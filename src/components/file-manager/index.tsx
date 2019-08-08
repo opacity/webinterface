@@ -58,6 +58,12 @@ const mapDispatchToProps = dispatch => ({
         newName,
         masterHandle
       })
+    ),
+  moveFolder: (file, to, currentFolder, masterHandle) =>
+    dispatch(fileActions.moveFile({ file, to, currentFolder, masterHandle })),
+  moveFile: (folder, to, currentFolder, masterHandle) =>
+    dispatch(
+      folderActions.moveFolder({ folder, to, currentFolder, masterHandle })
     )
 });
 
@@ -78,7 +84,9 @@ const FileManager = ({
   createFolder,
   removeFolder,
   renameFolder,
-  renameFile
+  renameFile,
+  moveFile,
+  moveFolder
 }) => (
   <FileManagerSlide
     currentFolder={currentFolder}
@@ -98,6 +106,8 @@ const FileManager = ({
     removeFolder={removeFolder}
     renameFolder={renameFolder}
     renameFile={renameFile}
+    moveFile={moveFile}
+    moveFolder={moveFolder}
   />
 );
 

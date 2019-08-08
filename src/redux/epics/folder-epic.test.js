@@ -63,3 +63,24 @@ test("renameFolder on success", done => {
     done();
   });
 });
+
+test("moveFolder on success", done => {
+  const currentFolder = "name";
+  const folder = "/";
+  const to = "/";
+
+  const masterHandle = {
+    moveFolder: jest.fn(() => Promise.resolve())
+  };
+
+  const action$ = of(
+    folderActions.moveFolder({ masterHandle, folder, currentFolder, to })
+  );
+
+  folderEpic(action$).subscribe(actions => {
+    expect(actions).toEqual(
+      folderActions.moveFolderSuccess({ masterHandle, folder })
+    );
+    done();
+  });
+});

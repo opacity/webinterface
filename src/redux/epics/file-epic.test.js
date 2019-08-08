@@ -27,3 +27,23 @@ test("renameFile on success", done => {
     done();
   });
 });
+
+test("moveFile on success", done => {
+  const currentFolder = "n1";
+  const file = "/";
+  const to = "/";
+  const masterHandle = {
+    moveFile: jest.fn().mockResolvedValue(true)
+  };
+
+  const action$ = of(
+    fileActions.moveFile({ file, to, currentFolder, masterHandle })
+  );
+
+  fileEpic(action$).subscribe(actions => {
+    expect(actions).toEqual(
+      fileActions.moveFileSuccess({ masterHandle, file })
+    );
+    done();
+  });
+});
