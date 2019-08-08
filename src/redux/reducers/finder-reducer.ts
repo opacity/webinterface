@@ -1,6 +1,5 @@
 import { chain } from "lodash";
 import finderActions from "../actions/finder-actions";
-import removeActions from "../actions/remove-actions";
 
 import { IFile } from "../../models/file";
 import { IFolder } from "../../models/folder";
@@ -47,15 +46,6 @@ const finderReducer = (state = initState, action) => {
         files: flatFiles,
         folders: folders.map(folderGenerator),
         isLoading: false
-      };
-
-    case removeActions.REMOVE_FILE_SUCCESS:
-      const { version } = action.payload;
-      return {
-        ...state,
-        files: state.files.filter(
-          (file: IFile) => file.version.handle !== version.handle
-        )
       };
 
     default:

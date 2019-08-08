@@ -12,7 +12,7 @@ const createFolderEpic = (action$, state$, dependencies$) =>
       const { name, folder, masterHandle } = payload;
 
       return from(masterHandle.createFolder(folder, name)).pipe(
-        map(() => {
+        map(f => {
           toast(`Folder ${name} was successfully created.`, {
             autoClose: 3000,
             hideProgressBar: true,
