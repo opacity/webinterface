@@ -23,6 +23,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = dispatch => ({
   showMnemonic: () => dispatch(signupActions.showMnemonic()),
   showAddress: () => dispatch(signupActions.showAddress()),
+  accountPaidSuccess: () => dispatch(signupActions.accountPaidSuccess()),
   pollPayment: waitForPaymentFn =>
     dispatch(signupActions.pollPayment({ waitForPaymentFn })),
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
@@ -40,6 +41,7 @@ const SignUp = ({
   fiatPaymentError,
   showMnemonic,
   showAddress,
+  accountPaidSuccess,
   invoice,
   pollPayment,
   openMetamask,
@@ -50,6 +52,7 @@ const SignUp = ({
     fiatPaymentStatus={fiatPaymentStatus}
     openMetamask={openMetamask}
     payFiat={payFiat}
+    accountPaidSuccess={accountPaidSuccess}
     phase={phase}
     plan={plan}
     pollPayment={pollPayment}

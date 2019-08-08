@@ -7,7 +7,7 @@ import { Form, Field } from "react-final-form";
 import OutboundLink from "../shared/outbound-link";
 import Invoice from "./invoice";
 
-import { FIAT_PAYMENT_STATUSES, theme } from "../../config";
+import { FIAT_PAYMENT_STATUSES, theme, MOBILE_WIDTH } from "../../config";
 
 interface IInputProps {
   invalid: boolean;
@@ -135,6 +135,9 @@ const AgreementLabel = styled.label`
 const Row = styled.div`
   display: flex;
   margin-bottom: 20px;
+  @media only screen and (max-width: ${MOBILE_WIDTH}px)
+    flex-direction: column;
+  }
 `;
 
 const Group = styled.div`
@@ -170,7 +173,8 @@ const CreditCardForm = ({
     [status]
   );
 
-  const onError = () => {
+  const onStripeError = () => {
+    setIsSubmitDisabled(false);
     alert(
       "Something was wrong with your payment information, please try again."
     );
@@ -188,7 +192,7 @@ const CreditCardForm = ({
       })
       .then(result => {
         if (result.error) {
-          onError();
+          onStripeError();
         } else {
           const {
             token: { id: token }
@@ -197,7 +201,7 @@ const CreditCardForm = ({
         }
       })
       .catch(e => {
-        onError();
+        onStripeError();
       });
   };
 

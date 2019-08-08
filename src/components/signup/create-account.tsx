@@ -24,6 +24,7 @@ const CreateAccount = ({
   openMetamask,
   payFiat,
   phase,
+  accountPaidSuccess,
   plan,
   pollPayment,
   showAddress,
@@ -97,7 +98,11 @@ const CreateAccount = ({
         {phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
           <RecordAccountHandleSlide
             handle={privateKey}
-            next={() => pollPayment(waitForPaymentFn)}
+            next={() =>
+              plan.ethCost === 0 && plan.usdCost === 0
+                ? accountPaidSuccess()
+                : pollPayment(waitForPaymentFn)
+            }
             back={() => showMnemonic()}
           />
         )}

@@ -41,7 +41,7 @@ interface IColumnProps {
 
 const Column = styled.div<IColumnProps>`
   min-width: ${props => (props.isHighlighted ? 275 : 225)}px;
-  height: ${props => (props.isHighlighted ? 725 : 680)}px;
+  height: ${props => (props.isHighlighted ? 725 : 696)}px;
   z-index: ${props => props.zIndex};
   border-top: 3px solid ${props => props.borderColor};
   position: relative;
@@ -102,7 +102,7 @@ const Line = styled.div`
 `;
 
 const Price = styled.p`
-  width: 186px;
+  width: 187px;
   font-size: 27px;
   font-weight: bold;
   font-style: ${props => props.theme.fontStyle};
@@ -219,12 +219,17 @@ const Strikethrough = styled.span`
   font-size: 23px;
 `;
 
-const DiscountDisclaimer = styled.p`
+const DisclaimerWrapper = styled.div`
+  bottom: 5px;
+  left: 15px;
+  position: absolute;
+`;
+
+const Disclaimer = styled.p`
   color: #4f5e78;
   bottom: 5px;
   font-size: 12px;
-  left: 15px;
-  position: absolute;
+  margin: 5px 0;
 `;
 
 const Header = styled.div``;
@@ -265,7 +270,7 @@ const Subscriptions = () => (
                     {plan.discountedUsdCost ? (
                       <Price>
                         <Strikethrough>${plan.usdCost}</Strikethrough>
-                        ${plan.discountedUsdCost}
+                        ${plan.discountedUsdCost}**
                       </Price>
                     ) : (
                       <Price>${plan.usdCost}</Price>
@@ -289,17 +294,20 @@ const Subscriptions = () => (
                   {plan.isAvailable ? "Choose plan" : "Contact Us"}
                 </SignupLink>
               ) : (
-                <InsideLink href="mailto:jason@opacity.io">
+                <InsideLink href="mailto:sales@opacity.io">
                   Contact Us
                 </InsideLink>
               )}
             </ButtonWrapper>
           </Footer>
-          {plan.discountedUsdCost && (
-            <DiscountDisclaimer>
-              * Early bird sale ends August 31st
-            </DiscountDisclaimer>
-          )}
+          <DisclaimerWrapper>
+            {plan.includesDesktopApp && (
+              <Disclaimer>* With Desktop App</Disclaimer>
+            )}
+            {plan.discountedUsdCost && (
+              <Disclaimer>** Limited Time Discount</Disclaimer>
+            )}
+          </DisclaimerWrapper>
         </Column>
       ))}
     </Container>

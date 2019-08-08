@@ -1,13 +1,13 @@
 export const IS_DEV = process.env.NODE_ENV === "development";
 export const IS_BETA_DEV = process.env.NODE_ENV === "development-beta";
 export const IS_BETA_PROD = process.env.NODE_ENV === "production-beta";
+export const IS_PROD = process.env.NODE_ENV === "production";
 
 const PROTOCOL = IS_DEV ? "http" : "https";
 
-export const STRIPE_API_KEY =
-  IS_DEV || IS_BETA_DEV
-    ? "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f"
-    : "pk_live_SLMPS7zVFurFwLOKEdiICAGC00kN41fASj";
+export const STRIPE_API_KEY = IS_PROD
+    ? "pk_live_SLMPS7zVFurFwLOKEdiICAGC00kN41fASj"
+    : "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f";
 
 export const HOST =
   IS_DEV || IS_BETA_DEV
@@ -176,123 +176,128 @@ export enum SHADOW {
 
 export const PLANS = [
   {
-    title: "Free",
-    permalink: "free",
     borderColor: "#ECCD32",
-    zIndex: 0,
-    shadow: SHADOW.LEFT,
-    ethCost: 0,
-    usdCost: 0,
-    discountedUsdCost: null,
-    specialPricing: "Free",
-    isAvailable: true,
-    isHighlighted: false,
     content: "Discover secure file sharing using blockchain technology",
-    storageLimit: "10 GB",
-    storageInGB: 10,
-    durationInMonths: 12,
-    features: [
-      "End to End Encryption",
-      "Unlimited Downloads",
-      "Private File Sharing",
-      "No third-party tracking",
-      "Access from anywhere",
-      "2GB File Size"
-    ]
-  },
-  {
-    title: "Basic",
-    permalink: "basic",
-    borderColor: "#9AD9FE",
-    shadow: SHADOW.LEFT,
-    ethCost: 2,
-    usdCost: 39.99,
     discountedUsdCost: null,
-    specialPricing: null,
-    zIndex: 1,
+    durationInMonths: 12,
+    ethCost: 0,
+    includesDesktopApp: false,
     isAvailable: true,
     isHighlighted: false,
-    content: "Perfect for personal and family use",
-    storageLimit: "128 GB",
-    storageInGB: 128,
-    durationInMonths: 12,
+    permalink: "free",
+    shadow: SHADOW.LEFT,
+    specialPricing: "Free",
+    storageInGB: 10,
+    storageLimit: "10 GB",
+    title: "Free",
+    usdCost: 0,
+    zIndex: 0,
     features: [
-      "End to End Encryption",
+      "End-to-End Encryption",
       "Unlimited Downloads",
       "Private File Sharing",
-      "No third-party tracking",
-      "Access from anywhere",
+      "No 3rd Party Tracking",
+      "Access Anywhere",
       "2GB File Size"
     ]
   },
   {
-    title: "Professional",
-    permalink: "professional",
-    shadow: SHADOW.CENTER,
-    borderColor: "#918DEA",
-    zIndex: 2,
-    ethCost: 16,
-    usdCost: 99.99,
-    discountedUsdCost: 79.99,
+    borderColor: "#9AD9FE",
+    content: "Perfect for personal and family use",
+    discountedUsdCost: null,
+    durationInMonths: 12,
+    ethCost: 2,
+    includesDesktopApp: false,
+    isAvailable: true,
+    isHighlighted: false,
+    permalink: "basic",
+    shadow: SHADOW.LEFT,
     specialPricing: null,
+    storageInGB: 128,
+    storageLimit: "128 GB",
+    title: "Basic",
+    usdCost: 39.99,
+    zIndex: 1,
+    features: [
+      "End-to-End Encryption",
+      "Unlimited Downloads",
+      "Private File Sharing",
+      "No 3rd Party Tracking",
+      "Access Anywhere",
+      "2GB File Size"
+    ]
+  },
+  {
+    borderColor: "#918DEA",
+    content: "Secure and access your files Anywhere",
+    discountedUsdCost: 79.99,
+    durationInMonths: 12,
+    ethCost: 16,
+    includesDesktopApp: true,
     isAvailable: true,
     isHighlighted: true,
-    content: "Secure and access your files from anywhere",
-    storageLimit: "1 TB",
+    permalink: "professional",
+    shadow: SHADOW.CENTER,
+    specialPricing: null,
     storageInGB: 1024,
-    durationInMonths: 12,
+    storageLimit: "1 TB",
+    title: "Professional",
+    usdCost: 99.99,
+    zIndex: 2,
     features: [
-      "End to End Encryption",
+      "End-to-End Encryption",
       "Unlimited Downloads",
       "Private File Sharing",
-      "No third-party tracking",
-      "Access from anywhere",
+      "No 3rd Party Tracking",
+      "Access Anywhere",
       "Unlimited File Size*",
       "Desktop Sync"
     ]
   },
   {
-    title: "Business",
-    permalink: "business",
-    shadow: SHADOW.RIGHT,
     borderColor: "#DE9E93",
-    zIndex: 1,
-    ethCost: 32,
-    usdCost: 119.99,
+    content: "Secure file management for your organization",
     discountedUsdCost: null,
-    specialPricing: null,
+    durationInMonths: 12,
+    ethCost: 32,
+    includesDesktopApp: true,
     isAvailable: true,
     isHighlighted: false,
-    content: "Secure file management for your organization",
-    storageLimit: "2 TB",
+    permalink: "business",
+    shadow: SHADOW.RIGHT,
+    specialPricing: null,
     storageInGB: 2048,
-    durationInMonths: 12,
+    storageLimit: "2 TB",
+    title: "Business",
+    usdCost: 119.99,
+    zIndex: 1,
     features: [
-      "End to End Encryption",
+      "End-to-End Encryption",
       "Unlimited Downloads",
       "Private File Sharing",
-      "No third-party tracking",
-      "Access from anywhere",
+      "No 3rd Party Tracking",
+      "Access Anywhere",
       "Unlimited File Size*",
       "Desktop Sync"
     ]
   },
   {
-    title: "Enterprise",
-    permalink: "enterprise",
-    shadow: SHADOW.RIGHT,
     borderColor: "#8ADB75",
-    zIndex: 0,
-    ethCost: 0,
-    usdCost: 0,
+    content: "All the secure file storage you need ",
     discountedUsdCost: null,
-    specialPricing: "Custom pricing",
+    durationInMonths: 12,
+    ethCost: 0,
+    includesDesktopApp: false,
     isAvailable: false,
     isHighlighted: false,
-    content: "All the secure file storage you need ",
-    storageLimit: "Unlimited",
+    permalink: "enterprise",
+    shadow: SHADOW.RIGHT,
+    specialPricing: "Custom Pricing",
     storageInGB: 9999,
-    durationInMonths: 12,
+    storageLimit: "Unlimited",
+    title: "Enterprise",
+    usdCost: 0,
+    zIndex: 0,
     features: [
       "Opacity can provide the storage and services your business needs. S3 compliant API integrates easily with most existing implementations."
     ]
