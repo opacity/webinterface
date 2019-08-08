@@ -59,6 +59,10 @@ const App = () => (
             <Route path="/forgot-page" component={ForgotPage} />
             <Route path="/team-page" component={TeamPage} />
             <Route path="/share" component={SharePage} />
+            <AuthenticatedRoute
+              path="/file-manager/:folderName*"
+              component={FileManager}
+            />
             <AuthenticatedRoute path="/file-manager" component={FileManager} />
 
             <Route

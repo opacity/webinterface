@@ -1,33 +1,22 @@
 import axios from "axios";
 
-import { API, IS_DEV } from "../config";
+import { API } from "../config";
+import { getPayload } from "opaque";
 
 const axiosInstance = axios.create({ timeout: 200000 });
 
-export const checkStatus = hosts =>
-  new Promise((resolve, reject) => {
-    // TODO: Quick fix to get this deployed ASAP and pass Travis.
-    // This should be removed later
-    if (IS_DEV) return resolve(true);
+export const createSubscription = ({
+  stripeToken,
+  masterHandle,
+  timestamp
+}) => {
+  const signedPayload = getPayload({ stripeToken, timestamp }, masterHandle);
 
-    Promise.all(
-      hosts.map(host =>
-        axiosInstance
-          .get(`${host}${API.V2_STATUS_PATH}`)
-          .then(({ data: { available } }: any) => available)
-      )
-    )
-      .then(availabilities => {
-        const available = availabilities.every(Boolean);
-        if (!available) {
-        }
-        resolve(available);
-      })
-      .catch(() => {
-        resolve(false);
-      });
-  });
+  return axiosInstance
+    .post(`${API.STORAGE_NODE}${API.V1_SUBSCRIPTIONS_PATH}`, signedPayload)
+    .then(({ data: { available } }: any) => available);
+};
 
 export default {
-  checkStatus
+  createSubscription
 };

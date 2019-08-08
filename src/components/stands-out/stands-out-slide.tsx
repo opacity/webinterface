@@ -13,9 +13,7 @@ import {
 
 import Header from "../shared/header";
 import Footer from "../shared/footer";
-import OutboundLink from "../shared/outbound-link";
 // import InsideLink from "../shared/inside-link";
-import Button from "../shared/generic/button";
 
 const ICON_INTRO = require("../../assets/images/so_intro.svg");
 const ICON_ACCESS_ACCOUNT = require("../../assets/images/so_access_account.svg");
@@ -57,14 +55,6 @@ const HeaderTitle = styled.h2`
   color: ${props => props.theme.title.color};
   text-align: center;
   margin-bottom: 20px;
-`;
-
-const TelegramLinkContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  margin: 20px 0;
 `;
 
 const TitleFunction = styled(HeaderTitle)`
@@ -231,10 +221,21 @@ const IconWrapper = styled.div`
   }
 `;
 
-const StandsOutButton = styled(Button)`
+const StandsOutButtonLink = styled(Link)`
   width: 220px;
   margin: auto;
   text-align: center;
+  background-color: #2e6dde;
+  color: white;
+  border: 1px solid white;
+  margin: 0px;
+  min-width: 100px;
+  outline: none;
+  padding: 0;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  text-decoration: none;
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: -webkit-fill-available;
     margin: 0 25px;
@@ -412,13 +413,12 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
               Opacity’s codebase is completely open source for anyone wondering
               how our system works.
             </InfoContent>
-            <StandsOutButton
-              onClick={() =>
-                window.open("https://github.com/opacity", "_blank")
-              }
+            <StandsOutButtonLink
+              to="https://github.com/opacity"
+              target="_blank"
             >
               Explore our code
-            </StandsOutButton>
+            </StandsOutButtonLink>
           </Column>
           <Column>
             <InfoIcon src={ICON_EXPLORE_CODE} />
@@ -427,22 +427,22 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
               we want to go in the future? Check out the Opacity Whitepaper!
               Current version: 1.0
             </InfoContent>
-            <StandsOutButton>Coming soon</StandsOutButton>
+            <StandsOutButtonLink
+              to="/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8"
+              target="_blank"
+            >
+            Download Whitepaper
+            </StandsOutButtonLink>
           </Column>
         </InfoSubContainer>
       </Container>
       <Community>
         <CommunityTitle>
-          Are you ready to join our thriving community?
+          Are you ready to experience truly private cloud storage and file sharing?
         </CommunityTitle>
-        <TelegramLinkContainer>
-          <OutboundLink href="https://t.me/opacitystorage">
-            Join us on Telegram
-          </OutboundLink>
-        </TelegramLinkContainer>
         <CommunityLinkWrapper>
-          <CommunityLink to="/sign-up">Sign up</CommunityLink>
-          <CommunityLinkSecondary to="/login">Login</CommunityLinkSecondary>
+          <CommunityLink to="/sign-up">Explore Plans</CommunityLink>
+          <CommunityLinkSecondary to="/login">Login Now</CommunityLinkSecondary>
         </CommunityLinkWrapper>
       </Community>
       <Footer />

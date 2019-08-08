@@ -1,8 +1,13 @@
 export const IS_DEV = process.env.NODE_ENV === "development";
 export const IS_BETA_DEV = process.env.NODE_ENV === "development-beta";
 export const IS_BETA_PROD = process.env.NODE_ENV === "production-beta";
+export const IS_PROD = process.env.NODE_ENV === "production";
 
 const PROTOCOL = IS_DEV ? "http" : "https";
+
+export const STRIPE_API_KEY = IS_PROD
+    ? "pk_live_SLMPS7zVFurFwLOKEdiICAGC00kN41fASj"
+    : "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f";
 
 export const HOST =
   IS_DEV || IS_BETA_DEV
@@ -24,13 +29,7 @@ const DEFAULT_BROKER_IP =
 
 export const API = Object.freeze({
   STORAGE_NODE: `${PROTOCOL}://${DEFAULT_BROKER_IP}:3000`,
-  V2_STATUS_PATH: ":3000/api/v2/status",
-  V1_ACCOUNTS_PATH: ":3000/api/v1/accounts",
-  V1_LOGIN_PATH: ":3000/api/v1/metadata",
-  V1_FILES_PATH: ":3000/api/v1/files",
-  V1_METADATA_PATH: ":3000/api/v1/metadata",
-  GAS_PRICE: "https://api.blockcypher.com/v1/eth/main",
-  CHUNKS_PER_REQUEST: 10
+  V1_SUBSCRIPTIONS_PATH: "/api/v1/stripe/create"
 });
 
 export const OPAQUE = Object.freeze({
@@ -59,9 +58,10 @@ export const THIRD_PARTY = Object.freeze({
   COINMARKETCAP: "https://opacity.io/widget.php"
 });
 
-export const RECAPTCHA_SITEKEY = IS_DEV
-  ? "6LciI6cUAAAAAL03VKUCArV9MFS8zgQn49NHItA8"
-  : "6Le3I6cUAAAAAILR-MfvTFAi258rXVSd10HVXBoI";
+export const RECAPTCHA_SITEKEY =
+  IS_DEV || IS_BETA_DEV
+    ? "6LciI6cUAAAAAL03VKUCArV9MFS8zgQn49NHItA8"
+    : "6Le3I6cUAAAAAILR-MfvTFAi258rXVSd10HVXBoI";
 
 export const LANDING_PAGE_VIDEO =
   "https://s3.us-east-2.amazonaws.com/opacity-public/whatIsOpacity.mov";
@@ -94,6 +94,13 @@ export enum SIGNUP_PHASES {
   RECORD_STORAGE_PIN,
   SEND_PAYMENT,
   CONFIRM_PAYMENT
+}
+
+export enum FIAT_PAYMENT_STATUSES {
+  IDLE = 0,
+  PENDING,
+  SUCCESS,
+  ERROR
 }
 
 export const theme = {
@@ -161,74 +168,138 @@ export const theme = {
   letterSpacing: "normal"
 };
 
+export enum SHADOW {
+  LEFT,
+  RIGHT,
+  CENTER
+}
+
 export const PLANS = [
   {
-    title: "Basic",
+    borderColor: "#ECCD32",
+    content: "Discover secure file sharing using blockchain technology",
+    discountedUsdCost: null,
+    durationInMonths: 12,
+    ethCost: 0,
+    includesDesktopApp: false,
+    isAvailable: true,
+    isHighlighted: false,
+    permalink: "free",
+    shadow: SHADOW.LEFT,
+    specialPricing: "Free",
+    storageInGB: 10,
+    storageLimit: "10 GB",
+    title: "Free",
+    usdCost: 0,
+    zIndex: 0,
+    features: [
+      "End-to-End Encryption",
+      "Unlimited Downloads",
+      "Private File Sharing",
+      "No 3rd Party Tracking",
+      "Access Anywhere",
+      "2GB File Size"
+    ]
+  },
+  {
+    borderColor: "#9AD9FE",
+    content: "Perfect for personal and family use",
+    discountedUsdCost: null,
+    durationInMonths: 12,
+    ethCost: 2,
+    includesDesktopApp: false,
+    isAvailable: true,
+    isHighlighted: false,
     permalink: "basic",
-    cost: 2,
-    isAvailable: true,
-    content:
-      "Secure, encrypted storage solution perfect for the needs of the individual",
-    price: "2 OPQ / year",
-    storageLimit: "128 GB",
+    shadow: SHADOW.LEFT,
+    specialPricing: null,
     storageInGB: 128,
-    durationInMonths: 12,
+    storageLimit: "128 GB",
+    title: "Basic",
+    usdCost: 39.99,
+    zIndex: 1,
     features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
+      "End-to-End Encryption",
+      "Unlimited Downloads",
+      "Private File Sharing",
+      "No 3rd Party Tracking",
+      "Access Anywhere",
+      "2GB File Size"
     ]
   },
   {
-    title: "Professional",
-    permalink: "professional",
-    cost: 16,
+    borderColor: "#918DEA",
+    content: "Secure and access your files Anywhere",
+    discountedUsdCost: 79.99,
+    durationInMonths: 12,
+    ethCost: 16,
+    includesDesktopApp: true,
     isAvailable: true,
-    content:
-      "For professionals looking for a secure, easily accessible storage solution while on the move.",
-    price: "16 OPQ / year",
-    storageLimit: "1 TB",
+    isHighlighted: true,
+    permalink: "professional",
+    shadow: SHADOW.CENTER,
+    specialPricing: null,
     storageInGB: 1024,
-    durationInMonths: 12,
+    storageLimit: "1 TB",
+    title: "Professional",
+    usdCost: 99.99,
+    zIndex: 2,
     features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
+      "End-to-End Encryption",
+      "Unlimited Downloads",
+      "Private File Sharing",
+      "No 3rd Party Tracking",
+      "Access Anywhere",
+      "Unlimited File Size*",
+      "Desktop Sync"
     ]
   },
   {
-    title: "Business",
-    permalink: "business",
-    cost: 32,
-    isAvailable: false,
-    content:
-      "A secure, encrypted storage solution for growing businesses. Perfect for small teams.",
-    price: "32 OPQ / year",
-    storageLimit: "2 TB",
-    storageInGB: 2048,
+    borderColor: "#DE9E93",
+    content: "Secure file management for your organization",
+    discountedUsdCost: null,
     durationInMonths: 12,
+    ethCost: 32,
+    includesDesktopApp: true,
+    isAvailable: true,
+    isHighlighted: false,
+    permalink: "business",
+    shadow: SHADOW.RIGHT,
+    specialPricing: null,
+    storageInGB: 2048,
+    storageLimit: "2 TB",
+    title: "Business",
+    usdCost: 119.99,
+    zIndex: 1,
     features: [
-      {
-        title: "Secure storage"
-      },
-      {
-        title: "Unlimited downloads"
-      },
-      {
-        title: "Anonymous account"
-      }
+      "End-to-End Encryption",
+      "Unlimited Downloads",
+      "Private File Sharing",
+      "No 3rd Party Tracking",
+      "Access Anywhere",
+      "Unlimited File Size*",
+      "Desktop Sync"
+    ]
+  },
+  {
+    borderColor: "#8ADB75",
+    content: "All the secure file storage you need ",
+    discountedUsdCost: null,
+    durationInMonths: 12,
+    ethCost: 0,
+    includesDesktopApp: false,
+    isAvailable: false,
+    isHighlighted: false,
+    permalink: "enterprise",
+    shadow: SHADOW.RIGHT,
+    specialPricing: "Custom Pricing",
+    storageInGB: 9999,
+    storageLimit: "Unlimited",
+    title: "Enterprise",
+    usdCost: 0,
+    zIndex: 0,
+    features: [
+      "Opacity can provide the storage and services your business needs. S3 compliant API integrates easily with most existing implementations."
     ]
   }
 ];

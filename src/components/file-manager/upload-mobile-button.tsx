@@ -1,7 +1,7 @@
 import React, { Fragment, useRef } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { MOBILE_WIDTH, FILE_MAX_SIZE, theme } from "../../config";
+import { HEADER_MOBILE_WIDTH, FILE_MAX_SIZE, theme } from "../../config";
 
 const Button = styled.div`
     display: none;
@@ -16,7 +16,8 @@ const Button = styled.div`
     border-radius: 100px;
     box-shadow: 0 0.5px 4px 0 rgba(0, 0, 0, 0.2), 0 1.5px 2px 0 rgba(0, 0, 0, 0.12), 0 1.5px 1.5px 0 rgba(0, 0, 0, 0.14);
     cursor: pointer;
-    @media (max-width: ${MOBILE_WIDTH}px) {
+    z-index: 9990;
+    @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: block;
     }
 `;

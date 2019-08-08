@@ -1,14 +1,14 @@
-import actions from "./files-actions";
+import actions from "./finder-actions";
 
 test("setList", () => {
-  const list = ["foobar"];
+  const files = ["foobar"];
   const expected = {
     type: actions.SET_LIST,
     payload: {
-      list
+      files
     }
   };
-  expect(actions.setList({ list })).toEqual(expected);
+  expect(actions.setList({ files })).toEqual(expected);
 });
 
 test("getFileList", () => {

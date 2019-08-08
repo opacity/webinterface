@@ -4,24 +4,31 @@ import { DragDropContextProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 
 import uploadActions from "../../redux/actions/upload-actions";
-import filesActions from "../../redux/actions/files-actions";
+import finderActions from "../../redux/actions/finder-actions";
 import downloadActions from "../../redux/actions/download-actions";
 import removeActions from "../../redux/actions/remove-actions";
+import folderActions from "../../redux/actions/folder-actions";
 
 import FileManagerSlide from "./file-manager-slide";
 
-const mapStateToProps = state => ({
-  files: state.files.list,
-  masterHandle: state.authentication.masterHandle,
-  metadata: state.authentication.metadata,
-  storageUsed: state.authentication.storageUsed,
-  storageLimit: state.authentication.storageLimit,
-  expirationDate: state.authentication.expirationDate
-});
+const mapStateToProps = (state, props) => {
+  const folderName = props.match.params.folderName;
+  return {
+    currentFolder: folderName ? `/${folderName}` : "/",
+    files: state.finder.files,
+    folders: state.finder.folders,
+    isLoading: state.finder.isLoading,
+    masterHandle: state.authentication.masterHandle,
+    metadata: state.authentication.metadata,
+    storageUsed: state.authentication.storageUsed,
+    storageLimit: state.authentication.storageLimit,
+    expirationDate: state.authentication.expirationDate
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
-  upload: (files, masterHandle) =>
-    dispatch(uploadActions.uploadFiles({ files, masterHandle })),
+  upload: ({ files, folder, masterHandle }) =>
+    dispatch(uploadActions.uploadFiles({ files, folder, masterHandle })),
   download: handle => dispatch(downloadActions.downloadFile({ handle })),
   removeFileByHandle: (name, handle, masterHandle) =>
     dispatch(removeActions.removeFileByHandle({ name, handle, masterHandle })),
@@ -30,11 +37,18 @@ const mapDispatchToProps = dispatch => ({
   downloadFiles: files => dispatch(downloadActions.downloadFiles({ files })),
   removeFiles: (files, masterHandle) =>
     dispatch(removeActions.removeFiles({ files, masterHandle }))
+  createFolder: (masterHandle, folder, name) =>
+    dispatch(folderActions.createFolder({ masterHandle, folder, name })),
+  removeFolder: (name, folder, masterHandle) =>
+    dispatch(folderActions.removeFolder({ name, folder, masterHandle }))
 });
 
 const FileManager = ({
+  currentFolder,
+  isLoading,
   upload,
   files,
+  folders,
   getFileList,
   download,
   removeFileByHandle,
@@ -45,10 +59,15 @@ const FileManager = ({
   expirationDate,
   downloadFiles,
   removeFiles
+  createFolder,
+  removeFolder
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
+      currentFolder={currentFolder}
+      isLoading={isLoading}
       files={files}
+      folders={folders}
       getFileList={getFileList}
       upload={upload}
       download={download}
@@ -60,6 +79,8 @@ const FileManager = ({
       expirationDate={expirationDate}
       downloadFiles={downloadFiles}
       removeFiles={removeFiles}
+      createFolder={createFolder}
+      removeFolder={removeFolder}
     />
   </DragDropContextProvider>
 );

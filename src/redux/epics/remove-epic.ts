@@ -20,9 +20,9 @@ const removeFileByHandleEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(removeActions.REMOVE_FILE_BY_HANDLE),
     mergeMap(({ payload }) => {
-      const { name, handle, masterHandle } = payload;
+      const { name, handle, folder, masterHandle } = payload;
 
-      return from(masterHandle.deleteVersion("/", handle)).pipe(
+      return from(masterHandle.deleteVersion(folder, handle)).pipe(
         map(() => {
           toast(`${name} was successfully deleted.`, {
             autoClose: 3000,
@@ -31,9 +31,9 @@ const removeFileByHandleEpic = (action$, state$, dependencies$) =>
             toastId: handle
           });
 
-          return removeActions.removeSuccess({ masterHandle });
+          return removeActions.removeFileSuccess({ masterHandle, folder });
         }),
-        catchError(error => of(removeActions.removeError({ error })))
+        catchError(error => of(removeActions.removeFileError({ error })))
       );
     })
   );

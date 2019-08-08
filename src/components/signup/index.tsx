@@ -2,43 +2,61 @@ import React from "react";
 import { connect } from "react-redux";
 
 import signupActions from "../../redux/actions/signup-actions";
+import fiatPaymentActions from "../../redux/actions/fiat-payment-actions";
 import metamaskActions from "../../redux/actions/metamask-actions";
 import CreateAccount from "./create-account";
 
 import { PLANS, SIGNUP_PHASES } from "../../config";
 
 const mapStateToProps = (state, props) => {
-  const plan = PLANS.find(p => p.permalink === props.match.params.plan);
+  const plan = PLANS.filter(p => p.isAvailable).find(
+    p => p.permalink === props.match.params.plan
+  );
   return {
     plan,
-    phase: plan ? state.signup.phase : SIGNUP_PHASES.SELECT_PLAN
+    phase: plan ? state.signup.phase : SIGNUP_PHASES.SELECT_PLAN,
+    fiatPaymentError: state.fiatPayment.error,
+    fiatPaymentStatus: state.fiatPayment.status
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   showMnemonic: () => dispatch(signupActions.showMnemonic()),
   showAddress: () => dispatch(signupActions.showAddress()),
+  accountPaidSuccess: () => dispatch(signupActions.accountPaidSuccess()),
   pollPayment: waitForPaymentFn =>
     dispatch(signupActions.pollPayment({ waitForPaymentFn })),
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
-    dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice }))
+    dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice })),
+  payFiat: ({ stripeToken, masterHandle, timestamp }) =>
+    dispatch(
+      fiatPaymentActions.payFiat({ stripeToken, masterHandle, timestamp })
+    )
 });
 
 const SignUp = ({
   phase,
   plan,
+  fiatPaymentStatus,
+  fiatPaymentError,
   showMnemonic,
   showAddress,
+  accountPaidSuccess,
   invoice,
   pollPayment,
-  openMetamask
+  openMetamask,
+  payFiat
 }) => (
   <CreateAccount
-    phase={phase}
-    showAddress={showAddress}
+    fiatPaymentError={fiatPaymentError}
+    fiatPaymentStatus={fiatPaymentStatus}
     openMetamask={openMetamask}
-    pollPayment={pollPayment}
+    payFiat={payFiat}
+    accountPaidSuccess={accountPaidSuccess}
+    phase={phase}
     plan={plan}
+    pollPayment={pollPayment}
+    showAddress={showAddress}
     showMnemonic={showMnemonic}
   />
 );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import Reaptcha from "reaptcha";
 
@@ -13,6 +13,29 @@ import OutboundLink from "../shared/outbound-link";
 import Title from "./title";
 import ContinueButton from "./continue-button";
 import Checkbox from "../shared/generic/checkbox";
+
+const ContinueButtonLink = styled(Link)`
+  color: ${(props: any) => theme.button.color};
+  border: 1px solid white;
+  border-radius: 0px;
+  cursor: pointer;
+  margin: 0xp;
+  min-width: 100px;
+  outline: none;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: ${props => theme.button.background};
+  border: none;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  width: 171px;
+  text-decoration: none;
+  padding: 10px;
+  @media (max-width: ${DESKTOP_WIDTH}px) {
+    width: 100%;
+  }
+`;
 
 const ContentBold = styled(Content)`
   margin-top: 25px;
@@ -124,9 +147,7 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic, history }) => {
           Download phrase as CSV
         </DownloadButton>
         <ButtonWrapper>
-          <ContinueButton onClick={() => history.push("/sign-up")}>
-            Back
-          </ContinueButton>
+          <ContinueButtonLink to="/sign-up">Back</ContinueButtonLink>
           <ContinueButton
             disabled={!isCaptchaVerified}
             onClick={() => onSubmit()}
