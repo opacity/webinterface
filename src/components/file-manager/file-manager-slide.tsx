@@ -429,23 +429,29 @@ const FileManagerSlide = ({
     !isExist
       ? createFolder(masterHandle, currentFolder, name)
       : toast(`Folder ${name} is found. `, {
-        autoClose: 3000,
-        hideProgressBar: true,
-        position: toast.POSITION.BOTTOM_RIGHT,
-        toastId: name
-      });
+          autoClose: 3000,
+          hideProgressBar: true,
+          position: toast.POSITION.BOTTOM_RIGHT,
+          toastId: name
+        });
   };
 
-  useEffect(() => {
-    const defaultOrder = "created";
-    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-    setOrderedFolders(_.orderBy(folders, defaultOrder, "desc"));
-    setParam(defaultOrder);
-  }, [files, folders]);
+  useEffect(
+    () => {
+      const defaultOrder = "created";
+      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+      setOrderedFolders(_.orderBy(folders, defaultOrder, "desc"));
+      setParam(defaultOrder);
+    },
+    [files, folders]
+  );
 
-  useEffect(() => {
-    getFileList(currentFolder, masterHandle);
-  }, [currentFolder]);
+  useEffect(
+    () => {
+      getFileList(currentFolder, masterHandle);
+    },
+    [currentFolder]
+  );
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -540,7 +546,7 @@ const FileManagerSlide = ({
                   <tbody>
                     {orderedFolders.map(({ name, location }, i) => (
                       <TrPointer
-                        key={location}
+                        key={i}
                         onClick={() =>
                           history.push(
                             `/file-manager${
@@ -627,18 +633,20 @@ const FileManagerSlide = ({
                   </tbody>
                 </Table>
               )}
-              {!isLoading && !folders.length && !files.length && (
-                <NoFilesContainer>
-                  <NoFiles>
-                    Your folder is empty. You can upload files by clicking the
-                    Upload button on the top right.
-                  </NoFiles>
-                  <NoFilesMobile>
-                    Your folder is empty. You can upload files by clicking the
-                    Upload button on the bottom right.
-                  </NoFilesMobile>
-                </NoFilesContainer>
-              )}
+              {!isLoading &&
+                !folders.length &&
+                !files.length && (
+                  <NoFilesContainer>
+                    <NoFiles>
+                      Your folder is empty. You can upload files by clicking the
+                      Upload button on the top right.
+                    </NoFiles>
+                    <NoFilesMobile>
+                      Your folder is empty. You can upload files by clicking the
+                      Upload button on the bottom right.
+                    </NoFilesMobile>
+                  </NoFilesContainer>
+                )}
               <UploadMobileButton
                 onSelected={files =>
                   upload({ files, folder: currentFolder, masterHandle })
