@@ -4,9 +4,10 @@ import { push } from "connected-react-router";
 import { EventEmitter } from "events";
 
 import finderActions from "../actions/finder-actions";
+import authenticationActions from "../actions/authentication-actions";
 import finderEpic from "./finder-epic";
 
-test("getFileListEpic finderActions.GET_FILE_LIST - grabs initial list ", done => {
+test("getFileListEpic - on success", done => {
   const files = ["fi1", "fi2"];
   const folders = ["fo1", "fo2"];
   const folderUpdates = new EventEmitter();
@@ -33,7 +34,34 @@ test("getFileListEpic finderActions.GET_FILE_LIST - grabs initial list ", done =
     });
 });
 
-test("getFileListEpic finderActions.LISTEN_FOR_UPDATES", done => {
+test("getFileListEpic - on failure", done => {
+  const folder = "fo1";
+  const masterHandle = {
+    getFolderMeta: jest.fn(() => Promise.reject("foobar")),
+    getAccountInfo: jest.fn(() =>
+      Promise.resolve({
+        storageUsed: 123,
+        storageLimit: 456,
+        expirationDate: new Date()
+      })
+    )
+  };
+  const action$ = of(finderActions.getFileList({ masterHandle, folder }));
+  const state$ = null;
+  const dependencies$ = {};
+
+  finderEpic(action$, state$, dependencies$)
+    .toArray()
+    .subscribe(actions => {
+      expect(actions).toEqual([
+        finderActions.setList({ files: [], folders: [], masterHandle }),
+        finderActions.listenForUpdates({ masterHandle, folder })
+      ]);
+      done();
+    });
+});
+
+test("listenToUpdatesEpic", done => {
   const folderUpdates = new EventEmitter();
 
   const folder = "fo1";
@@ -64,29 +92,48 @@ test("getFileListEpic finderActions.LISTEN_FOR_UPDATES", done => {
   });
 });
 
-test("getFileListEpic - on failure", done => {
-  const folder = "fo1";
+test("getAccountDataEpic - on success", done => {
+  const storageUsed = 123;
+  const storageLimit = 456;
+  const expirationDate = new Date();
   const masterHandle = {
-    getFolderMeta: jest.fn(() => Promise.reject("foobar")),
     getAccountInfo: jest.fn(() =>
       Promise.resolve({
-        storageUsed: 123,
-        storageLimit: 456,
-        expirationDate: new Date()
+        storageUsed,
+        storageLimit,
+        expirationDate
       })
     )
   };
-  const action$ = of(finderActions.getFileList({ masterHandle, folder }));
+  const action$ = of(finderActions.setList({ masterHandle }));
   const state$ = null;
   const dependencies$ = {};
 
-  finderEpic(action$, state$, dependencies$)
-    .toArray()
-    .subscribe(actions => {
-      expect(actions).toEqual([
-        finderActions.setList({ files: [], folders: [], masterHandle }),
-        finderActions.listenForUpdates({ masterHandle, folder })
-      ]);
-      done();
-    });
+  finderEpic(action$, state$, dependencies$).subscribe(actions => {
+    expect(actions).toEqual(
+      authenticationActions.fetchAccountDataSuccess({
+        storageUsed,
+        storageLimit,
+        expirationDate
+      })
+    );
+    done();
+  });
+});
+
+test("getAccountDataEpic - on failure", done => {
+  const error = new Error("e1");
+  const masterHandle = {
+    getAccountInfo: jest.fn(() => Promise.reject(error))
+  };
+  const action$ = of(finderActions.setList({ masterHandle }));
+  const state$ = null;
+  const dependencies$ = {};
+
+  finderEpic(action$, state$, dependencies$).subscribe(actions => {
+    expect(actions).toEqual(
+      authenticationActions.fetchAccountDataFailure({ error })
+    );
+    done();
+  });
 });
