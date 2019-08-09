@@ -9,8 +9,7 @@ test("setList", () => {
     payload: {
       files,
       folders,
-      masterHandle,
-      folder
+      masterHandle
     }
   };
   expect(actions.setList({ files, folders, masterHandle })).toEqual(expected);
