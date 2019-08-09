@@ -32,11 +32,11 @@ const mapDispatchToProps = dispatch => ({
   download: handle => dispatch(downloadActions.downloadFile({ handle })),
   removeFileByHandle: (name, handle, masterHandle) =>
     dispatch(removeActions.removeFileByHandle({ name, handle, masterHandle })),
-  getFileList: masterHandle =>
-    dispatch(filesActions.getFileList({ masterHandle })),
+  getFileList: (folder, masterHandle) =>
+    dispatch(finderActions.getFileList({ masterHandle, folder })),
   downloadFiles: files => dispatch(downloadActions.downloadFiles({ files })),
-  removeFiles: (files, masterHandle) =>
-    dispatch(removeActions.removeFiles({ files, masterHandle }))
+  removeFiles: (files, folder, masterHandle) =>
+    dispatch(removeActions.removeFiles({ files, folder, masterHandle })),
   createFolder: (masterHandle, folder, name) =>
     dispatch(folderActions.createFolder({ masterHandle, folder, name })),
   removeFolder: (name, folder, masterHandle) =>
@@ -58,7 +58,7 @@ const FileManager = ({
   storageLimit,
   expirationDate,
   downloadFiles,
-  removeFiles
+  removeFiles,
   createFolder,
   removeFolder
 }) => (

@@ -122,8 +122,6 @@ const TopActionsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   text-align: right;
-  display: flex;
-  justify-content: space-between;
 `;
 
 const ButtonWrapper = styled.div`
@@ -387,7 +385,7 @@ const FileManagerSlide = ({
   connectDropTarget,
   isOver,
   downloadFiles,
-  removeFiles
+  removeFiles,
   createFolder,
   removeFolder
 }) => {
@@ -433,14 +431,11 @@ const FileManagerSlide = ({
     setFilemanagerFiles([]);
   };
 
-  useEffect(
-    () => {
-      const defaultOrder = "created";
-      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-      setParam(defaultOrder);
-    },
-    [files]
-  );
+  useEffect(() => {
+    const defaultOrder = "created";
+    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+    setParam(defaultOrder);
+  }, [files]);
 
   const prepareCreateFolder = (masterHandle, currentFolder, name) => {
     const isExist = folders.find(i => i.name === name);
@@ -463,6 +458,7 @@ const FileManagerSlide = ({
 
   useEffect(() => {
     getFileList(currentFolder, masterHandle);
+    setFilemanagerFiles([]);
   }, [currentFolder]);
 
   return (
@@ -494,7 +490,8 @@ const FileManagerSlide = ({
                   </UsageInfo>
                 </UsageWrapper>
               </TitleWrapper>
-              <ButtonWrapper>
+              <Breadcrumbs folder={currentFolder} />
+              <TopActionsWrapper>
                 <MultiActionContainer>
                   <Button
                     width="auto"
@@ -519,7 +516,11 @@ const FileManagerSlide = ({
                     margin="0 5px 0"
                     disabled={filemanagerFiles.length === 0}
                     onClick={() => {
-                      removeFiles(filemanagerFiles, masterHandle);
+                      removeFiles(
+                        filemanagerFiles,
+                        currentFolder,
+                        masterHandle
+                      );
                       setFilemanagerFiles([]);
                     }}
                   >
@@ -532,102 +533,6 @@ const FileManagerSlide = ({
                         }`}
                   </Button>
                 </MultiActionContainer>
-                <UploadButton
-                  onSelected={files => upload(files, masterHandle)}
-                />
-              </ButtonWrapper>
-              <Table>
-                <thead>
-                  <Tr>
-                    <Th>
-                      <Checkbox
-                        checked={
-                          filemanagerFiles.length === orderedFiles.length
-                        }
-                        onChange={e =>
-                          e.target.checked
-                            ? selectAllFiles(orderedFiles)
-                            : deselectAllFiles()
-                        }
-                      />
-                    </Th>
-                    <Th />
-                    <TableHeader
-                      param="name"
-                      title="Name"
-                      paramArrow={param}
-                      sortBy={(param, order) => sortBy(param, order)}
-                    />
-                    <Th>File Handle</Th>
-                    <TableHeader
-                      param="created"
-                      title="Created Date"
-                      paramArrow={param}
-                      sortBy={(param, order) => sortBy(param, order)}
-                    />
-                    <TableHeader
-                      param="size"
-                      title="Size"
-                      paramArrow={param}
-                      sortBy={(param, order) => sortBy(param, order)}
-                    />
-                    <Th>Actions</Th>
-                  </Tr>
-                </thead>
-                <tbody>
-                  {orderedFiles.map(({ name, handle, size, created }, i) => (
-                    <Tr key={handle ? handle : i}>
-                      <Td>
-                        <Checkbox
-                          checked={filemanagerFiles
-                            .map(f => f.handle)
-                            .includes(handle)}
-                          onChange={e =>
-                            e.target.checked
-                              ? selectFile({ name, handle, size, created })
-                              : deselectFile(handle)
-                          }
-                        />
-                      </Td>
-                      <Td>{iconType(name)}</Td>
-                      <Td>{name}</Td>
-                      <Td>{_.truncate(handle, { length: 30 })}</Td>
-                      <Td>{moment(created).format("MM/DD/YYYY")}</Td>
-                      <Td>{formatBytes(size)}</Td>
-                      <Td>
-                        <ActionButton
-                          data-tip="Share file"
-                          onClick={() =>
-                            setSharedFile({
-                              name,
-                              handle,
-                              created,
-                              size: size
-                            })
-                          }
-                        >
-                          <TableIcon src={ICON_SHARE} />
-                        </ActionButton>
-                        <ActionButton
-                          data-tip="Download file"
-                          onClick={() => download(handle)}
-                        >
-                          <TableIcon src={ICON_DOWNLOAD} />
-                        </ActionButton>
-                        <ActionButton
-                          data-tip="Delete file"
-                          onClick={() =>
-                            confirm(
-                              "Do you really want to delete this file?"
-                            ) && removeFileByHandle(name, handle, masterHandle)
-                          }
-                        >
-                          <TableIcon src={ICON_REMOVE} />
-                        </ActionButton>
-                        <ReactTooltip effect="solid" />
-                      </Td>
-              <TopActionsWrapper>
-                <Breadcrumbs folder={currentFolder} />
                 <ButtonWrapper>
                   <FolderButton
                     onClick={() => setShowCreateFolder(!showCreateFolder)}
@@ -652,6 +557,18 @@ const FileManagerSlide = ({
                 <Table>
                   <thead>
                     <Tr>
+                      <Th>
+                        <Checkbox
+                          checked={
+                            filemanagerFiles.length === orderedFiles.length
+                          }
+                          onChange={e =>
+                            e.target.checked
+                              ? selectAllFiles(orderedFiles)
+                              : deselectAllFiles()
+                          }
+                        />
+                      </Th>
                       <Th />
                       <TableHeader
                         param="name"
@@ -687,6 +604,7 @@ const FileManagerSlide = ({
                           )
                         }
                       >
+                        <Th />
                         <Td>
                           <TableIcon src={ICON_FOLDER} />
                         </Td>
@@ -715,6 +633,18 @@ const FileManagerSlide = ({
                     ))}
                     {orderedFiles.map(({ name, handle, size, created }, i) => (
                       <Tr key={handle ? handle : i}>
+                        <Td>
+                          <Checkbox
+                            checked={filemanagerFiles
+                              .map(f => f.handle)
+                              .includes(handle)}
+                            onChange={e =>
+                              e.target.checked
+                                ? selectFile({ name, handle, size, created })
+                                : deselectFile(handle)
+                            }
+                          />
+                        </Td>
                         <Td>{iconType(name)}</Td>
                         <Td>{name}</Td>
                         <Td>{_.truncate(handle, { length: 30 })}</Td>
