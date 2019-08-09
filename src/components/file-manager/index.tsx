@@ -30,9 +30,9 @@ const mapDispatchToProps = dispatch => ({
   upload: ({ files, folder, masterHandle }) =>
     dispatch(uploadActions.uploadFiles({ files, folder, masterHandle })),
   download: handle => dispatch(downloadActions.downloadFile({ handle })),
-  removeFileByVersion: ({ name, handle, folder, masterHandle }) =>
+  removeFileByVersion: ({ name, version, folder, masterHandle }) =>
     dispatch(
-      removeActions.removeFileByVersion({ name, handle, folder, masterHandle })
+      removeActions.removeFileByVersion({ name, version, folder, masterHandle })
     ),
   getFileList: (folder, masterHandle) =>
     dispatch(finderActions.getFileList({ folder, masterHandle })),
