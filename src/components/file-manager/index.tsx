@@ -10,7 +10,7 @@ import folderActions from "../../redux/actions/folder-actions";
 
 import FileManagerSlide from "./file-manager-slide";
 
-import dragDropContext from "./dragDropContext";
+import dragDropContext from "../../context/drag-drop-context";
 
 const mapStateToProps = (state, props) => {
   const folderName = props.match.params.folderName;
@@ -59,9 +59,9 @@ const mapDispatchToProps = dispatch => ({
         masterHandle
       })
     ),
-  moveFolder: (file, to, currentFolder, masterHandle) =>
+  moveFile: (file, to, currentFolder, masterHandle) =>
     dispatch(fileActions.moveFile({ file, to, currentFolder, masterHandle })),
-  moveFile: (folder, to, currentFolder, masterHandle) =>
+  moveFolder: (folder, to, currentFolder, masterHandle) =>
     dispatch(
       folderActions.moveFolder({ folder, to, currentFolder, masterHandle })
     )

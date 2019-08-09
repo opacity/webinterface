@@ -1,8 +1,7 @@
 import _ from "lodash";
-import React, { useState, useEffect, useRef } from "react";
-import Tooltip from "react-simple-tooltip";
+import React, { useState, useEffect } from "react";
 import { NativeTypes } from "react-dnd-html5-backend";
-import { DropTarget, useDrag, useDrop } from "react-dnd";
+import { DropTarget } from "react-dnd";
 import { ToastContainer, toast } from "react-toastify";
 import { withRouter } from "react-router";
 import styled, { ThemeProvider } from "styled-components";
@@ -12,12 +11,10 @@ import {
   HEADER_TYPES,
   DESKTOP_WIDTH,
   HEADER_MOBILE_WIDTH,
-  DATA_TYPES_ICONS,
   FILE_MAX_SIZE,
-  DROP_TYPES,
   theme
 } from "../../config";
-import { formatBytes, formatGbs } from "../../helpers";
+import { formatGbs } from "../../helpers";
 
 import Header from "../shared/header";
 import Breadcrumbs from "./breadcrumbs";
@@ -27,12 +24,8 @@ import ShareModal from "./share-modal";
 import FolderModal from "./folder-modal";
 import RenameModal from "./rename-modal";
 import UploadMobileButton from "./upload-mobile-button";
-
-const ICON_DOWNLOAD = require("../../assets/images/download.svg");
-const ICON_REMOVE = require("../../assets/images/remove.svg");
-const ICON_SHARE = require("../../assets/images/share.svg");
-const ICON_FOLDER = require("../../assets/images/folder.svg");
-const ICON_RENAME = require("../../assets/images/rename.svg");
+import File from "./file";
+import Folder from "./folder";
 
 const fileTarget = {
   drop: (props, monitor) => {
@@ -57,16 +50,6 @@ const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-`;
-
-const ActionButton = styled.a`
-  padding: 5px 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: #687892;
-  font-size: 14px;
-  margin-right: 10px;
 `;
 
 const TableContainer = styled.div`
@@ -124,11 +107,6 @@ const ButtonWrapper = styled.div`
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
   }
-`;
-
-const TableIcon = styled.img`
-  height: 20px;
-  width: 20px;
 `;
 
 const LeftSideNav = styled.div`
@@ -201,25 +179,7 @@ const Th = styled.th`
   padding: 15px 10px 15px 10px;
 `;
 
-const Td = styled.td`
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #687892;
-  width: 20%;
-  border-bottom: 1px solid #cfd7e6;
-  padding: 15px 10px 15px 10px;
-  white-space: nowrap;
-`;
-
 const ThPointer = styled(Th)`
-  cursor: pointer;
-`;
-
-const TrPointer = styled(Tr)`
   cursor: pointer;
 `;
 
@@ -397,17 +357,6 @@ const FileManagerSlide = ({
     setOrderedFolders(_.orderBy(orderedFolders, param, order));
   };
 
-  const iconType = name => {
-    const typeIcon = DATA_TYPES_ICONS.find(type => {
-      return name.includes(type.name);
-    });
-    return typeIcon ? (
-      <TableIcon src={typeIcon.icon} />
-    ) : (
-      <TableIcon src={DATA_TYPES_ICONS[0].icon} />
-    );
-  };
-
   const prepareCreateFolder = (masterHandle, currentFolder, name) => {
     const isExist = folders.find(i => i.name === name);
     !isExist
@@ -418,151 +367,6 @@ const FileManagerSlide = ({
         position: toast.POSITION.BOTTOM_RIGHT,
         toastId: name
       });
-  };
-
-  const Folder = ({ name, location }) => {
-    const ref = useRef<any>(null);
-    const [{}, drop] = useDrop({
-      accept: [DROP_TYPES.FILE, DROP_TYPES.FOLDER],
-      drop: ({}, monitor) =>
-        monitor.getItem().type === DROP_TYPES.FILE
-          ? moveFolder(
-            monitor.getItem().name,
-            name,
-            currentFolder,
-            masterHandle
-            )
-          : moveFile(monitor.getItem().name, name, currentFolder, masterHandle)
-    });
-
-    const [{ isDragging }, drag] = useDrag({
-      item: { type: DROP_TYPES.FOLDER, name },
-      collect: (monitor: any) => ({
-        isDragging: monitor.isDragging()
-      })
-    });
-
-    drag(drop(ref));
-
-    const opacity = isDragging ? 0.4 : 1;
-
-    return (
-      <TrPointer
-        style={{ opacity }}
-        ref={ref}
-        key={location}
-        onClick={() =>
-          history.push(
-            `/file-manager${currentFolder === "/" ? "" : currentFolder}/${name}`
-          )
-        }
-      >
-        <Td>
-          <TableIcon src={ICON_FOLDER} />
-        </Td>
-        <Td>{name}</Td>
-        <Td />
-        <Td />
-        <Td />
-        <Td>
-          <ActionButton
-            onClick={e => {
-              e.stopPropagation();
-              confirm("Do you really want to delete this folder?") &&
-                removeFolder(name, currentFolder, masterHandle);
-            }}
-          >
-            <Tooltip content="Delete folder">
-              <TableIcon src={ICON_REMOVE} />
-            </Tooltip>
-          </ActionButton>
-          <ActionButton
-            onClick={e => [
-              e.stopPropagation(),
-              setOldName(name),
-              setRenameType("folder"),
-              setShowRenameModal(true)
-            ]}
-          >
-            <Tooltip content="Rename folder">
-              <TableIcon src={ICON_REMOVE} />
-            </Tooltip>
-          </ActionButton>
-        </Td>
-      </TrPointer>
-    );
-  };
-
-  const File = ({ name, i, handle, size, created }) => {
-    const ref = useRef<any>(null);
-    const [{ isDragging }, drag] = useDrag({
-      item: { name, type: DROP_TYPES.FILE },
-      collect: monitor => ({
-        isDragging: monitor.isDragging()
-      })
-    });
-
-    drag(ref);
-
-    const opacity = isDragging ? 0.4 : 1;
-
-    return (
-      <Tr key={name ? name : i} ref={ref} style={{ opacity }}>
-        <Td>{iconType(name)}</Td>
-        <Td>{name}</Td>
-        <Td>{_.truncate(handle, { length: 30 })}</Td>
-        <Td>{moment(created).format("MM/DD/YYYY")}</Td>
-        <Td>{formatBytes(size)}</Td>
-        <Td>
-          <ActionButton
-            onClick={() =>
-              setSharedFile({
-                name,
-                handle,
-                created,
-                size: size
-              })
-            }
-          >
-            <Tooltip content="Share file">
-              <TableIcon src={ICON_SHARE} />
-            </Tooltip>
-          </ActionButton>
-          <ActionButton onClick={() => download(handle)}>
-            <Tooltip content="Download file">
-              <TableIcon src={ICON_DOWNLOAD} />
-            </Tooltip>
-          </ActionButton>
-          <ActionButton
-            onClick={() =>
-              confirm("Do you really want to delete this file?") &&
-              removeFileByHandle({
-                name,
-                handle,
-                folder: currentFolder,
-                masterHandle
-              })
-            }
-          >
-            <Tooltip content="Delete file">
-              <TableIcon src={ICON_REMOVE} />
-            </Tooltip>
-          </ActionButton>
-          <ActionButton
-            onClick={e => [
-              e.stopPropagation(),
-              setOldName(name),
-              setRenameType("file"),
-              setShowRenameModal(true)
-            ]}
-          >
-            <Tooltip content="Rename file">
-              <TableIcon src={ICON_RENAME} />
-            </Tooltip>
-          </ActionButton>
-        </Td>
-      </Tr>
-    );
   };
 
   useEffect(() => {
@@ -656,7 +460,18 @@ const FileManagerSlide = ({
                   </thead>
                   <tbody>
                     {orderedFolders.map(({ name, location }, i) => (
-                      <Folder name={name} location={location} />
+                      <Folder
+                        name={name}
+                        location={location}
+                        moveFolder={moveFolder}
+                        moveFile={moveFile}
+                        currentFolder={currentFolder}
+                        masterHandle={masterHandle}
+                        removeFolder={removeFolder}
+                        setOldName={setOldName}
+                        setRenameType={setRenameType}
+                        setShowRenameModal={setShowRenameModal}
+                      />
                     ))}
                     {orderedFiles.map(({ name, handle, size, created }, i) => (
                       <File
@@ -665,6 +480,14 @@ const FileManagerSlide = ({
                         handle={handle}
                         size={size}
                         created={created}
+                        setSharedFile={setSharedFile}
+                        removeFileByHandle={removeFileByHandle}
+                        currentFolder={currentFolder}
+                        masterHandle={masterHandle}
+                        download={download}
+                        setOldName={setOldName}
+                        setRenameType={setRenameType}
+                        setShowRenameModal={setShowRenameModal}
                       />
                     ))}
                   </tbody>

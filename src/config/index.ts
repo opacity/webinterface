@@ -6,8 +6,8 @@ export const IS_PROD = process.env.NODE_ENV === "production";
 const PROTOCOL = IS_DEV ? "http" : "https";
 
 export const STRIPE_API_KEY = IS_PROD
-    ? "pk_live_SLMPS7zVFurFwLOKEdiICAGC00kN41fASj"
-    : "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f";
+  ? "pk_live_SLMPS7zVFurFwLOKEdiICAGC00kN41fASj"
+  : "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f";
 
 export const HOST =
   IS_DEV || IS_BETA_DEV
@@ -333,7 +333,7 @@ export const DATA_TYPES_ICONS = [
   }
 ];
 
-export const DROP_TYPES = {
-  FILE: "FILE",
-  FOLDER: "FOLDER"
-};
+export enum DROP_TYPES {
+  FILE,
+  FOLDER
+}
