@@ -32,7 +32,7 @@ const getFileListEpic = (action$, state$, dependencies$) =>
     })
   );
 
-const setFileListEpic = (action$, state$, dependencies$) =>
+const listenToUpdatesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(finderActions.LISTEN_FOR_UPDATES),
     switchMap(({ payload }) => {
@@ -75,6 +75,6 @@ const getAccountDataEpic = (action$, state$, dependencies$) =>
 
 export default combineEpics(
   getFileListEpic,
-  setFileListEpic,
+  listenToUpdatesEpic,
   getAccountDataEpic
 );
