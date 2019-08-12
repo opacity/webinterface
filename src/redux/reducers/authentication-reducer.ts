@@ -7,7 +7,8 @@ const initState = {
   storageUsed: 0,
   storageLimit: 0,
   expirationDate: null,
-  recoveryHandle: null
+  recoveryHandle: null,
+  hasError: null
 };
 
 const authenticationReducer = (state = initState, action) => {
@@ -25,6 +26,19 @@ const authenticationReducer = (state = initState, action) => {
       };
     case authenticationActions.LOGOUT:
       return initState;
+
+    case authenticationActions.RECOVER_ACCOUNT_HANDLE_FAILURE:
+      const { error } = action.payload;
+      return {
+        ...state,
+        hasError: error
+      };
+
+    case authenticationActions.RESET_RECOVER_ERROR:
+      return {
+        ...state,
+        hasError: null
+      };
 
     case authenticationActions.FETCH_ACCOUNT_DATA_SUCCESS:
       const { storageUsed, storageLimit, expirationDate } = action.payload;

@@ -30,12 +30,15 @@ const mapDispatchToProps = dispatch => ({
   upload: ({ files, folder, masterHandle }) =>
     dispatch(uploadActions.uploadFiles({ files, folder, masterHandle })),
   download: handle => dispatch(downloadActions.downloadFile({ handle })),
-  removeFileByHandle: ({ name, handle, folder, masterHandle }) =>
+  removeFileByVersion: ({ name, version, folder, masterHandle }) =>
     dispatch(
-      removeActions.removeFileByHandle({ name, handle, folder, masterHandle })
+      removeActions.removeFileByVersion({ name, version, folder, masterHandle })
     ),
   getFileList: (folder, masterHandle) =>
     dispatch(finderActions.getFileList({ folder, masterHandle })),
+  downloadFiles: files => dispatch(downloadActions.downloadFiles({ files })),
+  removeFiles: ({ files, masterHandle, folder }) =>
+    dispatch(removeActions.removeFiles({ files, masterHandle, folder })),
   createFolder: (masterHandle, folder, name) =>
     dispatch(folderActions.createFolder({ masterHandle, folder, name })),
   removeFolder: (name, folder, masterHandle) =>
@@ -50,14 +53,16 @@ const FileManager = ({
   folders,
   getFileList,
   download,
-  removeFileByHandle,
+  removeFileByVersion,
   masterHandle,
   metadata,
   storageUsed,
   storageLimit,
   expirationDate,
   createFolder,
-  removeFolder
+  removeFolder,
+  downloadFiles,
+  removeFiles
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
@@ -68,7 +73,7 @@ const FileManager = ({
       getFileList={getFileList}
       upload={upload}
       download={download}
-      removeFileByHandle={removeFileByHandle}
+      removeFileByVersion={removeFileByVersion}
       masterHandle={masterHandle}
       metadata={metadata}
       storageUsed={storageUsed}
@@ -76,6 +81,8 @@ const FileManager = ({
       expirationDate={expirationDate}
       createFolder={createFolder}
       removeFolder={removeFolder}
+      downloadFiles={downloadFiles}
+      removeFiles={removeFiles}
     />
   </DragDropContextProvider>
 );
