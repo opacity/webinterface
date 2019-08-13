@@ -22,7 +22,10 @@ const fileGenerator = ({ name, versions }): IFile[] =>
     };
   });
 
-const folderGenerator = ({ name, location }): IFolder => ({ name, location });
+const folderGenerator = (folder): IFolder => {
+  const { name, location } = folder;
+  return { name, location, folder };
+};
 
 const finderReducer = (state = initState, action) => {
   switch (action.type) {
