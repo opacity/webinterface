@@ -43,7 +43,7 @@ const fileTarget = {
     if (files.length > 0) {
       files = files.filter(file => file.size <= FILE_MAX_SIZE);
       files.length !== filesLength && alert("Some files are greater then 2GB.");
-      upload({ files, masterHandle, folder: currentFolder });
+      upload({ files, masterHandle, directory: currentFolder });
     }
   }
 };
@@ -428,11 +428,11 @@ const FileManagerSlide = ({
     !isExist
       ? createFolder({ masterHandle, directory: currentFolder, name })
       : toast(`Folder ${name} already exists.`, {
-        autoClose: 3000,
-        hideProgressBar: true,
-        position: toast.POSITION.BOTTOM_RIGHT,
-        toastId: name
-      });
+          autoClose: 3000,
+          hideProgressBar: true,
+          position: toast.POSITION.BOTTOM_RIGHT,
+          toastId: name
+        });
   };
 
   useEffect(
@@ -533,7 +533,11 @@ const FileManagerSlide = ({
                     </FolderButton>
                     <UploadButton
                       onSelected={files =>
-                        upload({ files, masterHandle, folder: currentFolder })
+                        upload({
+                          files,
+                          masterHandle,
+                          directory: currentFolder
+                        })
                       }
                     />
                     <FolderModal
@@ -641,12 +645,12 @@ const FileManagerSlide = ({
                               onChange={e =>
                                 e.target.checked
                                   ? selectFile({
-                                    name,
-                                    handle,
-                                    size,
-                                    created,
-                                    version
-                                  })
+                                      name,
+                                      handle,
+                                      size,
+                                      created,
+                                      version
+                                    })
                                   : deselectFile(handle)
                               }
                             />
