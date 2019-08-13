@@ -29,14 +29,16 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = dispatch => ({
   uploadFiles: ({ files, directory, masterHandle }) =>
     dispatch(uploadActions.uploadFiles({ files, directory, masterHandle })),
-  download: handle => dispatch(downloadActions.downloadFile({ handle })),
+  downloadFile: ({ handle }) =>
+    dispatch(downloadActions.downloadFile({ handle })),
   removeFileByVersion: ({ name, version, folder, masterHandle }) =>
     dispatch(
       removeActions.removeFileByVersion({ name, version, folder, masterHandle })
     ),
   getFileList: ({ folder, masterHandle }) =>
     dispatch(finderActions.getFileList({ folder, masterHandle })),
-  downloadFiles: files => dispatch(downloadActions.downloadFiles({ files })),
+  downloadFiles: ({ files }) =>
+    dispatch(downloadActions.downloadFiles({ files })),
   removeFiles: ({ files, masterHandle, folder }) =>
     dispatch(removeActions.removeFiles({ files, masterHandle, folder })),
   createFolder: ({ masterHandle, directory, name }) =>
@@ -48,43 +50,43 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const FileManager = ({
+  createFolder,
   currentFolder,
-  isLoading,
-  upload,
+  downloadFile,
+  downloadFiles,
+  expirationDate,
   files,
   folders,
   getFileList,
-  download,
-  removeFileByVersion,
+  isLoading,
   masterHandle,
   metadata,
-  storageUsed,
-  storageLimit,
-  expirationDate,
-  createFolder,
+  removeFileByVersion,
+  removeFiles,
   removeFolder,
-  downloadFiles,
-  removeFiles
+  storageLimit,
+  storageUsed,
+  uploadFiles
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
+      createFolder={createFolder}
       currentFolder={currentFolder}
-      isLoading={isLoading}
+      downloadFile={downloadFile}
+      downloadFiles={downloadFiles}
+      expirationDate={expirationDate}
       files={files}
       folders={folders}
       getFileList={getFileList}
-      upload={upload}
-      download={download}
-      removeFileByVersion={removeFileByVersion}
+      isLoading={isLoading}
       masterHandle={masterHandle}
       metadata={metadata}
-      storageUsed={storageUsed}
-      storageLimit={storageLimit}
-      expirationDate={expirationDate}
-      createFolder={createFolder}
-      removeFolder={removeFolder}
-      downloadFiles={downloadFiles}
+      removeFileByVersion={removeFileByVersion}
       removeFiles={removeFiles}
+      removeFolder={removeFolder}
+      storageLimit={storageLimit}
+      storageUsed={storageUsed}
+      uploadFiles={uploadFiles}
     />
   </DragDropContextProvider>
 );

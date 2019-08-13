@@ -361,26 +361,26 @@ interface Handle {
 }
 
 const FileManagerSlide = ({
+  connectDropTarget,
+  createFolder,
   currentFolder,
-  isLoading,
-  history,
+  downloadFile,
+  downloadFiles,
+  expirationDate,
   files,
   folders,
   getFileList,
-  uploadFiles,
-  download,
-  removeFileByVersion,
+  history,
+  isLoading,
+  isOver,
   masterHandle,
   metadata,
-  storageUsed,
-  storageLimit,
-  expirationDate,
-  connectDropTarget,
-  isOver,
-  downloadFiles,
+  removeFileByVersion,
   removeFiles,
-  createFolder,
-  removeFolder
+  removeFolder,
+  storageLimit,
+  storageUsed,
+  uploadFiles
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<IFile[]>([]);
   const [orderedFolders, setOrderedFolders] = useState<IFolder[]>([]);
@@ -447,7 +447,7 @@ const FileManagerSlide = ({
 
   useEffect(
     () => {
-      getFileList({ currentFolder, masterHandle });
+      getFileList({ folder: currentFolder, masterHandle });
     },
     [currentFolder]
   );
@@ -490,7 +490,7 @@ const FileManagerSlide = ({
                       padding="0 10px"
                       disabled={filemanagerFiles.length === 0}
                       onClick={() => {
-                        downloadFiles(filemanagerFiles);
+                        downloadFiles({ files: filemanagerFiles });
                         setFilemanagerFiles([]);
                       }}
                     >
@@ -677,7 +677,7 @@ const FileManagerSlide = ({
                             </ActionButton>
                             <ActionButton
                               data-tip="Download file"
-                              onClick={() => download(handle)}
+                              onClick={() => downloadFile({ handle })}
                             >
                               <TableIcon src={ICON_DOWNLOAD} />
                             </ActionButton>
