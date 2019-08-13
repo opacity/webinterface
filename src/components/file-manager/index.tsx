@@ -14,7 +14,7 @@ import FileManagerSlide from "./file-manager-slide";
 const mapStateToProps = (state, props) => {
   const folderName = props.match.params.folderName;
   return {
-    currentFolder: folderName ? `/${folderName}` : "/",
+    directory: folderName ? `/${folderName}` : "/",
     files: state.finder.files,
     folders: state.finder.folders,
     isLoading: state.finder.isLoading,
@@ -56,7 +56,7 @@ const mapDispatchToProps = dispatch => ({
 
 const FileManager = ({
   createFolder,
-  currentFolder,
+  directory,
   downloadFile,
   downloadFiles,
   expirationDate,
@@ -76,7 +76,7 @@ const FileManager = ({
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
       createFolder={createFolder}
-      currentFolder={currentFolder}
+      directory={directory}
       downloadFile={downloadFile}
       downloadFiles={downloadFiles}
       expirationDate={expirationDate}

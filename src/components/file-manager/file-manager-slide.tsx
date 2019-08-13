@@ -37,13 +37,13 @@ const ICON_FOLDER = require("../../assets/images/folder.svg");
 
 const fileTarget = {
   drop: (props, monitor) => {
-    const { uploadFiles, masterHandle, currentFolder } = props;
+    const { uploadFiles, masterHandle, directory } = props;
     let { files } = monitor.getItem();
     const filesLength = files.length;
     if (files.length > 0) {
       files = files.filter(file => file.size <= FILE_MAX_SIZE);
       files.length !== filesLength && alert("Some files are greater then 2GB.");
-      uploadFiles({ files, masterHandle, directory: currentFolder });
+      uploadFiles({ files, masterHandle, directory });
     }
   }
 };
@@ -363,7 +363,7 @@ interface Handle {
 const FileManagerSlide = ({
   connectDropTarget,
   createFolder,
-  currentFolder,
+  directory,
   downloadFile,
   downloadFiles,
   expirationDate,
@@ -423,10 +423,10 @@ const FileManagerSlide = ({
     );
   };
 
-  const prepareCreateFolder = (masterHandle, currentFolder, name) => {
+  const prepareCreateFolder = (masterHandle, directory, name) => {
     const isExist = folders.find(i => i.name === name);
     !isExist
-      ? createFolder({ masterHandle, directory: currentFolder, name })
+      ? createFolder({ masterHandle, directory, name })
       : toast(`Folder ${name} already exists.`, {
           autoClose: 3000,
           hideProgressBar: true,
@@ -447,9 +447,9 @@ const FileManagerSlide = ({
 
   useEffect(
     () => {
-      getFileList({ directory: currentFolder, masterHandle });
+      getFileList({ directory, masterHandle });
     },
-    [currentFolder]
+    [directory]
   );
 
   return (
@@ -482,7 +482,7 @@ const FileManagerSlide = ({
                 </UsageWrapper>
               </TitleWrapper>
               <TopActionsWrapper>
-                <Breadcrumbs folder={currentFolder} />
+                <Breadcrumbs folder={directory} />
                 <ButtonWrapper>
                   <ButtonGroup>
                     <Button
@@ -511,7 +511,7 @@ const FileManagerSlide = ({
                         removeFiles({
                           files: filemanagerFiles,
                           masterHandle,
-                          directory: currentFolder
+                          directory
                         });
                         setFilemanagerFiles([]);
                       }}
@@ -536,7 +536,7 @@ const FileManagerSlide = ({
                         uploadFiles({
                           files,
                           masterHandle,
-                          directory: currentFolder
+                          directory
                         })
                       }
                     />
@@ -544,7 +544,7 @@ const FileManagerSlide = ({
                       isOpen={!!showCreateFolder}
                       close={() => setShowCreateFolder(false)}
                       createFolder={name =>
-                        prepareCreateFolder(masterHandle, currentFolder, name)
+                        prepareCreateFolder(masterHandle, directory, name)
                       }
                     />
                   </ButtonGroup>
@@ -597,7 +597,7 @@ const FileManagerSlide = ({
                         onClick={() =>
                           history.push(
                             `/file-manager${
-                              currentFolder === "/" ? "" : currentFolder
+                              directory === "/" ? "" : directory
                             }/${name}`
                           )
                         }
@@ -620,7 +620,7 @@ const FileManagerSlide = ({
                                 removeFolder({
                                   folder,
                                   name,
-                                  directory: currentFolder,
+                                  directory,
                                   masterHandle
                                 });
                             }}
@@ -690,7 +690,7 @@ const FileManagerSlide = ({
                                 removeFileByVersion({
                                   name,
                                   version,
-                                  directory: currentFolder,
+                                  directory,
                                   masterHandle
                                 })
                               }
@@ -721,7 +721,7 @@ const FileManagerSlide = ({
                 )}
               <UploadMobileButton
                 onSelected={files =>
-                  uploadFiles({ files, directory: currentFolder, masterHandle })
+                  uploadFiles({ files, directory, masterHandle })
                 }
               />
             </TableContainer>
