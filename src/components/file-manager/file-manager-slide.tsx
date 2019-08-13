@@ -426,13 +426,13 @@ const FileManagerSlide = ({
   const prepareCreateFolder = (masterHandle, currentFolder, name) => {
     const isExist = folders.find(i => i.name === name);
     !isExist
-      ? createFolder(masterHandle, currentFolder, name)
-      : toast(`Folder ${name} is found. `, {
-        autoClose: 3000,
-        hideProgressBar: true,
-        position: toast.POSITION.BOTTOM_RIGHT,
-        toastId: name
-      });
+      ? createFolder({ masterHandle, directory: currentFolder, name })
+      : toast(`Folder ${name} already exists.`, {
+          autoClose: 3000,
+          hideProgressBar: true,
+          position: toast.POSITION.BOTTOM_RIGHT,
+          toastId: name
+        });
   };
 
   useEffect(
@@ -613,7 +613,11 @@ const FileManagerSlide = ({
                               confirm(
                                 "Do you really want to delete this folder?"
                               ) &&
-                                removeFolder(name, currentFolder, masterHandle);
+                                removeFolder({
+                                  name,
+                                  directory: currentFolder,
+                                  masterHandle
+                                });
                             }}
                           >
                             <TableIcon
@@ -636,12 +640,12 @@ const FileManagerSlide = ({
                               onChange={e =>
                                 e.target.checked
                                   ? selectFile({
-                                    name,
-                                    handle,
-                                    size,
-                                    created,
-                                    version
-                                  })
+                                      name,
+                                      handle,
+                                      size,
+                                      created,
+                                      version
+                                    })
                                   : deselectFile(handle)
                               }
                             />

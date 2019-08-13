@@ -39,10 +39,10 @@ const mapDispatchToProps = dispatch => ({
   downloadFiles: files => dispatch(downloadActions.downloadFiles({ files })),
   removeFiles: ({ files, masterHandle, folder }) =>
     dispatch(removeActions.removeFiles({ files, masterHandle, folder })),
-  createFolder: (masterHandle, folder, name) =>
-    dispatch(folderActions.createFolder({ masterHandle, folder, name })),
-  removeFolder: (name, folder, masterHandle) =>
-    dispatch(folderActions.removeFolder({ name, folder, masterHandle }))
+  createFolder: ({ masterHandle, directory, name }) =>
+    dispatch(folderActions.createFolder({ masterHandle, directory, name })),
+  removeFolder: ({ name, directory, masterHandle }) =>
+    dispatch(folderActions.removeFolder({ name, directory, masterHandle }))
 });
 
 const FileManager = ({
