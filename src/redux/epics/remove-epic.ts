@@ -9,13 +9,13 @@ const removeFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(removeActions.REMOVE_FILES),
     flatMap(({ payload }) => {
-      const { files, masterHandle, folder } = payload;
+      const { files, masterHandle, directory } = payload;
       return files.map(({ version, name }) =>
         removeActions.removeFileByVersion({
           name,
           version,
           masterHandle,
-          folder
+          directory
         })
       );
     })
@@ -25,9 +25,9 @@ const removeFileByVersionEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(removeActions.REMOVE_FILE_BY_VERSION),
     mergeMap(({ payload }) => {
-      const { name, version, folder, masterHandle } = payload;
+      const { name, version, directory, masterHandle } = payload;
 
-      return from(masterHandle.deleteVersion(folder, version)).pipe(
+      return from(masterHandle.deleteVersion(directory, version)).pipe(
         map(() => {
           toast(`${name} was successfully deleted.`, {
             autoClose: 3000,
@@ -38,7 +38,7 @@ const removeFileByVersionEpic = (action$, state$, dependencies$) =>
 
           return removeActions.removeFileSuccess({
             masterHandle,
-            folder,
+            directory,
             version
           });
         }),

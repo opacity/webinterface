@@ -511,7 +511,7 @@ const FileManagerSlide = ({
                         removeFiles({
                           files: filemanagerFiles,
                           masterHandle,
-                          folder: currentFolder
+                          directory: currentFolder
                         });
                         setFilemanagerFiles([]);
                       }}
@@ -690,7 +690,7 @@ const FileManagerSlide = ({
                                 removeFileByVersion({
                                   name,
                                   version,
-                                  folder: currentFolder,
+                                  directory: currentFolder,
                                   masterHandle
                                 })
                               }

@@ -31,16 +31,21 @@ const mapDispatchToProps = dispatch => ({
     dispatch(uploadActions.uploadFiles({ files, directory, masterHandle })),
   downloadFile: ({ handle }) =>
     dispatch(downloadActions.downloadFile({ handle })),
-  removeFileByVersion: ({ name, version, folder, masterHandle }) =>
+  removeFileByVersion: ({ name, version, directory, masterHandle }) =>
     dispatch(
-      removeActions.removeFileByVersion({ name, version, folder, masterHandle })
+      removeActions.removeFileByVersion({
+        name,
+        version,
+        directory,
+        masterHandle
+      })
     ),
   getFileList: ({ folder, masterHandle }) =>
     dispatch(finderActions.getFileList({ folder, masterHandle })),
   downloadFiles: ({ files }) =>
     dispatch(downloadActions.downloadFiles({ files })),
-  removeFiles: ({ files, masterHandle, folder }) =>
-    dispatch(removeActions.removeFiles({ files, masterHandle, folder })),
+  removeFiles: ({ files, masterHandle, directory }) =>
+    dispatch(removeActions.removeFiles({ files, masterHandle, directory })),
   createFolder: ({ masterHandle, directory, name }) =>
     dispatch(folderActions.createFolder({ masterHandle, directory, name })),
   removeFolder: ({ folder, name, directory, masterHandle }) =>
