@@ -17,26 +17,28 @@ test("setList", () => {
 
 test("getFileList", () => {
   const masterHandle = "mh1";
-  const folder = "fo1";
+  const directory = "fo1";
   const expected = {
     type: actions.GET_FILE_LIST,
     payload: {
       masterHandle,
-      folder
+      directory
     }
   };
-  expect(actions.getFileList({ folder, masterHandle })).toEqual(expected);
+  expect(actions.getFileList({ directory, masterHandle })).toEqual(expected);
 });
 
 test("listenForUpdates", () => {
   const masterHandle = "mh1";
-  const folder = "fo1";
+  const directory = "fo1";
   const expected = {
     type: actions.LISTEN_FOR_UPDATES,
     payload: {
       masterHandle,
-      folder
+      directory
     }
   };
-  expect(actions.listenForUpdates({ folder, masterHandle })).toEqual(expected);
+  expect(actions.listenForUpdates({ directory, masterHandle })).toEqual(
+    expected
+  );
 });

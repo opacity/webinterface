@@ -40,8 +40,8 @@ const mapDispatchToProps = dispatch => ({
         masterHandle
       })
     ),
-  getFileList: ({ folder, masterHandle }) =>
-    dispatch(finderActions.getFileList({ folder, masterHandle })),
+  getFileList: ({ directory, masterHandle }) =>
+    dispatch(finderActions.getFileList({ directory, masterHandle })),
   downloadFiles: ({ files }) =>
     dispatch(downloadActions.downloadFiles({ files })),
   removeFiles: ({ files, masterHandle, directory }) =>

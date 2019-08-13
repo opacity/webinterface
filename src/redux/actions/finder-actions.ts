@@ -11,13 +11,13 @@ const ACTIONS = Object.freeze({
     type: SET_LIST,
     payload: { files, folders, masterHandle }
   }),
-  listenForUpdates: ({ masterHandle, folder }) => ({
+  listenForUpdates: ({ masterHandle, directory }) => ({
     type: LISTEN_FOR_UPDATES,
-    payload: { masterHandle, folder }
+    payload: { masterHandle, directory }
   }),
-  getFileList: ({ masterHandle, folder }) => ({
+  getFileList: ({ masterHandle, directory }) => ({
     type: GET_FILE_LIST,
-    payload: { masterHandle, folder }
+    payload: { masterHandle, directory }
   })
 });
 

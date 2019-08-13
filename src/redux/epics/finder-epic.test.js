@@ -12,14 +12,14 @@ test("getFileListEpic - on success", done => {
   const folders = ["fo1", "fo2"];
   const folderUpdates = new EventEmitter();
 
-  const folder = "fo1";
+  const directory = "fo1";
   const masterHandle = {
     getFolderMeta: jest.fn(() => Promise.resolve({ files, folders })),
     metaQueue: {
-      [folder]: folderUpdates
+      [directory]: folderUpdates
     }
   };
-  const action$ = of(finderActions.getFileList({ masterHandle, folder }));
+  const action$ = of(finderActions.getFileList({ masterHandle, directory }));
   const state$ = null;
   const dependencies$ = {};
 
@@ -28,14 +28,14 @@ test("getFileListEpic - on success", done => {
     .subscribe(actions => {
       expect(actions).toEqual([
         finderActions.setList({ files, folders, masterHandle }),
-        finderActions.listenForUpdates({ masterHandle, folder })
+        finderActions.listenForUpdates({ masterHandle, directory })
       ]);
       done();
     });
 });
 
 test("getFileListEpic - on failure", done => {
-  const folder = "fo1";
+  const directory = "fo1";
   const masterHandle = {
     getFolderMeta: jest.fn(() => Promise.reject("foobar")),
     getAccountInfo: jest.fn(() =>
@@ -46,7 +46,7 @@ test("getFileListEpic - on failure", done => {
       })
     )
   };
-  const action$ = of(finderActions.getFileList({ masterHandle, folder }));
+  const action$ = of(finderActions.getFileList({ masterHandle, directory }));
   const state$ = null;
   const dependencies$ = {};
 
@@ -55,7 +55,7 @@ test("getFileListEpic - on failure", done => {
     .subscribe(actions => {
       expect(actions).toEqual([
         finderActions.setList({ files: [], folders: [], masterHandle }),
-        finderActions.listenForUpdates({ masterHandle, folder })
+        finderActions.listenForUpdates({ masterHandle, directory })
       ]);
       done();
     });
@@ -64,13 +64,15 @@ test("getFileListEpic - on failure", done => {
 test("listenToUpdatesEpic", done => {
   const folderUpdates = new EventEmitter();
 
-  const folder = "fo1";
+  const directory = "fo1";
   const masterHandle = {
     metaQueue: {
-      [folder]: folderUpdates
+      [directory]: folderUpdates
     }
   };
-  const action$ = of(finderActions.listenForUpdates({ masterHandle, folder }));
+  const action$ = of(
+    finderActions.listenForUpdates({ masterHandle, directory })
+  );
 
   const updatedFiles = ["fi3", "fi4"];
   const updatedFolders = ["fo3", "fo4"];

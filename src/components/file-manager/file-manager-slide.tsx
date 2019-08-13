@@ -447,7 +447,7 @@ const FileManagerSlide = ({
 
   useEffect(
     () => {
-      getFileList({ folder: currentFolder, masterHandle });
+      getFileList({ directory: currentFolder, masterHandle });
     },
     [currentFolder]
   );
