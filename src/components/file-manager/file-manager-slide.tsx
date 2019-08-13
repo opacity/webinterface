@@ -37,13 +37,13 @@ const ICON_FOLDER = require("../../assets/images/folder.svg");
 
 const fileTarget = {
   drop: (props, monitor) => {
-    const { upload, masterHandle, currentFolder } = props;
+    const { uploadFiles, masterHandle, currentFolder } = props;
     let { files } = monitor.getItem();
     const filesLength = files.length;
     if (files.length > 0) {
       files = files.filter(file => file.size <= FILE_MAX_SIZE);
       files.length !== filesLength && alert("Some files are greater then 2GB.");
-      upload({ files, masterHandle, directory: currentFolder });
+      uploadFiles({ files, masterHandle, directory: currentFolder });
     }
   }
 };
@@ -367,7 +367,7 @@ const FileManagerSlide = ({
   files,
   folders,
   getFileList,
-  upload,
+  uploadFiles,
   download,
   removeFileByVersion,
   masterHandle,
@@ -447,7 +447,7 @@ const FileManagerSlide = ({
 
   useEffect(
     () => {
-      getFileList(currentFolder, masterHandle);
+      getFileList({ currentFolder, masterHandle });
     },
     [currentFolder]
   );
@@ -533,7 +533,7 @@ const FileManagerSlide = ({
                     </FolderButton>
                     <UploadButton
                       onSelected={files =>
-                        upload({
+                        uploadFiles({
                           files,
                           masterHandle,
                           directory: currentFolder
@@ -721,7 +721,7 @@ const FileManagerSlide = ({
                 )}
               <UploadMobileButton
                 onSelected={files =>
-                  upload({ files, folder: currentFolder, masterHandle })
+                  uploadFiles({ files, directory: currentFolder, masterHandle })
                 }
               />
             </TableContainer>
