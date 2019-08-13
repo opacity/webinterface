@@ -41,8 +41,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(removeActions.removeFiles({ files, masterHandle, folder })),
   createFolder: ({ masterHandle, directory, name }) =>
     dispatch(folderActions.createFolder({ masterHandle, directory, name })),
-  removeFolder: ({ name, directory, masterHandle }) =>
-    dispatch(folderActions.removeFolder({ name, directory, masterHandle }))
+  removeFolder: ({ folder, name, directory, masterHandle }) =>
+    dispatch(
+      folderActions.removeFolder({ folder, name, directory, masterHandle })
+    )
 });
 
 const FileManager = ({

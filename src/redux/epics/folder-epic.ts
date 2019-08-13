@@ -31,9 +31,9 @@ const removeFolderEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(folderActions.REMOVE_FOLDER),
     mergeMap(({ payload }) => {
-      const { name, directory, masterHandle } = payload;
+      const { folder, name, directory, masterHandle } = payload;
 
-      return from(masterHandle.deleteFolder(directory, name)).pipe(
+      return from(masterHandle.deleteFolder(directory, folder)).pipe(
         map(() => {
           toast(`Folder ${name} was successfully deleted.`, {
             autoClose: 3000,

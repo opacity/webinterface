@@ -39,20 +39,22 @@ test("createFolderFailure", () => {
 });
 
 test("removeFolder", () => {
+  const folder = { name: "fo1", location: "l1" };
   const name = "foobar";
   const masterHandle = "foobar";
   const directory = "foobar";
   const expected = {
     type: actions.REMOVE_FOLDER,
     payload: {
+      folder,
       name,
       masterHandle,
       directory
     }
   };
-  expect(actions.removeFolder({ masterHandle, directory, name })).toEqual(
-    expected
-  );
+  expect(
+    actions.removeFolder({ masterHandle, directory, name, folder })
+  ).toEqual(expected);
 });
 
 test("removeFolderSuccess", () => {

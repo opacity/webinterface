@@ -25,9 +25,9 @@ const ACTIONS = Object.freeze({
     type: CREATE_FOLDER_FAILURE,
     payload: { error }
   }),
-  removeFolder: ({ masterHandle, directory, name }) => ({
+  removeFolder: ({ masterHandle, directory, name, folder }) => ({
     type: REMOVE_FOLDER,
-    payload: { masterHandle, directory, name }
+    payload: { masterHandle, directory, name, folder }
   }),
   removeFolderSuccess: ({ masterHandle, directory }) => ({
     type: REMOVE_FOLDER_SUCCESS,

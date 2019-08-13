@@ -24,6 +24,7 @@ test("createFolderEpic on success", done => {
 });
 
 test("removeFolderEpic on success", done => {
+  const folder = { name: "fo1", location: "l1" };
   const name = "name";
   const directory = "/";
 
@@ -32,7 +33,7 @@ test("removeFolderEpic on success", done => {
   };
 
   const action$ = of(
-    folderActions.removeFolder({ masterHandle, directory, name })
+    folderActions.removeFolder({ masterHandle, directory, name, folder })
   );
 
   folderEpic(action$).subscribe(actions => {

@@ -587,7 +587,7 @@ const FileManagerSlide = ({
                     </Tr>
                   </thead>
                   <tbody>
-                    {orderedFolders.map(({ name, location }, i) => (
+                    {orderedFolders.map(({ name, location, folder }, i) => (
                       <TrPointer
                         key={i}
                         onClick={() =>
@@ -614,6 +614,7 @@ const FileManagerSlide = ({
                                 "Do you really want to delete this folder?"
                               ) &&
                                 removeFolder({
+                                  folder,
                                   name,
                                   directory: currentFolder,
                                   masterHandle
