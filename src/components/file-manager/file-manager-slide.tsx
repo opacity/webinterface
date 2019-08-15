@@ -508,11 +508,14 @@ const FileManagerSlide = ({
                       margin="0 5px 0"
                       disabled={filemanagerFiles.length === 0}
                       onClick={() => {
-                        removeFiles({
-                          files: filemanagerFiles,
-                          masterHandle,
-                          directory
-                        });
+                        confirm(
+                          "Are you sure you want to delete these files?"
+                        ) &&
+                          removeFiles({
+                            files: filemanagerFiles,
+                            masterHandle,
+                            directory
+                          });
                         setFilemanagerFiles([]);
                       }}
                     >
@@ -615,7 +618,7 @@ const FileManagerSlide = ({
                             onClick={e => {
                               e.stopPropagation();
                               confirm(
-                                "Do you really want to delete this folder?"
+                                "Are you sure you want to delete this folder?"
                               ) &&
                                 removeFolder({
                                   folder,
@@ -685,7 +688,7 @@ const FileManagerSlide = ({
                               data-tip="Delete file"
                               onClick={() =>
                                 confirm(
-                                  "Do you really want to delete this file?"
+                                  "Are you sure you want to delete this file?"
                                 ) &&
                                 removeFileByVersion({
                                   name,
