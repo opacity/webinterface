@@ -31,11 +31,6 @@ import Folder from "./folder";
 import { IFile } from "../../models/file";
 import { IFolder } from "../../models/folder";
 
-const ICON_DOWNLOAD = require("../../assets/images/download.svg");
-const ICON_REMOVE = require("../../assets/images/remove.svg");
-const ICON_SHARE = require("../../assets/images/share.svg");
-const ICON_FOLDER = require("../../assets/images/folder.svg");
-
 const fileTarget = {
   drop: (props, monitor) => {
     const { upload, masterHandle, currentFolder } = props;
@@ -387,17 +382,6 @@ const FileManagerSlide = ({
   const deselectAllFiles = () => {
     setFilemanagerFiles([]);
   };
-  
-  const iconType = name => {
-    const typeIcon = DATA_TYPES_ICONS.find(type => {
-      return name.includes(type.name);
-    });
-    return typeIcon ? (
-      <TableIcon src={typeIcon.icon} />
-    ) : (
-      <TableIcon src={DATA_TYPES_ICONS[0].icon} />
-    );
-  };
 
   const prepareCreateFolder = (masterHandle, currentFolder, name) => {
     const isExist = folders.find(i => i.name === name);
@@ -411,22 +395,16 @@ const FileManagerSlide = ({
       });
   };
 
-  useEffect(
-    () => {
-      const defaultOrder = "created";
-      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-      setOrderedFolders(_.orderBy(folders, defaultOrder, "desc"));
-      setParam(defaultOrder);
-    },
-    [files, folders]
-  );
+  useEffect(() => {
+    const defaultOrder = "created";
+    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+    setOrderedFolders(_.orderBy(folders, defaultOrder, "desc"));
+    setParam(defaultOrder);
+  }, [files, folders]);
 
-  useEffect(
-    () => {
-      getFileList(currentFolder, masterHandle);
-    },
-    [currentFolder]
-  );
+  useEffect(() => {
+    getFileList(currentFolder, masterHandle);
+  }, [currentFolder]);
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -577,40 +555,44 @@ const FileManagerSlide = ({
                         setShowRenameModal={setShowRenameModal}
                       />
                     ))}
-                    {orderedFiles.map(({ name, handle, size, created }, i) => (
-                      <File
-                        name={name}
-                        i={i}
-                        handle={handle}
-                        size={size}
-                        created={created}
-                        setSharedFile={setSharedFile}
-                        removeFileByHandle={removeFileByHandle}
-                        currentFolder={currentFolder}
-                        masterHandle={masterHandle}
-                        download={download}
-                        setOldName={setOldName}
-                        setRenameType={setRenameType}
-                        setShowRenameModal={setShowRenameModal}
-                      />
-                    ))}
+                    {orderedFiles.map(
+                      ({ name, handle, version, size, created }, i) => (
+                        <File
+                          name={name}
+                          i={i}
+                          version={version}
+                          handle={handle}
+                          size={size}
+                          created={created}
+                          setSharedFile={setSharedFile}
+                          removeFileByVersion={removeFileByVersion}
+                          currentFolder={currentFolder}
+                          masterHandle={masterHandle}
+                          download={download}
+                          setOldName={setOldName}
+                          setRenameType={setRenameType}
+                          setShowRenameModal={setShowRenameModal}
+                          filemanagerFiles={filemanagerFiles}
+                          selectFile={selectFile}
+                          deselectFile={deselectFile}
+                        />
+                      )
+                    )}
                   </tbody>
                 </Table>
               )}
-              {!isLoading &&
-                !folders.length &&
-                !files.length && (
-                  <NoFilesContainer>
-                    <NoFiles>
-                      Your folder is empty. You can upload files by clicking the
-                      Upload button on the top right.
-                    </NoFiles>
-                    <NoFilesMobile>
-                      Your folder is empty. You can upload files by clicking the
-                      Upload button on the bottom right.
-                    </NoFilesMobile>
-                  </NoFilesContainer>
-                )}
+              {!isLoading && !folders.length && !files.length && (
+                <NoFilesContainer>
+                  <NoFiles>
+                    Your folder is empty. You can upload files by clicking the
+                    Upload button on the top right.
+                  </NoFiles>
+                  <NoFilesMobile>
+                    Your folder is empty. You can upload files by clicking the
+                    Upload button on the bottom right.
+                  </NoFilesMobile>
+                </NoFilesContainer>
+              )}
               <UploadMobileButton
                 onSelected={files =>
                   upload({ files, folder: currentFolder, masterHandle })

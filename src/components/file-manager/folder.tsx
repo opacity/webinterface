@@ -117,6 +117,7 @@ const Folder = ({
         )
       }
     >
+      <Td />
       <Td>
         <TableIcon src={ICON_FOLDER} />
       </Td>

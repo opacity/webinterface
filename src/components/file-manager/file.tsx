@@ -76,20 +76,28 @@ const Tr = styled.tr`
   }
 `;
 
+const Checkbox = styled.input.attrs({
+  type: "checkbox"
+})``;
+
 const File = ({
   name,
   i,
+  version,
   handle,
   size,
   created,
   setSharedFile,
-  removeFileByHandle,
+  removeFileByVersion,
   currentFolder,
   masterHandle,
   download,
   setOldName,
   setRenameType,
-  setShowRenameModal
+  setShowRenameModal,
+  filemanagerFiles,
+  selectFile,
+  deselectFile
 }) => {
   const ref = useRef<any>(null);
   const [{ isDragging }, drag] = useDrag({
@@ -115,6 +123,22 @@ const File = ({
 
   return (
     <Tr key={name ? name : i} ref={ref} style={{ opacity }}>
+      <Td>
+        <Checkbox
+          checked={filemanagerFiles.map(f => f.handle).includes(handle)}
+          onChange={e =>
+            e.target.checked
+              ? selectFile({
+                name,
+                handle,
+                size,
+                created,
+                version
+              })
+              : deselectFile(handle)
+          }
+        />
+      </Td>
       <Td>{iconType(name)}</Td>
       <Td>{name}</Td>
       <Td>{_.truncate(handle, { length: 30 })}</Td>
@@ -143,9 +167,9 @@ const File = ({
         <ActionButton
           onClick={() =>
             confirm("Do you really want to delete this file?") &&
-            removeFileByHandle({
+            removeFileByVersion({
               name,
-              handle,
+              version,
               folder: currentFolder,
               masterHandle
             })

@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { DndProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 
 import uploadActions from "../../redux/actions/upload-actions";
 import finderActions from "../../redux/actions/finder-actions";
@@ -9,9 +11,6 @@ import fileActions from "../../redux/actions/file-actions";
 import folderActions from "../../redux/actions/folder-actions";
 
 import FileManagerSlide from "./file-manager-slide";
-
-import { DndProvider } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
 
 const mapStateToProps = (state, props) => {
   const folderName = props.match.params.folderName;
@@ -90,7 +89,7 @@ const FileManager = ({
   renameFolder,
   renameFile,
   moveFile,
-  moveFolder
+  moveFolder,
   downloadFiles,
   removeFiles
 }) => (
