@@ -10,7 +10,8 @@ import folderActions from "../../redux/actions/folder-actions";
 
 import FileManagerSlide from "./file-manager-slide";
 
-import dragDropContext from "../../context/drag-drop-context";
+import { DndProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 
 const mapStateToProps = (state, props) => {
   const folderName = props.match.params.folderName;
@@ -88,30 +89,32 @@ const FileManager = ({
   moveFile,
   moveFolder
 }) => (
-  <FileManagerSlide
-    currentFolder={currentFolder}
-    isLoading={isLoading}
-    files={files}
-    folders={folders}
-    getFileList={getFileList}
-    upload={upload}
-    download={download}
-    removeFileByHandle={removeFileByHandle}
-    masterHandle={masterHandle}
-    metadata={metadata}
-    storageUsed={storageUsed}
-    storageLimit={storageLimit}
-    expirationDate={expirationDate}
-    createFolder={createFolder}
-    removeFolder={removeFolder}
-    renameFolder={renameFolder}
-    renameFile={renameFile}
-    moveFile={moveFile}
-    moveFolder={moveFolder}
-  />
+  <DndProvider backend={HTML5Backend}>
+    <FileManagerSlide
+      currentFolder={currentFolder}
+      isLoading={isLoading}
+      files={files}
+      folders={folders}
+      getFileList={getFileList}
+      upload={upload}
+      download={download}
+      removeFileByHandle={removeFileByHandle}
+      masterHandle={masterHandle}
+      metadata={metadata}
+      storageUsed={storageUsed}
+      storageLimit={storageLimit}
+      expirationDate={expirationDate}
+      createFolder={createFolder}
+      removeFolder={removeFolder}
+      renameFolder={renameFolder}
+      renameFile={renameFile}
+      moveFile={moveFile}
+      moveFolder={moveFolder}
+    />
+  </DndProvider>
 );
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(dragDropContext(FileManager));
+)(FileManager);
