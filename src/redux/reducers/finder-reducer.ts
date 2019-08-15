@@ -1,21 +1,28 @@
 import { chain } from "lodash";
 import finderActions from "../actions/finder-actions";
 
+import { IFile } from "../../models/file";
+import { IFolder } from "../../models/folder";
+
 const initState = {
   files: [],
   folders: [],
   isLoading: false
 };
 
-const fileGenerator = ({ name, versions }) =>
-  versions.map(({ handle, size, modified }) => ({
-    name,
-    created: modified,
-    handle,
-    size
-  }));
+const fileGenerator = ({ name, versions }): IFile[] =>
+  versions.map(version => {
+    const { handle, size, created } = version;
+    return {
+      name,
+      created,
+      handle,
+      size,
+      version
+    };
+  });
 
-const folderGenerator = ({ name, location }) => ({ name, location });
+const folderGenerator = ({ name, location }): IFolder => ({ name, location });
 
 const finderReducer = (state = initState, action) => {
   switch (action.type) {

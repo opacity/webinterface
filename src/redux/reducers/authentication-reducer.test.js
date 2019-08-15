@@ -8,7 +8,8 @@ const initState = {
   storageUsed: 0,
   storageLimit: 0,
   expirationDate: null,
-  recoveryHandle: null
+  recoveryHandle: null,
+  hasError: null
 };
 
 test("authentication-reducer LOGIN_PENDING", () => {
@@ -114,11 +115,40 @@ test("authentication-reducer RESET_ACCOUNT_HANDLE", () => {
     storageUsed: 0,
     storageLimit: 0,
     expirationDate: null,
-    recoveryHandle: "handle"
+    recoveryHandle: "handle",
+    hasError: null
   };
   const action = {
     type: authenticationActions.RESET_ACCOUNT_HANDLE
   };
 
   expect(authentication(state, action)).toEqual(initState);
+});
+
+test("authentication-reducer RECOVER_ACCOUNT_HANDLE_FAILURE", () => {
+  const error = new Error("aa");
+  const action = {
+    type: authenticationActions.RECOVER_ACCOUNT_HANDLE_FAILURE,
+    payload: { error }
+  };
+  const expected = {
+    ...initState,
+    hasError: error
+  };
+
+  expect(authentication(initState, action)).toEqual(expected);
+});
+
+test("authentication-reducer RESET_RECOVER_ERROR", () => {
+  const error = new Error("e1");
+  const state = { ...initState, hasError: error };
+  const action = {
+    type: authenticationActions.RESET_RECOVER_ERROR
+  };
+  const expected = {
+    ...initState,
+    hasError: null
+  };
+
+  expect(authentication(state, action)).toEqual(expected);
 });

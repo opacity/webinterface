@@ -17,6 +17,7 @@ import {
 import { formatGbs } from "../../helpers";
 
 import Header from "../shared/header";
+import Button from "../shared/generic/button";
 import Breadcrumbs from "./breadcrumbs";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
@@ -26,6 +27,14 @@ import RenameModal from "./rename-modal";
 import UploadMobileButton from "./upload-mobile-button";
 import File from "./file";
 import Folder from "./folder";
+
+import { IFile } from "../../models/file";
+import { IFolder } from "../../models/folder";
+
+const ICON_DOWNLOAD = require("../../assets/images/download.svg");
+const ICON_REMOVE = require("../../assets/images/remove.svg");
+const ICON_SHARE = require("../../assets/images/share.svg");
+const ICON_FOLDER = require("../../assets/images/folder.svg");
 
 const fileTarget = {
   drop: (props, monitor) => {
@@ -60,6 +69,12 @@ const TableContainer = styled.div`
     padding: 10px;
   }
 `;
+
+const Checkbox = styled.input.attrs({
+  type: "checkbox"
+})``;
+
+const ButtonGroup = styled.div``;
 
 const UsageInfo = styled.h4`
   font-size: 16px;
@@ -104,6 +119,9 @@ const TopActionsWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
   }
@@ -140,26 +158,26 @@ const Tr = styled.tr`
   &:hover td {
     background-color: #cfe3fc;
   }
-  th:first-child,
-  td:first-child {
+  th:nth-child(1),
+  td:nth-child(1),
+  th:nth-child(2),
+  td:nth-child(2) {
     width: 5%;
     text-align: right;
   }
-  th:nth-child(2),
-  td:nth-child(2) {
+  th:nth-child(3),
+  td:nth-child(3) {
     width: 55%;
   }
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
-    th:nth-child(3),
-    th:nth-child(4),
-    td:nth-child(3),
-    td:nth-child(4) {
+    td:nth-child(4),
+    td:nth-child(5) {
       display: none;
     }
   }
   @media (max-width: 915px) {
-    th:nth-child(2),
-    td:nth-child(2) {
+    th:nth-child(3),
+    td:nth-child(3) {
       width: 95%;
       white-space: initial;
     }
@@ -306,16 +324,8 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   );
 };
 
-interface Folder {
-  name: string;
-  location: string;
-}
-
-interface File {
-  name: string;
+interface Handle {
   handle: string;
-  created: string;
-  size: number;
 }
 
 const FileManagerSlide = ({
@@ -327,7 +337,7 @@ const FileManagerSlide = ({
   getFileList,
   upload,
   download,
-  removeFileByHandle,
+  removeFileByVersion,
   masterHandle,
   metadata,
   storageUsed,
@@ -335,6 +345,8 @@ const FileManagerSlide = ({
   expirationDate,
   connectDropTarget,
   isOver,
+  downloadFiles,
+  removeFiles,
   createFolder,
   removeFolder,
   renameFile,
@@ -342,10 +354,11 @@ const FileManagerSlide = ({
   moveFile,
   moveFolder
 }) => {
-  const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
-  const [orderedFolders, setOrderedFolders] = useState<Folder[]>([]);
+  const [orderedFiles, setOrderedFiles] = useState<IFile[]>([]);
+  const [orderedFolders, setOrderedFolders] = useState<IFolder[]>([]);
   const [param, setParam] = useState("");
-  const [sharedFile, setSharedFile] = useState<File | null>(null);
+  const [sharedFile, setSharedFile] = useState<IFile | null>(null);
+  const [filemanagerFiles, setFilemanagerFiles] = useState<Handle[]>([]);
   const [showCreateFolder, setShowCreateFolder] = useState(false);
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [oldName, setOldName] = useState("");
@@ -355,6 +368,35 @@ const FileManagerSlide = ({
     setParam(param);
     setOrderedFiles(_.orderBy(orderedFiles, param, order));
     setOrderedFolders(_.orderBy(orderedFolders, param, order));
+  };
+
+  const selectFile = (file: IFile) => {
+    setFilemanagerFiles([...filemanagerFiles, file]);
+  };
+
+  const deselectFile = (handle: string) => {
+    setFilemanagerFiles(
+      filemanagerFiles.filter(file => file.handle !== handle)
+    );
+  };
+
+  const selectAllFiles = files => {
+    setFilemanagerFiles([...orderedFiles]);
+  };
+
+  const deselectAllFiles = () => {
+    setFilemanagerFiles([]);
+  };
+  
+  const iconType = name => {
+    const typeIcon = DATA_TYPES_ICONS.find(type => {
+      return name.includes(type.name);
+    });
+    return typeIcon ? (
+      <TableIcon src={typeIcon.icon} />
+    ) : (
+      <TableIcon src={DATA_TYPES_ICONS[0].icon} />
+    );
   };
 
   const prepareCreateFolder = (masterHandle, currentFolder, name) => {
@@ -369,16 +411,22 @@ const FileManagerSlide = ({
       });
   };
 
-  useEffect(() => {
-    const defaultOrder = "created";
-    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-    setOrderedFolders(_.orderBy(folders, defaultOrder, "desc"));
-    setParam(defaultOrder);
-  }, [files, folders]);
+  useEffect(
+    () => {
+      const defaultOrder = "created";
+      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+      setOrderedFolders(_.orderBy(folders, defaultOrder, "desc"));
+      setParam(defaultOrder);
+    },
+    [files, folders]
+  );
 
-  useEffect(() => {
-    getFileList(currentFolder, masterHandle);
-  }, [currentFolder]);
+  useEffect(
+    () => {
+      getFileList(currentFolder, masterHandle);
+    },
+    [currentFolder]
+  );
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -412,29 +460,85 @@ const FileManagerSlide = ({
               <TopActionsWrapper>
                 <Breadcrumbs folder={currentFolder} />
                 <ButtonWrapper>
-                  <FolderButton
-                    onClick={() => setShowCreateFolder(!showCreateFolder)}
-                  >
-                    New Folder
-                  </FolderButton>
-                  <UploadButton
-                    onSelected={files =>
-                      upload({ files, masterHandle, folder: currentFolder })
-                    }
-                  />
-                  <FolderModal
-                    isOpen={!!showCreateFolder}
-                    close={() => setShowCreateFolder(false)}
-                    createFolder={name =>
-                      prepareCreateFolder(masterHandle, currentFolder, name)
-                    }
-                  />
+                  <ButtonGroup>
+                    <Button
+                      width="auto"
+                      padding="0 10px"
+                      disabled={filemanagerFiles.length === 0}
+                      onClick={() => {
+                        downloadFiles(filemanagerFiles);
+                        setFilemanagerFiles([]);
+                      }}
+                    >
+                      {filemanagerFiles.length === 0
+                        ? "Download"
+                        : `Download ${
+                            filemanagerFiles.length > 1
+                              ? `${filemanagerFiles.length} files`
+                              : "file"
+                          }`}
+                    </Button>
+                    <Button
+                      width="auto"
+                      padding="0 10px"
+                      margin="0 5px 0"
+                      disabled={filemanagerFiles.length === 0}
+                      onClick={() => {
+                        removeFiles({
+                          files: filemanagerFiles,
+                          masterHandle,
+                          folder: currentFolder
+                        });
+                        setFilemanagerFiles([]);
+                      }}
+                    >
+                      {filemanagerFiles.length === 0
+                        ? "Delete"
+                        : `Delete ${
+                            filemanagerFiles.length > 1
+                              ? `${filemanagerFiles.length} files`
+                              : "file"
+                          }`}
+                    </Button>
+                  </ButtonGroup>
+                  <ButtonGroup>
+                    <FolderButton
+                      onClick={() => setShowCreateFolder(!showCreateFolder)}
+                    >
+                      New Folder
+                    </FolderButton>
+                    <UploadButton
+                      onSelected={files =>
+                        upload({ files, masterHandle, folder: currentFolder })
+                      }
+                    />
+                    <FolderModal
+                      isOpen={!!showCreateFolder}
+                      close={() => setShowCreateFolder(false)}
+                      createFolder={name =>
+                        prepareCreateFolder(masterHandle, currentFolder, name)
+                      }
+                    />
+                  </ButtonGroup>
                 </ButtonWrapper>
               </TopActionsWrapper>
               {!isLoading && (
                 <Table>
                   <thead>
                     <Tr>
+                      <Th>
+                        <Checkbox
+                          checked={
+                            filemanagerFiles.length > 0 &&
+                            filemanagerFiles.length === orderedFiles.length
+                          }
+                          onChange={e =>
+                            e.target.checked
+                              ? selectAllFiles(orderedFiles)
+                              : deselectAllFiles()
+                          }
+                        />
+                      </Th>
                       <Th />
                       <TableHeader
                         param="name"
@@ -493,18 +597,20 @@ const FileManagerSlide = ({
                   </tbody>
                 </Table>
               )}
-              {!isLoading && !folders.length && !files.length && (
-                <NoFilesContainer>
-                  <NoFiles>
-                    Your folder is empty. You can upload files by clicking the
-                    Upload button on the top right.
-                  </NoFiles>
-                  <NoFilesMobile>
-                    Your folder is empty. You can upload files by clicking the
-                    Upload button on the bottom right.
-                  </NoFilesMobile>
-                </NoFilesContainer>
-              )}
+              {!isLoading &&
+                !folders.length &&
+                !files.length && (
+                  <NoFilesContainer>
+                    <NoFiles>
+                      Your folder is empty. You can upload files by clicking the
+                      Upload button on the top right.
+                    </NoFiles>
+                    <NoFilesMobile>
+                      Your folder is empty. You can upload files by clicking the
+                      Upload button on the bottom right.
+                    </NoFilesMobile>
+                  </NoFilesContainer>
+                )}
               <UploadMobileButton
                 onSelected={files =>
                   upload({ files, folder: currentFolder, masterHandle })

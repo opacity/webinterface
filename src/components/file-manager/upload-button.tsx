@@ -1,25 +1,9 @@
 import React, { Fragment, useRef } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 
 import { theme, FILE_MAX_SIZE } from "../../config";
 
-const Button = styled.button`
-  width: 120px;
-  height: 40px;
-  background-color: ${props => props.theme.button.background};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: ${props => props.theme.fontStyle};
-  font-stretch: ${props => props.theme.fontStretch};
-  line-height: ${props => props.theme.lineHeight};
-  letter-spacing: ${props => props.theme.letterSpacing};
-  color: ${props => props.theme.button.color};
-  text-align: center;
-  margin: 0 10px;
-  border: none;
-  cursor: pointer;
-  }
-`;
+import Button from "../shared/generic/button";
 
 const UploadButton = ({ onSelected }) => {
   const uploadFileInput = useRef<HTMLInputElement>(null);
