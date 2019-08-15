@@ -9,16 +9,16 @@ const getFileListEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(finderActions.GET_FILE_LIST),
     switchMap(({ payload }) => {
-      const { masterHandle, folder } = payload;
+      const { masterHandle, directory } = payload;
 
-      return from(masterHandle.getFolderMeta(folder)).pipe(
+      return from(masterHandle.getFolderMeta(directory)).pipe(
         flatMap((data: any) => [
           finderActions.setList({
             files: data.files,
             folders: data.folders,
             masterHandle
           }),
-          finderActions.listenForUpdates({ masterHandle, folder })
+          finderActions.listenForUpdates({ masterHandle, directory })
         ]),
         catchError(() => [
           finderActions.setList({
@@ -26,7 +26,7 @@ const getFileListEpic = (action$, state$, dependencies$) =>
             folders: [],
             masterHandle
           }),
-          finderActions.listenForUpdates({ masterHandle, folder })
+          finderActions.listenForUpdates({ masterHandle, directory })
         ])
       );
     })
@@ -36,10 +36,10 @@ const listenToUpdatesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(finderActions.LISTEN_FOR_UPDATES),
     switchMap(({ payload }) => {
-      const { masterHandle, folder } = payload;
+      const { masterHandle, directory } = payload;
 
       return new Observable(o => {
-        masterHandle.metaQueue[folder].on("update", (data: any) => {
+        masterHandle.metaQueue[directory].on("update", (data: any) => {
           o.next(
             finderActions.setList({
               files: data.files,

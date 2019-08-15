@@ -9,9 +9,9 @@ const createFolderEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(folderActions.CREATE_FOLDER),
     mergeMap(({ payload }) => {
-      const { name, folder, masterHandle } = payload;
+      const { name, directory, masterHandle } = payload;
 
-      return from(masterHandle.createFolder(folder, name)).pipe(
+      return from(masterHandle.createFolder(directory, name)).pipe(
         map(f => {
           toast(`Folder ${name} was successfully created.`, {
             autoClose: 3000,
@@ -20,7 +20,7 @@ const createFolderEpic = (action$, state$, dependencies$) =>
             toastId: name
           });
 
-          return folderActions.createFolderSuccess({ masterHandle, folder });
+          return folderActions.createFolderSuccess({ masterHandle, directory });
         }),
         catchError(error => of(folderActions.createFolderFailure({ error })))
       );
@@ -31,9 +31,9 @@ const removeFolderEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(folderActions.REMOVE_FOLDER),
     mergeMap(({ payload }) => {
-      const { name, folder, masterHandle } = payload;
+      const { folder, name, directory, masterHandle } = payload;
 
-      return from(masterHandle.deleteFolder(folder, name)).pipe(
+      return from(masterHandle.deleteFolder(directory, folder)).pipe(
         map(() => {
           toast(`Folder ${name} was successfully deleted.`, {
             autoClose: 3000,
@@ -42,7 +42,7 @@ const removeFolderEpic = (action$, state$, dependencies$) =>
             toastId: name
           });
 
-          return folderActions.removeFolderSuccess({ masterHandle, folder });
+          return folderActions.removeFolderSuccess({ masterHandle, directory });
         }),
         catchError(error => of(folderActions.removeFolderFailure({ error })))
       );
