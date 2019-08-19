@@ -175,7 +175,9 @@ function returnDevelopmentConfiguration () {
         // relative path is from src
         { from: "./public/favicon.ico" }, // <- your path to favicon
         { from: "./public/logo.png" }, // <- your path to logo
-        { from: "./public/manifest.json" } // <- your path to manifest
+        { from: "./public/manifest.json" }, // <- your path to manifest
+        { from: "./public/robots.txt" }, // <- your path to robots
+        { from: "./public/sitemap.xml" } // <- your path to sitemap
       ])
     ]
   });
@@ -288,7 +290,9 @@ function returnProductionConfiguration () {
         // relative path is from src
         { from: "./public/favicon.ico" }, // <- your path to favicon
         { from: "./public/logo.png" }, // <- your path to logo
-        { from: "./public/manifest.json" } // <- your path to manifest
+        { from: "./public/manifest.json" }, // <- your path to manifest
+        { from: "./public/robots.txt" }, // <- your path to robots
+        { from: "./public/sitemap.xml" } // <- your path to sitemap
       ])
     ]
   });

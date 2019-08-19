@@ -14,7 +14,7 @@ import FileManagerSlide from "./file-manager-slide";
 const mapStateToProps = (state, props) => {
   const folderName = props.match.params.folderName;
   return {
-    currentFolder: folderName ? `/${folderName}` : "/",
+    directory: folderName ? `/${folderName}` : "/",
     files: state.finder.files,
     folders: state.finder.folders,
     isLoading: state.finder.isLoading,
@@ -27,57 +27,76 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  upload: ({ files, folder, masterHandle, isDirectory }) =>
+  upload: ({ files, directory, masterHandle, isDirectory }) =>
     dispatch(
-      uploadActions.uploadFiles({ files, folder, masterHandle, isDirectory })
+      uploadActions.uploadFiles({ files, directory, masterHandle, isDirectory })
     ),
   download: handle => dispatch(downloadActions.downloadFile({ handle })),
-  removeFileByHandle: ({ name, handle, folder, masterHandle }) =>
+  uploadFiles: ({ files, directory, masterHandle }) =>
+    dispatch(uploadActions.uploadFiles({ files, directory, masterHandle })),
+  downloadFile: ({ handle }) =>
+    dispatch(downloadActions.downloadFile({ handle })),
+  removeFileByVersion: ({ name, version, directory, masterHandle }) =>
     dispatch(
-      removeActions.removeFileByHandle({ name, handle, folder, masterHandle })
+      removeActions.removeFileByVersion({
+        name,
+        version,
+        directory,
+        masterHandle
+      })
     ),
-  getFileList: (folder, masterHandle) =>
-    dispatch(finderActions.getFileList({ folder, masterHandle })),
-  createFolder: (masterHandle, folder, name) =>
-    dispatch(folderActions.createFolder({ masterHandle, folder, name })),
-  removeFolder: (name, folder, masterHandle) =>
-    dispatch(folderActions.removeFolder({ name, folder, masterHandle }))
+  getFileList: ({ directory, masterHandle }) =>
+    dispatch(finderActions.getFileList({ directory, masterHandle })),
+  downloadFiles: ({ files }) =>
+    dispatch(downloadActions.downloadFiles({ files })),
+  removeFiles: ({ files, masterHandle, directory }) =>
+    dispatch(removeActions.removeFiles({ files, masterHandle, directory })),
+  createFolder: ({ masterHandle, directory, name }) =>
+    dispatch(folderActions.createFolder({ masterHandle, directory, name })),
+  removeFolder: ({ folder, name, directory, masterHandle }) =>
+    dispatch(
+      folderActions.removeFolder({ folder, name, directory, masterHandle })
+    )
 });
 
 const FileManager = ({
-  currentFolder,
-  isLoading,
-  upload,
+  createFolder,
+  directory,
+  downloadFile,
+  downloadFiles,
+  expirationDate,
   files,
   folders,
   getFileList,
-  download,
-  removeFileByHandle,
+  isLoading,
   masterHandle,
   metadata,
-  storageUsed,
+  removeFileByVersion,
+  removeFiles,
+  removeFolder,
   storageLimit,
-  expirationDate,
-  createFolder,
-  removeFolder
+  storageUsed,
+  uploadFiles
 }) => (
   <DragDropContextProvider backend={HTML5Backend}>
     <FileManagerSlide
-      currentFolder={currentFolder}
-      isLoading={isLoading}
+      createFolder={createFolder}
+      directory={directory}
+      downloadFile={downloadFile}
+      downloadFiles={downloadFiles}
+      expirationDate={expirationDate}
       files={files}
       folders={folders}
       getFileList={getFileList}
-      upload={upload}
-      download={download}
-      removeFileByHandle={removeFileByHandle}
+      isLoading={isLoading}
       masterHandle={masterHandle}
       metadata={metadata}
-      storageUsed={storageUsed}
-      storageLimit={storageLimit}
-      expirationDate={expirationDate}
-      createFolder={createFolder}
+      removeFileByVersion={removeFileByVersion}
+      removeFiles={removeFiles}
       removeFolder={removeFolder}
+      storageLimit={storageLimit}
+      storageUsed={storageUsed}
+      uploadFiles={uploadFiles}
     />
   </DragDropContextProvider>
 );

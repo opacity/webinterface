@@ -19,12 +19,16 @@ import {
 import { formatBytes, formatGbs } from "../../helpers";
 
 import Header from "../shared/header";
+import Button from "../shared/generic/button";
 import Breadcrumbs from "./breadcrumbs";
 import UploadButton from "./upload-button";
 import DragAndDropOverlay from "./drag-and-drop-overlay";
 import ShareModal from "./share-modal";
 import FolderModal from "./folder-modal";
 import UploadMobileButton from "./upload-mobile-button";
+
+import { IFile } from "../../models/file";
+import { IFolder } from "../../models/folder";
 
 const ICON_DOWNLOAD = require("../../assets/images/download.svg");
 const ICON_REMOVE = require("../../assets/images/remove.svg");
@@ -34,13 +38,13 @@ const ICON_FOLDER_ADD = require("../../assets/images/folder_add.svg");
 
 const fileTarget = {
   drop: (props, monitor) => {
-    const { upload, masterHandle, currentFolder } = props;
+    const { uploadFiles, masterHandle, directory } = props;
     let { files } = monitor.getItem();
     const filesLength = files.length;
     if (files.length > 0) {
       files = files.filter(file => file.size <= FILE_MAX_SIZE);
       files.length !== filesLength && alert("Some files are greater then 2GB.");
-      upload({ files, masterHandle, folder: currentFolder });
+      uploadFiles({ files, masterHandle, directory });
     }
   }
 };
@@ -75,6 +79,12 @@ const TableContainer = styled.div`
     padding: 10px;
   }
 `;
+
+const Checkbox = styled.input.attrs({
+  type: "checkbox"
+})``;
+
+const ButtonGroup = styled.div``;
 
 const UsageInfo = styled.h4`
   font-size: 16px;
@@ -119,6 +129,9 @@ const TopActionsWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
   }
@@ -160,26 +173,26 @@ const Tr = styled.tr`
   &:hover td {
     background-color: #cfe3fc;
   }
-  th:first-child,
-  td:first-child {
+  th:nth-child(1),
+  td:nth-child(1),
+  th:nth-child(2),
+  td:nth-child(2) {
     width: 5%;
     text-align: right;
   }
-  th:nth-child(2),
-  td:nth-child(2) {
+  th:nth-child(3),
+  td:nth-child(3) {
     width: 55%;
   }
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
-    th:nth-child(3),
-    th:nth-child(4),
-    td:nth-child(3),
-    td:nth-child(4) {
+    td:nth-child(4),
+    td:nth-child(5) {
       display: none;
     }
   }
   @media (max-width: 915px) {
-    th:nth-child(2),
-    td:nth-child(2) {
+    th:nth-child(3),
+    td:nth-child(3) {
       width: 95%;
       white-space: initial;
     }
@@ -369,42 +382,37 @@ const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   );
 };
 
-interface Folder {
-  name: string;
-  location: string;
-}
-
-interface File {
-  name: string;
+interface Handle {
   handle: string;
-  created: string;
-  size: number;
 }
 
 const FileManagerSlide = ({
-  currentFolder,
-  isLoading,
-  history,
+  connectDropTarget,
+  createFolder,
+  directory,
+  downloadFile,
+  downloadFiles,
+  expirationDate,
   files,
   folders,
   getFileList,
-  upload,
-  download,
-  removeFileByHandle,
+  history,
+  isLoading,
+  isOver,
   masterHandle,
   metadata,
-  storageUsed,
+  removeFileByVersion,
+  removeFiles,
+  removeFolder,
   storageLimit,
-  expirationDate,
-  connectDropTarget,
-  isOver,
-  createFolder,
-  removeFolder
+  storageUsed,
+  uploadFiles
 }) => {
-  const [orderedFiles, setOrderedFiles] = useState<File[]>([]);
-  const [orderedFolders, setOrderedFolders] = useState<Folder[]>([]);
+  const [orderedFiles, setOrderedFiles] = useState<IFile[]>([]);
+  const [orderedFolders, setOrderedFolders] = useState<IFolder[]>([]);
   const [param, setParam] = useState("");
-  const [sharedFile, setSharedFile] = useState<File | null>(null);
+  const [sharedFile, setSharedFile] = useState<IFile | null>(null);
+  const [filemanagerFiles, setFilemanagerFiles] = useState<Handle[]>([]);
   const [showCreateFolder, setShowCreateFolder] = useState(false);
 
   const sortBy = (param, order) => {
@@ -413,6 +421,23 @@ const FileManagerSlide = ({
     setOrderedFolders(_.orderBy(orderedFolders, param, order));
   };
 
+  const selectFile = (file: IFile) => {
+    setFilemanagerFiles([...filemanagerFiles, file]);
+  };
+
+  const deselectFile = (handle: string) => {
+    setFilemanagerFiles(
+      filemanagerFiles.filter(file => file.handle !== handle)
+    );
+  };
+
+  const selectAllFiles = files => {
+    setFilemanagerFiles([...orderedFiles]);
+  };
+
+  const deselectAllFiles = () => {
+    setFilemanagerFiles([]);
+  };
   const iconType = name => {
     const typeIcon = DATA_TYPES_ICONS.find(type => {
       return name.includes(type.name);
@@ -424,11 +449,11 @@ const FileManagerSlide = ({
     );
   };
 
-  const prepareCreateFolder = (masterHandle, currentFolder, name) => {
+  const prepareCreateFolder = (masterHandle, directory, name) => {
     const isExist = folders.find(i => i.name === name);
     !isExist
-      ? createFolder(masterHandle, currentFolder, name)
-      : toast(`Folder ${name} is found. `, {
+      ? createFolder({ masterHandle, directory, name })
+      : toast(`Folder ${name} already exists.`, {
         autoClose: 3000,
         hideProgressBar: true,
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -447,10 +472,10 @@ const FileManagerSlide = ({
   );
 
   useEffect(
-    () => {
-      getFileList(currentFolder, masterHandle);
-    },
     [currentFolder]
+      getFileList({ directory, masterHandle });
+    },
+    [directory]
   );
 
   return (
@@ -483,7 +508,7 @@ const FileManagerSlide = ({
                 </UsageWrapper>
               </TitleWrapper>
               <TopActionsWrapper>
-                <Breadcrumbs folder={currentFolder} />
+                <Breadcrumbs folder={directory} />
                 <ButtonWrapper>
                   <FolderButton
                     onClick={() => setShowCreateFolder(!showCreateFolder)}
@@ -514,12 +539,92 @@ const FileManagerSlide = ({
                       })
                     }
                   />
+                  <ButtonGroup>
+                    <Button
+                      width="auto"
+                      padding="0 10px"
+                      disabled={filemanagerFiles.length === 0}
+                      onClick={() => {
+                        downloadFiles({ files: filemanagerFiles });
+                        setFilemanagerFiles([]);
+                      }}
+                    >
+                      {filemanagerFiles.length === 0
+                        ? "Download"
+                        : `Download ${
+                            filemanagerFiles.length > 1
+                              ? `${filemanagerFiles.length} files`
+                              : "file"
+                          }`}
+                    </Button>
+                    <Button
+                      width="auto"
+                      padding="0 10px"
+                      margin="0 5px 0"
+                      disabled={filemanagerFiles.length === 0}
+                      onClick={() => {
+                        confirm(
+                          "Are you sure you want to delete these files?"
+                        ) &&
+                          removeFiles({
+                            files: filemanagerFiles,
+                            masterHandle,
+                            directory
+                          });
+                        setFilemanagerFiles([]);
+                      }}
+                    >
+                      {filemanagerFiles.length === 0
+                        ? "Delete"
+                        : `Delete ${
+                            filemanagerFiles.length > 1
+                              ? `${filemanagerFiles.length} files`
+                              : "file"
+                          }`}
+                    </Button>
+                  </ButtonGroup>
+                  <ButtonGroup>
+                    <FolderButton
+                      onClick={() => setShowCreateFolder(!showCreateFolder)}
+                    >
+                      New Folder
+                    </FolderButton>
+                    <UploadButton
+                      onSelected={files =>
+                        uploadFiles({
+                          files,
+                          masterHandle,
+                          directory
+                        })
+                      }
+                    />
+                    <FolderModal
+                      isOpen={!!showCreateFolder}
+                      close={() => setShowCreateFolder(false)}
+                      createFolder={name =>
+                        prepareCreateFolder(masterHandle, directory, name)
+                      }
+                    />
+                  </ButtonGroup>
                 </ButtonWrapper>
               </TopActionsWrapper>
               {!isLoading && (
                 <Table>
                   <thead>
                     <Tr>
+                      <Th>
+                        <Checkbox
+                          checked={
+                            filemanagerFiles.length > 0 &&
+                            filemanagerFiles.length === orderedFiles.length
+                          }
+                          onChange={e =>
+                            e.target.checked
+                              ? selectAllFiles(orderedFiles)
+                              : deselectAllFiles()
+                          }
+                        />
+                      </Th>
                       <Th />
                       <TableHeader
                         param="name"
@@ -544,17 +649,18 @@ const FileManagerSlide = ({
                     </Tr>
                   </thead>
                   <tbody>
-                    {orderedFolders.map(({ name, location }, i) => (
+                    {orderedFolders.map(({ name, location, folder }, i) => (
                       <TrPointer
                         key={i}
                         onClick={() =>
                           history.push(
                             `/file-manager${
-                              currentFolder === "/" ? "" : currentFolder
+                              directory === "/" ? "" : directory
                             }/${name}`
                           )
                         }
                       >
+                        <Td />
                         <Td>
                           <TableIcon src={ICON_FOLDER} />
                         </Td>
@@ -567,9 +673,14 @@ const FileManagerSlide = ({
                             onClick={e => {
                               e.stopPropagation();
                               confirm(
-                                "Do you really want to delete this folder?"
+                                "Are you sure you want to delete this folder?"
                               ) &&
-                                removeFolder(name, currentFolder, masterHandle);
+                                removeFolder({
+                                  folder,
+                                  name,
+                                  directory,
+                                  masterHandle
+                                });
                             }}
                           >
                             <TableIcon
@@ -581,55 +692,74 @@ const FileManagerSlide = ({
                         </Td>
                       </TrPointer>
                     ))}
-                    {orderedFiles.map(({ name, handle, size, created }, i) => (
-                      <Tr key={handle ? handle : i}>
-                        <Td>{iconType(name)}</Td>
-                        <Td>{name}</Td>
-                        <Td>{_.truncate(handle, { length: 30 })}</Td>
-                        <Td>{moment(created).format("MM/DD/YYYY")}</Td>
-                        <Td>{formatBytes(size)}</Td>
-                        <Td>
-                          <ActionButton
-                            data-tip="Share file"
-                            onClick={() =>
-                              setSharedFile({
-                                name,
-                                handle,
-                                created,
-                                size: size
-                              })
-                            }
-                          >
-                            <TableIcon src={ICON_SHARE} />
-                          </ActionButton>
-                          <ActionButton
-                            data-tip="Download file"
-                            onClick={() => download(handle)}
-                          >
-                            <TableIcon src={ICON_DOWNLOAD} />
-                          </ActionButton>
-                          <ActionButton
-                            onClick={() =>
-                              confirm(
-                                "Do you really want to delete this file?"
-                              ) &&
-                              removeFileByHandle({
-                                name,
-                                handle,
-                                folder: currentFolder,
-                                masterHandle
-                              })
-                            }
-                          >
-                            <TableIcon
-                              data-tip="Delete file"
-                              src={ICON_REMOVE}
+                    {orderedFiles.map(
+                      ({ name, handle, size, created, version }, i) => (
+                        <Tr key={handle ? handle : i}>
+                          <Td>
+                            <Checkbox
+                              checked={filemanagerFiles
+                                .map(f => f.handle)
+                                .includes(handle)}
+                              onChange={e =>
+                                e.target.checked
+                                  ? selectFile({
+                                    name,
+                                    handle,
+                                    size,
+                                    created,
+                                    version
+                                  })
+                                  : deselectFile(handle)
+                              }
                             />
-                          </ActionButton>
-                          <ReactTooltip effect="solid" />
-                        </Td>
-                      </Tr>
-                    ))}
+                          </Td>
+                          <Td>{iconType(name)}</Td>
+                          <Td>{name}</Td>
+                          <Td>{_.truncate(handle, { length: 30 })}</Td>
+                          <Td>{moment(created).format("MM/DD/YYYY")}</Td>
+                          <Td>{formatBytes(size)}</Td>
+                          <Td>
+                            <ActionButton
+                              data-tip="Share file"
+                              onClick={() =>
+                                setSharedFile({
+                                  name,
+                                  handle,
+                                  created,
+                                  size,
+                                  version
+                                })
+                              }
+                            >
+                              <TableIcon src={ICON_SHARE} />
+                            </ActionButton>
+                            <ActionButton
+                              data-tip="Download file"
+                              onClick={() => downloadFile({ handle })}
+                            >
+                              <TableIcon src={ICON_DOWNLOAD} />
+                            </ActionButton>
+                            <ActionButton
+                              data-tip="Delete file"
+                              onClick={() =>
+                                confirm(
+                                  "Are you sure you want to delete this file?"
+                                ) &&
+                                removeFileByVersion({
+                                  name,
+                                  version,
+                                  directory,
+                                  masterHandle
+                                })
+                              }
+                            >
+                              <TableIcon src={ICON_REMOVE} />
+                            </ActionButton>
+                            <ReactTooltip effect="solid" />
+                          </Td>
+                        </Tr>
+                      )
+                    )}
                   </tbody>
                 </Table>
               )}
@@ -649,7 +779,7 @@ const FileManagerSlide = ({
                 )}
               <UploadMobileButton
                 onSelected={files =>
-                  upload({ files, folder: currentFolder, masterHandle })
+                  uploadFiles({ files, directory, masterHandle })
                 }
               />
               <FolderMobileButton

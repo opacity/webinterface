@@ -5,6 +5,7 @@ import { EventEmitter } from "events";
 import uploadActions from "../actions/upload-actions";
 import uploadEpic from "./upload-epic";
 
+
 test("uploadFilesEpic filesActions.UPLOAD_FILES not directory", done => {
   const files = ["foo", "bar"];
   const masterHandle = "m1";
@@ -13,9 +14,16 @@ test("uploadFilesEpic filesActions.UPLOAD_FILES not directory", done => {
 
   const action$ = of(
     uploadActions.uploadFiles({ files, folder, masterHandle, isDirectory })
+
+  const files = ["foo", "bar"];
+  const masterHandle = "m1";
+  const directory = "/";
+
+  const action$ = of(
+    uploadActions.uploadFiles({ files, directory, masterHandle })
   );
   const expected = files.map(file =>
-    uploadActions.uploadFile({ file, folder, masterHandle })
+    uploadActions.uploadFile({ file, directory, masterHandle })
   );
 
   uploadEpic(action$)
@@ -55,9 +63,9 @@ test("uploadFilesEpic filesActions.UPLOAD_FILES directory", done => {
     });
 });
 
-test("uploadFilesEpic filesActions.UPLOAD_FILE on success", done => {
+test("uploadFileEpic on success", done => {
   const file = { name: "f1" };
-  const folder = "/";
+  const directory = "/";
   const upload = new EventEmitter();
   upload.handle = "h1";
 
@@ -65,11 +73,13 @@ test("uploadFilesEpic filesActions.UPLOAD_FILE on success", done => {
     uploadFile: jest.fn(() => upload)
   };
 
-  const action$ = of(uploadActions.uploadFile({ file, folder, masterHandle }));
+  const action$ = of(
+    uploadActions.uploadFile({ file, directory, masterHandle })
+  );
 
   uploadEpic(action$).subscribe(actions => {
     expect(actions).toEqual(
-      uploadActions.uploadSuccess({ masterHandle, folder })
+      uploadActions.uploadSuccess({ masterHandle, directory })
     );
     done();
   });
@@ -77,10 +87,10 @@ test("uploadFilesEpic filesActions.UPLOAD_FILE on success", done => {
   upload.emit("finish");
 });
 
-test("uploadFilesEpic filesActions.UPLOAD_FILE on failure", done => {
+test("uploadFileEpic on failure", done => {
   const file = { name: "f1" };
   const upload = new EventEmitter();
-  const folder = "/";
+  const directory = "/";
   upload.handle = "h1";
   const error = new Error("foobar");
 
@@ -88,7 +98,9 @@ test("uploadFilesEpic filesActions.UPLOAD_FILE on failure", done => {
     uploadFile: jest.fn(() => upload)
   };
 
-  const action$ = of(uploadActions.uploadFile({ file, folder, masterHandle }));
+  const action$ = of(
+    uploadActions.uploadFile({ file, directory, masterHandle })
+  );
 
   uploadEpic(action$).subscribe(actions => {
     expect(actions).toEqual(

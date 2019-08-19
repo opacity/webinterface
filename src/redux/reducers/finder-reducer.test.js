@@ -9,10 +9,12 @@ test("finder-reducer SET_LIST", () => {
     payload: {
       folders: [
         {
-          name: "folder1"
+          name: "folder1",
+          location: "l1"
         },
         {
-          name: "folder2"
+          name: "folder2",
+          location: "l2"
         }
       ],
       files: [
@@ -22,12 +24,12 @@ test("finder-reducer SET_LIST", () => {
             {
               handle: "handle1",
               size: 456,
-              modified: 123
+              created: 123
             },
             {
               handle: "handle2",
               size: 789,
-              modified: 234
+              created: 234
             }
           ]
         }
@@ -45,10 +47,20 @@ test("finder-reducer SET_LIST", () => {
     isLoading: false,
     folders: [
       {
-        name: "folder1"
+        name: "folder1",
+        location: "l1",
+        folder: {
+          name: "folder1",
+          location: "l1"
+        }
       },
       {
-        name: "folder2"
+        name: "folder2",
+        location: "l2",
+        folder: {
+          name: "folder2",
+          location: "l2"
+        }
       }
     ],
     files: [
@@ -56,13 +68,23 @@ test("finder-reducer SET_LIST", () => {
         name: "file1",
         handle: "handle1",
         size: 456,
-        created: 123
+        created: 123,
+        version: {
+          handle: "handle1",
+          size: 456,
+          created: 123
+        }
       },
       {
         name: "file1",
         handle: "handle2",
         size: 789,
-        created: 234
+        created: 234,
+        version: {
+          handle: "handle2",
+          size: 789,
+          created: 234
+        }
       }
     ]
   };

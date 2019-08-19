@@ -5,6 +5,7 @@ test("uplaodFiles", () => {
   const masterHandle = "mh1";
   const folder = "/";
   const isDirectory = false;
+  const directory = "/";
 
   const expected = {
     type: actions.UPLOAD_FILES,
@@ -15,39 +16,41 @@ test("uplaodFiles", () => {
       isDirectory
     }
   };
-  expect(
-    actions.uploadFiles({ files, folder, masterHandle, isDirectory })
-  ).toEqual(expected);
+  expect(actions.uploadFiles({ files, directory, masterHandle })).toEqual(
+    expected
+  );
 });
 
 test("uplaodFile", () => {
   const file = "f1";
   const masterHandle = "mh1";
-  const folder = "/";
+  const directory = "/";
 
   const expected = {
     type: actions.UPLOAD_FILE,
     payload: {
       file,
-      folder,
+      directory,
       masterHandle
     }
   };
-  expect(actions.uploadFile({ file, folder, masterHandle })).toEqual(expected);
+  expect(actions.uploadFile({ file, directory, masterHandle })).toEqual(
+    expected
+  );
 });
 
 test("uploadSuccess", () => {
   const masterHandle = "mh1";
-  const folder = "/";
+  const directory = "/";
 
   const expected = {
     type: actions.UPLOAD_SUCCESS,
     payload: {
-      folder,
+      directory,
       masterHandle
     }
   };
-  expect(actions.uploadSuccess({ folder, masterHandle })).toEqual(expected);
+  expect(actions.uploadSuccess({ directory, masterHandle })).toEqual(expected);
 });
 
 test("uploadError", () => {

@@ -11,6 +11,7 @@ const uploadFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(uploadActions.UPLOAD_FILES),
     flatMap(({ payload }) => {
+
       const { files, folder, masterHandle, isDirectory } = payload;
 
       return files.map(file =>
@@ -24,7 +25,6 @@ const uploadFilesEpic = (action$, state$, dependencies$) =>
                   : folder + "/" + relativePath(file.webkitRelativePath),
             masterHandle
           })
-      );
     })
   );
 
@@ -32,10 +32,10 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(uploadActions.UPLOAD_FILE),
     mergeMap(({ payload }) => {
-      const { file, folder, masterHandle } = payload;
+      const { file, directory, masterHandle } = payload;
 
       return new Observable(o => {
-        const upload = masterHandle.uploadFile(folder, file);
+        const upload = masterHandle.uploadFile(directory, file);
         const handle = upload.handle;
 
         toast(`${file.name} is uploading. Please wait...`, {
@@ -65,7 +65,7 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
           o.next(
             uploadActions.uploadSuccess({
               masterHandle,
-              folder
+              directory
             })
           );
           o.complete();
