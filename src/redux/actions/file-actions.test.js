@@ -46,18 +46,18 @@ test("renameFileFailure", () => {
 test("moveFile", () => {
   const file = "n1";
   const to = "h1";
-  const currentFolder = "/";
+  const directory = "/";
   const masterHandle = "mh1";
   const expected = {
     type: actions.MOVE_FILE,
     payload: {
       file,
       to,
-      currentFolder,
+      directory,
       masterHandle
     }
   };
-  expect(actions.moveFile({ file, to, currentFolder, masterHandle })).toEqual(
+  expect(actions.moveFile({ file, to, directory, masterHandle })).toEqual(
     expected
   );
 });

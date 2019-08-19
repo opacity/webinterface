@@ -78,7 +78,7 @@ const Folder = ({
   location,
   moveFolder,
   moveFile,
-  currentFolder,
+  directory,
   masterHandle,
   removeFolder,
   setOldName,
@@ -91,8 +91,8 @@ const Folder = ({
     accept: [DROP_TYPES.FILE.toString(), DROP_TYPES.FOLDER.toString()],
     drop: ({}, monitor) =>
       monitor.getItem().type === DROP_TYPES.FILE.toString()
-        ? moveFile(monitor.getItem().name, name, currentFolder, masterHandle)
-        : moveFolder(monitor.getItem().name, name, currentFolder, masterHandle)
+        ? moveFile(monitor.getItem().name, name, directory, masterHandle)
+        : moveFolder(monitor.getItem().name, name, directory, masterHandle)
   });
 
   const [{ isDragging }, drag] = useDrag({
@@ -113,7 +113,7 @@ const Folder = ({
       key={location}
       onClick={() =>
         history.push(
-          `/file-manager${currentFolder === "/" ? "" : currentFolder}/${name}`
+          `/file-manager${directory === "/" ? "" : directory}/${name}`
         )
       }
     >
@@ -130,7 +130,7 @@ const Folder = ({
           onClick={e => {
             e.stopPropagation();
             confirm("Do you really want to delete this folder?") &&
-              removeFolder(name, currentFolder, masterHandle);
+              removeFolder(name, directory, masterHandle);
           }}
         >
           <Tooltip content="Delete folder">

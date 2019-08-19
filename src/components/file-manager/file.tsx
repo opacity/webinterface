@@ -89,7 +89,7 @@ const File = ({
   created,
   setSharedFile,
   removeFileByVersion,
-  currentFolder,
+  directory,
   masterHandle,
   download,
   setOldName,
@@ -150,8 +150,9 @@ const File = ({
             setSharedFile({
               name,
               handle,
+              version,
               created,
-              size: size
+              size
             })
           }
         >
@@ -170,7 +171,7 @@ const File = ({
             removeFileByVersion({
               name,
               version,
-              folder: currentFolder,
+              directory,
               masterHandle
             })
           }

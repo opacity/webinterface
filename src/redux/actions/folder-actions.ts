@@ -61,9 +61,9 @@ const ACTIONS = Object.freeze({
     type: RENAME_FOLDER_FAILURE,
     payload: { error }
   }),
-  moveFolder: ({ folder, to, currentFolder, masterHandle }) => ({
+  moveFolder: ({ folder, to, directory, masterHandle }) => ({
     type: MOVE_FOLDER,
-    payload: { folder, to, currentFolder, masterHandle }
+    payload: { folder, to, directory, masterHandle }
   }),
   moveFolderSuccess: ({ masterHandle, folder }) => ({
     type: MOVE_FOLDER_SUCCESS,

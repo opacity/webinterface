@@ -41,38 +41,10 @@ const mapDispatchToProps = dispatch => ({
         masterHandle
       })
     ),
-  getFileList: (folder, masterHandle) =>
-    dispatch(finderActions.getFileList({ folder, masterHandle })),
-  downloadFiles: files => dispatch(downloadActions.downloadFiles({ files })),
-  removeFiles: ({ files, masterHandle, folder }) =>
-    dispatch(removeActions.removeFiles({ files, masterHandle, folder })),
-  createFolder: (masterHandle, folder, name) =>
-    dispatch(folderActions.createFolder({ masterHandle, folder, name })),
-  removeFolder: (name, folder, masterHandle) =>
-    dispatch(folderActions.removeFolder({ name, folder, masterHandle })),
-  renameFolder: (folder, name, newName, masterHandle) =>
-    dispatch(
-      folderActions.renameFolder({
-        folder,
-        name,
-        newName,
-        masterHandle
-      })
-    ),
-  renameFile: (folder, name, newName, masterHandle) =>
-    dispatch(
-      fileActions.renameFile({
-        folder,
-        name,
-        newName,
-        masterHandle
-      })
-    ),
-  moveFile: (file, to, currentFolder, masterHandle) =>
-    dispatch(fileActions.moveFile({ file, to, currentFolder, masterHandle })),
-  moveFolder: (folder, to, currentFolder, masterHandle) =>
-    dispatch(
-      folderActions.moveFolder({ folder, to, currentFolder, masterHandle })
+  moveFile: (file, to, directory, masterHandle) =>
+    dispatch(fileActions.moveFile({ file, to, directory, masterHandle })),
+  moveFolder: (folder, to, directory, masterHandle) =>
+    dispatch(folderActions.moveFolder({ folder, to, directory, masterHandle })),
   getFileList: ({ directory, masterHandle }) =>
     dispatch(finderActions.getFileList({ directory, masterHandle })),
   downloadFiles: ({ files }) =>
@@ -84,7 +56,6 @@ const mapDispatchToProps = dispatch => ({
   removeFolder: ({ folder, name, directory, masterHandle }) =>
     dispatch(
       folderActions.removeFolder({ folder, name, directory, masterHandle })
-
     )
 });
 
@@ -107,8 +78,6 @@ const FileManager = ({
   renameFile,
   moveFile,
   moveFolder,
-  downloadFiles,
-  removeFiles,
   storageLimit,
   storageUsed,
   uploadFiles
@@ -128,19 +97,13 @@ const FileManager = ({
       metadata={metadata}
       storageUsed={storageUsed}
       storageLimit={storageLimit}
-      expirationDate={expirationDate}
-      createFolder={createFolder}
       removeFolder={removeFolder}
       renameFolder={renameFolder}
       renameFile={renameFile}
       moveFile={moveFile}
       moveFolder={moveFolder}
-      downloadFiles={downloadFiles}
       removeFileByVersion={removeFileByVersion}
       removeFiles={removeFiles}
-      removeFolder={removeFolder}
-      storageLimit={storageLimit}
-      storageUsed={storageUsed}
       uploadFiles={uploadFiles}
     />
   </DndProvider>

@@ -325,23 +325,20 @@ interface Handle {
 
 const FileManagerSlide = ({
   connectDropTarget,
-  createFolder,
   directory,
   downloadFile,
   downloadFiles,
   expirationDate,
+  createFolder,
   files,
   folders,
   getFileList,
-  history,
   isLoading,
   isOver,
   masterHandle,
   metadata,
   removeFileByVersion,
   removeFiles,
-  createFolder,
-  removeFolder,
   renameFile,
   renameFolder,
   moveFile,
@@ -404,12 +401,9 @@ const FileManagerSlide = ({
     setParam(defaultOrder);
   }, [files, folders]);
 
-  useEffect(
-    () => {
-      getFileList({ directory, masterHandle });
-    },
-    [directory]
-  );
+  useEffect(() => {
+    getFileList({ directory, masterHandle });
+  }, [directory]);
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -559,7 +553,7 @@ const FileManagerSlide = ({
                         location={location}
                         moveFolder={moveFolder}
                         moveFile={moveFile}
-                        currentFolder={currentFolder}
+                        directory={directory}
                         masterHandle={masterHandle}
                         removeFolder={removeFolder}
                         setOldName={setOldName}
@@ -578,9 +572,9 @@ const FileManagerSlide = ({
                           created={created}
                           setSharedFile={setSharedFile}
                           removeFileByVersion={removeFileByVersion}
-                          currentFolder={currentFolder}
+                          directory={directory}
                           masterHandle={masterHandle}
-                          download={download}
+                          download={downloadFile}
                           setOldName={setOldName}
                           setRenameType={setRenameType}
                           setShowRenameModal={setShowRenameModal}
@@ -630,8 +624,8 @@ const FileManagerSlide = ({
             oldName={oldName}
             rename={name =>
               renameType === "folder"
-                ? renameFolder(currentFolder, oldName, name, masterHandle)
-                : renameFile(currentFolder, oldName, name, masterHandle)
+                ? renameFolder(directory, oldName, name, masterHandle)
+                : renameFile(directory, oldName, name, masterHandle)
             }
           />
         </Container>

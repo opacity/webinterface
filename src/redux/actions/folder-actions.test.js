@@ -119,7 +119,7 @@ test("renameFolderFailure", () => {
 });
 
 test("moveFolder", () => {
-  const currentFolder = "foobar";
+  const directory = "foobar";
   const masterHandle = "foobar";
   const folder = "foobar";
   const to = "foobar";
@@ -128,13 +128,13 @@ test("moveFolder", () => {
     payload: {
       folder,
       masterHandle,
-      currentFolder,
+      directory,
       to
     }
   };
-  expect(
-    actions.moveFolder({ masterHandle, folder, to, currentFolder })
-  ).toEqual(expected);
+  expect(actions.moveFolder({ masterHandle, folder, to, directory })).toEqual(
+    expected
+  );
 });
 
 test("moveFolderSuccess", () => {

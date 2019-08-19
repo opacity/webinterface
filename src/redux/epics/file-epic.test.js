@@ -29,7 +29,7 @@ test("renameFile on success", done => {
 });
 
 test("moveFile on success", done => {
-  const currentFolder = "n1";
+  const directory = "n1";
   const file = "/";
   const to = "/";
   const masterHandle = {
@@ -37,7 +37,7 @@ test("moveFile on success", done => {
   };
 
   const action$ = of(
-    fileActions.moveFile({ file, to, currentFolder, masterHandle })
+    fileActions.moveFile({ file, to, directory, masterHandle })
   );
 
   fileEpic(action$).subscribe(actions => {

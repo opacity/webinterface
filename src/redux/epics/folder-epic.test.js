@@ -66,7 +66,7 @@ test("renameFolder on success", done => {
 });
 
 test("moveFolder on success", done => {
-  const currentFolder = "name";
+  const directory = "name";
   const folder = "/";
   const to = "/";
 
@@ -75,7 +75,7 @@ test("moveFolder on success", done => {
   };
 
   const action$ = of(
-    folderActions.moveFolder({ masterHandle, folder, currentFolder, to })
+    folderActions.moveFolder({ masterHandle, folder, directory, to })
   );
 
   folderEpic(action$).subscribe(actions => {
