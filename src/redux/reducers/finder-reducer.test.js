@@ -9,10 +9,12 @@ test("finder-reducer SET_LIST", () => {
     payload: {
       folders: [
         {
-          name: "folder1"
+          name: "folder1",
+          location: "l1"
         },
         {
-          name: "folder2"
+          name: "folder2",
+          location: "l2"
         }
       ],
       files: [
@@ -45,10 +47,20 @@ test("finder-reducer SET_LIST", () => {
     isLoading: false,
     folders: [
       {
-        name: "folder1"
+        name: "folder1",
+        location: "l1",
+        folder: {
+          name: "folder1",
+          location: "l1"
+        }
       },
       {
-        name: "folder2"
+        name: "folder2",
+        location: "l2",
+        folder: {
+          name: "folder2",
+          location: "l2"
+        }
       }
     ],
     files: [

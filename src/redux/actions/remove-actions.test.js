@@ -3,37 +3,37 @@ import actions from "./remove-actions";
 test("removeFileByVersion", () => {
   const name = "n1";
   const version = { handle: "h1" };
-  const folder = "/";
+  const directory = "/";
   const masterHandle = "mh1";
   const expected = {
     type: actions.REMOVE_FILE_BY_VERSION,
     payload: {
       name,
       version,
-      folder,
+      directory,
       masterHandle
     }
   };
   expect(
-    actions.removeFileByVersion({ name, version, folder, masterHandle })
+    actions.removeFileByVersion({ name, version, directory, masterHandle })
   ).toEqual(expected);
 });
 
 test("removeSuccess", () => {
   const masterHandle = "mh1";
   const version = { handle: "h1" };
-  const folder = "/";
+  const directory = "/";
   const expected = {
     type: actions.REMOVE_FILE_SUCCESS,
     payload: {
       masterHandle,
-      folder,
+      directory,
       version
     }
   };
-  expect(actions.removeFileSuccess({ masterHandle, folder, version })).toEqual(
-    expected
-  );
+  expect(
+    actions.removeFileSuccess({ masterHandle, directory, version })
+  ).toEqual(expected);
 });
 
 test("removeError", () => {

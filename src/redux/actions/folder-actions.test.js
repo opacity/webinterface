@@ -2,29 +2,29 @@ import actions from "./folder-actions";
 
 test("createFolder", () => {
   const name = "foobar";
-  const folder = "foobar";
+  const directory = "foobar";
   const masterHandle = "foobar";
   const expected = {
     type: actions.CREATE_FOLDER,
     payload: {
       name,
       masterHandle,
-      folder
+      directory
     }
   };
-  expect(actions.createFolder({ masterHandle, folder, name })).toEqual(
+  expect(actions.createFolder({ masterHandle, directory, name })).toEqual(
     expected
   );
 });
 
 test("createFolderSuccess", () => {
   const masterHandle = "foobar";
-  const folder = "/";
+  const directory = "/";
   const expected = {
     type: actions.CREATE_FOLDER_SUCCESS,
-    payload: { masterHandle, folder }
+    payload: { masterHandle, directory }
   };
-  expect(actions.createFolderSuccess({ masterHandle, folder })).toEqual(
+  expect(actions.createFolderSuccess({ masterHandle, directory })).toEqual(
     expected
   );
 });
@@ -39,30 +39,32 @@ test("createFolderFailure", () => {
 });
 
 test("removeFolder", () => {
+  const folder = { name: "fo1", location: "l1" };
   const name = "foobar";
   const masterHandle = "foobar";
-  const folder = "foobar";
+  const directory = "foobar";
   const expected = {
     type: actions.REMOVE_FOLDER,
     payload: {
+      folder,
       name,
       masterHandle,
-      folder
+      directory
     }
   };
-  expect(actions.removeFolder({ masterHandle, folder, name })).toEqual(
-    expected
-  );
+  expect(
+    actions.removeFolder({ masterHandle, directory, name, folder })
+  ).toEqual(expected);
 });
 
 test("removeFolderSuccess", () => {
   const masterHandle = "foobar";
-  const folder = "foobar";
+  const directory = "foobar";
   const expected = {
     type: actions.REMOVE_FOLDER_SUCCESS,
-    payload: { masterHandle, folder }
+    payload: { masterHandle, directory }
   };
-  expect(actions.removeFolderSuccess({ masterHandle, folder })).toEqual(
+  expect(actions.removeFolderSuccess({ masterHandle, directory })).toEqual(
     expected
   );
 });

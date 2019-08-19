@@ -12,18 +12,23 @@ jest.mock("opaque", () => ({
 test("removeFileByVersionEpic on success", done => {
   const name = "n1";
   const version = { handle: "h1" };
-  const folder = "/";
+  const directory = "/";
   const masterHandle = {
     deleteVersion: jest.fn().mockResolvedValue(true)
   };
 
   const action$ = of(
-    removeActions.removeFileByVersion({ name, version, folder, masterHandle })
+    removeActions.removeFileByVersion({
+      name,
+      version,
+      directory,
+      masterHandle
+    })
   );
 
   removeEpic(action$).subscribe(actions => {
     expect(actions).toEqual(
-      removeActions.removeFileSuccess({ masterHandle, folder, version })
+      removeActions.removeFileSuccess({ masterHandle, directory, version })
     );
     done();
   });
@@ -32,14 +37,19 @@ test("removeFileByVersionEpic on success", done => {
 test("removeFileByVersionEpic on failure", done => {
   const name = "n1";
   const version = { handle: "h1" };
-  const folder = "/";
+  const directory = "/";
   const error = new Error("foobar");
   const masterHandle = {
     deleteVersion: jest.fn().mockRejectedValue(error)
   };
 
   const action$ = of(
-    removeActions.removeFileByVersion({ name, version, folder, masterHandle })
+    removeActions.removeFileByVersion({
+      name,
+      version,
+      directory,
+      masterHandle
+    })
   );
 
   removeEpic(action$).subscribe(actions => {
@@ -53,16 +63,21 @@ test("removeFilesEpic", done => {
     { version: { handle: "h1" }, name: "n1" },
     { version: { handle: "h2" }, name: "n2" }
   ];
-  const folder = "/";
+  const directory = "/";
   const masterHandle = {
     deleteVersion: jest.fn().mockResolvedValue(true)
   };
 
   const action$ = of(
-    removeActions.removeFiles({ files, masterHandle, folder })
+    removeActions.removeFiles({ files, masterHandle, directory })
   );
   const expected = files.map(({ name, version }) =>
-    removeActions.removeFileByVersion({ name, version, masterHandle, folder })
+    removeActions.removeFileByVersion({
+      name,
+      version,
+      masterHandle,
+      directory
+    })
   );
 
   removeEpic(action$)

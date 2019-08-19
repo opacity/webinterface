@@ -25,25 +25,25 @@ const ACTIONS = Object.freeze({
   MOVE_FOLDER_SUCCESS,
   MOVE_FOLDER_FAILURE,
 
-  createFolder: ({ masterHandle, folder, name }) => ({
+  createFolder: ({ masterHandle, directory, name }) => ({
     type: CREATE_FOLDER,
-    payload: { masterHandle, folder, name }
+    payload: { masterHandle, directory, name }
   }),
-  createFolderSuccess: ({ masterHandle, folder }) => ({
+  createFolderSuccess: ({ masterHandle, directory }) => ({
     type: CREATE_FOLDER_SUCCESS,
-    payload: { masterHandle, folder }
+    payload: { masterHandle, directory }
   }),
   createFolderFailure: ({ error }) => ({
     type: CREATE_FOLDER_FAILURE,
     payload: { error }
   }),
-  removeFolder: ({ masterHandle, folder, name }) => ({
+  removeFolder: ({ masterHandle, directory, name, folder }) => ({
     type: REMOVE_FOLDER,
-    payload: { masterHandle, folder, name }
+    payload: { masterHandle, directory, name, folder }
   }),
-  removeFolderSuccess: ({ masterHandle, folder }) => ({
+  removeFolderSuccess: ({ masterHandle, directory }) => ({
     type: REMOVE_FOLDER_SUCCESS,
-    payload: { masterHandle, folder }
+    payload: { masterHandle, directory }
   }),
   removeFolderFailure: ({ error }) => ({
     type: REMOVE_FOLDER_FAILURE,

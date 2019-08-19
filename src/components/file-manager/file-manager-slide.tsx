@@ -33,13 +33,13 @@ import { IFolder } from "../../models/folder";
 
 const fileTarget = {
   drop: (props, monitor) => {
-    const { upload, masterHandle, currentFolder } = props;
+    const { uploadFiles, masterHandle, directory } = props;
     let { files } = monitor.getItem();
     const filesLength = files.length;
     if (files.length > 0) {
       files = files.filter(file => file.size <= FILE_MAX_SIZE);
       files.length !== filesLength && alert("Some files are greater then 2GB.");
-      upload({ files, masterHandle, folder: currentFolder });
+      uploadFiles({ files, masterHandle, directory });
     }
   }
 };
@@ -324,30 +324,32 @@ interface Handle {
 }
 
 const FileManagerSlide = ({
-  currentFolder,
-  isLoading,
-  history,
+  connectDropTarget,
+  createFolder,
+  directory,
+  downloadFile,
+  downloadFiles,
+  expirationDate,
   files,
   folders,
   getFileList,
-  upload,
-  download,
-  removeFileByVersion,
+  history,
+  isLoading,
+  isOver,
   masterHandle,
   metadata,
-  storageUsed,
-  storageLimit,
-  expirationDate,
-  connectDropTarget,
-  isOver,
-  downloadFiles,
+  removeFileByVersion,
   removeFiles,
   createFolder,
   removeFolder,
   renameFile,
   renameFolder,
   moveFile,
-  moveFolder
+  moveFolder,
+  removeFolder,
+  storageLimit,
+  storageUsed,
+  uploadFiles
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<IFile[]>([]);
   const [orderedFolders, setOrderedFolders] = useState<IFolder[]>([]);
@@ -383,11 +385,11 @@ const FileManagerSlide = ({
     setFilemanagerFiles([]);
   };
 
-  const prepareCreateFolder = (masterHandle, currentFolder, name) => {
+  const prepareCreateFolder = (masterHandle, directory, name) => {
     const isExist = folders.find(i => i.name === name);
     !isExist
-      ? createFolder(masterHandle, currentFolder, name)
-      : toast(`Folder ${name} is found. `, {
+      ? createFolder({ masterHandle, directory, name })
+      : toast(`Folder ${name} already exists.`, {
         autoClose: 3000,
         hideProgressBar: true,
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -402,9 +404,12 @@ const FileManagerSlide = ({
     setParam(defaultOrder);
   }, [files, folders]);
 
-  useEffect(() => {
-    getFileList(currentFolder, masterHandle);
-  }, [currentFolder]);
+  useEffect(
+    () => {
+      getFileList({ directory, masterHandle });
+    },
+    [directory]
+  );
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -436,7 +441,7 @@ const FileManagerSlide = ({
                 </UsageWrapper>
               </TitleWrapper>
               <TopActionsWrapper>
-                <Breadcrumbs folder={currentFolder} />
+                <Breadcrumbs folder={directory} />
                 <ButtonWrapper>
                   <ButtonGroup>
                     <Button
@@ -444,7 +449,7 @@ const FileManagerSlide = ({
                       padding="0 10px"
                       disabled={filemanagerFiles.length === 0}
                       onClick={() => {
-                        downloadFiles(filemanagerFiles);
+                        downloadFiles({ files: filemanagerFiles });
                         setFilemanagerFiles([]);
                       }}
                     >
@@ -462,11 +467,14 @@ const FileManagerSlide = ({
                       margin="0 5px 0"
                       disabled={filemanagerFiles.length === 0}
                       onClick={() => {
-                        removeFiles({
-                          files: filemanagerFiles,
-                          masterHandle,
-                          folder: currentFolder
-                        });
+                        confirm(
+                          "Are you sure you want to delete these files?"
+                        ) &&
+                          removeFiles({
+                            files: filemanagerFiles,
+                            masterHandle,
+                            directory
+                          });
                         setFilemanagerFiles([]);
                       }}
                     >
@@ -487,14 +495,18 @@ const FileManagerSlide = ({
                     </FolderButton>
                     <UploadButton
                       onSelected={files =>
-                        upload({ files, masterHandle, folder: currentFolder })
+                        uploadFiles({
+                          files,
+                          masterHandle,
+                          directory
+                        })
                       }
                     />
                     <FolderModal
                       isOpen={!!showCreateFolder}
                       close={() => setShowCreateFolder(false)}
                       createFolder={name =>
-                        prepareCreateFolder(masterHandle, currentFolder, name)
+                        prepareCreateFolder(masterHandle, directory, name)
                       }
                     />
                   </ButtonGroup>
@@ -595,7 +607,7 @@ const FileManagerSlide = ({
               )}
               <UploadMobileButton
                 onSelected={files =>
-                  upload({ files, folder: currentFolder, masterHandle })
+                  uploadFiles({ files, directory, masterHandle })
                 }
               />
             </TableContainer>
