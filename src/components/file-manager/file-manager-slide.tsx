@@ -406,7 +406,8 @@ const FileManagerSlide = ({
   removeFolder,
   storageLimit,
   storageUsed,
-  uploadFiles
+  uploadFiles,
+  uploadFile
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<IFile[]>([]);
   const [orderedFolders, setOrderedFolders] = useState<IFolder[]>([]);
@@ -461,22 +462,16 @@ const FileManagerSlide = ({
       });
   };
 
-  useEffect(
-    () => {
-      const defaultOrder = "created";
-      setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
-      setOrderedFolders(_.orderBy(folders, defaultOrder, "desc"));
-      setParam(defaultOrder);
-    },
-    [files, folders]
-  );
+  useEffect(() => {
+    const defaultOrder = "created";
+    setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
+    setOrderedFolders(_.orderBy(folders, defaultOrder, "desc"));
+    setParam(defaultOrder);
+  }, [files, folders]);
 
-  useEffect(
-    [currentFolder]
-      getFileList({ directory, masterHandle });
-    },
-    [directory]
-  );
+  useEffect(() => {
+    getFileList({ directory, masterHandle });
+  }, [directory]);
 
   return (
     <DroppableZone ref={connectDropTarget}>
@@ -519,23 +514,11 @@ const FileManagerSlide = ({
                     name="Upload folder"
                     isDirectory={true}
                     onSelected={files =>
-                      upload({
+                      uploadFiles({
                         files,
                         masterHandle,
-                        folder: currentFolder,
+                        directory,
                         isDirectory: true
-                      })
-                    }
-                  />
-                  <UploadButton
-                    name="Upload"
-                    isDirectory={false}
-                    onSelected={files =>
-                      upload({
-                        files,
-                        masterHandle,
-                        folder: currentFolder,
-                        isDirectory: false
                       })
                     }
                   />
@@ -590,6 +573,8 @@ const FileManagerSlide = ({
                       New Folder
                     </FolderButton>
                     <UploadButton
+                      isDirectory={true}
+                      name={true}
                       onSelected={files =>
                         uploadFiles({
                           files,
@@ -763,20 +748,18 @@ const FileManagerSlide = ({
                   </tbody>
                 </Table>
               )}
-              {!isLoading &&
-                !folders.length &&
-                !files.length && (
-                  <NoFilesContainer>
-                    <NoFiles>
-                      Your folder is empty. You can upload files by clicking the
-                      Upload button on the top right.
-                    </NoFiles>
-                    <NoFilesMobile>
-                      Your folder is empty. You can upload files by clicking the
-                      Upload button on the bottom right.
-                    </NoFilesMobile>
-                  </NoFilesContainer>
-                )}
+              {!isLoading && !folders.length && !files.length && (
+                <NoFilesContainer>
+                  <NoFiles>
+                    Your folder is empty. You can upload files by clicking the
+                    Upload button on the top right.
+                  </NoFiles>
+                  <NoFilesMobile>
+                    Your folder is empty. You can upload files by clicking the
+                    Upload button on the bottom right.
+                  </NoFilesMobile>
+                </NoFilesContainer>
+              )}
               <UploadMobileButton
                 onSelected={files =>
                   uploadFiles({ files, directory, masterHandle })
@@ -805,7 +788,7 @@ const FileManagerSlide = ({
             isOpen={!!showCreateFolder}
             close={() => setShowCreateFolder(false)}
             createFolder={name =>
-              prepareCreateFolder(masterHandle, currentFolder, name)
+              prepareCreateFolder(masterHandle, directory, name)
             }
           />
         </Container>

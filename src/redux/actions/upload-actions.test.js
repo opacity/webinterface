@@ -1,9 +1,8 @@
 import actions from "./upload-actions";
 
-test("uplaodFiles", () => {
+test("uploadFiles", () => {
   const files = ["f1"];
   const masterHandle = "mh1";
-  const folder = "/";
   const isDirectory = false;
   const directory = "/";
 
@@ -11,20 +10,21 @@ test("uplaodFiles", () => {
     type: actions.UPLOAD_FILES,
     payload: {
       files,
-      folder,
       masterHandle,
+      directory,
       isDirectory
     }
   };
-  expect(actions.uploadFiles({ files, directory, masterHandle })).toEqual(
-    expected
-  );
+  expect(
+    actions.uploadFiles({ files, directory, masterHandle, isDirectory })
+  ).toEqual(expected);
 });
 
-test("uplaodFile", () => {
+test("uploadFile", () => {
   const file = "f1";
   const masterHandle = "mh1";
   const directory = "/";
+  const isDirectory = false;
 
   const expected = {
     type: actions.UPLOAD_FILE,
