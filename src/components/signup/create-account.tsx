@@ -19,6 +19,7 @@ const Container = styled.div`
 `;
 
 const CreateAccount = ({
+  isCustom,
   fiatPaymentError,
   fiatPaymentStatus,
   openMetamask,
@@ -91,15 +92,21 @@ const CreateAccount = ({
         }
       >
         <Breadcrumbs phase={phase} />
-        {phase === SIGNUP_PHASES.SELECT_PLAN && <SelectPlanSlide />}
+        {phase === SIGNUP_PHASES.SELECT_PLAN && (
+          <SelectPlanSlide isCustom={isCustom} />
+        )}
         {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
-          <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
+          <RecordRecoveryPhraseSlide
+            mnemonic={mnemonic}
+            next={showAddress}
+            isCustom={isCustom}
+          />
         )}
         {phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
           <RecordAccountHandleSlide
             handle={privateKey}
             next={() =>
-              plan.ethCost === 0 && plan.usdCost === 0
+              plan.opqCost === 0 && plan.usdCost === 0
                 ? accountPaidSuccess()
                 : pollPayment(waitForPaymentFn)
             }
@@ -108,7 +115,7 @@ const CreateAccount = ({
         )}
         {phase === SIGNUP_PHASES.SEND_PAYMENT && (
           <SendPaymentSlide
-            ethCost={plan.ethCost}
+            opqCost={plan.opqCost}
             fiatPaymentError={fiatPaymentError}
             fiatPaymentStatus={fiatPaymentStatus}
             invoice={invoice}
