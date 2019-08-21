@@ -96,7 +96,11 @@ const CreateAccount = ({
           <SelectPlanSlide isCustom={isCustom} />
         )}
         {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
-          <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
+          <RecordRecoveryPhraseSlide
+            mnemonic={mnemonic}
+            next={showAddress}
+            isCustom={isCustom}
+          />
         )}
         {phase === SIGNUP_PHASES.RECORD_STORAGE_PIN && (
           <RecordAccountHandleSlide

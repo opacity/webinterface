@@ -94,7 +94,7 @@ const Box = styled.div`
   width: 125px;
 `;
 
-const RecordRecoveryPhraseSlide = ({ next, mnemonic, history }) => {
+const RecordRecoveryPhraseSlide = ({ next, mnemonic, history, isCustom }) => {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
@@ -147,7 +147,9 @@ const RecordRecoveryPhraseSlide = ({ next, mnemonic, history }) => {
           Download phrase as CSV
         </DownloadButton>
         <ButtonWrapper>
-          <ContinueButtonLink to="/sign-up">Back</ContinueButtonLink>
+          <ContinueButtonLink to={`/${isCustom ? "custom-" : ""}sign-up`}>
+            Back
+          </ContinueButtonLink>
           <ContinueButton
             disabled={!isCaptchaVerified}
             onClick={() => onSubmit()}
