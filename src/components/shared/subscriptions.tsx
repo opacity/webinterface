@@ -293,7 +293,11 @@ const Subscriptions = ({ isCustom }) => {
               </PriceSection>
               <ButtonWrapper>
                 {plan.isAvailable ? (
-                  <SignupLink to={`/sign-up/${plan.permalink}`}>
+                  <SignupLink
+                    to={`/${isCustom ? "custom-" : ""}sign-up/${
+                      plan.permalink
+                    }`}
+                  >
                     {plan.isAvailable ? "Choose plan" : "Contact Us"}
                   </SignupLink>
                 ) : (

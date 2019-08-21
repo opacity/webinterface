@@ -52,6 +52,10 @@ const App = () => (
             <Route path="/sign-up/:plan" component={Signup} />
             <Route path="/sign-up" component={Signup} />
             <Route
+              path="/custom-sign-up/:plan"
+              render={props => <Signup isCustom {...props} />}
+            />
+            <Route
               path="/custom-sign-up"
               render={props => <Signup isCustom {...props} />}
             />
