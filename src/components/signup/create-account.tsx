@@ -102,7 +102,7 @@ const CreateAccount = ({
           <RecordAccountHandleSlide
             handle={privateKey}
             next={() =>
-              plan.ethCost === 0 && plan.usdCost === 0
+              plan.opqCost === 0 && plan.usdCost === 0
                 ? accountPaidSuccess()
                 : pollPayment(waitForPaymentFn)
             }
@@ -111,7 +111,7 @@ const CreateAccount = ({
         )}
         {phase === SIGNUP_PHASES.SEND_PAYMENT && (
           <SendPaymentSlide
-            ethCost={plan.ethCost}
+            opqCost={plan.opqCost}
             fiatPaymentError={fiatPaymentError}
             fiatPaymentStatus={fiatPaymentStatus}
             invoice={invoice}

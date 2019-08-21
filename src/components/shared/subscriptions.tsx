@@ -260,9 +260,9 @@ const Subscriptions = ({ isCustom }) => {
             </Header>
             <Footer>
               <PriceSection>
-                {plan.ethCost > 0 && (
+                {plan.opqCost > 0 && (
                   <PaymentOption>
-                    <Price>{plan.ethCost.toLocaleString()} OPQ</Price>
+                    <Price>{plan.opqCost.toLocaleString()} OPQ</Price>
                     <Duration>per year</Duration>
                   </PaymentOption>
                 )}
@@ -283,7 +283,7 @@ const Subscriptions = ({ isCustom }) => {
                   </React.Fragment>
                 )}
                 {plan.usdCost === 0 &&
-                  plan.ethCost === 0 && (
+                  plan.opqCost === 0 && (
                     <React.Fragment>
                       <PaymentOption>
                         <Price>{plan.specialPricing}</Price>
