@@ -35,6 +35,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const SignUp = ({
+  isCustom,
   phase,
   plan,
   fiatPaymentStatus,
@@ -48,6 +49,7 @@ const SignUp = ({
   payFiat
 }) => (
   <CreateAccount
+    isCustom={isCustom}
     fiatPaymentError={fiatPaymentError}
     fiatPaymentStatus={fiatPaymentStatus}
     openMetamask={openMetamask}

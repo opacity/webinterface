@@ -6,8 +6,8 @@ export const IS_PROD = process.env.NODE_ENV === "production";
 const PROTOCOL = IS_DEV ? "http" : "https";
 
 export const STRIPE_API_KEY = IS_PROD
-    ? "pk_live_SLMPS7zVFurFwLOKEdiICAGC00kN41fASj"
-    : "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f";
+  ? "pk_live_SLMPS7zVFurFwLOKEdiICAGC00kN41fASj"
+  : "pk_test_jHC9KKrYExP2pdqmuSmkPSqT00ErWapX4f";
 
 export const HOST =
   IS_DEV || IS_BETA_DEV
@@ -176,6 +176,7 @@ export enum SHADOW {
 
 export const PLANS = [
   {
+    isCustom: false,
     borderColor: "#ECCD32",
     content: "Discover secure file sharing using blockchain technology",
     discountedUsdCost: null,
@@ -202,6 +203,7 @@ export const PLANS = [
     ]
   },
   {
+    isCustom: false,
     borderColor: "#9AD9FE",
     content: "Perfect for personal and family use",
     discountedUsdCost: null,
@@ -228,6 +230,7 @@ export const PLANS = [
     ]
   },
   {
+    isCustom: false,
     borderColor: "#918DEA",
     content: "Secure and access your files Anywhere",
     discountedUsdCost: 79.99,
@@ -255,6 +258,7 @@ export const PLANS = [
     ]
   },
   {
+    isCustom: false,
     borderColor: "#DE9E93",
     content: "Secure file management for your organization",
     discountedUsdCost: null,
@@ -282,6 +286,7 @@ export const PLANS = [
     ]
   },
   {
+    isCustom: false,
     borderColor: "#8ADB75",
     content: "All the secure file storage you need ",
     discountedUsdCost: null,
@@ -300,6 +305,34 @@ export const PLANS = [
     zIndex: 0,
     features: [
       "Opacity can provide the storage and services your business needs. S3 compliant API integrates easily with most existing implementations."
+    ]
+  },
+  {
+    isCustom: true,
+    borderColor: "#918DEA",
+    content: "Secure and access your files \n Anywhere",
+    discountedUsdCost: null,
+    durationInMonths: 12,
+    ethCost: 150000,
+    includesDesktopApp: true,
+    isAvailable: true,
+    isHighlighted: true,
+    permalink: "custom-10tb",
+    shadow: SHADOW.CENTER,
+    specialPricing: null,
+    storageInGB: 10000,
+    storageLimit: "10 TB",
+    title: "Custom",
+    usdCost: 550.0,
+    zIndex: 2,
+    features: [
+      "End-to-End Encryption",
+      "Unlimited Downloads",
+      "Private File Sharing",
+      "No 3rd Party Tracking",
+      "Access Anywhere",
+      "Unlimited File Size*",
+      "Desktop Sync"
     ]
   }
 ];

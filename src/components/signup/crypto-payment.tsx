@@ -146,14 +146,14 @@ const CryptoPayment = ({ invoice, openMetamask, cost }) => {
         <Hr />
         <Content>
           Use the Opacity Storage Token, OPQ, to pay for your storage account.
-          Send your total amount of <Bold>{cost} OPQ </Bold> to the address
-          below or you may use MetaMask to easily make your payment right in
-          your browser.
+          Send your total amount of <Bold>{cost.toLocaleString()} OPQ </Bold> to
+          the address below or you may use MetaMask to easily make your payment
+          right in your browser.
         </Content>
         <ContentBold>
           IMPORTANT: Do not send any other coin or token to this account address
-          as it may result in a loss of funds. Only send {cost} OPQ. Sending
-          more may also result in loss of funds.
+          as it may result in a loss of funds. Only send {cost.toLocaleString()}{" "}
+          OPQ. Sending more may also result in loss of funds.
         </ContentBold>
         <Content>
           Once your payment is sent, it may take some time to confirm your
@@ -164,7 +164,9 @@ const CryptoPayment = ({ invoice, openMetamask, cost }) => {
         <Wrapper>
           <Spinner isActive={true} />
         </Wrapper>
-        <LabelColored>Send {cost} OPQ to Ethereum Address:</LabelColored>
+        <LabelColored>
+          Send {cost.toLocaleString()} OPQ to Ethereum Address:
+        </LabelColored>
         <EthAddressWrapper>
           <EthAddress>{ethAddress}</EthAddress>
           <CopyToClipboard text={ethAddress} onCopy={() => setIsCopied(true)}>

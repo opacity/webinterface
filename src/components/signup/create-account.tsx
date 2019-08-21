@@ -19,6 +19,7 @@ const Container = styled.div`
 `;
 
 const CreateAccount = ({
+  isCustom,
   fiatPaymentError,
   fiatPaymentStatus,
   openMetamask,
@@ -91,7 +92,9 @@ const CreateAccount = ({
         }
       >
         <Breadcrumbs phase={phase} />
-        {phase === SIGNUP_PHASES.SELECT_PLAN && <SelectPlanSlide />}
+        {phase === SIGNUP_PHASES.SELECT_PLAN && (
+          <SelectPlanSlide isCustom={isCustom} />
+        )}
         {phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE && (
           <RecordRecoveryPhraseSlide mnemonic={mnemonic} next={showAddress} />
         )}
