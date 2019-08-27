@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import queryString from "query-string";
 
 import downloadActions from "../../redux/actions/download-actions";
-import Main from "./main";
+import SharePageSlide from "./share-page-slide";
 
 const mapStateToProps = state => ({
   handle: queryString.parse(state.router.location.hash).handle
@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const SharePage = ({ handle, download }) => (
-  <Main handle={handle} download={download} />
+  <SharePageSlide handle={handle} download={download} />
 );
 
 export default connect(
