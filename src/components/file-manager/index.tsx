@@ -27,13 +27,11 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  upload: ({ files, directory, masterHandle, isDirectory }) =>
+  uploadFiles: ({ files, directory, masterHandle, isDirectory }) =>
     dispatch(
       uploadActions.uploadFiles({ files, directory, masterHandle, isDirectory })
     ),
   download: handle => dispatch(downloadActions.downloadFile({ handle })),
-  uploadFiles: ({ files, directory, masterHandle }) =>
-    dispatch(uploadActions.uploadFiles({ files, directory, masterHandle })),
   downloadFile: ({ handle }) =>
     dispatch(downloadActions.downloadFile({ handle })),
   removeFileByVersion: ({ name, version, directory, masterHandle }) =>

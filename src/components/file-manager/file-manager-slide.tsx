@@ -406,8 +406,7 @@ const FileManagerSlide = ({
   removeFolder,
   storageLimit,
   storageUsed,
-  uploadFiles,
-  uploadFile
+  uploadFiles
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<IFile[]>([]);
   const [orderedFolders, setOrderedFolders] = useState<IFolder[]>([]);
@@ -505,23 +504,6 @@ const FileManagerSlide = ({
               <TopActionsWrapper>
                 <Breadcrumbs folder={directory} />
                 <ButtonWrapper>
-                  <FolderButton
-                    onClick={() => setShowCreateFolder(!showCreateFolder)}
-                  >
-                    New Folder
-                  </FolderButton>
-                  <UploadButton
-                    name="Upload folder"
-                    isDirectory={true}
-                    onSelected={files =>
-                      uploadFiles({
-                        files,
-                        masterHandle,
-                        directory,
-                        isDirectory: true
-                      })
-                    }
-                  />
                   <ButtonGroup>
                     <Button
                       width="auto"
@@ -573,13 +555,26 @@ const FileManagerSlide = ({
                       New Folder
                     </FolderButton>
                     <UploadButton
+                      name="Upload folder"
                       isDirectory={true}
-                      name={true}
                       onSelected={files =>
                         uploadFiles({
                           files,
                           masterHandle,
-                          directory
+                          directory,
+                          isDirectory: true
+                        })
+                      }
+                    />
+                    <UploadButton
+                      name="Upload file"
+                      isDirectory={false}
+                      onSelected={files =>
+                        uploadFiles({
+                          files,
+                          masterHandle,
+                          directory,
+                          isDirectory: false
                         })
                       }
                     />
@@ -762,7 +757,12 @@ const FileManagerSlide = ({
               )}
               <UploadMobileButton
                 onSelected={files =>
-                  uploadFiles({ files, directory, masterHandle })
+                  uploadFiles({
+                    files,
+                    directory,
+                    masterHandle,
+                    isDirectory: false
+                  })
                 }
               />
               <FolderMobileButton
