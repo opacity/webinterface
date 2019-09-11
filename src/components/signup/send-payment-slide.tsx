@@ -85,6 +85,7 @@ const SendPaymentSlide = ({
               invoice={invoice}
               openMetamask={openMetamask}
               cost={opqCost}
+              storageLimit={storageLimit}
             />
           )}
           {activeTab === TABS.FIAT && (
