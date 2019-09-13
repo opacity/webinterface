@@ -44,7 +44,8 @@ const fileTarget = {
     if (files.length > 0) {
       files = files.filter(file => file.size <= FILE_MAX_SIZE);
       files.length !== filesLength && alert("Some files are greater then 2GB.");
-      uploadFiles({ files, masterHandle, directory });
+      files = files.filter(file => file.type !== "");
+      uploadFiles({ files, masterHandle, directory, isDirectory: false });
     }
   }
 };
