@@ -26,7 +26,7 @@ const VideoPlayer = ({ src, poster }: VideoPlayerProps) => (
   <Container>
     <Player
       playsInline={true}
-      autoPlay={true}
+      autoPlay={false}
       src={src}
       poster={poster}
       preload="auto"

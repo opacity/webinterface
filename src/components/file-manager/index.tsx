@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { DragDropContextProvider } from "react-dnd";
+import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 
 import uploadActions from "../../redux/actions/upload-actions";
 import finderActions from "../../redux/actions/finder-actions";
 import downloadActions from "../../redux/actions/download-actions";
 import removeActions from "../../redux/actions/remove-actions";
+import fileActions from "../../redux/actions/file-actions";
 import folderActions from "../../redux/actions/folder-actions";
 
 import FileManagerSlide from "./file-manager-slide";
@@ -40,6 +41,10 @@ const mapDispatchToProps = dispatch => ({
         masterHandle
       })
     ),
+  moveFile: (file, to, directory, masterHandle) =>
+    dispatch(fileActions.moveFile({ file, to, directory, masterHandle })),
+  moveFolder: (folder, to, directory, masterHandle) =>
+    dispatch(folderActions.moveFolder({ folder, to, directory, masterHandle })),
   getFileList: ({ directory, masterHandle }) =>
     dispatch(finderActions.getFileList({ directory, masterHandle })),
   downloadFiles: ({ files }) =>
@@ -69,11 +74,15 @@ const FileManager = ({
   removeFileByVersion,
   removeFiles,
   removeFolder,
+  renameFolder,
+  renameFile,
+  moveFile,
+  moveFolder,
   storageLimit,
   storageUsed,
   uploadFiles
 }) => (
-  <DragDropContextProvider backend={HTML5Backend}>
+  <DndProvider backend={HTML5Backend}>
     <FileManagerSlide
       createFolder={createFolder}
       directory={directory}
@@ -86,14 +95,18 @@ const FileManager = ({
       isLoading={isLoading}
       masterHandle={masterHandle}
       metadata={metadata}
+      storageUsed={storageUsed}
+      storageLimit={storageLimit}
+      removeFolder={removeFolder}
+      renameFolder={renameFolder}
+      renameFile={renameFile}
+      moveFile={moveFile}
+      moveFolder={moveFolder}
       removeFileByVersion={removeFileByVersion}
       removeFiles={removeFiles}
-      removeFolder={removeFolder}
-      storageLimit={storageLimit}
-      storageUsed={storageUsed}
       uploadFiles={uploadFiles}
     />
-  </DragDropContextProvider>
+  </DndProvider>
 );
 
 export default connect(
