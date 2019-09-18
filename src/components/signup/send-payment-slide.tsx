@@ -40,7 +40,7 @@ enum TABS {
 }
 
 const SendPaymentSlide = ({
-  ethCost,
+  opqCost,
   fiatPaymentError,
   fiatPaymentStatus,
   invoice,
@@ -84,7 +84,7 @@ const SendPaymentSlide = ({
             <CryptoPayment
               invoice={invoice}
               openMetamask={openMetamask}
-              cost={ethCost}
+              cost={opqCost}
             />
           )}
           {activeTab === TABS.FIAT && (

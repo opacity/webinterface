@@ -236,82 +236,90 @@ const Header = styled.div``;
 
 const Footer = styled.div``;
 
-const Subscriptions = () => (
-  <ThemeProvider theme={theme}>
-    <Container>
-      {_.map(PLANS, plan => (
-        <Column
-          key={plan.permalink}
-          shadow={plan.shadow}
-          zIndex={plan.zIndex}
-          isHighlighted={plan.isHighlighted}
-          borderColor={plan.borderColor}
-        >
-          {plan.isHighlighted && <FeaturedIcon />}
-          <Header>
-            <Title>{plan.title}</Title>
-            <Line />
-            <Content>{plan.content}</Content>
-            <StorageLimit>{plan.storageLimit}</StorageLimit>
-            <SubscriptionFeatures features={plan.features} />
-          </Header>
-          <Footer>
-            <PriceSection>
-              {plan.ethCost > 0 && (
-                <PaymentOption>
-                  <Price>{plan.ethCost} OPQ</Price>
-                  <Duration>per year</Duration>
-                </PaymentOption>
-              )}
-              {plan.usdCost > 0 && (
-                <React.Fragment>
-                  <Reminder>&ndash; or &ndash;</Reminder>
+const Subscriptions = ({ isCustom }) => {
+  const plans = PLANS.filter(p => p.isCustom === !!isCustom);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Container>
+        {_.map(plans, plan => (
+          <Column
+            key={plan.permalink}
+            shadow={plan.shadow}
+            zIndex={plan.zIndex}
+            isHighlighted={plan.isHighlighted}
+            borderColor={plan.borderColor}
+          >
+            {plan.isHighlighted && <FeaturedIcon />}
+            <Header>
+              <Title>{plan.title}</Title>
+              <Line />
+              <Content>{plan.content}</Content>
+              <StorageLimit>{plan.storageLimit}</StorageLimit>
+              <SubscriptionFeatures features={plan.features} />
+            </Header>
+            <Footer>
+              <PriceSection>
+                {plan.opqCost > 0 && (
                   <PaymentOption>
-                    {plan.discountedUsdCost ? (
-                      <Price>
-                        <Strikethrough>${plan.usdCost}</Strikethrough>
-                        ${plan.discountedUsdCost}**
-                      </Price>
-                    ) : (
-                      <Price>${plan.usdCost}</Price>
-                    )}
+                    <Price>{plan.opqCost.toLocaleString()} OPQ</Price>
                     <Duration>per year</Duration>
                   </PaymentOption>
-                </React.Fragment>
-              )}
-              {plan.usdCost === 0 &&
-                plan.ethCost === 0 && (
+                )}
+                {plan.usdCost > 0 && (
                   <React.Fragment>
+                    <Reminder>&ndash; or &ndash;</Reminder>
                     <PaymentOption>
-                      <Price>{plan.specialPricing}</Price>
+                      {plan.discountedUsdCost ? (
+                        <Price>
+                          <Strikethrough>${plan.usdCost}</Strikethrough>
+                          ${plan.discountedUsdCost}**
+                        </Price>
+                      ) : (
+                        <Price>${plan.usdCost}</Price>
+                      )}
+                      <Duration>per year</Duration>
                     </PaymentOption>
                   </React.Fragment>
                 )}
-            </PriceSection>
-            <ButtonWrapper>
-              {plan.isAvailable ? (
-                <SignupLink to={`/sign-up/${plan.permalink}`}>
-                  {plan.isAvailable ? "Choose plan" : "Contact Us"}
-                </SignupLink>
-              ) : (
-                <InsideLink href="mailto:sales@opacity.io">
-                  Contact Us
-                </InsideLink>
+                {plan.usdCost === 0 &&
+                  plan.opqCost === 0 && (
+                    <React.Fragment>
+                      <PaymentOption>
+                        <Price>{plan.specialPricing}</Price>
+                      </PaymentOption>
+                    </React.Fragment>
+                  )}
+              </PriceSection>
+              <ButtonWrapper>
+                {plan.isAvailable ? (
+                  <SignupLink
+                    to={`/${isCustom ? "custom-" : ""}sign-up/${
+                      plan.permalink
+                    }`}
+                  >
+                    {plan.isAvailable ? "Choose plan" : "Contact Us"}
+                  </SignupLink>
+                ) : (
+                  <InsideLink href="mailto:sales@opacity.io">
+                    Contact Us
+                  </InsideLink>
+                )}
+              </ButtonWrapper>
+            </Footer>
+            <DisclaimerWrapper>
+              {plan.includesDesktopApp && (
+                <Disclaimer>* With Desktop App</Disclaimer>
               )}
-            </ButtonWrapper>
-          </Footer>
-          <DisclaimerWrapper>
-            {plan.includesDesktopApp && (
-              <Disclaimer>* With Desktop App</Disclaimer>
-            )}
-            {plan.discountedUsdCost && (
-              <Disclaimer>** Limited Time Discount</Disclaimer>
-            )}
-          </DisclaimerWrapper>
-        </Column>
-      ))}
-    </Container>
-  </ThemeProvider>
-);
+              {plan.discountedUsdCost && (
+                <Disclaimer>** Limited Time Discount</Disclaimer>
+              )}
+            </DisclaimerWrapper>
+          </Column>
+        ))}
+      </Container>
+    </ThemeProvider>
+  );
+};
 
 export default Subscriptions;

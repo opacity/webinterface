@@ -3,7 +3,13 @@ import styled, { ThemeProvider } from "styled-components";
 import { ToastContainer } from "react-toastify";
 import { Download } from "opaque";
 
-import { API, HEADER_TYPES, theme } from "../../config";
+import {
+  API,
+  HEADER_TYPES,
+  DATA_TYPES_ICONS,
+  DESKTOP_WIDTH,
+  theme
+} from "../../config";
 import { formatBytes } from "../../helpers";
 
 import Header from "../shared/header";
@@ -17,9 +23,27 @@ const Container = styled.div`
 
 const Body = styled.div`
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+  @media (max-width: ${DESKTOP_WIDTH}px) {
+    flex-direction: column;
+  }
+`;
+
+const Column = styled.div`
+  padding-right: 40px;
+  @media (max-width: ${DESKTOP_WIDTH}px) {
+    padding-right: 0px;
+    padding-bottom: 40px;
+  }
+`;
+
+const ColumnInfo = styled.div`
+  display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 50px;
 `;
 
 const FileInfo = styled.div`
@@ -29,14 +53,22 @@ const FileInfo = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.h2`
-  color: ${props => props.theme.title.color};
-  text-align: center;
-`;
-
 const DownloadIcon = styled.img`
   width: 100px;
   height: 100px;
+`;
+const PreviewImage = styled.img`
+  width: 500px;
+  height: 400px;
+  @media (max-width: ${DESKTOP_WIDTH}px) {
+    width: 200px;
+    height: 200px;
+  }
+`;
+
+const Title = styled.h2`
+  color: ${props => props.theme.title.color};
+  text-align: center;
 `;
 
 const FileName = styled.h3``;
@@ -71,7 +103,7 @@ interface FileMetadata {
   size?: number;
 }
 
-const Main = ({ handle, download }) => {
+const SharePageSlide = ({ handle, download }) => {
   const [metadata, setMetadata] = useState<FileMetadata>({});
   const [error, setError] = useState(false);
 
@@ -83,7 +115,10 @@ const Main = ({ handle, download }) => {
 
     download
       .metadata()
-      .then(({ name, size }) => {
+      .then(metadata => {
+        const { name, size } = metadata;
+        // console.log(metadata);
+        // TODO metadata preview
         setMetadata({ name, size } as FileMetadata);
       })
       .catch(error => {
@@ -92,31 +127,46 @@ const Main = ({ handle, download }) => {
       });
   }, []);
 
+  const iconType = name => {
+    if (name) {
+      const typeIcon = DATA_TYPES_ICONS.find(type => name.includes(type.name));
+      return typeIcon ? (
+        <PreviewImage src={typeIcon.icon} />
+      ) : (
+        <PreviewImage src={DATA_TYPES_ICONS[0].icon} />
+      );
+    }
+    return null;
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container>
         <Header type={HEADER_TYPES.EMPTY} />
         <Body>
-          <DownloadIcon src={ICON_DOWNLOAD} />
-          <Title>You have been invited to view a file!</Title>
+          <Column>{iconType(metadata.name)}</Column>
+          <ColumnInfo>
+            <DownloadIcon src={ICON_DOWNLOAD} />
+            <Title>You have been invited to view a file!</Title>
 
-          {Object.keys(metadata).length ? (
-            <FileInfo>
-              <FileName>{metadata.name}</FileName>
-              <FileSize>{formatBytes(metadata.size)}</FileSize>
-              <DownloadButton onClick={() => download(handle)}>
-                Download file
-              </DownloadButton>
-            </FileInfo>
-          ) : (
-            <Spinner isActive={!error} />
-          )}
-          {error && (
-            <Description>
-              It seems the file you are looking for either does not exist or has
-              been removed. Please check your File Handle.
-            </Description>
-          )}
+            {Object.keys(metadata).length ? (
+              <FileInfo>
+                <FileName>{metadata.name}</FileName>
+                <FileSize>{formatBytes(metadata.size)}</FileSize>
+                <DownloadButton onClick={() => download(handle)}>
+                  Download file
+                </DownloadButton>
+              </FileInfo>
+            ) : (
+              <Spinner isActive={!error} />
+            )}
+            {error && (
+              <Description>
+                It seems the file you are looking for either does not exist or
+                has been removed. Please check your FIle Handle.
+              </Description>
+            )}
+          </ColumnInfo>
         </Body>
         <ToastContainer
           pauseOnHover={false}
@@ -129,4 +179,4 @@ const Main = ({ handle, download }) => {
   );
 };
 
-export default Main;
+export default SharePageSlide;

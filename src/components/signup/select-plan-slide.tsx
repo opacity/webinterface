@@ -5,10 +5,10 @@ import { theme } from "../../config";
 
 import Subscriptions from "../shared/subscriptions";
 
-const SelectPlanSlide = () => {
+const SelectPlanSlide = ({ isCustom }) => {
   return (
     <ThemeProvider theme={theme}>
-      <Subscriptions />
+      <Subscriptions isCustom={isCustom} />
     </ThemeProvider>
   );
 };

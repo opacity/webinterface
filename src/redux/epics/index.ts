@@ -8,7 +8,7 @@ import fiatPaymentEpic from "./fiat-payment-epic";
 import authenticationEpic from "./authentication-epic";
 import uploadEpic from "./upload-epic";
 import downloadEpic from "./download-epic";
-import removeEpic from "./remove-epic";
+import fileEpic from "./file-epic";
 import folderEpic from "./folder-epic";
 
 export default combineEpics(
@@ -20,6 +20,6 @@ export default combineEpics(
   authenticationEpic,
   uploadEpic,
   downloadEpic,
-  removeEpic,
+  fileEpic,
   folderEpic
 );
