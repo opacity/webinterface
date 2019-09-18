@@ -75,6 +75,11 @@ const RedeemButton = styled.button`
   border: 1px solid ${props => props.theme.button.background};
   cursor: pointer;
   text-transform: uppercase;
+
+  &[disabled] {
+    opacity: .8;
+    cursor: default;
+  }
 `;
 
 interface RedeemProps {
@@ -94,7 +99,7 @@ const storageLimitToCodeName = ({ storageLimit }: { storageLimit: string }) => {
 };
 
 const Redeem = ({ ethAddress, storageLimit }: RedeemProps) => {
-  const [status, setStatus] = useState<string>();
+  const [status, setStatus] = useState<JSX.Element>();
   const [statusType, setStatusType] = useState<StatusType>();
   const [disabled, setDisabled] = useState(false);
   const [buttonText, setButtonText] = useState("Redeem");
@@ -108,20 +113,20 @@ const Redeem = ({ ethAddress, storageLimit }: RedeemProps) => {
   }) => {
     setDisabled(true);
     setStatusType(null);
-    setStatus("");
+    setStatus(undefined);
     setButtonText("Checking...");
 
     const res = await (await fetch(`https://redeem.opacity.io/api?code=OPQ${storageLimitToCodeName({ storageLimit })}-${code.toUpperCase()}&ethaddress=${ethAddress}`)).json();
 
     console.log(res);
 
-    if ([401, 402, 501, 502, 601, 602].includes(res.code)) {
+    if (!res.data || !res.data.txhash) {
       setStatusType("error");
       setStatus(res.msg);
       setDisabled(false);
       setButtonText("Redeem");
     } else {
-      setStatus(`Tx: ${res.data.txhash}`);
+      setStatus(<a href={`https://etherscan.io/tx/${res.data.txhash}`} target="_blank">Transaction tracker</a>);
       setButtonText("Sending Payment...");
     }
 

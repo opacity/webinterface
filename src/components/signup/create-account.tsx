@@ -75,7 +75,7 @@ const CreateAccount = ({
             setInvoice(invoice);
             setWaitForPaymentFn(() => waitForPayment);
           })
-          .catch(console.log);
+          .catch(console.error);
       }
     },
     [phase]
