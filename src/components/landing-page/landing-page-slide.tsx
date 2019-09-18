@@ -258,21 +258,6 @@ const Title = styled.h1`
   }
 `;
 
-const TitleSecondary = styled.h2`
-  font-size: 32px;
-  text-align: center;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: white;
-  margin-top: 5px;
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    font-size: 18px;
-  }
-`;
-
 const HeaderTitle = styled.h2`
   font-size: 22px;
   font-weight: 500;
@@ -388,9 +373,6 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
       <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
       <HeaderContainer>
         <Title>Private Cloud Storage, Powered by Crypto</Title>
-        <TitleSecondary>
-          Only your crypto private key has access to your files
-        </TitleSecondary>
         <ContentWrapper>
           <HeaderContent>
             Familiar cloud storage interface built with blockchain technology
