@@ -163,7 +163,7 @@ const SharePageSlide = ({ handle, download }) => {
             {error && (
               <Description>
                 It seems the file you are looking for either does not exist or
-                has been removed. Please check your FIle Handle.
+                has been removed. Please check your File Handle.
               </Description>
             )}
           </ColumnInfo>
