@@ -1,7 +1,7 @@
 import _ from "lodash";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NativeTypes } from "react-dnd-html5-backend";
-import { DropTarget } from "react-dnd";
+import { useDrop } from "react-dnd";
 import { ToastContainer, toast } from "react-toastify";
 import { withRouter } from "react-router";
 import styled, { ThemeProvider } from "styled-components";
@@ -30,19 +30,6 @@ import Folder from "./folder";
 
 import { IFile } from "../../models/file";
 import { IFolder } from "../../models/folder";
-
-const fileTarget = {
-  drop: (props, monitor) => {
-    const { uploadFiles, masterHandle, directory } = props;
-    let { files } = monitor.getItem();
-    const filesLength = files.length;
-    if (files.length > 0) {
-      files = files.filter(file => file.size <= FILE_MAX_SIZE);
-      files.length !== filesLength && alert("Some files are greater then 2GB.");
-      uploadFiles({ files, masterHandle, directory });
-    }
-  }
-};
 
 const DroppableZone = styled.div`
   width: 100%;
@@ -324,28 +311,26 @@ interface Handle {
 }
 
 const FileManagerSlide = ({
-  connectDropTarget,
+  createFolder,
   directory,
   downloadFile,
   downloadFiles,
   expirationDate,
-  createFolder,
   files,
   folders,
   getFileList,
   isLoading,
-  isOver,
   masterHandle,
   metadata,
-  removeFileByVersion,
-  removeFiles,
-  renameFile,
+  storageUsed,
+  storageLimit,
+  removeFolder,
   renameFolder,
+  renameFile,
   moveFile,
   moveFolder,
-  removeFolder,
-  storageLimit,
-  storageUsed,
+  removeFileByVersion,
+  removeFiles,
   uploadFiles
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<IFile[]>([]);
@@ -357,6 +342,24 @@ const FileManagerSlide = ({
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [oldName, setOldName] = useState("");
   const [renameType, setRenameType] = useState("");
+
+  const ref = useRef<any>(null);
+  const [{ isOver }, drop] = useDrop({
+    accept: NativeTypes.FILE,
+    drop: ({}, monitor) => {
+      let { files } = monitor.getItem();
+      const filesLength = files.length;
+      if (files.length > 0) {
+        files = files.filter(file => file.size <= FILE_MAX_SIZE);
+        files.length !== filesLength && alert("Some files are greater then 2GB.");
+        uploadFiles({ files, masterHandle, directory });
+      }
+    },
+    collect: monitor => ({
+      isOver: monitor.isOver()
+    })
+  });
+  drop(ref);
 
   const sortBy = (param, order) => {
     setParam(param);
@@ -406,7 +409,7 @@ const FileManagerSlide = ({
   }, [directory]);
 
   return (
-    <DroppableZone ref={connectDropTarget}>
+    <DroppableZone ref={ref}>
       <ThemeProvider theme={theme}>
         <Container>
           <Header type={HEADER_TYPES.FILE_MANAGER} />
@@ -634,7 +637,4 @@ const FileManagerSlide = ({
   );
 };
 
-export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver()
-}))(withRouter(FileManagerSlide));
+export default withRouter(FileManagerSlide);
