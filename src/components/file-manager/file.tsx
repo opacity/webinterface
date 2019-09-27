@@ -81,12 +81,8 @@ const Checkbox = styled.input.attrs({
 })``;
 
 const File = ({
-  name,
   i,
-  version,
-  handle,
-  size,
-  created,
+  file,
   setSharedFile,
   removeFileByVersion,
   directory,
@@ -97,8 +93,10 @@ const File = ({
   setShowRenameModal,
   filemanagerFiles,
   selectFile,
-  deselectFile
+  deselectFile,
+  setFileModal
 }) => {
+  const { name, handle, version, size, created } = file;
   const ref = useRef<any>(null);
   const [{ isDragging }, drag] = useDrag({
     item: { name, type: DROP_TYPES.FILE.toString() },
@@ -120,7 +118,6 @@ const File = ({
   drag(ref);
 
   const opacity = isDragging ? 0.4 : 1;
-
   return (
     <Tr key={name ? name : i} ref={ref} style={{ opacity }}>
       <Td>
@@ -185,7 +182,8 @@ const File = ({
             e.stopPropagation(),
             setOldName(name),
             setRenameType("file"),
-            setShowRenameModal(true)
+            setShowRenameModal(true),
+            setFileModal(file)
           ]}
         >
           <Tooltip content="Rename file">

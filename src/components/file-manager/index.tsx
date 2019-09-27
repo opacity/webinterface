@@ -59,6 +59,14 @@ const mapDispatchToProps = dispatch => ({
   removeFolder: ({ folder, name, directory, masterHandle }) =>
     dispatch(
       folderActions.removeFolder({ folder, name, directory, masterHandle })
+    ),
+  renameFolder: ({ folder, name, directory, masterHandle }) =>
+    dispatch(
+      folderActions.renameFolder({ folder, name, directory, masterHandle })
+    ),
+  renameFile: ({ folder, name, file, masterHandle }) =>
+    dispatch(
+      fileActions.renameFile({ folder, name, file, masterHandle })
     )
 });
 

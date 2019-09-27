@@ -11,13 +11,13 @@ jest.mock("opaque", () => ({
 test("renameFile on success", done => {
   const name = "n1";
   const folder = "/";
-  const newName = "/";
+  const to = "/";
   const masterHandle = {
     renameFile: jest.fn().mockResolvedValue(true)
   };
 
   const action$ = of(
-    fileActions.renameFile({ name, newName, folder, masterHandle })
+    fileActions.renameFile({ name, to, folder, masterHandle })
   );
 
   fileEpic(action$).subscribe(actions => {
@@ -29,7 +29,7 @@ test("renameFile on success", done => {
 });
 
 test("moveFile on success", done => {
-  const directory = "n1";
+  const folder = "n1";
   const file = "/";
   const to = "/";
   const masterHandle = {
@@ -37,7 +37,7 @@ test("moveFile on success", done => {
   };
 
   const action$ = of(
-    fileActions.moveFile({ file, to, directory, masterHandle })
+    fileActions.moveFile({ file, to, folder, masterHandle })
   );
 
   fileEpic(action$).subscribe(actions => {

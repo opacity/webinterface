@@ -47,19 +47,19 @@ test("removeFolderEpic on success", done => {
 test("renameFolder on success", done => {
   const name = "name";
   const folder = "/";
-  const newName = "/";
+  const directory = "name";
 
   const masterHandle = {
     renameFolder: jest.fn(() => Promise.resolve())
   };
 
   const action$ = of(
-    folderActions.renameFolder({ masterHandle, folder, name, newName })
+    folderActions.renameFolder({ masterHandle, folder, directory, name })
   );
 
   folderEpic(action$).subscribe(actions => {
     expect(actions).toEqual(
-      folderActions.renameFolderSuccess({ masterHandle, folder })
+      folderActions.renameFolderSuccess({ masterHandle, directory })
     );
     done();
   });
@@ -80,7 +80,7 @@ test("moveFolder on success", done => {
 
   folderEpic(action$).subscribe(actions => {
     expect(actions).toEqual(
-      folderActions.moveFolderSuccess({ masterHandle, folder })
+      folderActions.moveFolderSuccess({ masterHandle, directory })
     );
     done();
   });

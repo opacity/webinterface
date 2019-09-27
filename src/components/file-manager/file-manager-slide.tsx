@@ -385,6 +385,8 @@ const FileManagerSlide = ({
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [oldName, setOldName] = useState("");
   const [renameType, setRenameType] = useState("");
+  const [fileModal, setFileModal] = useState<IFile | null>(null);
+  const [folderModal, setFolderModal] = useState<IFolder | null>(null);
 
   const sortBy = (param, order) => {
     setParam(param);
@@ -590,10 +592,9 @@ const FileManagerSlide = ({
                     </Tr>
                   </thead>
                   <tbody>
-                    {orderedFolders.map(({ name, location }, i) => (
+                    {orderedFolders.map((folder, i) => (
                       <Folder
-                        name={name}
-                        location={location}
+                        folder={folder}
                         moveFolder={moveFolder}
                         moveFile={moveFile}
                         directory={directory}
@@ -602,17 +603,14 @@ const FileManagerSlide = ({
                         setOldName={setOldName}
                         setRenameType={setRenameType}
                         setShowRenameModal={setShowRenameModal}
+                        setFolderModal={setFolderModal}
                       />
                     ))}
                     {orderedFiles.map(
-                      ({ name, handle, version, size, created }, i) => (
+                      (file, i) => (
                         <File
-                          name={name}
                           i={i}
-                          version={version}
-                          handle={handle}
-                          size={size}
-                          created={created}
+                          file={file}
                           setSharedFile={setSharedFile}
                           removeFileByVersion={removeFileByVersion}
                           directory={directory}
@@ -624,6 +622,7 @@ const FileManagerSlide = ({
                           filemanagerFiles={filemanagerFiles}
                           selectFile={selectFile}
                           deselectFile={deselectFile}
+                          setFileModal={setFileModal}
                         />
                       )
                     )}
@@ -684,8 +683,8 @@ const FileManagerSlide = ({
             oldName={oldName}
             rename={name =>
               renameType === "folder"
-                ? renameFolder(directory, oldName, name, masterHandle)
-                : renameFile(directory, oldName, name, masterHandle)
+                ? renameFolder({ directory, folder: folderModal, name, masterHandle })
+                : renameFile({ folder: directory, file: fileModal, name, masterHandle })
             }
           />
         </Container>

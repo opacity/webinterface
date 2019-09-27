@@ -9,9 +9,9 @@ const renameFileEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(fileActions.RENAME_FILE),
     mergeMap(({ payload }) => {
-      const { name, newName, folder, masterHandle } = payload;
+      const { file, name, folder, masterHandle } = payload;
 
-      return from(masterHandle.renameFile(folder, { name, newName })).pipe(
+      return from(masterHandle.renameFile(folder, { file, name })).pipe(
         map(() => {
           toast(`${name} was successfully deleted.`, {
             autoClose: 3000,
@@ -31,9 +31,9 @@ const moveFileEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(fileActions.MOVE_FILE),
     mergeMap(({ payload }) => {
-      const { file, to, directory, masterHandle } = payload;
+      const { file, to, folder, masterHandle } = payload;
 
-      return from(masterHandle.moveFile(directory, { file, to })).pipe(
+      return from(masterHandle.moveFile(folder, { file, to })).pipe(
         map(() => {
           toast(`${name} was successfully moved.`, {
             autoClose: 3000,

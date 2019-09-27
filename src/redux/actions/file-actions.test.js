@@ -2,19 +2,19 @@ import actions from "./file-actions";
 
 test("renameFile", () => {
   const name = "n1";
-  const newName = "h1";
+  const file = "h1";
   const folder = "/";
   const masterHandle = "mh1";
   const expected = {
     type: actions.RENAME_FILE,
     payload: {
-      newName,
+      file,
       name,
       folder,
       masterHandle
     }
   };
-  expect(actions.renameFile({ name, newName, folder, masterHandle })).toEqual(
+  expect(actions.renameFile({ name, file, folder, masterHandle })).toEqual(
     expected
   );
 });
@@ -46,18 +46,18 @@ test("renameFileFailure", () => {
 test("moveFile", () => {
   const file = "n1";
   const to = "h1";
-  const directory = "/";
+  const folder = "/";
   const masterHandle = "mh1";
   const expected = {
     type: actions.MOVE_FILE,
     payload: {
       file,
       to,
-      directory,
+      folder,
       masterHandle
     }
   };
-  expect(actions.moveFile({ file, to, directory, masterHandle })).toEqual(
+  expect(actions.moveFile({ file, to, folder, masterHandle })).toEqual(
     expected
   );
 });

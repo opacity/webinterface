@@ -74,8 +74,7 @@ const ICON_FOLDER = require("../../assets/images/folder.svg");
 const ICON_RENAME = require("../../assets/images/rename.svg");
 
 const Folder = ({
-  name,
-  location,
+  folder,
   moveFolder,
   moveFile,
   directory,
@@ -84,8 +83,10 @@ const Folder = ({
   setOldName,
   setRenameType,
   setShowRenameModal,
+  setFolderModal,
   history
 }) => {
+  const { name, location } = folder;
   const ref = useRef<any>(null);
   const [{}, drop] = useDrop({
     accept: [DROP_TYPES.FILE.toString(), DROP_TYPES.FOLDER.toString()],
@@ -142,7 +143,8 @@ const Folder = ({
             e.stopPropagation(),
             setOldName(name),
             setRenameType("folder"),
-            setShowRenameModal(true)
+            setShowRenameModal(true),
+            setFolderModal(folder)
           ]}
         >
           <Tooltip content="Rename folder">
