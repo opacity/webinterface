@@ -99,7 +99,7 @@ const File = ({
   const { name, handle, version, size, created } = file;
   const ref = useRef<any>(null);
   const [{ isDragging }, drag] = useDrag({
-    item: { name, type: DROP_TYPES.FILE.toString() },
+    item: { file, type: DROP_TYPES.FILE.toString() },
     collect: monitor => ({
       isDragging: monitor.isDragging()
     })

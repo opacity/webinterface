@@ -92,12 +92,12 @@ const Folder = ({
     accept: [DROP_TYPES.FILE.toString(), DROP_TYPES.FOLDER.toString()],
     drop: ({}, monitor) =>
       monitor.getItem().type === DROP_TYPES.FILE.toString()
-        ? moveFile(monitor.getItem().name, name, directory, masterHandle)
-        : moveFolder(monitor.getItem().name, name, directory, masterHandle)
+        ? moveFile(monitor.getItem().file, name, directory, masterHandle)
+        : moveFolder(monitor.getItem().folder, name, directory, masterHandle)
   });
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type: DROP_TYPES.FOLDER.toString(), name },
+    item: { type: DROP_TYPES.FOLDER.toString(), folder },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging()
     })
