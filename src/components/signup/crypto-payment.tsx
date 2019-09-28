@@ -82,7 +82,11 @@ const Label = styled.h3`
   font-weight: 500;
   letter-spacing: 0.7px;
   line-height: normal;
-  margin: 0 0 10px 0;
+  margin: 10px 0;
+`;
+
+const LabelQR = styled(Label)`
+  margin-top: 0;
 `;
 
 const LabelColored = styled(Label)`
@@ -242,7 +246,7 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
             <Or>or</Or>
             <PaymentWrapper>
               <QRCodeWrapper>
-                <Label>Scan QR code to pay</Label>
+                <LabelQR>Scan QR code to pay</LabelQR>
                 <QRCode
                   value={ethAddress}
                   size={200}
