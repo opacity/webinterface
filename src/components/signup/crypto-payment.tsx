@@ -37,7 +37,7 @@ const PaymentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 10px 0 10px 0;
   text-align: center;
 `;
 
@@ -57,7 +57,7 @@ const OtherOptionsTitle = styled.h2`
   letter-spacing: ${props => props.theme.letterSpacing};
   line-height: ${props => props.theme.lineHeight};
   margin: 0 auto 20px auto;
-  padding-top: 30px;
+  padding-top: 0;
   text-align: center;
 `;
 
@@ -66,8 +66,7 @@ const OtherOptionsWrapper = styled.div`
   flex-direction: column;
   flex-grow: 1;
   justify-content: center;
-  margin-top: 20px;
-  padding: 0 40px;
+  padding: 0 0x 40px 20px;
   text-align: center;
 `;
 
@@ -83,6 +82,7 @@ const Label = styled.h3`
   font-weight: 500;
   letter-spacing: 0.7px;
   line-height: normal;
+  margin: 0 0 10px 0;
 `;
 
 const LabelColored = styled(Label)`
@@ -157,7 +157,10 @@ const Or = styled.span`
   display: flex;
   flex-direction: row;
   color: #778291;
-  margin: 10px 22px;
+  margin: 10px auto;
+  width: 100%;
+  max-width: 180px;
+
   :before,
   :after {
     content: "";
@@ -227,7 +230,6 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
             <OtherOptionsTitle>Other Ways To Send</OtherOptionsTitle>
             {Metamask.isInstalled && <>
               <PaymentWrapper>
-                <Label>MetaMask</Label>
                 <MetamaskButton
                   onClick={() => openMetamask({ ethAddress, cost, gasPrice: 20 })}
                 />
@@ -235,7 +237,6 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
               <Or>or</Or>
             </>}
             <PaymentWrapper>
-              <Label>Gift Code</Label>
               <Redeem ethAddress={ethAddress} storageLimit={storageLimit} />
             </PaymentWrapper>
             <Or>or</Or>

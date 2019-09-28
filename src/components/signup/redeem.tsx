@@ -4,13 +4,14 @@ import styled from "styled-components";
 const RedeemWrapper = styled.div`
 	display: flex;
   flex-direction: column;
-  max-width: 250px;
+  max-width: 200px;
+  padding: 0 20px;
 `;
 
 const InputWrapper = styled.div`
   display: flex;
   align-items: center;
-	margin-bottom: 10px;
+	margin: 0 0 10px 0;
   color: black;
 
   span {
@@ -19,6 +20,8 @@ const InputWrapper = styled.div`
 
   input {
     flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
   }
 `;
 
@@ -59,7 +62,7 @@ const StatusMessage = styled.p<StatusMessageProps>`
 `;
 
 const RedeemButton = styled.button`
-  margin: 0 0 10px 0;
+  margin: 0 0 5px 0;
   display: block;
   width: 100%;
   height: 40px;
@@ -102,7 +105,7 @@ const Redeem = ({ ethAddress, storageLimit }: RedeemProps) => {
   const [status, setStatus] = useState<JSX.Element>();
   const [statusType, setStatusType] = useState<StatusType>();
   const [disabled, setDisabled] = useState(false);
-  const [buttonText, setButtonText] = useState("Redeem");
+  const [buttonText, setButtonText] = useState("Redeem Gift Code");
 
   const [code, setCode] = useState("");
 

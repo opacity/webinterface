@@ -7,6 +7,7 @@ export default styled.div`
   margin: 0 auto;
   max-width: 452px;
   padding: 20px 80px;
+  margin-bottom: 40px;
   width: 100%;
   min-height: 292px;
 
