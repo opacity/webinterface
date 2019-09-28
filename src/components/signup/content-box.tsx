@@ -4,9 +4,10 @@ import { MOBILE_WIDTH } from "../../config";
 
 export default styled.div`
   background-color: ${props => props.theme.container.background};
-  margin: auto;
+  margin: 0 auto;
   max-width: 452px;
-  padding: 20px 120px;
+  padding: 20px 80px;
+  margin-bottom: 40px;
   width: 100%;
   min-height: 292px;
 
