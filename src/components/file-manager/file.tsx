@@ -87,7 +87,7 @@ const File = ({
   removeFileByVersion,
   directory,
   masterHandle,
-  download,
+  downloadFile,
   setOldName,
   setRenameType,
   setShowRenameModal,
@@ -157,7 +157,7 @@ const File = ({
             <TableIcon src={ICON_SHARE} />
           </Tooltip>
         </ActionButton>
-        <ActionButton onClick={() => download(handle)}>
+        <ActionButton onClick={() => downloadFile({ handle })}>
           <Tooltip content="Download file">
             <TableIcon src={ICON_DOWNLOAD} />
           </Tooltip>

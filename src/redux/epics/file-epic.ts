@@ -32,8 +32,9 @@ const moveFileEpic = (action$, state$, dependencies$) =>
     ofType(fileActions.MOVE_FILE),
     mergeMap(({ payload }) => {
       const { file, to, folder, masterHandle } = payload;
+      const path = folder === "/" ? `/${to}` : `${folder}/${to}`;
 
-      return from(masterHandle.moveFile(folder, { file, to })).pipe(
+      return from(masterHandle.moveFile(folder, { file, to: path })).pipe(
         map(() => {
           toast(`${name} was successfully moved.`, {
             autoClose: 3000,

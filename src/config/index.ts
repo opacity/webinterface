@@ -24,7 +24,7 @@ const DEFAULT_BROKER_IP =
   IS_BETA_PROD || IS_BETA_DEV
     ? "beta-broker.opacitynodes.com"
     : IS_DEV
-    ? "13.58.191.143"
+    ? "3.16.188.187"
     : "broker-1.opacitynodes.com";
 
 export const API = Object.freeze({
