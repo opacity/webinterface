@@ -10,7 +10,6 @@ import uploadEpic from "./upload-epic";
 import downloadEpic from "./download-epic";
 import fileEpic from "./file-epic";
 import folderEpic from "./folder-epic";
-import removeEpic from "./remove-epic";
 
 export default combineEpics(
   coinMarketCapEpic,
@@ -22,6 +21,5 @@ export default combineEpics(
   uploadEpic,
   downloadEpic,
   fileEpic,
-  folderEpic,
-  removeEpic
+  folderEpic
 );
