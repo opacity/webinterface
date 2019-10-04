@@ -33,20 +33,6 @@ import { IFolder } from "../../models/folder";
 
 const ICON_FOLDER_ADD = require("../../assets/images/folder_add.svg");
 
-const fileTarget = {
-  drop: (props, monitor) => {
-    const { uploadFiles, masterHandle, directory } = props;
-    let { files } = monitor.getItem();
-    const filesLength = files.length;
-    if (files.length > 0) {
-      files = files.filter(file => file.size <= FILE_MAX_SIZE);
-      files.length !== filesLength && alert("Some files are greater then 2GB.");
-      files = files.filter(file => file.type !== "");
-      uploadFiles({ files, masterHandle, directory, isDirectory: false });
-    }
-  }
-};
-
 const DroppableZone = styled.div`
   width: 100%;
   display: flex;
