@@ -53,9 +53,9 @@ const renameFolderEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(folderActions.RENAME_FOLDER),
     mergeMap(({ payload }) => {
-      const { name, folder, newName, masterHandle } = payload;
+      const { directory, folder, name, masterHandle } = payload;
 
-      return from(masterHandle.renameFolder(folder, { name, newName })).pipe(
+      return from(masterHandle.renameFolder(directory, { folder, name })).pipe(
         map(() => {
           toast(`Folder ${name} was successfully renamed.`, {
             autoClose: 3000,
@@ -66,7 +66,7 @@ const renameFolderEpic = (action$, state$, dependencies$) =>
 
           return folderActions.renameFolderSuccess({
             masterHandle,
-            folder
+            directory
           });
         }),
         catchError(error => of(folderActions.renameFolderFailure({ error })))
@@ -79,8 +79,10 @@ const moveFolderEpic = (action$, state$, dependencies$) =>
     ofType(folderActions.MOVE_FOLDER),
     mergeMap(({ payload }) => {
       const { to, folder, directory, masterHandle } = payload;
+      const path = directory === "/" ? `/${to}` : `${directory}/${to}`;
+      console.log(path);
 
-      return from(masterHandle.moveFolder(directory, { folder, to })).pipe(
+      return from(masterHandle.moveFolder(directory, { folder, to: path })).pipe(
         map(() => {
           toast(`Folder ${name} was successfully moved.`, {
             autoClose: 3000,
@@ -91,7 +93,7 @@ const moveFolderEpic = (action$, state$, dependencies$) =>
 
           return folderActions.moveFolderSuccess({
             masterHandle,
-            folder
+            directory
           });
         }),
         catchError(error => of(folderActions.moveFolderFailure({ error })))

@@ -79,32 +79,32 @@ test("removeFolderFailure", () => {
 });
 
 test("renameFolder", () => {
-  const name = "foobar";
+  const directory = "foobar";
   const masterHandle = "foobar";
   const folder = "foobar";
-  const newName = "foobar";
+  const name = "foobar";
   const expected = {
     type: actions.RENAME_FOLDER,
     payload: {
       name,
       masterHandle,
       folder,
-      newName
+      directory
     }
   };
-  expect(actions.renameFolder({ masterHandle, folder, name, newName })).toEqual(
+  expect(actions.renameFolder({ masterHandle, folder, name, directory })).toEqual(
     expected
   );
 });
 
 test("renameFolderSuccess", () => {
   const masterHandle = "foobar";
-  const folder = "foobar";
+  const directory = "foobar";
   const expected = {
     type: actions.RENAME_FOLDER_SUCCESS,
-    payload: { masterHandle, folder }
+    payload: { masterHandle, directory }
   };
-  expect(actions.renameFolderSuccess({ masterHandle, folder })).toEqual(
+  expect(actions.renameFolderSuccess({ masterHandle, directory })).toEqual(
     expected
   );
 });
@@ -139,12 +139,12 @@ test("moveFolder", () => {
 
 test("moveFolderSuccess", () => {
   const masterHandle = "foobar";
-  const folder = "foobar";
+  const directory = "foobar";
   const expected = {
     type: actions.MOVE_FOLDER_SUCCESS,
-    payload: { masterHandle, folder }
+    payload: { masterHandle, directory }
   };
-  expect(actions.moveFolderSuccess({ masterHandle, folder })).toEqual(expected);
+  expect(actions.moveFolderSuccess({ masterHandle, directory })).toEqual(expected);
 });
 
 test("moveFolderFailure", () => {

@@ -78,12 +78,27 @@ div.Toastify__toast--error {
   color: #687892;
 }
 
-.stripe-cc-input {
-  background: white;
-  padding: 10px;
-  border-radius: 2px;
+.Toastify__toast-container--bottom-right {
+  height: 370px !important;
+  bottom: -13em !important;
 }
 
-.stripe-cc-input-error {
-  border: 1px solid #ff3860;
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container--bottom-right {
+    bottom: -13em !important;
+  }
+
+  .Toastify__toast {
+    margin-bottom: 1rem !important;
+  }
+
+  .stripe-cc-input {
+    background: white;
+    padding: 10px;
+    border-radius: 2px;
+  }
+
+  .stripe-cc-input-error {
+    border: 1px solid #ff3860;
+  }
 }

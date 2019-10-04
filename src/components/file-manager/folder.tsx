@@ -74,8 +74,7 @@ const ICON_FOLDER = require("../../assets/images/folder.svg");
 const ICON_RENAME = require("../../assets/images/rename.svg");
 
 const Folder = ({
-  name,
-  location,
+  folder,
   moveFolder,
   moveFile,
   directory,
@@ -84,19 +83,21 @@ const Folder = ({
   setOldName,
   setRenameType,
   setShowRenameModal,
+  setFolderModal,
   history
 }) => {
+  const { name, location } = folder;
   const ref = useRef<any>(null);
   const [{}, drop] = useDrop({
     accept: [DROP_TYPES.FILE.toString(), DROP_TYPES.FOLDER.toString()],
     drop: ({}, monitor) =>
       monitor.getItem().type === DROP_TYPES.FILE.toString()
-        ? moveFile(monitor.getItem().name, name, directory, masterHandle)
-        : moveFolder(monitor.getItem().name, name, directory, masterHandle)
+        ? moveFile(monitor.getItem().file, name, directory, masterHandle)
+        : moveFolder(monitor.getItem().folder, name, directory, masterHandle)
   });
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type: DROP_TYPES.FOLDER.toString(), name },
+    item: { type: DROP_TYPES.FOLDER.toString(), folder },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging()
     })
@@ -130,7 +131,7 @@ const Folder = ({
           onClick={e => {
             e.stopPropagation();
             confirm("Do you really want to delete this folder?") &&
-              removeFolder(name, directory, masterHandle);
+              removeFolder({ name, folder, directory, masterHandle });
           }}
         >
           <Tooltip content="Delete folder">
@@ -142,7 +143,8 @@ const Folder = ({
             e.stopPropagation(),
             setOldName(name),
             setRenameType("folder"),
-            setShowRenameModal(true)
+            setShowRenameModal(true),
+            setFolderModal(folder)
           ]}
         >
           <Tooltip content="Rename folder">
