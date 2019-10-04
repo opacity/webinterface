@@ -131,7 +131,7 @@ const Folder = ({
           onClick={e => {
             e.stopPropagation();
             confirm("Do you really want to delete this folder?") &&
-              removeFolder(name, directory, masterHandle);
+              removeFolder({ name, folder, directory, masterHandle });
           }}
         >
           <Tooltip content="Delete folder">
