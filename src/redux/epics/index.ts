@@ -7,7 +7,6 @@ import finderEpic from "./finder-epic";
 import fiatPaymentEpic from "./fiat-payment-epic";
 import authenticationEpic from "./authentication-epic";
 import uploadEpic from "./upload-epic";
-import downloadEpic from "./download-epic";
 import fileEpic from "./file-epic";
 import folderEpic from "./folder-epic";
 
@@ -19,7 +18,6 @@ export default combineEpics(
   fiatPaymentEpic,
   authenticationEpic,
   uploadEpic,
-  downloadEpic,
   fileEpic,
   folderEpic
 );

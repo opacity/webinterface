@@ -9,6 +9,10 @@ const REMOVE_FILE_BY_NAME = "opacity/remove/remove-file-by-name";
 const REMOVE_FILE_SUCCESS = "opacity/remove/remove-file-success";
 const REMOVE_FILE_ERROR = "opacity/remove/remove-file-error";
 const REMOVE_FILES = "opacity/remove/remove-files";
+const DOWNLOAD_FILE = "opacity/download/download-file";
+const DOWNLOAD_SUCCESS = "opacity/download/download-success";
+const DOWNLOAD_ERROR = "opacity/download/download-error";
+const DOWNLOAD_FILES = "opacity/download/download-files";
 
 const ACTIONS = Object.freeze({
   RENAME_FILE,
@@ -22,6 +26,10 @@ const ACTIONS = Object.freeze({
   REMOVE_FILE_SUCCESS,
   REMOVE_FILE_ERROR,
   REMOVE_FILES,
+  DOWNLOAD_FILE,
+  DOWNLOAD_SUCCESS,
+  DOWNLOAD_ERROR,
+  DOWNLOAD_FILES,
 
   renameFile: ({ name, file, folder, masterHandle }) => ({
     type: RENAME_FILE,
@@ -62,6 +70,22 @@ const ACTIONS = Object.freeze({
   removeFiles: ({ files, masterHandle, directory }) => ({
     type: REMOVE_FILES,
     payload: { files, masterHandle, directory } // files = [{ handle, name }]
+  }),
+  downloadFile: ({ handle }) => ({
+    type: DOWNLOAD_FILE,
+    payload: { handle }
+  }),
+  downloadSuccess: ({ handle }) => ({
+    type: DOWNLOAD_SUCCESS,
+    payload: { handle }
+  }),
+  downloadError: ({ err }) => ({
+    type: DOWNLOAD_ERROR,
+    payload: { err }
+  }),
+  downloadFiles: ({ files }) => ({
+    type: DOWNLOAD_FILES,
+    payload: { files } // [{ handle }]
   })
 });
 

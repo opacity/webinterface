@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import queryString from "query-string";
 
-import downloadActions from "../../redux/actions/download-actions";
+import fileActions from "../../redux/actions/file-actions";
 import SharePageSlide from "./share-page-slide";
 
 const mapStateToProps = state => ({
@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  download: handle => dispatch(downloadActions.downloadFile({ handle }))
+  download: handle => dispatch(fileActions.downloadFile({ handle }))
 });
 
 const SharePage = ({ handle, download }) => (

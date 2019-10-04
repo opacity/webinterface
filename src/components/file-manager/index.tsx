@@ -5,7 +5,6 @@ import HTML5Backend from "react-dnd-html5-backend";
 
 import uploadActions from "../../redux/actions/upload-actions";
 import finderActions from "../../redux/actions/finder-actions";
-import downloadActions from "../../redux/actions/download-actions";
 import fileActions from "../../redux/actions/file-actions";
 import folderActions from "../../redux/actions/folder-actions";
 
@@ -32,7 +31,7 @@ const mapDispatchToProps = dispatch => ({
       uploadActions.uploadFiles({ files, directory, masterHandle, isDirectory })
     ),
   downloadFile: ({ handle }) =>
-    dispatch(downloadActions.downloadFile({ handle })),
+    dispatch(fileActions.downloadFile({ handle })),
   removeFileByVersion: ({ name, version, directory, masterHandle }) =>
     dispatch(
       fileActions.removeFileByVersion({
@@ -49,7 +48,7 @@ const mapDispatchToProps = dispatch => ({
   getFileList: ({ directory, masterHandle }) =>
     dispatch(finderActions.getFileList({ directory, masterHandle })),
   downloadFiles: ({ files }) =>
-    dispatch(downloadActions.downloadFiles({ files })),
+    dispatch(fileActions.downloadFiles({ files })),
   removeFiles: ({ files, masterHandle, directory }) =>
     dispatch(fileActions.removeFiles({ files, masterHandle, directory })),
   createFolder: ({ masterHandle, directory, name }) =>

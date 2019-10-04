@@ -1,7 +1,11 @@
-import { from, of } from "rxjs";
+import { Observable, from, of } from "rxjs";
 import { ofType, combineEpics } from "redux-observable";
 import { mergeMap, catchError, map, flatMap } from "rxjs/operators";
 import { toast } from "react-toastify";
+import { Download } from "opaque";
+import * as FileSaver from "file-saver";
+
+import { API } from "../../config";
 
 import fileActions from "../actions/file-actions";
 
@@ -92,4 +96,74 @@ const removeFileByVersionEpic = (action$, state$, dependencies$) =>
     })
   );
 
-export default combineEpics(renameFileEpic, moveFileEpic, removeFilesEpic, removeFileByVersionEpic);
+const downloadFilesEpic = (action$, state$, dependencies$) =>
+  action$.pipe(
+    ofType(fileActions.DOWNLOAD_FILES),
+    flatMap(({ payload }) => {
+      const { files } = payload;
+      return files.map(({ handle }) =>
+      fileActions.downloadFile({ handle })
+      );
+    })
+  );
+
+const downloadFileEpic = (action$, state$, dependencies$) =>
+  action$.pipe(
+    ofType(fileActions.DOWNLOAD_FILE),
+    mergeMap(({ payload }) => {
+      const { handle } = payload;
+
+      return new Observable(o => {
+        const download = new Download(handle, {
+          endpoint: API.STORAGE_NODE
+        });
+
+        download
+          .metadata()
+          .then(({ name: filename }) => {
+            toast(`${filename} is downloading. Please wait...`, {
+              autoClose: false,
+              position: toast.POSITION.BOTTOM_RIGHT,
+              toastId: handle
+            });
+
+            download.on("download-progress", event => {
+              toast.update(handle, {
+                render: `${filename} download progress: ${Math.round(
+                  event.progress * 100.0
+                )}%`,
+                progress: event.progress
+              });
+            });
+
+            download
+              .toFile()
+              .then(file => {
+                const f = file as File;
+                FileSaver.saveAs(f);
+
+                toast.update(handle, {
+                  render: `${filename} has finished downloading.`,
+                  progress: 1
+                });
+                setTimeout(() => {
+                  toast.dismiss(handle);
+                }, 3000);
+
+                o.next(fileActions.downloadSuccess({ handle }));
+                o.complete();
+              })
+              .catch(error => {
+                o.next(fileActions.downloadError({ error }));
+                o.complete();
+              });
+          })
+          .catch(error => {
+            o.next(fileActions.downloadError({ error }));
+            o.complete();
+          });
+      });
+    })
+  );
+
+export default combineEpics(renameFileEpic, moveFileEpic, removeFilesEpic, removeFileByVersionEpic, downloadFilesEpic, downloadFileEpic);

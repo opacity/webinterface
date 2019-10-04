@@ -1,13 +1,53 @@
 import { of } from "rxjs";
 import "rxjs/add/operator/toArray";
-import { MasterHandle } from "opaque";
+import { MasterHandle, Download } from "opaque";
+
+import { EventEmitter } from "events";
 
 import fileActions from "../actions/file-actions";
 import fileEpic from "./file-epic";
 
 jest.mock("opaque", () => ({
-  MasterHandle: jest.fn()
+  MasterHandle: jest.fn(),
+  Download: jest.fn()
 }));
+
+jest.mock("file-saver", () => ({
+  saveAs: jest.fn()
+}));
+
+const download = new EventEmitter();
+download.metadata = jest.fn().mockResolvedValue({ name: "f1" });
+download.toFile = jest.fn().mockResolvedValue(new File([""], "foobar"));
+
+Download.mockImplementation(() => download);
+
+test("downloadFilesEpic", done => {
+  const files = [{ handle: "foo" }, { handle: "bar" }];
+
+  const action$ = of(fileActions.downloadFiles({ files }));
+  const expected = files.map(({ handle }) =>
+  fileActions.downloadFile({ handle })
+  );
+
+  fileEpic(action$)
+    .toArray()
+    .subscribe(actions => {
+      expect(actions).toEqual(expected);
+      done();
+    });
+});
+
+test("downloadFileEpic on success", done => {
+  const handle = "h1";
+
+  const action$ = of(fileActions.downloadFile({ handle }));
+
+  fileEpic(action$).subscribe(actions => {
+    expect(actions).toEqual(fileActions.downloadSuccess({ handle }));
+    done();
+  });
+});
 
 test("renameFile on success", done => {
   const name = "n1";
