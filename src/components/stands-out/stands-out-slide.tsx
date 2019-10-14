@@ -221,7 +221,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const StandsOutButtonLink = styled(Link)`
+const StandsOutButtonLink = styled.a`
   width: 220px;
   margin: auto;
   text-align: center;
@@ -311,6 +311,8 @@ const InfoIcon = styled.img`
   }
 `;
 
+const IconLink = styled.a``;
+
 const SubscriptionSlide = ({ history, isLoggedIn }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
@@ -384,22 +386,19 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
         </RecommendContentWrapper>
         <PasswordManager>
           <ColumnPasswordManager>
-            <IconPasswordManager
-              src={ICON_LASTPASS}
-              onClick={() => window.open("https://www.lastpass.com/", "_blank")}
-            />
+            <IconLink href="https://www.lastpass.com/" target="_blank">
+              <IconPasswordManager src={ICON_LASTPASS} />
+            </IconLink>
           </ColumnPasswordManager>
           <ColumnPasswordManager>
-            <IconPasswordManager
-              src={ICON_1PASSWORD}
-              onClick={() => window.open("https://1password.com/", "_blank")}
-            />
+            <IconLink href="https://www.1password.com/" target="_blank">
+              <IconPasswordManager src={ICON_1PASSWORD} />
+            </IconLink>
           </ColumnPasswordManager>
           <ColumnPasswordManager>
-            <IconPasswordManager
-              src={ICON_KEEPASS}
-              onClick={() => window.open("https://keepass.info/", "_blank")}
-            />
+            <IconLink href="https://www.keepass.info/" target="_blank">
+              <IconPasswordManager src={ICON_KEEPASS} />
+            </IconLink>
           </ColumnPasswordManager>
         </PasswordManager>
       </Container>
@@ -414,7 +413,7 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
               how our system works.
             </InfoContent>
             <StandsOutButtonLink
-              to="https://github.com/opacity"
+              href="https://github.com/opacity"
               target="_blank"
             >
               Explore our code
@@ -428,17 +427,18 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
               Current version: 1.0
             </InfoContent>
             <StandsOutButtonLink
-              to="/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8"
+              href="/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8"
               target="_blank"
             >
-            Download Whitepaper
+              Download Whitepaper
             </StandsOutButtonLink>
           </Column>
         </InfoSubContainer>
       </Container>
       <Community>
         <CommunityTitle>
-          Are you ready to experience truly private cloud storage and file sharing?
+          Are you ready to experience truly private cloud storage and file
+          sharing?
         </CommunityTitle>
         <CommunityLinkWrapper>
           <CommunityLink to="/sign-up">Explore Plans</CommunityLink>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 
 import { theme, MOBILE_WIDTH } from "../../config";
@@ -60,7 +61,7 @@ const FooterIcons = styled(FooterLinks)`
   }
 `;
 
-const Link = styled.a`
+const LinkFooter = styled(Link)`
   align-items: center;
   color: white;
   cursor: pointer;
@@ -83,7 +84,7 @@ const Link = styled.a`
   }
 `;
 
-const LinkTerms = styled(Link)`
+const LinkTerms = styled(LinkFooter)`
   font-size: 14px;
   border: none;
   @media only screen and (max-width: ${MOBILE_WIDTH}px) {
@@ -91,7 +92,30 @@ const LinkTerms = styled(Link)`
   }
 `;
 
-const LinkIcon = styled(Link)`
+const LinkExternal = styled.a`
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+    opacity: 0.8;
+  }
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    padding: 50px;
+    font-size: 24px;
+    border-top: 0.5px solid white;
+    border-bottom: 0.5px solid white;
+  }
+`;
+
+const LinkIcon = styled(LinkExternal)`
   border: none;
   @media only screen and (max-width: 440px) {
     text-align: center;
@@ -129,6 +153,7 @@ const LinkButton = styled.a`
     width: 80%;
     margin: auto;
     margin-top: 50px;
+    margin-bottom: 50px;
     display: block;
   }
 `;
@@ -176,21 +201,27 @@ const Footer = () => (
     <Wrapper>
       <Container>
         <FooterLinks>
-          <Link href="https://opacity.io" target="_blank">
+          <LinkExternal href="https://opacity.io" target="_blank">
             Opacity Storage <IconArrow src={ICON_ARROW_RIGHT} />
-          </Link>
-          <Link href="/stands-out">
+          </LinkExternal>
+          <LinkFooter to="/stands-out">
             The Platform <IconArrow src={ICON_ARROW_RIGHT} />
-          </Link>
-          <Link href="/team-page">
+          </LinkFooter>
+          <LinkFooter to="/team-page">
             Team <IconArrow src={ICON_ARROW_RIGHT} />
-          </Link>
-          <Link href="https://medium.com/opacity-storage/" target="_blank">
+          </LinkFooter>
+          <LinkExternal
+            href="https://medium.com/opacity-storage/"
+            target="_blank"
+          >
             Blog <IconArrow src={ICON_ARROW_RIGHT} />
-          </Link>
-          <Link href=" https://www.kucoin.com/trade/OPQ-BTC" target="_blank">
+          </LinkExternal>
+          <LinkExternal
+            href="https://www.kucoin.com/trade/OPQ-BTC"
+            target="_blank"
+          >
             Buy OPQ <IconArrow src={ICON_ARROW_RIGHT} />
-          </Link>
+          </LinkExternal>
         </FooterLinks>
         <FooterIcons>
           <LinkButton href="https://telegram.me/opacitystorage" target="_blank">
@@ -222,8 +253,8 @@ const Footer = () => (
         </FooterIcons>
         <FooterCopyright>
           <Copyright>Opacity © 2019</Copyright>
-          <LinkTerms href="/terms-of-service">Terms of Service</LinkTerms>
-          <LinkTerms href="/privacy-policy">Privacy Policy</LinkTerms>
+          <LinkTerms to="/terms-of-service">Terms of Service</LinkTerms>
+          <LinkTerms to="/privacy-policy">Privacy Policy</LinkTerms>
           <CopyrightMobile>Opacity © 2019</CopyrightMobile>
         </FooterCopyright>
       </Container>

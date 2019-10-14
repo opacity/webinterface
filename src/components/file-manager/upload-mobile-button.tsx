@@ -34,7 +34,7 @@ const PlusIcon = styled.div`
     display: block;
     position: absolute;
     margin-top: 18px;
-    margin-left: 7px;
+    margin-left: 8px;
   }
   &:after {
     content: "";
@@ -44,7 +44,7 @@ const PlusIcon = styled.div`
     display: block;
     position: absolute;
     margin-top: 7px;
-    margin-left: 15px;
+    margin-left: 16px;
   }
 `;
 

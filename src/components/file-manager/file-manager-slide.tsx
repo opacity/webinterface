@@ -1,7 +1,7 @@
 import _ from "lodash";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NativeTypes } from "react-dnd-html5-backend";
-import { DropTarget } from "react-dnd";
+import { useDrop } from "react-dnd";
 import { ToastContainer, toast } from "react-toastify";
 import { withRouter } from "react-router";
 import styled, { ThemeProvider } from "styled-components";
@@ -31,18 +31,7 @@ import Folder from "./folder";
 import { IFile } from "../../models/file";
 import { IFolder } from "../../models/folder";
 
-const fileTarget = {
-  drop: (props, monitor) => {
-    const { uploadFiles, masterHandle, directory } = props;
-    let { files } = monitor.getItem();
-    const filesLength = files.length;
-    if (files.length > 0) {
-      files = files.filter(file => file.size <= FILE_MAX_SIZE);
-      files.length !== filesLength && alert("Some files are greater then 2GB.");
-      uploadFiles({ files, masterHandle, directory });
-    }
-  }
-};
+const ICON_FOLDER_ADD = require("../../assets/images/folder_add.svg");
 
 const DroppableZone = styled.div`
   width: 100%;
@@ -302,6 +291,31 @@ const FolderButton = styled.button`
   }
 `;
 
+const FolderMobileButton = styled.button`
+    display: none;
+    position: fixed;
+    bottom: 50px;
+    right 0;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    background-color: ${props => props.theme.button.background};
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    box-shadow: 0 0.5px 4px 0 rgba(0, 0, 0, 0.2), 0 1.5px 2px 0 rgba(0, 0, 0, 0.12), 0 1.5px 1.5px 0 rgba(0, 0, 0, 0.14);
+    cursor: pointer;
+    z-index: 9990;
+    @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
+      display: block;
+    }
+`;
+
+const FolderMobileButtonIcon = styled.img`
+  height: 20px;
+  width: 20px;
+  margin: 10px 0px 0px 10px;
+`;
+
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
 
@@ -324,28 +338,26 @@ interface Handle {
 }
 
 const FileManagerSlide = ({
-  connectDropTarget,
+  createFolder,
   directory,
   downloadFile,
   downloadFiles,
   expirationDate,
-  createFolder,
   files,
   folders,
   getFileList,
   isLoading,
-  isOver,
   masterHandle,
   metadata,
-  removeFileByVersion,
-  removeFiles,
-  renameFile,
+  storageUsed,
+  storageLimit,
+  removeFolder,
   renameFolder,
+  renameFile,
   moveFile,
   moveFolder,
-  removeFolder,
-  storageLimit,
-  storageUsed,
+  removeFileByVersion,
+  removeFiles,
   uploadFiles
 }) => {
   const [orderedFiles, setOrderedFiles] = useState<IFile[]>([]);
@@ -357,6 +369,26 @@ const FileManagerSlide = ({
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [oldName, setOldName] = useState("");
   const [renameType, setRenameType] = useState("");
+  const [fileModal, setFileModal] = useState<IFile | null>(null);
+  const [folderModal, setFolderModal] = useState<IFolder | null>(null);
+
+  const ref = useRef<any>(null);
+  const [{ isOver }, drop] = useDrop({
+    accept: NativeTypes.FILE,
+    drop: ({}, monitor) => {
+      let { files } = monitor.getItem();
+      const filesLength = files.length;
+      if (files.length > 0) {
+        files = files.filter(file => file.size <= FILE_MAX_SIZE);
+        files.length !== filesLength && alert("Some files are greater then 2GB.");
+        uploadFiles({ files, masterHandle, directory });
+      }
+    },
+    collect: monitor => ({
+      isOver: monitor.isOver()
+    })
+  });
+  drop(ref);
 
   const sortBy = (param, order) => {
     setParam(param);
@@ -406,7 +438,7 @@ const FileManagerSlide = ({
   }, [directory]);
 
   return (
-    <DroppableZone ref={connectDropTarget}>
+    <DroppableZone ref={ref}>
       <ThemeProvider theme={theme}>
         <Container>
           <Header type={HEADER_TYPES.FILE_MANAGER} />
@@ -488,11 +520,26 @@ const FileManagerSlide = ({
                       New Folder
                     </FolderButton>
                     <UploadButton
+                      name="Upload folder"
+                      isDirectory={true}
                       onSelected={files =>
                         uploadFiles({
                           files,
                           masterHandle,
-                          directory
+                          directory,
+                          isDirectory: true
+                        })
+                      }
+                    />
+                    <UploadButton
+                      name="Upload file"
+                      isDirectory={false}
+                      onSelected={files =>
+                        uploadFiles({
+                          files,
+                          masterHandle,
+                          directory,
+                          isDirectory: false
                         })
                       }
                     />
@@ -547,10 +594,9 @@ const FileManagerSlide = ({
                     </Tr>
                   </thead>
                   <tbody>
-                    {orderedFolders.map(({ name, location }, i) => (
+                    {orderedFolders.map((folder, i) => (
                       <Folder
-                        name={name}
-                        location={location}
+                        folder={folder}
                         moveFolder={moveFolder}
                         moveFile={moveFile}
                         directory={directory}
@@ -559,28 +605,26 @@ const FileManagerSlide = ({
                         setOldName={setOldName}
                         setRenameType={setRenameType}
                         setShowRenameModal={setShowRenameModal}
+                        setFolderModal={setFolderModal}
                       />
                     ))}
                     {orderedFiles.map(
-                      ({ name, handle, version, size, created }, i) => (
+                      (file, i) => (
                         <File
-                          name={name}
                           i={i}
-                          version={version}
-                          handle={handle}
-                          size={size}
-                          created={created}
+                          file={file}
                           setSharedFile={setSharedFile}
                           removeFileByVersion={removeFileByVersion}
                           directory={directory}
                           masterHandle={masterHandle}
-                          download={downloadFile}
+                          downloadFile={downloadFile}
                           setOldName={setOldName}
                           setRenameType={setRenameType}
                           setShowRenameModal={setShowRenameModal}
                           filemanagerFiles={filemanagerFiles}
                           selectFile={selectFile}
                           deselectFile={deselectFile}
+                          setFileModal={setFileModal}
                         />
                       )
                     )}
@@ -601,9 +645,19 @@ const FileManagerSlide = ({
               )}
               <UploadMobileButton
                 onSelected={files =>
-                  uploadFiles({ files, directory, masterHandle })
+                  uploadFiles({
+                    files,
+                    directory,
+                    masterHandle,
+                    isDirectory: false
+                  })
                 }
               />
+              <FolderMobileButton
+                onClick={() => setShowCreateFolder(!showCreateFolder)}
+              >
+                <FolderMobileButtonIcon src={ICON_FOLDER_ADD} />
+              </FolderMobileButton>
             </TableContainer>
           </Contents>
           <ToastContainer
@@ -618,14 +672,21 @@ const FileManagerSlide = ({
             isOpen={!!sharedFile}
             close={() => setSharedFile(null)}
           />
+          <FolderModal
+            isOpen={!!showCreateFolder}
+            close={() => setShowCreateFolder(false)}
+            createFolder={name =>
+              prepareCreateFolder(masterHandle, directory, name)
+            }
+          />
           <RenameModal
             isOpen={!!showRenameModal}
             close={() => setShowRenameModal(false)}
             oldName={oldName}
             rename={name =>
               renameType === "folder"
-                ? renameFolder(directory, oldName, name, masterHandle)
-                : renameFile(directory, oldName, name, masterHandle)
+                ? renameFolder({ directory, folder: folderModal, name, masterHandle })
+                : renameFile({ folder: directory, file: fileModal, name, masterHandle })
             }
           />
         </Container>
@@ -634,7 +695,4 @@ const FileManagerSlide = ({
   );
 };
 
-export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver()
-}))(withRouter(FileManagerSlide));
+export default withRouter(FileManagerSlide);

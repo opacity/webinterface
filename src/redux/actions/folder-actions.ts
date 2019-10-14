@@ -49,13 +49,13 @@ const ACTIONS = Object.freeze({
     type: REMOVE_FOLDER_FAILURE,
     payload: { error }
   }),
-  renameFolder: ({ folder, name, newName, masterHandle }) => ({
+  renameFolder: ({ folder, directory, name, masterHandle }) => ({
     type: RENAME_FOLDER,
-    payload: { masterHandle, folder, newName, name }
+    payload: { masterHandle, folder, directory, name }
   }),
-  renameFolderSuccess: ({ masterHandle, folder }) => ({
+  renameFolderSuccess: ({ masterHandle, directory }) => ({
     type: RENAME_FOLDER_SUCCESS,
-    payload: { masterHandle, folder }
+    payload: { masterHandle, directory }
   }),
   renameFolderFailure: ({ error }) => ({
     type: RENAME_FOLDER_FAILURE,
@@ -65,9 +65,9 @@ const ACTIONS = Object.freeze({
     type: MOVE_FOLDER,
     payload: { folder, to, directory, masterHandle }
   }),
-  moveFolderSuccess: ({ masterHandle, folder }) => ({
+  moveFolderSuccess: ({ masterHandle, directory }) => ({
     type: MOVE_FOLDER_SUCCESS,
-    payload: { masterHandle, folder }
+    payload: { masterHandle, directory }
   }),
   moveFolderFailure: ({ error }) => ({
     type: MOVE_FOLDER_FAILURE,

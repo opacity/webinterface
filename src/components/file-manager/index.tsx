@@ -5,8 +5,6 @@ import HTML5Backend from "react-dnd-html5-backend";
 
 import uploadActions from "../../redux/actions/upload-actions";
 import finderActions from "../../redux/actions/finder-actions";
-import downloadActions from "../../redux/actions/download-actions";
-import removeActions from "../../redux/actions/remove-actions";
 import fileActions from "../../redux/actions/file-actions";
 import folderActions from "../../redux/actions/folder-actions";
 
@@ -28,13 +26,15 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  uploadFiles: ({ files, directory, masterHandle }) =>
-    dispatch(uploadActions.uploadFiles({ files, directory, masterHandle })),
+  uploadFiles: ({ files, directory, masterHandle, isDirectory }) =>
+    dispatch(
+      uploadActions.uploadFiles({ files, directory, masterHandle, isDirectory })
+    ),
   downloadFile: ({ handle }) =>
-    dispatch(downloadActions.downloadFile({ handle })),
+    dispatch(fileActions.downloadFile({ handle })),
   removeFileByVersion: ({ name, version, directory, masterHandle }) =>
     dispatch(
-      removeActions.removeFileByVersion({
+      fileActions.removeFileByVersion({
         name,
         version,
         directory,
@@ -42,20 +42,28 @@ const mapDispatchToProps = dispatch => ({
       })
     ),
   moveFile: (file, to, directory, masterHandle) =>
-    dispatch(fileActions.moveFile({ file, to, directory, masterHandle })),
+    dispatch(fileActions.moveFile({ file, to, folder: directory, masterHandle })),
   moveFolder: (folder, to, directory, masterHandle) =>
     dispatch(folderActions.moveFolder({ folder, to, directory, masterHandle })),
   getFileList: ({ directory, masterHandle }) =>
     dispatch(finderActions.getFileList({ directory, masterHandle })),
   downloadFiles: ({ files }) =>
-    dispatch(downloadActions.downloadFiles({ files })),
+    dispatch(fileActions.downloadFiles({ files })),
   removeFiles: ({ files, masterHandle, directory }) =>
-    dispatch(removeActions.removeFiles({ files, masterHandle, directory })),
+    dispatch(fileActions.removeFiles({ files, masterHandle, directory })),
   createFolder: ({ masterHandle, directory, name }) =>
     dispatch(folderActions.createFolder({ masterHandle, directory, name })),
   removeFolder: ({ folder, name, directory, masterHandle }) =>
     dispatch(
       folderActions.removeFolder({ folder, name, directory, masterHandle })
+    ),
+  renameFolder: ({ folder, name, directory, masterHandle }) =>
+    dispatch(
+      folderActions.renameFolder({ folder, name, directory, masterHandle })
+    ),
+  renameFile: ({ folder, name, file, masterHandle }) =>
+    dispatch(
+      fileActions.renameFile({ folder, name, file, masterHandle })
     )
 });
 
