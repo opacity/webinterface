@@ -35,7 +35,7 @@ const CreateAccount = ({
   const [masterHandle, setMasterHandle] = useState<MasterHandle | null>(null);
   const [privateKey, setPrivateKey] = useState("");
   const [invoice, setInvoice] = useState<any>(null);
-  const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => false);
+  const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => () => {});
 
   useEffect(
     () => {
@@ -75,7 +75,7 @@ const CreateAccount = ({
             setInvoice(invoice);
             setWaitForPaymentFn(() => waitForPayment);
           })
-          .catch(console.log);
+          .catch(console.error);
       }
     },
     [phase]
