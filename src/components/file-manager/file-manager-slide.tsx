@@ -1,9 +1,8 @@
 import _ from "lodash";
-import React, { useState, useEffect, useRef } from "react";
-import { NativeTypes } from "react-dnd-html5-backend";
-import { useDrop } from "react-dnd";
+import React, { useState, useEffect, useCallback } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { withRouter } from "react-router";
+import { useDropzone } from "react-dropzone";
 import styled, { ThemeProvider } from "styled-components";
 import moment from "moment";
 
@@ -373,23 +372,16 @@ const FileManagerSlide = ({
   const [fileModal, setFileModal] = useState<IFile | null>(null);
   const [folderModal, setFolderModal] = useState<IFolder | null>(null);
 
-  const ref = useRef<any>(null);
-  const [{ isOver }, drop] = useDrop({
-    accept: NativeTypes.FILE,
-    drop: ({}, monitor) => {
-      let { files } = monitor.getItem();
-      const filesLength = files.length;
-      if (files.length > 0) {
-        files = files.filter(file => file.size <= FILE_MAX_SIZE);
-        files.length !== filesLength && alert("Some files are greater then 2GB.");
-        uploadFiles({ files, masterHandle, directory, isDirectory: false });
-      }
-    },
-    collect: monitor => ({
-      isOver: monitor.isOver()
-    })
+  const onDrop = useCallback(files => {
+    uploadFiles({ files, masterHandle, directory, isDirectory: true });
+  }, []);
+
+  const { isDragActive, getRootProps } = useDropzone({
+    onDrop,
+    minSize: 0,
+    maxSize: FILE_MAX_SIZE,
+    multiple: true
   });
-  drop(ref);
 
   const sortBy = (param, order) => {
     setParam(param);
@@ -439,7 +431,7 @@ const FileManagerSlide = ({
   }, [directory]);
 
   return (
-    <DroppableZone ref={ref}>
+    <DroppableZone {...getRootProps()}>
       <ThemeProvider theme={theme}>
         <Container>
           <Header type={HEADER_TYPES.FILE_MANAGER} />
@@ -667,7 +659,7 @@ const FileManagerSlide = ({
             progressClassName="toast-progress-bar"
             bodyClassName="toast-body"
           />
-          {isOver && <DragAndDropOverlay />}
+          {isDragActive && <DragAndDropOverlay />}
           <ShareModal
             file={sharedFile}
             isOpen={!!sharedFile}

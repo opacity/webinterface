@@ -20,8 +20,8 @@ const uploadFilesEpic = (action$, state$, dependencies$) =>
             file,
             directory:
                 directory === "/"
-                  ? directory + relativePath(file.webkitRelativePath)
-                  : directory + "/" + relativePath(file.webkitRelativePath),
+                  ? file.webkitRelativePath ? directory + relativePath(file.webkitRelativePath) : relativePath(file.path)
+                  : file.webkitRelativePath ? directory + "/" + relativePath(file.webkitRelativePath) : directory + relativePath(file.path),
             masterHandle
           })
       );
