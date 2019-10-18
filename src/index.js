@@ -18,6 +18,7 @@ import Login from "./components/login";
 import Logout from "./components/logout";
 import ForgotPage from "./components/forgot-page";
 import Signup from "./components/signup";
+import ThankYou from "./components/signup/thank-you";
 import TeamPage from "./components/team-page";
 import StandsOut from "./components/stands-out";
 import FileManager from "./components/file-manager";
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/brokers-down" component={BrokersDown} />
             <Route path="/sign-up/:plan" component={Signup} />
             <Route path="/sign-up" component={Signup} />
+            <Route path="/thank-you" component={ThankYou} />
             <Route
               path="/custom-sign-up/:plan"
               render={props => <Signup isCustom {...props} />}
