@@ -147,15 +147,16 @@ const Tr = styled.tr`
   th:nth-child(2),
   td:nth-child(2) {
     width: 5%;
-    text-align: right;
   }
-  th:nth-child(3),
-  td:nth-child(3) {
-    width: 55%;
+  th:nth-child(1),
+  td:nth-child(1) {
+    text-align: right;
   }
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     td:nth-child(4),
-    td:nth-child(5) {
+    td:nth-child(5),
+    th:nth-child(4),
+    th:nth-child(5) {
       display: none;
     }
   }
@@ -313,7 +314,7 @@ const FolderMobileButton = styled.button`
 const FolderMobileButtonIcon = styled.img`
   height: 20px;
   width: 20px;
-  margin: 10px 0px 0px 10px;
+  margin-top: 5px;
 `;
 
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
@@ -381,7 +382,7 @@ const FileManagerSlide = ({
       if (files.length > 0) {
         files = files.filter(file => file.size <= FILE_MAX_SIZE);
         files.length !== filesLength && alert("Some files are greater then 2GB.");
-        uploadFiles({ files, masterHandle, directory });
+        uploadFiles({ files, masterHandle, directory, isDirectory: false });
       }
     },
     collect: monitor => ({

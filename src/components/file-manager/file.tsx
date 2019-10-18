@@ -50,26 +50,27 @@ const Tr = styled.tr`
   &:hover td {
     background-color: #cfe3fc;
   }
-  th:first-child,
-  td:first-child {
-    width: 5%;
-    text-align: right;
-  }
+  th:nth-child(1),
+  td:nth-child(1),
   th:nth-child(2),
   td:nth-child(2) {
-    width: 55%;
+    width: 5%;
+  }
+  th:nth-child(1),
+  td:nth-child(1) {
+    text-align: right;
   }
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
-    th:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
     th:nth-child(4),
-    td:nth-child(3),
-    td:nth-child(4) {
+    th:nth-child(5) {
       display: none;
     }
   }
   @media (max-width: 915px) {
-    th:nth-child(2),
-    td:nth-child(2) {
+    th:nth-child(3),
+    td:nth-child(3) {
       width: 95%;
       white-space: initial;
     }
