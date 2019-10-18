@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 
-import uploadActions from "../../redux/actions/upload-actions";
 import finderActions from "../../redux/actions/finder-actions";
 import fileActions from "../../redux/actions/file-actions";
 import folderActions from "../../redux/actions/folder-actions";
@@ -28,7 +27,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = dispatch => ({
   uploadFiles: ({ files, directory, masterHandle, isDirectory }) =>
     dispatch(
-      uploadActions.uploadFiles({ files, directory, masterHandle, isDirectory })
+      fileActions.uploadFiles({ files, directory, masterHandle, isDirectory })
     ),
   downloadFile: ({ handle }) =>
     dispatch(fileActions.downloadFile({ handle })),

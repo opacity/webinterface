@@ -168,3 +168,71 @@ test("removeFilesEpic", done => {
     });
 });
 
+test("uploadFilesEpic", done => {
+  const files = ["foo", "bar"];
+  const masterHandle = "m1";
+  const directory = "/";
+
+  const action$ = of(
+    fileActions.uploadFiles({ files, directory, masterHandle })
+  );
+  const expected = files.map(file =>
+    fileActions.uploadFile({ file, directory, masterHandle })
+  );
+
+  fileEpic(action$)
+    .toArray()
+    .subscribe(actions => {
+      expect(actions).toEqual(expected);
+      done();
+    });
+});
+
+test("uploadFileEpic on success", done => {
+  const file = { name: "f1" };
+  const directory = "/";
+  const upload = new EventEmitter();
+  upload.handle = "h1";
+
+  const masterHandle = {
+    uploadFile: jest.fn(() => upload)
+  };
+
+  const action$ = of(
+    fileActions.uploadFile({ file, directory, masterHandle })
+  );
+
+  fileEpic(action$).subscribe(actions => {
+    expect(actions).toEqual(
+      fileActions.uploadSuccess({ masterHandle, directory })
+    );
+    done();
+  });
+
+  upload.emit("finish");
+});
+
+test("uploadFileEpic on failure", done => {
+  const file = { name: "f1" };
+  const upload = new EventEmitter();
+  const directory = "/";
+  upload.handle = "h1";
+  const error = new Error("foobar");
+
+  const masterHandle = {
+    uploadFile: jest.fn(() => upload)
+  };
+
+  const action$ = of(
+    fileActions.uploadFile({ file, directory, masterHandle })
+  );
+
+  fileEpic(action$).subscribe(actions => {
+    expect(actions).toEqual(
+      fileActions.uploadError({ handle: "h1", filename: "f1", error })
+    );
+    done();
+  });
+
+  upload.emit("error", error);
+});

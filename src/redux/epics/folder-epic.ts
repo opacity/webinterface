@@ -80,7 +80,6 @@ const moveFolderEpic = (action$, state$, dependencies$) =>
     mergeMap(({ payload }) => {
       const { to, folder, directory, masterHandle } = payload;
       const path = directory === "/" ? `/${to}` : `${directory}/${to}`;
-      console.log(path);
 
       return from(masterHandle.moveFolder(directory, { folder, to: path })).pipe(
         map(() => {

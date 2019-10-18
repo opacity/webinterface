@@ -13,6 +13,10 @@ const DOWNLOAD_FILE = "opacity/download/download-file";
 const DOWNLOAD_SUCCESS = "opacity/download/download-success";
 const DOWNLOAD_ERROR = "opacity/download/download-error";
 const DOWNLOAD_FILES = "opacity/download/download-files";
+const UPLOAD_FILES = "opacity/upload/upload-files";
+const UPLOAD_FILE = "opacity/upload/upload-file";
+const UPLOAD_SUCCESS = "opacity/upload/upload-success";
+const UPLOAD_ERROR = "opacity/upload/upload-error";
 
 const ACTIONS = Object.freeze({
   RENAME_FILE,
@@ -30,6 +34,10 @@ const ACTIONS = Object.freeze({
   DOWNLOAD_SUCCESS,
   DOWNLOAD_ERROR,
   DOWNLOAD_FILES,
+  UPLOAD_FILES,
+  UPLOAD_FILE,
+  UPLOAD_SUCCESS,
+  UPLOAD_ERROR,
 
   renameFile: ({ name, file, folder, masterHandle }) => ({
     type: RENAME_FILE,
@@ -86,6 +94,22 @@ const ACTIONS = Object.freeze({
   downloadFiles: ({ files }) => ({
     type: DOWNLOAD_FILES,
     payload: { files } // [{ handle }]
+  }),
+  uploadFiles: ({ files, directory, masterHandle, isDirectory }) => ({
+    type: UPLOAD_FILES,
+    payload: { files, directory, masterHandle, isDirectory }
+  }),
+  uploadFile: ({ file, directory, masterHandle }) => ({
+    type: UPLOAD_FILE,
+    payload: { file, directory, masterHandle }
+  }),
+  uploadSuccess: ({ masterHandle, directory }) => ({
+    type: UPLOAD_SUCCESS,
+    payload: { masterHandle, directory }
+  }),
+  uploadError: ({ handle, filename, error }) => ({
+    type: UPLOAD_ERROR,
+    payload: { handle, filename, error }
   })
 });
 
