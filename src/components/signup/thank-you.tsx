@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const ThankYou = withRouter(({ location }) => {
-	const plan = useMemo(() => location.state && location.state.plan, [location]);
+  const plan = useMemo(() => location.state && location.state.plan, [location]);
   const privateKey = useMemo(() => location.state && location.state.handle, [location]);
 
   return (
@@ -28,7 +28,7 @@ const ThankYou = withRouter(({ location }) => {
         }
       >
         <Breadcrumbs phase={SIGNUP_PHASES.CONFIRM_PAYMENT} />
-				<ConfirmPaymentSlide handle={privateKey} />
+        <ConfirmPaymentSlide handle={privateKey} />
       </ScreenContainer>
     </Container>
   );
