@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 
 import Breadcrumbs from "./breadcrumbs";
@@ -6,7 +7,6 @@ import SelectPlanSlide from "./select-plan-slide";
 import RecordRecoveryPhraseSlide from "./record-recovery-phrase-slide";
 import RecordAccountHandleSlide from "./record-account-handle-slide";
 import SendPaymentSlide from "./send-payment-slide";
-import ConfirmPaymentSlide from "./confirm-payment-slide";
 import ScreenContainer from "../shared/screen-container";
 import Header from "../shared/header";
 
@@ -130,7 +130,7 @@ const CreateAccount = ({
           />
         )}
         {phase === SIGNUP_PHASES.CONFIRM_PAYMENT && (
-          <ConfirmPaymentSlide handle={privateKey} />
+          <Redirect to={{ pathname: "/thank-you", state: { handle: privateKey, plan } }} />
         )}
       </ScreenContainer>
     </Container>
