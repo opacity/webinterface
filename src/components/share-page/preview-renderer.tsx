@@ -11,16 +11,16 @@ const PreviewRenderer = ({
   render = text => (
     <div
       onClick={e => {
-  const selection = getSelection()!;
+        const selection = getSelection()!;
 
-  if (selection.isCollapsed) {
-  const range = document.createRange();
-  range.selectNode(e.currentTarget);
+        if (selection.isCollapsed) {
+          const range = document.createRange();
+          range.selectNode(e.currentTarget);
 
-  selection.removeAllRanges();
-  selection.addRange(range);
-}
-}}
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+      }}
     >
       {text.split(/\n+/).map((paragraph, i) => <p key={i}>{paragraph}</p>)}
     </div>
