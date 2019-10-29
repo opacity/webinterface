@@ -13,12 +13,12 @@ const PreviewRenderer = ({
       const selection = getSelection()!;
 
       if (selection.isCollapsed) {
-				const range = document.createRange();
-				range.selectNode(e.currentTarget);
+        const range = document.createRange();
+        range.selectNode(e.currentTarget);
 
-				selection.removeAllRanges();
-				selection.addRange(range);
-			}
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
     }}
   >
     {text.split(/\n+/).map((paragraph, i) => <p key={i}>{paragraph}</p>)}
@@ -27,13 +27,18 @@ const PreviewRenderer = ({
   const [text, setText] = useState<string>();
 
   useEffect(() => {
-    fetch(url).then(res => res.text()).then(text => setText(text));
+		fetch(url)
+			.then(res => res.text())
+			.then(text => setText(text))
+			.catch(err => console.warn(err));
   }, [url]);
 
-  return <>
-    <Spinner isActive={!text} />
-    {text && render(text)}
-  </>;
+  return (
+		<>
+			<Spinner isActive={!text} />
+			{text && render(text)}
+		</>
+	);
 };
 
 export { PreviewRenderer, PreviewRendererProps };
