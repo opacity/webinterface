@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { ToastContainer } from "react-toastify";
 import { Download } from "opaque";
@@ -14,6 +14,8 @@ import { formatBytes } from "../../helpers";
 
 import Header from "../shared/header";
 import Spinner from "../shared/spinner";
+import { Preview } from "./preview";
+import { extname } from "path";
 
 const ICON_DOWNLOAD = require("../../assets/images/icon_download.png");
 
@@ -33,6 +35,8 @@ const Body = styled.div`
 `;
 
 const Column = styled.div`
+  width: 500px;
+  max-width: 100%;
   padding-right: 40px;
   @media (max-width: ${DESKTOP_WIDTH}px) {
     padding-right: 0px;
@@ -58,8 +62,9 @@ const DownloadIcon = styled.img`
   height: 100px;
 `;
 const PreviewImage = styled.img`
-  width: 500px;
-  height: 400px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 400px;
   @media (max-width: ${DESKTOP_WIDTH}px) {
     width: 200px;
     height: 200px;
@@ -77,7 +82,13 @@ const FileSize = styled.h4`
   font-weight: normal;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
 const DownloadButton = styled.button`
+  margin: 10px 15px;
   padding: 10px 15px;
   font-size: 16px;
   border: none;
@@ -98,6 +109,26 @@ const Description = styled.p`
   width: 400px;
 `;
 
+const PreviewBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+const PreviewLink = styled.a`
+  display: block;
+  width: 100%;
+`
+
+const StyledPreview = styled(Preview)`
+  display: block;
+  width: 100%;
+  max-height: 80vh;
+  overflow: auto;
+`
+
 interface FileMetadata {
   name?: string;
   size?: number;
@@ -106,6 +137,12 @@ interface FileMetadata {
 const SharePageSlide = ({ handle, download }) => {
   const [metadata, setMetadata] = useState<FileMetadata>({});
   const [error, setError] = useState(false);
+  const [downloadObject, setDownloadObject] = useState<Download>();
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [file, setFile] = useState<File>();
+  const [progress, setProgress] = useState(0);
+  const url = useMemo(() => file && URL.createObjectURL(file), [file]);
+  const previewLoading = useMemo(() => previewOpen && !file, [previewOpen, file]);
 
   useEffect(() => {
     const download = new Download(handle, {
@@ -113,19 +150,38 @@ const SharePageSlide = ({ handle, download }) => {
       autoStart: false
     });
 
+    setDownloadObject(download)
+
     download
       .metadata()
       .then(metadata => {
         const { name, size } = metadata;
-        // console.log(metadata);
-        // TODO metadata preview
+
         setMetadata({ name, size } as FileMetadata);
       })
       .catch(error => {
         console.log("METADATA ERROR: ", error);
         setError(true);
       });
+
+    download.on("download-progress", e => {
+      setProgress(e.progress)
+    })
+
+    return () => {
+      url && URL.revokeObjectURL(url)
+    }
   }, []);
+
+  const preview = async () => {
+    setPreviewOpen(!previewOpen)
+
+    if (downloadObject) {
+      const file = await downloadObject.toFile() as File
+
+      setFile(file)
+    }
+  }
 
   const iconType = name => {
     if (name) {
@@ -144,7 +200,27 @@ const SharePageSlide = ({ handle, download }) => {
       <Container>
         <Header type={HEADER_TYPES.EMPTY} />
         <Body>
-          <Column>{iconType(metadata.name)}</Column>
+          <Column>
+            <PreviewBox>
+              { previewOpen
+                ? <>
+                  <Spinner isActive={previewLoading && !error} />
+                  { file && url
+                    ? <>
+                      <PreviewLink href={url} target="_blank">{metadata.name}</PreviewLink>
+                      <StyledPreview
+                        url={url}
+                        ext={extname(file.name)}
+                        type={file.type}
+                      />
+                    </>
+                    : <div>{Math.round(progress * 1000) / 10}%</div>
+                  }
+                </>
+                : iconType(metadata.name)
+              }
+            </PreviewBox>
+          </Column>
           <ColumnInfo>
             <DownloadIcon src={ICON_DOWNLOAD} />
             <Title>You have been invited to view a file!</Title>
@@ -153,9 +229,17 @@ const SharePageSlide = ({ handle, download }) => {
               <FileInfo>
                 <FileName>{metadata.name}</FileName>
                 <FileSize>{formatBytes(metadata.size)}</FileSize>
-                <DownloadButton onClick={() => download(handle)}>
-                  Download file
-                </DownloadButton>
+                <ButtonContainer>
+                  <DownloadButton onClick={() => download(handle)}>
+                    Download file
+                  </DownloadButton>
+                  <DownloadButton onClick={() => preview()}>
+                    { previewOpen
+                      ? "Close Preview"
+                      : "Open Preview"
+                    }
+                  </DownloadButton>
+                </ButtonContainer>
               </FileInfo>
             ) : (
               <Spinner isActive={!error} />
