@@ -6,43 +6,43 @@ const getTypeFromExt = (ext?: string) => {
   ext = ("" + ext).replace(/^\./, "");
 
   if ([
-  "png",
-  "apng",
+    "png",
+    "apng",
 
-  "svg",
+    "svg",
 
-  "gif",
+    "gif",
 
-  "bmp",
+    "bmp",
 
-  "ico",
-  "cur",
+    "ico",
+    "cur",
 
-  "jpg",
-  "jpeg",
-  "jfif",
-  "pjpeg",
-  "pjp",
+    "jpg",
+    "jpeg",
+    "jfif",
+    "pjpeg",
+    "pjp",
 
-  "webp"
-].includes(ext)) {
-  return "image";
-}
-
-  if ([
-  "mp4",
-  "ogg",
-  "webm"
-].includes(ext)) {
-  return "video";
-}
+    "webp"
+  ].includes(ext)) {
+    return "image";
+  }
 
   if ([
-  "txt",
-  "md"
-].includes(ext)) {
-  return "text";
-}
+    "mp4",
+    "ogg",
+    "webm"
+  ].includes(ext)) {
+    return "video";
+  }
+
+  if ([
+    "txt",
+    "md"
+  ].includes(ext)) {
+    return "text";
+  }
 
   return undefined;
 };
@@ -65,20 +65,20 @@ const Preview = ({
   onUnload
 }: PreviewProps) => {
   useEffect(() => {
-  onLoad && onLoad();
+    onLoad && onLoad();
 
-return () => {
-  onUnload && onUnload();
-};
-});
+    return () => {
+      onUnload && onUnload();
+    };
+  });
 
   const newType = "" + (type || getTypeFromExt(ext));
 
   switch (newType.split("/")[0]) {
-  case "image":
-    return <img className={className} src={url} />;
-  case "video":
-    return (
+    case "image":
+      return <img className={className} src={url} />;
+    case "video":
+      return (
         <video
           className={className}
           controls={true}
@@ -87,8 +87,8 @@ return () => {
           Your browser doesn't support this video type.
         </video>
       );
-  case "audio":
-    return (
+    case "audio":
+      return (
         <audio
           className={className}
           controls={true}
@@ -97,10 +97,10 @@ return () => {
           Your browser doesn't support this audio type.
         </audio>
       );
-  case "text":
-    switch (newType.split("/")[1]) {
-  case "markdown":
-    return (
+    case "text":
+      switch (newType.split("/")[1]) {
+        case "markdown":
+          return (
             <div className={className}>
               <PreviewRenderer
                 url={url}
@@ -108,16 +108,16 @@ return () => {
               />
             </div>
           );
-  default:
-    return (
+        default:
+          return (
             <div className={className}>
               <PreviewRenderer url={url} />
             </div>
           );
-}
-  default:
-    return <div className={className}>Unsupported file format</div>;
-}
+      }
+    default:
+      return <div className={className}>Unsupported file format</div>;
+  }
 };
 
 export { getTypeFromExt, Preview, PreviewProps };
