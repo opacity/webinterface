@@ -85,7 +85,7 @@ const FileSize = styled.h4`
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const DownloadButton = styled.button`
   margin: 10px 15px;
@@ -115,19 +115,19 @@ const PreviewBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const PreviewLink = styled.a`
   display: block;
   width: 100%;
-`
+`;
 
 const StyledPreview = styled(Preview)`
   display: block;
   width: 100%;
   max-height: 80vh;
   overflow: auto;
-`
+`;
 
 interface FileMetadata {
   name?: string;
@@ -150,7 +150,7 @@ const SharePageSlide = ({ handle, download }) => {
       autoStart: false
     });
 
-    setDownloadObject(download)
+    setDownloadObject(download);
 
     download
       .metadata()
@@ -165,23 +165,23 @@ const SharePageSlide = ({ handle, download }) => {
       });
 
     download.on("download-progress", e => {
-      setProgress(e.progress)
-    })
+      setProgress(e.progress);
+    });
 
     return () => {
-      url && URL.revokeObjectURL(url)
-    }
+      url && URL.revokeObjectURL(url);
+    };
   }, []);
 
   const preview = async () => {
-    setPreviewOpen(!previewOpen)
+    setPreviewOpen(!previewOpen);
 
     if (downloadObject) {
-      const file = await downloadObject.toFile() as File
+      const file = await downloadObject.toFile() as File;
 
-      setFile(file)
+      setFile(file);
     }
-  }
+  };
 
   const iconType = name => {
     if (name) {

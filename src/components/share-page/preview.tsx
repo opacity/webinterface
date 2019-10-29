@@ -75,34 +75,42 @@ const Preview = ({
 		case "image":
 			return <img className={className} src={url} />
 		case "video":
-			return <video
-				className={className}
-				controls
-			>
-				<source src={url} type={type} />
-				Your browser doesn't support this video type.
-			</video>
+			return (
+				<video
+					className={className}
+					controls
+				>
+					<source src={url} type={type} />
+					Your browser doesn't support this video type.
+				</video>
+			)
 		case "audio":
-			return <audio
-				className={className}
-				controls
-			>
-				<source src={url} type={type} />
-				Your browser doesn't support this audio type.
-			</audio>
+			return (
+				<audio
+					className={className}
+					controls
+				>
+					<source src={url} type={type} />
+					Your browser doesn't support this audio type.
+				</audio>
+			)
 		case "text":
 			switch (newType.split("/")[1]) {
 				case "markdown":
-					return <div className={className}>
-						<PreviewRenderer
-							url={url}
-							render={text => <ReactMarkdown source={text} />}
-						/>
-					</div>
+					return (
+						<div className={className}>
+							<PreviewRenderer
+								url={url}
+								render={text => <ReactMarkdown source={text} />}
+							/>
+						</div>
+					)
 				default:
-					return <div className={className}>
-						<PreviewRenderer url={url} />
-					</div>
+					return (
+						<div className={className}>
+							<PreviewRenderer url={url} />
+						</div>
+					)
 			}
 		default:
 			return <div className={className}>Unsupported file format</div>
