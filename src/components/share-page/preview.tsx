@@ -38,6 +38,13 @@ const getTypeFromExt = (ext?: string) => {
   }
 
   if ([
+    "mp3",
+    "flac"
+  ].includes(ext)) {
+    return "audio";
+  }
+
+  if ([
     "txt",
     "md"
   ].includes(ext)) {

@@ -14,7 +14,7 @@ import { formatBytes } from "../../helpers";
 
 import Header from "../shared/header";
 import Spinner from "../shared/spinner";
-import { Preview } from "./preview";
+import { Preview, getTypeFromExt } from "./preview";
 import { extname } from "path";
 
 const ICON_DOWNLOAD = require("../../assets/images/icon_download.png");
@@ -143,6 +143,7 @@ const SharePageSlide = ({ handle, download }) => {
   const [progress, setProgress] = useState(0);
   const url = useMemo(() => file && URL.createObjectURL(file), [file]);
   const previewLoading = useMemo(() => previewOpen && !file, [previewOpen, file]);
+  const previewSupported = useMemo(() => metadata && metadata.name && getTypeFromExt(extname(metadata.name)), [metadata]);
 
   useEffect(() => {
     const download = new Download(handle, {
@@ -233,12 +234,14 @@ const SharePageSlide = ({ handle, download }) => {
                   <DownloadButton onClick={() => download(handle)}>
                     Download file
                   </DownloadButton>
-                  <DownloadButton onClick={() => preview()}>
-                    { previewOpen
-                      ? "Close Preview"
-                      : "Open Preview"
-                    }
-                  </DownloadButton>
+                  { previewSupported &&
+                    <DownloadButton onClick={() => preview()}>
+                      { previewOpen
+                        ? "Close Preview"
+                        : "Open Preview"
+                      }
+                    </DownloadButton>
+                  }
                 </ButtonContainer>
               </FileInfo>
             ) : (

@@ -11,9 +11,9 @@ const PreviewRenderer = ({
   render = text => (
     <div
       onClick={e => {
-        const selection = getSelection()!;
+        const selection = getSelection();
 
-        if (selection.isCollapsed) {
+        if (selection && selection.isCollapsed) {
           const range = document.createRange();
           range.selectNode(e.currentTarget);
 
