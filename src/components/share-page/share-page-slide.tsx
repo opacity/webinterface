@@ -237,8 +237,8 @@ const SharePageSlide = ({ handle, download }) => {
                   { previewSupported &&
                     <DownloadButton onClick={() => preview()}>
                       { previewOpen
-                        ? "Close Preview"
-                        : "Open Preview"
+                        ? "Hide Preview"
+                        : "Show Preview"
                       }
                     </DownloadButton>
                   }
