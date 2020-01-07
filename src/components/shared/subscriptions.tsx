@@ -7,6 +7,7 @@ import {
   SUBSCRIPTION_DESKTOP_WIDTH,
   SHADOW,
   PLANS,
+  PlanType,
   MOBILE_WIDTH,
   theme
 } from "../../config";
@@ -236,8 +237,18 @@ const Header = styled.div``;
 
 const Footer = styled.div``;
 
-const Subscriptions = ({ isCustom }) => {
-  const plans = PLANS.filter(p => p.isCustom === !!isCustom);
+type SubscriptionsProps = {
+  isCustom: boolean
+  filter?: (plan: PlanType) => boolean
+  select?: (plan: PlanType) => string
+}
+
+const Subscriptions = ({
+  isCustom,
+  filter = () => true,
+  select = plan => `/${isCustom ? "custom-" : ""}sign-up/${plan.permalink}`
+}: SubscriptionsProps) => {
+  const plans = PLANS.filter(p => p.isCustom === !!isCustom).filter(filter);
 
   return (
     <ThemeProvider theme={theme}>
@@ -294,9 +305,7 @@ const Subscriptions = ({ isCustom }) => {
               <ButtonWrapper>
                 {plan.isAvailable ? (
                   <SignupLink
-                    to={`/${isCustom ? "custom-" : ""}sign-up/${
-                      plan.permalink
-                    }`}
+                    to={select(plan)}
                   >
                     {plan.isAvailable ? "Choose plan" : "Contact Us"}
                   </SignupLink>

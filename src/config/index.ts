@@ -96,6 +96,12 @@ export enum SIGNUP_PHASES {
   CONFIRM_PAYMENT
 }
 
+export enum UPGRADE_PHASES {
+  SELECT_PLAN = 0,
+  SEND_PAYMENT,
+  CONFIRM_PAYMENT
+}
+
 export enum FIAT_PAYMENT_STATUSES {
   IDLE = 0,
   PENDING,
@@ -174,7 +180,28 @@ export enum SHADOW {
   CENTER
 }
 
-export const PLANS = [
+export type PlanType = {
+  isCustom: boolean,
+  borderColor: string,
+  content: string,
+  discountedUsdCost: number | null | undefined,
+  durationInMonths: number,
+  opqCost: number,
+  includesDesktopApp: boolean,
+  isAvailable: boolean,
+  isHighlighted: boolean,
+  permalink: string,
+  shadow: SHADOW,
+  specialPricing: string | null | undefined,
+  storageInGB: number,
+  storageLimit: string,
+  title: string,
+  usdCost: number,
+  zIndex: number,
+  features: string[]
+}
+
+export const PLANS: PlanType[] = [
   {
     isCustom: false,
     borderColor: "#ECCD32",

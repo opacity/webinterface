@@ -187,7 +187,7 @@ function returnProductionConfiguration () {
   return merge(common, {
     bail: true,
     devtool: "cheap-module-source-map",
-    entry: paths.appSrc + "/index.js",
+    entry: paths.appSrc + "/index.tsx",
     output: {
       path: paths.appBuild,
       filename: `static/js/opacity-webinterface-${APP_VERSION}.min.js`,
