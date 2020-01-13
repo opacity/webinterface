@@ -181,7 +181,9 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
 
   let ethAddress;
 
-  invoice && ({ ethAddress } = invoice) && console.log(invoice);
+  if (invoice) {
+    ;({ ethAddress } = invoice)
+  }
 
   return (
     <ThemeProvider theme={theme}>

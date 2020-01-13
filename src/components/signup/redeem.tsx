@@ -121,8 +121,6 @@ const Redeem = ({ ethAddress, storageLimit }: RedeemProps) => {
 
     const res = await (await fetch(`https://redeem.opacity.io/api?code=OPQ${storageLimitToCodeName({ storageLimit })}-${code.toUpperCase()}&ethaddress=${ethAddress}`)).json();
 
-    console.log(res);
-
     if (!res.data || !res.data.txhash) {
       setStatusType("error");
       setStatus(res.msg);

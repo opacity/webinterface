@@ -67,10 +67,6 @@ const SignupFlow = ({
     }
   }, [mh]);
 
-  useEffect(() => {
-    console.log(phase)
-  }, [phase])
-
   return (
     <Container>
       <Header type={HEADER_TYPES.EMPTY} />
