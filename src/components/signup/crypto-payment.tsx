@@ -182,7 +182,7 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
   let ethAddress;
 
   if (invoice) {
-    ;({ ethAddress } = invoice)
+    ({ ethAddress } = invoice);
   }
 
   return (

@@ -243,7 +243,7 @@ type SubscriptionsProps = {
   filter?: (plan: PlanType) => boolean
   select?: (plan: PlanType) => string
   next?: (plan: PlanType) => void
-}
+};
 
 const Subscriptions = ({
   isCustom,
@@ -310,7 +310,7 @@ const Subscriptions = ({
                 {plan.isAvailable ? (
                   <SignupLink
                     to={select(plan)}
-                    onClick={() => { next(plan) }}
+                    onClick={() => { next(plan); }}
                   >
                     {plan.isAvailable ? "Choose plan" : "Contact Us"}
                   </SignupLink>

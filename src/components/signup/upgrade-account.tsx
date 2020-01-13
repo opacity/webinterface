@@ -4,8 +4,8 @@ import SignupFlow from "./signup-flow";
 
 import { UpgradePhases } from "./phases";
 
-const UpgradeAccount = (props) => (
+const UpgradeAccount = props => (
   <SignupFlow phases={UpgradePhases} {...props} />
-)
+);
 
 export default UpgradeAccount;

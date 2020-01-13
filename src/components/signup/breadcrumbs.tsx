@@ -71,7 +71,7 @@ const Line = styled.hr`
 type BreadcrumbsProps = {
   phase: number
   phases: PhaseType[]
-}
+};
 
 const Breadcrumbs = ({ phase: curPhase, phases }: BreadcrumbsProps) => {
   return (
@@ -86,11 +86,11 @@ const Breadcrumbs = ({ phase: curPhase, phases }: BreadcrumbsProps) => {
             <PhaseIcon src={phase.icon} />
             <PhaseNumber>{i + 1}. {phase.title}</PhaseNumber>
           </PhaseInformation>
-          { i !== phases.length - 1 && <Line /> }
+          {i !== phases.length - 1 && <Line />}
         </Phase>
       )) }
     </Container>
   );
-}
+};
 
 export default Breadcrumbs;

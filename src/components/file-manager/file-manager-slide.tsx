@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { withRouter } from "react-router";
 import { useDropzone } from "react-dropzone";

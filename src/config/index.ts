@@ -199,7 +199,7 @@ export type PlanType = {
   usdCost: number,
   zIndex: number,
   features: string[]
-}
+};
 
 export const PLANS: PlanType[] = [
   {

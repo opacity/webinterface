@@ -46,7 +46,7 @@ const App = () => (
           <GoogleTagManager gtmId={GTM_ID} />
           <Route component={ScrollToTop} />
           <Switch>
-            <Route exact path="/" component={LandingPage} />
+            <Route exact={true} path="/" component={LandingPage} />
 
             <Route path="/error-page" component={ErrorPage} />
             <Route path="/brokers-down" component={BrokersDown} />
@@ -57,11 +57,11 @@ const App = () => (
             <Route path="/thank-you" component={ThankYou} />
             <Route
               path="/custom-sign-up/:plan"
-              render={props => <SignUp isCustom {...props} />}
+              render={props => <SignUp isCustom={true} {...props} />}
             />
             <Route
               path="/custom-sign-up"
-              render={props => <SignUp isCustom {...props} />}
+              render={props => <SignUp isCustom={true} {...props} />}
             />
             <Route path="/stands-out" component={StandsOut} />
             <Route path="/login" component={Login} />

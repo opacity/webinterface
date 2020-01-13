@@ -21,21 +21,17 @@ const SELECT_PLAN: PhaseType = {
   render: ({ isCustom }) => (
     <SelectPlanSlide isCustom={isCustom} />
   )
-}
+};
 
 const SELECT_UPGRADE_PLAN: PhaseType = {
   title: "Select a plan",
   icon: ICON_SELECT_PLAN,
   render: ({ masterHandle, isCustom, setInvoice, setWaitForPaymentFn, pollPayment }: any & { masterHandle: MasterHandle }) => {
-    const [info, setInfo] = useState()
+    const [info, setInfo] = useState();
 
     useEffect(() => {
-      masterHandle.getAccountInfo().then(info => setInfo(info))
-    }, [])
-
-    useEffect(() => {
-      console.log(info)
-    }, [info])
+      masterHandle.getAccountInfo().then(info => setInfo(info));
+    }, []);
 
     return (
       info
@@ -45,27 +41,21 @@ const SELECT_UPGRADE_PLAN: PhaseType = {
           isUpgrade={true}
           filter={plan => plan.storageInGB > info.storageLimit}
           next={plan => {
-            console.log("\n\n\n\n\n\n\n\n\n\\n\n\n\n\n\n\n\n\n\n\n\n\n\\n\n\n\n\\n\n\\n\n\\n\n\n\\n\n\n")
             masterHandle
               .upgrade(plan.durationInMonths, plan.storageInGB)
-              .then(({ data: { opqInvoice, ...data }, waitForPayment, ...others }: any) => {
-                console.log("_-----------------------___-")
-                console.log("invoice", opqInvoice)
-                console.log("data", data)
-                console.log("wait", waitForPayment)
-                console.log("others", others)
+              .then(({ data: { opqInvoice }, waitForPayment }: any) => {
                 setInvoice(opqInvoice);
                 setWaitForPaymentFn(() => waitForPayment);
-                pollPayment(waitForPayment)
+                pollPayment(waitForPayment);
               })
               .catch(console.error);
           }}
         />
       )
       : <div>Loading...</div>
-    )
+    );
   }
-}
+};
 
 const RECORD_RECOVERY_PHRASE: PhaseType = {
   title: "Record Recovery Phrase",
@@ -77,14 +67,14 @@ const RECORD_RECOVERY_PHRASE: PhaseType = {
       isCustom={isCustom}
     />
   )
-}
+};
 
 const RECORD_STORAGE_PIN: PhaseType = {
   title: "Record Account Handle",
   icon: ICON_PIN,
   render: ({ masterHandle, setInvoice, waitForPaymentFn, setWaitForPaymentFn, privateKey, plan, accountPaidSuccess, pollPayment, showMnemonic }) => {
     useEffect(() => {
-      console.log("registering")
+      console.log("registering");
 
       masterHandle
         .register(plan.durationInMonths, plan.storageInGB)
@@ -93,21 +83,21 @@ const RECORD_STORAGE_PIN: PhaseType = {
           setWaitForPaymentFn(() => waitForPayment);
         })
         .catch(console.error);
-    }, [masterHandle, plan])
+    }, [masterHandle, plan]);
 
-		return (
-			<RecordAccountHandleSlide
-				handle={privateKey}
-				next={() =>
-					plan.opqCost === 0 && plan.usdCost === 0
-						? accountPaidSuccess()
-						: pollPayment(waitForPaymentFn)
-				}
-				back={() => showMnemonic()}
-			/>
-		)
-	}
-}
+    return (
+      <RecordAccountHandleSlide
+        handle={privateKey}
+        next={() =>
+          plan.opqCost === 0 && plan.usdCost === 0
+            ? accountPaidSuccess()
+            : pollPayment(waitForPaymentFn)
+        }
+        back={() => showMnemonic()}
+      />
+    );
+  }
+};
 
 const SEND_PAYMENT: PhaseType = {
   title: "Send Payment",
@@ -128,7 +118,7 @@ const SEND_PAYMENT: PhaseType = {
       }
     />
   )
-}
+};
 
 const SEND_UPGRADE_PAYMENT: PhaseType = {
   title: "Send Payment",
@@ -155,7 +145,7 @@ const SEND_UPGRADE_PAYMENT: PhaseType = {
       <div>Loading...</div>
     )
   )
-}
+};
 
 const CONFIRM_PAYMENT: PhaseType = {
   title: "Confirm Payment",
@@ -163,7 +153,7 @@ const CONFIRM_PAYMENT: PhaseType = {
   render: ({ privateKey, plan }) => (
     <Redirect to={{ pathname: "/thank-you", state: { handle: privateKey, plan } }} />
   )
-}
+};
 
 const SignupPhases: PhaseType[] = [
   SELECT_PLAN,

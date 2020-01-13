@@ -10,7 +10,7 @@ type SelectPlanSlideProps = {
   isUpgrade?: boolean
   filter?: (plan: PlanType) => boolean
   next?: (plan: PlanType) => void
-}
+};
 
 const SelectPlanSlide = ({ isCustom, isUpgrade, filter, next }: SelectPlanSlideProps) => {
   return (
