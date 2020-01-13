@@ -27,9 +27,10 @@ const SignupFlow = ({
   plan,
   pollPayment,
   showAddress,
-  showMnemonic
+  showMnemonic,
+  masterHandle: mh
 }) => {
-  const [masterHandle, setMasterHandle] = useState<MasterHandle | null>(null);
+  const [masterHandle, setMasterHandle] = useState<MasterHandle | null>(mh);
   const [invoice, setInvoice] = useState<any>(null);
   const [waitForPaymentFn, setWaitForPaymentFn] = useState(() => () => {});
   const [mnemonic, setMnemonic] = useState<string[]>([]);
@@ -47,22 +48,28 @@ const SignupFlow = ({
   );
 
   useEffect(() => {
-    const account = new Account();
-    setMnemonic(account.mnemonic);
+    if (!mh) {
+      const account = new Account();
+      setMnemonic(account.mnemonic);
 
-    const masterHandle: MasterHandle = new MasterHandle(
-      {
-        account
-      },
-      {
-        uploadOpts: OPAQUE.UPLOAD_OPTIONS,
-        downloadOpts: OPAQUE.DOWNLOAD_OPTIONS
-      }
-    );
+      const masterHandle: MasterHandle = new MasterHandle(
+        {
+          account
+        },
+        {
+          uploadOpts: OPAQUE.UPLOAD_OPTIONS,
+          downloadOpts: OPAQUE.DOWNLOAD_OPTIONS
+        }
+      );
 
-    setMasterHandle(masterHandle);
-    setPrivateKey(masterHandle.handle);
-  }, []);
+      setMasterHandle(masterHandle);
+      setPrivateKey(masterHandle.handle);
+    }
+  }, [mh]);
+
+  useEffect(() => {
+    console.log(phase)
+  }, [phase])
 
   return (
     <Container>

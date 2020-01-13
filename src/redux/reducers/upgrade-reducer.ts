@@ -10,7 +10,7 @@ const upgradeReducer = (state = initState, action) => {
   switch (action.type) {
     case upgradeActions.POLL_PAYMENT:
       const { invoice } = action.payload;
-      return { ...state, phase: UPGRADE_PHASES.SEND_PAYMENT, invoice };
+      return { ...state, phase: UPGRADE_PHASES.SEND_UPGRADE_PAYMENT, invoice };
     case upgradeActions.ACCOUNT_PAID_SUCCESS:
       return { ...state, phase: UPGRADE_PHASES.CONFIRM_PAYMENT };
 

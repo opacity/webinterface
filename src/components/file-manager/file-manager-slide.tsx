@@ -1,5 +1,6 @@
 import _ from "lodash";
 import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify";
 import { withRouter } from "react-router";
 import { useDropzone } from "react-dropzone";
@@ -456,6 +457,9 @@ const FileManagerSlide = ({
                   </UsageInfo>
                   <UsageInfo>
                     Active until: {moment(expirationDate).format("MMM D, YYYY")}
+                  </UsageInfo>
+                  <UsageInfo>
+                    <Link to="/upgrade">Upgrade Account</Link>
                   </UsageInfo>
                 </UsageWrapper>
               </TitleWrapper>

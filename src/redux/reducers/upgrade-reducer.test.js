@@ -16,7 +16,7 @@ test("signup-reducer POLL_PAYMENT", () => {
   const expected = {
     ...initState,
     invoice,
-    phase: UPGRADE_PHASES.SEND_PAYMENT
+    phase: UPGRADE_PHASES.SEND_UPGRADE_PAYMENT
   };
   expect(upgrade(initState, action)).toEqual(expected);
 });

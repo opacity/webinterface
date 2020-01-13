@@ -22,10 +22,11 @@ const SELECT_PLAN: PhaseType = {
     <SelectPlanSlide isCustom={isCustom} />
   )
 }
+
 const SELECT_UPGRADE_PLAN: PhaseType = {
   title: "Select a plan",
   icon: ICON_SELECT_PLAN,
-  render: ({ masterHandle, isCustom }: { masterHandle: MasterHandle, isCustom: boolean }) => {
+  render: ({ masterHandle, isCustom, setInvoice, setWaitForPaymentFn, pollPayment }: any & { masterHandle: MasterHandle }) => {
     const [info, setInfo] = useState()
 
     useEffect(() => {
@@ -36,9 +37,36 @@ const SELECT_UPGRADE_PLAN: PhaseType = {
       console.log(info)
     }, [info])
 
-    return <SelectPlanSlide isCustom={isCustom} filter={plan => plan.storageInGB > 128} />
+    return (
+      info
+      ? (
+        <SelectPlanSlide
+          isCustom={isCustom}
+          isUpgrade={true}
+          filter={plan => plan.storageInGB > info.storageLimit}
+          next={plan => {
+            console.log("\n\n\n\n\n\n\n\n\n\\n\n\n\n\n\n\n\n\n\n\n\n\n\\n\n\n\n\\n\n\\n\n\\n\n\n\\n\n\n")
+            masterHandle
+              .upgrade(plan.durationInMonths, plan.storageInGB)
+              .then(({ data: { opqInvoice, ...data }, waitForPayment, ...others }: any) => {
+                console.log("_-----------------------___-")
+                console.log("invoice", opqInvoice)
+                console.log("data", data)
+                console.log("wait", waitForPayment)
+                console.log("others", others)
+                setInvoice(opqInvoice);
+                setWaitForPaymentFn(() => waitForPayment);
+                pollPayment(waitForPayment)
+              })
+              .catch(console.error);
+          }}
+        />
+      )
+      : <div>Loading...</div>
+    )
   }
 }
+
 const RECORD_RECOVERY_PHRASE: PhaseType = {
   title: "Record Recovery Phrase",
   icon: ICON_RECOVERY,
@@ -50,6 +78,7 @@ const RECORD_RECOVERY_PHRASE: PhaseType = {
     />
   )
 }
+
 const RECORD_STORAGE_PIN: PhaseType = {
   title: "Record Account Handle",
   icon: ICON_PIN,
@@ -79,6 +108,7 @@ const RECORD_STORAGE_PIN: PhaseType = {
 		)
 	}
 }
+
 const SEND_PAYMENT: PhaseType = {
   title: "Send Payment",
   icon: ICON_PAYMENT,
@@ -99,6 +129,34 @@ const SEND_PAYMENT: PhaseType = {
     />
   )
 }
+
+const SEND_UPGRADE_PAYMENT: PhaseType = {
+  title: "Send Payment",
+  icon: ICON_PAYMENT,
+  render: ({ masterHandle, plan, fiatPaymentError, fiatPaymentStatus, invoice, openMetamask, payFiat }) => (
+    invoice
+    ? (
+      <SendPaymentSlide
+        opqCost={plan.opqCost}
+        fiatPaymentError={fiatPaymentError}
+        fiatPaymentStatus={fiatPaymentStatus}
+        invoice={invoice}
+        openMetamask={openMetamask}
+        payFiat={stripeToken =>
+          payFiat({ masterHandle, stripeToken, timestamp: Date.now() })
+        }
+        storageLimit={plan.storageLimit}
+        usdCost={
+          plan.discountedUsdCost ? plan.discountedUsdCost : plan.usdCost
+        }
+      />
+    )
+    : (
+      <div>Loading...</div>
+    )
+  )
+}
+
 const CONFIRM_PAYMENT: PhaseType = {
   title: "Confirm Payment",
   icon: ICON_CONFIRM,
@@ -117,7 +175,7 @@ const SignupPhases: PhaseType[] = [
 
 const UpgradePhases: PhaseType[] = [
   SELECT_UPGRADE_PLAN,
-  SEND_PAYMENT,
+  SEND_UPGRADE_PAYMENT,
   CONFIRM_PAYMENT
 ];
 

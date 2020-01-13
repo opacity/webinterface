@@ -1,7 +1,8 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import signupActions from "../../redux/actions/signup-actions";
+import upgradeActions from "../../redux/actions/upgrade-actions";
 import fiatPaymentActions from "../../redux/actions/fiat-payment-actions";
 import metamaskActions from "../../redux/actions/metamask-actions";
 import UpgradeAccount from "./upgrade-account";
@@ -14,16 +15,17 @@ const mapStateToProps = (state, props) => {
   );
   return {
     plan,
-    phase: plan ? state.signup.phase : UPGRADE_PHASES.SELECT_PLAN,
+    phase: plan ? state.upgrade.phase : UPGRADE_PHASES.SELECT_PLAN,
     fiatPaymentError: state.fiatPayment.error,
-    fiatPaymentStatus: state.fiatPayment.status
+    fiatPaymentStatus: state.fiatPayment.status,
+    masterHandle: state.authentication.masterHandle
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  accountPaidSuccess: () => dispatch(signupActions.accountPaidSuccess()),
+  accountPaidSuccess: () => dispatch(upgradeActions.accountPaidSuccess()),
   pollPayment: waitForPaymentFn =>
-    dispatch(signupActions.pollPayment({ waitForPaymentFn })),
+    dispatch(upgradeActions.pollPayment({ waitForPaymentFn })),
   openMetamask: ({ cost, ethAddress, gasPrice }) =>
     dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice })),
   payFiat: ({ stripeToken, masterHandle, timestamp }) =>
@@ -32,7 +34,7 @@ const mapDispatchToProps = dispatch => ({
     )
 });
 
-const SignUp = ({
+const Upgrade = ({
   isCustom,
   phase,
   plan,
@@ -42,22 +44,31 @@ const SignUp = ({
   invoice,
   pollPayment,
   openMetamask,
-  payFiat
+  payFiat,
+  masterHandle
 }) => (
-  <UpgradeAccount
-    isCustom={isCustom}
-    fiatPaymentError={fiatPaymentError}
-    fiatPaymentStatus={fiatPaymentStatus}
-    openMetamask={openMetamask}
-    payFiat={payFiat}
-    accountPaidSuccess={accountPaidSuccess}
-    phase={phase}
-    plan={plan}
-    pollPayment={pollPayment}
-  />
+  masterHandle
+  ? (
+    <UpgradeAccount
+      isCustom={isCustom}
+      fiatPaymentError={fiatPaymentError}
+      fiatPaymentStatus={fiatPaymentStatus}
+      openMetamask={openMetamask}
+      payFiat={payFiat}
+      accountPaidSuccess={accountPaidSuccess}
+      phase={phase}
+      plan={plan}
+      invoice={invoice}
+      pollPayment={pollPayment}
+      masterHandle={masterHandle}
+    />
+  )
+  : (
+    <Redirect to="/login" />
+  )
 );
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignUp);
+)(Upgrade);

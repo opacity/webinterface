@@ -239,14 +239,18 @@ const Footer = styled.div``;
 
 type SubscriptionsProps = {
   isCustom: boolean
+  isUpgrade?: boolean
   filter?: (plan: PlanType) => boolean
   select?: (plan: PlanType) => string
+  next?: (plan: PlanType) => void
 }
 
 const Subscriptions = ({
   isCustom,
+  isUpgrade,
   filter = () => true,
-  select = plan => `/${isCustom ? "custom-" : ""}sign-up/${plan.permalink}`
+  select = plan => `/${isCustom ? "custom-" : ""}${isUpgrade ? "upgrade" : "sign-up"}/${plan.permalink}`,
+  next = () => {}
 }: SubscriptionsProps) => {
   const plans = PLANS.filter(p => p.isCustom === !!isCustom).filter(filter);
 
@@ -306,6 +310,7 @@ const Subscriptions = ({
                 {plan.isAvailable ? (
                   <SignupLink
                     to={select(plan)}
+                    onClick={() => { next(plan) }}
                   >
                     {plan.isAvailable ? "Choose plan" : "Contact Us"}
                   </SignupLink>
