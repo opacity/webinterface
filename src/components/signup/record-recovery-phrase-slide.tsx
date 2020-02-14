@@ -95,8 +95,8 @@ const Box = styled.div`
 `;
 
 const RecordRecoveryPhraseSlide = ({ next, mnemonic, history, isCustom }) => {
-  const [isTermsChecked, setIsTermsChecked] = useState(true);
-  const [isCaptchaVerified, setIsCaptchaVerified] = useState(true);
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
   const onSubmit = () => {
     if (!isTermsChecked) {
