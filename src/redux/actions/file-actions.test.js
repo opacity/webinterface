@@ -192,7 +192,6 @@ test("downloadFiles", () => {
 test("uploadFiles", () => {
   const files = ["f1"];
   const masterHandle = "mh1";
-  const isDirectory = false;
   const directory = "/";
 
   const expected = {
@@ -200,12 +199,11 @@ test("uploadFiles", () => {
     payload: {
       files,
       masterHandle,
-      directory,
-      isDirectory
+      directory
     }
   };
   expect(
-    actions.uploadFiles({ files, directory, masterHandle, isDirectory })
+    actions.uploadFiles({ files, directory, masterHandle })
   ).toEqual(expected);
 });
 
@@ -213,7 +211,6 @@ test("uploadFile", () => {
   const file = "f1";
   const masterHandle = "mh1";
   const directory = "/";
-  const isDirectory = false;
 
   const expected = {
     type: actions.UPLOAD_FILE,

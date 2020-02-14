@@ -373,7 +373,7 @@ const FileManagerSlide = ({
   const [folderModal, setFolderModal] = useState<IFolder | null>(null);
 
   const onDrop = useCallback(files => {
-    uploadFiles({ files, masterHandle, directory, isDirectory: true });
+    uploadFiles({ files, masterHandle, directory });
   }, []);
 
   const { isDragActive, getRootProps } = useDropzone({
@@ -519,8 +519,7 @@ const FileManagerSlide = ({
                         uploadFiles({
                           files,
                           masterHandle,
-                          directory,
-                          isDirectory: true
+                          directory
                         })
                       }
                     />
@@ -531,8 +530,7 @@ const FileManagerSlide = ({
                         uploadFiles({
                           files,
                           masterHandle,
-                          directory,
-                          isDirectory: false
+                          directory
                         })
                       }
                     />
