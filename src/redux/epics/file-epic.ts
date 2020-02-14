@@ -172,10 +172,11 @@ const uploadFilesEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(fileActions.UPLOAD_FILES),
     flatMap(({ payload }) => {
-      const { files, directory, masterHandle, isDirectory } = payload;
+      const { files, directory, masterHandle } = payload;
 
       return files.map(file =>
-        !isDirectory
+        // Current path or subdirectory
+        (file.name === (file.path || file.webkitRelativePath || file.name))
           ? fileActions.uploadFile({ file, directory, masterHandle })
           : fileActions.uploadFile({
             file,
