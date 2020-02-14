@@ -289,7 +289,6 @@ const FolderButton = styled.button`
   margin: 0 10px;
   border: none;
   cursor: pointer;
-  }
 `;
 
 const FolderMobileButton = styled.button`
@@ -315,6 +314,26 @@ const FolderMobileButtonIcon = styled.img`
   height: 20px;
   width: 20px;
   margin-top: 5px;
+`;
+
+const UpgradeButton = styled(Link)`
+  min-width: 120px
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  background-color: ${props => props.theme.button.background};
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.button.color};
+  text-align: center;
+  text-decoration: none;
+  padding: 0 10px;
+  border: none;
+  cursor: pointer;
 `;
 
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
@@ -459,7 +478,7 @@ const FileManagerSlide = ({
                     Active until: {moment(expirationDate).format("MMM D, YYYY")}
                   </UsageInfo>
                   <UsageInfo>
-                    <Link to="/upgrade">Upgrade Account</Link>
+                    <UpgradeButton to="/upgrade">Upgrade Account</UpgradeButton>
                   </UsageInfo>
                 </UsageWrapper>
               </TitleWrapper>
