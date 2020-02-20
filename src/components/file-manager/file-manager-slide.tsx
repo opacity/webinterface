@@ -374,7 +374,7 @@ const FileManagerSlide = ({
 
   const onDrop = useCallback(files => {
     uploadFiles({ files, masterHandle, directory });
-  }, []);
+  }, [directory]);
 
   const { isDragActive, getRootProps } = useDropzone({
     onDrop,
