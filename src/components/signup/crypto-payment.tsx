@@ -182,89 +182,93 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
   let ethAddress;
 
   if (invoice) {
-    ({ ethAddress } = invoice);
+    ({ ethAddress } = invoice.opqInvoice || invoice);
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <SplitLayout>
-        <ContentBox>
-          <Title>Send Payment with OPQ</Title>
-          <Hr />
-          <Content>
-            Use the Opacity Storage Token, OPQ, to pay for your storage account.
-            Send your total amount of <Bold>{cost.toLocaleString()} OPQ </Bold> to
-            the address below or you may use MetaMask to easily make your payment
-            right in your browser.
-          </Content>
-          <ContentBold>
-            IMPORTANT: Do not send any other coin or token to this account address
-            as it may result in a loss of funds. Only send {cost.toLocaleString()}{" "}
-            OPQ. Sending more may also result in loss of funds.
-          </ContentBold>
-          <Content>
-            Once your payment is sent, it may take some time to confirm your
-            payment on the Ethereum network. We will confirm receipt and complete
-            setup of your account once the network transaction is confirmed.
-            Please be patient.
-          </Content>
-          <Wrapper>
-            <Spinner isActive={true} />
-          </Wrapper>
-          <LabelColored>
-            Send {cost.toLocaleString()} OPQ to Ethereum Address:
-          </LabelColored>
-          {invoice &&
-            <EthAddressWrapper>
-              <EthAddress>{ethAddress}</EthAddress>
-              <CopyToClipboard text={ethAddress} onCopy={() => setIsCopied(true)}>
-                <ClipboardIconWrrapper>
-                  <ClipboardIcon src={ICON_CLIPBOARD} />
-                </ClipboardIconWrrapper>
-              </CopyToClipboard>
-              {isCopied && <CopiedReminder>Copied to clipboard!</CopiedReminder>}
-            </EthAddressWrapper>
-          }
-          <ContentCentered>
-            Need OPQ?{" "}
-            <OutboundLink href={EXCHANGE_LINK}>Purchase here</OutboundLink>
-          </ContentCentered>
-        </ContentBox>
+    cost && ethAddress
+    ? (
+      <ThemeProvider theme={theme}>
+        <SplitLayout>
+          <ContentBox>
+            <Title>Send Payment with OPQ</Title>
+            <Hr />
+            <Content>
+              Use the Opacity Storage Token, OPQ, to pay for your storage account.
+              Send your total amount of <Bold>{cost.toLocaleString()} OPQ </Bold> to
+              the address below or you may use MetaMask to easily make your payment
+              right in your browser.
+            </Content>
+            <ContentBold>
+              IMPORTANT: Do not send any other coin or token to this account address
+              as it may result in a loss of funds. Only send {cost.toLocaleString()}{" "}
+              OPQ. Sending more may also result in loss of funds.
+            </ContentBold>
+            <Content>
+              Once your payment is sent, it may take some time to confirm your
+              payment on the Ethereum network. We will confirm receipt and complete
+              setup of your account once the network transaction is confirmed.
+              Please be patient.
+            </Content>
+            <Wrapper>
+              <Spinner isActive={true} />
+            </Wrapper>
+            <LabelColored>
+              Send {cost.toLocaleString()} OPQ to Ethereum Address:
+            </LabelColored>
+            {invoice &&
+              <EthAddressWrapper>
+                <EthAddress>{ethAddress}</EthAddress>
+                <CopyToClipboard text={ethAddress} onCopy={() => setIsCopied(true)}>
+                  <ClipboardIconWrrapper>
+                    <ClipboardIcon src={ICON_CLIPBOARD} />
+                  </ClipboardIconWrrapper>
+                </CopyToClipboard>
+                {isCopied && <CopiedReminder>Copied to clipboard!</CopiedReminder>}
+              </EthAddressWrapper>
+            }
+            <ContentCentered>
+              Need OPQ?{" "}
+              <OutboundLink href={EXCHANGE_LINK}>Purchase here</OutboundLink>
+            </ContentCentered>
+          </ContentBox>
 
-        {invoice && <>
-          <OtherOptionsWrapper>
-            <OtherOptionsTitle>Other Ways To Send</OtherOptionsTitle>
-            {Metamask.isInstalled && <>
+          {invoice && <>
+            <OtherOptionsWrapper>
+              <OtherOptionsTitle>Other Ways To Send</OtherOptionsTitle>
+              {Metamask.isInstalled && <>
+                <PaymentWrapper>
+                  <MetamaskButton
+                    onClick={() => openMetamask({ ethAddress, cost, gasPrice: 20 })}
+                  />
+                </PaymentWrapper>
+                <Or>or</Or>
+              </>}
               <PaymentWrapper>
-                <MetamaskButton
-                  onClick={() => openMetamask({ ethAddress, cost, gasPrice: 20 })}
-                />
+                <Redeem ethAddress={ethAddress} storageLimit={storageLimit} />
               </PaymentWrapper>
               <Or>or</Or>
-            </>}
-            <PaymentWrapper>
-              <Redeem ethAddress={ethAddress} storageLimit={storageLimit} />
-            </PaymentWrapper>
-            <Or>or</Or>
-            <PaymentWrapper>
-              <QRCodeWrapper>
-                <LabelQR>Scan QR code to pay</LabelQR>
-                <QRCode
-                  value={ethAddress}
-                  size={200}
-                  renderAs="svg"
-                  bgColor="#ffffff"
-                  fgColor="#2e3854"
-                  level="H"
-                  color="#ffffff"
-                  includeMargin={true}
-                />
-              </QRCodeWrapper>
-            </PaymentWrapper>
-          </OtherOptionsWrapper>
-        </>}
-      </SplitLayout>
-    </ThemeProvider>
+              <PaymentWrapper>
+                <QRCodeWrapper>
+                  <LabelQR>Scan QR code to pay</LabelQR>
+                  <QRCode
+                    value={ethAddress}
+                    size={200}
+                    renderAs="svg"
+                    bgColor="#ffffff"
+                    fgColor="#2e3854"
+                    level="H"
+                    color="#ffffff"
+                    includeMargin={true}
+                  />
+                </QRCodeWrapper>
+              </PaymentWrapper>
+            </OtherOptionsWrapper>
+          </>}
+        </SplitLayout>
+      </ThemeProvider>
+    )
+    : <div>Loading...</div>
   );
 };
 

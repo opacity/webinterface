@@ -43,8 +43,8 @@ const SELECT_UPGRADE_PLAN: PhaseType = {
           next={plan => {
             masterHandle
               .upgrade(plan.durationInMonths, plan.storageInGB)
-              .then(({ data: { opqInvoice }, waitForPayment }: any) => {
-                setInvoice(opqInvoice);
+              .then(({ data, waitForPayment }: any) => {
+                setInvoice(data);
                 setWaitForPaymentFn(() => waitForPayment);
                 pollPayment(waitForPayment);
               })
@@ -127,7 +127,7 @@ const SEND_UPGRADE_PAYMENT: PhaseType = {
     invoice
     ? (
       <SendPaymentSlide
-        opqCost={plan.opqCost}
+        opqCost={invoice.opqInvoice.cost}
         fiatPaymentError={fiatPaymentError}
         fiatPaymentStatus={fiatPaymentStatus}
         invoice={invoice}
@@ -136,9 +136,7 @@ const SEND_UPGRADE_PAYMENT: PhaseType = {
           payFiat({ masterHandle, stripeToken, timestamp: Date.now() })
         }
         storageLimit={plan.storageLimit}
-        usdCost={
-          plan.discountedUsdCost ? plan.discountedUsdCost : plan.usdCost
-        }
+        usdCost={invoice.usdInvoice}
       />
     )
     : (
