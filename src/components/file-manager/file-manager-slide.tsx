@@ -211,14 +211,14 @@ const StorageTitle = styled.p`
 const NoFilesContainer = styled.div``;
 
 const NoFiles = styled.p`
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
+  font-size: 24px;
+  font-weight: bold;
+  font-style: italic;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 125px;
   opacity: 0.8;
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
