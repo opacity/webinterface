@@ -468,7 +468,7 @@ const FileManagerSlide = ({
             </LeftSideNav>
             <TableContainer>
               <TitleWrapper>
-                <Title>All Files</Title>
+                <Title>Opacity File Manager</Title>
                 <UsageWrapper>
                   <UsageInfo>
                     {formatGbs(storageUsed)} out of {formatGbs(storageLimit)}{" "}
@@ -478,7 +478,7 @@ const FileManagerSlide = ({
                     Active until: {moment(expirationDate).format("MMM D, YYYY")}
                   </UsageInfo>
                   <UsageInfo>
-                    <UpgradeButton to="/upgrade">Upgrade Account</UpgradeButton>
+                    <UpgradeButton to="/upgrade">Get More Storage</UpgradeButton>
                   </UsageInfo>
                 </UsageWrapper>
               </TitleWrapper>
@@ -536,7 +536,7 @@ const FileManagerSlide = ({
                       New Folder
                     </FolderButton>
                     <UploadButton
-                      name="Upload folder"
+                      name="Upload Folder"
                       isDirectory={true}
                       onSelected={files =>
                         uploadFiles({
@@ -548,7 +548,7 @@ const FileManagerSlide = ({
                       }
                     />
                     <UploadButton
-                      name="Upload file"
+                      name="Upload File"
                       isDirectory={false}
                       onSelected={files =>
                         uploadFiles({

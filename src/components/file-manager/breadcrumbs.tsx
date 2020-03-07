@@ -46,10 +46,10 @@ const Breadcrumbs = ({ folder }) => {
     <ThemeProvider theme={theme}>
       <Container>
         {folder === "/" ? (
-          <FolderTitle>Opacity</FolderTitle>
+          <FolderTitle>All Files</FolderTitle>
         ) : (
           <React.Fragment>
-            <FolderLink to="/file-manager">Opacity</FolderLink>
+            <FolderLink to="/file-manager">All Files</FolderLink>
             <Separator />
           </React.Fragment>
         )}
