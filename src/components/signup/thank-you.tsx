@@ -8,6 +8,7 @@ import ScreenContainer from "../shared/screen-container";
 import Header from "../shared/header";
 
 import { HEADER_TYPES, SIGNUP_PHASES } from "../../config";
+import { SignupPhases } from "./phases";
 
 const Container = styled.div`
   width: 100%;
@@ -27,7 +28,7 @@ const ThankYou = withRouter(({ location }) => {
             : "Register on Opacity"
         }
       >
-        <Breadcrumbs phase={SIGNUP_PHASES.CONFIRM_PAYMENT} />
+        <Breadcrumbs phases={SignupPhases} phase={SIGNUP_PHASES.CONFIRM_PAYMENT} />
         <ConfirmPaymentSlide handle={privateKey} />
       </ScreenContainer>
     </Container>

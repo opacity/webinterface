@@ -108,16 +108,18 @@ const RegisterConfirmPaymentSlide = ({ handle }) => {
         <Wrapper>
           <Content href="/login">Login now with your Account Handle</Content>
         </Wrapper>
-        <Label>Opacity Account Handle</Label>
-        <HandleWrapper>
-          <Handle>{handle}</Handle>
-          <CopyToClipboard text={handle} onCopy={() => setIsCopied(true)}>
-            <ClipboardIconWrrapper>
-              <ClipboardIcon src={ICON_CLIPBOARD} />
-            </ClipboardIconWrrapper>
-          </CopyToClipboard>
-          {isCopied && <CopiedReminder>Copied to clipboard!</CopiedReminder>}
-        </HandleWrapper>
+        {handle && <>
+          <Label>Opacity Account Handle</Label>
+          <HandleWrapper>
+            <Handle>{handle}</Handle>
+            <CopyToClipboard text={handle} onCopy={() => setIsCopied(true)}>
+              <ClipboardIconWrrapper>
+                <ClipboardIcon src={ICON_CLIPBOARD} />
+              </ClipboardIconWrrapper>
+            </CopyToClipboard>
+            {isCopied && <CopiedReminder>Copied to clipboard!</CopiedReminder>}
+          </HandleWrapper>
+        </>}
       </ContentBox>
     </ThemeProvider>
   );

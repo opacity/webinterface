@@ -1,14 +1,21 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 
-import { theme } from "../../config";
+import { theme, PlanType } from "../../config";
 
 import Subscriptions from "../shared/subscriptions";
 
-const SelectPlanSlide = ({ isCustom }) => {
+type SelectPlanSlideProps = {
+  isCustom: boolean
+  isUpgrade?: boolean
+  filter?: (plan: PlanType) => boolean
+  next?: (plan: PlanType) => void
+};
+
+const SelectPlanSlide = ({ isCustom, isUpgrade, filter, next }: SelectPlanSlideProps) => {
   return (
     <ThemeProvider theme={theme}>
-      <Subscriptions isCustom={isCustom} />
+      <Subscriptions isCustom={isCustom} isUpgrade={isUpgrade} filter={filter} next={next} />
     </ThemeProvider>
   );
 };

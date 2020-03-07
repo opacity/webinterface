@@ -1,12 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { MOBILE_WIDTH, SIGNUP_PHASES } from "../../config";
 
-const ICON_SELECT_PLAN = require("../../assets/images/icon_select_plan.svg");
-const ICON_RECOVERY = require("../../assets/images/icon_signup_recovery.svg");
-const ICON_PIN = require("../../assets/images/icon_signup_pin.svg");
-const ICON_PAYMENT = require("../../assets/images/icon_signup_payment.svg");
-const ICON_CONFIRM = require("../../assets/images/icon_signup_confirm.svg");
+import { MOBILE_WIDTH } from "../../config";
+
+import { PhaseType } from "components/shared/phases";
 
 const Container = styled.div`
   display: flex;
@@ -71,58 +68,29 @@ const Line = styled.hr`
   }
 `;
 
-const Breadcrumbs = ({ phase }) => (
-  <Container>
-    <Phase
-      isActive={phase === SIGNUP_PHASES.SELECT_PLAN}
-      isHighlighted={phase >= SIGNUP_PHASES.SELECT_PLAN}
-    >
-      <PhaseInformation>
-        <PhaseIcon src={ICON_SELECT_PLAN} />
-        <PhaseNumber>1. Select a plan</PhaseNumber>
-      </PhaseInformation>
-      <Line />
-    </Phase>
-    <Phase
-      isActive={phase === SIGNUP_PHASES.RECORD_RECOVERY_PHRASE}
-      isHighlighted={phase >= SIGNUP_PHASES.RECORD_RECOVERY_PHRASE}
-    >
-      <PhaseInformation>
-        <PhaseIcon src={ICON_RECOVERY} />
-        <PhaseNumber>2. Record Recovery Phrase</PhaseNumber>
-      </PhaseInformation>
-      <Line />
-    </Phase>
-    <Phase
-      isActive={phase === SIGNUP_PHASES.RECORD_STORAGE_PIN}
-      isHighlighted={phase >= SIGNUP_PHASES.RECORD_STORAGE_PIN}
-    >
-      <PhaseInformation>
-        <PhaseIcon src={ICON_PIN} />
-        <PhaseNumber>3. Record Account Handle</PhaseNumber>
-      </PhaseInformation>
-      <Line />
-    </Phase>
-    <Phase
-      isActive={phase === SIGNUP_PHASES.SEND_PAYMENT}
-      isHighlighted={phase >= SIGNUP_PHASES.SEND_PAYMENT}
-    >
-      <PhaseInformation>
-        <PhaseIcon src={ICON_PAYMENT} />
-        <PhaseNumber>4. Send Payment</PhaseNumber>
-      </PhaseInformation>
-      <Line />
-    </Phase>
-    <Phase
-      isActive={phase === SIGNUP_PHASES.CONFIRM_PAYMENT}
-      isHighlighted={phase >= SIGNUP_PHASES.CONFIRM_PAYMENT}
-    >
-      <PhaseInformation>
-        <PhaseIcon src={ICON_CONFIRM} />
-        <PhaseNumber>5. Confirm Payment</PhaseNumber>
-      </PhaseInformation>
-    </Phase>
-  </Container>
-);
+type BreadcrumbsProps = {
+  phase: number
+  phases: PhaseType[]
+};
+
+const Breadcrumbs = ({ phase: curPhase, phases }: BreadcrumbsProps) => {
+  return (
+    <Container>
+      { phases.map((phase, i, phases) => (
+        <Phase
+          key={i}
+          isActive={curPhase === i}
+          isHighlighted={curPhase >= i}
+        >
+          <PhaseInformation>
+            <PhaseIcon src={phase.icon} />
+            <PhaseNumber>{i + 1}. {phase.title}</PhaseNumber>
+          </PhaseInformation>
+          {i !== phases.length - 1 && <Line />}
+        </Phase>
+      )) }
+    </Container>
+  );
+};
 
 export default Breadcrumbs;

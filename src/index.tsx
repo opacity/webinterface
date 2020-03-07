@@ -17,7 +17,7 @@ import LandingPage from "./components/landing-page";
 import Login from "./components/login";
 import Logout from "./components/logout";
 import ForgotPage from "./components/forgot-page";
-import Signup from "./components/signup";
+import { SignUp, Upgrade } from "./components/signup";
 import ThankYou from "./components/signup/thank-you";
 import TeamPage from "./components/team-page";
 import StandsOut from "./components/stands-out";
@@ -46,20 +46,22 @@ const App = () => (
           <GoogleTagManager gtmId={GTM_ID} />
           <Route component={ScrollToTop} />
           <Switch>
-            <Route exact path="/" component={LandingPage} />
+            <Route exact={true} path="/" component={LandingPage} />
 
             <Route path="/error-page" component={ErrorPage} />
             <Route path="/brokers-down" component={BrokersDown} />
-            <Route path="/sign-up/:plan" component={Signup} />
-            <Route path="/sign-up" component={Signup} />
+            <Route path="/sign-up/:plan" component={SignUp} />
+            <Route path="/sign-up" component={SignUp} />
+            <Route path="/upgrade/:plan" component={Upgrade} />
+            <Route path="/upgrade" component={Upgrade} />
             <Route path="/thank-you" component={ThankYou} />
             <Route
               path="/custom-sign-up/:plan"
-              render={props => <Signup isCustom {...props} />}
+              render={props => <SignUp isCustom={true} {...props} />}
             />
             <Route
               path="/custom-sign-up"
-              render={props => <Signup isCustom {...props} />}
+              render={props => <SignUp isCustom={true} {...props} />}
             />
             <Route path="/stands-out" component={StandsOut} />
             <Route path="/login" component={Login} />

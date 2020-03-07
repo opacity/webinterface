@@ -24,7 +24,7 @@ const DEFAULT_BROKER_IP =
   IS_BETA_PROD || IS_BETA_DEV
     ? "beta-broker.opacitynodes.com"
     : IS_DEV
-    ? "3.16.188.187"
+    ? "18.220.6.26"
     : "broker-1.opacitynodes.com";
 
 export const API = Object.freeze({
@@ -93,6 +93,12 @@ export enum SIGNUP_PHASES {
   RECORD_RECOVERY_PHRASE,
   RECORD_STORAGE_PIN,
   SEND_PAYMENT,
+  CONFIRM_PAYMENT
+}
+
+export enum UPGRADE_PHASES {
+  SELECT_PLAN = 0,
+  SEND_UPGRADE_PAYMENT,
   CONFIRM_PAYMENT
 }
 
@@ -174,7 +180,28 @@ export enum SHADOW {
   CENTER
 }
 
-export const PLANS = [
+export type PlanType = {
+  isCustom: boolean,
+  borderColor: string,
+  content: string,
+  discountedUsdCost: number | null | undefined,
+  durationInMonths: number,
+  opqCost: number,
+  includesDesktopApp: boolean,
+  isAvailable: boolean,
+  isHighlighted: boolean,
+  permalink: string,
+  shadow: SHADOW,
+  specialPricing: string | null | undefined,
+  storageInGB: number,
+  storageLimit: string,
+  title: string,
+  usdCost: number,
+  zIndex: number,
+  features: string[]
+};
+
+export const PLANS: PlanType[] = [
   {
     isCustom: false,
     borderColor: "#ECCD32",

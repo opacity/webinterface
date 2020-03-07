@@ -32,7 +32,7 @@ const Invoice = ({ cost, storageLimit }) => (
       <Row>
         <Title>Total</Title>
         <Value>
-          {storageLimit} Storage - ${cost} for 1 year
+          {storageLimit} Storage - ${cost && cost.toFixed(2)} for 1 year
         </Value>
       </Row>
     </Container>
