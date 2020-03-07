@@ -650,12 +650,12 @@ const FileManagerSlide = ({
               {!isLoading && !folders.length && !files.length && (
                 <NoFilesContainer>
                   <NoFiles>
-                    Your folder is empty. You can upload files by clicking the
-                    Upload button on the top right.
+                    Your account is empty! Upload files or folders by clicking the
+                    upload button on the top right or simply drag and drop!
                   </NoFiles>
                   <NoFilesMobile>
-                    Your folder is empty. You can upload files by clicking the
-                    Upload button on the bottom right.
+                    Your account is empty! Upload files by clicking the
+                    upload button on the bottom right.
                   </NoFilesMobile>
                 </NoFilesContainer>
               )}
