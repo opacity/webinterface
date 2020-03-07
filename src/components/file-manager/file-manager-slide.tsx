@@ -211,14 +211,14 @@ const StorageTitle = styled.p`
 const NoFilesContainer = styled.div``;
 
 const NoFiles = styled.p`
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
+  font-size: 24px;
+  font-weight: bold;
+  font-style: italic;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 125px;
   opacity: 0.8;
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: none;
@@ -468,7 +468,7 @@ const FileManagerSlide = ({
             </LeftSideNav>
             <TableContainer>
               <TitleWrapper>
-                <Title>All Files</Title>
+                <Title>Opacity File Manager</Title>
                 <UsageWrapper>
                   <UsageInfo>
                     {formatGbs(storageUsed)} out of {formatGbs(storageLimit)}{" "}
@@ -478,7 +478,7 @@ const FileManagerSlide = ({
                     Active until: {moment(expirationDate).format("MMM D, YYYY")}
                   </UsageInfo>
                   <UsageInfo>
-                    <UpgradeButton to="/upgrade">Upgrade Account</UpgradeButton>
+                    <UpgradeButton to="/upgrade">Get More Storage</UpgradeButton>
                   </UsageInfo>
                 </UsageWrapper>
               </TitleWrapper>
@@ -536,7 +536,7 @@ const FileManagerSlide = ({
                       New Folder
                     </FolderButton>
                     <UploadButton
-                      name="Upload folder"
+                      name="Upload Folder"
                       isDirectory={true}
                       onSelected={files =>
                         uploadFiles({
@@ -547,7 +547,7 @@ const FileManagerSlide = ({
                       }
                     />
                     <UploadButton
-                      name="Upload file"
+                      name="Upload File"
                       isDirectory={false}
                       onSelected={files =>
                         uploadFiles({
@@ -648,12 +648,12 @@ const FileManagerSlide = ({
               {!isLoading && !folders.length && !files.length && (
                 <NoFilesContainer>
                   <NoFiles>
-                    Your folder is empty. You can upload files by clicking the
-                    Upload button on the top right.
+                    Your account is empty! Upload files or folders by clicking the
+                    upload button on the top right or simply drag and drop!
                   </NoFiles>
                   <NoFilesMobile>
-                    Your folder is empty. You can upload files by clicking the
-                    Upload button on the bottom right.
+                    Your account is empty! Upload files by clicking the
+                    upload button on the bottom right.
                   </NoFilesMobile>
                 </NoFilesContainer>
               )}

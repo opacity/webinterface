@@ -17,7 +17,7 @@ const renameFileEpic = (action$, state$, dependencies$) =>
 
       return from(masterHandle.renameFile(folder, { file, name })).pipe(
         map(() => {
-          toast(`${name} was successfully deleted.`, {
+          toast(`${name} was renamed successfully.`, {
             autoClose: 3000,
             hideProgressBar: true,
             position: toast.POSITION.BOTTOM_RIGHT,
@@ -40,7 +40,7 @@ const moveFileEpic = (action$, state$, dependencies$) =>
 
       return from(masterHandle.moveFile(folder, { file, to: path })).pipe(
         map(() => {
-          toast(`${name} was successfully moved.`, {
+          toast("File was moved successfully.", {
             autoClose: 3000,
             hideProgressBar: true,
             position: toast.POSITION.BOTTOM_RIGHT,
@@ -78,7 +78,7 @@ const removeFileByVersionEpic = (action$, state$, dependencies$) =>
 
       return from(masterHandle.deleteVersion(directory, version)).pipe(
         map(() => {
-          toast(`${name} was successfully deleted.`, {
+          toast(`${name} was deleted successfully.`, {
             autoClose: 3000,
             hideProgressBar: true,
             position: toast.POSITION.BOTTOM_RIGHT,
