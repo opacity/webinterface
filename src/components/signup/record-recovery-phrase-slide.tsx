@@ -63,6 +63,7 @@ const TermsOfService = styled.div`
 `;
 
 const CheckboxLabel = styled.label`
+  font-size: 16px;
   margin-top: -5px;
   color: ${props => props.theme.container.content};
 `;

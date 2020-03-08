@@ -235,7 +235,7 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
 
           {invoice && <>
             <OtherOptionsWrapper>
-              <OtherOptionsTitle>Other Ways To Send</OtherOptionsTitle>
+              <OtherOptionsTitle>Other Ways To Pay</OtherOptionsTitle>
               {Metamask.isInstalled && <>
                 <PaymentWrapper>
                   <MetamaskButton

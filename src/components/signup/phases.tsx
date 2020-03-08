@@ -16,7 +16,7 @@ const ICON_PAYMENT = require("../../assets/images/icon_signup_payment.svg");
 const ICON_CONFIRM = require("../../assets/images/icon_signup_confirm.svg");
 
 const SELECT_PLAN: PhaseType = {
-  title: "Select a plan",
+  title: "Select a Plan",
   icon: ICON_SELECT_PLAN,
   render: ({ isCustom }) => (
     <SelectPlanSlide isCustom={isCustom} />

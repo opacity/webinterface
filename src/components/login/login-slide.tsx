@@ -166,6 +166,7 @@ const OrRegister = styled.span`
 
 const ForgotPasswordLink = styled(Link)`
   flex-direction: row;
+  font-size: 16px;
   color: #778291;
 `;
 
@@ -201,7 +202,7 @@ const LoginOrRegisterSlide = ({ login, status, recoveryHandle }) => {
           </RecoverHandleContainer>
         )}
         <LoginContainer>
-          <Title>Sign in Opacity</Title>
+          <Title>Sign In to Your Account</Title>
           <Underline />
           <Label>Account Handle</Label>
           <Input
@@ -223,10 +224,10 @@ const LoginOrRegisterSlide = ({ login, status, recoveryHandle }) => {
               again.
             </ErrorMessage>
           )}
+          <LoginButton onClick={() => handleLogin()}>Log In</LoginButton>
           <ForgotPasswordLink to="/forgot-page">
-            Forgot account handle?
+            Forgot Account Handle?
           </ForgotPasswordLink>
-          <LoginButton onClick={() => handleLogin()}>Sign in</LoginButton>
           <OrRegister>or</OrRegister>
           <RegisterLink to="/sign-up">Create an account</RegisterLink>
         </LoginContainer>
