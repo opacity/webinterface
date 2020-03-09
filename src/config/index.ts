@@ -259,7 +259,7 @@ export const PLANS: PlanType[] = [
   {
     isCustom: false,
     borderColor: "#918DEA",
-    content: "Secure and access your files Anywhere",
+    content: "Secure and access your files anywhere",
     discountedUsdCost: 79.99,
     durationInMonths: 12,
     opqCost: 16,
