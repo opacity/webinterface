@@ -390,7 +390,6 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
             </PartnerLinkSecondary>
           </Wrapper>
         )}
-
         <Wrapper />
       </HeaderContainer>
       <Container>
