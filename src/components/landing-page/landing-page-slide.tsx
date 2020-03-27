@@ -23,7 +23,7 @@ const ICON_INFO_OPACITY = require("../../assets/images/info_opacity.svg");
 const ICON_INFO_BENEFIT = require("../../assets/images/info_benefit.svg");
 const ICON_INFO_PERSONAL = require("../../assets/images/info_personal.svg");
 const ICON_INFO_CRYPTOCURRENCY = require("../../assets/images/info_cryptocurrency.svg");
-const ICON_BOMB = require("../../assets/images/Atom-The-Bomb.png");
+const ICON_BOMB = require("../../assets/images/XIO.png");
 const ICON_FLO = require("../../assets/images/FLO.png");
 const ICON_QLC = require("../../assets/images/QLC.png");
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
@@ -77,7 +77,6 @@ const BuySubContainer = styled(SubContainer)`
 `;
 
 const RoadmapSubContainer = styled(SubContainer)`
-  padding: 100px;
   @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
     padding: 30px;
   }
@@ -391,9 +390,7 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
             </PartnerLinkSecondary>
           </Wrapper>
         )}
-        <Wrapper>
-          <VideoPlayer src={LANDING_PAGE_VIDEO} poster={VIDEO_POSTER} />
-        </Wrapper>
+
         <Wrapper />
       </HeaderContainer>
       <Container>
@@ -469,8 +466,8 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
               <PartnerIcon src={ICON_BOMB} />
             </Wrapper>
             <ButtonWrapper>
-              <PartnerLink href={"https://bombtoken.com/"}>
-                Visit BOMB
+              <PartnerLink href={"https://xio.network/startup/opacity/"}>
+                Visit XIO
               </PartnerLink>
             </ButtonWrapper>
           </Column>
