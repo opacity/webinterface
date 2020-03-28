@@ -7,12 +7,10 @@ import {
   HEADER_TYPES,
   MOBILE_WIDTH,
   LANDING_PAGE_MOBILE_WIDTH,
-  LANDING_PAGE_VIDEO,
   theme
 } from "../../config";
 import Footer from "../shared/footer";
 import Header from "../shared/header";
-import VideoPlayer from "../shared/video-player";
 
 const ICON_CREDIT = require("../../assets/images/credit.svg");
 const ICON_SHARE_FILE = require("../../assets/images/share_file.svg");
@@ -28,7 +26,6 @@ const ICON_FLO = require("../../assets/images/FLO.png");
 const ICON_QLC = require("../../assets/images/QLC.png");
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
 const ICON_MERCATOX = require("../../assets/images/mercatox.png");
-const VIDEO_POSTER = require("../../assets/images/video-poster.png");
 const ICON_ROADMAP = require("../../assets/images/roadmap.png");
 
 const ContainerWrapper = styled.div`
