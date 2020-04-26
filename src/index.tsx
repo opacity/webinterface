@@ -17,7 +17,7 @@ import LandingPage from "./components/landing-page";
 import Login from "./components/login";
 import Logout from "./components/logout";
 import ForgotPage from "./components/forgot-page";
-import { SignUp, Upgrade } from "./components/signup";
+import { SignUp, Upgrade, Renew } from "./components/signup";
 import ThankYou from "./components/signup/thank-you";
 import TeamPage from "./components/team-page";
 import StandsOut from "./components/stands-out";
@@ -54,6 +54,7 @@ const App = () => (
             <Route path="/sign-up" component={SignUp} />
             <Route path="/upgrade/:plan" component={Upgrade} />
             <Route path="/upgrade" component={Upgrade} />
+            <Route path="/renew" component={Renew} />
             <Route path="/thank-you" component={ThankYou} />
             <Route
               path="/custom-sign-up/:plan"

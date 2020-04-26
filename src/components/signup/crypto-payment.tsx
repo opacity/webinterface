@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider, keyframes } from "styled-components";
 import QRCode from "qrcode.react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -178,6 +178,10 @@ const Or = styled.span`
 
 const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
   const [isCopied, setIsCopied] = useState(false);
+
+  useEffect(() => {
+    console.log(storageLimit, cost, invoice)
+  }, [invoice, cost, storageLimit])
 
   let ethAddress;
 

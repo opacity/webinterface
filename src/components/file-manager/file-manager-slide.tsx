@@ -478,6 +478,9 @@ const FileManagerSlide = ({
                     Active until: {moment(expirationDate).format("MMM D, YYYY")}
                   </UsageInfo>
                   <UsageInfo>
+                    <Link to="/renew">Renew Your Account</Link>
+                  </UsageInfo>
+                  <UsageInfo>
                     <UpgradeButton to="/upgrade">Get More Storage</UpgradeButton>
                   </UsageInfo>
                 </UsageWrapper>
