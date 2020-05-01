@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import styled from "styled-components";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
-
 
 import metamaskActions from "../../redux/actions/metamask-actions";
 
@@ -19,7 +19,29 @@ const mapDispatchToProps = dispatch => ({
     dispatch(metamaskActions.createTransaction({ cost, ethAddress, gasPrice }))
 });
 
-const Renew = ({
+const BackButton = styled(Link)`
+  min-width: 120px;
+  height: 40px;
+  display: inline-flex;
+	align-items: center;
+	justify-content: center;
+  background-color: ${props => props.theme.button.background};
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.button.color};
+  text-align: center;
+  text-decoration: none;
+	padding: 0 10px;
+	margin: 40px 0;
+  border: none;
+  cursor: pointer;
+`;
+
+const RenewComponent = ({
 	masterHandle,
 	openMetamask
 }: {
@@ -67,11 +89,14 @@ const Renew = ({
 
 	if (error) {
 		return (
-			<>
-				<h2>Could not upgrade account</h2>
+			<div>
+				<h4>Could not upgrade account</h4>
 				<div>Check your internet connection, and make sure that your account is close to expiry.</div>
 				<div>{error.toString()}</div>
-			</>
+				<div>
+					<BackButton to="/file-manager">Go Back</BackButton>
+				</div>
+			</div>
 		)
 	}
 
@@ -92,4 +117,4 @@ const Renew = ({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Renew);
+)(RenewComponent);
