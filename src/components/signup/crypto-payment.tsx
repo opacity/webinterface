@@ -14,7 +14,7 @@ import Title from "./title";
 import MetamaskButton from "../shared/metamask-button";
 import OutboundLink from "../shared/outbound-link";
 import Spinner from "../shared/spinner";
-import Redeem from "./redeem";
+import Redeem, { storageLimitToCodeName } from "./redeem";
 
 const ICON_CLIPBOARD = require("../../assets/images/icon_clipboard.svg");
 
@@ -180,7 +180,7 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
   const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
-    console.log(storageLimit, cost, invoice)
+    console.log({ storageLimit, cost, invoice })
   }, [invoice, cost, storageLimit])
 
   let ethAddress;
@@ -248,10 +248,12 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
                 </PaymentWrapper>
                 <Or>or</Or>
               </>}
-              <PaymentWrapper>
-                <Redeem ethAddress={ethAddress} storageLimit={storageLimit} />
-              </PaymentWrapper>
-              <Or>or</Or>
+              { storageLimitToCodeName({ storageLimit }) && <>
+                <PaymentWrapper>
+                  <Redeem ethAddress={ethAddress} storageLimit={storageLimit} />
+                </PaymentWrapper>
+                <Or>or</Or>
+              </>}
               <PaymentWrapper>
                 <QRCodeWrapper>
                   <LabelQR>Scan QR code to pay</LabelQR>

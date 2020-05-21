@@ -8,6 +8,8 @@ import metamaskActions from "../../redux/actions/metamask-actions";
 import { MasterHandle } from "opaque";
 import SendPaymentSlide from "./send-payment-slide";
 
+import { formatGbs } from "../../helpers";
+
 const mapStateToProps = (state, props) => {
   return {
     masterHandle: state.authentication.masterHandle
@@ -108,7 +110,7 @@ const RenewComponent = ({
 		<SendPaymentSlide
 			invoice={invoice}
 			opqCost={invoice.cost}
-			storageLimit={accountInfo.storageLimit}
+			storageLimit={formatGbs(accountInfo.storageLimit)}
 			openMetamask={openMetamask}
 		/>
 	);

@@ -96,8 +96,10 @@ const storageLimitToCodeName = ({ storageLimit }: { storageLimit: string }) => {
       return "BOT";
     case "1 TB":
       return "1TB";
+    case "2 TB":
+      return "2TB";
     default:
-      return storageLimit.replace(/\s+/g, "");
+      return;
   }
 };
 
@@ -135,27 +137,32 @@ const Redeem = ({ ethAddress, storageLimit }: RedeemProps) => {
   };
 
   return (
-    <RedeemWrapper>
-      <InputWrapper>
-        <span>OPQ{storageLimitToCodeName({ storageLimit })}-</span>
-        <Input
-          statusType={statusType}
-          onChange={e => setCode(e.target.value)}
-        />
-      </InputWrapper>
-      { status &&
-        <StatusMessage statusType={statusType}>
-          {status}
-        </StatusMessage>
-      }
-      <RedeemButton
-        disabled={disabled}
-        onClick={() => redeemCode({ code, ethAddress, storageLimit })}
-      >
-        {buttonText}
-      </RedeemButton>
-    </RedeemWrapper>
+    storageLimitToCodeName({ storageLimit })
+      ? (
+        <RedeemWrapper>
+          <InputWrapper>
+            <span>OPQ{storageLimitToCodeName({ storageLimit })}-</span>
+            <Input
+              statusType={statusType}
+              onChange={e => setCode(e.target.value)}
+            />
+          </InputWrapper>
+          { status &&
+            <StatusMessage statusType={statusType}>
+              {status}
+            </StatusMessage>
+          }
+          <RedeemButton
+            disabled={disabled}
+            onClick={() => redeemCode({ code, ethAddress, storageLimit })}
+          >
+            {buttonText}
+          </RedeemButton>
+        </RedeemWrapper>
+      )
+      : null
   );
 };
 
 export default Redeem;
+export { storageLimitToCodeName }
