@@ -24,8 +24,8 @@ const ThankYou = withRouter(({ location }) => {
       <ScreenContainer
         title={
           plan
-            ? `Register on Opacity: ${plan.title} Plan ${plan.storageLimit}`
-            : "Register on Opacity"
+            ? `Thank you for registering. Enjoy your Opacity ${plan.title} ${plan.storageLimit} account!`
+            : "Choose your Opacity plan"
         }
       >
         <Breadcrumbs phases={SignupPhases} phase={SIGNUP_PHASES.CONFIRM_PAYMENT} />

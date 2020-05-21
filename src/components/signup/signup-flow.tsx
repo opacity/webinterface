@@ -73,8 +73,8 @@ const SignupFlow = ({
       <ScreenContainer
         title={
           plan
-            ? `Register on Opacity: ${plan.title} Plan ${plan.storageLimit}`
-            : "Register on Opacity"
+            ? `Register Your Plan: Opacity ${plan.title} ${plan.storageLimit}`
+            : "Choose your Opacity plan"
         }
       >
         <Breadcrumbs

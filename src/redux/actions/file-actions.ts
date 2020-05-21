@@ -95,9 +95,9 @@ const ACTIONS = Object.freeze({
     type: DOWNLOAD_FILES,
     payload: { files } // [{ handle }]
   }),
-  uploadFiles: ({ files, directory, masterHandle, isDirectory }) => ({
+  uploadFiles: ({ files, directory, masterHandle }) => ({
     type: UPLOAD_FILES,
-    payload: { files, directory, masterHandle, isDirectory }
+    payload: { files, directory, masterHandle }
   }),
   uploadFile: ({ file, directory, masterHandle }) => ({
     type: UPLOAD_FILE,
