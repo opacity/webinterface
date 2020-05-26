@@ -321,6 +321,29 @@ const UpgradeButton = styled(Link)`
   height: 40px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  background-color: ${props => props.theme.button.background};
+  font-size: 16px;
+  font-weight: bold;
+  font-style: ${props => props.theme.fontStyle};
+  font-stretch: ${props => props.theme.fontStretch};
+  line-height: ${props => props.theme.lineHeight};
+  letter-spacing: ${props => props.theme.letterSpacing};
+  color: ${props => props.theme.button.color};
+  text-align: center;
+  text-decoration: none;
+  padding: 0 10px;
+  margin-left: 10px;
+  border: none;
+  cursor: pointer;
+`;
+
+const RenewButton = styled(Link)`
+  min-width: 120px
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: ${props => props.theme.button.background};
   font-size: 16px;
   font-weight: bold;
@@ -478,6 +501,10 @@ const FileManagerSlide = ({
                     Active until: {moment(expirationDate).format("MMM D, YYYY")}
                   </UsageInfo>
                   <UsageInfo>
+                    {/* Only show if expiration date is within 180 days */}
+                    { +new Date(expirationDate) - Date.now() < (180 * 24 * 60 * 60 * 1000) &&
+                      <RenewButton to="/renew">Renew Your Account</RenewButton>
+                    }
                     <UpgradeButton to="/upgrade">Get More Storage</UpgradeButton>
                   </UsageInfo>
                 </UsageWrapper>

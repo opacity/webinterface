@@ -123,18 +123,13 @@ const SEND_PAYMENT: PhaseType = {
 const SEND_UPGRADE_PAYMENT: PhaseType = {
   title: "Send Payment",
   icon: ICON_PAYMENT,
-  render: ({ masterHandle, plan, fiatPaymentError, fiatPaymentStatus, invoice, openMetamask, payFiat }) => (
+  render: ({ plan, invoice, openMetamask }) => (
     invoice
     ? (
       <SendPaymentSlide
         opqCost={invoice.opqInvoice.cost}
-        fiatPaymentError={fiatPaymentError}
-        fiatPaymentStatus={fiatPaymentStatus}
         invoice={invoice}
         openMetamask={openMetamask}
-        payFiat={stripeToken =>
-          payFiat({ masterHandle, stripeToken, timestamp: Date.now() })
-        }
         storageLimit={plan.storageLimit}
         usdCost={invoice.usdInvoice}
       />
