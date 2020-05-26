@@ -211,9 +211,8 @@ const StorageTitle = styled.p`
 const NoFilesContainer = styled.div``;
 
 const NoFiles = styled.p`
-  font-size: 24px;
+  font-size: 16px;
   font-weight: bold;
-  font-style: italic;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
