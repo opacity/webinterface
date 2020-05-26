@@ -675,11 +675,14 @@ const FileManagerSlide = ({
               {!isLoading && !folders.length && !files.length && (
                 <NoFilesContainer>
                   <NoFiles>
-                    Your account is empty! Upload files or folders by clicking the
-                    upload button on the top right or simply drag and drop!
+                    There are no items in this folder.
+
+                    Drag files and folders here to upload, or
+                    click the upload button on the top right
+                    to browse files from your computer.
                   </NoFiles>
                   <NoFilesMobile>
-                    Your account is empty! Upload files by clicking the
+                    There are no items in this folder. Upload files by clicking the
                     upload button on the bottom right.
                   </NoFilesMobile>
                 </NoFilesContainer>

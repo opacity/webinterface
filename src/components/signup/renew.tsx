@@ -58,7 +58,8 @@ const RenewComponent = ({
 
   useEffect(() => {
     if (masterHandle) {
-      return masterHandle.getAccountInfo().then(res => setAccountInfo(res));
+      masterHandle.getAccountInfo().then(res => setAccountInfo(res))
+        .catch(setError);
     }
   }, [masterHandle]);
 
