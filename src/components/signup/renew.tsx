@@ -44,79 +44,79 @@ const BackButton = styled(Link)`
 `;
 
 const RenewComponent = ({
-	masterHandle,
-	openMetamask
+  masterHandle,
+  openMetamask
 }: {
-	masterHandle: MasterHandle,
-	openMetamask
+  masterHandle: MasterHandle,
+  openMetamask
 }) => {
-	const [accountInfo, setAccountInfo] = useState<any>()
-	const [invoice, setInvoice] = useState<any>()
-	const [waitForPayment, setWaitForPayment] = useState<any>()
-	const [success, setSuccess] = useState(false)
-	const [error, setError] = useState<Error>()
+  const [accountInfo, setAccountInfo] = useState<any>();
+  const [invoice, setInvoice] = useState<any>();
+  const [waitForPayment, setWaitForPayment] = useState<any>();
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<Error>();
 
-	useEffect(() => {
-		if (masterHandle) {
-			masterHandle.getAccountInfo().then((res) => setAccountInfo(res))
-		}
-	}, [masterHandle])
+  useEffect(() => {
+    if (masterHandle) {
+      return masterHandle.getAccountInfo().then(res => setAccountInfo(res));
+    }
+  }, [masterHandle]);
 
-	useEffect(() => {
-		if (masterHandle) {
-			masterHandle.renew()
-				.then(({ data: { opqInvoice: invoice }, waitForPayment }) => {
-					setWaitForPayment(waitForPayment)
-					setInvoice(invoice)
-				})
-				.catch(setError)
-		}
-	}, [masterHandle, accountInfo])
+  useEffect(() => {
+    if (masterHandle) {
+      masterHandle.renew()
+        .then(({ data: { opqInvoice: invoice }, waitForPayment }) => {
+          setWaitForPayment(waitForPayment);
+          setInvoice(invoice);
+        })
+        .catch(setError);
+    }
+  }, [masterHandle, accountInfo]);
 
-	useEffect(() => {
-		if (waitForPayment) {
-			waitForPayment
-				.then(() => { setSuccess(true) })
-				.catch(setError)
-		}
-	}, [waitForPayment])
+  useEffect(() => {
+    if (waitForPayment) {
+      waitForPayment
+        .then(() => { setSuccess(true); })
+        .catch(setError);
+    }
+  }, [waitForPayment]);
 
-	if (success) {
-		return <Redirect to="/file-manager" />;
-	}
+  if (success) {
+    return <Redirect to="/file-manager" />;
+  }
 
-	if (!masterHandle) {
-		return <Redirect to="/login" />;
-	}
+  if (!masterHandle) {
+    return <Redirect to="/login" />;
+  }
 
-	if (error) {
-		return (
-			<div>
-				<h4>Could not upgrade account</h4>
-				<div>Check your internet connection, and make sure that your account is close to expiry.</div>
-				<div>{error.toString()}</div>
-				<div>
-					<BackButton to="/file-manager">Go Back</BackButton>
-				</div>
-			</div>
-		)
-	}
+  if (error) {
+    return (
+      <div>
+        <h4>Could not upgrade account</h4>
+        <div>Check your internet connection, and make sure that your account is close to expiry.</div>
+        <div>{error.toString()}</div>
+        <div>
+          <BackButton to="/file-manager">Go Back</BackButton>
+        </div>
+      </div>
+    );
+  }
 
-	if (!invoice || !accountInfo) {
-		return <div>Loading...</div>;
-	}
+  if (!invoice || !accountInfo) {
+    return <div>Loading...</div>;
+  }
 
-	return (
-		<SendPaymentSlide
-			invoice={invoice}
-			opqCost={invoice.cost}
-			storageLimit={formatGbs(accountInfo.storageLimit)}
-			openMetamask={openMetamask}
-		/>
-	);
+  return (
+    <SendPaymentSlide
+      invoice={invoice}
+      opqCost={invoice.cost}
+      storageLimit={formatGbs(accountInfo.storageLimit)}
+      openMetamask={openMetamask}
+    />
+  );
 };
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(RenewComponent);

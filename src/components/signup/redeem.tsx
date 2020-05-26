@@ -165,4 +165,4 @@ const Redeem = ({ ethAddress, storageLimit }: RedeemProps) => {
 };
 
 export default Redeem;
-export { storageLimitToCodeName }
+export { storageLimitToCodeName };

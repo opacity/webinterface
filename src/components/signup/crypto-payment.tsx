@@ -180,8 +180,8 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
   const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
-    console.log({ storageLimit, cost, invoice })
-  }, [invoice, cost, storageLimit])
+    console.log({ storageLimit, cost, invoice });
+  }, [invoice, cost, storageLimit]);
 
   let ethAddress;
 
