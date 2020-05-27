@@ -71,7 +71,7 @@ const SendPaymentSlide = ({
     }
   };
 
-  const includeFiat = useMemo(() => payFiat && usdCost, [payFiat, usdCost])
+  const includeFiat = useMemo(() => payFiat && usdCost, [payFiat, usdCost]);
 
   return (
     <ThemeProvider theme={theme}>

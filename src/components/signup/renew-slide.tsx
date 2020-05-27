@@ -16,7 +16,7 @@ const RenewSlide = () => {
     <Container>
       <Header type={HEADER_TYPES.EMPTY} />
       <ScreenContainer title="Renew Your Opacity account">
-				<RenewComponent />
+        <RenewComponent />
       </ScreenContainer>
     </Container>
   );

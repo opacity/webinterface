@@ -210,10 +210,9 @@ const StorageTitle = styled.p`
 
 const NoFilesContainer = styled.div``;
 
-const NoFiles = styled.p`
-  font-size: 24px;
+const NoFilesHeader = styled.p`
+  font-size: 16px;
   font-weight: bold;
-  font-style: italic;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
@@ -225,7 +224,20 @@ const NoFiles = styled.p`
   }
 `;
 
-const NoFilesMobile = styled(NoFiles)`
+const NoFilesParagraph = styled.p`
+  font-size: 16px;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  margin-top: 20px;
+  opacity: 0.8;
+  @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
+    display: none;
+  }
+`;
+
+const NoFilesMobile = styled(NoFilesHeader)`
   display: none;
   @media (max-width: ${HEADER_MOBILE_WIDTH}px) {
     display: block;
@@ -674,12 +686,16 @@ const FileManagerSlide = ({
               )}
               {!isLoading && !folders.length && !files.length && (
                 <NoFilesContainer>
-                  <NoFiles>
-                    Your account is empty! Upload files or folders by clicking the
-                    upload button on the top right or simply drag and drop!
-                  </NoFiles>
+                  <NoFilesHeader>
+                    There are no items in this folder.
+                  </NoFilesHeader>
+                  <NoFilesParagraph>
+                    Drag files and folders here to upload, or
+                    click the upload button on the top right
+                    to browse files from your computer.
+                  </NoFilesParagraph>
                   <NoFilesMobile>
-                    Your account is empty! Upload files by clicking the
+                    There are no items in this folder. Upload files by clicking the
                     upload button on the bottom right.
                   </NoFilesMobile>
                 </NoFilesContainer>
