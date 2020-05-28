@@ -204,8 +204,9 @@ const LoginOrRegisterSlide = ({ login, status, recoveryHandle }) => {
         <LoginContainer>
           <Title>Sign In to Your Account</Title>
           <Underline />
-          <Label>Account Handle</Label>
+          <Label htmlFor="opacity-login-account-handle">Account Handle</Label>
           <Input
+            id="opacity-login-account-handle"
             value={privateKey}
             onChange={e => handlePrivateKey(e.target.value)}
             hasError={
