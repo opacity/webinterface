@@ -12,7 +12,8 @@ import {
   DESKTOP_WIDTH,
   HEADER_MOBILE_WIDTH,
   FILE_MAX_SIZE,
-  theme
+  theme,
+  version
 } from "../../config";
 import { formatGbs } from "../../helpers";
 
@@ -503,7 +504,10 @@ const FileManagerSlide = ({
             </LeftSideNav>
             <TableContainer>
               <TitleWrapper>
-                <Title>Opacity File Manager</Title>
+                <div>
+                  <Title>Opacity File Manager</Title>
+                  <span>{version}</span>
+                </div>
                 <UsageWrapper>
                   <UsageInfo>
                     {formatGbs(storageUsed)} out of {formatGbs(storageLimit)}{" "}
@@ -514,7 +518,7 @@ const FileManagerSlide = ({
                   </UsageInfo>
                   <UsageInfo>
                     {/* Only show if expiration date is within 180 days */}
-                    { +new Date(expirationDate) - Date.now() < (180 * 24 * 60 * 60 * 1000) &&
+                    { +new Date(expirationDate) - Date.now() < (3 * 180 * 24 * 60 * 60 * 1000) &&
                       <RenewButton to="/renew">Renew Your Account</RenewButton>
                     }
                     <UpgradeButton to="/upgrade">Get More Storage</UpgradeButton>
