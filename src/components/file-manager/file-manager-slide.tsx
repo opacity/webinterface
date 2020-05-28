@@ -506,7 +506,7 @@ const FileManagerSlide = ({
               <TitleWrapper>
                 <div>
                   <Title>Opacity File Manager</Title>
-                  <span>{ version }</span>
+                  <span>{version}</span>
                 </div>
                 <UsageWrapper>
                   <UsageInfo>

@@ -1,4 +1,4 @@
-export const version = "v1.3.0"
+export const version = "v1.3.0";
 
 export const IS_DEV = process.env.NODE_ENV === "development";
 export const IS_BETA_DEV = process.env.NODE_ENV === "development-beta";
