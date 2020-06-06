@@ -24,9 +24,9 @@ const loginEpic = (action$, state$, dependencies$) =>
         }
       );
 
-      return from(masterHandle.isPaid()).pipe(
-        flatMap(isPaid => {
-          if (isPaid) {
+      return from(Promise.all([masterHandle.isPaid(), masterHandle.isExpired()])).pipe(
+        flatMap(([isPaid, isExpired]) => {
+          if (isPaid || isExpired) {
             return from(masterHandle.login()).pipe(
               flatMap(() => [
                 authenticationActions.loginSuccess({
