@@ -556,34 +556,36 @@ const FileManagerSlide = ({
                               : "file"
                           }`}
                     </Button>
-                    <Button
-                      width="auto"
-                      padding="0 10px"
-                      margin="0 5px 0"
-                      disabled={filemanagerFiles.length === 0}
-                      onClick={() => {
-                        confirm(
-                          "Are you sure you want to delete these files?"
-                        ) &&
-                          removeFiles({
-                            files: filemanagerFiles,
-                            masterHandle,
-                            directory
-                          });
-                        setFilemanagerFiles([]);
-                      }}
-                    >
-                      {filemanagerFiles.length === 0
-                        ? "Delete"
-                        : `Delete ${
-                            filemanagerFiles.length > 1
-                              ? `${filemanagerFiles.length} files`
-                              : "file"
-                          }`}
-                    </Button>
+                    {!isExpired && (
+                      <Button
+                        width="auto"
+                        padding="0 10px"
+                        margin="0 5px 0"
+                        disabled={filemanagerFiles.length === 0}
+                        onClick={() => {
+                          confirm(
+                            "Are you sure you want to delete these files?"
+                          ) &&
+                            removeFiles({
+                              files: filemanagerFiles,
+                              masterHandle,
+                              directory
+                            });
+                          setFilemanagerFiles([]);
+                        }}
+                      >
+                        {filemanagerFiles.length === 0
+                          ? "Delete"
+                          : `Delete ${
+                              filemanagerFiles.length > 1
+                                ? `${filemanagerFiles.length} files`
+                                : "file"
+                            }`}
+                      </Button>
+                    )}
                   </ButtonGroup>
                   <ButtonGroup>
-                    { !isExpired &&
+                    {!isExpired &&
                       <>
                         <FolderButton
                           onClick={() => setShowCreateFolder(!showCreateFolder)}
@@ -677,6 +679,7 @@ const FileManagerSlide = ({
                         setRenameType={setRenameType}
                         setShowRenameModal={setShowRenameModal}
                         setFolderModal={setFolderModal}
+                        showModifyingActions={!isExpired}
                       />
                     ))}
                     {orderedFiles.map(
@@ -696,6 +699,7 @@ const FileManagerSlide = ({
                           selectFile={selectFile}
                           deselectFile={deselectFile}
                           setFileModal={setFileModal}
+                          showModifyingActions={!isExpired}
                         />
                       )
                     )}

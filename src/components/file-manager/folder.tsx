@@ -85,7 +85,8 @@ const Folder = ({
   setRenameType,
   setShowRenameModal,
   setFolderModal,
-  history
+  history,
+  showModifyingActions
 }) => {
   const { name, location } = folder;
   const ref = useRef<any>(null);
@@ -128,30 +129,34 @@ const Folder = ({
       <Td />
       <Td />
       <Td>
-        <ActionButton
-          onClick={e => {
-            e.stopPropagation();
-            confirm("Do you really want to delete this folder?") &&
-              removeFolder({ name, folder, directory, masterHandle });
-          }}
-        >
-          <Tooltip content="Delete folder">
-            <TableIcon src={ICON_REMOVE} />
-          </Tooltip>
-        </ActionButton>
-        <ActionButton
-          onClick={e => [
-            e.stopPropagation(),
-            setOldName(name),
-            setRenameType("folder"),
-            setShowRenameModal(true),
-            setFolderModal(folder)
-          ]}
-        >
-          <Tooltip content="Rename folder">
-            <TableIcon src={ICON_RENAME} />
-          </Tooltip>
-        </ActionButton>
+        {showModifyingActions && (
+          <>
+            <ActionButton
+              onClick={e => {
+                e.stopPropagation();
+                confirm("Do you really want to delete this folder?") &&
+                  removeFolder({ name, folder, directory, masterHandle });
+              }}
+            >
+              <Tooltip content="Delete folder">
+                <TableIcon src={ICON_REMOVE} />
+              </Tooltip>
+            </ActionButton>
+            <ActionButton
+              onClick={e => [
+                e.stopPropagation(),
+                setOldName(name),
+                setRenameType("folder"),
+                setShowRenameModal(true),
+                setFolderModal(folder)
+              ]}
+            >
+              <Tooltip content="Rename folder">
+                <TableIcon src={ICON_RENAME} />
+              </Tooltip>
+            </ActionButton>
+          </>
+        )}
       </Td>
     </TrPointer>
   );
