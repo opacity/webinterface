@@ -95,7 +95,8 @@ const File = ({
   filemanagerFiles,
   selectFile,
   deselectFile,
-  setFileModal
+  setFileModal,
+  showModifyingActions
 }) => {
   const { name, handle, version, size, created } = file;
   const ref = useRef<any>(null);
@@ -163,34 +164,38 @@ const File = ({
             <TableIcon src={ICON_DOWNLOAD} />
           </Tooltip>
         </ActionButton>
-        <ActionButton
-          onClick={() =>
-            confirm("Do you really want to delete this file?") &&
-            removeFileByVersion({
-              name,
-              version,
-              directory,
-              masterHandle
-            })
-          }
-        >
-          <Tooltip content="Delete file">
-            <TableIcon src={ICON_REMOVE} />
-          </Tooltip>
-        </ActionButton>
-        <ActionButton
-          onClick={e => [
-            e.stopPropagation(),
-            setOldName(name),
-            setRenameType("file"),
-            setShowRenameModal(true),
-            setFileModal(file)
-          ]}
-        >
-          <Tooltip content="Rename file">
-            <TableIcon src={ICON_RENAME} />
-          </Tooltip>
-        </ActionButton>
+        {showModifyingActions && (
+          <>
+            <ActionButton
+              onClick={() =>
+                confirm("Do you really want to delete this file?") &&
+                removeFileByVersion({
+                  name,
+                  version,
+                  directory,
+                  masterHandle
+                })
+              }
+            >
+              <Tooltip content="Delete file">
+                <TableIcon src={ICON_REMOVE} />
+              </Tooltip>
+            </ActionButton>
+            <ActionButton
+              onClick={e => [
+                e.stopPropagation(),
+                setOldName(name),
+                setRenameType("file"),
+                setShowRenameModal(true),
+                setFileModal(file)
+              ]}
+            >
+              <Tooltip content="Rename file">
+                <TableIcon src={ICON_RENAME} />
+              </Tooltip>
+            </ActionButton>
+          </>
+        )}
       </Td>
     </Tr>
   );

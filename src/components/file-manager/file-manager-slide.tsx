@@ -372,6 +372,10 @@ const RenewButton = styled(Link)`
   cursor: pointer;
 `;
 
+const ExpiredText = styled.span`
+  color: red;
+`;
+
 const TableHeader = ({ param, title, sortBy, paramArrow }) => {
   const [order, setOrder] = useState("desc");
 
@@ -427,6 +431,7 @@ const FileManagerSlide = ({
   const [renameType, setRenameType] = useState("");
   const [fileModal, setFileModal] = useState<IFile | null>(null);
   const [folderModal, setFolderModal] = useState<IFolder | null>(null);
+  const [isExpired, setIsExpired] = useState(false);
 
   const onDrop = useCallback(files => {
     uploadFiles({ files, masterHandle, directory });
@@ -480,6 +485,8 @@ const FileManagerSlide = ({
     setOrderedFiles(_.orderBy(files, defaultOrder, "desc"));
     setOrderedFolders(_.orderBy(folders, defaultOrder, "desc"));
     setParam(defaultOrder);
+
+    masterHandle.isExpired().then(expired => setIsExpired(expired));
   }, [files, folders]);
 
   useEffect(() => {
@@ -514,14 +521,17 @@ const FileManagerSlide = ({
                     used
                   </UsageInfo>
                   <UsageInfo>
-                    Active until: {moment(expirationDate).format("MMM D, YYYY")}
+                    { isExpired
+                      ? <ExpiredText>Expired on:</ExpiredText>
+                      : "Active until:"
+                    } {moment(expirationDate).format("MMM D, YYYY")}
                   </UsageInfo>
                   <UsageInfo>
                     {/* Only show if expiration date is within 180 days */}
-                    { +new Date(expirationDate) - Date.now() < (180 * 24 * 60 * 60 * 1000) &&
+                    { (isExpired || (expirationDate && +new Date(expirationDate) - Date.now() < (180 * 24 * 60 * 60 * 1000))) &&
                       <RenewButton to="/renew">Renew Your Account</RenewButton>
                     }
-                    <UpgradeButton to="/upgrade">Get More Storage</UpgradeButton>
+                    {!isExpired && <UpgradeButton to="/upgrade">Get More Storage</UpgradeButton>}
                   </UsageInfo>
                 </UsageWrapper>
               </TitleWrapper>
@@ -546,67 +556,73 @@ const FileManagerSlide = ({
                               : "file"
                           }`}
                     </Button>
-                    <Button
-                      width="auto"
-                      padding="0 10px"
-                      margin="0 5px 0"
-                      disabled={filemanagerFiles.length === 0}
-                      onClick={() => {
-                        confirm(
-                          "Are you sure you want to delete these files?"
-                        ) &&
-                          removeFiles({
-                            files: filemanagerFiles,
-                            masterHandle,
-                            directory
-                          });
-                        setFilemanagerFiles([]);
-                      }}
-                    >
-                      {filemanagerFiles.length === 0
-                        ? "Delete"
-                        : `Delete ${
-                            filemanagerFiles.length > 1
-                              ? `${filemanagerFiles.length} files`
-                              : "file"
-                          }`}
-                    </Button>
+                    {!isExpired && (
+                      <Button
+                        width="auto"
+                        padding="0 10px"
+                        margin="0 5px 0"
+                        disabled={filemanagerFiles.length === 0}
+                        onClick={() => {
+                          confirm(
+                            "Are you sure you want to delete these files?"
+                          ) &&
+                            removeFiles({
+                              files: filemanagerFiles,
+                              masterHandle,
+                              directory
+                            });
+                          setFilemanagerFiles([]);
+                        }}
+                      >
+                        {filemanagerFiles.length === 0
+                          ? "Delete"
+                          : `Delete ${
+                              filemanagerFiles.length > 1
+                                ? `${filemanagerFiles.length} files`
+                                : "file"
+                            }`}
+                      </Button>
+                    )}
                   </ButtonGroup>
                   <ButtonGroup>
-                    <FolderButton
-                      onClick={() => setShowCreateFolder(!showCreateFolder)}
-                    >
-                      New Folder
-                    </FolderButton>
-                    <UploadButton
-                      name="Upload Folder"
-                      isDirectory={true}
-                      onSelected={files =>
-                        uploadFiles({
-                          files,
-                          masterHandle,
-                          directory
-                        })
-                      }
-                    />
-                    <UploadButton
-                      name="Upload File"
-                      isDirectory={false}
-                      onSelected={files =>
-                        uploadFiles({
-                          files,
-                          masterHandle,
-                          directory
-                        })
-                      }
-                    />
-                    <FolderModal
-                      isOpen={!!showCreateFolder}
-                      close={() => setShowCreateFolder(false)}
-                      createFolder={name =>
-                        prepareCreateFolder(masterHandle, directory, name)
-                      }
-                    />
+                    {!isExpired &&
+                      <>
+                        <FolderButton
+                          onClick={() => setShowCreateFolder(!showCreateFolder)}
+                        >
+                          New Folder
+                        </FolderButton>
+                        <UploadButton
+                          name="Upload Folder"
+                          isDirectory={true}
+                          onSelected={files =>
+                            uploadFiles({
+                              files,
+                              masterHandle,
+                              directory
+                            })
+                          }
+                        />
+                        <UploadButton
+                          name="Upload File"
+                          isDirectory={false}
+                          onSelected={files =>
+                            uploadFiles({
+                              files,
+                              masterHandle,
+                              directory
+                            })
+                          }
+                        />
+                        <FolderModal
+                          isOpen={!!showCreateFolder}
+                          close={() => setShowCreateFolder(false)}
+                          createFolder={name =>
+                            prepareCreateFolder(masterHandle, directory, name)
+                          }
+                        />
+                      </>
+                    }
                   </ButtonGroup>
                 </ButtonWrapper>
               </TopActionsWrapper>
@@ -663,6 +679,7 @@ const FileManagerSlide = ({
                         setRenameType={setRenameType}
                         setShowRenameModal={setShowRenameModal}
                         setFolderModal={setFolderModal}
+                        showModifyingActions={!isExpired}
                       />
                     ))}
                     {orderedFiles.map(
@@ -682,6 +699,7 @@ const FileManagerSlide = ({
                           selectFile={selectFile}
                           deselectFile={deselectFile}
                           setFileModal={setFileModal}
+                          showModifyingActions={!isExpired}
                         />
                       )
                     )}
@@ -704,21 +722,25 @@ const FileManagerSlide = ({
                   </NoFilesMobile>
                 </NoFilesContainer>
               )}
-              <UploadMobileButton
-                onSelected={files =>
-                  uploadFiles({
-                    files,
-                    directory,
-                    masterHandle,
-                    isDirectory: false
-                  })
-                }
-              />
-              <FolderMobileButton
-                onClick={() => setShowCreateFolder(!showCreateFolder)}
-              >
-                <FolderMobileButtonIcon src={ICON_FOLDER_ADD} />
-              </FolderMobileButton>
+              { !isExpired &&
+                <>
+                  <UploadMobileButton
+                    onSelected={files =>
+                      uploadFiles({
+                        files,
+                        directory,
+                        masterHandle,
+                        isDirectory: false
+                      })
+                    }
+                  />
+                  <FolderMobileButton
+                    onClick={() => setShowCreateFolder(!showCreateFolder)}
+                  >
+                    <FolderMobileButtonIcon src={ICON_FOLDER_ADD} />
+                  </FolderMobileButton>
+                </>
+              }
             </TableContainer>
           </Contents>
           <ToastContainer
