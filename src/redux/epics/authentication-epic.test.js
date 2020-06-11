@@ -14,7 +14,8 @@ jest.mock("opaque", () => ({
 test("loginEpic", done => {
   const masterHandle = {
     isPaid: jest.fn().mockResolvedValue(true),
-    login: jest.fn().mockResolvedValue()
+    login: jest.fn().mockResolvedValue(),
+    isExpired: jest.fn().mockResolvedValue()
   };
 
   MasterHandle.mockImplementation(() => masterHandle);
