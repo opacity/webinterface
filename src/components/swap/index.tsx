@@ -5,12 +5,12 @@ import {
   isInstalled,
   approveTokens,
   swapTokens,
-  getTokenBalance,
-} from "./swap"
+  getTokenBalance
+} from "./swap";
 
 import {
-	HEADER_TYPES,
-	DESKTOP_WIDTH,
+  HEADER_TYPES,
+  DESKTOP_WIDTH,
   theme
 } from "../../config";
 
@@ -31,54 +31,54 @@ const SwapContainer = styled.div`
 `;
 
 const Swap = () => {
-  const [balance, setBalance] = useState<string>()
-  const [balanceError, setBalanceError] = useState<Error>()
+  const [balance, setBalance] = useState<string>();
+  const [balanceError, setBalanceError] = useState<Error>();
 
   useEffect(() => {
     getTokenBalance()
-      .then((b) => {
-        setBalance(b.toString(10))
+      .then(b => {
+        setBalance(b.toString(10));
       })
-      .catch((err) => {
-        setBalanceError(err)
-      })
-  }, [])
+      .catch(err => {
+        setBalanceError(err);
+      });
+  }, []);
 
-  const [approved, setApproved] = useState(false)
-  const [approvalPending, setApprovalPending] = useState(false)
-  const [approvalError, setApprovalError] = useState<Error>()
+  const [approved, setApproved] = useState(false);
+  const [approvalPending, setApprovalPending] = useState(false);
+  const [approvalError, setApprovalError] = useState<Error>();
 
   const approve = () => {
-    setApprovalPending(true)
+    setApprovalPending(true);
 
     approveTokens()
       .then(() => {
-        setApproved(true)
-        setApprovalPending(false)
+        setApproved(true);
+        setApprovalPending(false);
       })
-      .catch((err) => {
-        setApprovalError(err)
-        setApprovalPending(false)
-      })
-  }
+      .catch(err => {
+        setApprovalError(err);
+        setApprovalPending(false);
+      });
+  };
 
-  const [swapped, setSwapped] = useState(false)
-  const [swapPending, setSwapPending] = useState(false)
-  const [swapError, setSwapError] = useState<Error>()
+  const [swapped, setSwapped] = useState(false);
+  const [swapPending, setSwapPending] = useState(false);
+  const [swapError, setSwapError] = useState<Error>();
 
   const swap = () => {
-    setSwapPending(true)
+    setSwapPending(true);
 
     swapTokens()
       .then(() => {
-        setSwapped(true)
-        setSwapPending(false)
+        setSwapped(true);
+        setSwapPending(false);
       })
-      .catch((err) => {
-        setSwapError(err)
-        setSwapPending(false)
-      })
-  }
+      .catch(err => {
+        setSwapError(err);
+        setSwapPending(false);
+      });
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -114,11 +114,11 @@ const Swap = () => {
                         The tokens will remain in your account until you press the swap button.
                       </p>
                       <div>
-                        <button onClick={ approve } disabled={ approvalPending || approved }>Approve</button>
-                        { approved && <span style={{ fontSize: "1.5rem", color: "green" }}>✓</span> }
+                        <button onClick={approve} disabled={approvalPending || approved}>Approve</button>
+                        {approved && <span style={{ fontSize: "1.5rem", color: "green" }}>✓</span>}
                       </div>
-                      { approvalPending && <div><progress></progress></div> }
-                      { approvalError && <pre>{approvalError.name}: {approvalError.message}</pre> }
+                      {approvalPending && <div><progress /></div>}
+                      {approvalError && <pre>{approvalError.name}: {approvalError.message}</pre>}
                     </div>
                     <div>
                       <h2>Step 2: Swap</h2>
@@ -127,11 +127,11 @@ const Swap = () => {
                         OPCT tokens will then be deposited into your account.
                       </p>
                       <div>
-                        <button onClick={ swap } disabled={ !approved || swapPending || swapped }>Swap</button>
-                        { swapped && <span style={{ fontSize: "1.5rem", color: "green" }}>✓</span> }
+                        <button onClick={swap} disabled={!approved || swapPending || swapped}>Swap</button>
+                        {swapped && <span style={{ fontSize: "1.5rem", color: "green" }}>✓</span>}
                       </div>
-                      { swapPending && <div><progress></progress></div> }
-                      { swapError && <pre>{swapError.name}: {swapError.message}</pre> }
+                      {swapPending && <div><progress /></div>}
+                      {swapError && <pre>{swapError.name}: {swapError.message}</pre>}
                     </div>
                   </>
                 )
