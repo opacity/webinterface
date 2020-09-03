@@ -23,6 +23,7 @@ import TeamPage from "./components/team-page";
 import StandsOut from "./components/stands-out";
 import FileManager from "./components/file-manager";
 import SharePage from "./components/share-page";
+import Swap from "./components/swap";
 
 import GoogleTagManager from "./components/shared/google-tag-manager";
 import ErrorPage from "./components/error-page";
@@ -55,6 +56,7 @@ const App = () => (
             <Route path="/upgrade/:plan" component={Upgrade} />
             <Route path="/upgrade" component={Upgrade} />
             <Route path="/renew" component={Renew} />
+            <Route path="/swap" component={Swap} />
             <Route path="/thank-you" component={ThankYou} />
             <Route
               path="/custom-sign-up/:plan"
