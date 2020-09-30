@@ -5,7 +5,7 @@ import OPQTokenABI from "./contracts/OPQToken.abi.json";
 import OPCTSwapABI from "./contracts/OPCTSwap.abi.json";
 
 const OPQ_TOKEN_CONTRACT_ADDRESS = "0x081F749Bf227B865F818A4FE29e27fD3532aD3e4";
-const OPCT_SWAP_CONTRACT_ADDRESS = "0x8fc7Bb061B360757aa8DB5F3767b0c44f53e3e84";
+const OPCT_SWAP_CONTRACT_ADDRESS = "0xc859F707Fc343DB6F6Ec2b85a5AE3816955f6dC1";
 
 declare global {
 interface Window {
