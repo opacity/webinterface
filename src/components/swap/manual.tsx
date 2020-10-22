@@ -12,8 +12,7 @@ import ScreenContainer from "../shared/screen-container";
 import OPQTokenABI from "./contracts/OPQToken.abi.json";
 import OPCTSwapABI from "./contracts/OPCTSwap.abi.json";
 
-import { OPQ_TOKEN_CONTRACT_ADDRESS } from "./swap";
-import { OPCT_SWAP_CONTRACT_ADDRESS } from "./swap";
+import { OPQ_TOKEN_CONTRACT_ADDRESS, OPCT_SWAP_CONTRACT_ADDRESS } from "./swap";
 
 const Container = styled.div`
   width: 100%;
@@ -44,30 +43,31 @@ const StyledDetails = styled.details`
 		padding: 4px 16px 8px 16px;
 		margin: 0 -8px;
 	}
-`
+`;
 
 const ReadonlyPreCode = ({ children, ...props }) => {
-	return (
-		<pre style={{ whiteSpace: "pre-wrap", overflow: "auto" }} {...props}>
-			<code>
-				<div
-					contentEditable
-					onCut={(e) => e.preventDefault()}
-					onPaste={(e) => e.preventDefault()}
-					onBeforeInput={(e) => e.preventDefault()}
-					onKeyDown={(e) => ["Backspace", "Delete"].includes(e.key) && e.preventDefault()}
-				>
-					{children}
-				</div>
-			</code>
-		</pre>
-	)
-}
+  return (
+    <pre style={{ whiteSpace: "pre-wrap", overflow: "auto" }} {...props}>
+      <code>
+        <div
+          contentEditable={true}
+          onCut={e => e.preventDefault()}
+          onPaste={e => e.preventDefault()}
+          onBeforeInput={e => e.preventDefault()}
+          onKeyDown={e => ["Backspace", "Delete"].includes(e.key) && e.preventDefault()}
+          {...{ "autocomplete": "off", "autocorrect": "off", "autocapitalize": "off", "spellcheck": "false" }}
+        >
+          {children}
+        </div>
+      </code>
+    </pre>
+  );
+};
 
 const StyledReadonlyPreCode = styled(ReadonlyPreCode)`
 	padding: 8px;
 	border: 1px solid gray;
-`
+`;
 
 const SwapManualInformation = () => {
   return (
@@ -81,43 +81,43 @@ const SwapManualInformation = () => {
             <h4>Introduction</h4>
             <p>This guide assumes that you are confident in making transactions on a smart contract. If you are not comfortable with this it is recommended that you use the automated web3 solution.</p>
 
-						<h4>Contract Information</h4>
+            <h4>Contract Information</h4>
 
-						<h5>OPQ</h5>
-						<StyledDetails open>
-							<summary>OPQ Address:</summary>
-							<ReadonlyPreCode>{OPQ_TOKEN_CONTRACT_ADDRESS}</ReadonlyPreCode>
-						</StyledDetails>
-						<StyledDetails>
-							<summary>OPQ ABI</summary>
-							<ReadonlyPreCode>{JSON.stringify(OPQTokenABI, null, "\t")}</ReadonlyPreCode>
-						</StyledDetails>
+            <h5>OPQ</h5>
+            <StyledDetails open={true}>
+              <summary>OPQ Address:</summary>
+              <ReadonlyPreCode>{OPQ_TOKEN_CONTRACT_ADDRESS}</ReadonlyPreCode>
+            </StyledDetails>
+            <StyledDetails>
+              <summary>OPQ ABI</summary>
+              <ReadonlyPreCode>{JSON.stringify(OPQTokenABI, null, "\t")}</ReadonlyPreCode>
+            </StyledDetails>
 
-						<h5>OPCTSwap</h5>
-						<StyledDetails open>
-							<summary>OPCTSwap Address:</summary>
-							<ReadonlyPreCode>{OPCT_SWAP_CONTRACT_ADDRESS}</ReadonlyPreCode>
-						</StyledDetails>
-						<StyledDetails>
-							<summary>OPCTSwap ABI</summary>
-							<pre>
-								<code>
-									<div
-										contentEditable
-										onCut={(e) => e.preventDefault()}
-										onPaste={(e) => e.preventDefault()}
-										onBeforeInput={(e) => e.preventDefault()}
-										onKeyDown={(e) => ["Backspace", "Delete"].includes(e.key) && e.preventDefault()}
-									>
-										{JSON.stringify(OPCTSwapABI, null, "\t")}
-									</div>
-								</code>
-							</pre>
-						</StyledDetails>
+            <h5>OPCTSwap</h5>
+            <StyledDetails open={true}>
+              <summary>OPCTSwap Address:</summary>
+              <ReadonlyPreCode>{OPCT_SWAP_CONTRACT_ADDRESS}</ReadonlyPreCode>
+            </StyledDetails>
+            <StyledDetails>
+              <summary>OPCTSwap ABI</summary>
+              <pre>
+                <code>
+                  <div
+                    contentEditable={true}
+                    onCut={e => e.preventDefault()}
+                    onPaste={e => e.preventDefault()}
+                    onBeforeInput={e => e.preventDefault()}
+                    onKeyDown={e => ["Backspace", "Delete"].includes(e.key) && e.preventDefault()}
+                  >
+                    {JSON.stringify(OPCTSwapABI, null, "\t")}
+                  </div>
+                </code>
+              </pre>
+            </StyledDetails>
 
-						<h4>Approving Token Transfer</h4>
-						<p>To allow the swap contract to take tokens out of your account you must send an approval transaction to the <strong>OPQ contract</strong>. The relevant part of the ABI is:</p>
-						<StyledReadonlyPreCode>{`...
+            <h4>Approving Token Transfer</h4>
+            <p>To allow the swap contract to take tokens out of your account you must send an approval transaction to the <strong>OPQ contract</strong>. The relevant part of the ABI is:</p>
+            <StyledReadonlyPreCode>{`...
 	{
 		"constant": false,
 		"inputs": [
@@ -143,12 +143,12 @@ const SwapManualInformation = () => {
 		"signature": "0x095ea7b3"
 	},
 ...`}</StyledReadonlyPreCode>
-						<p>Call the approve function with arguments:</p>
-						<StyledReadonlyPreCode>{OPCT_SWAP_CONTRACT_ADDRESS}, 0000000000000000000000000000000000000000006b88921f0410abc2000000</StyledReadonlyPreCode>
+            <p>Call the approve function with arguments:</p>
+            <StyledReadonlyPreCode>{OPCT_SWAP_CONTRACT_ADDRESS}, 0000000000000000000000000000000000000000006b88921f0410abc2000000</StyledReadonlyPreCode>
 
-						<h4>Swapping Tokens</h4>
-						<p>Now you must call a function on the <strong>OPCT swap contract</strong> to move OPQ out of your account, and OPCT into your account. The relevant part of the ABI is:</p>
-						<StyledReadonlyPreCode>{`...
+            <h4>Swapping Tokens</h4>
+            <p>Now you must call a function on the <strong>OPCT swap contract</strong> to move OPQ out of your account, and OPCT into your account. The relevant part of the ABI is:</p>
+            <StyledReadonlyPreCode>{`...
 	{
 		"inputs": [],
 		"name": "swap",
@@ -163,10 +163,10 @@ const SwapManualInformation = () => {
 		"type": "function"
 	},
 ...`}</StyledReadonlyPreCode>
-						<p>Call the swap function with no arguments.</p>
+            <p>Call the swap function with no arguments.</p>
 
-						<h4>Conclusion</h4>
-						<p>You should now verify that your tokens have been swapped. It may take a minute for token trackers to update so it is best to check from within wallet software.</p>
+            <h4>Conclusion</h4>
+            <p>You should now verify that your tokens have been swapped. It may take a minute for token trackers to update so it is best to check from within wallet software.</p>
           </div>
         </SwapContainer>
       </Container>

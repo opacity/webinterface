@@ -63,5 +63,5 @@ export {
   approveTokens,
   swapTokens,
   OPQ_TOKEN_CONTRACT_ADDRESS,
-  OPCT_SWAP_CONTRACT_ADDRESS,
+  OPCT_SWAP_CONTRACT_ADDRESS
 };

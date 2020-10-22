@@ -87,7 +87,7 @@ const SwapInformation = () => {
             <p>Buy OPCT: <a href="https://www.kcs.top/ucenter/signup?rcode=Jc812M&lang=en_US" target="_blank">Kucoin</a> | <a href="http://www.mercatox.com/" target="_blank">Mercatox</a></p>
             <div>
               <ButtonLink to="./swap" disabled={!tcChecked}>Automatic Swap</ButtonLink>
-              <span style={{ display: "inline-block", width: 20 }}></span>
+              <span style={{ display: "inline-block", width: 20 }} />
               <ButtonLink to="./swap-manual" disabled={!tcChecked}>Manual Swap Information</ButtonLink>
             </div>
             <div>
