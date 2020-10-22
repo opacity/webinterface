@@ -4,8 +4,8 @@ import BN from "bn.js";
 import OPQTokenABI from "./contracts/OPQToken.abi.json";
 import OPCTSwapABI from "./contracts/OPCTSwap.abi.json";
 
-const OPQ_TOKEN_CONTRACT_ADDRESS = "0x081F749Bf227B865F818A4FE29e27fD3532aD3e4";
-const OPCT_SWAP_CONTRACT_ADDRESS = "0xc859F707Fc343DB6F6Ec2b85a5AE3816955f6dC1";
+const OPQ_TOKEN_CONTRACT_ADDRESS = "0x77599D2C6DB170224243e255e6669280F11F1473";
+const OPCT_SWAP_CONTRACT_ADDRESS = "0x5A1067A32015EFaD8E96F7f85e784FFC0e6a28Fe";
 
 declare global {
 interface Window {
@@ -61,5 +61,7 @@ export {
   isInstalled,
   getTokenBalance,
   approveTokens,
-  swapTokens
+  swapTokens,
+  OPQ_TOKEN_CONTRACT_ADDRESS,
+  OPCT_SWAP_CONTRACT_ADDRESS,
 };
