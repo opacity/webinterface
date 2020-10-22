@@ -86,7 +86,9 @@ const SwapInformation = () => {
             <p>Follow us: <a href="https://t.me/OpacityNews" target="_blank">Opacity Announcement Channel</a> | <a href="https://twitter.com/Opacity_Storage" target="_blank">Twitter</a> | <a href="https://www.reddit.com/r/Opacity/" target="_blank">Reddit</a> | <a href="http://www.youtube.com/opacitystorage" target="_blank">YouTube</a> | <a href="https://www.facebook.com/opacitystorage">Facebook</a> | <a href="https://www.instagram.com/opacitystorage/">Instagram</a></p>
             <p>Buy OPCT: <a href="https://www.kcs.top/ucenter/signup?rcode=Jc812M&lang=en_US" target="_blank">Kucoin</a> | <a href="http://www.mercatox.com/" target="_blank">Mercatox</a></p>
             <div>
-              <ButtonLink to="./swap" disabled={!tcChecked}>Swap Tokens</ButtonLink>
+              <ButtonLink to="./swap" disabled={!tcChecked}>Automatic Swap</ButtonLink>
+              <span style={{ display: "inline-block", width: 20 }}></span>
+              <ButtonLink to="./swap-manual" disabled={!tcChecked}>Manual Swap Information</ButtonLink>
             </div>
             <div>
               <label>
