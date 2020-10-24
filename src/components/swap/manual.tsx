@@ -75,11 +75,11 @@ const SwapManualInformation = () => {
       <Container>
         <Header type={HEADER_TYPES.EMPTY} />
 
-        <SwapContainer title="OPQ → OPCT Manual Swap Information">
+        <SwapContainer title="OPQ to OPCT Manual Swap Information">
           <div>
             <Subtitle>OPCT Swap Official End Date: January 1, 2021.</Subtitle>
             <h4>Introduction</h4>
-            <p>This guide assumes that you are confident in making transactions on a smart contract. If you are not comfortable with this it is recommended that you use the automated web3 solution.</p>
+            <p>This guide assumes that you are confident in making transactions on a smart contract. If you are not comfortable with this it is recommended that you use the automated web3 solution. All arguments must be ABI encoded before making the transactions. Some software may do this automatically, but others don't.</p>
 
             <h4>Contract Information</h4>
 
@@ -144,7 +144,7 @@ const SwapManualInformation = () => {
 	},
 ...`}</StyledReadonlyPreCode>
             <p>Call the approve function with arguments:</p>
-            <StyledReadonlyPreCode>{OPCT_SWAP_CONTRACT_ADDRESS}, 0000000000000000000000000000000000000000006b88921f0410abc2000000</StyledReadonlyPreCode>
+            <StyledReadonlyPreCode>{OPCT_SWAP_CONTRACT_ADDRESS}, 130000000000000000000000000</StyledReadonlyPreCode>
 
             <h4>Swapping Tokens</h4>
             <p>Now you must call a function on the <strong>OPCT swap contract</strong> to move OPQ out of your account, and OPCT into your account. The relevant part of the ABI is:</p>

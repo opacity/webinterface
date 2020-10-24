@@ -72,7 +72,12 @@ const SwapInformation = () => {
             <h4>What do I need to do?</h4>
             <p>The swap page will help you send the required transactions via web3. When you first navigate to the page, your web3 provider will prompt you to connect your Ethereum account to the page. After connecting, the buttons on the page will prompt you to send the transactions required for the swap. If you see two checkmarks, your tokens have been swapped. Open your wallet and verify that your balance has been converted.</p>
             <h4>Which wallets are supported?</h4>
-            <p>This service supports web3 compatible wallets which include MetaMask, MEW, and hardware wallets like Ledger.</p>
+            <p>This service supports web3 compatible wallets which include MetaMask, MEW, and hardware wallets like Ledger. Note that MEW CX is not supported, but you can connect your MEW wallet to Metamask.</p>
+            <ul>
+              <li><a href="https://metamask.io" target="_blank">Metamask</a></li>
+              <li><a href="https://kb.myetherwallet.com/en/migration/using-metamask-with-mew/" target="_blank">Connecting MEW wallets to Metamask</a></li>
+              <li><a href="https://metamask.zendesk.com/hc/en-us/articles/360020394612-How-to-connect-a-Trezor-or-Ledger-Hardware-Wallet" target="_blank">Connecting hardware wallets to Metamask</a></li>
+            </ul>
             <h4>What if I’m using another wallet?</h4>
             <p>If you're using another wallet you'll need to perform the token swap manually.</p>
             <h4>What happens to the old OPQ?</h4>
@@ -86,7 +91,7 @@ const SwapInformation = () => {
             <p>Follow us: <a href="https://t.me/OpacityNews" target="_blank">Opacity Announcement Channel</a> | <a href="https://twitter.com/Opacity_Storage" target="_blank">Twitter</a> | <a href="https://www.reddit.com/r/Opacity/" target="_blank">Reddit</a> | <a href="http://www.youtube.com/opacitystorage" target="_blank">YouTube</a> | <a href="https://www.facebook.com/opacitystorage">Facebook</a> | <a href="https://www.instagram.com/opacitystorage/">Instagram</a></p>
             <p>Buy OPCT: <a href="https://www.kcs.top/ucenter/signup?rcode=Jc812M&lang=en_US" target="_blank">Kucoin</a> | <a href="http://www.mercatox.com/" target="_blank">Mercatox</a></p>
             <div>
-              <ButtonLink to="./swap" disabled={!tcChecked}>Automatic Swap</ButtonLink>
+              <ButtonLink to="./swap" disabled={!tcChecked}>Automatic Swap (Recommended)</ButtonLink>
               <span style={{ display: "inline-block", width: 20 }} />
               <ButtonLink to="./swap-manual" disabled={!tcChecked}>Manual Swap Information</ButtonLink>
             </div>
