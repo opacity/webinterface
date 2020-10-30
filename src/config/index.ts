@@ -19,7 +19,7 @@ export const HOST =
     : "opacity.io";
 export const FRONT_END_URL = `${PROTOCOL}://${HOST}`;
 
-export const EXCHANGE_LINK = "https://www.kucoin.com/trade/OPQ-BTC";
+export const EXCHANGE_LINK = "https://www.kucoin.com/trade/OPCT-BTC";
 export const GTM_ID = IS_DEV ? "GTM-MTCZFC8" : "GTM-WBG5C67";
 
 const DEFAULT_BROKER_IP =

@@ -382,8 +382,8 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
         ) : (
           <Wrapper>
             <ButtonHeader to={"/sign-up"}>Explore Plans</ButtonHeader>
-            <PartnerLinkSecondary href={"https://www.kucoin.com/trade/OPQ-BTC"}>
-              Purchase OPQ
+            <PartnerLinkSecondary href={"https://www.kucoin.com/trade/OPCT-BTC"}>
+              Purchase OPCT
             </PartnerLinkSecondary>
           </Wrapper>
         )}
@@ -417,7 +417,7 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
             </Wrapper>
             <ItemTitle>Pay Using Cryptocurrency</ItemTitle>
             <ItemContent>
-              Using the <b>OPQ token</b>, you can pay for your storage needs
+              Using the <b>OPCT token</b>, you can pay for your storage needs
               without ever having to use a credit card.
             </ItemContent>
           </Column>
@@ -558,15 +558,15 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
         </ItemSubContainer>
       </Container>
       <Container>
-        <InfoHeaderTitle>Where to Buy OPQ</InfoHeaderTitle>
+        <InfoHeaderTitle>Where to Buy OPCT</InfoHeaderTitle>
         <BuySubContainer>
           <Column>
             <Wrapper>
               <BuyIcon src={ICON_KUCOIN} />
             </Wrapper>
             <ButtonWrapper>
-              <PartnerLink href={"https://www.kucoin.com/trade/OPQ-BTC"}>
-                Buy OPQ on KuCoin
+              <PartnerLink href={"https://www.kucoin.com/trade/OPCT-BTC"}>
+                Buy OPCT on KuCoin
               </PartnerLink>
             </ButtonWrapper>
           </Column>
@@ -575,8 +575,8 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
               <BuyIcon src={ICON_MERCATOX} />
             </Wrapper>
             <ButtonWrapper>
-              <PartnerLink href={"https://mercatox.com/exchange/OPQ/BTC"}>
-                Buy OPQ on Mercatox
+              <PartnerLink href={"https://mercatox.com/exchange/OPCT/BTC"}>
+                Buy OPCT on Mercatox
               </PartnerLink>
             </ButtonWrapper>
           </Column>

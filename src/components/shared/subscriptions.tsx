@@ -277,7 +277,7 @@ const Subscriptions = ({
               <PriceSection>
                 {plan.opqCost > 0 && (
                   <PaymentOption>
-                    <Price>{plan.opqCost.toLocaleString()} OPQ</Price>
+                    <Price>{plan.opqCost.toLocaleString()} OPCT</Price>
                     <Duration>per year</Duration>
                   </PaymentOption>
                 )}

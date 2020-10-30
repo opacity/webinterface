@@ -108,9 +108,9 @@
 
 #### 5. Payment
 
-> **5.1.** Opacity Token (OPQ)
+> **5.1.** Opacity Token (OPCT)
 >
-> > You may only purchase access to Opacity upload and storage services with your Opacity (OPQ) token. Opacity reserves the right to issue or not issue refunds on a case by case basis. In the event you believe that Opacity has charged you in error, you must contact Opacity's Customer Support at info@opacity.io within 90 days after such charge.
+> > You may only purchase access to Opacity upload and storage services with your Opacity (OPCT) token. Opacity reserves the right to issue or not issue refunds on a case by case basis. In the event you believe that Opacity has charged you in error, you must contact Opacity's Customer Support at info@opacity.io within 90 days after such charge.
 
 #### 6. Modifications, and Cancellations
 
@@ -154,7 +154,7 @@
 >
 > > **9.1.2.** When you submit your consent to these Terms of Service on the Platform after having placed a check inside the consent box and read and understood these Terms of Service.
 >
-> > This policy was last modified on April 9, 2019.
+> > This policy was last modified on October 30, 2020.
 
 > **9.2.** Termination
 >

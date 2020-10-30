@@ -186,7 +186,7 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
   let ethAddress;
 
   if (invoice) {
-    ({ ethAddress } = invoice.opqInvoice || invoice);
+    ({ ethAddress } = invoice.opctInvoice || invoice);
   }
 
   return (
@@ -195,18 +195,18 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
       <ThemeProvider theme={theme}>
         <SplitLayout>
           <ContentBox>
-            <Title>Send Payment with OPQ</Title>
+            <Title>Send Payment with OPCT</Title>
             <Hr />
             <Content>
-              Use the Opacity Storage Token, OPQ, to pay for your storage account.
-              Send your total amount of <Bold>{cost.toLocaleString()} OPQ </Bold> to
+              Use the Opacity Storage Token, OPCT, to pay for your storage account.
+              Send your total amount of <Bold>{cost.toLocaleString()} OPCT </Bold> to
               the address below or you may use MetaMask to easily make your payment
               right in your browser.
             </Content>
             <ContentBold>
               IMPORTANT: Do not send any other coin or token to this account address
               as it may result in a loss of funds. Only send {cost.toLocaleString()}{" "}
-              OPQ. Sending more may also result in loss of funds.
+              OPCT. Sending more may also result in loss of funds.
             </ContentBold>
             <Content>
               Once your payment is sent, it may take some time to confirm your
@@ -218,7 +218,7 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
               <Spinner isActive={true} />
             </Wrapper>
             <LabelColored>
-              Send {cost.toLocaleString()} OPQ to Ethereum Address:
+              Send {cost.toLocaleString()} OPCT to Ethereum Address:
             </LabelColored>
             {invoice &&
               <EthAddressWrapper>
@@ -232,7 +232,7 @@ const CryptoPayment = ({ invoice, openMetamask, cost, storageLimit }) => {
               </EthAddressWrapper>
             }
             <ContentCentered>
-              Need OPQ?{" "}
+              Need OPCT?{" "}
               <OutboundLink href={EXCHANGE_LINK}>Purchase here</OutboundLink>
             </ContentCentered>
           </ContentBox>
