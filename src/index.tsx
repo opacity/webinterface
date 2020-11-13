@@ -23,6 +23,10 @@ import TeamPage from "./components/team-page";
 import StandsOut from "./components/stands-out";
 import FileManager from "./components/file-manager";
 import SharePage from "./components/share-page";
+import Swap from "./components/swap";
+import SwapInformation from "./components/swap/information";
+import SwapManualInformation from "./components/swap/manual";
+import SwapNotice from "./components/swap/notice";
 
 import GoogleTagManager from "./components/shared/google-tag-manager";
 import ErrorPage from "./components/error-page";
@@ -42,6 +46,7 @@ const App = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <ConnectedRouter history={history}>
+        <Route component={SwapNotice} />
         <Root>
           <GoogleTagManager gtmId={GTM_ID} />
           <Route component={ScrollToTop} />
@@ -55,6 +60,9 @@ const App = () => (
             <Route path="/upgrade/:plan" component={Upgrade} />
             <Route path="/upgrade" component={Upgrade} />
             <Route path="/renew" component={Renew} />
+            <Route path="/swap-information" component={SwapInformation} />
+            <Route path="/swap-manual" component={SwapManualInformation} />
+            <Route path="/swap" component={Swap} />
             <Route path="/thank-you" component={ThankYou} />
             <Route
               path="/custom-sign-up/:plan"
