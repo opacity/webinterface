@@ -26,7 +26,6 @@ const ICON_FLO = require("../../assets/images/FLO.png");
 const ICON_QLC = require("../../assets/images/QLC.png");
 const ICON_KUCOIN = require("../../assets/images/kucoin.png");
 const ICON_MERCATOX = require("../../assets/images/mercatox.png");
-const ICON_ROADMAP = require("../../assets/images/roadmap.png");
 
 const ContainerWrapper = styled.div`
   width: 100%;
@@ -71,12 +70,6 @@ const BenefitSubContainer = styled(SubContainer)`
 
 const BuySubContainer = styled(SubContainer)`
   justify-content: space-around;
-`;
-
-const RoadmapSubContainer = styled(SubContainer)`
-  @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
-    padding: 30px;
-  }
 `;
 
 const PartnerSubContainer = styled(SubContainer)`
@@ -225,10 +218,6 @@ const ItemIcon = styled.img`
   @media (max-width: ${LANDING_PAGE_MOBILE_WIDTH}px) {
     width: 100%;
   }
-`;
-
-const RoadmapIcon = styled.img`
-  width: 100%;
 `;
 
 const BuyIcon = styled.img`
@@ -382,8 +371,8 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
         ) : (
           <Wrapper>
             <ButtonHeader to={"/sign-up"}>Explore Plans</ButtonHeader>
-            <PartnerLinkSecondary href={"https://www.kucoin.com/trade/OPQ-BTC"}>
-              Purchase OPQ
+            <PartnerLinkSecondary href={"https://www.kucoin.com/trade/OPCT-BTC"}>
+              Purchase OPCT
             </PartnerLinkSecondary>
           </Wrapper>
         )}
@@ -417,7 +406,7 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
             </Wrapper>
             <ItemTitle>Pay Using Cryptocurrency</ItemTitle>
             <ItemContent>
-              Using the <b>OPQ token</b>, you can pay for your storage needs
+              Using the <b>OPCT token</b>, you can pay for your storage needs
               without ever having to use a credit card.
             </ItemContent>
           </Column>
@@ -489,12 +478,6 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
       </Container>
 
       <Container>
-        <RoadmapSubContainer>
-          <RoadmapIcon src={ICON_ROADMAP} />
-        </RoadmapSubContainer>
-      </Container>
-
-      <Container>
         <InfoHeaderTitle>More Info? No Problem.</InfoHeaderTitle>
         <InfoHeaderContent>
           Choosing the right private storage solution for your needs is important.
@@ -558,15 +541,15 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
         </ItemSubContainer>
       </Container>
       <Container>
-        <InfoHeaderTitle>Where to Buy OPQ</InfoHeaderTitle>
+        <InfoHeaderTitle>Where to Buy OPCT</InfoHeaderTitle>
         <BuySubContainer>
           <Column>
             <Wrapper>
               <BuyIcon src={ICON_KUCOIN} />
             </Wrapper>
             <ButtonWrapper>
-              <PartnerLink href={"https://www.kucoin.com/trade/OPQ-BTC"}>
-                Buy OPQ on KuCoin
+              <PartnerLink href={"https://www.kucoin.com/trade/OPCT-BTC"}>
+                Buy OPCT on KuCoin
               </PartnerLink>
             </ButtonWrapper>
           </Column>
@@ -575,8 +558,8 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
               <BuyIcon src={ICON_MERCATOX} />
             </Wrapper>
             <ButtonWrapper>
-              <PartnerLink href={"https://mercatox.com/exchange/OPQ/BTC"}>
-                Buy OPQ on Mercatox
+              <PartnerLink href={"https://mercatox.com/exchange/OPCT/BTC"}>
+                Buy OPCT on Mercatox
               </PartnerLink>
             </ButtonWrapper>
           </Column>

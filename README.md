@@ -1,6 +1,6 @@
 # Web Interface
 
-'Webinterface' is Opacity's official interface for users to create a file storage account, pay, initiate file uploads/downloads, and store their files securely. It calculates how much OPQ users pay for a storage plan and provides an address to send payment. It shows file upload progress and gives the user a handle to retrieve a file in the future. Webinterface allows anyone to download a file that they have the handle for.
+'Webinterface' is Opacity's official interface for users to create a file storage account, pay, initiate file uploads/downloads, and store their files securely. It calculates how much OPCT users pay for a storage plan and provides an address to send payment. It shows file upload progress and gives the user a handle to retrieve a file in the future. Webinterface allows anyone to download a file that they have the handle for.
 
 ## Getting Started
 

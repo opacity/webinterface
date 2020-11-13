@@ -121,7 +121,7 @@ const Redeem = ({ ethAddress, storageLimit }: RedeemProps) => {
     setStatus(undefined);
     setButtonText("Checking...");
 
-    const res = await (await fetch(`https://redeem.opacity.io/api?code=OPQ${storageLimitToCodeName({ storageLimit })}-${code.toUpperCase()}&ethaddress=${ethAddress}`)).json();
+    const res = await (await fetch(`https://redeem.opacity.io/api?code=OPCT${storageLimitToCodeName({ storageLimit })}-${code.toUpperCase()}&ethaddress=${ethAddress}`)).json();
 
     if (!res.data || !res.data.txhash) {
       setStatusType("error");
@@ -141,7 +141,7 @@ const Redeem = ({ ethAddress, storageLimit }: RedeemProps) => {
       ? (
         <RedeemWrapper>
           <InputWrapper>
-            <span>OPQ{storageLimitToCodeName({ storageLimit })}-</span>
+            <span>OPCT{storageLimitToCodeName({ storageLimit })}-</span>
             <Input
               statusType={statusType}
               onChange={e => setCode(e.target.value)}

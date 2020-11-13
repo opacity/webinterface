@@ -1,6 +1,6 @@
 import opacityABI from "../contracts/opacity.abi.json";
 
-const CONTRACT_ADDRESS = "0x77599d2c6db170224243e255e6669280f11f1473";
+const CONTRACT_ADDRESS = "0xDb05EA0877A2622883941b939f0bb11d1ac7c400";
 
 declare global {
   interface Window {
