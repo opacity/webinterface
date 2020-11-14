@@ -275,9 +275,9 @@ const Subscriptions = ({
             </Header>
             <Footer>
               <PriceSection>
-                {plan.opqCost > 0 && (
+                {plan.opctCost > 0 && (
                   <PaymentOption>
-                    <Price>{plan.opqCost.toLocaleString()} OPCT</Price>
+                    <Price>{plan.opctCost.toLocaleString()} OPCT</Price>
                     <Duration>per year</Duration>
                   </PaymentOption>
                 )}
@@ -298,7 +298,7 @@ const Subscriptions = ({
                   </React.Fragment>
                 )}
                 {plan.usdCost === 0 &&
-                  plan.opqCost === 0 && (
+                  plan.opctCost === 0 && (
                     <React.Fragment>
                       <PaymentOption>
                         <Price>{plan.specialPricing}</Price>
