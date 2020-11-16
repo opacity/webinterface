@@ -66,7 +66,7 @@ const RenewComponent = ({
   useEffect(() => {
     if (masterHandle) {
       masterHandle.renew()
-        .then(({ data: { opqInvoice: invoice }, waitForPayment }) => {
+        .then(({ data: { opctInvoice: invoice }, waitForPayment }) => {
           setWaitForPayment(waitForPayment);
           setInvoice(invoice);
         })
@@ -110,7 +110,7 @@ const RenewComponent = ({
   return (
     <SendPaymentSlide
       invoice={invoice}
-      opqCost={invoice.cost}
+      opctCost={invoice.cost}
       storageLimit={formatGbs(accountInfo.storageLimit)}
       openMetamask={openMetamask}
     />

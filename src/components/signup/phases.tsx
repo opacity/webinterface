@@ -89,7 +89,7 @@ const RECORD_STORAGE_PIN: PhaseType = {
       <RecordAccountHandleSlide
         handle={privateKey}
         next={() =>
-          plan.opqCost === 0 && plan.usdCost === 0
+          plan.opctCost === 0 && plan.usdCost === 0
             ? accountPaidSuccess()
             : pollPayment(waitForPaymentFn)
         }
@@ -104,7 +104,7 @@ const SEND_PAYMENT: PhaseType = {
   icon: ICON_PAYMENT,
   render: ({ plan, fiatPaymentError, fiatPaymentStatus, invoice, openMetamask, masterHandle, payFiat }) => (
     <SendPaymentSlide
-      opqCost={plan.opqCost}
+      opctCost={plan.opctCost}
       fiatPaymentError={fiatPaymentError}
       fiatPaymentStatus={fiatPaymentStatus}
       invoice={invoice}
@@ -127,7 +127,7 @@ const SEND_UPGRADE_PAYMENT: PhaseType = {
     invoice
     ? (
       <SendPaymentSlide
-        opqCost={invoice.opqInvoice.cost}
+        opctCost={invoice.opctInvoice.cost}
         invoice={invoice}
         openMetamask={openMetamask}
         storageLimit={plan.storageLimit}
