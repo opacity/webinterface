@@ -146,9 +146,9 @@ margin: 0px ${props => (props.align ? "auto" : "initial")} 20px ${props => (prop
 }
 `;
 
-const PublicClipboardWidget = ({ text, title, property, align }) => {
+const PublicClipboardWidget = ({ text, title, isPublicFile }) => {
   const [isCopied, setIsCopied] = useState(false);
-  const [isPublic, setIsPublic] = useState(false);
+  const [isPublic, setIsPublic] = useState(isPublicFile);
 
   const togglePublicSharing = () => {
     // WIP backend code for public sharing
@@ -160,7 +160,7 @@ const PublicClipboardWidget = ({ text, title, property, align }) => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Label align={align}>{title}</Label>
+        <Label align="center">{title}</Label>
 
         { !isPublic &&
             <ActivateButton align="center" onClick={() => togglePublicSharing()}>Share File Publicly</ActivateButton>
@@ -174,9 +174,9 @@ const PublicClipboardWidget = ({ text, title, property, align }) => {
 
                 <DeactivateButton align="center" onClick={() => togglePublicSharing()}>Revoke File</DeactivateButton>
                 <CopyToClipboard text={text} onCopy={() => setIsCopied(true)}>
-                    <CopyButton align={align}>
+                    <CopyButton align="center">
                     <Icon src={ICON_COPY} />
-                    {isCopied ? "Copied!" : "Copy " + property}
+                    {isCopied ? "Copied!" : "Copy URL"}
                     </CopyButton>
                 </CopyToClipboard>
             </>
