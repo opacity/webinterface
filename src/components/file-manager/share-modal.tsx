@@ -5,6 +5,8 @@ import Modal, { ModalProvider } from "styled-react-modal";
 import { FRONT_END_URL, MOBILE_WIDTH, theme } from "../../config";
 
 import ClipboardWidget from "../shared/clipboard-widget";
+import PublicClipboardWidget from "../shared/public-clipboard-widget";
+import Button from "../shared/button";
 
 const Body = styled.div`
   display: flex;
@@ -25,12 +27,6 @@ const Title = styled.h2`
   color: ${props => props.theme.title.color};
   text-align: center;
   display: inline;
-`;
-
-const Filename = styled.h3`
-  font-size: 20px;
-  font-weight: 500;
-  margin-top: 0px;
 `;
 
 const CloseButton = styled.div`
@@ -77,11 +73,18 @@ const ShareModal = ({ close, isOpen, file }) => (
         <Body>
           <Title>Share your file with others</Title>
           <CloseButton onClick={() => close()} />
-          <Filename>{file && file.filename}</Filename>
+
           <ClipboardWidget
             text={`${FRONT_END_URL}/share#handle=${file && file.handle}`}
             property="URL"
             title="Anyone with this link can view the file"
+            align="center"
+          />
+
+          <PublicClipboardWidget
+            text={`${FRONT_END_URL}/public/${file && file.handle}`}
+            property="URL"
+            title="This File Is Visible To Anyone On The Web"
             align="center"
           />
         </Body>
