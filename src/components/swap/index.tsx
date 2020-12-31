@@ -153,7 +153,7 @@ const Swap = () => {
                         OPCT tokens will then be deposited into your account.
                       </p>
                       <div>
-                        <Button onClick={swap} disabled={!approved || swapPending || swapped}>Swap</Button>
+                        <Button onClick={swap} disabled={(!approvalPending && !approved) || swapPending || swapped}>Swap</Button>
                         {swapped && <span style={{ fontSize: "2rem", color: "green", verticalAlign: "middle", marginLeft: "10px" }}>✓</span>}
                       </div>
                       {swapPending && <div><progress /></div>}
