@@ -2,8 +2,8 @@ import { Observable, from, of } from "rxjs";
 import { ofType, combineEpics } from "redux-observable";
 import { mergeMap, catchError, map, flatMap } from "rxjs/operators";
 import { toast } from "react-toastify";
-import { Download } from "opaque";
-import * as FileSaver from "file-saver";
+import { MasterHandle, Account } from "opaque";
+import streamsaver from "streamsaver";
 
 import { API } from "../../config";
 
@@ -44,7 +44,7 @@ const moveFileEpic = (action$, state$, dependencies$) =>
             autoClose: 3000,
             hideProgressBar: true,
             position: toast.POSITION.BOTTOM_RIGHT,
-            toastId: name
+            toastId: file.name
           });
 
           return fileActions.moveFileSuccess({ masterHandle, file });
@@ -114,13 +114,17 @@ const downloadFileEpic = (action$, state$, dependencies$) =>
       const { handle } = payload;
 
       return new Observable(o => {
-        const download = new Download(handle, {
-          endpoint: API.STORAGE_NODE
-        });
+        const mh = new MasterHandle({ account: new Account() }, {
+          downloadOpts: {
+            endpoint: API.STORAGE_NODE
+          }
+        })
+
+        const download = mh.downloadFile(handle)
 
         download
           .metadata()
-          .then(({ name: filename }) => {
+          .then(({ name: filename, size: filesize }) => {
             toast(`${filename} is downloading. Please wait...`, {
               autoClose: false,
               position: toast.POSITION.BOTTOM_RIGHT,
@@ -136,30 +140,38 @@ const downloadFileEpic = (action$, state$, dependencies$) =>
               });
             });
 
-            download
-              .toFile()
-              .then(file => {
-                const f = file as File;
-                FileSaver.saveAs(f);
+            streamsaver.mitm = "/public/streamsaver/mitm.html"
 
-                toast.update(handle, {
-                  render: `${filename} has finished downloading.`,
-                  progress: 1
-                });
-                setTimeout(() => {
-                  toast.dismiss(handle);
-                }, 3000);
+            const downloader = streamsaver.createWriteStream(filename, { size: filesize })
 
-                o.next(fileActions.downloadSuccess({ handle }));
-                o.complete();
-              })
-              .catch(error => {
-                o.next(fileActions.downloadError({ error }));
+            window.addEventListener("unload", (e) => {
+              downloader.abort()
+            })
+
+            download.stream().then(async (stream) => {
+              await stream.pipeTo(downloader).catch((err) => {
+                o.next(fileActions.downloadError({ err }));
                 o.complete();
               });
+
+              toast.update(handle, {
+                render: `${filename} has finished downloading.`,
+                progress: 1
+              });
+              setTimeout(() => {
+                toast.dismiss(handle);
+              }, 3000);
+
+              o.next(fileActions.downloadSuccess({ handle }));
+              o.complete();
+            })
+            .catch((err) => {
+              o.next(fileActions.downloadError({ err }));
+              o.complete();
+            });
           })
-          .catch(error => {
-            o.next(fileActions.downloadError({ error }));
+          .catch((err) => {
+            o.next(fileActions.downloadError({ err }));
             o.complete();
           });
       });
@@ -193,60 +205,61 @@ const uploadFilesEpic = (action$, state$, dependencies$) =>
 const uploadFileEpic = (action$, state$, dependencies$) =>
   action$.pipe(
     ofType(fileActions.UPLOAD_FILE),
-    mergeMap(({ payload }) => {
+    mergeMap(({ payload }: { payload: { file: File, directory: string, masterHandle: MasterHandle } }) => {
       const { file, directory, masterHandle } = payload;
 
       return new Observable(o => {
-        const upload = masterHandle.uploadFile(directory, file);
-        const handle = upload.handle;
+        masterHandle.uploadFile(directory, file).then((upload) => {
+          const handle = upload.handle;
 
-        toast(`${file.name} is uploading. Please wait...`, {
-          autoClose: false,
-          position: toast.POSITION.BOTTOM_RIGHT,
-          toastId: handle
-        });
-
-        upload.on("upload-progress", event => {
-          toast.update(handle, {
-            render: `${file.name} progress: ${Math.round(
-              event.progress * 100.0
-            )}%`,
-            progress: event.progress
+          toast(`${file.name} is uploading. Please wait...`, {
+            autoClose: false,
+            position: toast.POSITION.BOTTOM_RIGHT,
+            toastId: handle
           });
-        });
 
-        upload.on("finish", () => {
-          toast.update(handle, {
-            render: `${file.name} has finished uploading.`,
-            progress: 1
+          upload.on("upload-progress", event => {
+            toast.update(handle, {
+              render: `${file.name} progress: ${Math.round(
+                event.progress * 100.0
+              )}%`,
+              progress: event.progress
+            });
           });
-          setTimeout(() => {
-            toast.dismiss(handle);
-          }, 3000);
 
-          o.next(
-            fileActions.uploadSuccess({
-              masterHandle,
-              directory
-            })
-          );
-          o.complete();
-        });
+          upload.on("finish", () => {
+            toast.update(handle, {
+              render: `${file.name} has finished uploading.`,
+              progress: 1
+            });
+            setTimeout(() => {
+              toast.dismiss(handle);
+            }, 3000);
 
-        upload.on("error", error => {
-          toast.update(handle, {
-            render: `An error occurred while uploading ${file.name}.`,
-            type: toast.TYPE.ERROR,
-            progress: 1
+            o.next(
+              fileActions.uploadSuccess({
+                masterHandle,
+                directory
+              })
+            );
+            o.complete();
           });
-          setTimeout(() => {
-            toast.dismiss(handle);
-          }, 3000);
 
-          o.next(
-            fileActions.uploadError({ handle, filename: file.name, error })
-          );
-          o.complete();
+          upload.on("error", error => {
+            toast.update(handle, {
+              render: `An error occurred while uploading ${file.name}.`,
+              type: toast.TYPE.ERROR,
+              progress: 1
+            });
+            setTimeout(() => {
+              toast.dismiss(handle);
+            }, 3000);
+
+            o.next(
+              fileActions.uploadError({ handle, filename: file.name, error })
+            );
+            o.complete();
+          });
         });
       });
     })

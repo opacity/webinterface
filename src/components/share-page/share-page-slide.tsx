@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { ToastContainer } from "react-toastify";
-import { Download } from "opaque";
+import { Account, MasterHandle } from "opaque";
 
 import {
   API,
@@ -16,6 +16,8 @@ import Header from "../shared/header";
 import Spinner from "../shared/spinner";
 import { Preview, getTypeFromExt } from "./preview";
 import { extname } from "path";
+import EventEmitter from "events";
+import { FileMeta } from "opaque/pkg/dist-types/core/metadata";
 
 const ICON_DOWNLOAD = require("../../assets/images/icon_download.png");
 
@@ -134,10 +136,11 @@ interface FileMetadata {
   size?: number;
 }
 
-const SharePageSlide = ({ handle, download }) => {
+const SharePageSlide = ({ handle, download: downloadFile }) => {
   const [metadata, setMetadata] = useState<FileMetadata>({});
   const [error, setError] = useState(false);
-  const [downloadObject, setDownloadObject] = useState<Download>();
+  const [downloadObject, setDownloadObject] = useState<EventEmitter & { toBuffer: () => Promise<Buffer>; toFile: () => Promise<File>; metadata: () => Promise<FileMeta> }
+>();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [file, setFile] = useState<File>();
   const [progress, setProgress] = useState(0);
@@ -146,10 +149,13 @@ const SharePageSlide = ({ handle, download }) => {
   const previewSupported = useMemo(() => metadata && metadata.name && getTypeFromExt(extname(metadata.name)), [metadata]);
 
   useEffect(() => {
-    const download = new Download(handle, {
-      endpoint: API.STORAGE_NODE,
-      autoStart: false
-    });
+    const mh = new MasterHandle({ account: new Account() }, {
+      downloadOpts: {
+        endpoint: API.STORAGE_NODE
+      }
+    })
+
+    const download = mh.downloadFile(handle)
 
     setDownloadObject(download);
 
@@ -231,7 +237,7 @@ const SharePageSlide = ({ handle, download }) => {
                 <FileName>{metadata.name}</FileName>
                 <FileSize>{formatBytes(metadata.size)}</FileSize>
                 <ButtonContainer>
-                  <DownloadButton onClick={() => download(handle)}>
+                  <DownloadButton onClick={() => downloadFile(handle)}>
                     Download file
                   </DownloadButton>
                   { previewSupported &&
