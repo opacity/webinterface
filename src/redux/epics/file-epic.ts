@@ -140,20 +140,7 @@ const downloadFileEpic = (action$, state$, dependencies$) =>
               });
             });
 
-            streamsaver.mitm = "/public/streamsaver/mitm.html"
-
-            const downloader = streamsaver.createWriteStream(filename, { size: filesize })
-
-            window.addEventListener("unload", (e) => {
-              downloader.abort()
-            })
-
-            download.stream().then(async (stream) => {
-              await stream.pipeTo(downloader).catch((err) => {
-                o.next(fileActions.downloadError({ err }));
-                o.complete();
-              });
-
+            download.on("finish", () => {
               toast.update(handle, {
                 render: `${filename} has finished downloading.`,
                 progress: 1
@@ -164,6 +151,42 @@ const downloadFileEpic = (action$, state$, dependencies$) =>
 
               o.next(fileActions.downloadSuccess({ handle }));
               o.complete();
+            })
+
+            streamsaver.mitm = "/public/streamsaver/mitm.html"
+
+            const downloader = streamsaver.createWriteStream(filename, { size: filesize })
+
+            window.addEventListener("unload", (e) => {
+              downloader.abort()
+            })
+
+            download.stream().then(async (stream) => {
+              // more optimized
+              if ("WritableStream" in window && stream.pipeTo) {
+                stream.pipeTo(downloader)
+                  .then(() => {
+                    console.log('done writing')
+                  })
+              } else {
+                const writer = downloader.getWriter()
+                const reader = stream.getReader()
+
+                const pump = async () => {
+                  const res = await reader.read().catch((err) => {
+                    o.next(fileActions.downloadError({ err }));
+                    o.complete();
+                  })
+
+                  if (!res || !res.done) {
+                    writer.close()
+                  } else {
+                    writer.write(res.value).then(pump)
+                  }
+                }
+
+                pump()
+              }
             })
             .catch((err) => {
               o.next(fileActions.downloadError({ err }));
