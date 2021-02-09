@@ -153,9 +153,9 @@ const SharePageSlide = ({ handle, download: downloadFile }) => {
       downloadOpts: {
         endpoint: API.STORAGE_NODE
       }
-    })
+    });
 
-    const download = mh.downloadFile(handle)
+    const download = mh.downloadFile(handle);
 
     setDownloadObject(download);
 
@@ -184,7 +184,7 @@ const SharePageSlide = ({ handle, download: downloadFile }) => {
     setPreviewOpen(!previewOpen);
 
     if (downloadObject) {
-      const file = await downloadObject.toFile() as File;
+      const file = await downloadObject.toFile();
 
       setFile(file);
     }

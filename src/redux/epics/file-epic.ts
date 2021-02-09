@@ -118,9 +118,9 @@ const downloadFileEpic = (action$, state$, dependencies$) =>
           downloadOpts: {
             endpoint: API.STORAGE_NODE
           }
-        })
+        });
 
-        const download = mh.downloadFile(handle)
+        const download = mh.downloadFile(handle);
 
         download
           .metadata()
@@ -151,49 +151,49 @@ const downloadFileEpic = (action$, state$, dependencies$) =>
 
               o.next(fileActions.downloadSuccess({ handle }));
               o.complete();
-            })
+            });
 
-            streamsaver.mitm = "/public/streamsaver/mitm.html"
+            streamsaver.mitm = "/public/streamsaver/mitm.html";
 
-            const downloader = streamsaver.createWriteStream(filename, { size: filesize })
+            const downloader = streamsaver.createWriteStream(filename, { size: filesize });
 
-            window.addEventListener("unload", (e) => {
-              downloader.abort()
-            })
+            window.addEventListener("unload", () => {
+              downloader.abort().catch(err => { throw err; });
+            });
 
-            download.stream().then(async (stream) => {
+            download.stream().then(async stream => {
               // more optimized
               if ("WritableStream" in window && stream.pipeTo) {
                 stream.pipeTo(downloader)
                   .then(() => {
-                    console.log('done writing')
-                  })
+                    console.log("done writing");
+                  });
               } else {
-                const writer = downloader.getWriter()
-                const reader = stream.getReader()
+                const writer = downloader.getWriter();
+                const reader = stream.getReader();
 
                 const pump = async () => {
-                  const res = await reader.read().catch((err) => {
+                  const res = await reader.read().catch(err => {
                     o.next(fileActions.downloadError({ err }));
                     o.complete();
-                  })
+                  });
 
                   if (!res || !res.done) {
-                    writer.close()
+                    writer.close().catch(err => { throw err; });
                   } else {
-                    writer.write(res.value).then(pump)
+                    writer.write(res.value).then(pump).catch(err => { throw err; });
                   }
-                }
+                };
 
-                pump()
+                pump().catch(err => { throw err; });
               }
             })
-            .catch((err) => {
-              o.next(fileActions.downloadError({ err }));
-              o.complete();
-            });
+              .catch(err => {
+                o.next(fileActions.downloadError({ err }));
+                o.complete();
+              });
           })
-          .catch((err) => {
+          .catch(err => {
             o.next(fileActions.downloadError({ err }));
             o.complete();
           });
@@ -232,7 +232,7 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
       const { file, directory, masterHandle } = payload;
 
       return new Observable(o => {
-        masterHandle.uploadFile(directory, file).then((upload) => {
+        masterHandle.uploadFile(directory, file).then(upload => {
           const handle = upload.handle;
 
           toast(`${file.name} is uploading. Please wait...`, {
@@ -283,7 +283,7 @@ const uploadFileEpic = (action$, state$, dependencies$) =>
             );
             o.complete();
           });
-        });
+        }).catch(err => { throw err; });
       });
     })
   );
