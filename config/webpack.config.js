@@ -178,8 +178,8 @@ function returnDevelopmentConfiguration () {
         { from: "./public/manifest.json" }, // <- your path to manifest
         { from: "./public/robots.txt" }, // <- your path to robots
         { from: "./public/sitemap.xml" }, // <- your path to sitemap
-        { from: "./public/streamsaver/mitm.html" },
-        { from: "./public/streamsaver/sw.js" },
+        { from: "./public/streamsaver/mitm.html", to: "public/streamsaver" },
+        { from: "./public/streamsaver/sw.js", to: "public/streamsaver" },
       ])
     ]
   });
@@ -295,8 +295,8 @@ function returnProductionConfiguration () {
         { from: "./public/manifest.json" }, // <- your path to manifest
         { from: "./public/robots.txt" }, // <- your path to robots
         { from: "./public/sitemap.xml" }, // <- your path to sitemap
-        { from: "./public/streamsaver/mitm.html" },
-        { from: "./public/streamsaver/sw.js" },
+        { from: "./public/streamsaver/mitm.html", to: "public/streamsaver" },
+        { from: "./public/streamsaver/sw.js", to: "public/streamsaver" },
       ])
     ]
   });
