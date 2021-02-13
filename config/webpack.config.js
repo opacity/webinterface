@@ -294,7 +294,9 @@ function returnProductionConfiguration () {
         { from: "./public/logo.png" }, // <- your path to logo
         { from: "./public/manifest.json" }, // <- your path to manifest
         { from: "./public/robots.txt" }, // <- your path to robots
-        { from: "./public/sitemap.xml" } // <- your path to sitemap
+        { from: "./public/sitemap.xml" }, // <- your path to sitemap
+        { from: "./public/streamsaver/mitm.html" },
+        { from: "./public/streamsaver/sw.js" },
       ])
     ]
   });
