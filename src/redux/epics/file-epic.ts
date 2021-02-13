@@ -167,6 +167,7 @@ const downloadFileEpic = (action$, state$, dependencies$) =>
                 stream.pipeTo(downloader)
                   .then(() => {
                     console.log("done writing");
+                    o.complete();
                   });
               } else {
                 const writer = downloader.getWriter();
@@ -180,6 +181,7 @@ const downloadFileEpic = (action$, state$, dependencies$) =>
 
                   if (!res || !res.done) {
                     writer.close().catch(err => { throw err; });
+                    o.complete();
                   } else {
                     writer.write(res.value).then(pump).catch(err => { throw err; });
                   }
