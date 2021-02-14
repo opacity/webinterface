@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 
@@ -196,70 +196,89 @@ const CopyrightMobile = styled(Copyright)`
   }
 `;
 
-const Footer = () => (
-  <ThemeProvider theme={theme}>
-    <Wrapper>
-      <Container>
-        <FooterLinks>
-          <LinkExternal href="https://opacity.io" target="_blank">
-            Opacity Storage <IconArrow src={ICON_ARROW_RIGHT} />
-          </LinkExternal>
-          <LinkFooter to="/stands-out">
-            The Platform <IconArrow src={ICON_ARROW_RIGHT} />
-          </LinkFooter>
-          <LinkFooter to="/team-page">
-            Team <IconArrow src={ICON_ARROW_RIGHT} />
-          </LinkFooter>
-          <LinkExternal
-            href="https://medium.com/opacity-storage/"
-            target="_blank"
-          >
-            Blog <IconArrow src={ICON_ARROW_RIGHT} />
-          </LinkExternal>
-          <LinkExternal
-            href="https://www.kucoin.com/trade/OPCT-BTC"
-            target="_blank"
-          >
-            Buy OPCT <IconArrow src={ICON_ARROW_RIGHT} />
-          </LinkExternal>
-        </FooterLinks>
-        <FooterIcons>
-          <LinkButton href="https://telegram.me/opacitystorage" target="_blank">
-            Contact Us
-          </LinkButton>
-          <IconContainer>
-            <LinkIcon href="https://github.com/opacity" target="_blank">
-              <Icon src={ICON_GITHUB} />
-            </LinkIcon>
-            <LinkIcon href="https://telegram.me/opacitystorage" target="_blank">
-              <Icon src={ICON_TELEGRAM} />
-            </LinkIcon>
-            <LinkIcon href="https://www.reddit.com/r/Opacity/" target="_blank">
-              <Icon src={ICON_REDDIT} />
-            </LinkIcon>
-            <LinkIcon
-              href="https://twitter.com/Opacity_Storage"
+const Footer = () => {
+  const [buildVersion, setBuildVersion] = useState("Loading...");
+
+  useEffect(() => {
+    fetch("/version.json")
+      .then(async res => {
+        const { hash }: { hash: string } = await res.json();
+
+        setBuildVersion(hash.slice(-6));
+      })
+      .catch(err => {
+        setBuildVersion(err);
+      });
+  }, []);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Wrapper>
+        <Container>
+          <FooterLinks>
+            <LinkExternal href="https://opacity.io" target="_blank">
+              Opacity Storage <IconArrow src={ICON_ARROW_RIGHT} />
+            </LinkExternal>
+            <LinkFooter to="/stands-out">
+              The Platform <IconArrow src={ICON_ARROW_RIGHT} />
+            </LinkFooter>
+            <LinkFooter to="/team-page">
+              Team <IconArrow src={ICON_ARROW_RIGHT} />
+            </LinkFooter>
+            <LinkExternal
+              href="https://medium.com/opacity-storage/"
               target="_blank"
             >
-              <Icon src={ICON_TWITTER} />
-            </LinkIcon>
-            <LinkIcon
-              href="http://www.youtube.com/c/OpacityStorage"
+              Blog <IconArrow src={ICON_ARROW_RIGHT} />
+            </LinkExternal>
+            <LinkExternal
+              href="https://www.kucoin.com/trade/OPCT-BTC"
               target="_blank"
             >
-              <Icon src={ICON_YOUTUBE} />
-            </LinkIcon>
-          </IconContainer>
-        </FooterIcons>
-        <FooterCopyright>
-          <Copyright>Opacity © 2019</Copyright>
-          <LinkTerms to="/terms-of-service">Terms of Service</LinkTerms>
-          <LinkTerms to="/privacy-policy">Privacy Policy</LinkTerms>
-          <CopyrightMobile>Opacity © 2019</CopyrightMobile>
-        </FooterCopyright>
-      </Container>
-    </Wrapper>
-  </ThemeProvider>
-);
+              Buy OPCT <IconArrow src={ICON_ARROW_RIGHT} />
+            </LinkExternal>
+          </FooterLinks>
+          <FooterIcons>
+            <LinkButton href="https://telegram.me/opacitystorage" target="_blank">
+              Contact Us
+            </LinkButton>
+            <IconContainer>
+              <LinkIcon href="https://github.com/opacity" target="_blank">
+                <Icon src={ICON_GITHUB} />
+              </LinkIcon>
+              <LinkIcon href="https://telegram.me/opacitystorage" target="_blank">
+                <Icon src={ICON_TELEGRAM} />
+              </LinkIcon>
+              <LinkIcon href="https://www.reddit.com/r/Opacity/" target="_blank">
+                <Icon src={ICON_REDDIT} />
+              </LinkIcon>
+              <LinkIcon
+                href="https://twitter.com/Opacity_Storage"
+                target="_blank"
+              >
+                <Icon src={ICON_TWITTER} />
+              </LinkIcon>
+              <LinkIcon
+                href="http://www.youtube.com/c/OpacityStorage"
+                target="_blank"
+              >
+                <Icon src={ICON_YOUTUBE} />
+              </LinkIcon>
+            </IconContainer>
+          </FooterIcons>
+          <FooterCopyright>
+            <Copyright>Opacity © 2021</Copyright>
+            <LinkTerms to="/terms-of-service">Terms of Service</LinkTerms>
+            <LinkTerms to="/privacy-policy">Privacy Policy</LinkTerms>
+            <CopyrightMobile>Opacity © 2021</CopyrightMobile>
+          </FooterCopyright>
+          <p>
+            Build version: {buildVersion}
+          </p>
+        </Container>
+      </Wrapper>
+    </ThemeProvider>
+  );
+};
 
 export default Footer;

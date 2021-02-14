@@ -422,12 +422,17 @@ const SubscriptionSlide = ({ history, isLoggedIn }) => (
           <Column>
             <InfoIcon src={ICON_EXPLORE_CODE} />
             <InfoContent>
-              Want an overview of Opacity, its current architecture, and where
-              we want to go in the future? Check out the Opacity Whitepaper!
-              Current version: 1.0
+              <p>
+                Want an overview of Opacity, its current architecture, and where
+                we want to go in the future? Check out the Opacity Whitepaper!
+                Current version: 1.0
+              </p>
+              <p style={{ fontWeight: "bold" }}>
+                Whitepaper 2.0 Coming Soon
+              </p>
             </InfoContent>
             <StandsOutButtonLink
-              href="/share#handle=cffea1e29b305cffa52beb8c72abf878473298585fb8cb81c02eea01d07178514eb695c10a4bb1328eaf99926aba133b9b4e4f34ff42a7868707f30a6f9405a8"
+              href="https://opacity.io/share#handle=2f417d6670977ce138aa651023393d95397a4ec01a6fe6bf55d05860a430bbf87b63abc8ae130301bba169a986df7b299c4cc7b46077ef2ba90be2a439ec3c10"
               target="_blank"
             >
               Download Whitepaper
