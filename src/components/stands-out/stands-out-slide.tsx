@@ -316,7 +316,7 @@ const IconLink = styled.a``;
 const SubscriptionSlide = ({ history, isLoggedIn }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
+      <Header type={HEADER_TYPES.COMMUNITY_PAGE} isLoggedIn={isLoggedIn} />
       <Container>
         <Title>With Opacity, You’re in Full Control</Title>
         <ContentWrapper>
