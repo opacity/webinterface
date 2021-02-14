@@ -201,13 +201,13 @@ const Footer = () => {
 
   useEffect(() => {
     fetch("/version.json")
-      .then(async (res) => {
+      .then(async res => {
         const { hash }: { hash: string } = await res.json();
 
         setBuildVersion(hash.slice(-6));
       })
-      .catch((err) => {
-        setBuildVersion(err)
+      .catch(err => {
+        setBuildVersion(err);
       });
   }, []);
 

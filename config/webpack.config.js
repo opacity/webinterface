@@ -185,8 +185,8 @@ function returnDevelopmentConfiguration () {
         { from: "./build/version.json" },
       ]),
       new DumpMetaPlugin({
-        filename: path.join(paths.appBuild, 'version.json'),
-        prepare: (stats) => ({
+        filename: path.join(paths.appBuild, "version.json"),
+        prepare: stats => ({
           // add any other information you need to dump
           hash: stats.hash,
         })
@@ -308,8 +308,8 @@ function returnProductionConfiguration () {
         { from: "./build/version.json" },
       ]),
       new DumpMetaPlugin({
-        filename: path.join(paths.appBuild, 'version.json'),
-        prepare: (stats) => ({
+        filename: path.join(paths.appBuild, "version.json"),
+        prepare: stats => ({
           // add any other information you need to dump
           hash: stats.hash,
         })

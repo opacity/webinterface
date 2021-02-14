@@ -497,13 +497,13 @@ const FileManagerSlide = ({
 
   useEffect(() => {
     fetch("/version.json")
-      .then(async (res) => {
+      .then(async res => {
         const { hash }: { hash: string } = await res.json();
 
         setBuildVersion(hash.slice(-6));
       })
-      .catch((err) => {
-        setBuildVersion(err)
+      .catch(err => {
+        setBuildVersion(err);
       });
   }, []);
 
@@ -527,7 +527,7 @@ const FileManagerSlide = ({
               <TitleWrapper>
                 <div>
                   <Title>Opacity File Manager</Title>
-                  <span>{version}{ buildVersion && " - " }{ buildVersion }</span>
+                  <span>{version}{buildVersion && " - "}{buildVersion}</span>
                 </div>
                 <UsageWrapper>
                   <UsageInfo>
