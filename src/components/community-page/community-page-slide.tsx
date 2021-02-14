@@ -19,7 +19,7 @@ const ICON_EDMUND = require("../../assets/images/edmund.png");
 const ICON_REBEL = require("../../assets/images/rebel.png");
 const ICON_LADISLAV = require("../../assets/images/ladislav.png");
 
-const people = [
+const apps = [
   {
     title: "Jason Coppola",
     icon: ICON_JASON,
@@ -119,21 +119,21 @@ const HeaderContainer = styled.div`
   padding: 70px 0 0 0;
 `;
 
-const PeopleContainer = styled.div`
+const AppsContainer = styled.div`
   display: grid;
   grid-gap: 60px;
-  grid-template-rows: repeat(3, 0.5fr);
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 0.5fr);
+  grid-template-columns: repeat(2, 1fr);
   @media only screen and (max-width: 1020px) {
     grid-gap: 40px;
   }
   @media only screen and (max-width: 750px) {
-    grid-template-rows: repeat(9, 0.5fr);
+    grid-template-rows: repeat(4, 0.5fr);
     grid-template-columns: repeat(1, 1fr);
   }
 `;
 
-const PeopleWrapper = styled.div`
+const AppsWrapper = styled.div`
   border: solid 0.5px #acb3bf;
   padding: 50px 20px;
   margin: auto;
@@ -153,7 +153,7 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const PersonIcon = styled.img`
+const AppIcon = styled.img`
   width: 150px;
   height: 150px;
   border-radius: 80px;
@@ -176,7 +176,7 @@ const Title = styled.h1`
   color: #2e6dde;
 `;
 
-const PersonTitle = styled.h2`
+const AppTitle = styled.h2`
   font-size: 20px;
   font-style: normal;
   font-stretch: normal;
@@ -201,7 +201,7 @@ const Parapraph = styled.p`
   font-size: 12px;
 `;
 
-const PersonRole = styled(Parapraph)`
+const AppRole = styled(Parapraph)`
   width: 170px;
   margin: auto;
   font-size: 16px;
@@ -213,7 +213,7 @@ const PersonRole = styled(Parapraph)`
   color: #4f5e78;
 `;
 
-const PersonBio = styled(Parapraph)`
+const AppBio = styled(Parapraph)`
   margin-top: 10px;
   font-size: 14px;
 `;
@@ -224,57 +224,57 @@ const Content = styled(Parapraph)`
   padding-bottom: 40px;
 `;
 
-const PersonLinkContainer = styled.div`
+const AppLinkContainer = styled.div`
   position: absolute;
   left: 10px;
   bottom: 0;
 `;
 
-const PersonLink = styled.a`
+const AppLink = styled.a`
   display: inline-block;
 `;
 
-const TeamPageSlide = ({ isLoggedIn }) => (
+const CommunityPageSlide = ({ isLoggedIn }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
+      <Header type={HEADER_TYPES.COMMUNITY_PAGE} isLoggedIn={isLoggedIn} />
       <HeaderContainer>
-        <Title>Meet the Team</Title>
+        <Title>Community Apps</Title>
         <ContentWrapper>
-          <Content>Meet the great people behind Opacity.</Content>
+          <Content>Take a look at the great apps made by members of the Opacity community.</Content>
         </ContentWrapper>
       </HeaderContainer>
       <Container>
-        <PeopleContainer>
-          {_.map(people, person => (
-            <PeopleWrapper key={_.random(true)}>
+        <AppsContainer>
+          {_.map(apps, app => (
+            <AppsWrapper key={_.random(true)}>
               <Wrapper>
-                <PersonIcon src={person.icon} />
+                <AppIcon src={app.icon} />
               </Wrapper>
-              <PersonTitle>{person.title}</PersonTitle>
-              <PersonRole>{person.role}</PersonRole>
-              <PersonBio>{person.bio}</PersonBio>
-              {(person.linkedin || person.github) && (
-                <PersonLinkContainer>
-                  {person.linkedin && (
-                    <PersonLink href={person.linkedin} target="_blank">
+              <AppTitle>{app.title}</AppTitle>
+              <AppRole>{app.role}</AppRole>
+              <AppBio>{app.bio}</AppBio>
+              {(app.linkedin || app.github) && (
+                <AppLinkContainer>
+                  {app.linkedin && (
+                    <AppLink href={app.linkedin} target="_blank">
                       <Icon src={ICON_LINKEDIN} />
-                    </PersonLink>
+                    </AppLink>
                   )}
-                  {person.github && (
-                    <PersonLink href={person.github} target="_blank">
+                  {app.github && (
+                    <AppLink href={app.github} target="_blank">
                       <Icon src={ICON_GITHUB} />
-                    </PersonLink>
+                    </AppLink>
                   )}
-                </PersonLinkContainer>
+                </AppLinkContainer>
               )}
-            </PeopleWrapper>
+            </AppsWrapper>
           ))}
-        </PeopleContainer>
+        </AppsContainer>
       </Container>
       <Footer />
     </ContainerWrapper>
   </ThemeProvider>
 );
 
-export default TeamPageSlide;
+export default CommunityPageSlide;

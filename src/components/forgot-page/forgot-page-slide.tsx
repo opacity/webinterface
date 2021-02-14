@@ -106,7 +106,7 @@ const ForgotPageSlide = ({ recoverAccountHandle, hasError, resetError }) => {
   return (
     <ThemeProvider theme={theme}>
       <ContainerWrapper>
-        <Header type={HEADER_TYPES.TEAM_PAGE} />
+        <Header type={HEADER_TYPES.COMMUNITY_PAGE} />
         <ScreenContainer title={"Forgot Account Handle?"}>
           <ContentBox>
             <Title>Recover Account Handle</Title>

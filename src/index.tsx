@@ -19,7 +19,7 @@ import Logout from "./components/logout";
 import ForgotPage from "./components/forgot-page";
 import { SignUp, Upgrade, Renew } from "./components/signup";
 import ThankYou from "./components/signup/thank-you";
-import TeamPage from "./components/team-page";
+import CommunityPage from "./components/community-page";
 import StandsOut from "./components/stands-out";
 import FileManager from "./components/file-manager";
 import SharePage from "./components/share-page";
@@ -74,7 +74,7 @@ const App = () => (
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <Route path="/forgot-page" component={ForgotPage} />
-            <Route path="/team-page" component={TeamPage} />
+            <Route path="/community-page" component={CommunityPage} />
             <Route path="/share" component={SharePage} />
             <AuthenticatedRoute
               path="/file-manager/:folderName*"

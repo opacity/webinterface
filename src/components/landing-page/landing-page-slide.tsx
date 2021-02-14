@@ -355,7 +355,7 @@ const InfoHeaderContent = styled(Paragraph)`
 const LandingPageSlide = ({ history, isLoggedIn }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
-      <Header type={HEADER_TYPES.TEAM_PAGE} isLoggedIn={isLoggedIn} />
+      <Header type={HEADER_TYPES.COMMUNITY_PAGE} isLoggedIn={isLoggedIn} />
       <HeaderContainer>
         <Title>Private Cloud Storage, Powered by Crypto</Title>
         <ContentWrapper>
@@ -490,11 +490,11 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
             <InfoTitle>The Brains Behind Opacity</InfoTitle>
             <ItemInfoContent>
               We are a group of privacy enthusiasts looking to build a true
-              zero-knowledge storage solution. Take a peek at the team behind
+              zero-knowledge storage solution. Take a peek at the apps built on
               the Opacity platform.
             </ItemInfoContent>
             <Wrapper>
-              <ButtonItem to={"/team-page"}>Learn more</ButtonItem>
+              <ButtonItem to={"/community-page"}>Learn more</ButtonItem>
             </Wrapper>
           </Item>
           <Item>

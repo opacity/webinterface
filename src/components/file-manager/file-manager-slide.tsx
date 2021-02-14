@@ -493,7 +493,7 @@ const FileManagerSlide = ({
     getFileList({ directory, masterHandle });
   }, [directory]);
 
-  const [buildVersion, setBuildVersion] = useState("Loading...");
+  const [buildVersion, setBuildVersion] = useState("");
 
   useEffect(() => {
     fetch("/version.json")

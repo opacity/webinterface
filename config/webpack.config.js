@@ -12,7 +12,7 @@ const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
-const DumpMetaPlugin = require("dumpmeta-webpack-plugin").DumpMetaPlugin;
+const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 
 const path = require("path");
 const merge = require("webpack-merge");
@@ -139,9 +139,8 @@ function returnDevelopmentConfiguration () {
   return merge(common, {
     devServer: {
       port: 3001,
-      open: true,
       historyApiFallback: true,
-      contentBase: path.join(__dirname, paths.appBuild),
+      contentBase: paths.appBuild,
       watchOptions: {
         ignored: /node_modules|build/,
       },
@@ -182,18 +181,17 @@ function returnDevelopmentConfiguration () {
         { from: "./public/manifest.json" }, // <- your path to manifest
         { from: "./public/robots.txt" }, // <- your path to robots
         { from: "./public/sitemap.xml" }, // <- your path to sitemap
-        { from: "./build/version.json" },
         { from: "./public/streamsaver/mitm.html", to: "public/streamsaver" },
         { from: "./public/streamsaver/sw.js", to: "public/streamsaver" },
       ]),
-      new DumpMetaPlugin({
-        filename: path.join(paths.appBuild, "version.json"),
-        prepare: stats => ({
-          // add any other information you need to dump
-          hash: stats.hash,
-        })
+      new StatsWriterPlugin({
+        filename: "version.json",
+        stats: {
+          all: false,
+          hash: true,
+        },
       }),
-    ]
+    ],
   });
 }
 
@@ -307,16 +305,15 @@ function returnProductionConfiguration () {
         { from: "./public/manifest.json" }, // <- your path to manifest
         { from: "./public/robots.txt" }, // <- your path to robots
         { from: "./public/sitemap.xml" }, // <- your path to sitemap
-        { from: "./build/version.json" },
         { from: "./public/streamsaver/mitm.html", to: "public/streamsaver" },
         { from: "./public/streamsaver/sw.js", to: "public/streamsaver" },
       ]),
-      new DumpMetaPlugin({
-        filename: path.join(paths.appBuild, "version.json"),
-        prepare: stats => ({
-          // add any other information you need to dump
-          hash: stats.hash,
-        })
+      new StatsWriterPlugin({
+        filename: "version.json",
+        stats: {
+          all: false,
+          hash: true,
+        },
       }),
     ]
   });
