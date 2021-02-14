@@ -4,8 +4,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const InterpolateHtmlPlugin = require("interpolate-html-plugin");
 const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
 const eslintFormatter = require("react-dev-utils/eslintFormatter");
@@ -13,6 +12,7 @@ const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const DumpMetaPlugin = require("dumpmeta-webpack-plugin").DumpMetaPlugin;
 
 const path = require("path");
 const merge = require("webpack-merge");
@@ -140,7 +140,11 @@ function returnDevelopmentConfiguration () {
     devServer: {
       port: 3001,
       open: true,
-      historyApiFallback: true
+      historyApiFallback: true,
+      contentBase: path.join(__dirname, paths.appBuild),
+      watchOptions: {
+        ignored: /node_modules|build/,
+      },
     },
     devtool: "source-map",
     entry: paths.appIndexJs,
@@ -177,8 +181,16 @@ function returnDevelopmentConfiguration () {
         { from: "./public/logo.png" }, // <- your path to logo
         { from: "./public/manifest.json" }, // <- your path to manifest
         { from: "./public/robots.txt" }, // <- your path to robots
-        { from: "./public/sitemap.xml" } // <- your path to sitemap
-      ])
+        { from: "./public/sitemap.xml" }, // <- your path to sitemap
+        { from: "./build/version.json" },
+      ]),
+      new DumpMetaPlugin({
+        filename: path.join(paths.appBuild, "version.json"),
+        prepare: stats => ({
+          // add any other information you need to dump
+          hash: stats.hash,
+        })
+      }),
     ]
   });
 }
@@ -292,8 +304,16 @@ function returnProductionConfiguration () {
         { from: "./public/logo.png" }, // <- your path to logo
         { from: "./public/manifest.json" }, // <- your path to manifest
         { from: "./public/robots.txt" }, // <- your path to robots
-        { from: "./public/sitemap.xml" } // <- your path to sitemap
-      ])
+        { from: "./public/sitemap.xml" }, // <- your path to sitemap
+        { from: "./build/version.json" },
+      ]),
+      new DumpMetaPlugin({
+        filename: path.join(paths.appBuild, "version.json"),
+        prepare: stats => ({
+          // add any other information you need to dump
+          hash: stats.hash,
+        })
+      }),
     ]
   });
 }
