@@ -493,6 +493,20 @@ const FileManagerSlide = ({
     getFileList({ directory, masterHandle });
   }, [directory]);
 
+  const [buildVersion, setBuildVersion] = useState("Loading...");
+
+  useEffect(() => {
+    fetch("/version.json")
+      .then(async (res) => {
+        const { hash }: { hash: string } = await res.json();
+
+        setBuildVersion(hash.slice(-6));
+      })
+      .catch((err) => {
+        setBuildVersion(err)
+      });
+  }, []);
+
   return (
     <DroppableZone {...getRootProps()}>
       <ThemeProvider theme={theme}>
@@ -513,7 +527,7 @@ const FileManagerSlide = ({
               <TitleWrapper>
                 <div>
                   <Title>Opacity File Manager</Title>
-                  <span>{version}</span>
+                  <span>{version}{ buildVersion && " - " }{ buildVersion }</span>
                 </div>
                 <UsageWrapper>
                   <UsageInfo>
