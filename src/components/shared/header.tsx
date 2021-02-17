@@ -190,14 +190,14 @@ const Header = ({ type, isLoggedIn }: HeaderProps) => {
 
   const renderNavigation = () => {
     switch (type) {
-      case HEADER_TYPES.TEAM_PAGE:
+      case HEADER_TYPES.COMMUNITY_PAGE:
       case HEADER_TYPES.LANDING_PAGE:
         return (
           <StyledLinkContainer>
             <StyledLinkNavigation to="/stands-out">
               The Platform
             </StyledLinkNavigation>
-            <StyledLinkNavigation to="/team-page">TEAM</StyledLinkNavigation>
+            <StyledLinkNavigation to="/community-page">Community</StyledLinkNavigation>
             <HyperLink href="//medium.com/opacity-storage/" target="_blank">
               BLOG
             </HyperLink>

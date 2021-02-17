@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import TeamPageSlide from "./team-page-slide";
+import CommunityPageSlide from "./community-page-slide";
 
 import { AUTHENTICATION_STATUSES } from "../../config";
 
@@ -11,8 +11,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({});
 
-const TeamPage = ({ authenticationStatus }) => (
-  <TeamPageSlide
+const CommunityPage = ({ authenticationStatus }) => (
+  <CommunityPageSlide
     isLoggedIn={authenticationStatus === AUTHENTICATION_STATUSES.LOGGED_IN}
   />
 );
@@ -20,4 +20,4 @@ const TeamPage = ({ authenticationStatus }) => (
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TeamPage);
+)(CommunityPage);

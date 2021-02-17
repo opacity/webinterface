@@ -196,8 +196,27 @@ const CopyrightMobile = styled(Copyright)`
   }
 `;
 
+const VersionHash = styled.span`
+  opacity: 0.75;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: white;
+  display: block;
+  margin-bottom: -1em;
+
+  @media only screen and (max-width: ${MOBILE_WIDTH}px) {
+    padding: 27px 0px 40px 40px
+    display: none;
+    font-size: 12px;
+  }
+`;
+
 const Footer = () => {
-  const [buildVersion, setBuildVersion] = useState("Loading...");
+  const [buildVersion, setBuildVersion] = useState("...");
 
   useEffect(() => {
     fetch("/version.json")
@@ -218,12 +237,15 @@ const Footer = () => {
           <FooterLinks>
             <LinkExternal href="https://opacity.io" target="_blank">
               Opacity Storage <IconArrow src={ICON_ARROW_RIGHT} />
+              <VersionHash>
+                Build {buildVersion}
+              </VersionHash>
             </LinkExternal>
             <LinkFooter to="/stands-out">
               The Platform <IconArrow src={ICON_ARROW_RIGHT} />
             </LinkFooter>
-            <LinkFooter to="/team-page">
-              Team <IconArrow src={ICON_ARROW_RIGHT} />
+            <LinkFooter to="/community-page">
+              Community Apps <IconArrow src={ICON_ARROW_RIGHT} />
             </LinkFooter>
             <LinkExternal
               href="https://medium.com/opacity-storage/"
@@ -272,9 +294,6 @@ const Footer = () => {
             <LinkTerms to="/privacy-policy">Privacy Policy</LinkTerms>
             <CopyrightMobile>Opacity © 2021</CopyrightMobile>
           </FooterCopyright>
-          <p>
-            Build version: {buildVersion}
-          </p>
         </Container>
       </Wrapper>
     </ThemeProvider>
