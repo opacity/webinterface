@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
@@ -7,100 +6,73 @@ import Footer from "../shared/footer";
 import Header from "../shared/header";
 
 const ICON_GITHUB = require("../../assets/images/github.png");
-const ICON_LINKEDIN = require("../../assets/images/tp-linkedin.svg");
 
-const ICON_JASON = require("../../assets/images/jason.png");
-const ICON_ARON = require("../../assets/images/aron.png");
-const ICON_TIM = require("../../assets/images/tim.png");
-const ICON_WILLIAM = require("../../assets/images/william.png");
-const ICON_CONNOR = require("../../assets/images/default_profile_picture.png");
-const ICON_MARCEL = require("../../assets/images/marcel.png");
-const ICON_EDMUND = require("../../assets/images/edmund.png");
-const ICON_REBEL = require("../../assets/images/rebel.png");
-const ICON_LADISLAV = require("../../assets/images/ladislav.png");
+const ICON_OCELOT = require("../../assets/images/OcelotLogo_ACT.png");
+const ICON_IMGOPCT = require("../../assets/images/imgopct.png");
+const ICON_OPACITYSTORA_GE = require("../../assets/images/opacitystora-ge.svg");
+const ICON_OPACITYDEFAULT = require("../../assets/images/default_profile_picture.png");
 
-const apps = [
+type App = {
+  span?: number
+  title: string
+  icon: string
+  role: string
+  links: { [key: string]: string }
+  bio: string
+}
+
+const apps: App[] = [
   {
-    title: "Jason Coppola",
-    icon: ICON_JASON,
-    role: "CEO",
-    github: "https://github.com/funkydrummer",
-    linkedin: "https://www.linkedin.com/in/jasoncoppola",
+    title: "Ocelot",
+    icon: ICON_OCELOT,
+    role: "Advanced File Management",
+    links: {
+      github: "https://github.com/act-opacity/ocelot/",
+    },
     bio:
-      "Jason has 20 years experience in software product  development, working in Engineering, Product, and Executive leadership. He has led organizations to build and deliver highly scalable applications at Fortune 100 and startup companies by applying his experience as an entrepreneur and Agile expert."
+      "Ocelot is a cross-platform, containerized web application client for the Opacity Storage service run from your local machine. Ocelot can be used to store and manage multiple Opacity accounts; sync files and folders between Opacity and one or more of your devices; provide sync status per file; search and filter your files easily; perform file and folder management actions; review file version history and access previous file versions; and quickly open a file share link to share or review its contents."
   },
   {
-    title: "Aron Hiltzik",
-    icon: ICON_ARON,
-    role: "Marketing",
-    github: "",
-    linkedin: "https://www.linkedin.com/in/aronhiltzik/",
+    title: "imgOPCT",
+    icon: ICON_IMGOPCT,
+    role: "Image Sharing",
+    links: {
+      website: "https://imgopct.com/",
+    },
     bio:
-      "Aron is a recent Student-athlete graduate from University of Illinois with a Bachelor of Arts in Advertising. He founded his first business in 2018, which scaled to over $500k in revenue in 6 months. Aron has specialized himself in Marketing, SEO optimization, and brand strategy."
+      "imgOPCT is a public imageboard platform to share your images uploaded on Opacity. It's hosted for the community by the community. You can upload images and share them with the public on the front page."
   },
   {
-    title: "Tim DeHaas",
-    icon: ICON_TIM,
-    role: "Community Manager",
-    github: "https://github.com/MrRedPandabaer/",
-    linkedin: "",
+    title: "Opacity Handle Shortener",
+    icon: ICON_OPACITYSTORA_GE,
+    role: "Link Shortener",
+    links: {
+      website: "https://opacitystora.ge/",
+    },
     bio:
-      "Tim has 2 years of experience in building online communities and social media management while utilizing different platforms to magnify outreach. He also possesses a skill set in basic programming coming handy in community interactions. Further, Tim has a B. Sc. in Biochemistry and is currently taking a Master's degree in Biochemistry and Molecular Biology."
+      "Opacitystora.ge allows you to easily shorten shared links (aka handles) from the Opacity Storage web services."
   },
   {
-    title: "William Halunen",
-    icon: ICON_WILLIAM,
-    role: "Community Manager",
-    github: "https://github.com/WHalunen",
-    linkedin: "https://www.linkedin.com/in/william-halunen-080987156/",
+    title: "Opacity Desktop Application",
+    icon: ICON_OPACITYDEFAULT,
+    role: "Desktop File Management",
+    links: {
+      github: "https://github.com/Mavahu/opacity-electron",
+    },
     bio:
-      "William has 2 years of experience managing online communities. He has helped organically grow communities totaling over 50,000 members across all social media outlets. He also has a bachelors degree in computer science."
+      "This Windows desktop application allows you to interact with your Opacity account. It supports all features and even offers you the possibility to rename folders or move files/folders around."
   },
   {
-    title: "Connor Hen",
-    icon: ICON_CONNOR,
-    role: "Developer",
-    github: "https://github.com/CKH4",
-    linkedin: "",
+    span: 2,
+    title: "Opacity API for Developers",
+    icon: ICON_OPACITYDEFAULT,
+    role: "API",
+    links: {
+      website: "https://api.opacity.io:3000/swagger/index.html",
+    },
     bio:
-      "Connor has spent the past 5 years in a variety of development roles. He got his programming start in game development making arcade-style games before moving on to generative art and frontend web development. Since then he's moved into a more general role doing everything from designing and building frontends to library development."
+      "The Opacity API is provided for developers to build and integrate solutions with the Opacity Storage platform. Opacity’s developer platform is a core part of our mission to empower developers to grow and monetize their services using the OPCT token. Our APIs are designed to enable teams of any shape or size to build robust integrations that help them customize and get the most value out of Opacity. The Opacity API is built using REST conventions and designed to have a predictable URL structure. It uses standard HTTP features, including methods (POST, GET, PUT, DELETE) and error response codes."
   },
-  {
-    title: "Marcel Lindig",
-    icon: ICON_MARCEL,
-    role: "Developer",
-    github: "https://github.com/nullpilot",
-    linkedin: "",
-    bio:
-      "Marcel has 10 years of experience developing software, working in everything from front end development to database administration. He has worked with a variety of clients, from individual designers to international corporations, to advise on software needs and deliver custom solutions."
-  },
-  {
-    title: "Edmund Mai",
-    icon: ICON_EDMUND,
-    role: "Software Engineer",
-    github: "https://github.com/EdmundMai",
-    linkedin: "https://www.linkedin.com/in/edmundmai/",
-    bio:
-      "Edmund is an experienced lead developer with experience working for renowned tech startups in NYC. He has founded and built multiple software businesses, one of which was recently acquired."
-  },
-  {
-    title: "Rebel Fornea",
-    icon: ICON_REBEL,
-    role: "Technical Lead",
-    github: "https://github.com/rfornea",
-    linkedin: "https://www.linkedin.com/in/rebel-fornea-7640b8122/",
-    bio:
-      "Rebel began her software career in the frontend in a typical corporation. She got her start in crypto by jointly winning a developer bounty using a language she'd never developed in, and now focuses on backend development, deployments, and design."
-  },
-  {
-    title: "Ladislav Balon",
-    icon: ICON_LADISLAV,
-    role: "Fullstack Developer",
-    github: "https://github.com/tenisakb",
-    linkedin: "https://www.linkedin.com/in/ladislav-balon-00134b54/",
-    bio:
-      "Ladislav is experienced full-stack developer with an overlap, he started programming when he was 13 years old. He has worked on many commercial projects for interesting clients as well as on his own projects."
-  }
 ];
 
 const ContainerWrapper = styled.div`
@@ -128,17 +100,17 @@ const AppsContainer = styled.div`
     grid-gap: 40px;
   }
   @media only screen and (max-width: 750px) {
-    grid-template-rows: repeat(4, 0.5fr);
+    grid-template-rows: repeat(5, 0.5fr);
     grid-template-columns: repeat(1, 1fr);
   }
 `;
 
-const AppsWrapper = styled.div`
+const AppWrapper = styled.div<{ span?: number }>`
   border: solid 0.5px #acb3bf;
   padding: 50px 20px;
-  margin: auto;
-  height: 450px;
   position: relative;
+  align-self: stretch;
+  grid-column: span ${props => props.span || 1};
 `;
 
 const Wrapper = styled.div`
@@ -154,9 +126,7 @@ const ContentWrapper = styled.div`
 `;
 
 const AppIcon = styled.img`
-  width: 150px;
   height: 150px;
-  border-radius: 80px;
 `;
 
 const Icon = styled.img`
@@ -202,7 +172,7 @@ const Parapraph = styled.p`
 `;
 
 const AppRole = styled(Parapraph)`
-  width: 170px;
+  width: calc(100% - 16px);
   margin: auto;
   font-size: 16px;
   font-weight: bold;
@@ -214,8 +184,11 @@ const AppRole = styled(Parapraph)`
 `;
 
 const AppBio = styled(Parapraph)`
-  margin-top: 10px;
+  margin: 10px auto 0 auto;
   font-size: 14px;
+  text-align: left;
+  max-width: 600px;
+  padding: 0 12px;
 `;
 
 const Content = styled(Parapraph)`
@@ -234,6 +207,15 @@ const AppLink = styled.a`
   display: inline-block;
 `;
 
+const linkIcon = (name: string) => {
+  switch (name) {
+    case "github":
+      return <Icon src={ICON_GITHUB} />;
+    default:
+      return <div style={{ height: 28, margin: 5, color: "#000000" }}>Website ↗</div>;
+  };
+};
+
 const CommunityPageSlide = ({ isLoggedIn }) => (
   <ThemeProvider theme={theme}>
     <ContainerWrapper>
@@ -246,29 +228,22 @@ const CommunityPageSlide = ({ isLoggedIn }) => (
       </HeaderContainer>
       <Container>
         <AppsContainer>
-          {_.map(apps, app => (
-            <AppsWrapper key={_.random(true)}>
+          {apps.map(app => (
+            <AppWrapper key={app.title} span={app.span}>
               <Wrapper>
                 <AppIcon src={app.icon} />
               </Wrapper>
               <AppTitle>{app.title}</AppTitle>
               <AppRole>{app.role}</AppRole>
               <AppBio>{app.bio}</AppBio>
-              {(app.linkedin || app.github) && (
-                <AppLinkContainer>
-                  {app.linkedin && (
-                    <AppLink href={app.linkedin} target="_blank">
-                      <Icon src={ICON_LINKEDIN} />
-                    </AppLink>
-                  )}
-                  {app.github && (
-                    <AppLink href={app.github} target="_blank">
-                      <Icon src={ICON_GITHUB} />
-                    </AppLink>
-                  )}
-                </AppLinkContainer>
-              )}
-            </AppsWrapper>
+              <AppLinkContainer>
+                {Object.keys(app.links).map(linkName => (
+                  <AppLink key={app.links[linkName]} href={app.links[linkName]} target="_blank">
+                    {linkIcon(linkName)}
+                  </AppLink>
+                ))}
+              </AppLinkContainer>
+            </AppWrapper>
           ))}
         </AppsContainer>
       </Container>
