@@ -19,7 +19,7 @@ const ICON_BENEFIT_HANDLE = require("../../assets/images/benefit_handle.svg");
 const ICON_BENEFIT_FILES = require("../../assets/images/benefit_files.svg");
 const ICON_INFO_OPACITY = require("../../assets/images/info_opacity.svg");
 const ICON_INFO_BENEFIT = require("../../assets/images/info_benefit.svg");
-const ICON_INFO_PERSONAL = require("../../assets/images/info_personal.svg");
+const ICON_INFO_COMMUNITY = require("../../assets/images/info_community.svg");
 const ICON_INFO_CRYPTOCURRENCY = require("../../assets/images/info_cryptocurrency.svg");
 const ICON_BOMB = require("../../assets/images/XIO.png");
 const ICON_FLO = require("../../assets/images/FLO.png");
@@ -486,11 +486,10 @@ const LandingPageSlide = ({ history, isLoggedIn }) => (
         </InfoHeaderContent>
         <ItemSubContainer>
           <Item>
-            <ItemIcon src={ICON_INFO_PERSONAL} />
-            <InfoTitle>The Brains Behind Opacity</InfoTitle>
+            <ItemIcon src={ICON_INFO_COMMUNITY} />
+            <InfoTitle>Apps From the Opacity Community</InfoTitle>
             <ItemInfoContent>
-              We are a group of privacy enthusiasts looking to build a true
-              zero-knowledge storage solution. Take a peek at the apps built on
+              Our community values privacy. Take a peek at the apps built on
               the Opacity platform.
             </ItemInfoContent>
             <Wrapper>
