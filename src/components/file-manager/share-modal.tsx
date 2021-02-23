@@ -5,6 +5,7 @@ import Modal, { ModalProvider } from "styled-react-modal";
 import { FRONT_END_URL, MOBILE_WIDTH, theme } from "../../config";
 
 import ClipboardWidget from "../shared/clipboard-widget";
+import PublicClipboardWidget from "../shared/public-clipboard-widget";
 
 const Body = styled.div`
   display: flex;
@@ -83,6 +84,12 @@ const ShareModal = ({ close, isOpen, file }) => (
             property="URL"
             title="Anyone with this link can view the file"
             align="center"
+          />
+
+          <PublicClipboardWidget
+            text={`${FRONT_END_URL}/public/${file && file.handle}`}
+            title="This File Is Visible To Anyone On The Web"
+            isPublicFile={false}
           />
         </Body>
       </StyledModal>
